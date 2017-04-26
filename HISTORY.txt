@@ -1,0 +1,6 @@
+V1.0 
+runable as a java project
+
+V1.1-web
+to make it runnable in java web application.
+
