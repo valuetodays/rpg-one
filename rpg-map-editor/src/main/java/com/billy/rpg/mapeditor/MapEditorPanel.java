@@ -19,7 +19,6 @@ public class MapEditorPanel extends JPanel {
     AffineTransform transform = new AffineTransform();
     AffineTransformOp ato;
     private MapEditorFrame mapEditorFrame;
-    private JScrollPaneEx jspCenter;
 
     public MapEditorPanel(MapEditorFrame mapEditorFrame) {
         this.mapEditorFrame = mapEditorFrame;
@@ -35,8 +34,8 @@ public class MapEditorPanel extends JPanel {
     private JTextField tfMapHeight = null;
     private JFileChooser chooser;
     private JLabel labelTile;
-    private JLabel labelMap;
-    private JPanel panelCenter;
+    private JPanelEx panelCenter;
+//    private JScrollPaneEx jspCenter;
 
     private void initComponents() {
         LayoutManager borderLayout = new BorderLayout(5, 5);
@@ -78,22 +77,21 @@ public class MapEditorPanel extends JPanel {
         // add west end
 
         // add center start
-        panelCenter = new JPanel();
-        panelCenter.setPreferredSize(new Dimension(1200, 900));
+        panelCenter = new JPanelEx(mapEditorFrame, this);
+        panelCenter.setPreferredSize(new Dimension(500, 600));
         panelCenter.setBackground(new Color(199, 170, 90));
 //        labelMap = new JLabel();
-//        bindMapListener();
+        panelCenter.bindMapListener();
 //        panelCenter.add(labelMap);
+        /*
         jspCenter = new JScrollPaneEx(panelCenter, mapEditorFrame, this);
         jspCenter.setPreferredSize(new Dimension(600, 600));
         jspCenter.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         jspCenter.bindMapListener();
-        add(jspCenter, BorderLayout.CENTER);
+        */
+        add(panelCenter, BorderLayout.CENTER);
         // add center end
     }
-    private Image tmpImage;
-
-
 
 
     private int lastTileX;
@@ -118,6 +116,9 @@ public class MapEditorPanel extends JPanel {
         labelTile.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
+            }
+            @Override
+            public void mousePressed(MouseEvent e) {
                 int x = e.getX();
                 int y = e.getY();
                 int nx = x / 32;
@@ -127,9 +128,6 @@ public class MapEditorPanel extends JPanel {
                 LOG.debug("title...x/y=[" + x + "," + y + "], "
                         + ", lastTileX/lastTileY=" + lastTileX + "/" + lastTileY
                 );
-            }
-            @Override
-            public void mousePressed(MouseEvent e) {
             }
             @Override
             public void mouseReleased(MouseEvent e) {
@@ -172,7 +170,6 @@ public class MapEditorPanel extends JPanel {
 
     @Override
     public void paint(Graphics g) {
-
         super.paint(g);
         if (background != null) {
             if (dest == null) {
@@ -197,6 +194,7 @@ public class MapEditorPanel extends JPanel {
 
     public void setImageIcon(String image) {
         getLabelTile().setIcon(new ImageIcon(image));
-        jspCenter.repaint();
+//        jspCenter.repaint();
+        panelCenter.repaint();
     }
 }
