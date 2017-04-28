@@ -7,7 +7,7 @@ the basic usage about *.map file
 to show the game scene
 1. the scope is a png image such as sea/sky/mountain..., 
 2. layer1 is shown [grass, ground...]
-3. the role, npc, box, etc...
+3. the role, npc, box, transfer, etc...
 4. layer2 [tree, etc...] 
 
 

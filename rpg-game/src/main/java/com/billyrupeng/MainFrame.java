@@ -3,7 +3,6 @@ package com.billyrupeng;
 import com.billy.constants.GameConstant;
 import com.billy.scriptParser.container.GameContainer;
 import com.billyrupeng.screen.*;
-import com.billyrupeng.timer.AnimationTimer;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
@@ -23,7 +22,7 @@ public class MainFrame extends JFrame implements Runnable {
     private static final long serialVersionUID = 1L;
     private static final Logger LOG = Logger.getLogger(MainFrame.class);
     private static MainFrame instance;
-    private Stack<BaseScreen> screenStack; 
+    private Stack<BaseScreen> screenStack;
     private GameCanvas gameCanvas;
     private boolean running;
     public GamePanel gamePanel;
@@ -39,28 +38,27 @@ public class MainFrame extends JFrame implements Runnable {
     
     public MainFrame() {
         screenStack = new Stack<BaseScreen>();
-        screenStack.push(new GameCoverScreen());
+        screenStack.push(new GameCoverScreen()); // 进入封面
 //        screenStack.push(new MapScreen());
 //        screenStack.push(new AnimationScreen(null, null, true));
         gameCanvas = new GameCanvas();
         running = true;
         gamePanel = new GamePanel();
         this.add(gamePanel);
-        
-        
-        gameContainer = GameContainer.getInstance();
-        gameContainer.load();
-        LOG.info("game starts");
-        
-        setTitle("伏魔记");
-        setLocation(400, 100);
+
+
+        setTitle(GameConstant.GAME_TITLE);
+        setLocation(GameConstant.GAME_WINDOW_LEFT, GameConstant.GAME_WINDOW_TOP);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 //        setResizable(false);
 //        setAlwaysOnTop(true);
         addListener();//键盘监听
         instance = this;
+        gameContainer = GameContainer.getInstance();
+        gameContainer.load();
         pack();
+        LOG.info("game starts");
     }
     
     public static MainFrame getInstance() {
@@ -75,10 +73,6 @@ public class MainFrame extends JFrame implements Runnable {
         return gameCanvas;
     }
 
-    
-    public void addTimer(AnimationTimer at) {
-
-    }
 
     public void pushScreen(final BaseScreen screen) {
 //        if (getCurScreen().isEnd()) {
@@ -87,11 +81,11 @@ public class MainFrame extends JFrame implements Runnable {
     }
     
     public void popScreen() {
-        screenStack.pop();
+            screenStack.pop();
     }
-    
+
     public BaseScreen getCurScreen() {
-        return screenStack.peek();
+            return screenStack.peek();
     }
 
     public void changeScreen(int screenCode) {
@@ -108,8 +102,10 @@ public class MainFrame extends JFrame implements Runnable {
             break;
         }
         if (tmp != null) {
-            screenStack.clear();
-            screenStack.push(tmp);
+            synchronized (screenStack) {
+                screenStack.clear();
+                screenStack.push(tmp);
+            }
         }
     }
     

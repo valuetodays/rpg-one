@@ -1,6 +1,11 @@
 package com.billy.scriptParser.item;
 
-import java.awt.Image;
+import com.billy.scriptParser.bean.LoaderBean;
+import com.billy.scriptParser.loader.image.IImageLoader;
+import com.rupeng.game.GameUtils;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -9,12 +14,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.imageio.ImageIO;
-
-import com.billy.scriptParser.bean.LoaderBean;
-import com.billy.scriptParser.loader.image.IImageLoader;
-import com.rupeng.game.GameUtils;
 
 public class TileImageItem  implements IImageLoader, IItem {
     private Map<String, Image> tiles;

@@ -1,30 +1,18 @@
 package com.billy.scriptParser.cmd.executor;
 
-import java.util.List;
-
-import org.apache.log4j.Logger;
-
 import com.billy.scriptParser.bean.script.LabelBean;
-import com.billy.scriptParser.cmd.AnimationCmd;
-import com.billy.scriptParser.cmd.AttrCmd;
-import com.billy.scriptParser.cmd.CmdBase;
-import com.billy.scriptParser.cmd.IfCmd;
-import com.billy.scriptParser.cmd.LoadMapCmd;
-import com.billy.scriptParser.cmd.MessageBoxCmd;
-import com.billy.scriptParser.cmd.ReturnCmd;
-import com.billy.scriptParser.cmd.ScenenameCmd;
-import com.billy.scriptParser.cmd.SetCmd;
-import com.billy.scriptParser.cmd.ShowTextCmd;
-import com.billy.scriptParser.cmd.TalkCmd;
+import com.billy.scriptParser.cmd.*;
 import com.billy.scriptParser.container.GameContainer;
 import com.billy.scriptParser.virtualtable.GlobalVirtualTables;
 import com.billyrupeng.MainFrame;
-import com.billyrupeng.screen.AnimationScreen;
 import com.billyrupeng.screen.BaseScreen;
 import com.billyrupeng.screen.DialogScreen;
 import com.billyrupeng.screen.MessageBoxScreen;
 import com.billyrupeng.screen.ScenenameScreen;
 import com.billyrupeng.timer.AnimationTimer;
+import org.apache.log4j.Logger;
+
+import java.util.List;
 
 /**
  * 命令执行器
@@ -118,7 +106,6 @@ public class CmdExecutor {
 //            BaseScreen bs = new AnimationScreen(null, no, repeat); 
 //            MainFrame.getInstance().pushScreen(bs);
             AnimationTimer at = new AnimationTimer(500, 400, 200);
-            MainFrame.getInstance().addTimer(at);
         } else {
             logger.warn("no command comfit " + cmd);
         }

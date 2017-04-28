@@ -8,18 +8,9 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
-    <artifactId>script-parser</artifactId>
+
+    <artifactId>rpg-game</artifactId>
     <dependencies>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
-            <version>1.2</version>
-        </dependency>
         <dependency>
             <groupId>javazoom</groupId>
             <artifactId>jlayer</artifactId>
@@ -30,10 +21,11 @@
             <artifactId>commons-lang</artifactId>
             <version>2.6</version>
         </dependency>
+
         <dependency>
-            <groupId>org.jetbrains</groupId>
-            <artifactId>annotations-java5</artifactId>
-            <version>RELEASE</version>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.8</version>
         </dependency>
     </dependencies>
 

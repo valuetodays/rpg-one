@@ -1,17 +1,14 @@
 package com.billyrupeng;
 
 
-import java.awt.Dimension;
-import java.awt.Graphics;
+import com.billy.constants.GameConstant;
+import org.apache.log4j.Logger;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-
-import javax.swing.JPanel;
-
-import org.apache.log4j.Logger;
-
-import com.billy.constants.GameConstant;
 
 public class GamePanel extends JPanel{
     private static final long serialVersionUID = -104477368799466779L;
@@ -23,7 +20,7 @@ public class GamePanel extends JPanel{
     public GamePanel(){
     	setPreferredSize(new Dimension(GameConstant.GAME_WIDTH, GameConstant.GAME_HEIGHT));
         LOG.debug("new " + this.getClass().getSimpleName() + "()");
-        transform.setToScale(GameConstant.Scale, GameConstant.Scale);
+        transform.setToScale(GameConstant.SCALE, GameConstant.SCALE);
         ato = new AffineTransformOp(transform, null);
     }
     

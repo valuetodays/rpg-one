@@ -3,6 +3,8 @@ package com.billy.scriptParser.item.skill;
 import com.billy.scriptParser.bean.LoaderBean;
 import com.billy.scriptParser.item.IItem;
 import com.billy.scriptParser.loader.image.IImageLoader;
+import com.billyrupeng.MainFrame;
+import com.billyrupeng.screen.MapScreen;
 import com.rupeng.game.GameUtils;
 import org.apache.log4j.Logger;
 
@@ -11,8 +13,10 @@ import java.awt.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * TODO(这里用一句话描述这个类的作用)
@@ -60,32 +64,24 @@ public class Skill2ImageItems implements IImageLoader, IItem, Runnable {
         return images.get(currentFrame);
     }
 
-    public static void main(String[] args) {
-        Skill2ImageItems skill2ImageItems = new Skill2ImageItems();
-        try {
-            skill2ImageItems.load();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        new Thread(skill2ImageItems).start();
-        int i = 0;
-        i++;
-
-    }
 
 
     @Override
     public void run() {
         while(true) {
-            LOG.debug("currentFrame=" + currentFrame);
-            try {
-                Thread.sleep(200);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            currentFrame++;
-            if (currentFrame > 3) {
-                currentFrame = 0;
+            if (MainFrame.getInstance().getCurScreen() instanceof MapScreen) {
+                LOG.debug("currentFrame=" + currentFrame);
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                currentFrame++;
+                if (currentFrame > 3) {
+                    currentFrame = 0;
+                }
+            } else {
+                LOG.debug("not in mapscreen" + currentFrame);
             }
         }
 

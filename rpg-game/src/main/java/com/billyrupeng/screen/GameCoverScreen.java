@@ -1,16 +1,14 @@
 package com.billyrupeng.screen;
 
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.util.HashMap;
-import java.util.Map;
-
 import com.billy.constants.GameConstant;
 import com.billyrupeng.GameCanvas;
 import com.billyrupeng.KeyUtil;
 import com.billyrupeng.MainFrame;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.util.HashMap;
+import java.util.Map;
 
 public class GameCoverScreen extends BaseScreen {
 
@@ -62,7 +60,7 @@ public class GameCoverScreen extends BaseScreen {
     public void onKeyUp(int key) {
         if (KeyUtil.isEnter(key)) {
             if (f == 1) {
-                System.out.println("game starts");
+                LOG.debug("you chooose `开始游戏`");
                 MainFrame.getInstance().changeScreen(1);
             } else {
                 // TODO show saves
