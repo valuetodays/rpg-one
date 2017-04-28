@@ -3,8 +3,13 @@
 
 
 
-#### 2017-28-04
+#### 2017-04-29
 
-use `JPanelEx` to show the map area.
+- TODO mapShow should be layered with 3 or more, now 1.
+- remove `JScrollPaneEx`
+
+#### 2017-04-28
+
+- use `JPanelEx` to show the map area.
 
 

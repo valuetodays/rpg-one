@@ -25,11 +25,20 @@ public class JPanelEx extends JPanel {
         setBackground(new Color(214, 31, 17));
     }
 
-    private String[][] mapShow = new String[15][15];
+    /**
+     * 初始化map显示区域，
+     * @param width
+     * @param height
+     */
+    public void initMapShow(int width, int height) {
+        mapShow = new String[width][height];
+        LOG.debug("mapShow ["+width+"]["+height+"]");
+    }
 
+    private String[][] mapShow = new String[MapEditorConstant.MAX_MAP_WIDTH_IN_TILE][MapEditorConstant.MAX_MAP_HEIGHT_IN_TILE];
 
-            public void bindMapListener() {
-                addMouseListener(new MouseListener() {
+    public void bindMapListener() {
+        addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
             }
@@ -81,10 +90,8 @@ public class JPanelEx extends JPanel {
         int length = mapShow.length;
         for (int i = 0; i < length; i++) {
             int length1 = mapShow[i].length;
-//            LOG.debug(length + "," + length1);
             for (int j = 0; j < length1; j++) {
                 String s = mapShow[i][j];
-//                System.out.print(s + ", ");
                 if (null != s && s.contains("-")) {
                     String[] split = s.split("-");
                     int x = Integer.parseInt(split[0]);

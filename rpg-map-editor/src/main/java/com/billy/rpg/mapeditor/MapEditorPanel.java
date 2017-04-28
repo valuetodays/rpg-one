@@ -35,7 +35,7 @@ public class MapEditorPanel extends JPanel {
     private JFileChooser chooser;
     private JLabel labelTile;
     private JPanelEx panelCenter;
-//    private JScrollPaneEx jspCenter;
+    private JScrollPane jspCenter;
 
     private void initComponents() {
         LayoutManager borderLayout = new BorderLayout(5, 5);
@@ -45,17 +45,22 @@ public class MapEditorPanel extends JPanel {
         JLabel labelMapName = new JLabel("地图名");
         panelNorth.add(labelMapName);
         tfMapName = new JTextField(10);
+        tfMapName.setText("百草地");
         panelNorth.add(tfMapName);
         JLabel labelMapWidth = new JLabel("宽");
         panelNorth.add(labelMapWidth);
         tfMapWidth = new JTextField(10);
-        tfMapWidth.setText("15");
+        tfMapWidth.setText("20");
         panelNorth.add(tfMapWidth);
         JLabel labelMapHeight = new JLabel("高");
         panelNorth.add(labelMapHeight);
         tfMapHeight = new JTextField(10);
         tfMapHeight.setText("15");
         panelNorth.add(tfMapHeight);
+        JButton btnApply = new JButton("应用");
+        panelNorth.add(btnApply);
+        panelNorth.setBackground(new Color(79, 189, 58));
+        bindApplyListener(btnApply); // 添加应用事件，此时将JPanelEx的mapShow[][]应用上
         JButton btnSave = new JButton("保存");
         panelNorth.add(btnSave);
         panelNorth.setBackground(new Color(125, 152, 189));
@@ -78,19 +83,41 @@ public class MapEditorPanel extends JPanel {
 
         // add center start
         panelCenter = new JPanelEx(mapEditorFrame, this);
-        panelCenter.setPreferredSize(new Dimension(500, 600));
+        panelCenter.setPreferredSize(new Dimension(1500, 1200));
         panelCenter.setBackground(new Color(199, 170, 90));
-//        labelMap = new JLabel();
         panelCenter.bindMapListener();
-//        panelCenter.add(labelMap);
-        /*
-        jspCenter = new JScrollPaneEx(panelCenter, mapEditorFrame, this);
+
+        jspCenter = new JScrollPane(panelCenter);
         jspCenter.setPreferredSize(new Dimension(600, 600));
         jspCenter.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        jspCenter.bindMapListener();
-        */
-        add(panelCenter, BorderLayout.CENTER);
+//        jspCenter.bindMapListener();
+
+        add(jspCenter, BorderLayout.CENTER);
         // add center end
+    }
+
+    private void bindApplyListener(JButton btnApply) {
+        btnApply.addMouseListener( new MouseListener() {
+            // 点击后鼠标移开不会触发此方法
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int newheight = Integer.parseInt(tfMapHeight.getText());
+                int newwidth = Integer.parseInt(tfMapWidth.getText());
+                panelCenter.initMapShow(newwidth, newheight);
+            }
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+            }
+        });
     }
 
 

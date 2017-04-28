@@ -9,4 +9,7 @@ public interface MapEditorConstant {
 
     int PANEL_WIDTH = 800;
     int PANEL_HEIGHT = 650;
+
+    int MAX_MAP_WIDTH_IN_TILE = 100;
+    int MAX_MAP_HEIGHT_IN_TILE = 100;
 }
