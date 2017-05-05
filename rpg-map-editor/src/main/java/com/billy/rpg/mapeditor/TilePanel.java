@@ -16,6 +16,7 @@ import java.io.IOException;
  * @author liulei
  * @date 2017-04-28 13:35
  */
+@Deprecated
 public class TilePanel extends JPanel {
     private static final Logger LOG = Logger.getLogger(TilePanel.class);
     private String tileImagePath;

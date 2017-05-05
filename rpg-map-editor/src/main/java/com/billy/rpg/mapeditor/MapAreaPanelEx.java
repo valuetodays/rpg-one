@@ -14,14 +14,12 @@ import java.util.ArrayList;
  * @date 2017-04-28 21:40
  * @since 2017-04-28 21:40
  */
-public class JPanelEx extends JPanel {
-    private static final Logger LOG = Logger.getLogger(JPanelEx.class);
+public class MapAreaPanelEx extends JPanel {
+    private static final Logger LOG = Logger.getLogger(MapAreaPanelEx.class);
 
-    private MapEditorFrame mapEditorFrame;
     private MapEditorPanel mapEditorPanel;
 
-    public JPanelEx(MapEditorFrame jFrame, MapEditorPanel mapEditorPanel) {
-        this.mapEditorFrame = jFrame;
+    public MapAreaPanelEx(MapEditorPanel mapEditorPanel) {
         this.mapEditorPanel = mapEditorPanel;
         setBackground(new Color(214, 31, 17));
     }
@@ -31,22 +29,26 @@ public class JPanelEx extends JPanel {
     private int height;
     private int currentLayer = 0; // TODO 可变的层
 
+    public void setCurrentLayer(int currentLayer) {
+        this.currentLayer = currentLayer;
+        repaint();
+    }
+
     /**
      * 初始化map显示区域，
      * @param width w
      * @param height h
      */
     public void initMapShow(int width, int height) {
-        String[][] layer1 = new String[MapEditorConstant.MAX_MAP_WIDTH_IN_TILE][MapEditorConstant
-                .MAX_MAP_HEIGHT_IN_TILE];
-        String[][] layer2 = new String[MapEditorConstant.MAX_MAP_WIDTH_IN_TILE][MapEditorConstant
-                .MAX_MAP_HEIGHT_IN_TILE];
-        String[][] layer3 = new String[MapEditorConstant.MAX_MAP_WIDTH_IN_TILE][MapEditorConstant
-                .MAX_MAP_HEIGHT_IN_TILE];
+        String[][] layer1 = new String[width][height]; // layer1
+        String[][] layer2 = new String[width][height]; // layer2
+        String[][] layer3 = new String[width][height]; // layer3
+        String[][] layer4 = new String[width][height]; // event
         layers = new ArrayList<>();
         layers.add(layer1);
         layers.add(layer2);
         layers.add(layer3);
+        layers.add(layer4);
         this.width = width;
         this.height = height;
 
@@ -68,7 +70,8 @@ public class JPanelEx extends JPanel {
                     return ;
                 }
                 String[][] tmpLayer = layers.get(currentLayer);
-                tmpLayer[nx][ny] = mapEditorPanel.getLastTileX() + "-" + mapEditorPanel.getLastTileY();
+                tmpLayer[nx][ny] = mapEditorPanel.getTileArea().getLastTileX()
+                        + "-" + mapEditorPanel.getTileArea().getLastTileY();
                 LOG.debug(" in map (x/y"+x + "/" + y +")["+nx +"," + ny +"]=" + tmpLayer[nx][ny]);
                 repaint();
             }
@@ -89,42 +92,46 @@ public class JPanelEx extends JPanel {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        // 从tile中取数据将其显示在此处
-        BufferedImage bufferedImage = null;
 
-        Icon icon = mapEditorPanel.getLabelTile().getIcon();
-        if (icon instanceof ImageIcon) {
-//            LOG.debug(icon.getClass().getName());
-            bufferedImage = ImageUtil.getBufferedImage((ImageIcon) icon);
-        }
 
-        if (bufferedImage == null) {
-            LOG.debug("icon is null");
+        Image tileImage = mapEditorPanel.getTileArea().getTileImage();
+
+        if (tileImage == null) {
+            LOG.debug("image is null");
             return ;
         }
 
-//        for (String[][] layer : layers) {
-        String[][] strings = layers.get(currentLayer); // TODO 只显示一层数据
-        for (int i = 0; i < width; i++) {
+        for (int layern = 0; layern < layers.size(); layern++) {
+            BufferedImage paint = new BufferedImage(
+                    width * 32,
+                    height * 32,
+                    BufferedImage.TYPE_4BYTE_ABGR);
+            // 得到缓冲区的画笔
+            Graphics g2 = paint.getGraphics();
+
+            String[][] layer = layers.get(layern); // TODO 只显示一层数据
+            for (int i = 0; i < width; i++) {
                 for (int j = 0; j < height; j++) {
-                    String s = strings[i][j];
+                    String s = layer[i][j];
                     if (null != s && s.contains("-")) {
                         String[] split = s.split("-");
                         int x = Integer.parseInt(split[0]);
                         int y = Integer.parseInt(split[1]);
     //                    LOG.debug("draw i/j" + i + "/" + j + ":::" + s + ",,,,x/y=" + x + "/" + y);
 
-                        g.drawImage(bufferedImage,
+                        g2.drawImage(tileImage,
                             i*32, j*32, i*32+32, j*32+32,
                             x*32, y*32, x*32+32, y*32+32,
                             null);
                     }
                 }
             }
-//        }
-
-        // 如下代码说明可以draw()..
-        //g.drawImage(icon0, 0, 0, 16, 16, null);
+            if (layern == currentLayer) {
+                g.drawImage(paint, 0, 0, null);
+            } else {
+                g.drawImage(ImageUtil.toGray(paint), 0, 0, null);
+            }
+        }
     }
 
 }

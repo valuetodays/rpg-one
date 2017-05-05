@@ -1,9 +1,9 @@
 package com.billy.rpg.mapeditor;
 
 /**
- *
+ * constant
  * @author liulei
- * @date 2017-04-28 09:57
+ * @since 2017-04-28 09:57
  */
 public interface MapEditorConstant {
 

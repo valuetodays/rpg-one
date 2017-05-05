@@ -6,12 +6,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
+/**
+ * main panel to show the map editor
+ */
 public class MapEditorPanel extends JPanel {
     private static final long serialVersionUID = 1L;
     private static final Logger LOG = Logger.getLogger(MapEditorPanel.class);
@@ -33,8 +35,8 @@ public class MapEditorPanel extends JPanel {
     private JTextField tfMapWidth = null;
     private JTextField tfMapHeight = null;
     private JFileChooser chooser;
-    private JLabel labelTile;
-    private JPanelEx panelCenter;
+    private TileAreaPanelEx tileArea;
+    private MapAreaPanelEx mapArea;
     private JScrollPane jspCenter;
 
     private void initComponents() {
@@ -70,24 +72,22 @@ public class MapEditorPanel extends JPanel {
         // add north end
 
         // add west start
-        JPanel panelWest = new JPanel();
-        panelWest.setPreferredSize(new Dimension(260, 600));
-        panelWest.setBackground(new Color(80, 116, 93));
-        labelTile = new JLabel();
-        bindTileListener();
-        panelWest.add(labelTile);
-        add(panelWest, BorderLayout.WEST);
+        tileArea = new TileAreaPanelEx(this);
+        tileArea.setPreferredSize(new Dimension(260, 600));
+        tileArea.setBackground(new Color(80, 116, 93));
+        tileArea.bindTileListener();
+        add(tileArea, BorderLayout.WEST);
         chooser = new JFileChooser();
         chooser.setCurrentDirectory(new File("."));
         // add west end
 
         // add center start
-        panelCenter = new JPanelEx(mapEditorFrame, this);
-        panelCenter.setPreferredSize(new Dimension(1500, 1200));
-        panelCenter.setBackground(new Color(199, 170, 90));
-        panelCenter.bindMapListener();
+        mapArea = new MapAreaPanelEx(this);
+        mapArea.setPreferredSize(new Dimension(1500, 1200));
+        mapArea.setBackground(new Color(199, 170, 90));
+        mapArea.bindMapListener();
 
-        jspCenter = new JScrollPane(panelCenter);
+        jspCenter = new JScrollPane(mapArea);
         jspCenter.setPreferredSize(new Dimension(600, 600));
         jspCenter.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 //        jspCenter.bindMapListener();
@@ -103,7 +103,7 @@ public class MapEditorPanel extends JPanel {
             public void mouseClicked(MouseEvent e) {
                 int newheight = Integer.parseInt(tfMapHeight.getText());
                 int newwidth = Integer.parseInt(tfMapWidth.getText());
-                panelCenter.initMapShow(newwidth, newheight);
+                mapArea.initMapShow(newwidth, newheight);
             }
             @Override
             public void mousePressed(MouseEvent e) {
@@ -120,53 +120,6 @@ public class MapEditorPanel extends JPanel {
         });
     }
 
-
-    private int lastTileX;
-    private int lastTileY;
-
-    public int getLastTileX() {
-        return lastTileX;
-    }
-    public int getLastTileY() {
-        return lastTileY;
-    }
-
-    private void bindTileListener() {
-        labelTile.addMouseMotionListener(new MouseMotionListener() {
-            @Override
-            public void mouseDragged(MouseEvent e) {
-            }
-            @Override
-            public void mouseMoved(MouseEvent e) {
-            }
-        });
-        labelTile.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-            }
-            @Override
-            public void mousePressed(MouseEvent e) {
-                int x = e.getX();
-                int y = e.getY();
-                int nx = x / 32;
-                int ny = y / 32;
-                lastTileX = nx;
-                lastTileY = ny;
-                LOG.debug("title...x/y=[" + x + "," + y + "], "
-                        + ", lastTileX/lastTileY=" + lastTileX + "/" + lastTileY
-                );
-            }
-            @Override
-            public void mouseReleased(MouseEvent e) {
-            }
-            @Override
-            public void mouseEntered(MouseEvent e) {
-            }
-            @Override
-            public void mouseExited(MouseEvent e) {
-            }
-        });
-    }
 
     // 绑定保存点击事件
     private void bindSaveListener(JButton btnSave) {
@@ -215,12 +168,16 @@ public class MapEditorPanel extends JPanel {
         return chooser;
     }
 
-    public JLabel getLabelTile() {
-        return labelTile;
+    public void setTileImage(String imagePath) {
+        // TODO 加载Tile图片
+        getTileArea().initTileImage(imagePath);
+//        mapAreaPanelEx.repaint();
     }
 
-    public void setImageIcon(String image) {
-        getLabelTile().setIcon(new ImageIcon(image));
-        panelCenter.repaint();
+    public TileAreaPanelEx getTileArea() {
+        return tileArea;
+    }
+    public MapAreaPanelEx getMapArea() {
+        return mapArea;
     }
 }

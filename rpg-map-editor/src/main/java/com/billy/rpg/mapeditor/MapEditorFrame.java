@@ -3,12 +3,12 @@ package com.billy.rpg.mapeditor;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
 /**
+ * main frame to show the map editor
  *
  * @since 2017-04-28 09:56:29
  */
@@ -42,36 +42,80 @@ public class MapEditorFrame extends JFrame {
      * 初始化菜单项
      */
     private void initMenuBar() {
-        MenuBar mb;
-        Menu menuFile;
-        MenuItem mItemOpen, mItemSave;
+        JMenuBar mb;
+        JMenu menuFile, menuLayer;
+        JMenuItem mItemFileOpen, mItemFileSave, menuItemLayer1, menuItemLayer2, menuItemLayer3, menuItemLayer4;
 
-        mb = new MenuBar(); // 创建菜单栏MenuBar
-        menuFile = new Menu("File");
+        mb = new JMenuBar(); // 创建菜单栏MenuBar
+        menuFile = new JMenu("File");
+        menuLayer = new JMenu("Layer");
 
-        mItemOpen = new MenuItem("Open");
-        mItemOpen.addActionListener(new ActionListener() {
+        mItemFileOpen = new JMenuItem("Open");
+        mItemFileOpen.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser chooser = mapEditorPanel.getChooser();
                 int result = chooser.showOpenDialog(null);
                 if (result == JFileChooser.APPROVE_OPTION){
                     String name = chooser.getSelectedFile().getPath();
-                    mapEditorPanel.setImageIcon(name);
+                    mapEditorPanel.setTileImage(name);
                 }
             }
         });
-        menuFile.add(mItemOpen);
-        mItemSave = new MenuItem("Save");
+        menuFile.add(mItemFileOpen);
+        mItemFileSave = new JMenuItem("Save");
 
-        // 加入分割线
-        menuFile.addSeparator();
-        menuFile.add(mItemSave);
-        mb.add(menuFile);
-        // 菜单栏中加入“文件”菜单
+        menuFile.addSeparator(); // 加入分割线
+        menuFile.add(mItemFileSave);
+        mb.add(menuFile); // 菜单栏中加入“文件”菜单
+
+        ButtonGroup layerGroup = new ButtonGroup();//设置单选组
+        menuItemLayer1 = new JRadioButtonMenuItem("Layer1");
+        menuItemLayer1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LOG.debug("layer1 picked");
+                mapEditorPanel.getMapArea().setCurrentLayer(1);
+            }
+        });
+        menuItemLayer2 = new JRadioButtonMenuItem("Layer2");
+        menuItemLayer2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LOG.debug("layer2 picked");
+                mapEditorPanel.getMapArea().setCurrentLayer(2);
+            }
+        });
+        menuItemLayer3 = new JRadioButtonMenuItem("Layer3");
+        menuItemLayer3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LOG.debug("layer3 picked");
+                mapEditorPanel.getMapArea().setCurrentLayer(3);
+            }
+        });
+        menuItemLayer4 = new JRadioButtonMenuItem("Layer4");
+        menuItemLayer4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LOG.debug("layer4 picked");
+                mapEditorPanel.getMapArea().setCurrentLayer(4);
+            }
+        });
+        layerGroup.add(menuItemLayer1);
+        layerGroup.add(menuItemLayer2);
+        layerGroup.add(menuItemLayer3);
+        layerGroup.add(menuItemLayer4);
+        menuLayer.add(menuItemLayer1);
+        menuLayer.add(menuItemLayer2);
+        menuLayer.add(menuItemLayer3);
+        menuLayer.add(menuItemLayer4);
+        menuLayer.addSeparator();
+
+        mb.add(menuLayer);
 
         // setMenuBar:将此窗体的菜单栏设置为指定的菜单栏。
-        setMenuBar(mb);
+        setJMenuBar(mb);
     }
 
 
