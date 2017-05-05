@@ -12,39 +12,35 @@ import java.awt.event.ActionListener;
  *
  * @since 2017-04-28 09:56:29
  */
-public class MapEditorFrame extends JFrame implements Runnable {
+public class MapEditorFrame extends JFrame {
     private static final long serialVersionUID = 1L;
     private static final Logger LOG = Logger.getLogger(MapEditorFrame.class);
-    private boolean running = false;
+
     public MapEditorPanel mapEditorPanel;
 
 
     public static void main(String[] args) {
-        MapEditorFrame m = new MapEditorFrame();
-
-        new Thread(m, "map-editor").start();
+        new MapEditorFrame();
     }
 
 
     public MapEditorFrame() {
         mapEditorPanel = new MapEditorPanel(this);
         this.setContentPane(mapEditorPanel);
-//        this.add(mapEditorPanel);
 
         setTitle("地图编辑器");
         setLocation(500, 100);
-//        setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         initMenuBar();
-//        setResizable(false);
-//        setAlwaysOnTop(true);
-//        addListener();//键盘监听
-        running = true;
+
         pack();
         LOG.info("MapEditor starts");
     }
 
+    /**
+     * 初始化菜单项
+     */
     private void initMenuBar() {
         MenuBar mb;
         Menu menuFile;
@@ -77,52 +73,6 @@ public class MapEditorFrame extends JFrame implements Runnable {
         // setMenuBar:将此窗体的菜单栏设置为指定的菜单栏。
         setMenuBar(mb);
     }
-
-    @Override
-    public void run() {
-        long curTime = System.currentTimeMillis();
-        long lastTime = curTime;
-        int i = 0;
-
-//        while (running) {
-//
-//            try {
-//                Thread.sleep(1000);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        }
-    }
-/*
-
-    public void addListener() {
-        this.addKeyListener(new KeyListener() {//键盘监听
-            @Override
-            public void keyTyped(KeyEvent e) {
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-                int key = c(e.getKeyCode());
-//                synchronized (screenStack) {
-                screenStack.peek().onKeyUp(key);
-//                }
-            }
-            @Override
-            public void keyPressed(KeyEvent e) {
-                int key = c(e.getKeyCode());
-//                synchronized (screenStack) {
-                screenStack.peek().onKeyDown(key);
-//                }
-            }
-
-            int c(int c){
-                return c;
-            }
-        });
-    }
-
-*/
 
 
 

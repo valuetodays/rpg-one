@@ -221,7 +221,6 @@ public class MapEditorPanel extends JPanel {
 
     public void setImageIcon(String image) {
         getLabelTile().setIcon(new ImageIcon(image));
-//        jspCenter.repaint();
         panelCenter.repaint();
     }
 }
