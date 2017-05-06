@@ -8,8 +8,6 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -33,7 +31,7 @@ public class TileImageItem  implements IImageLoader, IItem {
         if (loaded) {
             return ;
         }
-        String imgPath = GameUtils.mapPath("Images/tile") + "/";
+        String imgPath = GameUtils.mapPath("tiles") + "/";
         
         try {
             Map<String, Image> tileMap = new HashMap<>();
@@ -44,11 +42,9 @@ public class TileImageItem  implements IImageLoader, IItem {
                 Image img = ImageIO.read(fileInputStream);
                 fileInputStream.close();
                 tileMap.put(f, img);
-                tiles = Collections.unmodifiableMap(tileMap);
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+            tiles = Collections.unmodifiableMap(tileMap);
+        } catch (Exception e) {
             e.printStackTrace();
         }
         

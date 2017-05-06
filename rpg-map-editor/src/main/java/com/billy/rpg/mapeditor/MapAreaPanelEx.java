@@ -6,8 +6,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -71,8 +72,25 @@ public class MapAreaPanelEx extends JPanel {
     public int getTileYheight() {
         return tileYheight;
     }
+    private int rectX;
+    private int rectY;
 
     public void bindMapListener() {
+        addMouseMotionListener(new MouseMotionListener() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+            }
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                int x = e.getX();
+                int y = e.getY();
+                rectX = x / 32;
+                rectY = y / 32;
+//                LOG.debug("rectX/rectY=" + rectX + "/" + rectY);
+                repaint();
+            }
+        });
+
         addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -144,6 +162,7 @@ public class MapAreaPanelEx extends JPanel {
             } else {
                 g.drawImage(ImageUtil.toGray(paint), 0, 0, null);
             }
+            g.drawRect(rectX * 32, rectY * 32, 32, 32);
         }
     }
 

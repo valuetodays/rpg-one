@@ -54,13 +54,20 @@ public class MapScreen extends BaseScreen {
         MapDataLoaderBean activeMap = MainFrame.getInstance().getGameContainer().getActiveMap();
         
         //////// draw layer1 start
+        Image tileImg = MainFrame.getInstance().getGameContainer().getTileItem().getTile(activeMap.getTileId());
         int[][] layer1 = activeMap.getLayer1();
-        for (int i = 0; i < layer1.length; i++) {
-            int lineLen = layer1[i].length;
-            for (int j = 0; j < lineLen; j++) {
+        for (int i = 0; i < activeMap.getWidth(); i++) {
+            for (int j = 0; j < activeMap.getHeight(); j++) {
                 int tileNum = layer1[i][j];
-                Image tileImg = MainFrame.getInstance().getGameContainer().getTileItem().getTile(tileNum + "");
-                g2.drawImage(tileImg, j*32, i*32, tileImg.getWidth(null), tileImg.getHeight(null), null);
+                int y = tileNum % 100;
+                int x = tileNum / 100;
+                if (tileNum != -1) {
+//                    g2.drawImage(tileImg, i*32, j*32,
+//                            i*32+32, j*32+32,
+//                            x*32, y*32,
+//                            x*32+32, y*32+32,
+//                            null);
+                }
             }
         } // end of for
         //////// draw layer1 end
@@ -86,15 +93,20 @@ public class MapScreen extends BaseScreen {
             int lineLen = layer2[i].length;
             for (int j = 0; j < lineLen; j++) {
                 int tileNum = layer2[i][j];
-                if (tileNum != layer1[i][j]) {
-                    Image tileImg = MainFrame.getInstance().getGameContainer().getTileItem().getTile(tileNum + "");
-                    g2.drawImage(tileImg, j*32, i*32, tileImg.getWidth(null), tileImg.getHeight(null), null);
+                if (tileNum != -1 /*&& tileNum != layer1[i][j]*/) {
+                    int y = tileNum % 100;
+                    int x = tileNum / 100;
+                    g2.drawImage(tileImg, i*32, j*32,
+                            i*32+32, j*32+32,
+                            x*32, y*32,
+                            x*32+32, y*32+32,
+                            null);
                 }
             }
         } // end of for
         //////// draw layer2 end
         
-        /////////// draw flag start
+        /////////// draw flag start TODO comment it now
         int[][] flag = activeMap.getFlag();
         for (int i = 0; i < flag.length; i++) {
             int lineLen = flag[i].length;

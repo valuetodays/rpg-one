@@ -1,20 +1,22 @@
 package com.billy.scriptParser.bean;
 
-import java.util.List;
-
+import com.billy.constants.MapConstant;
 import org.apache.log4j.Logger;
 
-import com.billy.constants.MapConstant;
+import java.util.List;
 
 // TODO use a full png as map ?
 public class MapDataLoaderBean extends DataLoaderBean {
     private static final Logger LOG = Logger.getLogger(MapDataLoaderBean.class);
-    
-    private String name;
+    // TODO tileId is hard code now
+    private String tileId = "001-Grassland01"; // tile image id
+    private String mapId;  // map id
+    private String name;   // map name
     private int height;
     private int width;
     private int[][] layer1;
     private int[][] layer2;
+    private int[][] layer3;
     private int[][] flag;
     
     
@@ -36,15 +38,18 @@ public class MapDataLoaderBean extends DataLoaderBean {
     public void setWidth(int width) {
         this.width = width;
     }
-
     public int[][] getFlag() {
         return flag;
     }
     public void setFlag(int[][] flag) {
         this.flag = flag;
     }
-    
-    
+    public String getMapId() {
+        return mapId;
+    }
+    public void setMapId(String mapId) {
+        this.mapId = mapId;
+    }
     public int[][] getLayer1() {
         return layer1;
     }
@@ -56,6 +61,18 @@ public class MapDataLoaderBean extends DataLoaderBean {
     }
     public void setLayer2(int[][] layer2) {
         this.layer2 = layer2;
+    }
+    public int[][] getLayer3() {
+        return layer3;
+    }
+    public void setLayer3(int[][] layer3) {
+        this.layer3 = layer3;
+    }
+    public String getTileId() {
+        return tileId;
+    }
+    public void setTileId(String tileId) {
+        this.tileId = tileId;
     }
     public void parse(String filename, List<String> mapData) {
         parseName(filename);
@@ -140,5 +157,8 @@ public class MapDataLoaderBean extends DataLoaderBean {
         String mapName = filename.substring(0, filename.length() - MapConstant.MAP_EXT.length());
         this.name = mapName;
     }
-    
+
+    public void initMapId(String filename) {
+        parseName(filename);
+    }
 }

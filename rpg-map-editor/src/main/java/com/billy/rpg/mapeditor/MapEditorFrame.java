@@ -47,7 +47,8 @@ public class MapEditorFrame extends JFrame {
     private void initMenuBar() {
         JMenuBar mb;
         JMenu menuFile, menuLayer;
-        JMenuItem mItemFileOpen, mItemFileSave, menuItemLayer1, menuItemLayer2, menuItemLayer3, menuItemLayer4;
+        JMenuItem mItemFileOpen, mItemFileSave, menuItemFileExit, menuItemLayer1, menuItemLayer2, menuItemLayer3,
+                menuItemLayer4;
 
         mb = new JMenuBar(); // 创建菜单栏MenuBar
         menuFile = new JMenu("File");
@@ -83,8 +84,16 @@ public class MapEditorFrame extends JFrame {
                 }
             }
         });
-        menuFile.addSeparator(); // 加入分割线
         menuFile.add(mItemFileSave);
+        menuFile.addSeparator(); // 加入分割线
+        menuItemFileExit = new JMenuItem("Exit");
+        menuItemFileExit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+        menuFile.add(menuItemFileExit);
         mb.add(menuFile); // 菜单栏中加入“文件”菜单
 
         ButtonGroup layerGroup = new ButtonGroup();//设置单选组

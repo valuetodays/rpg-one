@@ -1,22 +1,17 @@
 package com.billy.scriptParser.loader.data;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
+import com.billy.constants.MapConstant;
+import com.billy.rpg.game.MapLoader;
+import com.billy.scriptParser.bean.LoaderBean;
+import com.billy.scriptParser.bean.MapDataLoaderBean;
+import org.apache.log4j.Logger;
+
+import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
-
-import org.apache.log4j.Logger;
-
-import com.billy.constants.MapConstant;
-import com.billy.scriptParser.bean.LoaderBean;
-import com.billy.scriptParser.bean.MapDataLoaderBean;
 
 
 /**
@@ -41,30 +36,33 @@ public class MapDataLoader implements IDataLoader {
         LOG.debug(mapFilepaths);
         
         String lineData = null;
-        List<LoaderBean> maps = new ArrayList<LoaderBean>();
+        List<LoaderBean> maps = new ArrayList<>();
         MapDataLoaderBean mapBean = null;
         File file = null;
         Reader in = null;
         BufferedReader br = null;
 
+        MapLoader mapLoader = new MapLoader();
         List<String> mapData = new ArrayList<>();
         for (String map : mapFilepaths) {
-            file = new File(map);
-            in = new FileReader(file);
-            br = new BufferedReader(in);
-            mapBean = new MapDataLoaderBean();
-            lineData = br.readLine();
+            mapBean = mapLoader.load(map);
 
-            mapData.clear();
-            
-            while (lineData != null) {
-                mapData.add(lineData);
-                lineData = br.readLine();
-            }
-
-            in.close();
-            br.close();
-            mapBean.parse(file.getName(), mapData);
+//            file = new File(map);
+//            in = new FileReader(file);
+//            br = new BufferedReader(in);
+//            mapBean = new MapDataLoaderBean();
+//            lineData = br.readLine();
+//
+//            mapData.clear();
+//
+//            while (lineData != null) {
+//                mapData.add(lineData);
+//                lineData = br.readLine();
+//            }
+//
+//            in.close();
+//            br.close();
+//            mapBean.parse(file.getName(), mapData);
 
             maps.add(mapBean);
         } // end of for 
@@ -89,7 +87,7 @@ public class MapDataLoader implements IDataLoader {
                 String filepath = url.getPath();
                 String packagename = filepath + "map/";
                 File file = new File(packagename);
-                if (file == null || !file.exists()) {
+                if (!file.exists()) {
                     continue;
                 }
                 File[] listFiles = file.listFiles(filterMap());
@@ -119,7 +117,9 @@ public class MapDataLoader implements IDataLoader {
             @Override
             public boolean accept(File pathname) {
                 //  we want the file whose extension is 's'.  [1: file, 2: '.map' ]
-                if (pathname.isFile() && pathname.getPath().endsWith(MapConstant.MAP_EXT)) {
+                if (pathname.isFile()
+                        && pathname.getPath().endsWith(MapConstant.MAP_EXT)
+                        ) {
                     return true;
                 }
                 return false;

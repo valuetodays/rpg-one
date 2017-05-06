@@ -11,8 +11,6 @@ import org.apache.log4j.Logger;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -49,9 +47,7 @@ public class Skill2ImageItems implements IImageLoader, IItem, Runnable {
                 Image image = ImageIO.read(new FileInputStream(imgPath + i + ".png"));
                 imageMap.put(i, image);
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -70,7 +66,7 @@ public class Skill2ImageItems implements IImageLoader, IItem, Runnable {
     public void run() {
         while(true) {
             if (MainFrame.getInstance().getCurScreen() instanceof MapScreen) {
-                LOG.debug("currentFrame=" + currentFrame);
+//                LOG.debug("currentFrame=" + currentFrame);
                 try {
                     Thread.sleep(200);
                 } catch (InterruptedException e) {
@@ -81,7 +77,7 @@ public class Skill2ImageItems implements IImageLoader, IItem, Runnable {
                     currentFrame = 0;
                 }
             } else {
-                LOG.debug("not in mapscreen" + currentFrame);
+//                LOG.debug("not in mapscreen" + currentFrame);
             }
         }
 
