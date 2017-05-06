@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 
 /**
@@ -16,7 +17,8 @@ public class MapEditorFrame extends JFrame {
     private static final long serialVersionUID = 1L;
     private static final Logger LOG = Logger.getLogger(MapEditorFrame.class);
 
-    public MapEditorPanel mapEditorPanel;
+    private MapEditorPanel mapEditorPanel;
+    private MapSaver mapSaver;
 
 
     public static void main(String[] args) {
@@ -32,6 +34,7 @@ public class MapEditorFrame extends JFrame {
         setLocation(500, 100);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+        mapSaver = new MapSaver(this);
         initMenuBar();
 
         pack();
@@ -54,7 +57,7 @@ public class MapEditorFrame extends JFrame {
         mItemFileOpen.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFileChooser chooser = mapEditorPanel.getChooser();
+                JFileChooser chooser = mapEditorPanel.getFileTileChooser();
                 int result = chooser.showOpenDialog(null);
                 if (result == JFileChooser.APPROVE_OPTION){
                     String name = chooser.getSelectedFile().getPath();
@@ -64,13 +67,29 @@ public class MapEditorFrame extends JFrame {
         });
         menuFile.add(mItemFileOpen);
         mItemFileSave = new JMenuItem("Save");
+        mItemFileSave.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
+                JFileChooser chooser = mapEditorPanel.getFileMapChooser();
+                int result = chooser.showSaveDialog(null);
+                if (result == JFileChooser.APPROVE_OPTION){
+                    File selectedFile = chooser.getSelectedFile();
+                    String name = chooser.getName(selectedFile);
+                    if (!name.endsWith(".map")){
+                        name += ".map";
+                    }
+                    mapSaver.save(chooser.getCurrentDirectory() + File.separator + name);
+                }
+            }
+        });
         menuFile.addSeparator(); // 加入分割线
         menuFile.add(mItemFileSave);
         mb.add(menuFile); // 菜单栏中加入“文件”菜单
 
         ButtonGroup layerGroup = new ButtonGroup();//设置单选组
         menuItemLayer1 = new JRadioButtonMenuItem("Layer1");
+        menuItemLayer1.doClick();
         menuItemLayer1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -119,6 +138,8 @@ public class MapEditorFrame extends JFrame {
     }
 
 
-
+    public MapEditorPanel getMapEditorPanel() {
+        return mapEditorPanel;
+    }
 }
 

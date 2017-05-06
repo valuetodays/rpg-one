@@ -3,6 +3,8 @@ package com.billy.rpg.mapeditor;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -34,10 +36,12 @@ public class MapEditorPanel extends JPanel {
     private JTextField tfMapName = null;
     private JTextField tfMapWidth = null;
     private JTextField tfMapHeight = null;
-    private JFileChooser chooser;
-    private TileAreaPanelEx tileArea;
+    private JFileChooser fileTileChooser;
+    private JFileChooser fileMapChooser;
+    private TileAreaPanel tileArea;
     private MapAreaPanelEx mapArea;
     private JScrollPane jspCenter;
+    private String mapName = null;
 
     private void initComponents() {
         LayoutManager borderLayout = new BorderLayout(5, 5);
@@ -48,6 +52,7 @@ public class MapEditorPanel extends JPanel {
         panelNorth.add(labelMapName);
         tfMapName = new JTextField(10);
         tfMapName.setText("百草地");
+        mapName = tfMapName.getText();
         panelNorth.add(tfMapName);
         JLabel labelMapWidth = new JLabel("宽");
         panelNorth.add(labelMapWidth);
@@ -72,13 +77,18 @@ public class MapEditorPanel extends JPanel {
         // add north end
 
         // add west start
-        tileArea = new TileAreaPanelEx(this);
+        tileArea = new TileAreaPanel(this);
         tileArea.setPreferredSize(new Dimension(260, 600));
         tileArea.setBackground(new Color(80, 116, 93));
         tileArea.bindTileListener();
         add(tileArea, BorderLayout.WEST);
-        chooser = new JFileChooser();
-        chooser.setCurrentDirectory(new File("."));
+        fileTileChooser = new JFileChooser();
+        fileTileChooser.setCurrentDirectory(new File("."));
+        fileMapChooser = new JFileChooser();
+        fileMapChooser.setCurrentDirectory(new File("."));
+        FileFilter filter = new FileNameExtensionFilter( "map file", "map");
+        fileMapChooser.setFileFilter(filter);//设置文件后缀过滤器
+
         // add west end
 
         // add center start
@@ -127,7 +137,7 @@ public class MapEditorPanel extends JPanel {
             // 点击后鼠标移开不会触发此方法
             @Override
             public void mouseClicked(MouseEvent e) {
-                String mapName = tfMapName.getText();
+                mapName = tfMapName.getText();
                 LOG.debug("clicked, and get `map name="+mapName+"`.");
             }
             @Override
@@ -164,20 +174,27 @@ public class MapEditorPanel extends JPanel {
         }
     }
 
-    public JFileChooser getChooser() {
-        return chooser;
+    public JFileChooser getFileTileChooser() {
+        return fileTileChooser;
+    }
+    public JFileChooser getFileMapChooser() {
+        return fileMapChooser;
     }
 
     public void setTileImage(String imagePath) {
-        // TODO 加载Tile图片
+        // 加载Tile图片
         getTileArea().initTileImage(imagePath);
 //        mapAreaPanelEx.repaint();
     }
 
-    public TileAreaPanelEx getTileArea() {
+    public TileAreaPanel getTileArea() {
         return tileArea;
     }
     public MapAreaPanelEx getMapArea() {
         return mapArea;
+    }
+
+    public String getMapName() {
+        return mapName;
     }
 }

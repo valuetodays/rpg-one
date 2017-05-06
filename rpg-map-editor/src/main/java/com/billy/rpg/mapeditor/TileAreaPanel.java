@@ -18,12 +18,12 @@ import java.io.IOException;
  * @author <a href="http://blog.sina.com.cn/valuetodays">liulei-home</a>
  * @since 2017-04-28 21:40
  */
-public class TileAreaPanelEx extends JPanel {
-    private static final Logger LOG = Logger.getLogger(TileAreaPanelEx.class);
+public class TileAreaPanel extends JPanel {
+    private static final Logger LOG = Logger.getLogger(TileAreaPanel.class);
 
     private MapEditorPanel mapEditorPanel;
 
-    public TileAreaPanelEx(MapEditorPanel mapEditorPanel) {
+    public TileAreaPanel(MapEditorPanel mapEditorPanel) {
         this.mapEditorPanel = mapEditorPanel;
         setBackground(new Color(214, 31, 17));
     }
@@ -62,11 +62,10 @@ public class TileAreaPanelEx extends JPanel {
                 int y = e.getY();
                 int nx = x / 32;
                 int ny = y / 32;
-                lastTileX = nx;
-                lastTileY = ny;
                 LOG.debug("title...x/y=[" + x + "," + y + "], "
-                        + ", lastTileX/lastTileY=" + lastTileX + "/" + lastTileY
+                        + ", nx/ny=" + nx + "/" + ny
                 );
+                lastTileN = nx * 100 + ny;
             }
             @Override
             public void mouseReleased(MouseEvent e) {
@@ -82,14 +81,10 @@ public class TileAreaPanelEx extends JPanel {
 
 
 
-    private int lastTileX;
-    private int lastTileY;
+    private int lastTileN;
 
-    public int getLastTileX() {
-        return lastTileX;
-    }
-    public int getLastTileY() {
-        return lastTileY;
+    public int getLastTileN() {
+        return lastTileN;
     }
 
     public Image getTileImage() {
