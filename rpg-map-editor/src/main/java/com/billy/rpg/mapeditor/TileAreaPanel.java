@@ -28,9 +28,6 @@ public class TileAreaPanel extends JPanel {
         setBackground(new Color(214, 31, 17));
     }
 
-    private String[][] layer;
-    private int width;
-    private int height;
     private Image tileImage;
 
     @Override
@@ -38,9 +35,18 @@ public class TileAreaPanel extends JPanel {
         super.paint(g);
         if (tileImage != null) {
             g.drawImage(tileImage, 0, 0, null);
+            Color oldColor = g.getColor();
+            g.setColor(Color.RED);
+            g.drawRect(rectX*32, rectY*32, width, height);
+            g.setColor(oldColor);
+//            LOG.debug("paint()");
         }
 
     }
+    private int rectX;
+    private int rectY;
+    private int width = 32;
+    private int height = 32;
 
     public void bindTileListener() {
         addMouseMotionListener(new MouseMotionListener() {
@@ -49,6 +55,12 @@ public class TileAreaPanel extends JPanel {
             }
             @Override
             public void mouseMoved(MouseEvent e) {
+                int x = e.getX();
+                int y = e.getY();
+                rectX = x / 32;
+                rectY = y / 32;
+//                LOG.debug("rectX/rectY=" + rectX + "/" + rectY);
+                repaint();
             }
         });
 
