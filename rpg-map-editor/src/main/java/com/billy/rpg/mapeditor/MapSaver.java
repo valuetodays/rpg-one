@@ -28,12 +28,13 @@ public class MapSaver {
     /**
      * map file data structure
      *
-     * 10bytes map header
-     * 4bytes map name length (in byte)
-     * Nbytes map name
-     * 4bytes width
-     * 4bytes height
-     * Nbytes width*height*4 4-layers map data
+     * 10 bytes map header
+     * 4 bytes map name length (in byte)
+     * N bytes map name
+     * 4 bytes height
+     * 4 bytes width
+     * 4 bytes layers size
+     * N bytes width*height*4 4-layers map data
      *
      * @param mapFilePath map filepath
      */
@@ -41,7 +42,7 @@ public class MapSaver {
         LOG.debug("to save file `{"+mapFilePath+"}`.");
         String mapName = mapEditorFrame.getMapEditorPanel().getMapName();
         MapEditorPanel mapEditorPanel = mapEditorFrame.getMapEditorPanel();
-        MapAreaPanelEx mapArea = mapEditorPanel.getMapArea();
+        MapAreaPanel mapArea = mapEditorPanel.getMapArea();
         List<int[][]> layers = mapArea.getLayers();
         int tileYheight = mapArea.getTileYheight();
         int tileXwidth = mapArea.getTileXwidth();
@@ -63,15 +64,21 @@ public class MapSaver {
             LOG.debug("tileYheight `"+tileYheight+"` written");
             dos.writeInt(tileXwidth);
             LOG.debug("tileXwidth `"+tileXwidth+"` written");
-            for (int i = 0; i < layers.size(); i++) {
+            final int layersSize = layers.size();
+            dos.writeInt(layersSize);
+            LOG.debug("layer'size `"+ layersSize +"` written");
+
+            for (int i = 0; i < layersSize; i++) {
                 int[][] layer = layers.get(i);
                 for (int m = 0; m < tileXwidth; m++) {
                     for(int n = 0; n < tileYheight; n++) {
                         int layer_data = layer[m][n];
-                        int y = layer_data % 100;
-                        int x = layer_data / 100;
-                        dos.writeInt(x*100 + y);
-                        LOG.debug("x/y = `"+x+"/"+y+"`, `"+(x*100+y)+"` written" );
+                        if (layer_data != -1) {
+                             dos.writeInt(layer_data);
+                        } else {
+                            dos.writeInt(layer_data);
+                        }
+                        LOG.debug("`layer"+(i+1)+" "+(layer_data)+"` written" );
                     }
                 }
             }

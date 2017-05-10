@@ -51,18 +51,42 @@ public class MapDataLoaderBean extends DataLoaderBean {
         this.mapId = mapId;
     }
     public int[][] getLayer1() {
+        String s = "";
+        for (int i = 0; i < layer1.length; i++) {
+            for (int j = 0; j < layer1[i].length; j++) {
+                s += "# " + layer1[i][j];
+            }
+            s += "\n";
+        }
+        System.out.println(s);
         return layer1;
     }
     public void setLayer1(int[][] layer1) {
         this.layer1 = layer1;
     }
     public int[][] getLayer2() {
+        String s = "";
+        for (int i = 0; i < layer2.length; i++) {
+            for (int j = 0; j < layer3[i].length; j++) {
+                s += "," + layer2[i][j];
+            }
+            s += "\n";
+        }
+        System.out.println(s);
         return layer2;
     }
     public void setLayer2(int[][] layer2) {
         this.layer2 = layer2;
     }
     public int[][] getLayer3() {
+        String s = "";
+        for (int i = 0; i < layer3.length; i++) {
+            for (int j = 0; j < layer3[i].length; j++) {
+                s += "$ " + layer3[i][j];
+            }
+            s += "\n";
+        }
+        System.out.println(s);
         return layer3;
     }
     public void setLayer3(int[][] layer3) {

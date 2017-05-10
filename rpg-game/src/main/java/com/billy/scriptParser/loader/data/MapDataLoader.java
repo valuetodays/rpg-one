@@ -31,38 +31,17 @@ public class MapDataLoader implements IDataLoader {
         if (mapFilepaths == null) {
             LOG.warn("No maps found. System exit.");
 //            System.exit(0);
+            throw new RuntimeException("No maps found.");
         }
         
         LOG.debug(mapFilepaths);
         
-        String lineData = null;
         List<LoaderBean> maps = new ArrayList<>();
         MapDataLoaderBean mapBean = null;
-        File file = null;
-        Reader in = null;
-        BufferedReader br = null;
 
         MapLoader mapLoader = new MapLoader();
-        List<String> mapData = new ArrayList<>();
         for (String map : mapFilepaths) {
             mapBean = mapLoader.load(map);
-
-//            file = new File(map);
-//            in = new FileReader(file);
-//            br = new BufferedReader(in);
-//            mapBean = new MapDataLoaderBean();
-//            lineData = br.readLine();
-//
-//            mapData.clear();
-//
-//            while (lineData != null) {
-//                mapData.add(lineData);
-//                lineData = br.readLine();
-//            }
-//
-//            in.close();
-//            br.close();
-//            mapBean.parse(file.getName(), mapData);
 
             maps.add(mapBean);
         } // end of for 

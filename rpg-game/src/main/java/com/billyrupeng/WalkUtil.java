@@ -17,7 +17,8 @@ public class WalkUtil {
         // why flag[y][x]?? , i donot know
         int flagNum = flag[y][x];
 //        System.out.println(x + "/" + y + "=" + flagNum); 
-        return (flagNum%2 == WALK_YES);
+//        return (flagNum%2 == WALK_YES);
+        return true;
     }
 
 }

@@ -39,9 +39,9 @@ public class MapEditorPanel extends JPanel {
     private JFileChooser fileTileChooser;
     private JFileChooser fileMapChooser;
     private TileAreaPanel tileArea;
-    private MapAreaPanelEx mapArea;
+    private MapAreaPanel mapArea;
     private JScrollPane jspCenter;
-    private String mapName = null;
+    private String mapName = "百草地";
 
     private void initComponents() {
         LayoutManager borderLayout = new BorderLayout(5, 5);
@@ -51,7 +51,7 @@ public class MapEditorPanel extends JPanel {
         JLabel labelMapName = new JLabel("地图名");
         panelNorth.add(labelMapName);
         tfMapName = new JTextField(10);
-        tfMapName.setText("百草地");
+        tfMapName.setText(mapName);
         mapName = tfMapName.getText();
         panelNorth.add(tfMapName);
         JLabel labelMapWidth = new JLabel("宽");
@@ -68,10 +68,6 @@ public class MapEditorPanel extends JPanel {
         panelNorth.add(btnApply);
         panelNorth.setBackground(new Color(79, 189, 58));
         bindApplyListener(btnApply); // 添加应用事件，此时将JPanelEx的mapShow[][]应用上
-        JButton btnSave = new JButton("保存");
-        panelNorth.add(btnSave);
-        panelNorth.setBackground(new Color(125, 152, 189));
-        bindSaveListener(btnSave); // 添加保存事件
 
         add(panelNorth, BorderLayout.NORTH); // add north panel to main panel
         // add north end
@@ -92,7 +88,7 @@ public class MapEditorPanel extends JPanel {
         // add west end
 
         // add center start
-        mapArea = new MapAreaPanelEx(this);
+        mapArea = new MapAreaPanel(this);
         mapArea.setPreferredSize(new Dimension(1500, 1200));
         mapArea.setBackground(new Color(199, 170, 90));
         mapArea.bindMapListener();
@@ -114,29 +110,6 @@ public class MapEditorPanel extends JPanel {
                 int newheight = Integer.parseInt(tfMapHeight.getText());
                 int newwidth = Integer.parseInt(tfMapWidth.getText());
                 mapArea.initMapShow(newwidth, newheight);
-            }
-            @Override
-            public void mousePressed(MouseEvent e) {
-            }
-            @Override
-            public void mouseReleased(MouseEvent e) {
-            }
-            @Override
-            public void mouseEntered(MouseEvent e) {
-            }
-            @Override
-            public void mouseExited(MouseEvent e) {
-            }
-        });
-    }
-
-
-    // 绑定保存点击事件
-    private void bindSaveListener(JButton btnSave) {
-        btnSave.addMouseListener( new MouseListener() {
-            // 点击后鼠标移开不会触发此方法
-            @Override
-            public void mouseClicked(MouseEvent e) {
                 mapName = tfMapName.getText();
                 LOG.debug("clicked, and get `map name="+mapName+"`.");
             }
@@ -154,6 +127,7 @@ public class MapEditorPanel extends JPanel {
             }
         });
     }
+
 
     public BufferedImage background;
     public BufferedImage dest;
@@ -190,7 +164,7 @@ public class MapEditorPanel extends JPanel {
     public TileAreaPanel getTileArea() {
         return tileArea;
     }
-    public MapAreaPanelEx getMapArea() {
+    public MapAreaPanel getMapArea() {
         return mapArea;
     }
 

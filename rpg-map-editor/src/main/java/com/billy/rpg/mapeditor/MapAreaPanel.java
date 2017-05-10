@@ -13,15 +13,14 @@ import java.util.List;
 
 /**
  * @author <a href="http://blog.sina.com.cn/valuetodays">liulei-home</a>
- * @date 2017-04-28 21:40
  * @since 2017-04-28 21:40
  */
-public class MapAreaPanelEx extends JPanel {
-    private static final Logger LOG = Logger.getLogger(MapAreaPanelEx.class);
+public class MapAreaPanel extends JPanel {
+    private static final Logger LOG = Logger.getLogger(MapAreaPanel.class);
 
     private MapEditorPanel mapEditorPanel;
 
-    public MapAreaPanelEx(MapEditorPanel mapEditorPanel) {
+    public MapAreaPanel(MapEditorPanel mapEditorPanel) {
         this.mapEditorPanel = mapEditorPanel;
         setBackground(new Color(214, 31, 17));
     }
@@ -29,10 +28,14 @@ public class MapAreaPanelEx extends JPanel {
     private java.util.List<int[][]> layers;
     private int tileXwidth;
     private int tileYheight;
-    private int currentLayer = 0; // TODO 可变的层
+    private int currentLayer = 0;
 
+    /**
+     * 置当前层为活动层
+     * @param currentLayer 当前层数，注意，此处传的是1~4，但layers的下标是0~3，所以需要减1
+     */
     public void setCurrentLayer(int currentLayer) {
-        this.currentLayer = currentLayer;
+        this.currentLayer = currentLayer-1;
         repaint();
     }
 
@@ -106,7 +109,9 @@ public class MapAreaPanelEx extends JPanel {
                 }
                 int[][] tmpLayer = layers.get(currentLayer);
                 tmpLayer[nx][ny] = mapEditorPanel.getTileArea().getLastTileN();
-                LOG.debug(" in map (x/y"+x + "/" + y +")["+nx +"," + ny +"]=" + tmpLayer[nx][ny]);
+                LOG.debug("layer " + currentLayer
+                        + " in map (x/y"+x + "/" + y +")["+nx +"," + ny +"]="
+                        + tmpLayer[nx][ny]);
                 repaint();
             }
             @Override

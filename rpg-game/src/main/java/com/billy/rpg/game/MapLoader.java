@@ -53,9 +53,9 @@ public class MapLoader {
             int tileXwidth = dis.readInt();
             LOG.debug("tileXwidth `"+tileXwidth+"` read");
             mapDataLoaderBean.setWidth(tileXwidth);
-            // TODO write 4 for layer-length
+            final int layersSize = dis.readInt();
 
-            for (int i = 0; i < 4; i++) { // layer-length = 4
+            for (int i = 0; i < layersSize; i++) {
                 int[][] layer = new int[tileXwidth][tileYheight];
                 for (int m = 0; m < tileXwidth; m++) {
                     for(int n = 0; n < tileYheight; n++) {
@@ -86,7 +86,7 @@ public class MapLoader {
     }
 
     public static void main(String[] args) {
-        String mapFilePath = "Z:/map111.map";
+        String mapFilePath = "z:/main-test.1.1.map";
         MapLoader mapLoader = new MapLoader();
         mapLoader.load(mapFilePath);
     }
