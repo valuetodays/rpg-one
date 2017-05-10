@@ -29,6 +29,7 @@ public class MapAreaPanel extends JPanel {
     private int tileXwidth;
     private int tileYheight;
     private int currentLayer = 0;
+    private static final int FLAG_LAYER = 3;
 
     /**
      * 置当前层为活动层
@@ -107,11 +108,18 @@ public class MapAreaPanel extends JPanel {
                 if (nx > tileXwidth || ny > tileYheight) {
                     return ;
                 }
-                int[][] tmpLayer = layers.get(currentLayer);
-                tmpLayer[nx][ny] = mapEditorPanel.getTileArea().getLastTileN();
-                LOG.debug("layer " + currentLayer
-                        + " in map (x/y"+x + "/" + y +")["+nx +"," + ny +"]="
-                        + tmpLayer[nx][ny]);
+                // 分开处理地图层与事件层
+                if (currentLayer != FLAG_LAYER) {
+                    int[][] tmpLayer = layers.get(currentLayer);
+                    tmpLayer[nx][ny] = mapEditorPanel.getTileArea().getLastTileN();
+                    LOG.debug("layer " + currentLayer
+                            + " in map (x/y" + x + "/" + y + ")[" + nx + "," + ny + "]="
+                            + tmpLayer[nx][ny]);
+                } else {
+                    int[][] flagLayer = layers.get(currentLayer);
+                    flagLayer[nx][ny] *= -1; //
+
+                }
                 repaint();
             }
             @Override
@@ -139,15 +147,16 @@ public class MapAreaPanel extends JPanel {
             return ;
         }
 
-        for (int layern = 0; layern < layers.size(); layern++) {
-            BufferedImage paint = new BufferedImage(
-                    tileXwidth * 32,
-                    tileYheight * 32,
-                    BufferedImage.TYPE_4BYTE_ABGR);
-            // 得到缓冲区的画笔
-            Graphics g2 = paint.getGraphics();
+        BufferedImage paint = new BufferedImage(
+                tileXwidth * 32,
+                tileYheight * 32,
+                BufferedImage.TYPE_4BYTE_ABGR);
+        // 得到缓冲区的画笔
+        Graphics g2 = paint.getGraphics();
+        // 先画地图层
+        for (int layern = 0; layern < FLAG_LAYER; layern++) {
 
-            int[][] layer = layers.get(layern); // TODO 只显示一层数据
+            int[][] layer = layers.get(layern);
             for (int i = 0; i < tileXwidth; i++) {
                 for (int j = 0; j < tileYheight; j++) {
                     int s = layer[i][j];
@@ -169,6 +178,22 @@ public class MapAreaPanel extends JPanel {
             }
             g.drawRect(rectX * 32, rectY * 32, 32, 32);
         }
+        // 再画事件层
+        int[][] flagLayer = layers.get(FLAG_LAYER);
+        for (int i = 0; i < tileXwidth; i++) {
+            for (int j = 0; j < tileYheight; j++) {
+                if (flagLayer[i][j] == -1) { // 不可行 TODO 使用常量类
+                    int leftX = i * 32;
+                    int leftY = j * 32;
+                    int rightX = i * 32 + 32;
+                    int rightY = j * 32 + 32;
+                    // TODO 
+                    g.drawLine(leftX, leftY, rightX, rightY);
+                }
+            }
+        }
+
+
     }
 
     public List<int[][]> getLayers() {

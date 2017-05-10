@@ -110,10 +110,10 @@ public class MapScreen extends BaseScreen {
         for (int i = 0; i < activeMap.getWidth(); i++) {
             for (int j = 0; j < activeMap.getHeight(); j++) {
                 int tileNum = layer3[i][j];
-                if (tileNum != -1 && tileNum != layer2[i][j] && tileNum != layer3[i][j]) {
+                if (tileNum != -1 && tileNum != layer2[i][j] && tileNum != layer1[i][j]) {
                     int y = tileNum % 100;
                     int x = tileNum / 100;
-                    //LOG.debug("layer2---------------");
+                    LOG.debug("layer3---------------");
                     g2.drawImage(tileImg, i*32, j*32,
                             i*32+32, j*32+32,
                             x*32, y*32,
