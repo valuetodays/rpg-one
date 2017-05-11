@@ -1,5 +1,6 @@
 package com.billy.rpg.game;
 
+import com.billy.jee.rpg.common.constant.MapFileConstant;
 import com.billy.scriptParser.bean.MapDataLoaderBean;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
@@ -20,7 +21,7 @@ import java.util.List;
 public class MapLoader {
     private static final Logger LOG = Logger.getLogger(MapLoader.class);
 
-    private static final String MAP_HEADER = "map header";
+    private static final String MAP_HEADER = MapFileConstant.MAP_HEADER;
 
     /**
      *
@@ -78,10 +79,11 @@ public class MapLoader {
         mapDataLoaderBean.setLayer1(layers.get(0));
         mapDataLoaderBean.setLayer2(layers.get(1));
         mapDataLoaderBean.setLayer3(layers.get(2));
-        mapDataLoaderBean.setFlag(layers.get(3));
+        mapDataLoaderBean.setWalk(layers.get(3));
+        mapDataLoaderBean.setEvent(layers.get(4));
         mapDataLoaderBean.initMapId(file.getName());
 
-        LOG.debug("map file `"+mapFilePath+"` loaded");
+        LOG.debug("loaded map file ["+mapFilePath+"].");
         return mapDataLoaderBean;
     }
 

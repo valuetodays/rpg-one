@@ -140,7 +140,7 @@ public class GuiDisplay implements IDisplay {
         //////// draw layer2 end
         
         /////////// draw flag start
-        int[][] flag = activeMap.getFlag();
+        int[][] flag = activeMap.getWalk();
         for (int i = 0; i < flag.length; i++) {
             int lineLen = flag[i].length;
             for (int j = 0; j < lineLen; j++) {

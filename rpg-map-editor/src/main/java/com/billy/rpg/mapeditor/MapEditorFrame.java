@@ -48,7 +48,7 @@ public class MapEditorFrame extends JFrame {
         JMenuBar mb;
         JMenu menuFile, menuLayer;
         JMenuItem mItemFileOpen, mItemFileSave, menuItemFileExit, menuItemLayer1, menuItemLayer2, menuItemLayer3,
-                menuItemLayer4;
+                menuItemLayer4, menuItemLayer5;
 
         mb = new JMenuBar(); // 创建菜单栏MenuBar
         menuFile = new JMenu("File");
@@ -122,7 +122,7 @@ public class MapEditorFrame extends JFrame {
                 mapEditorPanel.getMapArea().setCurrentLayer(3);
             }
         });
-        menuItemLayer4 = new JRadioButtonMenuItem("Layer4");
+        menuItemLayer4 = new JRadioButtonMenuItem("Layer4(walk)");
         menuItemLayer4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -130,10 +130,19 @@ public class MapEditorFrame extends JFrame {
                 mapEditorPanel.getMapArea().setCurrentLayer(4);
             }
         });
+        menuItemLayer5 = new JRadioButtonMenuItem("Layer5(event)");
+        menuItemLayer5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LOG.debug("layer5 picked");
+                mapEditorPanel.getMapArea().setCurrentLayer(5);
+            }
+        });
         layerGroup.add(menuItemLayer1);
         layerGroup.add(menuItemLayer2);
         layerGroup.add(menuItemLayer3);
         layerGroup.add(menuItemLayer4);
+        layerGroup.add(menuItemLayer5);
         menuLayer.add(menuItemLayer1);
         menuLayer.add(menuItemLayer2);
         menuLayer.add(menuItemLayer3);

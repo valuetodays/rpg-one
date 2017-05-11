@@ -29,11 +29,12 @@ public class MapAreaPanel extends JPanel {
     private int tileXwidth;
     private int tileYheight;
     private int currentLayer = 0;
-    private static final int FLAG_LAYER = 3;
+    private static final int WALK_FLAG = 3;
+    private static final int EVENT_LAYER = 4;
 
     /**
      * 置当前层为活动层
-     * @param currentLayer 当前层数，注意，此处传的是1~4，但layers的下标是0~3，所以需要减1
+     * @param currentLayer 当前层数，注意，此处传的是1~5，但layers的下标是0~4，所以需要减1
      */
     public void setCurrentLayer(int currentLayer) {
         this.currentLayer = currentLayer-1;
@@ -45,17 +46,19 @@ public class MapAreaPanel extends JPanel {
      * @param width w
      * @param height h
      */
-    public void initMapShow(int width, int height) {
+    public void initMapLayer(int width, int height) {
         int[][] layer1 = new int[width][height]; // layer1
         int[][] layer2 = new int[width][height]; // layer2
         int[][] layer3 = new int[width][height]; // layer3
-        int[][] layer4 = new int[width][height]; // event
+        int[][] layer4 = new int[width][height]; // walk
+        int[][] layer5 = new int[width][height]; // event
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 layer1[i][j] = -1;
                 layer2[i][j] = -1;
                 layer3[i][j] = -1;
                 layer4[i][j] = -1;
+                layer5[i][j] = -1;
             }
         }
         layers = new ArrayList<>();
@@ -63,6 +66,7 @@ public class MapAreaPanel extends JPanel {
         layers.add(layer2);
         layers.add(layer3);
         layers.add(layer4);
+        layers.add(layer5);
         this.tileXwidth = width;
         this.tileYheight = height;
 
@@ -108,17 +112,18 @@ public class MapAreaPanel extends JPanel {
                 if (nx > tileXwidth || ny > tileYheight) {
                     return ;
                 }
-                // 分开处理地图层与事件层
-                if (currentLayer != FLAG_LAYER) {
+                // 分开处理行走层，事件层与地图层
+                if (currentLayer == WALK_FLAG) { // 行走层
+                    int[][] flagLayer = layers.get(currentLayer);
+                    flagLayer[nx][ny] *= -1; //
+                } else if (currentLayer == EVENT_LAYER) { // 事件层
+
+                } else {
                     int[][] tmpLayer = layers.get(currentLayer);
                     tmpLayer[nx][ny] = mapEditorPanel.getTileArea().getLastTileN();
                     LOG.debug("layer " + currentLayer
                             + " in map (x/y" + x + "/" + y + ")[" + nx + "," + ny + "]="
                             + tmpLayer[nx][ny]);
-                } else {
-                    int[][] flagLayer = layers.get(currentLayer);
-                    flagLayer[nx][ny] *= -1; //
-
                 }
                 repaint();
             }
@@ -140,21 +145,21 @@ public class MapAreaPanel extends JPanel {
     public void paint(Graphics g) {
         super.paint(g);
 
-        Image tileImage = mapEditorPanel.getTileArea().getTileImage();
+        final Image tileImage = mapEditorPanel.getTileArea().getTileImage();
 
         if (tileImage == null) {
             LOG.debug("image is null");
             return ;
         }
 
-        BufferedImage paint = new BufferedImage(
-                tileXwidth * 32,
-                tileYheight * 32,
-                BufferedImage.TYPE_4BYTE_ABGR);
-        // 得到缓冲区的画笔
-        Graphics g2 = paint.getGraphics();
         // 先画地图层
-        for (int layern = 0; layern < FLAG_LAYER; layern++) {
+        for (int layern = 0; layern < WALK_FLAG; layern++) {
+            BufferedImage paint = new BufferedImage(
+                    tileXwidth * 32,
+                    tileYheight * 32,
+                    BufferedImage.TYPE_4BYTE_ABGR);
+            // 得到缓冲区的画笔
+            Graphics g2 = paint.getGraphics();
 
             int[][] layer = layers.get(layern);
             for (int i = 0; i < tileXwidth; i++) {
@@ -178,21 +183,29 @@ public class MapAreaPanel extends JPanel {
             }
             g.drawRect(rectX * 32, rectY * 32, 32, 32);
         }
-        // 再画事件层
-        int[][] flagLayer = layers.get(FLAG_LAYER);
-        for (int i = 0; i < tileXwidth; i++) {
-            for (int j = 0; j < tileYheight; j++) {
-                if (flagLayer[i][j] == -1) { // 不可行 TODO 使用常量类
-                    int leftX = i * 32;
-                    int leftY = j * 32;
-                    int rightX = i * 32 + 32;
-                    int rightY = j * 32 + 32;
-                    // TODO 
-                    g.drawLine(leftX, leftY, rightX, rightY);
+
+        if (currentLayer == WALK_FLAG) {
+            // 再画事件层，事件层用magenta颜色
+            Color oldColor = g.getColor();
+            g.setColor(Color.MAGENTA);
+            int[][] flagLayer = layers.get(WALK_FLAG);
+            for (int i = 0; i < tileXwidth; i++) {
+                for (int j = 0; j < tileYheight; j++) {
+                    if (flagLayer[i][j] == -1) { // 不可行 TODO 使用常量类
+                        int topX = i * 32;
+                        int topY = j * 32;
+                        int bottomX = i * 32 + 32;
+                        int bottomY = j * 32 + 32;
+
+                        // 先画边框，再画交叉
+                        g.drawRect(topX, topY, 32, 32);
+                        g.drawLine(topX, topY, bottomX, bottomY);
+                        g.drawLine(topX, bottomY, bottomX, topY);
+                    }
                 }
             }
+            g.setColor(oldColor);
         }
-
 
     }
 

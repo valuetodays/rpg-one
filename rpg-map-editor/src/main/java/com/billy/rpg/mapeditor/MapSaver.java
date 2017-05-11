@@ -1,5 +1,6 @@
 package com.billy.rpg.mapeditor;
 
+import com.billy.jee.rpg.common.constant.MapFileConstant;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 
@@ -23,7 +24,7 @@ public class MapSaver {
         this.mapEditorFrame = mapEditorFrame;
     }
 
-    private static final String MAP_HEADER = "map header";
+    private static final String MAP_HEADER = MapFileConstant.MAP_HEADER;
 
     /**
      * map file data structure
@@ -39,7 +40,7 @@ public class MapSaver {
      * @param mapFilePath map filepath
      */
     public void save(String mapFilePath) {
-        LOG.debug("to save file `{"+mapFilePath+"}`.");
+
         String mapName = mapEditorFrame.getMapEditorPanel().getMapName();
         MapEditorPanel mapEditorPanel = mapEditorFrame.getMapEditorPanel();
         MapAreaPanel mapArea = mapEditorPanel.getMapArea();
@@ -73,11 +74,8 @@ public class MapSaver {
                 for (int m = 0; m < tileXwidth; m++) {
                     for(int n = 0; n < tileYheight; n++) {
                         int layer_data = layer[m][n];
-                        if (layer_data != -1) {
-                             dos.writeInt(layer_data);
-                        } else {
-                            dos.writeInt(layer_data);
-                        }
+                        dos.writeInt(layer_data);
+
                         LOG.debug("`layer"+(i+1)+" "+(layer_data)+"` written" );
                     }
                 }
@@ -90,7 +88,7 @@ public class MapSaver {
             IOUtils.closeQuietly(dos);
             IOUtils.closeQuietly(fos);
         }
-
+        LOG.debug("saved file `{"+mapFilePath+"}`.");
     }
 
     public static void main(String[] args) {

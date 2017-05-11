@@ -1,4 +1,4 @@
-package com.billy.rpg.mapeditor;
+package com.billy.jee.rpg.common.constant;
 
 /**
  * constant

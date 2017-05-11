@@ -239,7 +239,7 @@ public class ScriptItem extends DataLoaderBean implements IItem  {
         MainMap mm = GameContainer.getInstance().getActiveFileItem().getMm();	    
 		int posX = mm.getNextPosX();
 		int posY = mm.getNextPosY();
-		int[][] flag = GameContainer.getInstance().getActiveMap().getFlag();
+		int[][] flag = GameContainer.getInstance().getActiveMap().getWalk();
 		int flagNum = 0;
 		try {
 		    flagNum = flag[posY][posX];

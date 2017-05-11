@@ -8,9 +8,10 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
     <modules>
-        <module>rpg-game</module>
+        <module>rpg-common</module>
         <module>rpg-map-editor</module>
         <module>rpg-role-editor</module>
+        <module>rpg-game</module>
     </modules>
 
     <dependencies>

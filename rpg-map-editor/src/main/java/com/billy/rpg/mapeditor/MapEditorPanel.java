@@ -1,5 +1,6 @@
 package com.billy.rpg.mapeditor;
 
+import com.billy.jee.rpg.common.constant.MapEditorConstant;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
@@ -109,7 +110,7 @@ public class MapEditorPanel extends JPanel {
             public void mouseClicked(MouseEvent e) {
                 int newheight = Integer.parseInt(tfMapHeight.getText());
                 int newwidth = Integer.parseInt(tfMapWidth.getText());
-                mapArea.initMapShow(newwidth, newheight);
+                mapArea.initMapLayer(newwidth, newheight);
                 mapName = tfMapName.getText();
                 LOG.debug("clicked, and get `map name="+mapName+"`.");
             }

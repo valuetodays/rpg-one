@@ -113,7 +113,7 @@ public class MapScreen extends BaseScreen {
                 if (tileNum != -1 && tileNum != layer2[i][j] && tileNum != layer1[i][j]) {
                     int y = tileNum % 100;
                     int x = tileNum / 100;
-                    LOG.debug("layer3---------------");
+//                    LOG.debug("layer3---------------");
                     g2.drawImage(tileImg, i*32, j*32,
                             i*32+32, j*32+32,
                             x*32, y*32,
@@ -124,19 +124,18 @@ public class MapScreen extends BaseScreen {
         } // end of for
         //////// draw layer3 end
         
-        /////////// draw flag start TODO comment it now
-        int[][] flag = activeMap.getFlag();
-        for (int i = 0; i < flag.length; i++) {
-            int lineLen = flag[i].length;
-            for (int j = 0; j < lineLen; j++) {
-                int flagNum = flag[i][j];
-                if (flagNum > 39 && flagNum < 100) { // Magic Number
-                    Image npcImg = MainFrame.getInstance().getGameContainer().getNpcItem().getNpc(flagNum + "");
-                    g2.drawImage(npcImg, j*32, i*32, npcImg.getWidth(null), npcImg.getHeight(null), null);
-                }
-            }
-        } // end of for
-        /////////// draw flag end
+        /////////// draw walk start
+//        int[][] walk = activeMap.getWalk();
+//        for (int i = 0; i < activeMap.getWidth(); i++) {
+//            for (int j = 0; j < activeMap.getHeight(); j++) {
+//                int flagNum = walk[i][j];
+//                if (flagNum > 39 && flagNum < 100) { // Magic Number
+//                    //Image npcImg = MainFrame.getInstance().getGameContainer().getNpcItem().getNpc(flagNum + "");
+//                    //g2.drawImage(npcImg, j*32, i*32, npcImg.getWidth(null), npcImg.getHeight(null), null);
+//                }
+//            }
+//        } // end of for
+        /////////// draw walk end
         
 
         

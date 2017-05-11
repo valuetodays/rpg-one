@@ -17,7 +17,8 @@ public class MapDataLoaderBean extends DataLoaderBean {
     private int[][] layer1;
     private int[][] layer2;
     private int[][] layer3;
-    private int[][] flag;
+    private int[][] walk;
+    private int[][] event;
     
     
     public String getName() {
@@ -38,11 +39,11 @@ public class MapDataLoaderBean extends DataLoaderBean {
     public void setWidth(int width) {
         this.width = width;
     }
-    public int[][] getFlag() {
-        return flag;
+    public int[][] getWalk() {
+        return walk;
     }
-    public void setFlag(int[][] flag) {
-        this.flag = flag;
+    public void setWalk(int[][] walk) {
+        this.walk = walk;
     }
     public String getMapId() {
         return mapId;
@@ -51,42 +52,42 @@ public class MapDataLoaderBean extends DataLoaderBean {
         this.mapId = mapId;
     }
     public int[][] getLayer1() {
-        String s = "";
-        for (int i = 0; i < layer1.length; i++) {
-            for (int j = 0; j < layer1[i].length; j++) {
-                s += "# " + layer1[i][j];
-            }
-            s += "\n";
-        }
-        System.out.println(s);
+//        String s = "";
+//        for (int i = 0; i < layer1.length; i++) {
+//            for (int j = 0; j < layer1[i].length; j++) {
+//                s += "# " + layer1[i][j];
+//            }
+//            s += "\n";
+//        }
+//        System.out.println(s);
         return layer1;
     }
     public void setLayer1(int[][] layer1) {
         this.layer1 = layer1;
     }
     public int[][] getLayer2() {
-        String s = "";
-        for (int i = 0; i < layer2.length; i++) {
-            for (int j = 0; j < layer3[i].length; j++) {
-                s += "," + layer2[i][j];
-            }
-            s += "\n";
-        }
-        System.out.println(s);
+//        String s = "";
+//        for (int i = 0; i < layer2.length; i++) {
+//            for (int j = 0; j < layer3[i].length; j++) {
+//                s += "," + layer2[i][j];
+//            }
+//            s += "\n";
+//        }
+//        System.out.println(s);
         return layer2;
     }
     public void setLayer2(int[][] layer2) {
         this.layer2 = layer2;
     }
     public int[][] getLayer3() {
-        String s = "";
-        for (int i = 0; i < layer3.length; i++) {
-            for (int j = 0; j < layer3[i].length; j++) {
-                s += "$ " + layer3[i][j];
-            }
-            s += "\n";
-        }
-        System.out.println(s);
+//        String s = "";
+//        for (int i = 0; i < layer3.length; i++) {
+//            for (int j = 0; j < layer3[i].length; j++) {
+//                s += "$ " + layer3[i][j];
+//            }
+//            s += "\n";
+//        }
+//        System.out.println(s);
         return layer3;
     }
     public void setLayer3(int[][] layer3) {
@@ -154,22 +155,22 @@ public class MapDataLoaderBean extends DataLoaderBean {
                         n++;
                     }
                     LOG.debug("layer2 end");
-                } else if (line.equals(MapConstant.MAP_FLAG_START)) { // flag
-                    LOG.debug("flag start");
+                } else if (line.equals(MapConstant.MAP_FLAG_START)) { // walk
+                    LOG.debug("walk start");
                     line = mapData.get(++i);
                     int n = 0; 
-                    flag = new int[height][width];
+                    walk = new int[height][width];
                     while (!line.equals(MapConstant.MAP_FLAG_END)) {
                        LOG.debug(line);
                        String[] split = line.split(" ");
                        for (int m = 0; m < split.length; m++) {
                            String s = split[m];
-                           flag[n][m] = Integer.valueOf(s);
+                           walk[n][m] = Integer.valueOf(s);
                        }
                        line = mapData.get(++i);
                        n++;
                     } // end of while
-                    LOG.debug("flag end");
+                    LOG.debug("walk end");
                     
                 }
             }
@@ -178,8 +179,16 @@ public class MapDataLoaderBean extends DataLoaderBean {
     }
 
     private void parseName(String filename) {
-        String mapName = filename.substring(0, filename.length() - MapConstant.MAP_EXT.length());
+        final String mapName = filename.substring(0, filename.length() - MapConstant.MAP_EXT.length());
         this.name = mapName;
+    }
+
+    public int[][] getEvent() {
+        return event;
+    }
+
+    public void setEvent(int[][] event) {
+        this.event = event;
     }
 
     public void initMapId(String filename) {
