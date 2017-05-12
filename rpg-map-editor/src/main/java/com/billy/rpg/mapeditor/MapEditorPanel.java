@@ -34,11 +34,17 @@ public class MapEditorPanel extends JPanel {
         initComponents();
     }
 
+    public void setMapName(String mapName) {
+        this.mapName = mapName;
+        tfMapName.setText(getMapName());
+    }
+
     private JTextField tfMapName = null;
     private JTextField tfMapWidth = null;
     private JTextField tfMapHeight = null;
     private JFileChooser fileTileChooser;
-    private JFileChooser fileMapChooser;
+    private JFileChooser fileMapSaveChooser;
+    private JFileChooser fileMapLoadChooser;
     private TileAreaPanel tileArea;
     private MapAreaPanel mapArea;
     private JScrollPane jspCenter;
@@ -81,11 +87,13 @@ public class MapEditorPanel extends JPanel {
         add(tileArea, BorderLayout.WEST);
         fileTileChooser = new JFileChooser();
         fileTileChooser.setCurrentDirectory(new File("."));
-        fileMapChooser = new JFileChooser();
-        fileMapChooser.setCurrentDirectory(new File("."));
+        fileMapSaveChooser = new JFileChooser();
+        fileMapSaveChooser.setCurrentDirectory(new File("."));
         FileFilter filter = new FileNameExtensionFilter( "map file", "map");
-        fileMapChooser.setFileFilter(filter);//设置文件后缀过滤器
-
+        fileMapSaveChooser.setFileFilter(filter);//设置文件后缀过滤器
+        fileMapLoadChooser = new JFileChooser();
+        fileMapLoadChooser.setCurrentDirectory(new File("."));
+        fileMapLoadChooser.setFileFilter(filter);
         // add west end
 
         // add center start
@@ -152,8 +160,12 @@ public class MapEditorPanel extends JPanel {
     public JFileChooser getFileTileChooser() {
         return fileTileChooser;
     }
-    public JFileChooser getFileMapChooser() {
-        return fileMapChooser;
+    public JFileChooser getFileMapSaveChooser() {
+        return fileMapSaveChooser;
+    }
+
+    public JFileChooser getFileMapLoadChooser() {
+        return fileMapLoadChooser;
     }
 
     public void setTileImage(String imagePath) {

@@ -10,8 +10,6 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 /**
  * to show tile
@@ -23,6 +21,7 @@ public class TileAreaPanel extends JPanel {
     private static final Logger LOG = Logger.getLogger(TileAreaPanel.class);
 
     private MapEditorPanel mapEditorPanel;
+    private File tilePath;
     private String tileId;
 
     public TileAreaPanel(MapEditorPanel mapEditorPanel) {
@@ -108,17 +107,21 @@ public class TileAreaPanel extends JPanel {
     public void initTileImage(String imagePath) {
         try {
             tileImage = ImageIO.read(new FileInputStream(imagePath));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        tileId = new File(imagePath).getName();
+        tilePath = new File(imagePath);
+        tileId = tilePath.getName();
         LOG.debug("tileImage" + (tileImage == null));
         repaint();
     }
 
     public String getTileId() {
         return tileId;
+    }
+    public void setTileId(String tileId) {
+        // TODO 当直接Load时暂时无法更新tile图片
+        String s = tilePath.getParent() + "/" + tileId;
+        initTileImage(s);
     }
 }

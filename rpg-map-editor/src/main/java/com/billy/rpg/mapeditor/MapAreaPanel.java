@@ -227,4 +227,15 @@ public class MapAreaPanel extends JPanel {
         eventLayer[rectX][rectY] = eventNum;
     }
 
+    public void setLayers(List<int[][]> layers) {
+        this.layers = layers;
+    }
+
+    public void setTileXwidth(int tileXwidth) {
+        this.tileXwidth = tileXwidth;
+    }
+
+    public void setTileYheight(int tileYheight) {
+        this.tileYheight = tileYheight;
+    }
 }

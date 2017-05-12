@@ -1,5 +1,6 @@
 package com.billy.rpg.mapeditor;
 
+import com.billy.jee.rpg.common.loader.MapLoader;
 import com.billy.jee.rpg.common.saver.MapSaver;
 import com.billy.jee.rpg.common.saver.MapMetaData;
 import org.apache.log4j.Logger;
@@ -22,6 +23,7 @@ public class MapEditorFrame extends JFrame {
 
     private MapEditorPanel mapEditorPanel;
     private EventNumDialog eventNumDialog;
+    private MapEditorFrame instance;
 
 
     public static void main(String[] args) {
@@ -41,6 +43,7 @@ public class MapEditorFrame extends JFrame {
         initMenuBar();
 
         pack();
+        instance = this;
         LOG.info("MapEditor starts");
     }
 
@@ -77,6 +80,26 @@ public class MapEditorFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // TODO to load map
                 LOG.debug("to load *.map");
+                MapMetaData mapMetaData = gatherMapData();
+                if (null != mapMetaData.getTileId()) {
+                    int option = JOptionPane.showConfirmDialog(instance, "现在数据会被覆盖，确定要加载吗？");
+                    if (JOptionPane.OK_OPTION != option) {
+                        return ;
+                    }
+                }
+
+                JFileChooser chooser = mapEditorPanel.getFileMapLoadChooser();
+                int result = chooser.showOpenDialog(null);
+                if (result == JFileChooser.APPROVE_OPTION){
+                    String name = chooser.getSelectedFile().getPath();
+                    mapMetaData = MapLoader.load(name);
+                    getMapEditorPanel().getTileArea().setTileId(mapMetaData.getTileId());
+                    getMapEditorPanel().setMapName(mapMetaData.getMapName());
+                    MapAreaPanel mapArea = getMapEditorPanel().getMapArea();
+                    mapArea.setLayers(mapMetaData.getLayers());
+                    mapArea.setTileYheight(mapMetaData.getHeight());
+                    mapArea.setTileXwidth(mapMetaData.getWidth());
+                }
             }
         });
         menuFile.add(mItemFileLoad);
@@ -85,7 +108,7 @@ public class MapEditorFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                JFileChooser chooser = mapEditorPanel.getFileMapChooser();
+                JFileChooser chooser = mapEditorPanel.getFileMapSaveChooser();
                 int result = chooser.showSaveDialog(null);
                 if (result == JFileChooser.APPROVE_OPTION){
                     File selectedFile = chooser.getSelectedFile();
@@ -93,18 +116,7 @@ public class MapEditorFrame extends JFrame {
                     if (!name.endsWith(".map")){
                         name += ".map";
                     }
-                    String tileId = getMapEditorPanel().getTileArea().getTileId();
-                    String mapName = getMapEditorPanel().getMapName();
-                    MapAreaPanel mapArea = getMapEditorPanel().getMapArea();
-                    List<int[][]> layers = mapArea.getLayers();
-                    int height = mapArea.getTileYheight();
-                    int width = mapArea.getTileXwidth();
-                    MapMetaData mapMetaData = new MapMetaData();
-                    mapMetaData.setTileId(tileId);
-                    mapMetaData.setMapName(mapName);
-                    mapMetaData.setLayers(layers);
-                    mapMetaData.setHeight(height);
-                    mapMetaData.setWidth(width);
+                    MapMetaData mapMetaData = gatherMapData();
                     MapSaver.save(chooser.getCurrentDirectory() + File.separator + name, mapMetaData);
                 }
             }
@@ -179,6 +191,23 @@ public class MapEditorFrame extends JFrame {
 
         // setMenuBar:将此窗体的菜单栏设置为指定的菜单栏。
         setJMenuBar(mb);
+    }
+
+    private MapMetaData gatherMapData() {
+        String tileId = getMapEditorPanel().getTileArea().getTileId();
+        String mapName = getMapEditorPanel().getMapName();
+        MapAreaPanel mapArea = getMapEditorPanel().getMapArea();
+        List<int[][]> layers = mapArea.getLayers();
+        int height = mapArea.getTileYheight();
+        int width = mapArea.getTileXwidth();
+        MapMetaData mapMetaData = new MapMetaData();
+        mapMetaData.setTileId(tileId);
+        mapMetaData.setMapName(mapName);
+        mapMetaData.setLayers(layers);
+        mapMetaData.setHeight(height);
+        mapMetaData.setWidth(width);
+
+        return mapMetaData;
     }
 
 
