@@ -5,11 +5,11 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import com.billyrupeng.GameFrame;
 import org.apache.commons.lang.StringUtils;
 
 import com.billy.constants.GameConstant;
 import com.billyrupeng.GameCanvas;
-import com.billyrupeng.MainFrame;
 
 /**
  * show messagebox, and it will disappear in {@link #delay} ms, can cancel by key down
@@ -37,7 +37,7 @@ public class MessageBoxScreen extends BaseScreen {
     public void update(long delta) {
         cnt += delta;
         if (cnt > delay) {
-            MainFrame.getInstance().popScreen();
+            GameFrame.getInstance().popScreen();
         }
     }
 
@@ -66,7 +66,7 @@ public class MessageBoxScreen extends BaseScreen {
 
     @Override
     public void onKeyDown(int key) {
-        MainFrame.getInstance().popScreen();
+        GameFrame.getInstance().popScreen();
     }
 
     @Override

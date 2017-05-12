@@ -1,6 +1,6 @@
 package com.billy.scriptParser.display;
 
-import com.billy.map.MainMap;
+import com.billy.rpg.game.MainMap;
 import com.billy.scriptParser.bean.MapDataLoaderBean;
 import com.billy.scriptParser.container.GameContainer;
 

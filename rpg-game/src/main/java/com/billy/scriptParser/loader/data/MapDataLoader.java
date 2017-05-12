@@ -1,12 +1,15 @@
 package com.billy.scriptParser.loader.data;
 
 import com.billy.constants.MapConstant;
-import com.billy.rpg.game.MapLoader;
+import com.billy.jee.rpg.common.loader.MapLoader;
+import com.billy.jee.rpg.common.saver.MapMetaData;
 import com.billy.scriptParser.bean.LoaderBean;
 import com.billy.scriptParser.bean.MapDataLoaderBean;
 import org.apache.log4j.Logger;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileFilter;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,14 +42,32 @@ public class MapDataLoader implements IDataLoader {
         List<LoaderBean> maps = new ArrayList<>();
         MapDataLoaderBean mapBean = null;
 
-        MapLoader mapLoader = new MapLoader();
         for (String map : mapFilepaths) {
-            mapBean = mapLoader.load(map);
+            MapMetaData mapMetaData = MapLoader.load(map);
+            mapBean = toMapBean(mapMetaData);
 
             maps.add(mapBean);
         } // end of for 
         
         return Collections.unmodifiableList(maps);
+    }
+
+    private MapDataLoaderBean toMapBean(final MapMetaData mapMetaData) {
+        List<int[][]> layers = mapMetaData.getLayers();
+        MapDataLoaderBean mapDataLoaderBean = new MapDataLoaderBean();
+        mapDataLoaderBean.setName(mapMetaData.getMapName());
+        mapDataLoaderBean.setWidth(mapMetaData.getWidth());
+        mapDataLoaderBean.setHeight(mapMetaData.getHeight());
+        mapDataLoaderBean.setLayer1(layers.get(0));
+        mapDataLoaderBean.setLayer2(layers.get(1));
+        mapDataLoaderBean.setLayer3(layers.get(2));
+        mapDataLoaderBean.setWalk(layers.get(3));
+        mapDataLoaderBean.setEvent(layers.get(4));
+//        mapDataLoaderBean.initMapId(file.getName()); TODO
+        mapDataLoaderBean.setTileId(mapMetaData.getTileId());
+        mapDataLoaderBean.setMapId(mapMetaData.getMapId());
+
+        return mapDataLoaderBean;
     }
 
     private List<String> load0() {

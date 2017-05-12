@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -22,6 +23,7 @@ public class TileAreaPanel extends JPanel {
     private static final Logger LOG = Logger.getLogger(TileAreaPanel.class);
 
     private MapEditorPanel mapEditorPanel;
+    private String tileId;
 
     public TileAreaPanel(MapEditorPanel mapEditorPanel) {
         this.mapEditorPanel = mapEditorPanel;
@@ -111,7 +113,12 @@ public class TileAreaPanel extends JPanel {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        tileId = new File(imagePath).getName();
         LOG.debug("tileImage" + (tileImage == null));
         repaint();
+    }
+
+    public String getTileId() {
+        return tileId;
     }
 }

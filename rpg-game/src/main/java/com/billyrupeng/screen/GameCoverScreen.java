@@ -2,8 +2,8 @@ package com.billyrupeng.screen;
 
 import com.billy.constants.GameConstant;
 import com.billyrupeng.GameCanvas;
+import com.billyrupeng.GameFrame;
 import com.billyrupeng.KeyUtil;
-import com.billyrupeng.MainFrame;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -35,9 +35,9 @@ public class GameCoverScreen extends BaseScreen {
         Graphics g2 = paint.getGraphics();
         
         
-        Image gameCover = MainFrame.getInstance().getGameContainer().getGameAboutItem().getGameCover();
-        Image gameArrow = MainFrame.getInstance().getGameContainer().getGameAboutItem().getGameArrow();
-        Image gameBalloon = MainFrame.getInstance().getGameContainer().getGameAboutItem().getGameBalloon();
+        Image gameCover = GameFrame.getInstance().getGameContainer().getGameAboutItem().getGameCover();
+        Image gameArrow = GameFrame.getInstance().getGameContainer().getGameAboutItem().getGameArrow();
+        Image gameBalloon = GameFrame.getInstance().getGameContainer().getGameAboutItem().getGameBalloon();
         g2.drawImage(gameCover, 0, 0, gameCover.getWidth(null), gameCover.getHeight(null), null);
         g2.drawRect(150, 315, 160, 70);
         g2.setFont(new Font("黑体", Font.BOLD, 24));
@@ -61,7 +61,7 @@ public class GameCoverScreen extends BaseScreen {
         if (KeyUtil.isEnter(key)) {
             if (f == 1) {
                 LOG.debug("you chooose `开始游戏`");
-                MainFrame.getInstance().changeScreen(1);
+                GameFrame.getInstance().changeScreen(1);
             } else {
                 // TODO show saves
             }

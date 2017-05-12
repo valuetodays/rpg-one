@@ -18,10 +18,10 @@ import java.util.Stack;
  * 
  * @since 2016-12-07 10:26:29
  */
-public class MainFrame extends JFrame implements Runnable {
+public class GameFrame extends JFrame implements Runnable {
     private static final long serialVersionUID = 1L;
-    private static final Logger LOG = Logger.getLogger(MainFrame.class);
-    private static MainFrame instance;
+    private static final Logger LOG = Logger.getLogger(GameFrame.class);
+    private static GameFrame instance;
     private Stack<BaseScreen> screenStack;
     private GameCanvas gameCanvas;
     private boolean running;
@@ -30,13 +30,13 @@ public class MainFrame extends JFrame implements Runnable {
     
 
     public static void main(String[] args) {
-        MainFrame m = new MainFrame();
+        GameFrame m = new GameFrame();
         
         new Thread(m, "fmj").start();
     }
     
     
-    public MainFrame() {
+    public GameFrame() {
         screenStack = new Stack<BaseScreen>();
         screenStack.push(new GameCoverScreen()); // 进入封面
 //        screenStack.push(new MapScreen());
@@ -61,7 +61,7 @@ public class MainFrame extends JFrame implements Runnable {
         LOG.info("game starts");
     }
     
-    public static MainFrame getInstance() {
+    public static GameFrame getInstance() {
         return instance;
     }
     

@@ -9,8 +9,8 @@ import java.awt.image.BufferedImage;
 
 import com.billy.constants.GameConstant;
 import com.billyrupeng.GameCanvas;
+import com.billyrupeng.GameFrame;
 import com.billyrupeng.KeyUtil;
-import com.billyrupeng.MainFrame;
 
 public class SystemMenuScreen extends BaseScreen {
 
@@ -52,7 +52,7 @@ public class SystemMenuScreen extends BaseScreen {
     @Override
     public void onKeyUp(int key) {
         if (KeyUtil.isEsc(key)) {
-            MainFrame.getInstance().changeScreen(1);
+            GameFrame.getInstance().changeScreen(1);
           }
     }
 

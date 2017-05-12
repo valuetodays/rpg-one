@@ -5,11 +5,11 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import com.billyrupeng.GameFrame;
 import org.apache.commons.lang.StringUtils;
 
 import com.billy.constants.GameConstant;
 import com.billyrupeng.GameCanvas;
-import com.billyrupeng.MainFrame;
 
 /**
  * show scene name, and it will disappear in {@link #delay} ms, cannot cancel by key down
@@ -33,7 +33,7 @@ public class ScenenameScreen extends BaseScreen {
     public void update(long delta) {
         cnt += delta;
         if (cnt > delay) {
-            MainFrame.getInstance().popScreen();
+            GameFrame.getInstance().popScreen();
         }
     }
 

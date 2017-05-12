@@ -3,7 +3,7 @@ package com.billy.scriptParser.item.skill;
 import com.billy.scriptParser.bean.LoaderBean;
 import com.billy.scriptParser.item.IItem;
 import com.billy.scriptParser.loader.image.IImageLoader;
-import com.billyrupeng.MainFrame;
+import com.billyrupeng.GameFrame;
 import com.billyrupeng.screen.MapScreen;
 import com.rupeng.game.GameUtils;
 import org.apache.log4j.Logger;
@@ -65,7 +65,7 @@ public class Skill2ImageItems implements IImageLoader, IItem, Runnable {
     @Override
     public void run() {
         while(true) {
-            if (MainFrame.getInstance().getCurScreen() instanceof MapScreen) {
+            if (GameFrame.getInstance().getCurScreen() instanceof MapScreen) {
 //                LOG.debug("currentFrame=" + currentFrame);
                 try {
                     Thread.sleep(200);

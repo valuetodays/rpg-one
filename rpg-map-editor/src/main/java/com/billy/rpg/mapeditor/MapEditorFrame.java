@@ -1,11 +1,14 @@
 package com.billy.rpg.mapeditor;
 
+import com.billy.jee.rpg.common.saver.MapSaver;
+import com.billy.jee.rpg.common.saver.MapMetaData;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.List;
 
 
 /**
@@ -18,7 +21,6 @@ public class MapEditorFrame extends JFrame {
     private static final Logger LOG = Logger.getLogger(MapEditorFrame.class);
 
     private MapEditorPanel mapEditorPanel;
-    private MapSaver mapSaver;
     private EventNumDialog eventNumDialog;
 
 
@@ -36,7 +38,6 @@ public class MapEditorFrame extends JFrame {
         setLocation(500, 100);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
-        mapSaver = new MapSaver(this);
         initMenuBar();
 
         pack();
@@ -49,7 +50,8 @@ public class MapEditorFrame extends JFrame {
     private void initMenuBar() {
         JMenuBar mb;
         JMenu menuFile, menuLayer;
-        JMenuItem mItemFileOpen, mItemFileSave, menuItemFileExit, menuItemLayer1, menuItemLayer2, menuItemLayer3,
+        JMenuItem mItemFileOpen, mItemFileLoad, mItemFileSave, menuItemFileExit, menuItemLayer1, menuItemLayer2,
+                menuItemLayer3,
                 menuItemLayer4, menuItemLayer5;
 
         mb = new JMenuBar(); // 创建菜单栏MenuBar
@@ -69,6 +71,15 @@ public class MapEditorFrame extends JFrame {
             }
         });
         menuFile.add(mItemFileOpen);
+        mItemFileLoad = new JMenuItem("Load");
+        mItemFileLoad.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // TODO to load map
+                LOG.debug("to load *.map");
+            }
+        });
+        menuFile.add(mItemFileLoad);
         mItemFileSave = new JMenuItem("Save");
         mItemFileSave.addActionListener(new ActionListener() {
             @Override
@@ -82,7 +93,19 @@ public class MapEditorFrame extends JFrame {
                     if (!name.endsWith(".map")){
                         name += ".map";
                     }
-                    mapSaver.save(chooser.getCurrentDirectory() + File.separator + name);
+                    String tileId = getMapEditorPanel().getTileArea().getTileId();
+                    String mapName = getMapEditorPanel().getMapName();
+                    MapAreaPanel mapArea = getMapEditorPanel().getMapArea();
+                    List<int[][]> layers = mapArea.getLayers();
+                    int height = mapArea.getTileYheight();
+                    int width = mapArea.getTileXwidth();
+                    MapMetaData mapMetaData = new MapMetaData();
+                    mapMetaData.setTileId(tileId);
+                    mapMetaData.setMapName(mapName);
+                    mapMetaData.setLayers(layers);
+                    mapMetaData.setHeight(height);
+                    mapMetaData.setWidth(width);
+                    MapSaver.save(chooser.getCurrentDirectory() + File.separator + name, mapMetaData);
                 }
             }
         });

@@ -1,4 +1,4 @@
-package com.billy.map;
+package com.billy.rpg.game;
 
 import com.billyrupeng.WalkUtil;
 
@@ -19,20 +19,9 @@ public class MainMap {
 	
 	
 
-	public MainMap(int width, int height) {
-		this.height = height;
-		this.width = width;
-	}
-	public MainMap() {
-	}
-	public int getHeight() {
-		return height;
-	}
+
 	public void setHeight(int height) {
 		this.height = height;
-	}
-	public int getWidth() {
-		return width;
 	}
 	public void setWidth(int width) {
 		this.width = width;

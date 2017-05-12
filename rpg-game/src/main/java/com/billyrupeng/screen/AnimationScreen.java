@@ -17,10 +17,10 @@ import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
 
+import com.billyrupeng.GameFrame;
 import org.apache.commons.lang.StringUtils;
 
 import com.billyrupeng.GameCanvas;
-import com.billyrupeng.MainFrame;
 import com.rupeng.game.GameUtils;
 
 
@@ -97,7 +97,7 @@ public class AnimationScreen extends BaseScreen {
                 currentFrameIndex = 0;
                 cnt = 0;
             } else {
-                MainFrame.getInstance().popScreen();
+                GameFrame.getInstance().popScreen();
 //                MainFrame.getInstance().changeScreen(1);
             }
         }
@@ -122,7 +122,7 @@ public class AnimationScreen extends BaseScreen {
 
     @Override
     public void onKeyDown(int key) {
-        MainFrame.getInstance().changeScreen(1);
+        GameFrame.getInstance().changeScreen(1);
     }
 
     @Override

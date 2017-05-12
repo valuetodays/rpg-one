@@ -1,12 +1,12 @@
 package com.billyrupeng.screen;
 
 import com.billy.constants.GameConstant;
-import com.billy.map.MainMap;
+import com.billy.rpg.game.MainMap;
 import com.billy.scriptParser.bean.MapDataLoaderBean;
 import com.billy.scriptParser.item.ScriptItem;
 import com.billyrupeng.GameCanvas;
+import com.billyrupeng.GameFrame;
 import com.billyrupeng.KeyUtil;
-import com.billyrupeng.MainFrame;
 import org.apache.log4j.Logger;
 
 import java.awt.*;
@@ -27,7 +27,7 @@ public class MapScreen extends BaseScreen {
     public void update(long delta) {
         if (delta > 3000) {
             LOG.debug("change screen");
-            MainFrame.getInstance().changeScreen(1);
+            GameFrame.getInstance().changeScreen(1);
         }
     }
 
@@ -43,17 +43,17 @@ public class MapScreen extends BaseScreen {
         Graphics g2 = paint.getGraphics();
         
         // 将想要绘制的图形绘制到缓冲区
-        MainMap mm = MainFrame.getInstance().getGameContainer().getActiveFileItem().getMm();
+        MainMap mm = GameFrame.getInstance().getGameContainer().getActiveFileItem().getMm();
         int posX = mm.getPosX();
         int posY = mm.getPosY();
-        final Image roleFull1 = MainFrame.getInstance().getGameContainer().getRoleItem().getRoleFull1();
-        final Image bgImage1 = MainFrame.getInstance().getGameContainer().getBgImageItem().getBgImage1();
+        final Image roleFull1 = GameFrame.getInstance().getGameContainer().getRoleItem().getRoleFull1();
+        final Image bgImage1 = GameFrame.getInstance().getGameContainer().getBgImageItem().getBgImage1();
         g2.drawImage(bgImage1, 0, 0, bgImage1.getWidth(null), bgImage1.getHeight(null), null);  // draw bgImage
         
-        final MapDataLoaderBean activeMap = MainFrame.getInstance().getGameContainer().getActiveMap();
+        final MapDataLoaderBean activeMap = GameFrame.getInstance().getGameContainer().getActiveMap();
         
         //////// draw layer1 start
-        final Image tileImg = MainFrame.getInstance().getGameContainer().getTileItem().getTile(activeMap.getTileId());
+        final Image tileImg = GameFrame.getInstance().getGameContainer().getTileItem().getTile(activeMap.getTileId());
         final int[][] layer1 = activeMap.getLayer1();
         for (int i = 0; i < activeMap.getWidth(); i++) {
             for (int j = 0; j < activeMap.getHeight(); j++) {
@@ -79,7 +79,7 @@ public class MapScreen extends BaseScreen {
         //////// draw role & npc end
 
         //////// draw transfer start
-        final Image transferImage = MainFrame.getInstance().getGameContainer().getSkill2ImageItems().getCurrentImage();
+        final Image transferImage = GameFrame.getInstance().getGameContainer().getSkill2ImageItems().getCurrentImage();
         g2.drawImage(transferImage, 0*32, 0*32, 0*32 + 32, 0*32 + 32,
                 0, 0,
                 32, 32, null);
@@ -126,7 +126,7 @@ public class MapScreen extends BaseScreen {
         
         // 将缓冲区的图形绘制到显示面板上
         gameCanvas.drawBitmap(paint, 0, 0);
-        MainFrame.getInstance().getGameContainer().executePrimary();
+        GameFrame.getInstance().getGameContainer().executePrimary();
     }
 
 
@@ -138,20 +138,19 @@ public class MapScreen extends BaseScreen {
     @Override
     public void onKeyUp(int key) {
         if (KeyUtil.isEsc(key)) {
-            MainFrame.getInstance().changeScreen(2);
+            GameFrame.getInstance().changeScreen(2);
           return;
         } else if (KeyUtil.isHome(key)) {
             BaseScreen bs = new AnimationScreen(null, 2, true);
-            MainFrame.getInstance().pushScreen(bs);
+            GameFrame.getInstance().pushScreen(bs);
             return ;
         }
         
-        ScriptItem active = MainFrame.getInstance().getGameContainer().getActiveFileItem();
-        active.initWidthAndHeight(active.getHeight(), active.getWidth());
+        ScriptItem active = GameFrame.getInstance().getGameContainer().getActiveFileItem();
         active.checkTrigger(); // 检查触发器
         MainMap mainMap = active.getMm();
-        MainFrame.getInstance().setTitle(mainMap.toString());
-        
+        GameFrame.getInstance().setTitle(mainMap.toString());
+
         if (KeyUtil.isLeft(key)) {
             mainMap.decreaseX();
         } else if (KeyUtil.isRight(key)) {

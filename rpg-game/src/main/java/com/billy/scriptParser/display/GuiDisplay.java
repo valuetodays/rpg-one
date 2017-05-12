@@ -1,14 +1,13 @@
 package com.billy.scriptParser.display;
 
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-
 import com.billy.constants.GameConstant;
-import com.billy.map.MainMap;
+import com.billy.rpg.game.MainMap;
 import com.billy.scriptParser.bean.MapDataLoaderBean;
 import com.billy.scriptParser.container.GameContainer;
 import com.rupeng.game.GameCore;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
 
 /**
  *

@@ -1,6 +1,7 @@
 package com.billy.rpg.game;
 
 import com.billy.jee.rpg.common.constant.MapFileConstant;
+import com.billy.jee.rpg.common.loader.MapLoader;
 import com.billy.scriptParser.bean.MapDataLoaderBean;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
@@ -18,8 +19,8 @@ import java.util.List;
  * @author liulei
  * @since 2017-05-06 13:30
  */
-public class MapLoader {
-    private static final Logger LOG = Logger.getLogger(MapLoader.class);
+public class MapLoader0 {
+    private static final Logger LOG = Logger.getLogger(MapLoader0.class);
 
     private static final String MAP_HEADER = MapFileConstant.MAP_HEADER;
 

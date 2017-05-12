@@ -6,13 +6,13 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.billyrupeng.GameFrame;
 import org.apache.commons.lang.StringUtils;
 
 import com.billy.constants.GameConstant;
 import com.billyrupeng.GameCanvas;
 import com.billyrupeng.KeyUtil;
-import com.billyrupeng.MainFrame;
-                               
+
 public class DialogScreen extends BaseScreen {
     private static final int SEP = 10; // TODO cause problem when this is 14...
     private int totalLine;
@@ -146,7 +146,7 @@ public class DialogScreen extends BaseScreen {
 	@Override
     public void update(long delta) {
         if (curLine > totalLine) {
-            MainFrame.getInstance().popScreen();
+            GameFrame.getInstance().popScreen();
         }
     }
     @Override

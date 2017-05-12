@@ -1,17 +1,15 @@
 package com.billyrupeng;
 
 
-
-import java.util.ListIterator;
-import java.util.Stack;
-
-import org.apache.log4j.Logger;
-
 import com.billy.constants.GameConstant;
-import com.billy.map.MainMap;
+import com.billy.rpg.game.MainMap;
 import com.billy.scriptParser.container.GameContainer;
 import com.billy.scriptParser.item.ScriptItem;
 import com.rupeng.game.GameCore;
+import org.apache.log4j.Logger;
+
+import java.util.ListIterator;
+import java.util.Stack;
 
 
 /**
@@ -65,7 +63,7 @@ public class Main implements Runnable {
                 }
                 
                 ScriptItem active = GameContainer.getInstance().getActiveFileItem();
-                active.initWidthAndHeight(active.getHeight(), active.getWidth());
+//   TODO             active.initWidthAndHeight(active.getHeight(), active.getWidth());
                 active.checkTrigger();
                 MainMap mainMap = active.getMm();
                 GameCore.setGameTitle(mainMap.toString());

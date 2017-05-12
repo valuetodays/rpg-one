@@ -1,13 +1,12 @@
 package com.billy.scriptParser;
 
-import java.util.Scanner;
-
-import org.apache.log4j.Logger;
-
-import com.billy.map.MainMap;
+import com.billy.rpg.game.MainMap;
 import com.billy.scriptParser.container.GameContainer;
 import com.billy.scriptParser.display.ConsoleDisplay;
 import com.billy.scriptParser.item.ScriptItem;
+import org.apache.log4j.Logger;
+
+import java.util.Scanner;
 
 /**
  * main processer
@@ -46,7 +45,7 @@ public class ScriptParser {
         
         while (true) {
             ScriptItem active = GameContainer.getInstance().getActiveFileItem();
-            active.initWidthAndHeight(active.getHeight(), active.getWidth());
+//  TODO           active.initWidthAndHeight(active.getHeight(), active.getWidth());
             active.checkTrigger();
             MainMap mm = active.getMm();
             display.display();

@@ -1,4 +1,4 @@
-package com.billy.rpg.mapeditor;
+package com.billy.jee.rpg.common.saver;
 
 import com.billy.jee.rpg.common.constant.MapFileConstant;
 import org.apache.commons.io.IOUtils;
@@ -18,35 +18,23 @@ import java.util.List;
  */
 public class MapSaver {
     private static final Logger LOG = Logger.getLogger(MapSaver.class);
-    private MapEditorFrame mapEditorFrame;
 
-    public MapSaver(MapEditorFrame mapEditorFrame) {
-        this.mapEditorFrame = mapEditorFrame;
-    }
 
     private static final String MAP_HEADER = MapFileConstant.MAP_HEADER;
 
     /**
-     * map file data structure
+     * save map to specified file
      *
-     * 10 bytes map header
-     * 4 bytes map name length (in byte)
-     * N bytes map name
-     * 4 bytes height
-     * 4 bytes width
-     * 4 bytes layers size
-     * N bytes width*height*4 4-layers map data
      *
      * @param mapFilePath map filepath
+     * @param mapMetaData data to save
      */
-    public void save(String mapFilePath) {
-
-        String mapName = mapEditorFrame.getMapEditorPanel().getMapName();
-        MapEditorPanel mapEditorPanel = mapEditorFrame.getMapEditorPanel();
-        MapAreaPanel mapArea = mapEditorPanel.getMapArea();
-        List<int[][]> layers = mapArea.getLayers();
-        int tileYheight = mapArea.getTileYheight();
-        int tileXwidth = mapArea.getTileXwidth();
+    public static void save(String mapFilePath, MapMetaData mapMetaData) {
+        String tileId = mapMetaData.getTileId();
+        String mapName = mapMetaData.getMapName();
+        List<int[][]> layers = mapMetaData.getLayers();
+        int height = mapMetaData.getHeight();
+        int width = mapMetaData.getWidth();
 
         File file = new File(mapFilePath);
         FileOutputStream fos = null;
@@ -56,23 +44,29 @@ public class MapSaver {
             dos = new DataOutputStream(fos);
             dos.write(MAP_HEADER.getBytes("utf-8"));
             LOG.debug("MAP_HEADER `"+MAP_HEADER+"` written as utf-8");
+
+            byte[] tileIdBytes = tileId.getBytes("utf-8");
+            dos.writeInt(tileIdBytes.length);
+            dos.write(tileIdBytes);
+            LOG.debug("tileId `"+tileId+"` written as utf-8");
+
             byte[] mapNameBytes = mapName.getBytes("utf-8");
             dos.writeInt(mapNameBytes.length);
             dos.write(mapNameBytes);
             LOG.debug("mapName `"+mapName+"` written as utf-8");
 
-            dos.writeInt(tileYheight);
-            LOG.debug("tileYheight `"+tileYheight+"` written");
-            dos.writeInt(tileXwidth);
-            LOG.debug("tileXwidth `"+tileXwidth+"` written");
+            dos.writeInt(height);
+            LOG.debug("height `"+height+"` written");
+            dos.writeInt(width);
+            LOG.debug("width `"+width+"` written");
             final int layersSize = layers.size();
             dos.writeInt(layersSize);
             LOG.debug("layer'size `"+ layersSize +"` written");
 
             for (int i = 0; i < layersSize; i++) {
                 int[][] layer = layers.get(i);
-                for (int m = 0; m < tileXwidth; m++) {
-                    for(int n = 0; n < tileYheight; n++) {
+                for (int m = 0; m < width; m++) {
+                    for(int n = 0; n < height; n++) {
                         int layer_data = layer[m][n];
                         dos.writeInt(layer_data);
 
@@ -82,7 +76,7 @@ public class MapSaver {
             }
 
         } catch (IOException e) {
-            LOG.debug("IO异常");
+            LOG.debug("IO exception:" + e.getMessage(), e);
             e.printStackTrace();
         } finally {
             IOUtils.closeQuietly(dos);

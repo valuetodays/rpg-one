@@ -1,10 +1,3 @@
-
-/**
- *
- * @author liulei
- * @date 2017-04-28 15:36
- */
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

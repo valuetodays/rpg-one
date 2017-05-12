@@ -105,9 +105,6 @@ public class GameContainer implements IContainer, IContainerLoader {
         List<ScriptItem> scriptItemList = new ArrayList<>();
         for (LoaderBean lb : slLoad) {
             ScriptItem si = (ScriptItem) lb;
-            MapDataLoaderBean mapItem = getMapItem(si);
-            si.setWidth(mapItem.getWidth());
-            si.setHeight(mapItem.getHeight());
             List<CmdBase> cmdList = si.cmdList;
             LOG.info(cmdList);
             scriptItemList.add(si);
@@ -115,16 +112,6 @@ public class GameContainer implements IContainer, IContainerLoader {
         fileItemList = Collections.unmodifiableList(scriptItemList);
     }
 
-    private MapDataLoaderBean getMapItem(ScriptItem si) {
-        for (int i = 0; i < mapList.size(); i++) {
-            MapDataLoaderBean mapDataLoaderBean = mapList.get(i);
-            if (mapDataLoaderBean.getName().equals(si.getFileId())) {
-                return mapDataLoaderBean;
-            }
-        }
-        // TODO 为什么脚本要使用地图文件的宽高？
-        throw new RuntimeException("没有找到脚本对应的地图文件");
-    }
 
     private void loadMapData() throws Exception {
         MapDataLoader ml = new MapDataLoader();
@@ -160,6 +147,8 @@ public class GameContainer implements IContainer, IContainerLoader {
         String[] position = pos.split("-");
         activeScriptItem = fi;
         activeScriptItem.reenter();
+        activeScriptItem.getMm().setHeight(getActiveMap().getHeight());
+        activeScriptItem.getMm().setWidth(getActiveMap().getWidth());
         activeScriptItem.getMm().initPos(Integer.parseInt(position[0]), Integer.parseInt(position[1]));
 //        executePrimary();
     }
@@ -172,7 +161,7 @@ public class GameContainer implements IContainer, IContainerLoader {
             return ;
         }
         for (MapDataLoaderBean map : mapList) {
-            if (("" + m + "-" + n).equals(map.getName())) {
+            if (("" + m + "-" + n).equals(map.getMapId())) {
                 activeMap = map;
             }
         }

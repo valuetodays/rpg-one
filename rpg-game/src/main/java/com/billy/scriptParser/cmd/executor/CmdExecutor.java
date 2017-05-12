@@ -4,7 +4,7 @@ import com.billy.scriptParser.bean.script.LabelBean;
 import com.billy.scriptParser.cmd.*;
 import com.billy.scriptParser.container.GameContainer;
 import com.billy.scriptParser.virtualtable.GlobalVirtualTables;
-import com.billyrupeng.MainFrame;
+import com.billyrupeng.GameFrame;
 import com.billyrupeng.screen.BaseScreen;
 import com.billyrupeng.screen.DialogScreen;
 import com.billyrupeng.screen.MessageBoxScreen;
@@ -73,18 +73,18 @@ public class CmdExecutor {
             final String text0 = text.substring(1, text.length() - 1);
             logger.debug(text0);
             DialogScreen ms = new DialogScreen(text0);
-            MainFrame.getInstance().pushScreen(ms);
+            GameFrame.getInstance().pushScreen(ms);
         } else if (cmd instanceof LoadMapCmd) {
             LoadMapCmd lmc = (LoadMapCmd) cmd;
             logger.debug("go to map" + lmc.getM() + "-" + lmc.getN() + " in " + lmc.getX() + "," + lmc.getY());
 //            MapScreen ms = new MapScreen();
 //            MainFrame.getInstance().pushScreen(ms);
-            GameContainer.getInstance().changeActiveScriptItemTo(lmc.getM(), lmc.getN(), lmc.getX() + "-" + lmc.getY());
+            GameContainer.getInstance().startChapter(lmc.getM(), lmc.getN(), lmc.getX() + "-" + lmc.getY());
         } else if (cmd instanceof ScenenameCmd) {
             final String scenename = ((ScenenameCmd) cmd).getSname();
             final String scenename0 = scenename.substring(1, scenename.length() - 1);
             BaseScreen bs = new ScenenameScreen(scenename0);
-            MainFrame.getInstance().pushScreen(bs);
+            GameFrame.getInstance().pushScreen(bs);
         } else if (cmd instanceof AttrCmd) {
             System.out.println(" >> basic attribute of this map ");
             AttrCmd ac = (AttrCmd) cmd;
@@ -96,7 +96,7 @@ public class CmdExecutor {
             final String msg = mb.getMsg();
             final String msg0 = msg.substring(1, msg.length() - 1);
             final BaseScreen bs = new MessageBoxScreen(msg0);
-            MainFrame.getInstance().pushScreen(bs);
+            GameFrame.getInstance().pushScreen(bs);
         } else if (cmd instanceof AnimationCmd) {
             final AnimationCmd ac = (AnimationCmd) cmd;
             int no = ac.getNo();

@@ -17,7 +17,7 @@ import javax.swing.Timer;
 
 import com.billy.constants.GameConstant;
 import com.billyrupeng.GameCanvas;
-import com.billyrupeng.MainFrame;
+import com.billyrupeng.GameFrame;
 
 public class AnimationTimer {
     
@@ -58,7 +58,7 @@ public class AnimationTimer {
     public void stop () { timer.stop(); }
     
     public void draw() {
-        GameCanvas gameCanvas = MainFrame.getInstance().getGameCanvas();
+        GameCanvas gameCanvas = GameFrame.getInstance().getGameCanvas();
         Image image = images.get(currentFrameIndex);
         
         BufferedImage paint = new BufferedImage(

@@ -55,7 +55,7 @@ public class TileImageItem  implements IImageLoader, IItem {
         return tiles;
     }
     public Image getTile(String name) {
-        return tiles.get(name + ".png");
+        return tiles.get(name);
     }
 
     

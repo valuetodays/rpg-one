@@ -1,6 +1,6 @@
 package com.billy.scriptParser.item;
 
-import com.billy.map.MainMap;
+import com.billy.rpg.game.MainMap;
 import com.billy.scriptParser.bean.DataLoaderBean;
 import com.billy.scriptParser.bean.script.LabelBean;
 import com.billy.scriptParser.bean.script.TalkBean;
@@ -21,8 +21,6 @@ public class ScriptItem extends DataLoaderBean implements IItem {
     private static final Logger LOG = Logger.getLogger(ScriptItem.class);
     public List<CmdBase> cmdList;
     private String fileId;
-    private int width;
-    private int height;
     private List<CmdBase> primarySection; // execute these when re-enter this map
     private boolean flagExecutePrimarySection;
     private List<LabelBean> labelList;
@@ -30,21 +28,6 @@ public class ScriptItem extends DataLoaderBean implements IItem {
     private List<TalkBean> talks;
     private MainMap mm = new MainMap();
 
-    public int getWidth() {
-        return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
 
     public String getFileId() {
         return fileId;
@@ -275,10 +258,6 @@ public class ScriptItem extends DataLoaderBean implements IItem {
         initTalk(cmdList);
     }
 
-    public void initWidthAndHeight(int height, int width) {
-        mm.setHeight(height);
-        mm.setWidth(width);
-    }
 
     public LabelBean getLabelByTitle(String labelTitle) {
         for (int i = 0; i < labelList.size(); i++) {

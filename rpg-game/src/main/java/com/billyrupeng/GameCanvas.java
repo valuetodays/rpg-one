@@ -1,11 +1,9 @@
 package com.billyrupeng;
 
-import java.awt.Canvas;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-
 import com.billy.constants.GameConstant;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
 
 
 public class GameCanvas extends Canvas { 
@@ -28,7 +26,7 @@ public class GameCanvas extends Canvas {
         
 //        g.fillRect(left, top, bitmap.getWidth(), bitmap.getHeight());
         g.drawImage(bitmap, left, top, null);
-        MainFrame.getInstance().gamePanel.setBackground(background);
+        GameFrame.getInstance().gamePanel.setBackground(background);
     }
     
     
@@ -36,7 +34,7 @@ public class GameCanvas extends Canvas {
 	    Graphics g=background.getGraphics();
 		g.setColor(color);
 		g.fillRect(0, 0, background.getWidth(),background.getHeight()); 
-		MainFrame.getInstance().gamePanel.setBackground(background);
+		GameFrame.getInstance().gamePanel.setBackground(background);
 		
 	}
 }
