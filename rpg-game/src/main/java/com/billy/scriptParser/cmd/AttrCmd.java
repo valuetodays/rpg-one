@@ -10,9 +10,7 @@ public class AttrCmd extends CmdBase {
 
     private int m;
     private int n;
-    private int width;
-    private int height;
-    
+
     public AttrCmd() {
         super("attr");
     }
@@ -33,21 +31,4 @@ public class AttrCmd extends CmdBase {
         this.n = n;
     }
 
-    public int getWidth() {
-        return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-   
 }

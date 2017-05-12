@@ -1,4 +1,6 @@
-attr 1 1 15 15
+@attr已不再需要后两个参数，因为现在地图文件(*.map)中已经保存了地图的宽高 2017-05-12
+@attr 1 1 15 15
+attr 1 1
 scenename '新手村'
 @showText 'common english charactor'
 @showText 'haha,含有中文字符哦亲'

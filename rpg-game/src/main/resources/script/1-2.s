@@ -1,4 +1,4 @@
-attr 1 2 9 9
+attr 1 2
 scenename 'test map 1-2'
 showText '欢迎进入地图二'
 return

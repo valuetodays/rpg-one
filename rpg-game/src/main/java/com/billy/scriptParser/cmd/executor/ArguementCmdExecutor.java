@@ -62,16 +62,14 @@ public class ArguementCmdExecutor {
             return new ScenenameCmd(cmdarg);
         } else if ("attr".equals(cmdname)) {
             String[] cmdargs = cmdarg.split(" ");
-            if (cmdargs.length != 4) {
-                LOG.debug("command "+cmdname+" needs "+4+" arguments, "
+            if (cmdargs.length != 2) {
+                LOG.debug("command "+cmdname+" needs "+2+" arguments, "
                         + "but "+cmdargs.length+" in fact.");
                 return null;
             }
             AttrCmd attrCmd = new AttrCmd();
             attrCmd.setM(Integer.parseInt(cmdargs[0]));
             attrCmd.setN(Integer.parseInt(cmdargs[1]));
-            attrCmd.setWidth(Integer.parseInt(cmdargs[2]));
-            attrCmd.setHeight(Integer.parseInt(cmdargs[3]));
             return attrCmd;
         } else if ("showtext".toLowerCase().equals(cmdname.toLowerCase())) {
             return new ShowTextCmd(cmdarg);

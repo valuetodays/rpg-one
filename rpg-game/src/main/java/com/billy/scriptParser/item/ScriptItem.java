@@ -153,8 +153,7 @@ public class ScriptItem extends DataLoaderBean implements IItem {
                 AttrCmd ac = (AttrCmd) caa;
                 LOG.debug(ac);
                 this.fileId = ac.getM() + "-" + ac.getN();
-                this.width = ac.getWidth();
-                this.height = ac.getHeight();
+
             }
             primarySection.add(caa);
             i++;

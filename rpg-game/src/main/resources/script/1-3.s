@@ -1,4 +1,4 @@
-attr 1 3 5 5
+attr 1 3
 scenename 'test map 1-3'
 showText '欢迎来到故人居'
 return

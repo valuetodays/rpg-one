@@ -88,8 +88,6 @@ public class CmdExecutor {
         } else if (cmd instanceof AttrCmd) {
             System.out.println(" >> basic attribute of this map ");
             AttrCmd ac = (AttrCmd) cmd;
-            GameContainer.getInstance().getActiveFileItem().getMm().setHeight(ac.getHeight());
-            GameContainer.getInstance().getActiveFileItem().getMm().setWidth(ac.getWidth());
         } else if (cmd instanceof TalkCmd)  {
             System.out.println("talk to u");
         } else if (cmd instanceof MessageBoxCmd) {

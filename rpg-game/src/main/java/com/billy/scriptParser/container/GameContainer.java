@@ -77,8 +77,8 @@ public class GameContainer implements IContainer, IContainerLoader {
             gameAboutItem.load();
             skill2ImageItems.load();
             new Thread(skill2ImageItems).start();
-            loadScriptData();
             loadMapData();
+            loadScriptData();
 
             startChapter(1, 1, "1-2");
         } catch (Exception e) {
@@ -105,13 +105,27 @@ public class GameContainer implements IContainer, IContainerLoader {
         List<ScriptItem> scriptItemList = new ArrayList<>();
         for (LoaderBean lb : slLoad) {
             ScriptItem si = (ScriptItem) lb;
+            MapDataLoaderBean mapItem = getMapItem(si);
+            si.setWidth(mapItem.getWidth());
+            si.setHeight(mapItem.getHeight());
             List<CmdBase> cmdList = si.cmdList;
             LOG.info(cmdList);
             scriptItemList.add(si);
         }
         fileItemList = Collections.unmodifiableList(scriptItemList);
     }
-    
+
+    private MapDataLoaderBean getMapItem(ScriptItem si) {
+        for (int i = 0; i < mapList.size(); i++) {
+            MapDataLoaderBean mapDataLoaderBean = mapList.get(i);
+            if (mapDataLoaderBean.getName().equals(si.getFileId())) {
+                return mapDataLoaderBean;
+            }
+        }
+        // TODO 为什么脚本要使用地图文件的宽高？
+        throw new RuntimeException("没有找到脚本对应的地图文件");
+    }
+
     private void loadMapData() throws Exception {
         MapDataLoader ml = new MapDataLoader();
         List<LoaderBean> mlLoad = ml.load();
@@ -126,7 +140,7 @@ public class GameContainer implements IContainer, IContainerLoader {
     //
     public void changeActiveScriptItemTo(int m, int n, String pos) {
         if (fileItemList == null) {
-            return ;
+            throw new RuntimeException("fileItemList is null");
         }
         
         ScriptItem fi = null;
@@ -137,8 +151,8 @@ public class GameContainer implements IContainer, IContainerLoader {
             }
         }
         
-        if(fi == null){
-            System.err.println("error when loadmap..");
+        if (fi == null) {
+            throw new RuntimeException("error when loadmap.");
         }
 
         changeActiveMapItemTo(m, n);
