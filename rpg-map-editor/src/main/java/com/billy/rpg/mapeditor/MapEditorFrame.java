@@ -19,6 +19,7 @@ public class MapEditorFrame extends JFrame {
 
     private MapEditorPanel mapEditorPanel;
     private MapSaver mapSaver;
+    private EventNumDialog eventNumDialog;
 
 
     public static void main(String[] args) {
@@ -29,6 +30,7 @@ public class MapEditorFrame extends JFrame {
     public MapEditorFrame() {
         mapEditorPanel = new MapEditorPanel(this);
         this.setContentPane(mapEditorPanel);
+        eventNumDialog = new EventNumDialog(this);
 
         setTitle("地图编辑器");
         setLocation(500, 100);
@@ -147,6 +149,7 @@ public class MapEditorFrame extends JFrame {
         menuLayer.add(menuItemLayer2);
         menuLayer.add(menuItemLayer3);
         menuLayer.add(menuItemLayer4);
+        menuLayer.add(menuItemLayer5);
         menuLayer.addSeparator();
 
         mb.add(menuLayer);
@@ -158,6 +161,10 @@ public class MapEditorFrame extends JFrame {
 
     public MapEditorPanel getMapEditorPanel() {
         return mapEditorPanel;
+    }
+
+    public EventNumDialog getEventNumDialog() {
+        return eventNumDialog;
     }
 }
 

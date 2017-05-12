@@ -124,21 +124,6 @@ public class MapScreen extends BaseScreen {
         } // end of for
         //////// draw layer3 end
         
-        /////////// draw walk start
-//        int[][] walk = activeMap.getWalk();
-//        for (int i = 0; i < activeMap.getWidth(); i++) {
-//            for (int j = 0; j < activeMap.getHeight(); j++) {
-//                int flagNum = walk[i][j];
-//                if (flagNum > 39 && flagNum < 100) { // Magic Number
-//                    //Image npcImg = MainFrame.getInstance().getGameContainer().getNpcItem().getNpc(flagNum + "");
-//                    //g2.drawImage(npcImg, j*32, i*32, npcImg.getWidth(null), npcImg.getHeight(null), null);
-//                }
-//            }
-//        } // end of for
-        /////////// draw walk end
-        
-
-        
         // 将缓冲区的图形绘制到显示面板上
         gameCanvas.drawBitmap(paint, 0, 0);
         MainFrame.getInstance().getGameContainer().executePrimary();
@@ -148,13 +133,10 @@ public class MapScreen extends BaseScreen {
 
 
     @Override
-    public void onKeyDown(int key) {
-
-    }
+    public void onKeyDown(int key) {    }
 
     @Override
     public void onKeyUp(int key) {
-        
         if (KeyUtil.isEsc(key)) {
             MainFrame.getInstance().changeScreen(2);
           return;
@@ -166,7 +148,7 @@ public class MapScreen extends BaseScreen {
         
         ScriptItem active = MainFrame.getInstance().getGameContainer().getActiveFileItem();
         active.initWidthAndHeight(active.getHeight(), active.getWidth());
-        active.checkTrigger();
+        active.checkTrigger(); // 检查触发器
         MainMap mainMap = active.getMm();
         MainFrame.getInstance().setTitle(mainMap.toString());
         

@@ -105,25 +105,30 @@ public class MapAreaPanel extends JPanel {
             }
             @Override
             public void mousePressed(MouseEvent e) {
+                mapEditorPanel.getMapEditorFrame().getEventNumDialog().setVisible(false);
+
                 int x = e.getX();
                 int y = e.getY();
-                int nx = x / 32;
-                int ny = y / 32;
-                if (nx > tileXwidth || ny > tileYheight) {
+                rectX = x / 32;
+                rectY = y / 32;
+                if (rectX > tileXwidth || rectY > tileYheight) {
                     return ;
                 }
                 // 分开处理行走层，事件层与地图层
                 if (currentLayer == WALK_FLAG) { // 行走层
                     int[][] flagLayer = layers.get(currentLayer);
-                    flagLayer[nx][ny] *= -1; //
+                    flagLayer[rectX][rectY] *= -1; //
                 } else if (currentLayer == EVENT_LAYER) { // 事件层
-
+                    // TODO 位置要考虑贴边的情况
+                    EventNumDialog eventNumDialog = mapEditorPanel.getMapEditorFrame().getEventNumDialog();
+                    eventNumDialog.setLocation(e.getXOnScreen(), e.getYOnScreen());
+                    eventNumDialog.setVisible(true);
                 } else {
                     int[][] tmpLayer = layers.get(currentLayer);
-                    tmpLayer[nx][ny] = mapEditorPanel.getTileArea().getLastTileN();
+                    tmpLayer[rectX][rectY] = mapEditorPanel.getTileArea().getLastTileN();
                     LOG.debug("layer " + currentLayer
-                            + " in map (x/y" + x + "/" + y + ")[" + nx + "," + ny + "]="
-                            + tmpLayer[nx][ny]);
+                            + " in map (x/y" + x + "/" + y + ")[" + rectX + "," + rectY + "]="
+                            + tmpLayer[rectX][rectY]);
                 }
                 repaint();
             }
@@ -214,5 +219,12 @@ public class MapAreaPanel extends JPanel {
     }
 
 
+    public void setEventNum(int eventNum) {
+        if (currentLayer != EVENT_LAYER) {
+            return ;
+        }
+        int[][] eventLayer = layers.get(EVENT_LAYER);
+        eventLayer[rectX][rectY] = eventNum;
+    }
 
 }

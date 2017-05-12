@@ -51,7 +51,7 @@ public class MainMap {
 		this.posY = posY;
 	}
     
-    public void increaseCurFrame() {
+    private void increaseCurFrame() {
         curFrame++;
         if (curFrame == 3) {
             curFrame = 0;

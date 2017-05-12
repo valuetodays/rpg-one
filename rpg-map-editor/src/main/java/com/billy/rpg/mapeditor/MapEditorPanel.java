@@ -21,8 +21,8 @@ public class MapEditorPanel extends JPanel {
     private static final long serialVersionUID = 1L;
     private static final Logger LOG = Logger.getLogger(MapEditorPanel.class);
 
-    AffineTransform transform = new AffineTransform();
-    AffineTransformOp ato;
+    private AffineTransform transform = new AffineTransform();
+    private AffineTransformOp ato;
     private MapEditorFrame mapEditorFrame;
 
     public MapEditorPanel(MapEditorFrame mapEditorFrame) {
@@ -161,6 +161,9 @@ public class MapEditorPanel extends JPanel {
         getTileArea().initTileImage(imagePath);
 //        mapAreaPanelEx.repaint();
     }
+    public void setEventNum(int eventNum) {
+        getMapArea().setEventNum(eventNum);
+    }
 
     public TileAreaPanel getTileArea() {
         return tileArea;
@@ -172,4 +175,10 @@ public class MapEditorPanel extends JPanel {
     public String getMapName() {
         return mapName;
     }
+
+    public MapEditorFrame getMapEditorFrame() {
+        return mapEditorFrame;
+    }
+
+
 }

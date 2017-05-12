@@ -45,7 +45,7 @@ showText '我是`y`天大地大我最大张三`/y`，十分、一百分`r`、`/r
 return
 
 @ 肉山，大龙
-talk 42 roshan
+talk 2 roshan
 
 trigger 1 1 Hello
 trigger 14 14 goright
