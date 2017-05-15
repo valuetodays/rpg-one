@@ -85,28 +85,5 @@ public class MapSaver {
         LOG.debug("saved file `{"+mapFilePath+"}`.");
     }
 
-    public static void main(String[] args) {
-        String mapFilePath = "Z:/dsddsf.map";
-        File file = new File(mapFilePath);
 
-        FileOutputStream fos = null;
-        DataOutputStream dos = null;
-        try {
-            fos = new FileOutputStream(file);
-            dos = new DataOutputStream(fos);
-            dos.write(MAP_HEADER.getBytes("utf-8"));
-//            Integer tileYheight = -1;
-//            dos.writeInt(tileYheight);
-
-//            LOG.debug("tileYheight `"+tileYheight+"` written");
-
-
-        } catch (IOException e) {
-            LOG.debug("IO异常");
-            e.printStackTrace();
-        } finally {
-            IOUtils.closeQuietly(dos);
-            IOUtils.closeQuietly(fos);
-        }
-    }
 }

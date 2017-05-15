@@ -1,8 +1,12 @@
 package com.billyrupeng.timer;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Image;
+import com.billy.rpg.game.constants.GameConstant;
+import com.billy.rpg.game.GameCanvas;
+import com.billy.rpg.game.GameFrame;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -11,13 +15,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.imageio.ImageIO;
-import javax.swing.Timer;
-
-import com.billy.constants.GameConstant;
-import com.billyrupeng.GameCanvas;
-import com.billyrupeng.GameFrame;
 
 public class AnimationTimer {
     

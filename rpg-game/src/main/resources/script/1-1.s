@@ -47,7 +47,7 @@ showText '我是`y`天大地大我最大张三`/y`，十分、一百分`r`、`/r
 return
 
 @ 肉山，大龙
-talk 2 goright
+talk 255 goright
 
 trigger 1 1 Hello
 trigger 14 14 goright

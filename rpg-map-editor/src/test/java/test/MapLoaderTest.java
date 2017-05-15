@@ -5,7 +5,6 @@ import org.junit.Test;
 import java.io.UnsupportedEncodingException;
 
 /**
- * TODO(这里用一句话描述这个类的作用)
  *
  * @author liulei
  * @since 2017-05-06 15:38

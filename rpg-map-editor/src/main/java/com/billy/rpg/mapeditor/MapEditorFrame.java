@@ -25,11 +25,9 @@ public class MapEditorFrame extends JFrame {
     private EventNumDialog eventNumDialog;
     private MapEditorFrame instance;
 
-
     public static void main(String[] args) {
         new MapEditorFrame();
     }
-
 
     public MapEditorFrame() {
         mapEditorPanel = new MapEditorPanel(this);

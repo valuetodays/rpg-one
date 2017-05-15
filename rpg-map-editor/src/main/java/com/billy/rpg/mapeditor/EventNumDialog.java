@@ -9,6 +9,12 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 /**
+ * event number dialog
+ *
+ * event number description
+ *
+ * 255 (ff) transfer
+ *
  * @author liulei
  * @since 2017-05-12 09:24
  */

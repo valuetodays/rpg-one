@@ -29,7 +29,7 @@ public class MapAreaPanel extends JPanel {
     private int tileXwidth;
     private int tileYheight;
     private int currentLayer = 0;
-    private static final int WALK_FLAG = 3;
+    private static final int WALK_LAYER = 3;
     private static final int EVENT_LAYER = 4;
 
     /**
@@ -115,7 +115,7 @@ public class MapAreaPanel extends JPanel {
                     return ;
                 }
                 // 分开处理行走层，事件层与地图层
-                if (currentLayer == WALK_FLAG) { // 行走层
+                if (currentLayer == WALK_LAYER) { // 行走层
                     int[][] flagLayer = layers.get(currentLayer);
                     flagLayer[rectX][rectY] *= -1; //
                 } else if (currentLayer == EVENT_LAYER) { // 事件层
@@ -158,7 +158,7 @@ public class MapAreaPanel extends JPanel {
         }
 
         // 先画地图层
-        for (int layern = 0; layern < WALK_FLAG; layern++) {
+        for (int layern = 0; layern < WALK_LAYER; layern++) {
             BufferedImage paint = new BufferedImage(
                     tileXwidth * 32,
                     tileYheight * 32,
@@ -189,11 +189,11 @@ public class MapAreaPanel extends JPanel {
             g.drawRect(rectX * 32, rectY * 32, 32, 32);
         }
 
-        if (currentLayer == WALK_FLAG) {
-            // 再画事件层，事件层用magenta颜色
+        if (currentLayer == WALK_LAYER) {
+            // 画行走层
             Color oldColor = g.getColor();
             g.setColor(Color.MAGENTA);
-            int[][] flagLayer = layers.get(WALK_FLAG);
+            int[][] flagLayer = layers.get(WALK_LAYER);
             for (int i = 0; i < tileXwidth; i++) {
                 for (int j = 0; j < tileYheight; j++) {
                     if (flagLayer[i][j] == -1) { // 不可行 TODO 使用常量类
@@ -206,6 +206,22 @@ public class MapAreaPanel extends JPanel {
                         g.drawRect(topX, topY, 32, 32);
                         g.drawLine(topX, topY, bottomX, bottomY);
                         g.drawLine(topX, bottomY, bottomX, topY);
+                    }
+                }
+            }
+            g.setColor(oldColor);
+        } else if (currentLayer == EVENT_LAYER) {
+            // 画事件层
+            Color oldColor = g.getColor();
+            g.setColor(Color.orange);
+            int[][] eventLayer = layers.get(EVENT_LAYER);
+            for (int i = 0; i < tileXwidth; i++) {
+                for (int j = 0; j < tileYheight; j++) {
+                    int num = eventLayer[i][j];
+                    if (num != -1) {
+                        int topX = i * 32 + 10;
+                        int topY = j * 32 + 20;
+                        g.drawString(num + "", topX, topY);
                     }
                 }
             }

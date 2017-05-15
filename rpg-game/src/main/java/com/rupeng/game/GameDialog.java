@@ -29,7 +29,7 @@ import javax.swing.JOptionPane;
 
 import org.apache.log4j.Logger;
 
-import com.billy.scriptParser.display.GuiDisplay;
+import com.billy.rpg.game.scriptParser.display.GuiDisplay;
 
 class GameDialog extends JFrame {
     private static final long serialVersionUID = 1L;

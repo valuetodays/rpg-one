@@ -4,7 +4,7 @@ added on 2015-09-16
 
 #### 2015-09-16
 
-execute the method com.billy.scriptParser.ScriptParser#main() 
+execute the method com.billy.rpg.game.scriptParser.ScriptParser#main() 
 to show ...
 
 
