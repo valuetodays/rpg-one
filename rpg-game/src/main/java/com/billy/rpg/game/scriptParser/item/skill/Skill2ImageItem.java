@@ -26,7 +26,7 @@ public class Skill2ImageItem implements IImageLoader, IItem, Runnable {
     private Map<Integer, Image> images;
     private boolean loaded = false;
     private Integer currentFrame = 0;
-    private boolean enable;
+    private boolean enable = true;
 
     @Override
     public List<LoaderBean> load() throws Exception {

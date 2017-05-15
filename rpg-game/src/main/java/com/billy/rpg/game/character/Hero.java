@@ -38,6 +38,8 @@ public class Hero implements CharacterConstant {
     public void initPos(int posX, int posY) {
         this.posX = posX;
         this.posY = posY;
+        this.nextPosX = -1;
+        this.nextPosY = -1;
     }
 
     private void increaseCurFrame() {

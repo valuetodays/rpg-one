@@ -17,7 +17,6 @@ import java.util.List;
 
 // TODO move it to MapDataLoaderBean ?
 public class ScriptItem extends DataLoaderBean implements IItem {
-
     private static final Logger LOG = Logger.getLogger(ScriptItem.class);
     public List<CmdBase> cmdList;
     private String fileId;
@@ -223,9 +222,22 @@ public class ScriptItem extends DataLoaderBean implements IItem {
         }
     }
 
+    private boolean checkTriggerFlag = false;
+    public void toCheckTrigger() {
+        checkTriggerFlag = true;
+    }
     public void checkTrigger() {
+        if (!checkTriggerFlag) {
+            return ;
+        }
         checkTrigger0();
         checkTalk0();
+        checkMonster();
+        checkTriggerFlag = false;
+    }
+
+    private void checkMonster() {
+
     }
 
     private void checkTrigger0() {
@@ -240,6 +252,9 @@ public class ScriptItem extends DataLoaderBean implements IItem {
         Hero mm = GameContainer.getInstance().getActiveFileItem().getHero();
         int posX = mm.getNextPosX();
         int posY = mm.getNextPosY();
+        if (posX == -1 && posY == -1) { // a new map, not check talk
+            return ;
+        }
         int[][] event = GameContainer.getInstance().getActiveMap().getEvent();
         int eventNum = 0;
         try {

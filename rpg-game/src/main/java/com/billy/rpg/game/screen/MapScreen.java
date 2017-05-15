@@ -16,7 +16,6 @@ import java.awt.image.BufferedImage;
 public class MapScreen extends BaseScreen {
     private static Logger LOG = Logger.getLogger(MapScreen.class);
     
-    
     public MapScreen() {
 //        AnimationTimer at = new AnimationTimer(30);
 //        at.start();
@@ -31,6 +30,11 @@ public class MapScreen extends BaseScreen {
         }
     }
 
+    /**
+     *
+     * TODO 应该先显示地图，再显示scenename
+     * @param gameCanvas gameCanvas
+     */
     @Override
     public void draw(GameCanvas gameCanvas) {
 
@@ -39,6 +43,10 @@ public class MapScreen extends BaseScreen {
                 GameConstant.GAME_WIDTH, 
                 GameConstant.GAME_HEIGHT, 
                 BufferedImage.TYPE_4BYTE_ABGR);
+
+        ScriptItem active = GameFrame.getInstance().getGameContainer().getActiveFileItem();
+        active.checkTrigger(); // 检查触发器
+
         // 得到缓冲区的画笔
         Graphics g2 = paint.getGraphics();
         
@@ -138,24 +146,23 @@ public class MapScreen extends BaseScreen {
     }
 
 
-
-
     @Override
     public void onKeyDown(int key) {    }
+
 
     @Override
     public void onKeyUp(int key) {
         if (KeyUtil.isEsc(key)) {
             GameFrame.getInstance().changeScreen(2);
-          return;
+            return;
         } else if (KeyUtil.isHome(key)) {
             BaseScreen bs = new AnimationScreen(null, 2, true);
             GameFrame.getInstance().pushScreen(bs);
             return ;
         }
-        
+
         ScriptItem active = GameFrame.getInstance().getGameContainer().getActiveFileItem();
-        active.checkTrigger(); // 检查触发器
+        active.toCheckTrigger(); // 设置下一步要检查触发器
         Hero hero = active.getHero();
         GameFrame.getInstance().setTitle(hero.toString());
 
