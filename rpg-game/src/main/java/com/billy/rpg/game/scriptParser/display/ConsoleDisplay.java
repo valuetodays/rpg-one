@@ -42,7 +42,7 @@ public class ConsoleDisplay implements IDisplay {
         int posY = mm.getPosY();
         
         MapDataLoaderBean activeMap = GameContainer.getInstance().getActiveMap();
-        int[][] data = activeMap.getLayer2();
+        int[][] data = activeMap.getNpcLayer();
         for (int i = 0; i < data.length; i++) {
             int lineLen = data[i].length;
             for (int j = 0; j < lineLen; j++) {

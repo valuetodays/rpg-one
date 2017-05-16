@@ -3,6 +3,8 @@ package com.billy.rpg.game.character;
 import com.billy.rpg.game.constants.CharacterConstant;
 import com.billy.rpg.game.util.WalkUtil;
 
+import java.util.Random;
+
 
 public class Hero implements CharacterConstant {
     private int height = 5; // 当前地图的高
@@ -13,6 +15,7 @@ public class Hero implements CharacterConstant {
     private int nextPosY; // 下一步y
     private int curFrame;  // 步数
     private int direction; // 方向
+    private int tileNum; // for npc TODO to seperate hero from npc
 
 
     public void setHeight(int height) {
@@ -119,5 +122,51 @@ public class Hero implements CharacterConstant {
         return (direction == DIRECTION_UP || direction == DIRECTION_DOWN);
     }
 
+    public int getTileNum() {
+        return tileNum;
+    }
+
+    public void setTileNum(int tileNum) {
+        this.tileNum = tileNum;
+    }
+
+    private static Random random = new Random();
+    private long lastTime = System.currentTimeMillis();
+    /**
+     * npc的移动，可以有指定移动，随机移动，etc...
+     */
+    public void move() {
+        if (!moveFlag) {
+            return ;
+        }
+        long now = System.currentTimeMillis();
+        if (now - lastTime < 500) {
+            return ;
+        }
+        lastTime = now;
+        int i = random.nextInt(8 << 2);
+        if (i % 7 == 1) {
+            decreaseX();
+        }
+        if (i % 7 == 2) {
+            decreaseY();
+        }
+        if (i % 7 == 3) {
+            increaseX();
+        }
+        if (i % 7 == 3) {
+            increaseY();
+        }
+        if (i % 2 == 0) {
+            increaseCurFrame();
+        }
+//        moveFlag = false;
+    }
+    private boolean moveFlag = true;
+
+
+
+
 
 }
+

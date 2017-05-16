@@ -108,7 +108,7 @@ public class GuiDisplay implements IDisplay {
         MapDataLoaderBean activeMap = GameContainer.getInstance().getActiveMap();
         
         //////// draw layer1 start
-        int[][] layer1 = activeMap.getLayer1();
+        int[][] layer1 = activeMap.getBgLayer();
         for (int i = 0; i < layer1.length; i++) {
             int lineLen = layer1[i].length;
             for (int j = 0; j < lineLen; j++) {
@@ -122,7 +122,7 @@ public class GuiDisplay implements IDisplay {
         g2.drawImage(roleFull1, posX*32, posY*32, roleFull1.getWidth(null), roleFull1.getHeight(null), null);
         //////// draw role & npc end
         //////// draw layer2 start
-        int[][] layer2 = activeMap.getLayer2();
+        int[][] layer2 = activeMap.getNpcLayer();
         for (int i = 0; i < layer2.length; i++) {
             int lineLen = layer2[i].length;
             for (int j = 0; j < lineLen; j++) {

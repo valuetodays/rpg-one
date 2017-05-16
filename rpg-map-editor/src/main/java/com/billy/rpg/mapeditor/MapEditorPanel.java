@@ -177,6 +177,10 @@ public class MapEditorPanel extends JPanel {
         getMapArea().setEventNum(eventNum);
     }
 
+    public void setNPC(int npcName) {
+        getMapArea().setNPC(npcName);
+    }
+
     public TileAreaPanel getTileArea() {
         return tileArea;
     }

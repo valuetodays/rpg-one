@@ -1,5 +1,7 @@
 package com.billy.rpg.game.scriptParser.container;
 
+import com.billy.jee.rpg.common.NPCImageLoader;
+import com.billy.rpg.game.character.Hero;
 import com.billy.rpg.game.scriptParser.bean.LoaderBean;
 import com.billy.rpg.game.scriptParser.bean.MapDataLoaderBean;
 import com.billy.rpg.game.scriptParser.cmd.CmdBase;
@@ -35,7 +37,10 @@ public class GameContainer implements IContainer, IContainerLoader {
     private ScriptItem activeScriptItem; // active script
     private List<MapDataLoaderBean> mapList; // maps
     private MapDataLoaderBean activeMap; // active map
-    private Skill2ImageItem skill2ImageItems;
+    private Skill2ImageItem skill2ImageItems; // TODO transfer!!!
+    private NPCImageLoader npcImageLoader;
+
+
     
     // make private 
     private GameContainer () {    }
@@ -69,6 +74,7 @@ public class GameContainer implements IContainer, IContainerLoader {
         roleItem = new RoleImageItem();
         gameAboutItem = new GameAboutImageItem();
         skill2ImageItems = new Skill2ImageItem();
+        npcImageLoader = new NPCImageLoader();
         try {
             bgImageItem.load();
             tileItem.load();
@@ -77,6 +83,7 @@ public class GameContainer implements IContainer, IContainerLoader {
             gameAboutItem.load();
             skill2ImageItems.load();
             new Thread(skill2ImageItems).start();
+            npcImageLoader.loadNpcs();
             loadMapData();
             loadScriptData();
 
@@ -150,6 +157,22 @@ public class GameContainer implements IContainer, IContainerLoader {
         activeScriptItem.getHero().setHeight(getActiveMap().getHeight());
         activeScriptItem.getHero().setWidth(getActiveMap().getWidth());
         activeScriptItem.getHero().initPos(Integer.parseInt(position[0]), Integer.parseInt(position[1]));
+        // 添加npc start
+        int[][] npcLayer = getActiveMap().getNpcLayer();
+        for (int i = 0; i < getActiveMap().getWidth(); i++) {
+            for (int j = 0; j < getActiveMap().getHeight(); j++) {
+                if (npcLayer[i][j] != -1) {
+                    Hero npc = new Hero();
+                    npc.setHeight(getActiveMap().getHeight());
+                    npc.setWidth(getActiveMap().getWidth());
+                    npc.initPos(i, j);
+                    npc.setTileNum(npcLayer[i][j]);
+                    activeScriptItem.getNpcs().add(npc);
+                }
+            }
+        }
+        // 添加npc start end
+
 //        executePrimary();
     }
     public void executePrimary() {
@@ -203,5 +226,8 @@ public class GameContainer implements IContainer, IContainerLoader {
     }
     public Skill2ImageItem getSkill2ImageItems() {
         return skill2ImageItems;
+    }
+    public NPCImageLoader getNpcImageLoader() {
+        return npcImageLoader;
     }
 }

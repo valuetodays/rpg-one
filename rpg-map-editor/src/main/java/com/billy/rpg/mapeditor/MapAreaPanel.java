@@ -1,5 +1,6 @@
 package com.billy.rpg.mapeditor;
 
+import com.billy.jee.rpg.common.util.ImageUtil;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
@@ -29,6 +30,9 @@ public class MapAreaPanel extends JPanel {
     private int tileXwidth;
     private int tileYheight;
     private int currentLayer = 0;
+    private static final int BG_LAYER = 0; // 背景层 background
+    private static final int NPC_LAYER = 1; // npc/宝箱层
+    private static final int FG_LAYER = 2; // 前景层 foreground
     private static final int WALK_LAYER = 3;
     private static final int EVENT_LAYER = 4;
 
@@ -47,11 +51,11 @@ public class MapAreaPanel extends JPanel {
      * @param height h
      */
     public void initMapLayer(int width, int height) {
-        int[][] layer1 = new int[width][height]; // layer1
-        int[][] layer2 = new int[width][height]; // layer2
-        int[][] layer3 = new int[width][height]; // layer3
-        int[][] layer4 = new int[width][height]; // walk
-        int[][] layer5 = new int[width][height]; // event
+        int[][] layer1 = new int[width][height]; // BG_LAYER
+        int[][] layer2 = new int[width][height]; // NPC_LAYER
+        int[][] layer3 = new int[width][height]; // FG_LAYER
+        int[][] layer4 = new int[width][height]; // WALK_LAYER
+        int[][] layer5 = new int[width][height]; // EVENT_LAYER
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 layer1[i][j] = -1;
@@ -92,7 +96,7 @@ public class MapAreaPanel extends JPanel {
             public void mouseMoved(MouseEvent e) {
                 int x = e.getX();
                 int y = e.getY();
-                rectX = x / 32;
+                rectX = x / 32; // TODO 无用？？
                 rectY = y / 32;
 //                LOG.debug("rectX/rectY=" + rectX + "/" + rectY);
                 repaint();
@@ -126,7 +130,7 @@ public class MapAreaPanel extends JPanel {
                         eventNumDialog.setLocation(e.getXOnScreen(), e.getYOnScreen());
                         eventNumDialog.setVisible(true);
                     }
-                } else {
+                } else if (currentLayer == BG_LAYER || currentLayer == FG_LAYER) { // 背景层或前景层
                     int[][] tmpLayer = layers.get(currentLayer);
                     if (e.isShiftDown()) {
                         tmpLayer[rectX][rectY] = -1;
@@ -136,6 +140,14 @@ public class MapAreaPanel extends JPanel {
                     LOG.debug("layer " + currentLayer
                             + " in map (x/y" + x + "/" + y + ")[" + rectX + "," + rectY + "]="
                             + tmpLayer[rectX][rectY]);
+                } else { // npc层
+                    if (e.isShiftDown()) {
+                        setNPC(-1);
+                    } else {
+                        NPCDialog npcDialog = mapEditorPanel.getMapEditorFrame().getNpcDialog();
+                        npcDialog.setLocation(e.getXOnScreen(), e.getYOnScreen());
+                        npcDialog.setVisible(true);
+                    }
                 }
                 repaint();
             }
@@ -151,8 +163,6 @@ public class MapAreaPanel extends JPanel {
         });
     }
 
-
-
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -164,8 +174,11 @@ public class MapAreaPanel extends JPanel {
             return ;
         }
 
-        // 先画地图层
+        // 先画地图层(后景，前景)
         for (int layern = 0; layern < WALK_LAYER; layern++) {
+            if (layern == NPC_LAYER) {
+                continue;
+            }
             BufferedImage paint = new BufferedImage(
                     tileXwidth * 32,
                     tileYheight * 32,
@@ -196,6 +209,22 @@ public class MapAreaPanel extends JPanel {
             g.drawRect(rectX * 32, rectY * 32, 32, 32);
         }
 
+        // npc层
+        int[][] npcLayer = layers.get(NPC_LAYER);
+        for (int i = 0; i < tileXwidth; i++) {
+            for (int j = 0; j < tileYheight; j++) {
+                int num = npcLayer[i][j];
+                if (num != -1) {
+                    BufferedImage image = mapEditorPanel.getMapEditorFrame().getNpcDialog().getImageOf(num);
+                    if (NPC_LAYER == currentLayer) {
+                        g.drawImage(image, i*32, j*32, null);
+                    } else {
+                        g.drawImage(ImageUtil.toGray(image), i*32, j*32, null);
+                    }
+                }
+            }
+        }
+
         if (currentLayer == WALK_LAYER) {
             // 画行走层
             Color oldColor = g.getColor();
@@ -203,7 +232,7 @@ public class MapAreaPanel extends JPanel {
             int[][] flagLayer = layers.get(WALK_LAYER);
             for (int i = 0; i < tileXwidth; i++) {
                 for (int j = 0; j < tileYheight; j++) {
-                    if (flagLayer[i][j] == -1) { // 不可行 TODO 使用常量类
+                    if (flagLayer[i][j] == -1) { // 不可行
                         int topX = i * 32;
                         int topY = j * 32;
                         int bottomX = i * 32 + 32;
@@ -220,7 +249,7 @@ public class MapAreaPanel extends JPanel {
         } else if (currentLayer == EVENT_LAYER) {
             // 画事件层
             Color oldColor = g.getColor();
-            g.setColor(Color.orange);
+            g.setColor(Color.RED);
             int[][] eventLayer = layers.get(EVENT_LAYER);
             for (int i = 0; i < tileXwidth; i++) {
                 for (int j = 0; j < tileYheight; j++) {
@@ -235,12 +264,12 @@ public class MapAreaPanel extends JPanel {
             g.setColor(oldColor);
         }
 
+
     }
 
     public List<int[][]> getLayers() {
         return layers;
     }
-
 
     public void setEventNum(int eventNum) {
         if (currentLayer != EVENT_LAYER) {
@@ -248,6 +277,14 @@ public class MapAreaPanel extends JPanel {
         }
         int[][] eventLayer = layers.get(EVENT_LAYER);
         eventLayer[rectX][rectY] = eventNum;
+    }
+    public void setNPC(int npcNum) {
+        if (currentLayer != NPC_LAYER) {
+            return ;
+        }
+
+        int[][] npcLayer = layers.get(NPC_LAYER);
+        npcLayer[rectX][rectY] = npcNum;
     }
 
     public void setLayers(List<int[][]> layers) {
@@ -261,4 +298,6 @@ public class MapAreaPanel extends JPanel {
     public void setTileYheight(int tileYheight) {
         this.tileYheight = tileYheight;
     }
+
+
 }

@@ -3,11 +3,11 @@ package com.billy.rpg.game.scriptParser.item;
 import com.billy.rpg.game.scriptParser.bean.LoaderBean;
 import com.billy.rpg.game.scriptParser.loader.image.IImageLoader;
 import com.rupeng.game.GameUtils;
+import org.apache.commons.io.IOUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.io.File;
-import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.List;
 
 public class GameAboutImageItem implements IImageLoader, IItem {
@@ -34,10 +34,9 @@ public class GameAboutImageItem implements IImageLoader, IItem {
         String imgPath = GameUtils.mapPath("Images") + "/balloon.png";
 
         try {
-            File file = new File(imgPath);
-            FileInputStream fileInputStream = new FileInputStream(file);
-            gameBalloon = ImageIO.read(fileInputStream);
-            fileInputStream.close();
+            InputStream is = this.getClass().getResourceAsStream("/Images/balloon.png");
+            gameBalloon = ImageIO.read(is);
+            IOUtils.closeQuietly(is);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -48,10 +47,9 @@ public class GameAboutImageItem implements IImageLoader, IItem {
         String imgPath = GameUtils.mapPath("Images") + "/arrow.png";
 
         try {
-            File file = new File(imgPath);
-            FileInputStream fileInputStream = new FileInputStream(file);
-            gameArrow = ImageIO.read(fileInputStream);
-            fileInputStream.close();
+            InputStream is = this.getClass().getResourceAsStream("/Images/arrow.png");
+            gameArrow = ImageIO.read(is);
+            IOUtils.closeQuietly(is);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -61,10 +59,9 @@ public class GameAboutImageItem implements IImageLoader, IItem {
         String imgPath = GameUtils.mapPath("Images") + "/gameover.png";
 
         try {
-            File file = new File(imgPath);
-            FileInputStream fileInputStream = new FileInputStream(file);
-            gameOver = ImageIO.read(fileInputStream);
-            fileInputStream.close();
+            InputStream is = this.getClass().getResourceAsStream("/Images/gameover.png");
+            gameOver = ImageIO.read(is);
+            IOUtils.closeQuietly(is);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -74,10 +71,9 @@ public class GameAboutImageItem implements IImageLoader, IItem {
         String imgPath = GameUtils.mapPath("Images") + "/gamecover.png";
 
         try {
-            File file = new File(imgPath);
-            FileInputStream fileInputStream = new FileInputStream(file);
-            gameCover = ImageIO.read(fileInputStream);
-            fileInputStream.close();
+            InputStream is = this.getClass().getResourceAsStream("/Images/gamecover.png");
+            gameCover = ImageIO.read(is);
+            IOUtils.closeQuietly(is);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -1,16 +1,20 @@
 package com.billy.rpg.game.scriptParser.item.skill;
 
+import com.billy.rpg.game.GameFrame;
+import com.billy.rpg.game.screen.MapScreen;
 import com.billy.rpg.game.scriptParser.bean.LoaderBean;
 import com.billy.rpg.game.scriptParser.item.IItem;
 import com.billy.rpg.game.scriptParser.loader.image.IImageLoader;
-import com.billy.rpg.game.GameFrame;
-import com.billy.rpg.game.screen.MapScreen;
 import com.rupeng.game.GameUtils;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.io.FileInputStream;
+import java.io.File;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -40,11 +44,19 @@ public class Skill2ImageItem implements IImageLoader, IItem, Runnable {
         }
         LOG.debug("load skill-2 images");
         String imgPath = GameUtils.mapPath("Sprites/skill/2/") + "/";
+        URL resource = this.getClass().getResource("/Images/transfer/");
+        File file = new File(resource.getPath());
+        File[] list = file.listFiles();
+        if (ArrayUtils.isEmpty(list)) {
+            throw new RuntimeException("没有找到skill-2数据");
+        }
 
         Map<Integer, Image> imageMap = new HashMap<>();
         try {
-            for (int i = 0; i < 4; i++) {
-                Image image = ImageIO.read(new FileInputStream(imgPath + i + ".png"));
+            for (int i = 0; i < list.length; i++) {
+                InputStream is = this.getClass().getResourceAsStream("/Images/transfer/" + list[i].getName());
+                Image image = ImageIO.read(is);
+                IOUtils.closeQuietly(is);
                 imageMap.put(i, image);
             }
         } catch (Exception e) {

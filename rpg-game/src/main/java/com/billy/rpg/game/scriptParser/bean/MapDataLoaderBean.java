@@ -14,9 +14,9 @@ public class MapDataLoaderBean extends DataLoaderBean {
     private String name;   // map name
     private int height;
     private int width;
-    private int[][] layer1;
-    private int[][] layer2;
-    private int[][] layer3;
+    private int[][] bgLayer;
+    private int[][] npcLayer;
+    private int[][] fgLayer;
     private int[][] walk;
     private int[][] event;
     
@@ -51,47 +51,47 @@ public class MapDataLoaderBean extends DataLoaderBean {
     public void setMapId(String mapId) {
         this.mapId = mapId;
     }
-    public int[][] getLayer1() {
+    public int[][] getBgLayer() {
 //        String s = "";
-//        for (int i = 0; i < layer1.length; i++) {
-//            for (int j = 0; j < layer1[i].length; j++) {
-//                s += "# " + layer1[i][j];
+//        for (int i = 0; i < bgLayer.length; i++) {
+//            for (int j = 0; j < bgLayer[i].length; j++) {
+//                s += "# " + bgLayer[i][j];
 //            }
 //            s += "\n";
 //        }
 //        System.out.println(s);
-        return layer1;
+        return bgLayer;
     }
-    public void setLayer1(int[][] layer1) {
-        this.layer1 = layer1;
+    public void setBgLayer(int[][] bgLayer) {
+        this.bgLayer = bgLayer;
     }
-    public int[][] getLayer2() {
+    public int[][] getNpcLayer() {
 //        String s = "";
-//        for (int i = 0; i < layer2.length; i++) {
-//            for (int j = 0; j < layer3[i].length; j++) {
-//                s += "," + layer2[i][j];
+//        for (int i = 0; i < npcLayer.length; i++) {
+//            for (int j = 0; j < fgLayer[i].length; j++) {
+//                s += "," + npcLayer[i][j];
 //            }
 //            s += "\n";
 //        }
 //        System.out.println(s);
-        return layer2;
+        return npcLayer;
     }
-    public void setLayer2(int[][] layer2) {
-        this.layer2 = layer2;
+    public void setNpcLayer(int[][] npcLayer) {
+        this.npcLayer = npcLayer;
     }
-    public int[][] getLayer3() {
+    public int[][] getFgLayer() {
 //        String s = "";
-//        for (int i = 0; i < layer3.length; i++) {
-//            for (int j = 0; j < layer3[i].length; j++) {
-//                s += "$ " + layer3[i][j];
+//        for (int i = 0; i < fgLayer.length; i++) {
+//            for (int j = 0; j < fgLayer[i].length; j++) {
+//                s += "$ " + fgLayer[i][j];
 //            }
 //            s += "\n";
 //        }
 //        System.out.println(s);
-        return layer3;
+        return fgLayer;
     }
-    public void setLayer3(int[][] layer3) {
-        this.layer3 = layer3;
+    public void setFgLayer(int[][] fgLayer) {
+        this.fgLayer = fgLayer;
     }
     public String getTileId() {
         return tileId;
@@ -123,38 +123,38 @@ public class MapDataLoaderBean extends DataLoaderBean {
                 width = width.trim();
                 this.width = Integer.valueOf(width);
             } else {
-                if (line.equals(MapConstant.MAP_LAYER1_START)) { // layer1
+                if (line.equals(MapConstant.MAP_LAYER1_START)) { // bgLayer
                     int n = 0; 
                     line = mapData.get(++i);
-                    LOG.debug("layer1 start");
-                    layer1 = new int[height][width];
+                    LOG.debug("bgLayer start");
+                    bgLayer = new int[height][width];
                     while (!line.equals(MapConstant.MAP_LAYER1_END)) {
                         LOG.debug(line);
                         String[] split = line.split(" ");
                         for (int m = 0; m < split.length; m++) {
                             String s = split[m];
-                            layer1[n][m] = Integer.valueOf(s);
+                            bgLayer[n][m] = Integer.valueOf(s);
                         }
                         line = mapData.get(++i);
                         n++;
                     }
-                    LOG.debug("layer1 end");
-                } else if (line.equals(MapConstant.MAP_LAYER2_START)) { // layer2
+                    LOG.debug("bgLayer end");
+                } else if (line.equals(MapConstant.MAP_LAYER2_START)) { // npcLayer
                     int n = 0; 
                     line = mapData.get(++i);
-                    LOG.debug("layer2 start");
-                    layer2 = new int[height][width];
+                    LOG.debug("npcLayer start");
+                    npcLayer = new int[height][width];
                     while (!line.equals(MapConstant.MAP_LAYER2_END)) {
                         LOG.debug(line);
                         String[] split = line.split(" ");
                         for (int m = 0; m < split.length; m++) {
                             String s = split[m];
-                            layer2[n][m] = Integer.valueOf(s);
+                            npcLayer[n][m] = Integer.valueOf(s);
                         }
                         line = mapData.get(++i);
                         n++;
                     }
-                    LOG.debug("layer2 end");
+                    LOG.debug("npcLayer end");
                 } else if (line.equals(MapConstant.MAP_FLAG_START)) { // walk
                     LOG.debug("walk start");
                     line = mapData.get(++i);

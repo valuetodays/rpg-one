@@ -58,9 +58,9 @@ public class MapDataLoader implements IDataLoader {
         mapDataLoaderBean.setName(mapMetaData.getMapName());
         mapDataLoaderBean.setWidth(mapMetaData.getWidth());
         mapDataLoaderBean.setHeight(mapMetaData.getHeight());
-        mapDataLoaderBean.setLayer1(layers.get(0));
-        mapDataLoaderBean.setLayer2(layers.get(1));
-        mapDataLoaderBean.setLayer3(layers.get(2));
+        mapDataLoaderBean.setBgLayer(layers.get(0));
+        mapDataLoaderBean.setNpcLayer(layers.get(1));
+        mapDataLoaderBean.setFgLayer(layers.get(2));
         mapDataLoaderBean.setWalk(layers.get(3));
         mapDataLoaderBean.setEvent(layers.get(4));
 //        mapDataLoaderBean.initMapId(file.getName()); TODO

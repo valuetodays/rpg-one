@@ -26,6 +26,7 @@ public class ScriptItem extends DataLoaderBean implements IItem {
     private List<TriggerBean> triggers;
     private List<TalkBean> talks;
     private Hero hero = new Hero();
+    private List<Hero> npcs = new ArrayList<>();
 
 
     public String getFileId() {
@@ -302,4 +303,7 @@ public class ScriptItem extends DataLoaderBean implements IItem {
         flagExecutePrimarySection = true;
     }
 
+    public List<Hero> getNpcs() {
+        return npcs;
+    }
 }

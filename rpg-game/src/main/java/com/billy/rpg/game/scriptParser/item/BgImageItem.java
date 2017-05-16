@@ -2,14 +2,12 @@ package com.billy.rpg.game.scriptParser.item;
 
 import com.billy.rpg.game.scriptParser.bean.LoaderBean;
 import com.billy.rpg.game.scriptParser.loader.image.IImageLoader;
-import com.rupeng.game.GameUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -38,15 +36,16 @@ public class BgImageItem  implements IImageLoader, IItem {
             return ;
         }
         LOG.debug("load background images");
-        String imgPath = GameUtils.mapPath("Images/") + "/";
 
         try {
-            bgImage1 = ImageIO.read(new FileInputStream(imgPath + "bgImage1.jpg"));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+            InputStream is = this.getClass().getResourceAsStream("/Images/bgImage1.jpg");
+
+            bgImage1 = ImageIO.read(is);
+            IOUtils.closeQuietly(is);
+        } catch (Exception e) {
             e.printStackTrace();
         }
+        LOG.debug("bgImage1 is " + (bgImage1 == null));
         
         loaded = true;
     }

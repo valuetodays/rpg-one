@@ -3,11 +3,14 @@ package com.billy.rpg.game.scriptParser.item;
 import com.billy.rpg.game.scriptParser.bean.LoaderBean;
 import com.billy.rpg.game.scriptParser.loader.image.IImageLoader;
 import com.rupeng.game.GameUtils;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.ArrayUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.File;
-import java.io.FileInputStream;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -32,16 +35,22 @@ public class TileImageItem  implements IImageLoader, IItem {
             return ;
         }
         String imgPath = GameUtils.mapPath("tiles") + "/";
-        
+        // TODO 此时在java开发环境是能取到rpg-common目录下的tiles的目录，
+        // 但是，当rpg-common被处理成jar的话运行就不一定能正常了。
+        URL resource = this.getClass().getResource("/tiles/");
+
         try {
             Map<String, Image> tileMap = new HashMap<>();
-            File file = new File(imgPath);
-            String[] list = file.list();
-            for (String f : list) {
-                FileInputStream fileInputStream = new FileInputStream(imgPath + f);
+            File file = new File(resource.getPath());
+            File[] list = file.listFiles();
+            if (ArrayUtils.isEmpty(list)) {
+                throw new RuntimeException("没有找到tile数据");
+            }
+            for (File f : list) {
+                InputStream fileInputStream = this.getClass().getResourceAsStream("/tiles/" + f.getName());
                 Image img = ImageIO.read(fileInputStream);
-                fileInputStream.close();
-                tileMap.put(f, img);
+                IOUtils.closeQuietly(fileInputStream);
+                tileMap.put(f.getName(), img);
             }
             tiles = Collections.unmodifiableMap(tileMap);
         } catch (Exception e) {

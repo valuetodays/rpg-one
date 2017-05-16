@@ -23,6 +23,7 @@ public class MapEditorFrame extends JFrame {
 
     private MapEditorPanel mapEditorPanel;
     private EventNumDialog eventNumDialog;
+    private NPCDialog npcDialog;
     private MapEditorFrame instance;
 
     public static void main(String[] args) {
@@ -33,10 +34,11 @@ public class MapEditorFrame extends JFrame {
         mapEditorPanel = new MapEditorPanel(this);
         this.setContentPane(mapEditorPanel);
         eventNumDialog = new EventNumDialog(this);
+        npcDialog = new NPCDialog(this);
 
         setTitle("地图编辑器");
         setLocation(500, 100);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
         initMenuBar();
 
@@ -76,7 +78,6 @@ public class MapEditorFrame extends JFrame {
         mItemFileLoad.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO to load map
                 LOG.debug("to load *.map");
                 MapMetaData mapMetaData = gatherMapData();
                 if (null != mapMetaData.getTileId()) {
@@ -132,7 +133,7 @@ public class MapEditorFrame extends JFrame {
         mb.add(menuFile); // 菜单栏中加入“文件”菜单
 
         ButtonGroup layerGroup = new ButtonGroup();//设置单选组
-        menuItemLayer1 = new JRadioButtonMenuItem("Layer1");
+        menuItemLayer1 = new JRadioButtonMenuItem("Layer1 (bg)");
         menuItemLayer1.doClick();
         menuItemLayer1.addActionListener(new ActionListener() {
             @Override
@@ -141,7 +142,7 @@ public class MapEditorFrame extends JFrame {
                 mapEditorPanel.getMapArea().setCurrentLayer(1);
             }
         });
-        menuItemLayer2 = new JRadioButtonMenuItem("Layer2");
+        menuItemLayer2 = new JRadioButtonMenuItem("Layer2 (npc)");
         menuItemLayer2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -149,7 +150,7 @@ public class MapEditorFrame extends JFrame {
                 mapEditorPanel.getMapArea().setCurrentLayer(2);
             }
         });
-        menuItemLayer3 = new JRadioButtonMenuItem("Layer3");
+        menuItemLayer3 = new JRadioButtonMenuItem("Layer3 (fg)");
         menuItemLayer3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -157,7 +158,7 @@ public class MapEditorFrame extends JFrame {
                 mapEditorPanel.getMapArea().setCurrentLayer(3);
             }
         });
-        menuItemLayer4 = new JRadioButtonMenuItem("Layer4(walk)");
+        menuItemLayer4 = new JRadioButtonMenuItem("Layer4 (walk)");
         menuItemLayer4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -165,7 +166,7 @@ public class MapEditorFrame extends JFrame {
                 mapEditorPanel.getMapArea().setCurrentLayer(4);
             }
         });
-        menuItemLayer5 = new JRadioButtonMenuItem("Layer5(event)");
+        menuItemLayer5 = new JRadioButtonMenuItem("Layer5 (event)");
         menuItemLayer5.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -215,6 +216,10 @@ public class MapEditorFrame extends JFrame {
 
     public EventNumDialog getEventNumDialog() {
         return eventNumDialog;
+    }
+
+    public NPCDialog getNpcDialog() {
+        return npcDialog;
     }
 }
 

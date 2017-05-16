@@ -1,12 +1,13 @@
 package com.billy.rpg.game.screen;
 
-import com.billy.rpg.game.constants.GameConstant;
+import com.billy.jee.rpg.common.NPCImageLoader;
 import com.billy.rpg.game.GameCanvas;
 import com.billy.rpg.game.GameFrame;
 import com.billy.rpg.game.character.Hero;
-import com.billy.rpg.game.util.KeyUtil;
+import com.billy.rpg.game.constants.GameConstant;
 import com.billy.rpg.game.scriptParser.bean.MapDataLoaderBean;
 import com.billy.rpg.game.scriptParser.item.ScriptItem;
+import com.billy.rpg.game.util.KeyUtil;
 import org.apache.log4j.Logger;
 
 import java.awt.*;
@@ -61,16 +62,16 @@ public class MapScreen extends BaseScreen {
         
         final MapDataLoaderBean activeMap = GameFrame.getInstance().getGameContainer().getActiveMap();
         
-        //////// draw layer1 start
+        //////// draw bgLayer start
         final Image tileImg = GameFrame.getInstance().getGameContainer().getTileItem().getTile(activeMap.getTileId());
-        final int[][] layer1 = activeMap.getLayer1();
+        final int[][] layer1 = activeMap.getBgLayer();
         for (int i = 0; i < activeMap.getWidth(); i++) {
             for (int j = 0; j < activeMap.getHeight(); j++) {
                 int tileNum = layer1[i][j];
                 if (tileNum != -1) {
                     int y = tileNum % 100;
                     int x = tileNum / 100;
-                    //LOG.debug("layer1---------------");
+                    //LOG.debug("bgLayer---------------");
                     g2.drawImage(tileImg, i*32, j*32,
                             i*32+32, j*32+32,
                             x*32, y*32,
@@ -79,42 +80,53 @@ public class MapScreen extends BaseScreen {
                 }
             }
         } // end of for
-        //////// draw layer1 end
+        //////// draw bgLayer end
+
         //////// draw role & npc start
         g2.drawImage(roleFull1, posX*32, posY*32, posX*32 + 32, posY*32 + 32,
                 mm.getCurFrame()*32, mm.getDirection()*32,
                 mm.getCurFrame()*32 + 32, mm.getDirection()*32 + 32, null);
-        
+
+        NPCImageLoader npcImageLoader = GameFrame.getInstance().getGameContainer().getNpcImageLoader();
+        java.util.List<Hero> npcs = active.getNpcs();
+        for (Hero npc : npcs) {
+            npc.move();
+            int posX1 = npc.getPosX();
+            int posY1 = npc.getPosY();
+            int curFrame = npc.getCurFrame();
+            int direction = npc.getDirection();
+            BufferedImage fullImageOf = npcImageLoader.getFullImageOf(npc.getTileNum());
+            g2.drawImage(fullImageOf, posX1*32, posY1*32, posX1*32 + 32, posY1*32 + 32,
+                    curFrame*32, direction*32,
+                    curFrame*32 + 32, direction*32 + 32, null);
+        }
+
+//        int[][] layer2 = activeMap.getNpcLayer();
+//        for (int i = 0; i < activeMap.getWidth(); i++) {
+//            for (int j = 0; j < activeMap.getHeight(); j++) {
+//                int tileNum = layer2[i][j];
+//                if (tileNum != -1) {
+//                    //LOG.debug("npcLayer---------------");
+//                    BufferedImage fullImageOf = npcImageLoader.getFullImageOf(tileNum);
+//                    g2.drawImage(fullImageOf, i*32, j*32,
+//                            i*32+32, j*32+32,
+//                            0*32, 0*32,
+//                            0*32+32, 0*32+32,
+//                            null);
+//                }
+//            }
+//        } // end of for
         //////// draw role & npc end
 
-        //////// draw layer2 start
-        int[][] layer2 = activeMap.getLayer2();
-        for (int i = 0; i < activeMap.getWidth(); i++) {
-            for (int j = 0; j < activeMap.getHeight(); j++) {
-                int tileNum = layer2[i][j];
-                if (tileNum != -1 && tileNum != layer1[i][j]) {
-                    int y = tileNum % 100;
-                    int x = tileNum / 100;
-                    //LOG.debug("layer2---------------");
-                    g2.drawImage(tileImg, i*32, j*32,
-                            i*32+32, j*32+32,
-                            x*32, y*32,
-                            x*32+32, y*32+32,
-                            null);
-                }
-            }
-        } // end of for
-        //////// draw layer2 end
-
-        //////// draw layer3 start
-        final int[][] layer3 = activeMap.getLayer3();
+        //////// draw fgLayer start
+        final int[][] layer3 = activeMap.getFgLayer();
         for (int i = 0; i < activeMap.getWidth(); i++) {
             for (int j = 0; j < activeMap.getHeight(); j++) {
                 int tileNum = layer3[i][j];
-                if (tileNum != -1 && tileNum != layer2[i][j] && tileNum != layer1[i][j]) {
+                if (tileNum != -1 && tileNum != layer1[i][j]) {
                     int y = tileNum % 100;
                     int x = tileNum / 100;
-//                    LOG.debug("layer3---------------");
+//                    LOG.debug("fgLayer---------------");
                     g2.drawImage(tileImg, i*32, j*32,
                             i*32+32, j*32+32,
                             x*32, y*32,
@@ -123,7 +135,7 @@ public class MapScreen extends BaseScreen {
                 }
             }
         } // end of for
-        //////// draw layer3 end
+        //////// draw fgLayer end
 
         //////// draw event start
         final int[][] eventLayer = activeMap.getEvent();

@@ -27,7 +27,7 @@ ILoader
     
 
 #### 2016-12-08 tag1.1
-    show unwalkable tile, layer1 and layer2 of map, npc.
+    show unwalkable tile, bgLayer and npcLayer of map, npc.
     
     
      

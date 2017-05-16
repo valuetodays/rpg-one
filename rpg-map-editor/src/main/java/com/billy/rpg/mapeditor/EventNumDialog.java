@@ -13,7 +13,7 @@ import java.awt.event.MouseListener;
  *
  * event number description
  *
- * 255 (ff) transfer
+ * 0xef ~ 0xff transfer
  *
  * @author liulei
  * @since 2017-05-12 09:24
