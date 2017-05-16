@@ -114,18 +114,27 @@ public class MapAreaPanel extends JPanel {
                 if (rectX > tileXwidth || rectY > tileYheight) {
                     return ;
                 }
+
                 // 分开处理行走层，事件层与地图层
                 if (currentLayer == WALK_LAYER) { // 行走层
                     int[][] flagLayer = layers.get(currentLayer);
                     flagLayer[rectX][rectY] *= -1; //
-                } else if (currentLayer == EVENT_LAYER) { // 事件层
-                    // TODO 位置要考虑贴边的情况
-                    EventNumDialog eventNumDialog = mapEditorPanel.getMapEditorFrame().getEventNumDialog();
-                    eventNumDialog.setLocation(e.getXOnScreen(), e.getYOnScreen());
-                    eventNumDialog.setVisible(true);
+                } else if (currentLayer == EVENT_LAYER) { // 事件层 如果点击时按住shift，就把事件清理成-1，否则显示事件框
+                    if (e.isShiftDown()) {
+                        setEventNum(-1);
+                    } else {
+                        // TODO 位置要考虑贴边的情况
+                        EventNumDialog eventNumDialog = mapEditorPanel.getMapEditorFrame().getEventNumDialog();
+                        eventNumDialog.setLocation(e.getXOnScreen(), e.getYOnScreen());
+                        eventNumDialog.setVisible(true);
+                    }
                 } else {
                     int[][] tmpLayer = layers.get(currentLayer);
-                    tmpLayer[rectX][rectY] = mapEditorPanel.getTileArea().getLastTileN();
+                    if (e.isShiftDown()) {
+                        tmpLayer[rectX][rectY] = -1;
+                    } else {
+                        tmpLayer[rectX][rectY] = mapEditorPanel.getTileArea().getLastTileN();
+                    }
                     LOG.debug("layer " + currentLayer
                             + " in map (x/y" + x + "/" + y + ")[" + rectX + "," + rectY + "]="
                             + tmpLayer[rectX][rectY]);

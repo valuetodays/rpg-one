@@ -130,7 +130,7 @@ public class MapScreen extends BaseScreen {
         for (int i = 0; i < activeMap.getWidth(); i++) {
             for (int j = 0; j < activeMap.getHeight(); j++) {
                 int tileNum = eventLayer[i][j];
-                if (tileNum == 255) { // transfer
+                if (tileNum <= 0xff && tileNum >= 0xef) { // transfer
                     g2.drawImage(transferImage, i*32, j*32,
                             i*32 + 32, j*32 + 32,
                             0, 0,
