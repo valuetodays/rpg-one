@@ -105,8 +105,6 @@ public class MapAreaPanel extends JPanel {
             }
             @Override
             public void mousePressed(MouseEvent e) {
-                mapEditorPanel.getMapEditorFrame().getEventNumDialog().setVisible(false);
-
                 int x = e.getX();
                 int y = e.getY();
                 rectX = x / 32;

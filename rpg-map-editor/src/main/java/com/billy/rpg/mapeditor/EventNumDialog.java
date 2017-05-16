@@ -59,7 +59,8 @@ public class EventNumDialog extends JDialog {
                 LOG.debug("clicked, and get `event num="+eventNum+"`.");
                 mapEditorFrame.getMapEditorPanel().setEventNum(eventNum);
                 tfEventNum.setText("1".trim());
-                instance.setVisible(false);
+//                instance.setVisible(false);
+                instance.dispose();
             }
             @Override
             public void mousePressed(MouseEvent e) {
