@@ -38,7 +38,7 @@ public class MapScreen extends BaseScreen {
      */
     @Override
     public void draw(GameCanvas gameCanvas) {
-
+        GameFrame.getInstance().getGameContainer().getTransferImageItem().enable();
         // 创建一个缓冲区
         BufferedImage paint = new BufferedImage(
                 GameConstant.GAME_WIDTH, 
@@ -55,7 +55,7 @@ public class MapScreen extends BaseScreen {
         Hero mm = GameFrame.getInstance().getGameContainer().getActiveFileItem().getHero();
         int posX = mm.getPosX();
         int posY = mm.getPosY();
-        final Image transferImage = GameFrame.getInstance().getGameContainer().getSkill2ImageItems().getCurrentImage();
+        final Image transferImage = GameFrame.getInstance().getGameContainer().getTransferImageItem().getCurrentImage();
         final Image roleFull1 = GameFrame.getInstance().getGameContainer().getRoleItem().getRoleFull1();
         final Image bgImage1 = GameFrame.getInstance().getGameContainer().getBgImageItem().getBgImage1();
         g2.drawImage(bgImage1, 0, 0, bgImage1.getWidth(null), bgImage1.getHeight(null), null);  // draw bgImage

@@ -38,7 +38,7 @@ public class BgImageItem  implements IImageLoader, IItem {
         LOG.debug("load background images");
 
         try {
-            InputStream is = this.getClass().getResourceAsStream("/Images/bgImage1.jpg");
+            InputStream is = this.getClass().getResourceAsStream("/Images/bgImage1.png");
 
             bgImage1 = ImageIO.read(is);
             IOUtils.closeQuietly(is);

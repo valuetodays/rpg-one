@@ -6,7 +6,7 @@ import com.billy.rpg.game.scriptParser.bean.LoaderBean;
 import com.billy.rpg.game.scriptParser.bean.MapDataLoaderBean;
 import com.billy.rpg.game.scriptParser.cmd.CmdBase;
 import com.billy.rpg.game.scriptParser.item.*;
-import com.billy.rpg.game.scriptParser.item.skill.Skill2ImageItem;
+import com.billy.rpg.game.scriptParser.item.skill.TransferImageItem;
 import com.billy.rpg.game.scriptParser.loader.IContainerLoader;
 import com.billy.rpg.game.scriptParser.loader.data.MapDataLoader;
 import com.billy.rpg.game.scriptParser.loader.data.ScriptDataLoader;
@@ -37,7 +37,7 @@ public class GameContainer implements IContainer, IContainerLoader {
     private ScriptItem activeScriptItem; // active script
     private List<MapDataLoaderBean> mapList; // maps
     private MapDataLoaderBean activeMap; // active map
-    private Skill2ImageItem skill2ImageItems; // TODO transfer!!!
+    private TransferImageItem transferImageItem;
     private NPCImageLoader npcImageLoader;
 
 
@@ -73,7 +73,7 @@ public class GameContainer implements IContainer, IContainerLoader {
         npcItem = new NpcImageItem();
         roleItem = new RoleImageItem();
         gameAboutItem = new GameAboutImageItem();
-        skill2ImageItems = new Skill2ImageItem();
+        transferImageItem = new TransferImageItem();
         npcImageLoader = new NPCImageLoader();
         try {
             bgImageItem.load();
@@ -81,8 +81,9 @@ public class GameContainer implements IContainer, IContainerLoader {
             npcItem.load();
             roleItem.load();
             gameAboutItem.load();
-            skill2ImageItems.load();
-            new Thread(skill2ImageItems).start();
+            transferImageItem.load();
+            new Thread(transferImageItem).start();
+            transferImageItem.disable();
             npcImageLoader.loadNpcs();
             loadMapData();
             loadScriptData();
@@ -224,8 +225,8 @@ public class GameContainer implements IContainer, IContainerLoader {
     public GameAboutImageItem getGameAboutItem() {
         return gameAboutItem;
     }
-    public Skill2ImageItem getSkill2ImageItems() {
-        return skill2ImageItems;
+    public TransferImageItem getTransferImageItem() {
+        return transferImageItem;
     }
     public NPCImageLoader getNpcImageLoader() {
         return npcImageLoader;

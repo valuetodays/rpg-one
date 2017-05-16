@@ -21,12 +21,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *
+ * transfer
  * @author liulei
+ * @since 2017-05-16 20:43 update class name to TransferImageItem
  * @since 2017-04-25 15:21
  */
-public class Skill2ImageItem implements IImageLoader, IItem, Runnable {
-    private static final Logger LOG = Logger.getLogger(Skill2ImageItem.class);
+public class TransferImageItem implements IImageLoader, IItem, Runnable {
+    private static final Logger LOG = Logger.getLogger(TransferImageItem.class);
     private Map<Integer, Image> images;
     private boolean loaded = false;
     private Integer currentFrame = 0;
@@ -48,7 +49,7 @@ public class Skill2ImageItem implements IImageLoader, IItem, Runnable {
         File file = new File(resource.getPath());
         File[] list = file.listFiles();
         if (ArrayUtils.isEmpty(list)) {
-            throw new RuntimeException("没有找到skill-2数据");
+            throw new RuntimeException("没有找到Transfer数据");
         }
 
         Map<Integer, Image> imageMap = new HashMap<>();
@@ -75,11 +76,15 @@ public class Skill2ImageItem implements IImageLoader, IItem, Runnable {
 
 
     public void disable() {
-        enable = true;
+        if (enable) {
+            enable = false;
+        }
     }
 
     public void enable() {
-        enable = true;
+        if (!enable) {
+            enable = true;
+        }
     }
 
     @Override
