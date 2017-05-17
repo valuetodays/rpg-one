@@ -4,6 +4,7 @@ import com.billy.jee.rpg.common.NPCImageLoader;
 import com.billy.rpg.game.GameCanvas;
 import com.billy.rpg.game.GameFrame;
 import com.billy.rpg.game.character.Hero;
+import com.billy.rpg.game.character.TransferCharacter;
 import com.billy.rpg.game.constants.GameConstant;
 import com.billy.rpg.game.scriptParser.bean.MapDataLoaderBean;
 import com.billy.rpg.game.scriptParser.item.ScriptItem;
@@ -38,7 +39,6 @@ public class MapScreen extends BaseScreen {
      */
     @Override
     public void draw(GameCanvas gameCanvas) {
-        GameFrame.getInstance().getGameContainer().getTransferImageItem().enable();
         // 创建一个缓冲区
         BufferedImage paint = new BufferedImage(
                 GameConstant.GAME_WIDTH, 
@@ -55,7 +55,7 @@ public class MapScreen extends BaseScreen {
         Hero mm = GameFrame.getInstance().getGameContainer().getActiveFileItem().getHero();
         int posX = mm.getPosX();
         int posY = mm.getPosY();
-        final Image transferImage = GameFrame.getInstance().getGameContainer().getTransferImageItem().getCurrentImage();
+
         final Image roleFull1 = GameFrame.getInstance().getGameContainer().getRoleItem().getRoleFull1();
         final Image bgImage1 = GameFrame.getInstance().getGameContainer().getBgImageItem().getBgImage1();
         g2.drawImage(bgImage1, 0, 0, bgImage1.getWidth(null), bgImage1.getHeight(null), null);  // draw bgImage
@@ -137,8 +137,21 @@ public class MapScreen extends BaseScreen {
         } // end of for
         //////// draw fgLayer end
 
+
         //////// draw event start
-        final int[][] eventLayer = activeMap.getEvent();
+        final Image transferImage = GameFrame.getInstance().getGameContainer().getTransferImageItem().getImage();
+        java.util.List<TransferCharacter> transfers = active.getTransfers();
+        for (TransferCharacter transfer : transfers) {
+            transfer.move();
+            int curFrame = transfer.getCurFrame();
+            int posX1 = transfer.getPosX();
+            int posY1 = transfer.getPosY();
+            g2.drawImage(transferImage, posX1*32, posY1*32, posX1*32 + 32, posY1*32 + 32,
+                    0, curFrame*32,
+                    32, curFrame*32 + 32, null);
+        }
+
+        /*final int[][] eventLayer = activeMap.getEvent();
         for (int i = 0; i < activeMap.getWidth(); i++) {
             for (int j = 0; j < activeMap.getHeight(); j++) {
                 int tileNum = eventLayer[i][j];
@@ -150,6 +163,7 @@ public class MapScreen extends BaseScreen {
                 }
             }
         } // end of for
+        */
         //////// draw event end
 
         // 将缓冲区的图形绘制到显示面板上

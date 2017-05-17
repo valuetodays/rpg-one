@@ -136,9 +136,6 @@ public class Hero implements CharacterConstant {
      * npc的移动，可以有指定移动，随机移动，etc...
      */
     public void move() {
-        if (!moveFlag) {
-            return ;
-        }
         long now = System.currentTimeMillis();
         if (now - lastTime < 500) {
             return ;
@@ -160,9 +157,9 @@ public class Hero implements CharacterConstant {
         if (i % 2 == 0) {
             increaseCurFrame();
         }
-//        moveFlag = false;
+
     }
-    private boolean moveFlag = true;
+
 
 
 

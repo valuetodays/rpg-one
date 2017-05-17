@@ -2,6 +2,7 @@ package com.billy.rpg.game.scriptParser.container;
 
 import com.billy.jee.rpg.common.NPCImageLoader;
 import com.billy.rpg.game.character.Hero;
+import com.billy.rpg.game.character.TransferCharacter;
 import com.billy.rpg.game.scriptParser.bean.LoaderBean;
 import com.billy.rpg.game.scriptParser.bean.MapDataLoaderBean;
 import com.billy.rpg.game.scriptParser.cmd.CmdBase;
@@ -82,8 +83,6 @@ public class GameContainer implements IContainer, IContainerLoader {
             roleItem.load();
             gameAboutItem.load();
             transferImageItem.load();
-            new Thread(transferImageItem).start();
-            transferImageItem.disable();
             npcImageLoader.loadNpcs();
             loadMapData();
             loadScriptData();
@@ -172,7 +171,21 @@ public class GameContainer implements IContainer, IContainerLoader {
                 }
             }
         }
-        // 添加npc start end
+        // 添加npc end
+
+        // 添加transfer start
+        int[][] eventLayer = getActiveMap().getEvent();
+        for (int i = 0; i < getActiveMap().getWidth(); i++) {
+            for (int j = 0; j < getActiveMap().getHeight(); j++) {
+                int tileNum = eventLayer[i][j];
+                if (tileNum <= 0xff && tileNum >= 0xef) { // transfer
+                    TransferCharacter transfer = new TransferCharacter();
+                    transfer.initPos(i, j);
+                    activeScriptItem.getTransfers().add(transfer);
+                }
+            }
+        }
+        // 添加transfer end
 
 //        executePrimary();
     }

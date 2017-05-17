@@ -1,6 +1,7 @@
 package com.billy.rpg.game.scriptParser.item;
 
 import com.billy.rpg.game.character.Hero;
+import com.billy.rpg.game.character.TransferCharacter;
 import com.billy.rpg.game.scriptParser.bean.DataLoaderBean;
 import com.billy.rpg.game.scriptParser.bean.script.LabelBean;
 import com.billy.rpg.game.scriptParser.bean.script.TalkBean;
@@ -27,6 +28,7 @@ public class ScriptItem extends DataLoaderBean implements IItem {
     private List<TalkBean> talks;
     private Hero hero = new Hero();
     private List<Hero> npcs = new ArrayList<>();
+    private List<TransferCharacter> transfers = new ArrayList<>();
 
 
     public String getFileId() {
@@ -305,5 +307,9 @@ public class ScriptItem extends DataLoaderBean implements IItem {
 
     public List<Hero> getNpcs() {
         return npcs;
+    }
+
+    public List<TransferCharacter> getTransfers() {
+        return transfers;
     }
 }

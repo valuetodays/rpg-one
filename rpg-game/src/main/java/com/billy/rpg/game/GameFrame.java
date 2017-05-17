@@ -153,7 +153,7 @@ public class GameFrame extends JFrame implements Runnable {
     }
     
     
-    public void addListener() {
+    private void addListener() {
         this.addKeyListener(new KeyListener() {//键盘监听
             @Override
             public void keyTyped(KeyEvent e) {
