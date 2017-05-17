@@ -312,4 +312,12 @@ public class ScriptItem extends DataLoaderBean implements IItem {
     public List<TransferCharacter> getTransfers() {
         return transfers;
     }
+
+    public void initNpcs() {
+        this.npcs = new ArrayList<>();
+    }
+
+    public void initTransfers() {
+        this.transfers = new ArrayList<>();
+    }
 }

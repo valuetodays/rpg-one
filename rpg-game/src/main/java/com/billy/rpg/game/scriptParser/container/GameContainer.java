@@ -157,6 +157,7 @@ public class GameContainer implements IContainer, IContainerLoader {
         activeScriptItem.getHero().setHeight(getActiveMap().getHeight());
         activeScriptItem.getHero().setWidth(getActiveMap().getWidth());
         activeScriptItem.getHero().initPos(Integer.parseInt(position[0]), Integer.parseInt(position[1]));
+        activeScriptItem.initNpcs();
         // 添加npc start
         int[][] npcLayer = getActiveMap().getNpcLayer();
         for (int i = 0; i < getActiveMap().getWidth(); i++) {
@@ -174,6 +175,7 @@ public class GameContainer implements IContainer, IContainerLoader {
         // 添加npc end
 
         // 添加transfer start
+        activeScriptItem.initTransfers();
         int[][] eventLayer = getActiveMap().getEvent();
         for (int i = 0; i < getActiveMap().getWidth(); i++) {
             for (int j = 0; j < getActiveMap().getHeight(); j++) {
