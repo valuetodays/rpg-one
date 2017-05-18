@@ -8,8 +8,6 @@ execute the method com.billy.rpg.game.scriptParser.ScriptParser#main()
 to show ...
 
 
-
-
 #### 2016-05-11 
 add `bbk a rpg` development tools in `docs/`
 
@@ -33,6 +31,10 @@ ILoader
      
 #### 2017-01-09 16:35
     show dialog with colorful text
+
+     
+#### 2017-05-18 18:29
+    to add head pic in dialog
     
 
 
