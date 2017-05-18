@@ -1,6 +1,7 @@
 package com.billy.rpg.game.scriptParser.item;
 
-import com.billy.rpg.game.character.Hero;
+import com.billy.rpg.game.character.HeroCharacter;
+import com.billy.rpg.game.character.NPCCharacter;
 import com.billy.rpg.game.character.TransferCharacter;
 import com.billy.rpg.game.scriptParser.bean.DataLoaderBean;
 import com.billy.rpg.game.scriptParser.bean.script.LabelBean;
@@ -26,8 +27,8 @@ public class ScriptItem extends DataLoaderBean implements IItem {
     private List<LabelBean> labelList;
     private List<TriggerBean> triggers;
     private List<TalkBean> talks;
-    private Hero hero = new Hero();
-    private List<Hero> npcs = new ArrayList<>();
+    private HeroCharacter hero = new HeroCharacter();
+    private List<NPCCharacter> npcs = new ArrayList<>();
     private List<TransferCharacter> transfers = new ArrayList<>();
 
 
@@ -63,11 +64,11 @@ public class ScriptItem extends DataLoaderBean implements IItem {
         this.triggers = triggers;
     }
 
-    public Hero getHero() {
+    public HeroCharacter getHero() {
         return hero;
     }
 
-    public void setHero(Hero hero) {
+    public void setHero(HeroCharacter hero) {
         this.hero = hero;
     }
     ////////////////////////////////////////////////////
@@ -244,7 +245,7 @@ public class ScriptItem extends DataLoaderBean implements IItem {
     }
 
     private void checkTrigger0() {
-        Hero mm = GameContainer.getInstance().getActiveFileItem().getHero();
+        HeroCharacter mm = GameContainer.getInstance().getActiveFileItem().getHero();
         String posX = mm.getPosX() + "";
         String posY = mm.getPosY() + "";
 
@@ -252,7 +253,7 @@ public class ScriptItem extends DataLoaderBean implements IItem {
     }
 
     private void checkTalk0() {
-        Hero mm = GameContainer.getInstance().getActiveFileItem().getHero();
+        HeroCharacter mm = GameContainer.getInstance().getActiveFileItem().getHero();
         int posX = mm.getNextPosX();
         int posY = mm.getNextPosY();
         if (posX == -1 && posY == -1) { // a new map, not check talk
@@ -305,7 +306,7 @@ public class ScriptItem extends DataLoaderBean implements IItem {
         flagExecutePrimarySection = true;
     }
 
-    public List<Hero> getNpcs() {
+    public List<NPCCharacter> getNpcs() {
         return npcs;
     }
 

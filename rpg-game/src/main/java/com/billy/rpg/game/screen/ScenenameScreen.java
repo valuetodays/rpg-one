@@ -1,15 +1,12 @@
 package com.billy.rpg.game.screen;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-
+import com.billy.rpg.game.GameCanvas;
 import com.billy.rpg.game.GameFrame;
+import com.billy.rpg.game.constants.GameConstant;
 import org.apache.commons.lang.StringUtils;
 
-import com.billy.rpg.game.constants.GameConstant;
-import com.billy.rpg.game.GameCanvas;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 
 /**
  * show scene name, and it will disappear in {@link #delay} ms, cannot cancel by key down
@@ -69,10 +66,5 @@ public class ScenenameScreen extends BaseScreen {
         
     }
 
-    @Override
-    public boolean isEnd() {
-        // TODO Auto-generated method stub
-        return false;
-    }
 
 }

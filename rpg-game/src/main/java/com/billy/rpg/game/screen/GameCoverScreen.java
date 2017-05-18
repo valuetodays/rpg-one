@@ -13,7 +13,7 @@ import java.util.Map;
 public class GameCoverScreen extends BaseScreen {
 
     private int arrowX = 160;
-    private int f = 1; // 1:new game;  2:continue
+    private int f = 1; // 1:new game;  -1:continue
     private Map<Integer, Integer> map = new HashMap<>(); 
     
     public GameCoverScreen() {
@@ -33,8 +33,7 @@ public class GameCoverScreen extends BaseScreen {
                 GameConstant.GAME_HEIGHT, 
                 BufferedImage.TYPE_4BYTE_ABGR);
         Graphics g2 = paint.getGraphics();
-        
-        
+
         Image gameCover = GameFrame.getInstance().getGameContainer().getGameAboutItem().getGameCover();
         Image gameArrow = GameFrame.getInstance().getGameContainer().getGameAboutItem().getGameArrow();
         Image gameBalloon = GameFrame.getInstance().getGameContainer().getGameAboutItem().getGameBalloon();
@@ -60,7 +59,8 @@ public class GameCoverScreen extends BaseScreen {
     public void onKeyUp(int key) {
         if (KeyUtil.isEnter(key)) {
             if (f == 1) {
-                LOG.debug("you chooose `开始游戏`");
+                LOG.debug("you choose `开始游戏`");
+                GameFrame.getInstance().getGameContainer().startChapter(1, 1, "1-2");
                 GameFrame.getInstance().changeScreen(1);
             } else {
                 // TODO show saves
@@ -80,9 +80,6 @@ public class GameCoverScreen extends BaseScreen {
         f *= -1;
     }
 
-    @Override
-    public boolean isEnd() {
-        return false;
-    }
+
 
 }

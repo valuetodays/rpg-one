@@ -147,11 +147,7 @@ public class DialogScreen extends BaseScreen {
             GameFrame.getInstance().popScreen();
         }
     }
-    @Override
-    public boolean isEnd() {
-        return (curLine > totalLine);
-    }
-    
+
     
     
     @Override

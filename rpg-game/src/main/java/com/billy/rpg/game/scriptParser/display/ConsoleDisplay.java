@@ -1,6 +1,6 @@
 package com.billy.rpg.game.scriptParser.display;
 
-import com.billy.rpg.game.character.Hero;
+import com.billy.rpg.game.character.HeroCharacter;
 import com.billy.rpg.game.scriptParser.bean.MapDataLoaderBean;
 import com.billy.rpg.game.scriptParser.container.GameContainer;
 
@@ -37,7 +37,7 @@ public class ConsoleDisplay implements IDisplay {
      * print map data and role
      */
     private void printActiveMapC() {
-        Hero mm = GameContainer.getInstance().getActiveFileItem().getHero();
+        HeroCharacter mm = GameContainer.getInstance().getActiveFileItem().getHero();
         int posX = mm.getPosX();
         int posY = mm.getPosY();
         

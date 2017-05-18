@@ -1,6 +1,6 @@
 package com.billy.rpg.game.scriptParser.display;
 
-import com.billy.rpg.game.character.Hero;
+import com.billy.rpg.game.character.HeroCharacter;
 import com.billy.rpg.game.constants.GameConstant;
 import com.billy.rpg.game.scriptParser.bean.MapDataLoaderBean;
 import com.billy.rpg.game.scriptParser.container.GameContainer;
@@ -55,7 +55,7 @@ public class GuiDisplay implements IDisplay {
         GameCore.removeAllNoNameImage();
         GameCore.clear();
         
-        Hero mm = FileItemsBean.active.getHero();
+        HeroCharacter mm = FileItemsBean.active.getHero();
         int posX = mm.getPosX();
         int posY = mm.getPosY();
         
@@ -98,7 +98,7 @@ public class GuiDisplay implements IDisplay {
         Graphics g2 = paint.getGraphics();
         
         // 将想要绘制的图形绘制到缓冲区
-        Hero mm = GameContainer.getInstance().getActiveFileItem().getHero();
+        HeroCharacter mm = GameContainer.getInstance().getActiveFileItem().getHero();
         int posX = mm.getPosX();
         int posY = mm.getPosY();
         Image roleFull1 = GameContainer.getInstance().getRoleItem().getRoleFull1();
@@ -164,7 +164,7 @@ public class GuiDisplay implements IDisplay {
      * is role or npc 
      */
     private boolean isRoleOrNpc(int i, int j) {
-        Hero mm = GameContainer.getInstance().getActiveFileItem().getHero();
+        HeroCharacter mm = GameContainer.getInstance().getActiveFileItem().getHero();
         int posX = mm.getPosX();
         int posY = mm.getPosY();
         

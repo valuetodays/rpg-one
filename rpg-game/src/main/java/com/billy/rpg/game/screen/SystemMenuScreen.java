@@ -52,9 +52,4 @@ public class SystemMenuScreen extends BaseScreen {
           }
     }
 
-    @Override
-    public boolean isEnd() {
-        return false;
-    }
-
 }

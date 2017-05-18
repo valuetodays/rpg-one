@@ -26,6 +26,7 @@ public class GameCanvas extends Canvas {
         
 //        g.fillRect(left, top, bitmap.getWidth(), bitmap.getHeight());
         g.drawImage(bitmap, left, top, null);
+
         GameFrame.getInstance().gamePanel.setBackground(background);
     }
     

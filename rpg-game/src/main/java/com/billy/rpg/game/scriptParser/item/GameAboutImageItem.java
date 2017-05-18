@@ -15,6 +15,7 @@ public class GameAboutImageItem implements IImageLoader, IItem {
     private Image gameOver;
     private Image gameArrow;
     private Image gameBalloon;
+    private Image gameTransition;
 
 
     @Override
@@ -28,6 +29,20 @@ public class GameAboutImageItem implements IImageLoader, IItem {
         loadGameOver();
         loadGameArrow();
         loadGameBalloon();
+        loadGameTransition();
+    }
+
+    private void loadGameTransition() {
+        String imgPath = GameUtils.mapPath("Images") + "/transition.png";
+
+        try {
+            InputStream is = this.getClass().getResourceAsStream("/Images/transition.png");
+            gameTransition = ImageIO.read(is);
+            IOUtils.closeQuietly(is);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void loadGameBalloon() {
@@ -96,4 +111,7 @@ public class GameAboutImageItem implements IImageLoader, IItem {
         return gameBalloon;
     }
 
+    public Image getGameTransition() {
+        return gameTransition;
+    }
 }

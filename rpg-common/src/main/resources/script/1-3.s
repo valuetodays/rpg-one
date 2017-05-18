@@ -1,6 +1,5 @@
 attr 1 3
-scenename 'test map 1-3'
-showText '欢迎来到故人居'
+scenename '故人居'
 return
 
 

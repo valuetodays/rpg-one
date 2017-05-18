@@ -17,8 +17,7 @@ public abstract class BaseScreen {
     public abstract void draw(GameCanvas gameCanvas);
     public abstract void onKeyDown(int key);
     public abstract void onKeyUp(int key);
-    public abstract boolean isEnd();
-    
+
     public boolean isPopup() {
         return false;
     }

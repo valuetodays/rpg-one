@@ -24,12 +24,12 @@ return
 
 Hello:
 if a2 Helloed
-showText 'hello'
+showText '哈喽'
 set a2
 return
 
 Helloed:
-showText 'showed hello just now'
+showText '给你说过哈喽了啊'
 return
 
 goright:
@@ -48,6 +48,7 @@ return
 
 @ 肉山，大龙
 talk 255 goright
+talk 2 Hello
 
 trigger 1 1 Hello
 trigger 14 14 goright

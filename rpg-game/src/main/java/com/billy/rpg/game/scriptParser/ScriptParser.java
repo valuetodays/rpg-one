@@ -1,6 +1,6 @@
 package com.billy.rpg.game.scriptParser;
 
-import com.billy.rpg.game.character.Hero;
+import com.billy.rpg.game.character.HeroCharacter;
 import com.billy.rpg.game.scriptParser.container.GameContainer;
 import com.billy.rpg.game.scriptParser.display.ConsoleDisplay;
 import com.billy.rpg.game.scriptParser.item.ScriptItem;
@@ -47,7 +47,7 @@ public class ScriptParser {
             ScriptItem active = GameContainer.getInstance().getActiveFileItem();
 //  TODO           active.initWidthAndHeight(active.getHeight(), active.getWidth());
             active.checkTrigger();
-            Hero mm = active.getHero();
+            HeroCharacter mm = active.getHero();
             display.display();
             
             System.out.print("[2/4/6/8]> ");

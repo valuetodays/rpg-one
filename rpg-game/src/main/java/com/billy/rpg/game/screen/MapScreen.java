@@ -3,7 +3,8 @@ package com.billy.rpg.game.screen;
 import com.billy.jee.rpg.common.NPCImageLoader;
 import com.billy.rpg.game.GameCanvas;
 import com.billy.rpg.game.GameFrame;
-import com.billy.rpg.game.character.Hero;
+import com.billy.rpg.game.character.HeroCharacter;
+import com.billy.rpg.game.character.NPCCharacter;
 import com.billy.rpg.game.character.TransferCharacter;
 import com.billy.rpg.game.constants.GameConstant;
 import com.billy.rpg.game.scriptParser.bean.MapDataLoaderBean;
@@ -52,7 +53,7 @@ public class MapScreen extends BaseScreen {
         Graphics g2 = paint.getGraphics();
         
         // 将想要绘制的图形绘制到缓冲区
-        Hero mm = GameFrame.getInstance().getGameContainer().getActiveFileItem().getHero();
+        HeroCharacter mm = GameFrame.getInstance().getGameContainer().getActiveFileItem().getHero();
         int posX = mm.getPosX();
         int posY = mm.getPosY();
 
@@ -88,8 +89,8 @@ public class MapScreen extends BaseScreen {
                 mm.getCurFrame()*32 + 32, mm.getDirection()*32 + 32, null);
 
         NPCImageLoader npcImageLoader = GameFrame.getInstance().getGameContainer().getNpcImageLoader();
-        java.util.List<Hero> npcs = active.getNpcs();
-        for (Hero npc : npcs) {
+        java.util.List<NPCCharacter> npcs = active.getNpcs();
+        for (NPCCharacter npc : npcs) {
             npc.move();
             int posX1 = npc.getPosX();
             int posY1 = npc.getPosY();
@@ -168,7 +169,6 @@ public class MapScreen extends BaseScreen {
 
         // 将缓冲区的图形绘制到显示面板上
         gameCanvas.drawBitmap(paint, 0, 0);
-        GameFrame.getInstance().getGameContainer().executePrimary();
     }
 
 
@@ -189,7 +189,7 @@ public class MapScreen extends BaseScreen {
 
         ScriptItem active = GameFrame.getInstance().getGameContainer().getActiveFileItem();
         active.toCheckTrigger(); // 设置下一步要检查触发器
-        Hero hero = active.getHero();
+        HeroCharacter hero = active.getHero();
         GameFrame.getInstance().setTitle(hero.toString());
 
         if (KeyUtil.isLeft(key)) {
@@ -206,11 +206,6 @@ public class MapScreen extends BaseScreen {
     @Override
     public boolean isPopup() {
         return false;
-    }
-
-    @Override
-    public boolean isEnd() {
-        return true;
     }
 
 }

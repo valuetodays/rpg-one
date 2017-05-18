@@ -44,6 +44,8 @@ public class GamePanel extends JPanel {
 
             ato.filter(background, dest);
             g.drawImage(dest, 0, 0, null);
+            // 执行初始命令
+            GameFrame.getInstance().getGameContainer().executePrimary();
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.billy.rpg.game.constants;
 
-import java.awt.Font;
+import java.awt.*;
+import java.util.Random;
 
 public interface GameConstant {
 
@@ -15,5 +16,6 @@ public interface GameConstant {
     int SCALE = 1;//游戏放大缩小倍数
 
     Font FONT_DLG_MSG = new Font("黑体", Font.BOLD, 14);
+    Random random = new Random();
 
 }

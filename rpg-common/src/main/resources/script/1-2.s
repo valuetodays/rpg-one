@@ -1,6 +1,5 @@
 attr 1 2
-scenename 'test map 1-2'
-showText '欢迎进入地图二'
+scenename '地图二'
 return
  
 

@@ -1,13 +1,10 @@
 package com.billy.rpg.game.character;
 
 import com.billy.rpg.game.GameFrame;
-import com.billy.rpg.game.constants.CharacterConstant;
 import com.billy.rpg.game.screen.MapScreen;
 
 
-public class TransferCharacter implements CharacterConstant {
-    private int posX = 6; // 当前x
-    private int posY = 6; // 当前y
+public class TransferCharacter extends BaseCharacter {
     private int curFrame;  // 步数
 
     public int getPosX() {
@@ -37,7 +34,7 @@ public class TransferCharacter implements CharacterConstant {
     private long lastTime = System.currentTimeMillis();
 
     /**
-     * 传送门的自动
+     * 传送门的自动切换
      */
     public void move() {
         long now = System.currentTimeMillis();

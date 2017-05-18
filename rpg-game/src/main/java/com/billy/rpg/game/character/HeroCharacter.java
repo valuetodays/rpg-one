@@ -1,21 +1,15 @@
 package com.billy.rpg.game.character;
 
-import com.billy.rpg.game.constants.CharacterConstant;
 import com.billy.rpg.game.util.WalkUtil;
 
 import java.util.Random;
 
 
-public class Hero implements CharacterConstant {
-    private int height = 5; // 当前地图的高
-    private int width = 5;  // 当前地图的宽
-    private int posX = 6; // 当前x
-    private int posY = 6; // 当前y
+public class HeroCharacter extends BaseCharacter {
     private int nextPosX; // 下一步x
     private int nextPosY; // 下一步y
     private int curFrame;  // 步数
     private int direction; // 方向
-    private int tileNum; // for npc TODO to seperate hero from npc
 
 
     public void setHeight(int height) {
@@ -24,10 +18,6 @@ public class Hero implements CharacterConstant {
 
     public void setWidth(int width) {
         this.width = width;
-    }
-
-    public int getPosX() {
-        return posX;
     }
 
     public int getNextPosX() {
@@ -78,6 +68,9 @@ public class Hero implements CharacterConstant {
         }
     }
 
+    public int getPosX() {
+        return posX;
+    }
     public int getPosY() {
         return posY;
     }
@@ -122,19 +115,11 @@ public class Hero implements CharacterConstant {
         return (direction == DIRECTION_UP || direction == DIRECTION_DOWN);
     }
 
-    public int getTileNum() {
-        return tileNum;
-    }
-
-    public void setTileNum(int tileNum) {
-        this.tileNum = tileNum;
-    }
-
     private static Random random = new Random();
     private long lastTime = System.currentTimeMillis();
-    /**
-     * npc的移动，可以有指定移动，随机移动，etc...
-     */
+
+
+    @Override
     public void move() {
         long now = System.currentTimeMillis();
         if (now - lastTime < 500) {
@@ -159,9 +144,6 @@ public class Hero implements CharacterConstant {
         }
 
     }
-
-
-
 
 
 

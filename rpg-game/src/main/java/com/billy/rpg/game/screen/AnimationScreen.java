@@ -1,8 +1,12 @@
 package com.billy.rpg.game.screen;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Image;
+import com.billy.rpg.game.GameCanvas;
+import com.billy.rpg.game.GameFrame;
+import com.rupeng.game.GameUtils;
+import org.apache.commons.lang.StringUtils;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,14 +18,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import javax.imageio.ImageIO;
-
-import com.billy.rpg.game.GameFrame;
-import org.apache.commons.lang.StringUtils;
-
-import com.billy.rpg.game.GameCanvas;
-import com.rupeng.game.GameUtils;
 
 
 /**
@@ -167,10 +163,5 @@ public class AnimationScreen extends BaseScreen {
 
 
 
-
-    @Override
-    public boolean isEnd() {
-        return false;
-    }
 }
 

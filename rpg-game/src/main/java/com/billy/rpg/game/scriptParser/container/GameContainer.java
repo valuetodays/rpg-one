@@ -1,8 +1,12 @@
 package com.billy.rpg.game.scriptParser.container;
 
 import com.billy.jee.rpg.common.NPCImageLoader;
-import com.billy.rpg.game.character.Hero;
+import com.billy.rpg.game.GameFrame;
+import com.billy.rpg.game.character.NPCCharacter;
 import com.billy.rpg.game.character.TransferCharacter;
+import com.billy.rpg.game.character.npc.NoWalkNPCCharacter;
+import com.billy.rpg.game.screen.BaseScreen;
+import com.billy.rpg.game.screen.MapScreen;
 import com.billy.rpg.game.scriptParser.bean.LoaderBean;
 import com.billy.rpg.game.scriptParser.bean.MapDataLoaderBean;
 import com.billy.rpg.game.scriptParser.cmd.CmdBase;
@@ -86,8 +90,6 @@ public class GameContainer implements IContainer, IContainerLoader {
             npcImageLoader.loadNpcs();
             loadMapData();
             loadScriptData();
-
-            startChapter(1, 1, "1-2");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -95,9 +97,13 @@ public class GameContainer implements IContainer, IContainerLoader {
         loaded = true;
         return null;
     }
+
     public void startChapter(int m, int n, String pos) {
+        // TODO 添加过渡场景
+        GameFrame.getInstance().changeScreen(8);
         // init the active map, but it is called in {@link GameContainer#changeActiveScriptItemTo(int, int, String)})
-        changeActiveMapItemTo(m, n); 
+        changeActiveMapItemTo(m, n);
+        GameFrame.getInstance().getGamePanel().repaint();
 
         // initialize the entry script-item
         changeActiveScriptItemTo(m, n, pos);
@@ -149,7 +155,8 @@ public class GameContainer implements IContainer, IContainerLoader {
             throw new RuntimeException("error when loadmap.");
         }
 
-        changeActiveMapItemTo(m, n);
+        // TODO 之前已经加载了，为什么又加载了一次
+//        changeActiveMapItemTo(m, n);
         
         String[] position = pos.split("-");
         activeScriptItem = fi;
@@ -163,7 +170,7 @@ public class GameContainer implements IContainer, IContainerLoader {
         for (int i = 0; i < getActiveMap().getWidth(); i++) {
             for (int j = 0; j < getActiveMap().getHeight(); j++) {
                 if (npcLayer[i][j] != -1) {
-                    Hero npc = new Hero();
+                    NPCCharacter npc = new NoWalkNPCCharacter();
                     npc.setHeight(getActiveMap().getHeight());
                     npc.setWidth(getActiveMap().getWidth());
                     npc.initPos(i, j);
@@ -192,7 +199,12 @@ public class GameContainer implements IContainer, IContainerLoader {
 //        executePrimary();
     }
     public void executePrimary() {
-        activeScriptItem.executePrimarySection();
+        if (activeScriptItem != null) {
+            BaseScreen curScreen = GameFrame.getInstance().getCurScreen();
+            if (curScreen instanceof MapScreen) {
+                activeScriptItem.executePrimarySection();
+            }
+        }
     }
     
     public void changeActiveMapItemTo(int m, int n) {

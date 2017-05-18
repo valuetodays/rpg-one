@@ -37,10 +37,6 @@ public class GameFrame extends JFrame implements Runnable {
     
     
     public GameFrame() {
-        screenStack = new Stack<>();
-        screenStack.push(new GameCoverScreen()); // 进入封面
-//        screenStack.push(new MapScreen());
-//        screenStack.push(new AnimationScreen(null, null, true));
         gameCanvas = new GameCanvas();
         running = true;
         gamePanel = new GamePanel();
@@ -56,6 +52,13 @@ public class GameFrame extends JFrame implements Runnable {
         instance = this;
         gameContainer = GameContainer.getInstance();
         gameContainer.load();
+
+        screenStack = new Stack<>();
+        screenStack.push(new GameCoverScreen()); // 进入封面
+//        screenStack.push(new MapScreen());
+//        screenStack.push(new AnimationScreen(null, null, true));
+
+
         pack();
         LOG.info("game starts");
     }
@@ -88,6 +91,7 @@ public class GameFrame extends JFrame implements Runnable {
     }
 
     public void changeScreen(int screenCode) {
+//        getInstance().getGameContainer().getActiveMap();
         BaseScreen tmp = null;
         switch (screenCode) {
         case 11:
@@ -98,6 +102,9 @@ public class GameFrame extends JFrame implements Runnable {
             break;
         case 2:
             tmp = new SystemMenuScreen();
+            break;
+        case 8:
+            tmp = new TransitionScreen();
             break;
         }
         if (tmp != null) {
@@ -181,7 +188,7 @@ public class GameFrame extends JFrame implements Runnable {
     }
 
 
-
-
-
+    public GamePanel getGamePanel() {
+        return gamePanel;
+    }
 }
