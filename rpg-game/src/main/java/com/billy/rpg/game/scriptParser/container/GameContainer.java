@@ -2,9 +2,11 @@ package com.billy.rpg.game.scriptParser.container;
 
 import com.billy.jee.rpg.common.NPCImageLoader;
 import com.billy.rpg.game.GameFrame;
+import com.billy.rpg.game.character.HeroCharacter;
 import com.billy.rpg.game.character.NPCCharacter;
 import com.billy.rpg.game.character.TransferCharacter;
-import com.billy.rpg.game.character.npc.NoWalkNPCCharacter;
+import com.billy.rpg.game.character.npc.CommonNPCCharacter;
+import com.billy.rpg.game.constants.CharacterConstant;
 import com.billy.rpg.game.screen.BaseScreen;
 import com.billy.rpg.game.screen.MapScreen;
 import com.billy.rpg.game.scriptParser.bean.LoaderBean;
@@ -103,7 +105,6 @@ public class GameContainer implements IContainer, IContainerLoader {
         GameFrame.getInstance().changeScreen(8);
         // init the active map, but it is called in {@link GameContainer#changeActiveScriptItemTo(int, int, String)})
         changeActiveMapItemTo(m, n);
-        GameFrame.getInstance().getGamePanel().repaint();
 
         // initialize the entry script-item
         changeActiveScriptItemTo(m, n, pos);
@@ -157,20 +158,29 @@ public class GameContainer implements IContainer, IContainerLoader {
 
         // TODO 之前已经加载了，为什么又加载了一次
 //        changeActiveMapItemTo(m, n);
-        
+
+        // 第一次加载时没有主角的方向
+        int oldDirection = CharacterConstant.DIRECTION_DOWN;
+        if (activeScriptItem != null) {
+            HeroCharacter hero = activeScriptItem.getHero();
+            if (hero != null) {
+                oldDirection = hero.getDirection();
+            }
+        }
         String[] position = pos.split("-");
         activeScriptItem = fi;
         activeScriptItem.reenter();
         activeScriptItem.getHero().setHeight(getActiveMap().getHeight());
         activeScriptItem.getHero().setWidth(getActiveMap().getWidth());
         activeScriptItem.getHero().initPos(Integer.parseInt(position[0]), Integer.parseInt(position[1]));
+        activeScriptItem.getHero().setDirection(oldDirection);
         activeScriptItem.initNpcs();
         // 添加npc start
         int[][] npcLayer = getActiveMap().getNpcLayer();
         for (int i = 0; i < getActiveMap().getWidth(); i++) {
             for (int j = 0; j < getActiveMap().getHeight(); j++) {
                 if (npcLayer[i][j] != -1) {
-                    NPCCharacter npc = new NoWalkNPCCharacter();
+                    NPCCharacter npc = new CommonNPCCharacter();
                     npc.setHeight(getActiveMap().getHeight());
                     npc.setWidth(getActiveMap().getWidth());
                     npc.initPos(i, j);

@@ -8,7 +8,7 @@ showText '你好，你现在在地图二里。'
 return
 
 goleft:
-loadmap 1 1 17 14
+loadmap 1 1 18 14
 return
 
 goright:

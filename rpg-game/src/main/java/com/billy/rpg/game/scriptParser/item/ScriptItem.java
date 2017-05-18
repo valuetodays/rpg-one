@@ -246,8 +246,8 @@ public class ScriptItem extends DataLoaderBean implements IItem {
 
     private void checkTrigger0() {
         HeroCharacter mm = GameContainer.getInstance().getActiveFileItem().getHero();
-        String posX = mm.getPosX() + "";
-        String posY = mm.getPosY() + "";
+        String posX = mm.getNextPosX() + "";
+        String posY = mm.getNextPosY() + "";
 
         executeTrigger(getTriggerByPos(posX, posY));
     }

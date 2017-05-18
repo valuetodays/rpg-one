@@ -3,8 +3,6 @@ package com.billy.rpg.game.character;
 import com.billy.rpg.game.util.WalkUtil;
 
 public abstract class NPCCharacter extends BaseCharacter {
-    private int nextPosX; // 下一步x
-    private int nextPosY; // 下一步y
     private int curFrame;  // 步数
     private int direction; // 方向
     private int tileNum; // for npc
@@ -21,20 +19,17 @@ public abstract class NPCCharacter extends BaseCharacter {
     public int getPosX() {
         return posX;
     }
-
     public int getNextPosX() {
-        return nextPosX;
+        return posX + (direction == DIRECTION_LEFT ? -1 : (direction == DIRECTION_RIGHT ? 1 : 0 ));
     }
 
     public int getNextPosY() {
-        return nextPosY;
+        return posY + (direction == DIRECTION_UP ? -1 : (direction == DIRECTION_DOWN ? 1 : 0 ));
     }
 
     public void initPos(int posX, int posY) {
         this.posX = posX;
         this.posY = posY;
-        this.nextPosX = -1;
-        this.nextPosY = -1;
     }
 
     protected void increaseCurFrame() {
@@ -53,8 +48,8 @@ public abstract class NPCCharacter extends BaseCharacter {
             increaseCurFrame();
         }
         direction = DIRECTION_RIGHT;
-        nextPosX = posX + 1;
-        if ((posX < width - 1) && WalkUtil.isWalkable(posX + 1, posY)) {
+        int nextPosX = posX + 1;
+        if ((nextPosX < width - 1) && WalkUtil.isWalkable(posX + 1, posY)) {
             posX++;
         }
     }
@@ -64,8 +59,8 @@ public abstract class NPCCharacter extends BaseCharacter {
             increaseCurFrame();
         }
         direction = DIRECTION_LEFT;
-        nextPosX = posX - 1;
-        if (posX > 0 && WalkUtil.isWalkable(posX - 1, posY)) {
+        int nextPosX = posX - 1;
+        if (nextPosX > 0 && WalkUtil.isWalkable(posX - 1, posY)) {
             posX--;
         }
     }
@@ -79,8 +74,8 @@ public abstract class NPCCharacter extends BaseCharacter {
             increaseCurFrame();
         }
         direction = DIRECTION_DOWN;
-        nextPosY = posY + 1;
-        if (posY < height - 1 && WalkUtil.isWalkable(posX, posY + 1)) {
+        int nextPosY = posY + 1;
+        if (nextPosY < height - 1 && WalkUtil.isWalkable(posX, posY + 1)) {
             posY++;
         }
     }
@@ -90,8 +85,8 @@ public abstract class NPCCharacter extends BaseCharacter {
             increaseCurFrame();
         }
         direction = DIRECTION_UP;
-        nextPosY = posY - 1;
-        if (posY > 0 && WalkUtil.isWalkable(posX, posY - 1)) {
+        int nextPosY = posY - 1;
+        if (nextPosY > 0 && WalkUtil.isWalkable(posX, posY - 1)) {
             posY--;
         }
     }
@@ -99,7 +94,7 @@ public abstract class NPCCharacter extends BaseCharacter {
     @Override
     public String toString() {
         return "[height=" + height + ", width=" + width + ", posX=" + posX + ", posY=" + posY + ", nextPosX="
-                + nextPosX + ", nextPosY=" + nextPosY + ", curFrame=" + curFrame + ", direction=" + direction + "]";
+                + getNextPosX() + ", nextPosY=" + getNextPosY() + "]";
     }
 
     public int getDirection() {

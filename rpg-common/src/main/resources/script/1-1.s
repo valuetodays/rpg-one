@@ -51,4 +51,4 @@ talk 255 goright
 talk 2 Hello
 
 trigger 1 1 Hello
-trigger 14 14 goright
+@trigger 14 14 goright

@@ -47,15 +47,16 @@ public class MapScreen extends BaseScreen {
                 BufferedImage.TYPE_4BYTE_ABGR);
 
         ScriptItem active = GameFrame.getInstance().getGameContainer().getActiveFileItem();
-        active.checkTrigger(); // 检查触发器
+
 
         // 得到缓冲区的画笔
         Graphics g2 = paint.getGraphics();
         
         // 将想要绘制的图形绘制到缓冲区
-        HeroCharacter mm = GameFrame.getInstance().getGameContainer().getActiveFileItem().getHero();
-        int posX = mm.getPosX();
-        int posY = mm.getPosY();
+        HeroCharacter hero = GameFrame.getInstance().getGameContainer().getActiveFileItem().getHero();
+        int posX = hero.getPosX();
+        int posY = hero.getPosY();
+        GameFrame.getInstance().setTitle(hero.toString());
 
         final Image roleFull1 = GameFrame.getInstance().getGameContainer().getRoleItem().getRoleFull1();
         final Image bgImage1 = GameFrame.getInstance().getGameContainer().getBgImageItem().getBgImage1();
@@ -85,8 +86,8 @@ public class MapScreen extends BaseScreen {
 
         //////// draw role & npc start
         g2.drawImage(roleFull1, posX*32, posY*32, posX*32 + 32, posY*32 + 32,
-                mm.getCurFrame()*32, mm.getDirection()*32,
-                mm.getCurFrame()*32 + 32, mm.getDirection()*32 + 32, null);
+                hero.getCurFrame()*32, hero.getDirection()*32,
+                hero.getCurFrame()*32 + 32, hero.getDirection()*32 + 32, null);
 
         NPCImageLoader npcImageLoader = GameFrame.getInstance().getGameContainer().getNpcImageLoader();
         java.util.List<NPCCharacter> npcs = active.getNpcs();
@@ -189,8 +190,8 @@ public class MapScreen extends BaseScreen {
 
         ScriptItem active = GameFrame.getInstance().getGameContainer().getActiveFileItem();
         active.toCheckTrigger(); // 设置下一步要检查触发器
+        active.checkTrigger(); // 检查触发器
         HeroCharacter hero = active.getHero();
-        GameFrame.getInstance().setTitle(hero.toString());
 
         if (KeyUtil.isLeft(key)) {
             hero.decreaseX();
@@ -201,6 +202,9 @@ public class MapScreen extends BaseScreen {
         } else if (KeyUtil.isDown(key)) {
             hero.increaseY();
         }
+
+
+
     }
 
     @Override
