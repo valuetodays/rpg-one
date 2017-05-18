@@ -24,6 +24,7 @@ return
 
 Hello:
 if a2 Helloed
+createnpc 10 5 3
 showText '哈喽'
 set a2
 return
@@ -44,7 +45,6 @@ showText '我是`y`天大地大我最大张三`/y`，十分、一百分`r`、`/r
 @          arg1 : which animation
 @          arg2 : repeat or not, 1 repeat, 0 not
 @animation 1 0
-createnpc 10 5 3
 return
 
 @ 肉山，大龙
