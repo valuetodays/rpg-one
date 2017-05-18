@@ -1,5 +1,7 @@
 package com.billy.rpg.game.scriptParser.cmd.executor;
 
+import com.billy.rpg.game.character.NPCCharacter;
+import com.billy.rpg.game.character.npc.CommonNPCCharacter;
 import com.billy.rpg.game.scriptParser.bean.script.LabelBean;
 import com.billy.rpg.game.scriptParser.cmd.*;
 import com.billy.rpg.game.scriptParser.container.GameContainer;
@@ -18,7 +20,6 @@ import java.util.List;
  * 命令执行器
  *
  * @author <a href="http://blog.sina.com.cn/valuetodays">liulei-frx</a>
- * @date 2016-05-10 11:40
  * @since 2016-05-10 11:40
  */
 public class CmdExecutor {
@@ -104,6 +105,17 @@ public class CmdExecutor {
 //            BaseScreen bs = new AnimationScreen(null, no, repeat); 
 //            MainFrame.getInstance().pushScreen(bs);
             AnimationTimer at = new AnimationTimer(500, 400, 200);
+        } else if (cmd instanceof CreateNPCCmd) {
+            final CreateNPCCmd cnc = (CreateNPCCmd) cmd;
+            int x = cnc.getX();
+            int y = cnc.getY();
+            int npcNum = cnc.getNpcNum();
+            NPCCharacter npc = new CommonNPCCharacter();
+            npc.setHeight(GameFrame.getInstance().getGameContainer().getActiveMap().getHeight());
+            npc.setWidth(GameFrame.getInstance().getGameContainer().getActiveMap().getWidth());
+            npc.initPos(x, y);
+            npc.setTileNum(npcNum);
+            GameFrame.getInstance().getGameContainer().getActiveFileItem().getNpcs().add(npc);
         } else {
             logger.warn("no command comfit " + cmd);
         }
@@ -122,7 +134,7 @@ public class CmdExecutor {
      *   rtn 无参数
      *   set
      *   *: 以冒号结尾 说明是标签
-     * @param line
+     * @param line 命令
      * @return
      */
     public static CmdBase processLine(String line) {
@@ -142,7 +154,7 @@ public class CmdExecutor {
             return null;
         }
 
-        return ArguementCmdExecutor.doDeal(line);
+        return CmdParser.parse(line);
     }
 
 

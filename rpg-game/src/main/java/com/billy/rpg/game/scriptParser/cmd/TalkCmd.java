@@ -10,9 +10,6 @@ public class TalkCmd extends CmdBase {
     private int num; // npc number
     private String triggerName; // 触发器名称
 
-    public TalkCmd() {
-        super("talk");
-    }
     public TalkCmd(int num, String triggerName) {
         super("talk");
         this.num = num;

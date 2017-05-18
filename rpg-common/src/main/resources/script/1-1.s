@@ -44,11 +44,12 @@ showText '我是`y`天大地大我最大张三`/y`，十分、一百分`r`、`/r
 @          arg1 : which animation
 @          arg2 : repeat or not, 1 repeat, 0 not
 @animation 1 0
+createnpc 10 5 3
 return
 
 @ 肉山，大龙
 talk 255 goright
-talk 2 Hello
+talk 2 roshan
 
 trigger 1 1 Hello
 @trigger 14 14 goright

@@ -8,6 +8,9 @@ public class CommonNPCCharacter extends NPCCharacter {
 
     private long lastTime = System.currentTimeMillis();
 
+    public CommonNPCCharacter() {
+    }
+
     @Override
     public void move() {
         long now = System.currentTimeMillis();

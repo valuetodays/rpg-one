@@ -1,42 +1,30 @@
 package com.billy.rpg.game.scriptParser.cmd.executor;
 
+import com.billy.rpg.game.scriptParser.cmd.*;
 import org.apache.log4j.Logger;
 
-import com.billy.rpg.game.scriptParser.cmd.AnimationCmd;
-import com.billy.rpg.game.scriptParser.cmd.AttrCmd;
-import com.billy.rpg.game.scriptParser.cmd.CmdBase;
-import com.billy.rpg.game.scriptParser.cmd.IfCmd;
-import com.billy.rpg.game.scriptParser.cmd.LabelCmd;
-import com.billy.rpg.game.scriptParser.cmd.LoadMapCmd;
-import com.billy.rpg.game.scriptParser.cmd.MessageBoxCmd;
-import com.billy.rpg.game.scriptParser.cmd.ReturnCmd;
-import com.billy.rpg.game.scriptParser.cmd.ScenenameCmd;
-import com.billy.rpg.game.scriptParser.cmd.SetCmd;
-import com.billy.rpg.game.scriptParser.cmd.ShowTextCmd;
-import com.billy.rpg.game.scriptParser.cmd.TalkCmd;
-import com.billy.rpg.game.scriptParser.cmd.TriggerCmd;
-
 /**
+ * 脚本解析成命令
+ *
  * @author <a href="http://blog.sina.com.cn/valuetodays">liulei-frx</a>
- * @date 2016-05-10 13:00
  * @since 2016-05-10 13:00
  */
-public class ArguementCmdExecutor {
+public class CmdParser {
 
-    private static final Logger LOG = Logger.getLogger(ArguementCmdExecutor.class);
+    private static final Logger LOG = Logger.getLogger(CmdParser.class);
 
     /**
      * 核心方法，解析一行数据到一个命令里
-     * @param line
+     * @param line command & its argument
      * @return
      */
-    public static CmdBase doDeal(String line) {
+    public static CmdBase parse(String line) {
         int spaceInx = line.indexOf(" ");
         CmdBase cmdBase = null;
         if (spaceInx < 0) { // 没有' '，说明是无参数命令（rtn, label）
-            cmdBase = doDeal0(line);
+            cmdBase = parse0(line);
         } else {
-            cmdBase = doDealN(line.substring(0, spaceInx), line.substring(spaceInx+1));
+            cmdBase = parseN(line.substring(0, spaceInx), line.substring(spaceInx+1));
         }
 
         return cmdBase;
@@ -49,7 +37,7 @@ public class ArguementCmdExecutor {
      * @param cmdarg
      * @return
      */
-    private static CmdBase doDealN(String cmdname, String cmdarg) {
+    private static CmdBase parseN(String cmdname, String cmdarg) {
         if ("if".equals(cmdname)) { // 两个参数
             String[] cmdargs = cmdarg.split(" ");
             if (cmdargs.length != 2) {
@@ -108,9 +96,20 @@ public class ArguementCmdExecutor {
         } else if ("messagebox".equals(cmdname)) {
             return new MessageBoxCmd(cmdarg);
         } else if ("animation".equals(cmdname)) {
-          
             return parseToAnimation(cmdname, cmdarg);
-        } else {
+        } else if ("createnpc".equals(cmdname)) {
+            String[] cmdargs = cmdarg.split(" ");
+            if (cmdargs.length != 3) {
+                LOG.debug("command "+cmdname+" needs "+3+" arguments, "
+                        + "but "+cmdargs.length+" in fact.");
+                return null;
+            }
+            CreateNPCCmd cnc = new CreateNPCCmd(
+                    Integer.parseInt(cmdargs[0]),
+                    Integer.parseInt(cmdargs[1]),
+                    Integer.parseInt(cmdargs[2]));
+            return cnc;
+        } else{
             LOG.warn("unknown command " +  cmdname  + cmdarg);
         }
 
@@ -135,10 +134,10 @@ public class ArguementCmdExecutor {
 
     /**
      * 处理0个参数的命令 现有 rtn, label
-     * @param cmdname
+     * @param cmdname command name
      * @return
      */
-    private static CmdBase doDeal0(String cmdname) {
+    private static CmdBase parse0(String cmdname) {
         // TODO 可优化，尽量不要使用if语句
         if ("return".equals(cmdname)) {
             return new ReturnCmd(cmdname); // TODO 可优化，只要是这个命令就可以忽略cmdname了
