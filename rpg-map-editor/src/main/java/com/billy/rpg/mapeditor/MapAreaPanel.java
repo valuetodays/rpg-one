@@ -148,6 +148,9 @@ public class MapAreaPanel extends JPanel {
                         npcDialog.setLocation(e.getXOnScreen(), e.getYOnScreen());
                         npcDialog.setVisible(true);
                     }
+                    if (e.isControlDown()) {
+
+                    }
                 }
                 repaint();
             }

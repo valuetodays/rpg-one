@@ -42,28 +42,6 @@ public class HeroCharacter extends BaseCharacter {
         return curFrame;
     }
 
-    public void increaseX() {
-        if (direction == DIRECTION_RIGHT) {
-            increaseCurFrame();
-        }
-        direction = DIRECTION_RIGHT;
-        int nextPosX = posX + 1;
-        if ((nextPosX <= width - 1) && WalkUtil.isWalkable(posX + 1, posY)) {
-            posX++;
-        }
-    }
-
-    public void decreaseX() {
-        if (direction == DIRECTION_LEFT) {
-            increaseCurFrame();
-        }
-        direction = DIRECTION_LEFT;
-        int nextPosX = posX - 1;
-        if (nextPosX >= 0 && WalkUtil.isWalkable(posX - 1, posY)) {
-            posX--;
-        }
-    }
-
     public int getPosX() {
         return posX;
     }
@@ -71,26 +49,48 @@ public class HeroCharacter extends BaseCharacter {
         return posY;
     }
 
+    public void increaseX() {
+        if (direction == DIRECTION_RIGHT) {
+            increaseCurFrame();
+        int nextPosX = posX + 1;
+        if ((nextPosX <= width - 1) && WalkUtil.isWalkable(posX + 1, posY)) {
+            posX++;
+        }
+        }
+        direction = DIRECTION_RIGHT;
+    }
+
+    public void decreaseX() {
+        if (direction == DIRECTION_LEFT) {
+            increaseCurFrame();
+        int nextPosX = posX - 1;
+        if (nextPosX >= 0 && WalkUtil.isWalkable(posX - 1, posY)) {
+            posX--;
+        }
+        }
+        direction = DIRECTION_LEFT;
+    }
+
     public void increaseY() {
         if (direction == DIRECTION_DOWN) {
             increaseCurFrame();
+            int nextPosY = posY + 1;
+            if (nextPosY <= height - 1 && WalkUtil.isWalkable(posX, posY + 1)) {
+                posY++;
+            }
         }
         direction = DIRECTION_DOWN;
-        int nextPosY = posY + 1;
-        if (nextPosY <= height - 1 && WalkUtil.isWalkable(posX, posY + 1)) {
-            posY++;
-        }
     }
 
     public void decreaseY() {
         if (direction == DIRECTION_UP) {
             increaseCurFrame();
-        }
-        direction = DIRECTION_UP;
         int nextPosY = posY - 1;
         if (nextPosY >= 0 && WalkUtil.isWalkable(posX, posY - 1)) {
             posY--;
         }
+        }
+        direction = DIRECTION_UP;
     }
 
     @Override

@@ -18,5 +18,5 @@ return
 talk 255 goleft
 trigger 0 0 goleft
 trigger 2 2 Hello
-trigger 8 8 goright
+@trigger 8 8 goright
 talk 254 goright

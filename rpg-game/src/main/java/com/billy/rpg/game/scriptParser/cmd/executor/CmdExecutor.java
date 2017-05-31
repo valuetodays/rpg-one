@@ -2,6 +2,7 @@ package com.billy.rpg.game.scriptParser.cmd.executor;
 
 import com.billy.rpg.game.character.NPCCharacter;
 import com.billy.rpg.game.character.npc.CommonNPCCharacter;
+import com.billy.rpg.game.character.npc.NoWalkNPCCharacter;
 import com.billy.rpg.game.scriptParser.bean.script.LabelBean;
 import com.billy.rpg.game.scriptParser.cmd.*;
 import com.billy.rpg.game.scriptParser.container.GameContainer;
@@ -110,7 +111,13 @@ public class CmdExecutor {
             int x = cnc.getX();
             int y = cnc.getY();
             int npcNum = cnc.getNpcNum();
-            NPCCharacter npc = new CommonNPCCharacter();
+            int type = cnc.getType();
+            NPCCharacter npc = null;
+            if (type == 1) {
+                npc = new NoWalkNPCCharacter();
+            } else {
+                npc = new CommonNPCCharacter();
+            }
             npc.setHeight(GameFrame.getInstance().getGameContainer().getActiveMap().getHeight());
             npc.setWidth(GameFrame.getInstance().getGameContainer().getActiveMap().getWidth());
             npc.initPos(x, y);

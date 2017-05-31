@@ -99,15 +99,17 @@ public class CmdParser {
             return parseToAnimation(cmdname, cmdarg);
         } else if ("createnpc".equals(cmdname)) {
             String[] cmdargs = cmdarg.split(" ");
-            if (cmdargs.length != 3) {
-                LOG.debug("command "+cmdname+" needs "+3+" arguments, "
+            if (cmdargs.length != 4) {
+                LOG.debug("command "+cmdname+" needs "+4+" arguments, "
                         + "but "+cmdargs.length+" in fact.");
                 return null;
             }
             CreateNPCCmd cnc = new CreateNPCCmd(
                     Integer.parseInt(cmdargs[0]),
                     Integer.parseInt(cmdargs[1]),
-                    Integer.parseInt(cmdargs[2]));
+                    Integer.parseInt(cmdargs[2]),
+                    Integer.parseInt(cmdargs[3])
+                    );
             return cnc;
         } else{
             LOG.warn("unknown command " +  cmdname  + cmdarg);

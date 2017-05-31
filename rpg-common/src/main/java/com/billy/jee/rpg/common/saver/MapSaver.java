@@ -69,8 +69,7 @@ public class MapSaver {
                     for(int n = 0; n < height; n++) {
                         int layer_data = layer[m][n];
                         dos.writeInt(layer_data);
-
-                        LOG.debug("`layer"+(i+1)+" "+(layer_data)+"` written" );
+                        //LOG.debug("`layer"+(i+1)+" "+(layer_data)+"` written" );
                     }
                 }
             }

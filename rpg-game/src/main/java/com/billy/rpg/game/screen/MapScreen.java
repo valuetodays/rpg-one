@@ -1,8 +1,10 @@
 package com.billy.rpg.game.screen;
 
+import com.billy.jee.rpg.common.BoxImageLoader;
 import com.billy.jee.rpg.common.NPCImageLoader;
 import com.billy.rpg.game.GameCanvas;
 import com.billy.rpg.game.GameFrame;
+import com.billy.rpg.game.character.BoxCharacter;
 import com.billy.rpg.game.character.HeroCharacter;
 import com.billy.rpg.game.character.NPCCharacter;
 import com.billy.rpg.game.character.TransferCharacter;
@@ -46,9 +48,6 @@ public class MapScreen extends BaseScreen {
                 GameConstant.GAME_HEIGHT, 
                 BufferedImage.TYPE_4BYTE_ABGR);
 
-        ScriptItem active = GameFrame.getInstance().getGameContainer().getActiveFileItem();
-
-
         // 得到缓冲区的画笔
         Graphics g2 = paint.getGraphics();
         
@@ -90,6 +89,7 @@ public class MapScreen extends BaseScreen {
                 hero.getCurFrame()*32 + 32, hero.getDirection()*32 + 32, null);
 
         NPCImageLoader npcImageLoader = GameFrame.getInstance().getGameContainer().getNpcImageLoader();
+        ScriptItem active = GameFrame.getInstance().getGameContainer().getActiveFileItem();
         java.util.List<NPCCharacter> npcs = active.getNpcs();
         for (NPCCharacter npc : npcs) {
             npc.move();
@@ -101,6 +101,16 @@ public class MapScreen extends BaseScreen {
             g2.drawImage(fullImageOf, posX1*32, posY1*32, posX1*32 + 32, posY1*32 + 32,
                     curFrame*32, direction*32,
                     curFrame*32 + 32, direction*32 + 32, null);
+        }
+        BoxImageLoader boxImageLoader = GameFrame.getInstance().getGameContainer().getBoxImageLoader();
+        java.util.List<BoxCharacter> boxes = active.getBoxes();
+        for (BoxCharacter box : boxes) {
+            box.move(); // TODO box需要move?
+            int posX1 = box.getPosX();
+            int posY1 = box.getPosY();
+            int tileNum = box.getTileNum();
+            BufferedImage boxImage = boxImageLoader.getImageOf(tileNum);
+            g2.drawImage(boxImage, posX1*32, posY1*32, null);
         }
 
 //        int[][] layer2 = activeMap.getNpcLayer();
@@ -189,10 +199,7 @@ public class MapScreen extends BaseScreen {
         }
 
         ScriptItem active = GameFrame.getInstance().getGameContainer().getActiveFileItem();
-        active.toCheckTrigger(); // 设置下一步要检查触发器
-        active.checkTrigger(); // 检查触发器
         HeroCharacter hero = active.getHero();
-
         if (KeyUtil.isLeft(key)) {
             hero.decreaseX();
         } else if (KeyUtil.isRight(key)) {
@@ -203,8 +210,8 @@ public class MapScreen extends BaseScreen {
             hero.increaseY();
         }
 
-
-
+        active.checkTrigger(); // 检查触发器
+        active.toCheckTrigger(); // 设置下一步要检查触发器
     }
 
     @Override

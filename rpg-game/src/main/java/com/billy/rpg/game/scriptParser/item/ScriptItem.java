@@ -1,5 +1,6 @@
 package com.billy.rpg.game.scriptParser.item;
 
+import com.billy.rpg.game.character.BoxCharacter;
 import com.billy.rpg.game.character.HeroCharacter;
 import com.billy.rpg.game.character.NPCCharacter;
 import com.billy.rpg.game.character.TransferCharacter;
@@ -30,6 +31,7 @@ public class ScriptItem extends DataLoaderBean implements IItem {
     private HeroCharacter hero = new HeroCharacter();
     private List<NPCCharacter> npcs = new ArrayList<>();
     private List<TransferCharacter> transfers = new ArrayList<>();
+    private List<BoxCharacter> boxes = new ArrayList<>();
 
 
     public String getFileId() {
@@ -230,17 +232,20 @@ public class ScriptItem extends DataLoaderBean implements IItem {
     public void toCheckTrigger() {
         checkTriggerFlag = true;
     }
+
     public void checkTrigger() {
         if (!checkTriggerFlag) {
             return ;
         }
+        checkMonster();
         checkTrigger0();
         checkTalk0();
-        checkMonster();
         checkTriggerFlag = false;
     }
 
+
     private void checkMonster() {
+
 
     }
 
@@ -314,11 +319,18 @@ public class ScriptItem extends DataLoaderBean implements IItem {
         return transfers;
     }
 
+    public List<BoxCharacter> getBoxes() {
+        return boxes;
+    }
+
     public void initNpcs() {
         this.npcs = new ArrayList<>();
     }
 
     public void initTransfers() {
         this.transfers = new ArrayList<>();
+    }
+    public void initBoxes() {
+        this.boxes = new ArrayList<>();
     }
 }

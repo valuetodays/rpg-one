@@ -1,7 +1,9 @@
 package com.billy.rpg.game.scriptParser.container;
 
+import com.billy.jee.rpg.common.BoxImageLoader;
 import com.billy.jee.rpg.common.NPCImageLoader;
 import com.billy.rpg.game.GameFrame;
+import com.billy.rpg.game.character.BoxCharacter;
 import com.billy.rpg.game.character.HeroCharacter;
 import com.billy.rpg.game.character.NPCCharacter;
 import com.billy.rpg.game.character.TransferCharacter;
@@ -46,6 +48,7 @@ public class GameContainer implements IContainer, IContainerLoader {
     private MapDataLoaderBean activeMap; // active map
     private TransferImageItem transferImageItem;
     private NPCImageLoader npcImageLoader;
+    private BoxImageLoader boxImageLoader;
 
 
     
@@ -82,6 +85,7 @@ public class GameContainer implements IContainer, IContainerLoader {
         gameAboutItem = new GameAboutImageItem();
         transferImageItem = new TransferImageItem();
         npcImageLoader = new NPCImageLoader();
+        boxImageLoader = new BoxImageLoader();
         try {
             bgImageItem.load();
             tileItem.load();
@@ -90,6 +94,8 @@ public class GameContainer implements IContainer, IContainerLoader {
             gameAboutItem.load();
             transferImageItem.load();
             npcImageLoader.loadNpcs();
+            boxImageLoader.loadBoxes();
+
             loadMapData();
             loadScriptData();
         } catch (Exception e) {
@@ -175,7 +181,7 @@ public class GameContainer implements IContainer, IContainerLoader {
         activeScriptItem.getHero().initPos(Integer.parseInt(position[0]), Integer.parseInt(position[1]));
         activeScriptItem.getHero().setDirection(oldDirection);
         activeScriptItem.initNpcs();
-        // 添加npc start
+        // 添加 npc start
         int[][] npcLayer = getActiveMap().getNpcLayer();
         for (int i = 0; i < getActiveMap().getWidth(); i++) {
             for (int j = 0; j < getActiveMap().getHeight(); j++) {
@@ -189,10 +195,11 @@ public class GameContainer implements IContainer, IContainerLoader {
                 }
             }
         }
-        // 添加npc end
+        // 添加 npc end
 
-        // 添加transfer start
+        // 添加 transfer/box start
         activeScriptItem.initTransfers();
+        activeScriptItem.initBoxes();
         int[][] eventLayer = getActiveMap().getEvent();
         for (int i = 0; i < getActiveMap().getWidth(); i++) {
             for (int j = 0; j < getActiveMap().getHeight(); j++) {
@@ -201,10 +208,19 @@ public class GameContainer implements IContainer, IContainerLoader {
                     TransferCharacter transfer = new TransferCharacter();
                     transfer.initPos(i, j);
                     activeScriptItem.getTransfers().add(transfer);
+                } else if (tileNum == 0xee) { // open-box
+                    BoxCharacter box = new BoxCharacter(tileNum);
+                    box.initPos(i, j);
+                    activeScriptItem.getBoxes().add(box);
+                } else if (tileNum == 0xed) { // closed-box
+                    BoxCharacter box = new BoxCharacter(tileNum);
+                    box.initPos(i, j);
+                    activeScriptItem.getBoxes().add(box);
                 }
+
             }
         }
-        // 添加transfer end
+        // 添加 transfer/box end
 
 //        executePrimary();
     }
@@ -267,5 +283,9 @@ public class GameContainer implements IContainer, IContainerLoader {
     }
     public NPCImageLoader getNpcImageLoader() {
         return npcImageLoader;
+    }
+
+    public BoxImageLoader getBoxImageLoader() {
+        return boxImageLoader;
     }
 }

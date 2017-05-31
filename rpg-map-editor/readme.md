@@ -4,7 +4,11 @@
 #### 2017-05-16
 
 - click with shift to remove tile, event num
-- `event num` added, 0xef ~ 0xff is reserved for transfer 
+- `event num` added, 
+
+>>    0xef ~ 0xff is reserved for transfer
+
+>>    0xee(238) for open box, 0xed(237) for closed box 
 
 #### 2017-05-04
 

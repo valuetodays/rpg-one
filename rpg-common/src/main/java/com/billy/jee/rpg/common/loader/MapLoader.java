@@ -70,7 +70,7 @@ public class MapLoader {
                     for(int n = 0; n < height; n++) {
                         int readN = dis.readInt();
                         layer[m][n] = readN;
-                        LOG.debug("readN `" + readN + "` read");
+                        //LOG.debug("readN `" + readN + "` read");
                     }
                 }
                 layers.add(layer);

@@ -25,7 +25,7 @@ public class GameFrame extends JFrame implements Runnable {
     private Stack<BaseScreen> screenStack;
     private GameCanvas gameCanvas;
     private boolean running;
-    public GamePanel gamePanel;
+    private GamePanel gamePanel;
     private GameContainer gameContainer;
     
 
@@ -83,15 +83,14 @@ public class GameFrame extends JFrame implements Runnable {
     }
     
     public void popScreen() {
-            screenStack.pop();
+        screenStack.pop();
     }
 
     public BaseScreen getCurScreen() {
-            return screenStack.peek();
+        return screenStack.peek();
     }
 
     public void changeScreen(int screenCode) {
-//        getInstance().getGameContainer().getActiveMap();
         BaseScreen tmp = null;
         switch (screenCode) {
         case 11:
@@ -150,7 +149,6 @@ public class GameFrame extends JFrame implements Runnable {
                 }
 //            } // end of synchronized
         }
-        
         
         try {
             Thread.sleep(GameConstant.TIME_GAMELOOP);

@@ -6,6 +6,8 @@ scenename '新手村'
 @showText 'haha,含有中文字符哦亲'
 @@@@@messagebox 与showText 不要同时出现， [at 20161223]
 @messagebox '欢迎进入小小地图一'
+@ will use createbox
+@ createnpc 8 5 99 1
 return
 
 haha:
@@ -24,7 +26,8 @@ return
 
 Hello:
 if a2 Helloed
-createnpc 10 5 3
+@         x  y n type
+@ createnpc 9 5 2 1
 showText '哈喽'
 set a2
 return
@@ -37,6 +40,9 @@ goright:
 loadmap 1 2 1 0
 return
 
+box1:
+showText '这是一个宝箱，可是`y`打不开`/y`，好气啊！'
+return
 
 roshan:
 @showText '我是`y`张三`/y`，命令你快去打`r`大龙`/r`！你快去啊，真是不听话，害我说那么多话，真可恶！什么？！你说`b`我废话多`/b`？你再说，再说一次试试？'
@@ -50,6 +56,7 @@ return
 @ 肉山，大龙
 talk 255 goright
 talk 2 roshan
+talk 237 box1
 
 trigger 1 1 Hello
 @trigger 14 14 goright
