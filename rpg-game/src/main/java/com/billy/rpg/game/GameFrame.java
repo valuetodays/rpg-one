@@ -1,8 +1,9 @@
 package com.billy.rpg.game;
 
+import com.billy.jee.rpg.common.util.JavaVersionUtil;
 import com.billy.rpg.game.constants.GameConstant;
-import com.billy.rpg.game.scriptParser.container.GameContainer;
 import com.billy.rpg.game.screen.*;
+import com.billy.rpg.game.scriptParser.container.GameContainer;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
@@ -30,6 +31,8 @@ public class GameFrame extends JFrame implements Runnable {
     
 
     public static void main(String[] args) {
+        JavaVersionUtil.validateJava();
+
         GameFrame m = new GameFrame();
         
         new Thread(m, "fmj").start();
