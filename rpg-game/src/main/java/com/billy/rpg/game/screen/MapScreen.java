@@ -36,8 +36,6 @@ public class MapScreen extends BaseScreen {
     }
 
     /**
-     *
-     * TODO 应该先显示地图，再显示scenename
      * @param gameCanvas gameCanvas
      */
     @Override
