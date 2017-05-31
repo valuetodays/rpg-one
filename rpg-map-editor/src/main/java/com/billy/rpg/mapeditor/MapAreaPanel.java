@@ -124,12 +124,15 @@ public class MapAreaPanel extends JPanel {
                 } else if (currentLayer == EVENT_LAYER) { // 事件层 如果点击时按住shift，就把事件清理成-1，否则显示事件框
                     if (e.isShiftDown()) {
                         setEventNum(-1);
+                    } else if (e.isControlDown()) { // TODO 暂时只能添加closed-box
+                        setEventNum(0xed);
                     } else {
                         // TODO 位置要考虑贴边的情况
                         EventNumDialog eventNumDialog = mapEditorPanel.getMapEditorFrame().getEventNumDialog();
                         eventNumDialog.setLocation(e.getXOnScreen(), e.getYOnScreen());
                         eventNumDialog.setVisible(true);
                     }
+
                 } else if (currentLayer == BG_LAYER || currentLayer == FG_LAYER) { // 背景层或前景层
                     int[][] tmpLayer = layers.get(currentLayer);
                     if (e.isShiftDown()) {
@@ -147,9 +150,6 @@ public class MapAreaPanel extends JPanel {
                         NPCDialog npcDialog = mapEditorPanel.getMapEditorFrame().getNpcDialog();
                         npcDialog.setLocation(e.getXOnScreen(), e.getYOnScreen());
                         npcDialog.setVisible(true);
-                    }
-                    if (e.isControlDown()) {
-
                     }
                 }
                 repaint();
@@ -260,7 +260,15 @@ public class MapAreaPanel extends JPanel {
                     if (num != -1) {
                         int topX = i * 32 + 10;
                         int topY = j * 32 + 20;
-                        g.drawString(num + "", topX, topY);
+                        if (num == 0xee) { // open-box
+                            BufferedImage boxImage = mapEditorPanel.getBoxImageLoader().getImageOf(num);
+                            g.drawImage(boxImage, i*32, j*32, null);
+                        } else if (num == 0xed) { // closed-box
+                            BufferedImage boxImage = mapEditorPanel.getBoxImageLoader().getImageOf(num);
+                            g.drawImage(boxImage, i*32, j*32, null);
+                        } else {
+                            g.drawString(num + "", topX, topY);
+                        }
                     }
                 }
             }

@@ -1,8 +1,8 @@
 package com.billy.rpg.mapeditor;
 
 import com.billy.jee.rpg.common.loader.MapLoader;
-import com.billy.jee.rpg.common.saver.MapSaver;
 import com.billy.jee.rpg.common.saver.MapMetaData;
+import com.billy.jee.rpg.common.saver.MapSaver;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
@@ -221,5 +221,7 @@ public class MapEditorFrame extends JFrame {
     public NPCDialog getNpcDialog() {
         return npcDialog;
     }
+
+
 }
 

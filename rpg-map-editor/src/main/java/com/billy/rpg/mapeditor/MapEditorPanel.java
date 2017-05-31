@@ -1,5 +1,6 @@
 package com.billy.rpg.mapeditor;
 
+import com.billy.jee.rpg.common.BoxImageLoader;
 import com.billy.jee.rpg.common.constant.MapEditorConstant;
 import org.apache.log4j.Logger;
 
@@ -49,6 +50,7 @@ public class MapEditorPanel extends JPanel {
     private MapAreaPanel mapArea;
     private JScrollPane jspCenter;
     private String mapName = "百草地";
+    private BoxImageLoader boxImageLoader = new BoxImageLoader();
 
     private void initComponents() {
         LayoutManager borderLayout = new BorderLayout(5, 5);
@@ -109,6 +111,9 @@ public class MapEditorPanel extends JPanel {
 
         add(jspCenter, BorderLayout.CENTER);
         // add center end
+
+
+        boxImageLoader.loadBoxes();
     }
 
     private void bindApplyListener(JButton btnApply) {
@@ -138,8 +143,8 @@ public class MapEditorPanel extends JPanel {
     }
 
 
-    public BufferedImage background;
-    public BufferedImage dest;
+    private BufferedImage background;
+    private BufferedImage dest;
 
     @Override
     public void paint(Graphics g) {
@@ -194,6 +199,10 @@ public class MapEditorPanel extends JPanel {
 
     public MapEditorFrame getMapEditorFrame() {
         return mapEditorFrame;
+    }
+
+    public BoxImageLoader getBoxImageLoader() {
+        return boxImageLoader;
     }
 
 
