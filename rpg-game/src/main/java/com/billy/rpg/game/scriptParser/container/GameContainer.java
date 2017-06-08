@@ -49,6 +49,7 @@ public class GameContainer implements IContainer, IContainerLoader {
     private TransferImageItem transferImageItem;
     private NPCImageLoader npcImageLoader;
     private BoxImageLoader boxImageLoader;
+    private BattleImageItem battleImageItem;
 
 
     
@@ -86,6 +87,7 @@ public class GameContainer implements IContainer, IContainerLoader {
         transferImageItem = new TransferImageItem();
         npcImageLoader = new NPCImageLoader();
         boxImageLoader = new BoxImageLoader();
+        battleImageItem = new BattleImageItem();
         try {
             bgImageItem.load();
             tileItem.load();
@@ -95,6 +97,7 @@ public class GameContainer implements IContainer, IContainerLoader {
             transferImageItem.load();
             npcImageLoader.loadNpcs();
             boxImageLoader.loadBoxes();
+            battleImageItem.load();
 
             loadMapData();
             loadScriptData();
@@ -287,5 +290,9 @@ public class GameContainer implements IContainer, IContainerLoader {
 
     public BoxImageLoader getBoxImageLoader() {
         return boxImageLoader;
+    }
+
+    public BattleImageItem getBattleImageItem() {
+        return battleImageItem;
     }
 }

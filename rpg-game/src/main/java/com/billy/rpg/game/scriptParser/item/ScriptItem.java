@@ -1,5 +1,6 @@
 package com.billy.rpg.game.scriptParser.item;
 
+import com.billy.rpg.game.GameFrame;
 import com.billy.rpg.game.character.BoxCharacter;
 import com.billy.rpg.game.character.HeroCharacter;
 import com.billy.rpg.game.character.NPCCharacter;
@@ -32,6 +33,8 @@ public class ScriptItem extends DataLoaderBean implements IItem {
     private List<NPCCharacter> npcs = new ArrayList<>();
     private List<TransferCharacter> transfers = new ArrayList<>();
     private List<BoxCharacter> boxes = new ArrayList<>();
+    private static final int STEP_MEET_MONSTER = 8;
+    private int steps; // 当前地图下的移动步数，当达到STEP_MEET_MONSTER时会遇到怪物进行战斗
 
 
     public String getFileId() {
@@ -237,6 +240,7 @@ public class ScriptItem extends DataLoaderBean implements IItem {
         if (!checkTriggerFlag) {
             return ;
         }
+        steps++; // checkTrigger()方法的执行之前会的上下左右的移动
         checkMonster();
         checkTrigger0();
         checkTalk0();
@@ -245,7 +249,13 @@ public class ScriptItem extends DataLoaderBean implements IItem {
 
 
     private void checkMonster() {
+        if (steps < STEP_MEET_MONSTER) {
+            return ;
+        }
+        LOG.info("a monster..");
 
+        steps = 0;
+        GameFrame.getInstance().changeScreen(9);
 
     }
 

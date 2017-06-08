@@ -28,7 +28,6 @@ public class GameFrame extends JFrame implements Runnable {
     private boolean running;
     private GamePanel gamePanel;
     private GameContainer gameContainer;
-    
 
     public static void main(String[] args) {
         JavaVersionUtil.validateJava();
@@ -37,8 +36,7 @@ public class GameFrame extends JFrame implements Runnable {
         
         new Thread(m, "fmj").start();
     }
-    
-    
+
     public GameFrame() {
         gameCanvas = new GameCanvas();
         running = true;
@@ -60,7 +58,6 @@ public class GameFrame extends JFrame implements Runnable {
         screenStack.push(new GameCoverScreen()); // 进入封面
 //        screenStack.push(new MapScreen());
 //        screenStack.push(new AnimationScreen(null, null, true));
-
 
         pack();
         LOG.info("game starts");
@@ -107,6 +104,9 @@ public class GameFrame extends JFrame implements Runnable {
             break;
         case 8:
             tmp = new TransitionScreen();
+            break;
+        case 9:
+            tmp = new BattleScreen();
             break;
         }
         if (tmp != null) {

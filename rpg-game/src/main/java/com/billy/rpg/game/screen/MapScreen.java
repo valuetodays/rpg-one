@@ -160,20 +160,6 @@ public class MapScreen extends BaseScreen {
                     0, curFrame*32,
                     32, curFrame*32 + 32, null);
         }
-
-        /*final int[][] eventLayer = activeMap.getEvent();
-        for (int i = 0; i < activeMap.getWidth(); i++) {
-            for (int j = 0; j < activeMap.getHeight(); j++) {
-                int tileNum = eventLayer[i][j];
-                if (tileNum <= 0xff && tileNum >= 0xef) { // transfer
-                    g2.drawImage(transferImage, i*32, j*32,
-                            i*32 + 32, j*32 + 32,
-                            0, 0,
-                            32, 32, null);
-                }
-            }
-        } // end of for
-        */
         //////// draw event end
 
         // 将缓冲区的图形绘制到显示面板上
