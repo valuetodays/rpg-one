@@ -1,4 +1,4 @@
-package com.billy.jee.rpg.resource.box;
+package com.billy.rpg.resource.box;
 
 import java.awt.*;
 

@@ -1,4 +1,4 @@
-package com.billy.jee.rpg.resource.animation;
+package com.billy.rpg.resource.animation;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.ArrayUtils;

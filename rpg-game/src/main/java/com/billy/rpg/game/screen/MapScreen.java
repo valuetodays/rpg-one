@@ -1,7 +1,7 @@
 package com.billy.rpg.game.screen;
 
-import com.billy.jee.rpg.resource.box.BoxImageLoader;
-import com.billy.jee.rpg.resource.npc.NPCImageLoader;
+import com.billy.rpg.resource.box.BoxImageLoader;
+import com.billy.rpg.resource.npc.NPCImageLoader;
 import com.billy.rpg.game.GameCanvas;
 import com.billy.rpg.game.GameFrame;
 import com.billy.rpg.game.character.BoxCharacter;

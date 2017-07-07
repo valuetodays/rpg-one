@@ -1,4 +1,4 @@
-package com.billy.jee.rpg.resource.animation;
+package com.billy.rpg.resource.animation;
 
 /**
  * @author liulei@bshf360.com

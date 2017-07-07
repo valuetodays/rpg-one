@@ -1,8 +1,8 @@
 package com.billy.rpg.mapeditor;
 
-import com.billy.jee.rpg.resource.map.MapLoader;
-import com.billy.jee.rpg.resource.map.MapMetaData;
-import com.billy.jee.rpg.resource.map.MapSaver;
+import com.billy.rpg.resource.map.MapLoader;
+import com.billy.rpg.resource.map.MapMetaData;
+import com.billy.rpg.resource.map.MapSaver;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;

@@ -1,4 +1,4 @@
-package com.billy.jee.rpg.resource.animation;
+package com.billy.rpg.resource.animation;
 
 import java.awt.image.BufferedImage;
 import java.util.List;

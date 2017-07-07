@@ -1,4 +1,4 @@
-package com.billy.jee.rpg.resource.npc;
+package com.billy.rpg.resource.npc;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.ArrayUtils;

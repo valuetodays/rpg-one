@@ -1,4 +1,4 @@
-package com.billy.jee.rpg.common.constant;
+package com.billy.rpg.common.constant;
 
 /**
  * constant

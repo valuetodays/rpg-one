@@ -1,6 +1,6 @@
 package com.billy.rpg.mapeditor;
 
-import com.billy.jee.rpg.common.util.ImageUtil;
+import com.billy.rpg.common.util.ImageUtil;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;

@@ -1,7 +1,7 @@
 package test.billy.animation;
 
-import com.billy.jee.rpg.resource.animation.AnimationImageLoader;
-import com.billy.jee.rpg.resource.animation.AnimationMetaData;
+import com.billy.rpg.resource.animation.AnimationImageLoader;
+import com.billy.rpg.resource.animation.AnimationMetaData;
 
 import javax.swing.*;
 import java.awt.*;

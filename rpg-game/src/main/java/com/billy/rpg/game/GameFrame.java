@@ -1,6 +1,6 @@
 package com.billy.rpg.game;
 
-import com.billy.jee.rpg.common.util.JavaVersionUtil;
+import com.billy.rpg.common.util.JavaVersionUtil;
 import com.billy.rpg.game.constants.GameConstant;
 import com.billy.rpg.game.screen.*;
 import com.billy.rpg.game.scriptParser.container.GameContainer;

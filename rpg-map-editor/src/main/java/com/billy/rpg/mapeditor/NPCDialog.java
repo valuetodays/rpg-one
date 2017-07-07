@@ -1,7 +1,7 @@
 package com.billy.rpg.mapeditor;
 
-import com.billy.jee.rpg.resource.npc.NPCImageLoader;
-import com.billy.jee.rpg.resource.npc.NPCMetaData;
+import com.billy.rpg.resource.npc.NPCImageLoader;
+import com.billy.rpg.resource.npc.NPCMetaData;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;

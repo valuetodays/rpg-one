@@ -1,4 +1,4 @@
-package com.billy.jee.rpg.common.util;
+package com.billy.rpg.common.util;
 
 /**
  * validation of java version
