@@ -15,7 +15,7 @@ public class GameCanvas extends Canvas {
     public GameCanvas() {
         background = new BufferedImage(
                 GameConstant.GAME_WIDTH,
-                GameConstant.GAME_WIDTH,
+                GameConstant.GAME_HEIGHT,
                 BufferedImage.TYPE_4BYTE_ABGR);
     }
     
