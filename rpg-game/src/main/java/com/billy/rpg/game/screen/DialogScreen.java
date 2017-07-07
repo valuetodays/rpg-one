@@ -78,7 +78,7 @@ public class DialogScreen extends BaseScreen {
                     cnt += mc.cnt;
                     if (i == msgListTemp.size() - 1) {
                         totalLine++;
-                        System.out.println("one");
+//                        System.out.println("one");
                     }
                 } else {
                     String pre = mccontent.substring(0, SEP - cnt);

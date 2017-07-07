@@ -10,12 +10,6 @@ scenename '新手村'
 @ createnpc 8 5 99 1
 return
 
-haha:
-if say0 say0ed
-showText '私は有恩报恩，有仇报仇！'
-set say0
-return
-
 say0ed:
 return
  
@@ -41,7 +35,12 @@ loadmap 1 2 1 0
 return
 
 box1:
-showText '这是一个宝箱，可是`y`打不开`/y`，好气啊！'
+@showText '这是一个宝箱，可是`y`打不开`/y`，好气啊！'
+@ 播放动画 参数是要播放的动画编号
+animation 0
+@@if say0 say0ed
+@@showText '私は有恩报恩，有仇报仇！'
+@@set say0
 return
 
 roshan:

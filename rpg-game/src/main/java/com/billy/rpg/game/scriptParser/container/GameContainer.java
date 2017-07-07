@@ -1,7 +1,5 @@
 package com.billy.rpg.game.scriptParser.container;
 
-import com.billy.rpg.resource.box.BoxImageLoader;
-import com.billy.rpg.resource.npc.NPCImageLoader;
 import com.billy.rpg.game.GameFrame;
 import com.billy.rpg.game.character.BoxCharacter;
 import com.billy.rpg.game.character.HeroCharacter;
@@ -19,6 +17,9 @@ import com.billy.rpg.game.scriptParser.item.skill.TransferImageItem;
 import com.billy.rpg.game.scriptParser.loader.IContainerLoader;
 import com.billy.rpg.game.scriptParser.loader.data.MapDataLoader;
 import com.billy.rpg.game.scriptParser.loader.data.ScriptDataLoader;
+import com.billy.rpg.resource.animation.AnimationImageLoader;
+import com.billy.rpg.resource.box.BoxImageLoader;
+import com.billy.rpg.resource.npc.NPCImageLoader;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -49,6 +50,7 @@ public class GameContainer implements IContainer, IContainerLoader {
     private TransferImageItem transferImageItem;
     private NPCImageLoader npcImageLoader;
     private BoxImageLoader boxImageLoader;
+    private AnimationImageLoader animationImageLoader;
     private BattleImageItem battleImageItem;
 
 
@@ -87,6 +89,7 @@ public class GameContainer implements IContainer, IContainerLoader {
         transferImageItem = new TransferImageItem();
         npcImageLoader = new NPCImageLoader();
         boxImageLoader = new BoxImageLoader();
+        animationImageLoader = new AnimationImageLoader();
         battleImageItem = new BattleImageItem();
         try {
             bgImageItem.load();
@@ -97,6 +100,7 @@ public class GameContainer implements IContainer, IContainerLoader {
             transferImageItem.load();
             npcImageLoader.loadNpcs();
             boxImageLoader.loadBoxes();
+            animationImageLoader.load();
             battleImageItem.load();
 
             loadMapData();
@@ -294,5 +298,9 @@ public class GameContainer implements IContainer, IContainerLoader {
 
     public BattleImageItem getBattleImageItem() {
         return battleImageItem;
+    }
+
+    public AnimationImageLoader getAnimationImageLoader() {
+        return animationImageLoader;
     }
 }

@@ -9,7 +9,7 @@ public interface GameConstant {
 
     int GAME_WIDTH    = 640;
     int GAME_HEIGHT   = 480;
-    long TIME_GAMELOOP = 30;
+    long TIME_GAMELOOP = 10;
     int GAME_WINDOW_LEFT = 400;
     int GAME_WINDOW_TOP = 100;
 

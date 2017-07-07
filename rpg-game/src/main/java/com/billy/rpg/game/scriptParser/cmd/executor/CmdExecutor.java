@@ -1,18 +1,14 @@
 package com.billy.rpg.game.scriptParser.cmd.executor;
 
+import com.billy.rpg.game.GameFrame;
 import com.billy.rpg.game.character.NPCCharacter;
 import com.billy.rpg.game.character.npc.CommonNPCCharacter;
 import com.billy.rpg.game.character.npc.NoWalkNPCCharacter;
+import com.billy.rpg.game.screen.*;
 import com.billy.rpg.game.scriptParser.bean.script.LabelBean;
 import com.billy.rpg.game.scriptParser.cmd.*;
 import com.billy.rpg.game.scriptParser.container.GameContainer;
 import com.billy.rpg.game.scriptParser.virtualtable.GlobalVirtualTables;
-import com.billy.rpg.game.GameFrame;
-import com.billy.rpg.game.screen.BaseScreen;
-import com.billy.rpg.game.screen.DialogScreen;
-import com.billy.rpg.game.screen.MessageBoxScreen;
-import com.billy.rpg.game.screen.ScenenameScreen;
-import com.billyrupeng.timer.AnimationTimer;
 import org.apache.log4j.Logger;
 
 import java.util.List;
@@ -101,11 +97,10 @@ public class CmdExecutor {
             GameFrame.getInstance().pushScreen(bs);
         } else if (cmd instanceof AnimationCmd) {
             final AnimationCmd ac = (AnimationCmd) cmd;
-            int no = ac.getNo();
-            boolean repeat = ac.isRepeat();
-//            BaseScreen bs = new AnimationScreen(null, no, repeat); 
-//            MainFrame.getInstance().pushScreen(bs);
-            AnimationTimer at = new AnimationTimer(500, 400, 200);
+            int no = ac.getNumber();
+            BaseScreen as = new AnimationScreen(no);
+            GameFrame.getInstance().pushScreen(as);
+//            AnimationTimer at = new AnimationTimer(500, 400, 200);
         } else if (cmd instanceof CreateNPCCmd) {
             final CreateNPCCmd cnc = (CreateNPCCmd) cmd;
             int x = cnc.getX();

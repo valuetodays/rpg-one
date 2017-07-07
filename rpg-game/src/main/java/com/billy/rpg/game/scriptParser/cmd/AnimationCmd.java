@@ -1,31 +1,15 @@
 package com.billy.rpg.game.scriptParser.cmd;
 
 public class AnimationCmd extends CmdBase {
-    private int no;
-    private boolean repeat;
-    
-    public AnimationCmd(int no, boolean repeat) {
+    private int number;
+
+    public AnimationCmd(int number) {
         super("animation");
-        this.no = no;
-        this.repeat = repeat;
+        this.number = number;
     }
 
-    public int getNo() {
-        return no;
+    public int getNumber() {
+        return number;
     }
 
-    public void setNo(int no) {
-        this.no = no;
-    }
-
-    public boolean isRepeat() {
-        return repeat;
-    }
-
-    public void setRepeat(boolean repeat) {
-        this.repeat = repeat;
-    }
-    
-    
-    
 }

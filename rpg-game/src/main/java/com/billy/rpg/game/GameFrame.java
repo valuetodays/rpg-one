@@ -4,6 +4,7 @@ import com.billy.rpg.common.util.JavaVersionUtil;
 import com.billy.rpg.game.constants.GameConstant;
 import com.billy.rpg.game.screen.*;
 import com.billy.rpg.game.scriptParser.container.GameContainer;
+import com.billy.rpg.game.util.CoreUtil;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
@@ -57,7 +58,7 @@ public class GameFrame extends JFrame implements Runnable {
         screenStack = new Stack<>();
         screenStack.push(new GameCoverScreen()); // 进入封面
 //        screenStack.push(new MapScreen());
-//        screenStack.push(new AnimationScreen(null, null, true));
+///        screenStack.push(new AnimationScreen(0)); // show animation
 
         pack();
         LOG.info("game starts");
@@ -131,8 +132,8 @@ public class GameFrame extends JFrame implements Runnable {
 //                    LOG.error("screenStack.size=" + screenStack.size());
                 }
                 lastTime = curTime;
-                i = 0;
-                for (i = screenStack.size()-1; i >=0 ;i--) {
+
+                for (i = screenStack.size()-1; i >= 0 ;i--) {
                     BaseScreen baseScreen = screenStack.get(i);
                     if (!baseScreen.isPopup()) {
                         break;
@@ -150,14 +151,11 @@ public class GameFrame extends JFrame implements Runnable {
                     }
                     gamePanel.repaint();
                 }
-//            } // end of synchronized
+            //            } // end of synchronized
+
+                CoreUtil.sleep(GameConstant.TIME_GAMELOOP);
         }
-        
-        try {
-            Thread.sleep(GameConstant.TIME_GAMELOOP);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
     }
     
     

@@ -3,6 +3,7 @@ package com.billy.rpg.game.screen;
 import com.billy.rpg.game.GameCanvas;
 import com.billy.rpg.game.GameFrame;
 import com.billy.rpg.game.constants.GameConstant;
+import com.billy.rpg.game.util.KeyUtil;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -44,6 +45,9 @@ public class BattleScreen extends BaseScreen {
 
     @Override
     public void onKeyDown(int key) {
+        if (KeyUtil.isEsc(key)) {
+            GameFrame.getInstance().popScreen();
+        }
 
     }
 

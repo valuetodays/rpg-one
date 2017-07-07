@@ -36,5 +36,6 @@ ILoader
 #### 2017-05-18 18:29
     to add head pic in dialog
     
-
+#### 2017-07-07 13:10
+    show animation 
 
