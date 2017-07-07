@@ -1,4 +1,4 @@
-package com.billy.jee.rpg.common.saver;
+package com.billy.jee.rpg.resource.map;
 
 import java.util.List;
 

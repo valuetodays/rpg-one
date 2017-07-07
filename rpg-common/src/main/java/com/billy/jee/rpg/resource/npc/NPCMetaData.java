@@ -1,4 +1,4 @@
-package com.billy.jee.rpg.common;
+package com.billy.jee.rpg.resource.npc;
 
 import java.awt.*;
 import java.util.List;

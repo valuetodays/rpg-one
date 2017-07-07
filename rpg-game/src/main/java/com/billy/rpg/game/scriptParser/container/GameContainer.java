@@ -1,7 +1,7 @@
 package com.billy.rpg.game.scriptParser.container;
 
-import com.billy.jee.rpg.common.BoxImageLoader;
-import com.billy.jee.rpg.common.NPCImageLoader;
+import com.billy.jee.rpg.resource.box.BoxImageLoader;
+import com.billy.jee.rpg.resource.npc.NPCImageLoader;
 import com.billy.rpg.game.GameFrame;
 import com.billy.rpg.game.character.BoxCharacter;
 import com.billy.rpg.game.character.HeroCharacter;

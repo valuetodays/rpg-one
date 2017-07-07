@@ -1,8 +1,8 @@
 package com.billy.rpg.game.scriptParser.loader.data;
 
+import com.billy.jee.rpg.resource.map.MapLoader;
+import com.billy.jee.rpg.resource.map.MapMetaData;
 import com.billy.rpg.game.constants.MapConstant;
-import com.billy.jee.rpg.common.loader.MapLoader;
-import com.billy.jee.rpg.common.saver.MapMetaData;
 import com.billy.rpg.game.scriptParser.bean.LoaderBean;
 import com.billy.rpg.game.scriptParser.bean.MapDataLoaderBean;
 import org.apache.log4j.Logger;

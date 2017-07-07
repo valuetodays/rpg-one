@@ -1,6 +1,6 @@
 package test.billy.jee.rpg.common;
 
-import com.billy.jee.rpg.common.BoxImageLoader;
+import com.billy.jee.rpg.resource.box.BoxImageLoader;
 import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
 import org.junit.Test;

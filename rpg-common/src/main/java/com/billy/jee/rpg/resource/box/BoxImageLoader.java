@@ -1,4 +1,4 @@
-package com.billy.jee.rpg.common;
+package com.billy.jee.rpg.resource.box;
 
 import org.apache.commons.io.IOUtils;
 

@@ -1,7 +1,7 @@
 package com.billy.rpg.mapeditor;
 
-import com.billy.jee.rpg.common.BoxImageLoader;
 import com.billy.jee.rpg.common.constant.MapEditorConstant;
+import com.billy.jee.rpg.resource.box.BoxImageLoader;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;

@@ -1,7 +1,6 @@
-package com.billy.jee.rpg.common.loader;
+package com.billy.jee.rpg.resource.map;
 
 import com.billy.jee.rpg.common.constant.MapFileConstant;
-import com.billy.jee.rpg.common.saver.MapMetaData;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 
