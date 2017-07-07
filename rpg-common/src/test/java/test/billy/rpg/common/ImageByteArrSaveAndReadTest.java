@@ -1,8 +1,8 @@
 package test.billy.rpg.common;
 
+import com.billy.rpg.common.util.ImageUtil;
 import com.billy.rpg.resource.box.BoxImageLoader;
 import org.apache.commons.io.IOUtils;
-import org.junit.Assert;
 import org.junit.Test;
 
 import javax.imageio.ImageIO;
@@ -17,7 +17,7 @@ import java.io.*;
 public class ImageByteArrSaveAndReadTest {
 
     /**
-     * 将图片转成字节数据保存到文件中
+     * 将图片转成字节数据，取反后保存到文件中
      */
     @Test
     public void saveImage2ByteArrToFile() throws IOException {
@@ -36,34 +36,14 @@ public class ImageByteArrSaveAndReadTest {
         fos = new FileOutputStream(file);
         dos = new DataOutputStream(fos);
         dos.writeInt(b.length);
-        dos.write(b);
+        byte[] br = ImageUtil.reverseBytes(b);
+        dos.write(br);
 
         IOUtils.closeQuietly(dos);
         IOUtils.closeQuietly(fos);
     }
 
 
-    /**
-     * 从文件中读出字节数组转成BufferedImage
-     */
-    public void readImage2ByteArrFromFile() throws IOException {
 
-        File file = new File("z:/image_byte_arr");
-        FileInputStream fis = null;
-        DataInputStream dis = null;
-        fis = new FileInputStream(file);
-        dis = new DataInputStream(fis);
-
-        int length = dis.readInt();
-        byte[] bytes = new byte[length];
-        dis.read(bytes);
-        IOUtils.closeQuietly(dis);
-        IOUtils.closeQuietly(fis);
-
-        ByteArrayInputStream in = new ByteArrayInputStream(bytes);    //将b作为输入流；
-        BufferedImage dst = ImageIO.read(in);
-        IOUtils.closeQuietly(in);
-        Assert.assertNotNull(dst);
-    }
 
 }

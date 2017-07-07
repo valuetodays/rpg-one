@@ -36,4 +36,26 @@ public class ImageUtil {
         gc.drawImage(icon.getImage(), 0, 0, observer);
         return bufferedImage;
     }
+
+    /**
+     * bit-reverse operation of a byte array
+     * @param b the original array
+     * @return reversed array
+     */
+    public static byte[] reverseBytes(byte[] b) {
+        if (b == null) {
+            return null;
+        }
+
+        int len = b.length;
+        byte[] newByte = new byte[len];
+        System.arraycopy(b, 0,
+                newByte, 0, len);
+        for (int i = 0; i < len; i++) {
+            newByte[i] = (byte)~b[i];
+        }
+
+        return newByte;
+    }
+
 }

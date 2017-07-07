@@ -1,5 +1,6 @@
 package test.billy.rpg.common;
 
+import com.billy.rpg.common.util.ImageUtil;
 import com.billy.rpg.resource.box.BoxImageLoader;
 import org.apache.commons.io.IOUtils;
 
@@ -39,26 +40,14 @@ public class ImageFrameTest extends JFrame {
         new ImageFrameTest();
     }
 
-
-    public void image2ByteArr() throws IOException {
+    public void getImage() throws IOException {
         final String npcPath = "/Images/character/box/";
         InputStream closedIs = BoxImageLoader.class.getResourceAsStream(npcPath + "box_closed.png");
         src = ImageIO.read(closedIs);
         IOUtils.closeQuietly(closedIs);
-
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        ImageIO.write(src, "PNG", out);
-        byte[] b = out.toByteArray();
-
-
-        ByteArrayInputStream in = new ByteArrayInputStream(b);    //将b作为输入流；
-        dst = ImageIO.read(in);     //将in作为输入流，读取图片存入image中，而这里in可以为ByteArrayInputStream();
-        System.out.println(dst.equals(src));
     }
 
-
     public void readImage2ByteArrFromFile() throws IOException {
-
         File file = new File("z:/image_byte_arr");
         FileInputStream fis = null;
         DataInputStream dis = null;
@@ -71,22 +60,20 @@ public class ImageFrameTest extends JFrame {
         IOUtils.closeQuietly(dis);
         IOUtils.closeQuietly(fis);
 
-        ByteArrayInputStream in = new ByteArrayInputStream(bytes);    //将b作为输入流；
+        byte[] bytesArr = ImageUtil.reverseBytes(bytes);
+        ByteArrayInputStream in = new ByteArrayInputStream(bytesArr);    //将b作为输入流；
         dst = ImageIO.read(in);
+        IOUtils.closeQuietly(in);
     }
-
-
 
     public void paint(Graphics g) {
         super.paint(g);
-
         if (src != null) {
-            g.drawImage(src, 100,50,null);    //image为BufferedImage类型
+            g.drawImage(src, 100,50,null);
         }
         if (dst != null) {
-            g.drawImage(dst, 200, 50, null);    //image为BufferedImage类型
+            g.drawImage(dst, 200, 50, null);
         }
-
     }
 
 }
