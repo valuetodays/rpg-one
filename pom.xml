@@ -11,6 +11,7 @@
         <module>rpg-common</module>
         <module>rpg-map-editor</module>
         <module>rpg-role-editor</module>
+        <module>rpg-animation-editor</module>
         <module>rpg-game</module>
     </modules>
 

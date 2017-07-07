@@ -39,7 +39,7 @@ public class JavaVersionUtil {
     public static void validateJava() {
         int jdkVersion = getJavaVersion();
         if (jdkVersion < 7) {
-            throw new RuntimeException("The java version you use is too old, please to upgrade to 1.7 or greater.");
+            throw new RuntimeException("The java you use is too old, please upgrade to 1.7 or greater.");
         }
     }
 
