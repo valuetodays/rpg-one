@@ -36,6 +36,5 @@ public class GameCanvas extends Canvas {
 		g.setColor(color);
 		g.fillRect(0, 0, background.getWidth(),background.getHeight()); 
 		GameFrame.getInstance().getGamePanel().setBackground(background);
-		
 	}
 }

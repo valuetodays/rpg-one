@@ -24,11 +24,10 @@ public class AnimationImageLoader {
 
     public Map<Integer, AnimationMetaData> load() {
         animationMetaDataMap = new HashMap<>();
-        //
+        // TODO 使用动画编辑器保存动画，并读取，而不是硬编码
         final String animationPath = "/animation/0/";
 
         try {
-
             URL resource = AnimationImageLoader.class.getResource(animationPath);
             File file = new File(resource.getPath());
             File[] listFiles = file.listFiles();
