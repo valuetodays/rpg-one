@@ -10,17 +10,17 @@ import javax.swing.*;
  *
  * @since 2017-07-07 09:46
  */
-public class AnimationFrame extends JFrame {
+public class AnimationEditorFrame extends JFrame {
     private static final long serialVersionUID = 1L;
-    private static final Logger LOG = Logger.getLogger(AnimationFrame.class);
+    private static final Logger LOG = Logger.getLogger(AnimationEditorFrame.class);
     private AnimationEditorPanel animationEditorPanel;
 
 
     public static void main(String[] args) {
-        new AnimationFrame();
+        new AnimationEditorFrame();
     }
 
-    public AnimationFrame() {
+    public AnimationEditorFrame() {
         animationEditorPanel = new AnimationEditorPanel(this);
         this.setContentPane(animationEditorPanel);
 

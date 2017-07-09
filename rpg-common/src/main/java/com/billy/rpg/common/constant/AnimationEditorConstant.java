@@ -7,8 +7,13 @@ package com.billy.rpg.common.constant;
  */
 public interface AnimationEditorConstant {
 
-    int PANEL_WIDTH = 800;
-    int PANEL_HEIGHT = 650;
+    int PANEL_WIDTH = 500;
+    int PANEL_HEIGHT = 350;
+
+    /** ani文件 魔数 */
+    String ANI_MAGIC = "ani.magic";
+    /** ani version*/
+    int VERSION = 1;
 
 
 }
