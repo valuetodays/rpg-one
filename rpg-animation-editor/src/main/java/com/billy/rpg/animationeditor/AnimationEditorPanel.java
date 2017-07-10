@@ -418,13 +418,13 @@ public class AnimationEditorPanel extends JPanel {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                // if (!e.getValueIsAdjusting()) {
+                    repaint();
                     int frameIndex = jlistFrames.getSelectedIndex();
                     if (-1 == frameIndex) {
                         return;
                     }
                     frameDataArr[frameIndex].picNumber = jlistPics.getSelectedIndex();
                     updateXYShowNshow();
-                    repaint();
                // }
             }
         });
@@ -543,7 +543,7 @@ public class AnimationEditorPanel extends JPanel {
             return;
         }
         Image image = picImageList.get(selectedIndex);
-        g.drawImage(image, 80, 300, null);
+        g.drawImage(image, 400, 10, null);
     }
 
 
