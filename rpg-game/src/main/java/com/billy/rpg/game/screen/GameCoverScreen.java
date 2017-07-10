@@ -4,9 +4,12 @@ import com.billy.rpg.game.constants.GameConstant;
 import com.billy.rpg.game.GameCanvas;
 import com.billy.rpg.game.GameFrame;
 import com.billy.rpg.game.util.KeyUtil;
+import com.rupeng.game.AsyncAudioPlayer;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.net.URL;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,10 +18,14 @@ public class GameCoverScreen extends BaseScreen {
     private int arrowX = 160;
     private int f = 1; // 1:new game;  -1:continue
     private Map<Integer, Integer> map = new HashMap<>(); 
-    
+    private AsyncAudioPlayer player;
+
     public GameCoverScreen() {
         map.put(1, 320); 
         map.put(-1, 350);
+        URL resource = Thread.currentThread().getContextClassLoader().getResource("sounds/game_cover.mp3");
+        player = new AsyncAudioPlayer(resource.getPath(), true);
+        player.playAsync();
     }
     
     @Override
@@ -65,6 +72,7 @@ public class GameCoverScreen extends BaseScreen {
             } else {
                 // TODO show saves
             }
+            player.close();
             
             return ;
         }

@@ -12,7 +12,7 @@ import javazoom.jl.player.Player;
  * @author yzk
  *
  */
-class AsyncAudioPlayer
+public class AsyncAudioPlayer
 {
 	private Player player = null;
 	
