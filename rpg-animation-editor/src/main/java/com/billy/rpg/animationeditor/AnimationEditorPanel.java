@@ -1,6 +1,7 @@
 package com.billy.rpg.animationeditor;
 
 import com.billy.rpg.common.constant.AnimationEditorConstant;
+import com.billy.rpg.resource.animation.AnimationLoader;
 import com.billy.rpg.resource.animation.AnimationMetaData;
 import com.billy.rpg.resource.animation.AnimationSaver;
 import com.billy.rpg.resource.animation.FrameData;
@@ -31,11 +32,11 @@ public class AnimationEditorPanel extends JPanel {
     private static final long serialVersionUID = 1L;
     private static final Logger LOG = Logger.getLogger(AnimationEditorPanel.class);
 
-    private AnimationEditorFrame animationFrame;
     private JTextField tfFrameCount; // 帧数
     private JTextField tfNumber; // 动画编号
     private JFileChooser picsFileChooser;
     private JFileChooser aniSaveFileChooser;
+    private JFileChooser aniLoadFileChooser;
 
     private JTextField tfFrameX; //
     private JTextField tfFrameY;
@@ -47,10 +48,21 @@ public class AnimationEditorPanel extends JPanel {
     private FrameData[] frameDataArr; // 每一帧的数据
     private JList<Integer> jlistPics;
     private java.util.List<BufferedImage> picImageList = new ArrayList<>();
-    private java.util.List<String> picDataList  = new ArrayList<>();
 
-    public AnimationEditorPanel(AnimationEditorFrame animationFrame) {
-        this.animationFrame = animationFrame;
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame();
+        frame.setContentPane(new AnimationEditorPanel());
+        frame.setTitle("动画编辑器");
+        frame.setLocation(500, 100);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+
+        frame.pack();
+        LOG.info("AnimationEditorPanel starts");
+    }
+
+    public AnimationEditorPanel() {
         setPreferredSize(new Dimension(AnimationEditorConstant.PANEL_WIDTH, AnimationEditorConstant.PANEL_HEIGHT));
         LOG.debug("new " + this.getClass().getSimpleName() + "()");
 
@@ -71,8 +83,13 @@ public class AnimationEditorPanel extends JPanel {
         picsFileChooser.setFileFilter(filterPng);
         aniSaveFileChooser = new JFileChooser();
         aniSaveFileChooser.setCurrentDirectory(new File("."));
-        FileFilter filterAni = new FileNameExtensionFilter( "ani file", "ani");
+        final FileFilter filterAni = new FileNameExtensionFilter( "ani file", "ani");
         aniSaveFileChooser.setFileFilter(filterAni);
+
+
+        aniLoadFileChooser = new JFileChooser();
+        aniLoadFileChooser.setCurrentDirectory(new File("."));
+        aniLoadFileChooser.setFileFilter(filterAni);
     }
 
     private void initComponents() throws Exception {
@@ -85,6 +102,16 @@ public class AnimationEditorPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 save2AniFile();
+            }
+        });
+        JButton btnLoad = new JButton("load");
+        btnLoad.setMargin(new Insets(1,2,1,2));
+        btnLoad.setBounds(280, 40, 60, 20);
+        this.add(btnLoad);
+        btnLoad.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                loadFromAniFile();
             }
         });
 
@@ -120,10 +147,10 @@ public class AnimationEditorPanel extends JPanel {
                         break;
                     }
                 }
-                System.out.println("n=" + n);
+                LOG.debug("n=" + n);
                 n = Math.max(0, n);
                 String numberText = text.substring(0, n);
-                System.out.println("numberText:" + numberText);
+                LOG.debug("numberText:" + numberText);
                 if (StringUtils.EMPTY.equals(numberText)) {
                     numberText = "0";
                 }
@@ -276,10 +303,10 @@ public class AnimationEditorPanel extends JPanel {
                         break;
                     }
                 }
-                System.out.println("n=" + n);
+                LOG.debug("n=" + n);
                 n = Math.max(0, n);
                 String numberText = text.substring(0, n);
-                System.out.println("numberText:" + numberText);
+                LOG.debug("numberText:" + numberText);
                 if (StringUtils.EMPTY.equals(numberText)) {
                     numberText = "0";
                 }
@@ -351,13 +378,11 @@ public class AnimationEditorPanel extends JPanel {
                         int selectedIndex = jlistPics.getSelectedIndex();
                         try {
                             if (-1 == selectedIndex) {
-                                picDataList.add(name);
                                 BufferedImage read = ImageIO.read(new File(name));
                                 picImageList.add(read);
                             } else {
                                 BufferedImage read = ImageIO.read(new File(name));
                                 picImageList.add(selectedIndex + 1, read);
-                                picDataList.add(selectedIndex + 1, name);
                             }
                         } catch (IOException e1) {
                             e1.printStackTrace();
@@ -375,14 +400,14 @@ public class AnimationEditorPanel extends JPanel {
         btnPicCls.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (picDataList.isEmpty()) {
+                if (picImageList.isEmpty()) {
                     return;
                 }
                 int selectedIndex = jlistPics.getSelectedIndex();
                 if (-1 == selectedIndex) {
-                    picDataList.remove(picDataList.size()-1);
+                    picImageList.remove(picImageList.size()-1);
                 } else {
-                    picDataList.remove(selectedIndex);
+                    picImageList.remove(selectedIndex);
                 }
                 setListPics();
             }
@@ -406,40 +431,26 @@ public class AnimationEditorPanel extends JPanel {
         JScrollPane jspPics = new JScrollPane(jlistPics);
         jspPics.setBounds(280, 90, 70, 120);
         this.add(jspPics);
-
-
-        // add north start
-        /*JPanel panelNorth = new JPanel();
-        JLabel labelMapName = new JLabel("动画名");
-        panelNorth.add(labelMapName);
-        tfMapName = new JTextField(10);
-        tfMapName.setText("降魔伏法");
-        panelNorth.add(tfMapName);
-        JLabel labelMapWidth = new JLabel("宽");
-        panelNorth.add(labelMapWidth);
-        tfMapWidth = new JTextField(10);
-        tfMapWidth.setText("20");
-        panelNorth.add(tfMapWidth);
-        JLabel labelMapHeight = new JLabel("高");
-        panelNorth.add(labelMapHeight);
-        tfMapHeight = new JTextField(10);
-        tfMapHeight.setText("15");
-        panelNorth.add(tfMapHeight);
-        JButton btnApply = new JButton("应用");
-        panelNorth.add(btnApply);
-        panelNorth.setBackground(new Color(79, 189, 58));
-        bindApplyListener(btnApply);
-        add(panelNorth, BorderLayout.NORTH);*/
-        // add north end
-
-       /* JPanel panelEast = new JPanel();
-        panelEast.setBackground(new Color(241, 187, 232));
-        panelEast.setBorder(BorderFactory.createTitledBorder("图片资源"));
-        //panelEast.add(new )
-        add(panelEast, BorderLayout.EAST); */
-
-
     }
+
+    private void loadFromAniFile() {
+        LOG.debug("load from aniFile start");
+
+        int result = aniLoadFileChooser.showSaveDialog(null);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = aniLoadFileChooser.getSelectedFile();
+            AnimationMetaData loadedAmd = AnimationLoader.load(selectedFile.getPath());
+            AnimationMetaData amd = new AnimationMetaData();
+            tfNumber.setText("" + loadedAmd.getNumber());
+            tfFrameCount.setText("" + loadedAmd.getFrameCount());
+            setListFrames(loadedAmd.getFrameCount());
+            frameDataArr = loadedAmd.getFrameData();
+            picImageList = loadedAmd.getImages();
+            setListPics();
+            LOG.debug("load from aniFile end");
+        }
+    }
+
 
     /**
      * save data to *.ani
@@ -516,7 +527,7 @@ public class AnimationEditorPanel extends JPanel {
     }
 
     private void setListPics() {
-        Integer[] pics = new Integer[picDataList.size()];
+        Integer[] pics = new Integer[picImageList.size()];
         for (int i = 0; i < pics.length; i++) {
             pics[i] = i;
         }
