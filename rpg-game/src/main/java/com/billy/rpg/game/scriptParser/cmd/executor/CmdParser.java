@@ -120,14 +120,16 @@ public class CmdParser {
 
     private static CmdBase parseToAnimation(String cmdname, String cmdarg) {
         String[] cmdargs = cmdarg.split(" ");
-        if (cmdargs.length != 1) {
-            LOG.debug("command "+cmdname+" needs "+1+" arguments, "
+        if (cmdargs.length != 3) {
+            LOG.debug("command "+cmdname+" needs "+3+" arguments, "
                     + "but "+cmdargs.length+" in fact.");
             return null;
         }
         int number = Integer.parseInt(cmdargs[0]);
+        int x = Integer.parseInt(cmdargs[1]);
+        int y = Integer.parseInt(cmdargs[2]);
 
-        return new AnimationCmd(number);
+        return new AnimationCmd(number, x, y);
     }
 
 

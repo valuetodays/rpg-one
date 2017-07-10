@@ -36,8 +36,8 @@ return
 
 box1:
 @showText '这是一个宝箱，可是`y`打不开`/y`，好气啊！'
-@ 播放动画 参数是要播放的动画编号
-animation 0
+@ 播放动画 参数是要播放的动画编号 屏幕posx 屏幕posy
+animation 1 50 100
 @@if say0 say0ed
 @@showText '私は有恩报恩，有仇报仇！'
 @@set say0
@@ -46,10 +46,6 @@ return
 roshan:
 @showText '我是`y`张三`/y`，命令你快去打`r`大龙`/r`！你快去啊，真是不听话，害我说那么多话，真可恶！什么？！你说`b`我废话多`/b`？你再说，再说一次试试？'
 showText '我是`y`天大地大我最大张三`/y`，十分、一百分`r`、`/r`一千分、一万分、十万分、百万分郑重地命令你这小厮快去打`r`大龙`/r`！你快去啊，真是不听话，害我说那么多话，真可恶！什么？！你说`b`我废话多`/b`？你再说，再说一次试试？'
-@animation arg1 arg2
-@          arg1 : which animation
-@          arg2 : repeat or not, 1 repeat, 0 not
-@animation 1 0
 return
 
 @ 肉山，大龙

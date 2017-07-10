@@ -177,7 +177,7 @@ public class MapScreen extends BaseScreen {
             GameFrame.getInstance().changeScreen(2);
             return;
         } else if (KeyUtil.isHome(key)) {
-            BaseScreen bs = new AnimationScreen(1);
+            BaseScreen bs = new AnimationScreen(2, 100, 150);
             GameFrame.getInstance().pushScreen(bs);
             return ;
         }

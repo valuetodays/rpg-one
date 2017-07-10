@@ -21,10 +21,14 @@ public class AnimationScreen extends BaseScreen {
     private AnimationDataLoaderBean animationDataLoaderBean;
     private List<Key> mShowList = new LinkedList<>();
     private int ITERATOR = 1;
+    private int posX;
+    private int posY;
 
-    public AnimationScreen(int animationNumber) {
+    public AnimationScreen(int animationNumber, int posX, int posY) {
         animationDataLoaderBean =
                 GameFrame.getInstance().getGameContainer().getAnimationOf(animationNumber);
+        this.posX = posX;
+        this.posY = posY;
         mShowList.add(new Key(0));
     }
 
@@ -111,7 +115,7 @@ public class AnimationScreen extends BaseScreen {
         } else {
            // mShowList.add(new Key(0));
         }
-        gameCanvas.drawBitmap(paint, 400, 240);
+        gameCanvas.drawBitmap(paint, 0, 0);
     }
 
     @Override

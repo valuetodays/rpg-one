@@ -200,93 +200,6 @@ public class AnimationEditorPanel extends JPanel {
                     for (int x = 0; x < frameNumber; x++) {
                         frameDataArr[x] = new FrameData();
                     }
-                    //
-                    //FrameData[] frameDataArr = new FrameData[84];
-                    frameDataArr[0] = new FrameData(0, 40, 0, 7, 1);
-                    frameDataArr[1] = new FrameData(1, 15, 10, 7, 1);
-                    frameDataArr[2] = new FrameData(2, 80, 12, 7, 1);
-                    frameDataArr[3] = new FrameData(1, 38, 0, 7, 6);
-                    frameDataArr[4] = new FrameData(0, 38, 4, 7, 1);
-                    frameDataArr[5] = new FrameData(1, 13, 14, 7, 1);
-                    frameDataArr[6] = new FrameData(2, 78, 16, 7, 1);
-                    frameDataArr[7] = new FrameData(0, 34, 6, 7, 6);
-                    frameDataArr[8] = new FrameData(0, 40, 6, 7, 1);
-                    frameDataArr[9] = new FrameData(1, 15, 16, 7, 1);
-                    frameDataArr[10] = new FrameData(2, 80, 18, 7, 1);
-                    frameDataArr[11] = new FrameData(0, 32, 10, 7, 6);
-                    frameDataArr[12] = new FrameData(1, 43, 9, 7, 1);
-                    frameDataArr[13] = new FrameData(2, 18, 19, 7, 1);
-                    frameDataArr[14] = new FrameData(3, 83, 21, 7, 1);
-                    frameDataArr[15] = new FrameData(1, 36, 12, 7, 6);
-                    frameDataArr[16] = new FrameData(1, 38, 12, 7, 1);
-                    frameDataArr[17] = new FrameData(2, 13, 22, 7, 1);
-                    frameDataArr[18] = new FrameData(3, 78, 24, 7, 1);
-                    frameDataArr[19] = new FrameData(3, 38, 16, 7, 6);
-                    frameDataArr[20] = new FrameData(0, 34, 18, 7, 1);
-                    frameDataArr[21] = new FrameData(3, 9, 28, 7, 1);
-                    frameDataArr[22] = new FrameData(1, 74, 30, 7, 1);
-                    frameDataArr[23] = new FrameData(2, 36, 21, 7, 6);
-                    frameDataArr[24] = new FrameData(0, 32, 22, 7, 1);
-                    frameDataArr[25] = new FrameData(3, 7, 32, 7, 1);
-                    frameDataArr[26] = new FrameData(1, 72, 34, 7, 1);
-                    frameDataArr[27] = new FrameData(5, 32, 28, 7, 6);
-                    frameDataArr[28] = new FrameData(1, 36, 24, 7, 1);
-                    frameDataArr[29] = new FrameData(0, 11, 34, 7, 1);
-                    frameDataArr[30] = new FrameData(0, 76, 36, 7, 1);
-                    frameDataArr[31] = new FrameData(5, 28, 32, 7, 6);
-                    frameDataArr[32] = new FrameData(3, 38, 28, 7, 1);
-                    frameDataArr[33] = new FrameData(0, 13, 38, 7, 1);
-                    frameDataArr[34] = new FrameData(2, 78, 40, 7, 1);
-                    frameDataArr[35] = new FrameData(4, 26, 36, 7, 6);
-                    frameDataArr[36] = new FrameData(2, 36, 33, 7, 1);
-                    frameDataArr[37] = new FrameData(1, 11, 43, 7, 1);
-                    frameDataArr[38] = new FrameData(2, 76, 45, 7, 1);
-                    frameDataArr[39] = new FrameData(4, 28, 40, 7, 6);
-                    frameDataArr[40] = new FrameData(5, 32, 40, 7, 1);
-                    frameDataArr[41] = new FrameData(7, 7, 50, 7, 1);
-                    frameDataArr[42] = new FrameData(6, 72, 52, 7, 1);
-                    frameDataArr[43] = new FrameData(5, 30, 44, 7, 6);
-                    frameDataArr[44] = new FrameData(5, 28, 44, 7, 1);
-                    frameDataArr[45] = new FrameData(6, 3, 54, 7, 1);
-                    frameDataArr[46] = new FrameData(6, 68, 56, 7, 1);
-                    frameDataArr[47] = new FrameData(5, 32, 47, 7, 6);
-                    frameDataArr[48] = new FrameData(4, 26, 48, 7, 1);
-                    frameDataArr[49] = new FrameData(6, 1, 58, 7, 1);
-                    frameDataArr[50] = new FrameData(5, 66, 60, 7, 1);
-                    frameDataArr[51] = new FrameData(5, 36, 50, 7, 6);
-                    frameDataArr[52] = new FrameData(4, 28, 52, 7, 1);
-                    frameDataArr[53] = new FrameData(6, 3, 62, 7, 1);
-                    frameDataArr[54] = new FrameData(5, 68, 64, 7, 1);
-                    frameDataArr[55] = new FrameData(7, 36, 52, 7, 6);
-                    frameDataArr[56] = new FrameData(5, 30, 56, 7, 1);
-                    frameDataArr[57] = new FrameData(4, 5, 66, 7, 1);
-                    frameDataArr[58] = new FrameData(7, 70, 68, 7, 1);
-                    frameDataArr[59] = new FrameData(7, 36, 56, 7, 6);
-                    frameDataArr[60] = new FrameData(5, 32, 59, 7, 1);
-                    frameDataArr[61] = new FrameData(4, 7, 69, 7, 1);
-                    frameDataArr[62] = new FrameData(7, 72, 71, 7, 1);
-                    frameDataArr[63] = new FrameData(7, 34, 60, 7,6);
-                    frameDataArr[64] = new FrameData(5, 36, 62, 7, 1);
-                    frameDataArr[65] = new FrameData(4, 11, 72, 7, 1);
-                    frameDataArr[66] = new FrameData(4, 76, 74, 7, 1);
-                    frameDataArr[67] = new FrameData(5, 36, 64, 7, 6);
-                    frameDataArr[68] = new FrameData(7, 36, 64, 7, 1);
-                    frameDataArr[69] = new FrameData(6, 11, 74, 7, 1);
-                    frameDataArr[70] = new FrameData(4, 76, 76, 7, 1);
-                    frameDataArr[71] = new FrameData(4, 36, 68, 7, 6);
-                    frameDataArr[72] = new FrameData(7, 36, 68, 7, 1);
-                    frameDataArr[73] = new FrameData(4, 11, 78, 7, 1);
-                    frameDataArr[74] = new FrameData(4, 76, 80, 7, 1);
-                    frameDataArr[75] = new FrameData(4, 38, 72, 7, 6);
-                    frameDataArr[76] = new FrameData(7, 34, 72, 7, 1);
-                    frameDataArr[77] = new FrameData(5, 9, 82, 7, 1);
-                    frameDataArr[78] = new FrameData(7, 74, 84, 7, 1);
-                    frameDataArr[79] = new FrameData(5, 38, 80, 7, 6);
-                    frameDataArr[80] = new FrameData(5, 36, 76, 7, 1);
-                    frameDataArr[81] = new FrameData(6, 11, 86, 7, 6);
-                    frameDataArr[82] = new FrameData(4, 36, 80, 7, 6);
-                    frameDataArr[83] = new FrameData(4, 38, 84, 7, 6);
-                    //
                 }
             }
 
@@ -318,47 +231,23 @@ public class AnimationEditorPanel extends JPanel {
         this.add(jspFrames);
 
 
-        KeyAdapter keyAdapter = new KeyAdapter() {
-            public void keyReleased(KeyEvent e) {
-                JTextField textField = (JTextField) e.getSource();
-                String text = textField.getText();
-                if (text == null) {
-                    textField.setText("");
-                    return;
-                }
-                if (text.startsWith("-")) {
-                    text = text.substring(1);
-                }
-
-                int n = 0;
-                for (; n < text.length(); n++) {
-                    char ch = text.charAt(n);
-                    if (!Character.isDigit(ch)) {
-                        break;
-                    }
-                }
-                LOG.debug("n=" + n);
-                n = Math.max(0, n);
-                String numberText = text.substring(0, n);
-                LOG.debug("numberText:" + numberText);
-                if (StringUtils.EMPTY.equals(numberText)) {
-                    numberText = "0";
-                }
-                int frameNumber = Integer.parseInt(numberText);
-                if (frameNumber <= 0) {
-                    textField.setText("");
-                } else {
-                    textField.setText(numberText);
-                }
-            }
-        };
-
         JLabel lableFrameX = new JLabel("x");
         lableFrameX.setBounds(150, 80, 60, 20);
         this.add(lableFrameX);
         tfFrameX = new JTextField();
         tfFrameX.setBounds(135, 100, 35, 20);
-        tfFrameX.addKeyListener(keyAdapter);
+        tfFrameX.addKeyListener(new KeyAdapter() {
+            public void keyReleased(KeyEvent e) {
+                JTextField textField = (JTextField) e.getSource();
+                int n = getNumberOfTextField(textField);
+                textField.setText("" + n);
+                int selectedIndex = jlistFrames.getSelectedIndex();
+                if (-1 == selectedIndex) {
+                    return;
+                }
+                frameDataArr[selectedIndex].x = n;
+            }
+        });
         this.add(tfFrameX);
 
         JLabel lableFrameY = new JLabel("y");
@@ -366,7 +255,18 @@ public class AnimationEditorPanel extends JPanel {
         this.add(lableFrameY);
         tfFrameY = new JTextField();
         tfFrameY.setBounds(205, 100, 35, 20);
-        tfFrameY.addKeyListener(keyAdapter);
+        tfFrameY.addKeyListener(new KeyAdapter() {
+            public void keyReleased(KeyEvent e) {
+                JTextField textField = (JTextField) e.getSource();
+                int n = getNumberOfTextField(textField);
+                textField.setText("" + n);
+                int selectedIndex = jlistFrames.getSelectedIndex();
+                if (-1 == selectedIndex) {
+                    return;
+                }
+                frameDataArr[selectedIndex].y = n;
+            }
+        });
         this.add(tfFrameY);
 
         JLabel lableFrameShow = new JLabel("show"); // 比 lableFrameX的y坐标多50
@@ -374,7 +274,18 @@ public class AnimationEditorPanel extends JPanel {
         this.add(lableFrameShow);
         tfFrameShow = new JTextField();
         tfFrameShow.setBounds(135, 150, 35, 20);
-        tfFrameShow.addKeyListener(keyAdapter);
+        tfFrameShow.addKeyListener(new KeyAdapter() {
+            public void keyReleased(KeyEvent e) {
+                JTextField textField = (JTextField) e.getSource();
+                int n = getNumberOfTextField(textField);
+                textField.setText("" + n);
+                int selectedIndex = jlistFrames.getSelectedIndex();
+                if (-1 == selectedIndex) {
+                    return;
+                }
+                frameDataArr[selectedIndex].show = n;
+            }
+        });
         this.add(tfFrameShow);
 
         JLabel lableFrameNshow = new JLabel("nshow");
@@ -382,7 +293,18 @@ public class AnimationEditorPanel extends JPanel {
         this.add(lableFrameNshow);
         tfFrameNshow = new JTextField();
         tfFrameNshow.setBounds(205, 150, 35, 20);
-        tfFrameNshow.addKeyListener(keyAdapter);
+        tfFrameNshow.addKeyListener(new KeyAdapter() {
+            public void keyReleased(KeyEvent e) {
+                JTextField textField = (JTextField) e.getSource();
+                int n = getNumberOfTextField(textField);
+                textField.setText("" + n);
+                int selectedIndex = jlistFrames.getSelectedIndex();
+                if (-1 == selectedIndex) {
+                    return;
+                }
+                frameDataArr[selectedIndex].nShow = n;
+            }
+        });
         this.add(tfFrameNshow);
 
         JLabel lableFramePicNumber = new JLabel("图号"); // 比 lableFrameX的y坐标多50
@@ -390,7 +312,7 @@ public class AnimationEditorPanel extends JPanel {
         this.add(lableFramePicNumber);
         tfFramePicNumber = new JTextField();
         tfFramePicNumber.setBounds(205, 180, 35, 20);
-        tfFramePicNumber.addKeyListener(keyAdapter);
+        tfFramePicNumber.setEnabled(false);
         this.add(tfFramePicNumber);
 
 
@@ -467,7 +389,35 @@ public class AnimationEditorPanel extends JPanel {
         this.add(jspPics);
     }
 
-    Timer timer = new Timer(30, new ActionListener() {
+    private int getNumberOfTextField(JTextField textField) {
+        String text = textField.getText();
+        if (text == null) {
+            textField.setText("");
+            return 0;
+        }
+        if (text.startsWith("-")) {
+            text = text.substring(1);
+        }
+
+        int n = 0;
+        for (; n < text.length(); n++) {
+            char ch = text.charAt(n);
+            if (!Character.isDigit(ch)) {
+                break;
+            }
+        }
+        LOG.debug("n=" + n);
+        n = Math.max(0, n);
+        String numberText = text.substring(0, n);
+        LOG.debug("numberText:" + numberText);
+        if (StringUtils.EMPTY.equals(numberText)) {
+            numberText = "0";
+        }
+        int number = Integer.parseInt(numberText);
+        return number;
+    }
+
+    private Timer timer = new Timer(30, new ActionListener() {
         public void actionPerformed(ActionEvent e) {
             boolean update = update();
             LOG.debug("play at " + System.currentTimeMillis() + " with " + update);
@@ -479,6 +429,9 @@ public class AnimationEditorPanel extends JPanel {
         }
     });
     private void playAnimation() {
+        if (frameDataArr == null || frameDataArr.length == 0) {
+            return;
+        }
         LOG.debug("play the animation. ");
         timer.stop();
         mShowList.clear();
@@ -513,9 +466,9 @@ public class AnimationEditorPanel extends JPanel {
             if (mShowList.isEmpty())
                 return false;
         }
+
         return true;
     }
-
 
     private void loadFromAniFile() {
         LOG.debug("load from aniFile start");
@@ -633,18 +586,14 @@ public class AnimationEditorPanel extends JPanel {
                 int y = frameDataArr[frameIndex].y;
                 g.drawImage(bufferedImage, 400+x, y, null);
             }
-        } else {
-            //LOG.debug("show...");
-//            if (frameDataArr != null && frameDataArr.length > 0) {
-//                mShowList.add(new Key(0));
-//            }
         }
+
         int selectedIndex = jlistPics.getSelectedIndex();
         if (-1 == selectedIndex) {
             return;
         }
-        //Image image = picImageList.get(selectedIndex);
-        //g.drawImage(image, 400, 10, null);
+        Image image = picImageList.get(selectedIndex);
+        g.drawImage(image, 135, 200, null);
     }
 
 

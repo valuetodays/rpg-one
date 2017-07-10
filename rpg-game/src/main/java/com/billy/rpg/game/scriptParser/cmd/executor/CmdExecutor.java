@@ -98,7 +98,9 @@ public class CmdExecutor {
         } else if (cmd instanceof AnimationCmd) {
             final AnimationCmd ac = (AnimationCmd) cmd;
             int no = ac.getNumber();
-            BaseScreen as = new AnimationScreen(no);
+            int x = ac.getX();
+            int y = ac.getY();
+            BaseScreen as = new AnimationScreen(no, x, y);
             GameFrame.getInstance().pushScreen(as);
 //            AnimationTimer at = new AnimationTimer(500, 400, 200);
         } else if (cmd instanceof CreateNPCCmd) {
