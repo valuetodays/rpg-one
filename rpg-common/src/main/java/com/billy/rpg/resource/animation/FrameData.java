@@ -5,14 +5,14 @@ package com.billy.rpg.resource.animation;
  * @since 2017-07-07 10:33
  */
 public class FrameData {
-    public int index;
+    public int picNumber;
     public int x;
     public int y;
     public int show;
     public int nShow;
 
-    public FrameData(int index, int x, int y, int show, int nShow) {
-        this.index = index;
+    public FrameData(int picNumber, int x, int y, int show, int nShow) {
+        this.picNumber = picNumber;
         this.x = x;
         this.y = y;
         this.show = show;

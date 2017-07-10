@@ -3,7 +3,7 @@ package com.billy.rpg.game.screen;
 import com.billy.rpg.game.GameCanvas;
 import com.billy.rpg.game.GameFrame;
 import com.billy.rpg.game.constants.GameConstant;
-import com.billy.rpg.resource.animation.AnimationMetaData;
+import com.billy.rpg.game.scriptParser.bean.AnimationDataLoaderBean;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -18,14 +18,13 @@ import java.util.ListIterator;
  * @author liulei
  */
 public class AnimationScreen extends BaseScreen {
-    private AnimationMetaData animationMetaData;
+    private AnimationDataLoaderBean animationDataLoaderBean;
     private List<Key> mShowList = new LinkedList<>();
     private int ITERATOR = 1;
 
     public AnimationScreen(int animationNumber) {
-        animationMetaData =
-                GameFrame.getInstance().getGameContainer().getAnimationImageLoader().getAnimationOf
-                (animationNumber);
+        animationDataLoaderBean =
+                GameFrame.getInstance().getGameContainer().getAnimationOf(animationNumber);
         mShowList.add(new Key(0));
     }
 
@@ -36,7 +35,7 @@ public class AnimationScreen extends BaseScreen {
                 Key i = iter.next();
                 --i.show;
                 --i.nshow;
-                if (i.nshow == 0 && i.index + 1 < animationMetaData.getFrameData().length) {
+                if (i.nshow == 0 && i.index + 1 < animationDataLoaderBean.getFrameData().length) {
                     iter.add(new Key(i.index + 1)); // 下一帧开始显示
                 }
             }
@@ -73,8 +72,8 @@ public class AnimationScreen extends BaseScreen {
          */
         private Key(int index) {
             this.index = index;
-            this.show = animationMetaData.getFrameData()[index].show;
-            this.nshow = animationMetaData.getFrameData()[index].nShow;
+            this.show = animationDataLoaderBean.getFrameData()[index].show;
+            this.nshow = animationDataLoaderBean.getFrameData()[index].nShow;
         }
     }
 
@@ -99,10 +98,10 @@ public class AnimationScreen extends BaseScreen {
             while (iter.hasNext()) {
                 Key key = iter.next();
                 int frameIndex = key.index;
-                int picIndex = animationMetaData.getFrameData()[frameIndex].index;
-                BufferedImage bufferedImage = animationMetaData.getImages().get(picIndex);
-                int x = animationMetaData.getFrameData()[frameIndex].x;
-                int y = animationMetaData.getFrameData()[frameIndex].y;
+                int picIndex = animationDataLoaderBean.getFrameData()[frameIndex].picNumber;
+                BufferedImage bufferedImage = animationDataLoaderBean.getImages().get(picIndex);
+                int x = animationDataLoaderBean.getFrameData()[frameIndex].x;
+                int y = animationDataLoaderBean.getFrameData()[frameIndex].y;
                 g.drawImage(bufferedImage, x, y, null);
             }
         } else {

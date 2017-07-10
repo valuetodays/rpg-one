@@ -9,15 +9,16 @@ import com.billy.rpg.game.character.npc.CommonNPCCharacter;
 import com.billy.rpg.game.constants.CharacterConstant;
 import com.billy.rpg.game.screen.BaseScreen;
 import com.billy.rpg.game.screen.MapScreen;
+import com.billy.rpg.game.scriptParser.bean.AnimationDataLoaderBean;
 import com.billy.rpg.game.scriptParser.bean.LoaderBean;
 import com.billy.rpg.game.scriptParser.bean.MapDataLoaderBean;
 import com.billy.rpg.game.scriptParser.cmd.CmdBase;
 import com.billy.rpg.game.scriptParser.item.*;
 import com.billy.rpg.game.scriptParser.item.skill.TransferImageItem;
 import com.billy.rpg.game.scriptParser.loader.IContainerLoader;
+import com.billy.rpg.game.scriptParser.loader.data.AnimationDataLoader;
 import com.billy.rpg.game.scriptParser.loader.data.MapDataLoader;
 import com.billy.rpg.game.scriptParser.loader.data.ScriptDataLoader;
-import com.billy.rpg.resource.animation.AnimationImageLoader;
 import com.billy.rpg.resource.box.BoxImageLoader;
 import com.billy.rpg.resource.npc.NPCImageLoader;
 import org.apache.log4j.Logger;
@@ -50,8 +51,8 @@ public class GameContainer implements IContainer, IContainerLoader {
     private TransferImageItem transferImageItem;
     private NPCImageLoader npcImageLoader;
     private BoxImageLoader boxImageLoader;
-    private AnimationImageLoader animationImageLoader;
     private BattleImageItem battleImageItem;
+    private List<AnimationDataLoaderBean> animationList; // animation list;
 
 
     
@@ -89,7 +90,6 @@ public class GameContainer implements IContainer, IContainerLoader {
         transferImageItem = new TransferImageItem();
         npcImageLoader = new NPCImageLoader();
         boxImageLoader = new BoxImageLoader();
-        animationImageLoader = new AnimationImageLoader();
         battleImageItem = new BattleImageItem();
         try {
             bgImageItem.load();
@@ -100,11 +100,11 @@ public class GameContainer implements IContainer, IContainerLoader {
             transferImageItem.load();
             npcImageLoader.loadNpcs();
             boxImageLoader.loadBoxes();
-            animationImageLoader.load();
             battleImageItem.load();
 
             loadMapData();
             loadScriptData();
+            loadAnimationData();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -148,6 +148,25 @@ public class GameContainer implements IContainer, IContainerLoader {
             mapListTemp.add((MapDataLoaderBean) lb);
         }
         mapList = Collections.unmodifiableList(mapListTemp);
+    }
+
+    private void loadAnimationData() throws Exception {
+        AnimationDataLoader adl = new AnimationDataLoader();
+        List<LoaderBean> mlLoad = adl.load();
+        List<AnimationDataLoaderBean> aniListTemp = new ArrayList<>();
+        for (LoaderBean lb : mlLoad) {
+            aniListTemp.add((AnimationDataLoaderBean) lb);
+        }
+        animationList = Collections.unmodifiableList(aniListTemp);
+    }
+
+    public AnimationDataLoaderBean getAnimationOf(int number) {
+        for ( AnimationDataLoaderBean adlb : animationList) {
+            if (adlb.getNumber() == number) {
+                return adlb;
+            }
+        }
+        return null;
     }
 
 
@@ -300,7 +319,5 @@ public class GameContainer implements IContainer, IContainerLoader {
         return battleImageItem;
     }
 
-    public AnimationImageLoader getAnimationImageLoader() {
-        return animationImageLoader;
-    }
+
 }

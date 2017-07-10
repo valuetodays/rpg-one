@@ -1,6 +1,5 @@
 package test.billy.animation;
 
-import com.billy.rpg.resource.animation.AnimationImageLoader;
 import com.billy.rpg.resource.animation.AnimationMetaData;
 
 import javax.swing.*;
@@ -9,7 +8,6 @@ import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.Map;
 
 
 public class ShowNShow extends JFrame implements Runnable {
@@ -19,10 +17,6 @@ public class ShowNShow extends JFrame implements Runnable {
 
     public ShowNShow() {
         // load animation
-        AnimationImageLoader animationImageLoader = new AnimationImageLoader();
-        Map<Integer, AnimationMetaData> load = animationImageLoader.load();
-        animation0 = animationImageLoader.getAnimationOf(0);
-
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setBounds(500, 100, 640, 660);
         this.setTitle("aaa");
@@ -42,7 +36,7 @@ public class ShowNShow extends JFrame implements Runnable {
             while (iter.hasNext()) {
                 Key key = iter.next();
                 int frameIndex = key.index;
-                int picIndex = animation0.getFrameData()[frameIndex].index;
+                int picIndex = animation0.getFrameData()[frameIndex].picNumber;
                 BufferedImage bufferedImage = animation0.getImages().get(picIndex);
                 int x = animation0.getFrameData()[frameIndex].x;
                 int y = animation0.getFrameData()[frameIndex].y;

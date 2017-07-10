@@ -25,7 +25,6 @@ import java.util.List;
  * @since 2016-11-30 09:13:28
  */
 public class MapDataLoader implements IDataLoader {
-    
     private static final Logger LOG = Logger.getLogger(MapDataLoader.class);
     
     @Override
@@ -115,7 +114,7 @@ public class MapDataLoader implements IDataLoader {
         FileFilter filter = new FileFilter() {            // anonymous class
             @Override
             public boolean accept(File pathname) {
-                //  we want the file whose extension is 's'.  [1: file, 2: '.map' ]
+                //  we want the file  [1: file, 2: '.map' ]
                 if (pathname.isFile()
                         && pathname.getPath().endsWith(MapConstant.MAP_EXT)
                         ) {

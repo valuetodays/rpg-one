@@ -25,11 +25,13 @@ import java.util.List;
  */
 public class AnimationMetaData {
     private int number; // 编号
+    private int version; // 版本
     private int frameCount; // 帧数
     private int imageCount; // 图片数量
     private FrameData[] frameData;
     private List<BufferedImage> images;
 
+    public AnimationMetaData() {}
 
     public AnimationMetaData(List<BufferedImage> images, FrameData[] frameData) {
         this.images = images;
@@ -74,5 +76,13 @@ public class AnimationMetaData {
 
     public void setImageCount(int imageCount) {
         this.imageCount = imageCount;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
     }
 }
