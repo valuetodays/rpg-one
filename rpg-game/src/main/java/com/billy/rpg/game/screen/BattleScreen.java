@@ -14,6 +14,9 @@ import java.awt.image.BufferedImage;
  * @since 2017-06-08 15:29
  */
 public class BattleScreen extends BaseScreen {
+    private int heroX, heroY;
+
+
     @Override
     public void update(long delta) {
 
@@ -27,14 +30,16 @@ public class BattleScreen extends BaseScreen {
                 BufferedImage.TYPE_4BYTE_ABGR);
 
         // 得到缓冲区的画笔
-        Graphics g2 = paint.getGraphics();
+        Graphics g = paint.getGraphics();
 
         final Image roleFull1 = GameFrame.getInstance().getGameContainer().getRoleItem().getRoleFull1();
         Image battleImage = GameFrame.getInstance().getGameContainer().getBattleImageItem().getBattleImage("001-Grassland01.jpg");
-        g2.drawImage(battleImage, 0, 0, battleImage.getWidth(null), battleImage.getHeight(null), null);  // draw battleImage
-        int posX = 3;
-        int posY = 8;
-        g2.drawImage(roleFull1, posX*32, posY*32, posX*32 + 32, posY*32 + 32,
+        g.setColor(Color.black);
+        g.fillRect(0, 0, paint.getWidth(), paint.getHeight());
+        g.drawImage(battleImage, 0, 0, battleImage.getWidth(null), battleImage.getHeight(null), null);  // draw battleImage
+        int posX = heroX;
+        int posY = heroY;
+        g.drawImage(roleFull1, posX*32, posY*32, posX*32 + 32, posY*32 + 32,
                 1*32, 2*32,
                 1*32 + 32, 2*32 + 32, null); // 面向右，打妖怪。
         // TODO 显示妖怪
@@ -46,8 +51,20 @@ public class BattleScreen extends BaseScreen {
     @Override
     public void onKeyDown(int key) {
         if (KeyUtil.isEsc(key)) {
-            GameFrame.getInstance().popScreen();
+            GameFrame.getInstance().changeScreen(1);
+        } else if (KeyUtil.isHome(key)) {
+            BaseScreen bs = new AnimationScreen(2, heroX*32, heroY*32-50);
+            GameFrame.getInstance().pushScreen(bs);
+        } else if (KeyUtil.isUp(key)) {
+            heroY--;
+        } else if (KeyUtil.isDown(key)) {
+            heroY++;
+        } else if (KeyUtil.isLeft(key)) {
+            heroX--;
+        } else if (KeyUtil.isRight(key)) {
+            heroX++;
         }
+
 
     }
 

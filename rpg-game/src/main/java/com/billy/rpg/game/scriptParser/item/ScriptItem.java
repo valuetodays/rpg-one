@@ -1,5 +1,6 @@
 package com.billy.rpg.game.scriptParser.item;
 
+import com.billy.rpg.game.GameFrame;
 import com.billy.rpg.game.character.BoxCharacter;
 import com.billy.rpg.game.character.HeroCharacter;
 import com.billy.rpg.game.character.NPCCharacter;
@@ -253,8 +254,8 @@ public class ScriptItem extends DataLoaderBean implements IItem {
         }
         LOG.info("meet a monster..");
 
+        GameFrame.getInstance().changeScreen(9);
         steps = 0;
-        //GameFrame.getInstance().changeScreen(9);
 
     }
 

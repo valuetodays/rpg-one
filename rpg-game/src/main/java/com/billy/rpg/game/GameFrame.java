@@ -180,7 +180,7 @@ public class GameFrame extends JFrame implements Runnable {
 //                }
             }
             
-            int c(int c){
+            int c(int c) {
                 return c;
             }
         });

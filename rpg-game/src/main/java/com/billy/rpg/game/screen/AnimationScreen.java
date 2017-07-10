@@ -115,7 +115,7 @@ public class AnimationScreen extends BaseScreen {
         } else {
            // mShowList.add(new Key(0));
         }
-        gameCanvas.drawBitmap(paint, 0, 0);
+        gameCanvas.drawBitmap(paint, posX, posY);
     }
 
     @Override
