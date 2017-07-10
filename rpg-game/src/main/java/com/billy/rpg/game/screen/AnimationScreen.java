@@ -28,6 +28,10 @@ public class AnimationScreen extends BaseScreen {
         mShowList.add(new Key(0));
     }
 
+    /**
+     * 播放动画
+     * @return 返回true说明播放完毕
+     */
     private boolean update() {
         for (int j = 0; j < ITERATOR; j++) {
             ListIterator<Key> iter = mShowList.listIterator();

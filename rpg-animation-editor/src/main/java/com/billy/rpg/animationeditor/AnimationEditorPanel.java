@@ -23,6 +23,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.ListIterator;
 
 
 /**
@@ -31,6 +33,7 @@ import java.util.ArrayList;
 public class AnimationEditorPanel extends JPanel {
     private static final long serialVersionUID = 1L;
     private static final Logger LOG = Logger.getLogger(AnimationEditorPanel.class);
+
 
     private JTextField tfFrameCount; // 帧数
     private JTextField tfNumber; // 动画编号
@@ -49,6 +52,24 @@ public class AnimationEditorPanel extends JPanel {
     private JList<Integer> jlistPics;
     private java.util.List<BufferedImage> picImageList = new ArrayList<>();
 
+    // 播放
+    private java.util.List<Key> mShowList = new LinkedList<>();
+
+
+    private class Key {
+        int index;
+        int show;
+        int nshow;
+
+        /**
+         * @param index frame index
+         */
+        private Key(int index) {
+            this.index = index;
+            this.show = frameDataArr[index].show;
+            this.nshow = frameDataArr[index].nShow;
+        }
+    }
 
     public static void main(String[] args) {
         JFrame frame = new JFrame();
@@ -95,8 +116,9 @@ public class AnimationEditorPanel extends JPanel {
     private void initComponents() throws Exception {
         this.setLayout(null);
         JButton btnSave = new JButton("save");
-        btnSave.setMargin(new Insets(1,2,1,2));
-        btnSave.setBounds(280, 10, 60, 20);
+        btnSave.setToolTipText("将当前动画保存成文件");
+        btnSave.setMargin(new Insets(1,1,1,1));
+        btnSave.setBounds(280, 10, 35, 20);
         this.add(btnSave);
         btnSave.addActionListener(new ActionListener() {
             @Override
@@ -105,8 +127,9 @@ public class AnimationEditorPanel extends JPanel {
             }
         });
         JButton btnLoad = new JButton("load");
-        btnLoad.setMargin(new Insets(1,2,1,2));
-        btnLoad.setBounds(280, 40, 60, 20);
+        btnLoad.setToolTipText("加载一个动画文件");
+        btnLoad.setMargin(new Insets(1,1,1,1));
+        btnLoad.setBounds(316, 10, 35, 20);
         this.add(btnLoad);
         btnLoad.addActionListener(new ActionListener() {
             @Override
@@ -114,7 +137,18 @@ public class AnimationEditorPanel extends JPanel {
                 loadFromAniFile();
             }
         });
-
+        JButton btnPlay = new JButton("play");
+        btnPlay.setToolTipText("播放当前动画");
+        btnPlay.setMargin(new Insets(1,1,1,1));
+        btnPlay.setBounds(280, 40, 70, 20);
+        this.add(btnPlay);
+        btnPlay.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                playAnimation();
+            }
+        });
+        this.add(btnPlay);
 
         JLabel lableNumber = new JLabel("编号");
         lableNumber.setBounds(10, 10, 30, 20);
@@ -433,6 +467,56 @@ public class AnimationEditorPanel extends JPanel {
         this.add(jspPics);
     }
 
+    Timer timer = new Timer(30, new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+            boolean update = update();
+            LOG.debug("play at " + System.currentTimeMillis() + " with " + update);
+            if (!update) {
+                LOG.debug("animation playing end");
+                timer.stop();
+            }
+            repaint();
+        }
+    });
+    private void playAnimation() {
+        LOG.debug("play the animation. ");
+        timer.stop();
+        mShowList.clear();
+        mShowList.add(new Key(0));
+        timer.start();
+    }
+
+
+    private static final int ITERATOR = 1;
+    /**
+     * 播放动画
+     * @return 返回true说明播放完毕
+     */
+    private boolean update() {
+        for (int j = 0; j < ITERATOR; j++) {
+            ListIterator<Key> iter = mShowList.listIterator();
+            while (iter.hasNext()) {
+                Key i = iter.next();
+                --i.show;
+                --i.nshow;
+                if (i.nshow == 0 && i.index + 1 < frameDataArr.length) {
+                    iter.add(new Key(i.index + 1));
+                }
+            }
+            iter = mShowList.listIterator();
+            while (iter.hasNext()) {
+                Key i = iter.next();
+                if (i.show <= 0) { // 该帧的图片显示完成
+                    iter.remove();
+                }
+            }
+            if (mShowList.isEmpty())
+                return false;
+        }
+        return true;
+    }
+
+
     private void loadFromAniFile() {
         LOG.debug("load from aniFile start");
 
@@ -538,12 +622,29 @@ public class AnimationEditorPanel extends JPanel {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
+        if (!mShowList.isEmpty()) {
+            ListIterator<Key> iter = mShowList.listIterator();
+            while (iter.hasNext()) {
+                Key key = iter.next();
+                int frameIndex = key.index;
+                int picIndex = frameDataArr[frameIndex].picNumber;
+                BufferedImage bufferedImage = picImageList.get(picIndex);
+                int x = frameDataArr[frameIndex].x;
+                int y = frameDataArr[frameIndex].y;
+                g.drawImage(bufferedImage, 400+x, y, null);
+            }
+        } else {
+            //LOG.debug("show...");
+//            if (frameDataArr != null && frameDataArr.length > 0) {
+//                mShowList.add(new Key(0));
+//            }
+        }
         int selectedIndex = jlistPics.getSelectedIndex();
         if (-1 == selectedIndex) {
             return;
         }
-        Image image = picImageList.get(selectedIndex);
-        g.drawImage(image, 400, 10, null);
+        //Image image = picImageList.get(selectedIndex);
+        //g.drawImage(image, 400, 10, null);
     }
 
 
