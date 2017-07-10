@@ -37,7 +37,7 @@ return
 box1:
 @showText '这是一个宝箱，可是`y`打不开`/y`，好气啊！'
 @ 播放动画 参数是要播放的动画编号 屏幕posx 屏幕posy
-animation 1 50 100
+animation 3 50 100
 @@if say0 say0ed
 @@showText '私は有恩报恩，有仇报仇！'
 @@set say0
