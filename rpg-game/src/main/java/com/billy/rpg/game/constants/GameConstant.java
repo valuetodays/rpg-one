@@ -16,6 +16,8 @@ public interface GameConstant {
     int SCALE = 1;//游戏放大缩小倍数
 
     Font FONT_DLG_MSG = new Font("黑体", Font.BOLD, 14);
+    Font FONT_BATTLE = new Font("楷体", Font.BOLD, 18);
+
     Random random = new Random();
 
 }

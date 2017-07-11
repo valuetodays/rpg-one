@@ -21,7 +21,9 @@ public class BattleScreen extends BaseScreen {
     private java.util.List<MonsterBattle> monsterBattleList;
     private java.util.List<Image> monsterImages;
     private int arrowY = 280;
-    private int monsterIndex;
+    private int monsterIndex; // 当攻击妖怪时要显示
+    private boolean chooseMonster;
+    private int heroChoice = 1; // 普攻、技能等  1~4
 
     public BattleScreen(final int[] metMonsterIds) {
         LOG.debug("met " + metMonsterIds.length + " monsters with["+ ArrayUtils.toString(metMonsterIds)+"]");
@@ -57,13 +59,11 @@ public class BattleScreen extends BaseScreen {
         for (int i = 0; i < monsterImages.size(); i++) {
             n -= monsterImages.get(i).getWidth(null);
         }
-       // n/=2; // 此时 n是第一个妖怪的x坐标 ？？
-        n /= 2;
+        n/=2; // 此时 n是第一个妖怪的x坐标 ？？
 
         for (int i = 1; i <= index; i++) {
             n += monsterImages.get(i-1).getWidth(null) + 100;
         }
-
 
         return n;
     }
@@ -102,13 +102,28 @@ public class BattleScreen extends BaseScreen {
             g.drawImage(image, left, top, null);
         }
 
-        Image gameArrowUp = GameFrame.getInstance().getGameContainer().getGameAboutItem().getGameArrowUp();
-        MonsterBattle monsterBattleArrowTo = monsterBattleList.get(monsterIndex);
-        g.drawImage(gameArrowUp,
-                monsterBattleArrowTo.getLeft()+monsterBattleArrowTo.getWidth()/2-gameArrowUp.getWidth(null)/2,
-                arrowY, null);
+        if (chooseMonster) {
+            Image gameArrowUp = GameFrame.getInstance().getGameContainer().getGameAboutItem().getGameArrowUp();
+            MonsterBattle monsterBattleArrowTo = monsterBattleList.get(monsterIndex);
+            g.drawImage(gameArrowUp,
+                    monsterBattleArrowTo.getLeft() + monsterBattleArrowTo.getWidth() / 2 - gameArrowUp.getWidth(null) / 2,
+                    arrowY, null);
+        }
 
-        // 将缓冲区的图形绘制到显示面板上
+        g.setColor(Color.WHITE);
+        g.drawRoundRect(0, 320, 200, 160, 4, 4);
+        g.drawRoundRect(3, 323, 194, 154, 4, 4);
+        g.setFont(GameConstant.FONT_BATTLE);
+        g.setColor(Color.YELLOW);
+        g.drawString("普攻", 50, 350);
+        g.drawString("技能", 50, 375);
+        g.drawString("物品", 50, 400);
+        g.drawString("逃跑", 50, 425);
+
+        // 显示用户选项
+        Image gameArrowRight = GameFrame.getInstance().getGameContainer().getGameAboutItem().getGameArrowRight();
+        g.drawImage(gameArrowRight, 30, (heroChoice-1) * 25 + 333, null);
+
         gameCanvas.drawBitmap(paint, 0, 0);
     }
 
@@ -124,14 +139,48 @@ public class BattleScreen extends BaseScreen {
             BaseScreen bs = new AnimationScreen(2, heroX*32, heroY*32-198/2);
             GameFrame.getInstance().pushScreen(bs);
         } else if (KeyUtil.isUp(key)) {
-
+            if (!chooseMonster) {
+                heroChoice--;
+                if (heroChoice < 1) {
+                    heroChoice = 4;
+                }
+            }
         } else if (KeyUtil.isDown(key)) {
-
+            if (!chooseMonster) {
+                heroChoice++;
+                if (heroChoice > 4) {
+                    heroChoice = 1;
+                }
+            }
         } else if (KeyUtil.isLeft(key)) {
-
-            monsterIndex = Math.max(0, monsterIndex - 1);
+            if (chooseMonster) {
+                monsterIndex = Math.max(0, monsterIndex - 1);
+            }
         } else if (KeyUtil.isRight(key)) {
-            monsterIndex = Math.min(monsterBattleList.size()-1, monsterIndex+1);
+            if (chooseMonster) {
+                monsterIndex = Math.min(monsterBattleList.size()-1, monsterIndex+1);
+            }
+        } else if (KeyUtil.isEnter(key)) {
+            switch (heroChoice) {
+                case 1:
+                    chooseMonster = true;
+                    break;
+                case 2:
+                    chooseMonster = true;
+                    LOG.debug("暂没有技能");
+                    break;
+                case 3:
+                    LOG.debug("暂没有物品");
+                    break;
+                case 4:
+                    LOG.debug("众妖怪：菜鸡别跑！");
+                    // TODO 金币减少100*妖怪数量。
+                    GameFrame.getInstance().popScreen();
+                    break;
+                default:
+                    LOG.debug("cannot be here.");
+                    break;
+            }
         }
     }
 }

@@ -17,13 +17,10 @@ public class SystemMenuScreen extends BaseScreen {
 
     @Override
     public void draw(GameCanvas gameCanvas) {
-        
-        // 创建一个缓冲区
         BufferedImage paint = new BufferedImage(
                 GameConstant.GAME_WIDTH, 
                 GameConstant.GAME_HEIGHT, 
                 BufferedImage.TYPE_4BYTE_ABGR);
-        // 得到缓冲区的画笔
         Graphics g = paint.getGraphics();
         
         g.setColor(new Color(64, 64, 102, 128));
