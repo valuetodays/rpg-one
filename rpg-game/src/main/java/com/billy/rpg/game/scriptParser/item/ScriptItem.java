@@ -5,6 +5,7 @@ import com.billy.rpg.game.character.BoxCharacter;
 import com.billy.rpg.game.character.HeroCharacter;
 import com.billy.rpg.game.character.NPCCharacter;
 import com.billy.rpg.game.character.TransferCharacter;
+import com.billy.rpg.game.screen.BattleScreen;
 import com.billy.rpg.game.scriptParser.bean.DataLoaderBean;
 import com.billy.rpg.game.scriptParser.bean.script.LabelBean;
 import com.billy.rpg.game.scriptParser.bean.script.TalkBean;
@@ -253,8 +254,9 @@ public class ScriptItem extends DataLoaderBean implements IItem {
             return ;
         }
         LOG.info("meet a monster..");
-
-        GameFrame.getInstance().changeScreen(9);
+        BattleScreen bs = new BattleScreen();
+        GameFrame.getInstance().pushScreen(bs);
+//        GameFrame.getInstance().changeScreen(9);
         steps = 0;
 
     }

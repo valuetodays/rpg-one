@@ -17,6 +17,10 @@ public class BattleScreen extends BaseScreen {
     private int heroX, heroY;
 
 
+    public BattleScreen() {
+
+    }
+
     @Override
     public void update(long delta) {
 
@@ -50,10 +54,14 @@ public class BattleScreen extends BaseScreen {
 
     @Override
     public void onKeyDown(int key) {
+    }
+
+    @Override
+    public void onKeyUp(int key) {
         if (KeyUtil.isEsc(key)) {
-            GameFrame.getInstance().changeScreen(1);
+            GameFrame.getInstance().popScreen();
         } else if (KeyUtil.isHome(key)) {
-            BaseScreen bs = new AnimationScreen(2, heroX*32, heroY*32-50);
+            BaseScreen bs = new AnimationScreen(2, heroX*32, heroY*32-198/2);
             GameFrame.getInstance().pushScreen(bs);
         } else if (KeyUtil.isUp(key)) {
             heroY--;
@@ -64,12 +72,5 @@ public class BattleScreen extends BaseScreen {
         } else if (KeyUtil.isRight(key)) {
             heroX++;
         }
-
-
-    }
-
-    @Override
-    public void onKeyUp(int key) {
-
     }
 }

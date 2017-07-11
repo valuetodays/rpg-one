@@ -88,15 +88,14 @@ public class AnimationScreen extends BaseScreen {
 
     @Override
     public void draw(GameCanvas gameCanvas) {
-        //gameCanvas.drawColor(new Color(255, 255, 255));
         BufferedImage paint = new BufferedImage(
                 GameConstant.GAME_WIDTH,
                 GameConstant.GAME_HEIGHT,
                 BufferedImage.TYPE_4BYTE_ABGR);
 
         Graphics g = paint.getGraphics();
-        //g.setColor(new Color(0, 0, 0, 0)); //透明色
-       // g.fillRect(0, 0, paint.getWidth(), paint.getHeight());
+        //g.setColor(Color.yellow); //透明色
+        //g.fillRect(0, 0, paint.getWidth(), paint.getHeight());
         //int COLOR_WHITE = new Color(204, 199, 237, 255).getRGB();//Color.argb(255, 199, 237, 204);
         //int COLOR_BLACK = new Color(0, 0, 0, 255).getRGB();//Color.argb(255, 0, 0, 0);
         //int COLOR_TRANSP = new Color(0, 0, 0, 0).getRGB();//Color.argb(0, 0, 0, 0);
@@ -115,7 +114,7 @@ public class AnimationScreen extends BaseScreen {
         } else {
            // mShowList.add(new Key(0));
         }
-        gameCanvas.drawBitmap(paint, posX, posY);
+        gameCanvas.drawBitmap(paint, posX-70, posY-30);
     }
 
     @Override
