@@ -2,7 +2,6 @@ package com.billy.rpg.game.scriptParser.item;
 
 import com.billy.rpg.game.scriptParser.bean.LoaderBean;
 import com.billy.rpg.game.scriptParser.loader.image.IImageLoader;
-import com.rupeng.game.GameUtils;
 import org.apache.commons.io.IOUtils;
 
 import javax.imageio.ImageIO;
@@ -13,7 +12,10 @@ import java.util.List;
 public class GameAboutImageItem implements IImageLoader, IItem {
     private Image gameCover;
     private Image gameOver;
-    private Image gameArrow;
+    private Image gameArrowLeft;
+    private Image gameArrowRight;
+    private Image gameArrowUp;
+    private Image gameArrowDown;
     private Image gameBalloon;
     private Image gameTransition;
 
@@ -27,14 +29,12 @@ public class GameAboutImageItem implements IImageLoader, IItem {
     private void load0() {
         loadGameCover();
         loadGameOver();
-        loadGameArrow();
+        loadGameArrows();
         loadGameBalloon();
         loadGameTransition();
     }
 
     private void loadGameTransition() {
-        String imgPath = GameUtils.mapPath("Images") + "/transition.png";
-
         try {
             InputStream is = this.getClass().getResourceAsStream("/Images/transition.png");
             gameTransition = ImageIO.read(is);
@@ -46,8 +46,6 @@ public class GameAboutImageItem implements IImageLoader, IItem {
     }
 
     private void loadGameBalloon() {
-        String imgPath = GameUtils.mapPath("Images") + "/balloon.png";
-
         try {
             InputStream is = this.getClass().getResourceAsStream("/Images/balloon.png");
             gameBalloon = ImageIO.read(is);
@@ -58,12 +56,19 @@ public class GameAboutImageItem implements IImageLoader, IItem {
 
     }
 
-    private void loadGameArrow() {
-        String imgPath = GameUtils.mapPath("Images") + "/arrow.png";
-
+    private void loadGameArrows() {
         try {
-            InputStream is = this.getClass().getResourceAsStream("/Images/arrow.png");
-            gameArrow = ImageIO.read(is);
+            InputStream is = this.getClass().getResourceAsStream("/Images/arrowLeft.png");
+            gameArrowLeft = ImageIO.read(is);
+            IOUtils.closeQuietly(is);
+            is = this.getClass().getResourceAsStream("/Images/arrowRight.png");
+            gameArrowRight = ImageIO.read(is);
+            IOUtils.closeQuietly(is);
+            is = this.getClass().getResourceAsStream("/Images/arrowUp.png");
+            gameArrowUp = ImageIO.read(is);
+            IOUtils.closeQuietly(is);
+            is = this.getClass().getResourceAsStream("/Images/arrowDown.png");
+            gameArrowDown = ImageIO.read(is);
             IOUtils.closeQuietly(is);
         } catch (Exception e) {
             e.printStackTrace();
@@ -71,8 +76,6 @@ public class GameAboutImageItem implements IImageLoader, IItem {
     }
 
     private void loadGameOver() {
-        String imgPath = GameUtils.mapPath("Images") + "/gameover.png";
-
         try {
             InputStream is = this.getClass().getResourceAsStream("/Images/gameover.png");
             gameOver = ImageIO.read(is);
@@ -83,8 +86,6 @@ public class GameAboutImageItem implements IImageLoader, IItem {
     }
 
     private void loadGameCover() {
-        String imgPath = GameUtils.mapPath("Images") + "/gamecover.png";
-
         try {
             InputStream is = this.getClass().getResourceAsStream("/Images/gamecover.png");
             gameCover = ImageIO.read(is);
@@ -103,8 +104,20 @@ public class GameAboutImageItem implements IImageLoader, IItem {
         return gameOver;
     }
 
-    public Image getGameArrow() {
-        return gameArrow;
+    public Image getGameArrowLeft() {
+        return gameArrowLeft;
+    }
+
+    public Image getGameArrowRight() {
+        return gameArrowRight;
+    }
+
+    public Image getGameArrowUp() {
+        return gameArrowUp;
+    }
+
+    public Image getGameArrowDown() {
+        return gameArrowDown;
     }
 
     public Image getGameBalloon() {

@@ -256,8 +256,9 @@ public class ScriptItem extends DataLoaderBean implements IItem {
         if (steps < STEP_MEET_MONSTER) {
             return;
         }
-        LOG.info("meet monster(s)..");
+//        LOG.info("meet monster(s)..");
         int monsterNumbers = GameConstant.random.nextInt(3) + 1;
+//        monsterNumbers = 2;
         int[] metMonsterIds = new int[monsterNumbers];
         for (int i = 0; i < monsterNumbers; i++) {
             int n = GameConstant.random.nextInt(predictedMonsterIds.size());

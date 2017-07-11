@@ -17,29 +17,55 @@ import java.util.Map;
  * @since 2017-06-08 15:29
  */
 public class BattleScreen extends BaseScreen {
-    private int heroX, heroY;
+    private int heroX = 8, heroY = 10;
     private java.util.List<MonsterBattle> monsterBattleList;
-    private int arrowY = 300;
-    private int arrowX = 0;
+    private java.util.List<Image> monsterImages;
+    private int arrowY = 280;
+    private int monsterIndex;
 
     public BattleScreen(final int[] metMonsterIds) {
+        LOG.debug("met " + metMonsterIds.length + " monsters with["+ ArrayUtils.toString(metMonsterIds)+"]");
+
         monsterBattleList = new java.util.ArrayList<>();
         Map<Integer, Image> monsterMap = GameFrame.getInstance().getGameContainer().getMonsterImageLoader().getMonsterMetaData().getMonsterMap();
-        int leftOffset = 0;
+
+        monsterImages = new java.util.ArrayList<>();
         for (int i = 0; i < metMonsterIds.length; i++) {
             Image image = monsterMap.get(metMonsterIds[i]);
-            leftOffset += i * 50;
+            monsterImages.add(image);
+        }
+
+        for (int i = 0; i < metMonsterIds.length; i++) {
+            Image image = monsterMap.get(metMonsterIds[i]);
             MonsterBattle mb = new MonsterBattle();
             mb.setImage(image);
-            mb.setLeft(leftOffset);
-            mb.setTop(150);
+            mb.setLeft(getLeftInWindow(i));
+            mb.setTop(100);
             mb.setWidth(image.getWidth(null));
             mb.setHeight(image.getHeight(null));
             monsterBattleList.add(mb);
-            leftOffset += image.getWidth(null);
         }
 
-        LOG.debug("met " + metMonsterIds.length + " monsters with["+ ArrayUtils.toString(metMonsterIds)+"]");
+    }
+
+    /**
+     *
+     * @param index 本场妖怪的当前索引数
+     */
+    private int getLeftInWindow(int index) {
+        int n = GameConstant.GAME_WIDTH - 100 * (monsterImages.size()-1);
+        for (int i = 0; i < monsterImages.size(); i++) {
+            n -= monsterImages.get(i).getWidth(null);
+        }
+       // n/=2; // 此时 n是第一个妖怪的x坐标 ？？
+        n /= 2;
+
+        for (int i = 1; i <= index; i++) {
+            n += monsterImages.get(i-1).getWidth(null) + 100;
+        }
+
+
+        return n;
     }
 
     @Override
@@ -76,9 +102,11 @@ public class BattleScreen extends BaseScreen {
             g.drawImage(image, left, top, null);
         }
 
-        Image gameArrow = GameFrame.getInstance().getGameContainer().getGameAboutItem().getGameArrow();
-        MonsterBattle monsterBattleArrowTo = monsterBattleList.get(arrowX);
-        g.drawImage(gameArrow, monsterBattleArrowTo.getLeft(), arrowY, null);
+        Image gameArrowUp = GameFrame.getInstance().getGameContainer().getGameAboutItem().getGameArrowUp();
+        MonsterBattle monsterBattleArrowTo = monsterBattleList.get(monsterIndex);
+        g.drawImage(gameArrowUp,
+                monsterBattleArrowTo.getLeft()+monsterBattleArrowTo.getWidth()/2-gameArrowUp.getWidth(null)/2,
+                arrowY, null);
 
         // 将缓冲区的图形绘制到显示面板上
         gameCanvas.drawBitmap(paint, 0, 0);
@@ -96,15 +124,14 @@ public class BattleScreen extends BaseScreen {
             BaseScreen bs = new AnimationScreen(2, heroX*32, heroY*32-198/2);
             GameFrame.getInstance().pushScreen(bs);
         } else if (KeyUtil.isUp(key)) {
-            heroY--;
+
         } else if (KeyUtil.isDown(key)) {
-            heroY++;
+
         } else if (KeyUtil.isLeft(key)) {
-            heroX--;
-            arrowX = Math.max(0, arrowX - 1);
+
+            monsterIndex = Math.max(0, monsterIndex - 1);
         } else if (KeyUtil.isRight(key)) {
-            heroX++;
-            arrowX = Math.min(monsterBattleList.size()-1, arrowX+1);
+            monsterIndex = Math.min(monsterBattleList.size()-1, monsterIndex+1);
         }
     }
 }

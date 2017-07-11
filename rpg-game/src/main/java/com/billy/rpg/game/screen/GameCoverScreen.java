@@ -1,15 +1,14 @@
 package com.billy.rpg.game.screen;
 
-import com.billy.rpg.game.constants.GameConstant;
 import com.billy.rpg.game.GameCanvas;
 import com.billy.rpg.game.GameFrame;
+import com.billy.rpg.game.constants.GameConstant;
 import com.billy.rpg.game.util.KeyUtil;
 import com.rupeng.game.AsyncAudioPlayer;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.net.URL;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,7 +41,7 @@ public class GameCoverScreen extends BaseScreen {
         Graphics g2 = paint.getGraphics();
 
         Image gameCover = GameFrame.getInstance().getGameContainer().getGameAboutItem().getGameCover();
-        Image gameArrow = GameFrame.getInstance().getGameContainer().getGameAboutItem().getGameArrow();
+        Image gameArrow = GameFrame.getInstance().getGameContainer().getGameAboutItem().getGameArrowRight();
         Image gameBalloon = GameFrame.getInstance().getGameContainer().getGameAboutItem().getGameBalloon();
         g2.drawImage(gameCover, 0, 0, gameCover.getWidth(null), gameCover.getHeight(null), null);
         g2.drawRect(150, 315, 160, 70);
