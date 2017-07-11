@@ -217,7 +217,7 @@ public class DialogScreen extends BaseScreen {
         }
 
         g.setColor(oldColor);
-        gameCanvas.drawBitmap(paint, 0, 0);
+        gameCanvas.drawBitmap(paint, 10, 30);
     }
 
 

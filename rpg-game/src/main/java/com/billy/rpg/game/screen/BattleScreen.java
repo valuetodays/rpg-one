@@ -134,7 +134,11 @@ public class BattleScreen extends BaseScreen {
     @Override
     public void onKeyUp(int key) {
         if (KeyUtil.isEsc(key)) {
-            GameFrame.getInstance().popScreen();
+            if (chooseMonster) {
+                chooseMonster = false;
+                monsterIndex = 0;
+            }
+           // GameFrame.getInstance().popScreen();
         } else if (KeyUtil.isHome(key)) {
             BaseScreen bs = new AnimationScreen(2, heroX*32, heroY*32-198/2);
             GameFrame.getInstance().pushScreen(bs);
@@ -161,25 +165,40 @@ public class BattleScreen extends BaseScreen {
                 monsterIndex = Math.min(monsterBattleList.size()-1, monsterIndex+1);
             }
         } else if (KeyUtil.isEnter(key)) {
-            switch (heroChoice) {
-                case 1:
-                    chooseMonster = true;
-                    break;
-                case 2:
-                    chooseMonster = true;
-                    LOG.debug("暂没有技能");
-                    break;
-                case 3:
-                    LOG.debug("暂没有物品");
-                    break;
-                case 4:
-                    LOG.debug("众妖怪：菜鸡别跑！");
-                    // TODO 金币减少100*妖怪数量。
-                    GameFrame.getInstance().popScreen();
-                    break;
-                default:
-                    LOG.debug("cannot be here.");
-                    break;
+            if (chooseMonster) {
+                // TODO 当动画还没播放完毕，就显示对话了 ^-^|||
+
+                MonsterBattle chosenMonsterBattle = monsterBattleList.get(monsterIndex);
+                BaseScreen bs = new AnimationScreen(2, chosenMonsterBattle.getLeft()-chosenMonsterBattle.getWidth()/2,
+                        chosenMonsterBattle.getTop());
+                GameFrame.getInstance().pushScreen(bs);
+                //CoreUtil.sleep(1000);
+                DialogScreen dialogScreen = new DialogScreen("sixsixsix，使用选项" + heroChoice + "对第" + monsterIndex +
+                        "只妖怪，打掉了1000血，");
+                //GameFrame.getInstance().pushScreen(dialogScreen);
+            } else {
+                switch (heroChoice) {
+                    case 1: // 普攻
+                        chooseMonster = true;
+                        //DialogScreen dialogScreen = new DialogScreen("`y`妖怪`/y`看打。");
+                        //GameFrame.getInstance().pushScreen(dialogScreen);
+                        break;
+                    case 2:
+                        chooseMonster = true;
+                        LOG.debug("暂没有技能");
+                        break;
+                    case 3:
+                        LOG.debug("暂没有物品");
+                        break;
+                    case 4:
+                        LOG.debug("众妖怪：菜鸡别跑！");
+                        // TODO 金币减少100*妖怪数量。
+                        GameFrame.getInstance().popScreen();
+                        break;
+                    default:
+                        LOG.debug("cannot be here.");
+                        break;
+                }
             }
         }
     }
