@@ -106,9 +106,6 @@ public class GameFrame extends JFrame implements Runnable {
         case 8:
             tmp = new TransitionScreen();
             break;
-        case 9:
-            tmp = new BattleScreen();
-            break;
         }
         if (tmp != null) {
             synchronized (screenStack) {
@@ -169,7 +166,9 @@ public class GameFrame extends JFrame implements Runnable {
             public void keyReleased(KeyEvent e) {
                 int key = c(e.getKeyCode());
 //                synchronized (screenStack) {
+                if (screenStack.peek() != null) {
                     screenStack.peek().onKeyUp(key);
+                }
 //                }
             }
             @Override

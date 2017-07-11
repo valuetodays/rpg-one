@@ -5,6 +5,7 @@ import com.billy.rpg.game.character.BoxCharacter;
 import com.billy.rpg.game.character.HeroCharacter;
 import com.billy.rpg.game.character.NPCCharacter;
 import com.billy.rpg.game.character.TransferCharacter;
+import com.billy.rpg.game.constants.GameConstant;
 import com.billy.rpg.game.screen.BattleScreen;
 import com.billy.rpg.game.scriptParser.bean.DataLoaderBean;
 import com.billy.rpg.game.scriptParser.bean.script.LabelBean;
@@ -17,6 +18,7 @@ import com.billy.rpg.game.scriptParser.virtualtable.GlobalVirtualTables;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -36,6 +38,7 @@ public class ScriptItem extends DataLoaderBean implements IItem {
     private List<BoxCharacter> boxes = new ArrayList<>();
     private static final int STEP_MEET_MONSTER = 8;
     private int steps; // 当前地图下的移动步数，当达到STEP_MEET_MONSTER时会遇到怪物进行战斗
+    private List<Integer> predictedMonsterIds = Arrays.asList(51, 52, 53, 54, 55); // TODO 可从*.map或*.s中加载
 
 
     public String getFileId() {
@@ -251,12 +254,18 @@ public class ScriptItem extends DataLoaderBean implements IItem {
 
     private void checkMonster() {
         if (steps < STEP_MEET_MONSTER) {
-            return ;
+            return;
         }
-        LOG.info("meet a monster..");
-        BattleScreen bs = new BattleScreen();
+        LOG.info("meet monster(s)..");
+        int monsterNumbers = GameConstant.random.nextInt(3) + 1;
+        int[] metMonsterIds = new int[monsterNumbers];
+        for (int i = 0; i < monsterNumbers; i++) {
+            int n = GameConstant.random.nextInt(predictedMonsterIds.size());
+            metMonsterIds[i] = predictedMonsterIds.get(n);
+        }
+
+        BattleScreen bs = new BattleScreen(metMonsterIds);
         GameFrame.getInstance().pushScreen(bs);
-//        GameFrame.getInstance().changeScreen(9);
         steps = 0;
 
     }
