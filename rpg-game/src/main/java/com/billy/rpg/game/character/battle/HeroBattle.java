@@ -6,15 +6,31 @@ import java.awt.*;
 
 /**
  * @author liulei@bshf360.com
- * @since 2017-07-11 12:08
+ * @since 2017-07-12 16:37
  */
-public class MonsterBattle {
+public class HeroBattle {
     private RoleMetaData monster;
     private Image image;
     private int left;
     private int top;
     private int width;
     private int height;
+
+    public RoleMetaData getMonster() {
+        return monster;
+    }
+
+    public void setMonster(RoleMetaData monster) {
+        this.monster = monster.clone();
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
 
     public int getLeft() {
         return left;
@@ -46,21 +62,5 @@ public class MonsterBattle {
 
     public void setHeight(int height) {
         this.height = height;
-    }
-
-    public Image getImage() {
-        return image;
-    }
-
-    public void setImage(Image image) {
-        this.image = image;
-    }
-
-    public RoleMetaData getMonster() {
-        return monster;
-    }
-
-    public void setMonster(RoleMetaData monster) {
-        this.monster = monster.clone();
     }
 }

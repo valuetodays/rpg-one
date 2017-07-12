@@ -25,7 +25,7 @@ import java.awt.image.BufferedImage;
  * @author liulei@bshf360.com
  * @since 2017-07-12 10:57
  */
-public class RoleMetaData {
+public class RoleMetaData implements Cloneable { // TODO 添加级别
     private int type;
     private int number;
     private String name;
@@ -143,5 +143,16 @@ public class RoleMetaData {
 
     public void setLevelChain(int levelChain) {
         this.levelChain = levelChain;
+    }
+
+    @Override
+    public RoleMetaData clone() {
+        RoleMetaData clone = null;
+        try {
+            clone = (RoleMetaData) super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return clone;
     }
 }
