@@ -15,7 +15,6 @@ import com.billy.rpg.game.scriptParser.bean.MapDataLoaderBean;
 import com.billy.rpg.game.scriptParser.cmd.CmdBase;
 import com.billy.rpg.game.scriptParser.item.*;
 import com.billy.rpg.game.scriptParser.item.skill.TransferImageItem;
-import com.billy.rpg.game.scriptParser.loader.IContainerLoader;
 import com.billy.rpg.game.scriptParser.loader.data.AnimationDataLoader;
 import com.billy.rpg.game.scriptParser.loader.data.MapDataLoader;
 import com.billy.rpg.game.scriptParser.loader.data.ScriptDataLoader;
@@ -38,7 +37,7 @@ import java.util.List;
  * 
  * @since 2016-12-02 10:38:59
  */
-public class GameContainer implements IContainer, IContainerLoader {
+public class GameContainer {
     private static final Logger LOG = Logger.getLogger(GameContainer.class);
     private BgImageItem bgImageItem;  // bgImage
     private TileImageItem tileItem;  // tile
