@@ -38,7 +38,8 @@ public class ScriptItem extends DataLoaderBean implements IItem {
     private List<BoxCharacter> boxes = new ArrayList<>();
     private static final int STEP_MEET_MONSTER = 8;
     private int steps; // 当前地图下的移动步数，当达到STEP_MEET_MONSTER时会遇到怪物进行战斗
-    private List<Integer> predictedMonsterIds = Arrays.asList(51, 52, 53, 54, 55); // TODO 可从*.map或*.s中加载
+//    private List<Integer> predictedMonsterIds = Arrays.asList(51, 52, 53, 54, 55); // TODO 可从*.map或*.s中加载
+    private List<Integer> predictedMonsterIds = Arrays.asList(51, 51); // TODO 可从*.map或*.s中加载
 
 
     public String getFileId() {

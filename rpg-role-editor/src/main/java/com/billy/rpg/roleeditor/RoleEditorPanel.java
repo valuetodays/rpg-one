@@ -1,6 +1,7 @@
 package com.billy.rpg.roleeditor;
 
 import com.billy.rpg.common.constant.RoleEditorConstant;
+import com.billy.rpg.resource.role.RoleLoader;
 import com.billy.rpg.resource.role.RoleMetaData;
 import com.billy.rpg.resource.role.RoleSaver;
 import org.apache.commons.lang.StringUtils;
@@ -30,6 +31,7 @@ public class RoleEditorPanel extends JPanel {
     private BufferedImage image;
     private JTextField tfNumber; // 编号
     private JTextField tfName; // name
+    private JComboBox<Item> cbType;
     private JTextField tfHp; // hp
     private JTextField tfMaxHp; // maxHp
     private JTextField tfMp; // mp
@@ -143,19 +145,12 @@ public class RoleEditorPanel extends JPanel {
         this.add(lableName);
         tfName = new JTextField(10);
         tfName.setBounds(110, 10, 80, 20);
-        tfName.addKeyListener(new KeyAdapter() {
-            public void keyReleased(KeyEvent e) {
-                JTextField textField = (JTextField) e.getSource();
-                int n = getNumberOfTextField(textField);
-                textField.setText("" + n);
-            }
-        });
         this.add(tfName);
 
         JLabel lableType = new JLabel("类型");
         lableType.setBounds(10, 30, 30, 20);
         this.add(lableType);
-        JComboBox<Item> cbType = new JComboBox<>();
+        cbType = new JComboBox<>();
         cbType.addItem(new Item(1, "玩家角色"));
         cbType.addItem(new Item(2, "NPC 角色"));
         cbType.addItem(new Item(3, "妖怪角色"));
@@ -184,7 +179,6 @@ public class RoleEditorPanel extends JPanel {
                 textField.setText("" + n);
             }
         });
-        tfHp.setText("1");
         this.add(tfHp);
 
         JLabel lableMaxHp = new JLabel("maxHp");
@@ -199,7 +193,6 @@ public class RoleEditorPanel extends JPanel {
                 textField.setText("" + n);
             }
         });
-        tfMaxHp.setText("2");
         this.add(tfMaxHp);
 
         JLabel lableMp = new JLabel("mp");
@@ -273,10 +266,10 @@ public class RoleEditorPanel extends JPanel {
         this.add(tfDefend);
 
         JLabel lableExp = new JLabel("exp");
-        lableExp.setBounds(10, 200, 40, 20);
+        lableExp.setBounds(10, 230, 40, 20);
         this.add(lableExp);
         tfExp = new JTextField();
-        tfExp.setBounds(50, 200, 35, 20);
+        tfExp.setBounds(50, 230, 35, 20);
         tfExp.addKeyListener(new KeyAdapter() {
             public void keyReleased(KeyEvent e) {
                 JTextField textField = (JTextField) e.getSource();
@@ -285,41 +278,6 @@ public class RoleEditorPanel extends JPanel {
             }
         });
         this.add(tfExp);
-
-        /*
-        JButton btnPicAdd = new JButton("add");
-        btnPicAdd.setMargin(new Insets(1, 1, 1, 1));
-        btnPicAdd.setBounds(280, 70, 30, 20);
-        btnPicAdd.setToolTipText("添加一个Pic到当前选中项的尾部，若没有选中项，则添加到尾部。");
-        btnPicAdd.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int result = rolePicFileChooser.showOpenDialog(null);
-                if (result == JFileChooser.APPROVE_OPTION){
-                    File[] selectedFiles = rolePicFileChooser.getSelectedFiles();
-                    for (File file : selectedFiles) {
-                        //String name = rolePicFileChooser.getSelectedFile().getPath();
-                        String name = file.getPath();
-                        LOG.debug("file: " + name);
-
-                        int selectedIndex = jlistPics.getSelectedIndex();
-                        try {
-                            if (-1 == selectedIndex) {
-                                BufferedImage read = ImageIO.read(new File(name));
-                                picImageList.add(read);
-                            } else {
-                                BufferedImage read = ImageIO.read(new File(name));
-                                picImageList.add(selectedIndex + 1, read);
-                            }
-                        } catch (IOException e1) {
-                            e1.printStackTrace();
-                        }
-                    }
-                    setListPics();
-                }
-            }
-        });
-        this.add(btnPicAdd);*/
     }
 
     private void pickImage() throws IOException {
@@ -332,23 +290,53 @@ public class RoleEditorPanel extends JPanel {
 
 
     private void loadFromRoleFile() {
+        LOG.debug("load from roleFile start");
 
+        int result = roleLoadFileChooser.showSaveDialog(null);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = roleLoadFileChooser.getSelectedFile();
+            RoleMetaData rmd = RoleLoader.load(selectedFile.getPath());
+            tfNumber.setText("" + rmd.getNumber());
+            tfName.setText(rmd.getName());
+            cbType.setSelectedIndex(rmd.getType() - 1);
+            tfHp.setText("" + rmd.getHp());
+            tfMaxHp.setText("" + rmd.getMaxHp());
+            tfMp.setText("" + rmd.getMp());
+            tfMaxMp.setText("" + rmd.getMaxMp());
+            tfSpeed.setText("" + rmd.getSpeed());
+            tfAttack.setText("" + rmd.getAttack());
+            tfDefend.setText("" + rmd.getDefend());
+            tfExp.setText("" + rmd.getExp());
+            image = rmd.getImage();
+            repaint();
+
+            LOG.debug("load from roleFile end");
+        }
     }
+
+
+    private boolean checkNumber(String tfText, String type) {
+        if (StringUtils.isEmpty(tfText)) {
+            JOptionPane.showMessageDialog(null, type + "不能为空");
+            return false;
+        }
+        if (!StringUtils.isNumeric(tfText)) {
+            JOptionPane.showMessageDialog(null, type + "只能是整数");
+            return false;
+        }
+        int number = Integer.parseInt(tfText);
+        if (number <= 0) {
+            JOptionPane.showMessageDialog(null, type + "不能小于1");
+            return false;
+        }
+        return true;
+    }
+
 
     private void save2RoleFile() {
         System.out.println("save role to file start");
-        String tfNumberText = tfNumber.getText();
-        if (StringUtils.isEmpty(tfNumberText)) {
-            JOptionPane.showMessageDialog(null, "编号不能为空");
-            return;
-        }
-        if (!StringUtils.isNumeric(tfNumberText)) {
-            JOptionPane.showMessageDialog(null, "编号只能是整数");
-            return;
-        }
-        int number = Integer.parseInt(tfNumberText);
-        if (number <= 0) {
-            JOptionPane.showMessageDialog(null, "编号不能小于1");
+        boolean res = checkNumber(tfNumber.getText(), "number");
+        if (!res) {
             return;
         }
         String tfNameText = tfName.getText();
@@ -361,12 +349,44 @@ public class RoleEditorPanel extends JPanel {
             return;
         }
 
-
         if (null == image) {
             JOptionPane.showMessageDialog(null, "请选择角色图片");
             return;
         }
 
+
+        res = checkNumber(tfHp.getText(), "hp");
+        if (!res) {
+            return;
+        }
+        res = checkNumber(tfMaxHp.getText(), "maxHp");
+        if (!res) {
+            return;
+        }
+        res = checkNumber(tfMp.getText(), "mp");
+        if (!res) {
+            return;
+        }
+        res = checkNumber(tfMaxMp.getText(), "maxMp");
+        if (!res) {
+            return;
+        }
+        res = checkNumber(tfSpeed.getText(), "speed");
+        if (!res) {
+            return;
+        }
+        res = checkNumber(tfAttack.getText(), "attack");
+        if (!res) {
+            return;
+        }
+        res = checkNumber(tfDefend.getText(), "defend");
+        if (!res) {
+            return;
+        }
+        res = checkNumber(tfExp.getText(), "exp");
+        if (!res) {
+            return;
+        }
 
         int result = roleSaveFileChooser.showSaveDialog(null);
         if (result == JFileChooser.APPROVE_OPTION){
@@ -376,13 +396,26 @@ public class RoleEditorPanel extends JPanel {
                 name += ".role";
             }
             RoleMetaData roleMetaData = new RoleMetaData();
-
-
+            Item selectedType = (Item)cbType.getSelectedItem();
+            int key = selectedType.key;
+            roleMetaData.setType(key);
+            roleMetaData.setNumber(Integer.parseInt(tfNumber.getText()));
+            roleMetaData.setName(tfNameText);
+            roleMetaData.setImage(image);
+            roleMetaData.setHp(Integer.parseInt(tfHp.getText()));
+            roleMetaData.setMaxHp(Integer.parseInt(tfMaxHp.getText()));
+            roleMetaData.setMp(Integer.parseInt(tfMp.getText()));
+            roleMetaData.setMaxMp(Integer.parseInt(tfMaxMp.getText()));
+            roleMetaData.setSpeed(Integer.parseInt(tfSpeed.getText()));
+            roleMetaData.setAttack(Integer.parseInt(tfAttack.getText()));
+            roleMetaData.setDefend(Integer.parseInt(tfDefend.getText()));
+            roleMetaData.setExp(Integer.parseInt(tfExp.getText()));
             RoleSaver.save(roleSaveFileChooser.getCurrentDirectory() + File.separator + name, roleMetaData);
             System.out.println("save ani to file end");
         }
 
     }
+
 
     /**
      * 获取到 输入框中的数字
@@ -422,8 +455,9 @@ public class RoleEditorPanel extends JPanel {
     public void paint(Graphics g) {
         super.paint(g);
 
-//        Image image = picImageList.get(selectedIndex);
-//        g.drawImage(image, 135, 200, null);
+        if (image != null) {
+            g.drawImage(image, 135, 200, null);
+        }
     }
 
     private class Item {

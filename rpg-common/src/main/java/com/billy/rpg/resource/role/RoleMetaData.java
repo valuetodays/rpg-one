@@ -38,7 +38,7 @@ public class RoleMetaData {
     private int attack;
     private int defend;
     private int exp;
-    private int levelChain = 1;
+    private int levelChain = 1; // TODO 先固定成1
 
 
     public BufferedImage getImage() {

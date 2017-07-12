@@ -5,6 +5,7 @@ import com.billy.rpg.game.GameFrame;
 import com.billy.rpg.game.character.battle.MonsterBattle;
 import com.billy.rpg.game.constants.GameConstant;
 import com.billy.rpg.game.util.KeyUtil;
+import com.billy.rpg.resource.role.RoleMetaData;
 import org.apache.commons.lang.ArrayUtils;
 
 import java.awt.*;
@@ -31,22 +32,25 @@ public class BattleScreen extends BaseScreen {
         LOG.debug("met " + metMonsterIds.length + " monsters with["+ ArrayUtils.toString(metMonsterIds)+"]");
 
         monsterBattleList = new java.util.ArrayList<>();
-        Map<Integer, Image> monsterMap = GameFrame.getInstance().getGameContainer().getMonsterImageLoader().getMonsterMetaData().getMonsterMap();
+        Map<Integer, RoleMetaData> monsterMap = GameFrame.getInstance().getGameContainer().getMonsterDataLoader()
+                .getMonsterMetaData().getMonsterMap();
 
         monsterImages = new java.util.ArrayList<>();
         for (int i = 0; i < metMonsterIds.length; i++) {
-            Image image = monsterMap.get(metMonsterIds[i]);
+            Image image = monsterMap.get(metMonsterIds[i]).getImage();
             monsterImages.add(image);
         }
 
         for (int i = 0; i < metMonsterIds.length; i++) {
-            Image image = monsterMap.get(metMonsterIds[i]);
+            RoleMetaData roleMetaData = monsterMap.get(metMonsterIds[i]);
+            Image image = roleMetaData.getImage();
             MonsterBattle mb = new MonsterBattle();
             mb.setImage(image);
             mb.setLeft(getLeftInWindow(i));
             mb.setTop(100);
             mb.setWidth(image.getWidth(null));
             mb.setHeight(image.getHeight(null));
+            mb.setMonster(roleMetaData);
             monsterBattleList.add(mb);
         }
 
@@ -112,6 +116,10 @@ public class BattleScreen extends BaseScreen {
             g.drawImage(gameArrowUp,
                     monsterBattleArrowTo.getLeft() + monsterBattleArrowTo.getWidth() / 2 - gameArrowUp.getWidth(null) / 2,
                     arrowY, null);
+            g.drawString(monsterBattleArrowTo.getMonster().getName(),
+                    monsterBattleArrowTo.getLeft() +
+                    monsterBattleArrowTo.getWidth() / 2 - gameArrowUp.getWidth(null) / 2,
+                    monsterBattleArrowTo.getTop() - 50);
         }
 
         g.setColor(Color.WHITE);

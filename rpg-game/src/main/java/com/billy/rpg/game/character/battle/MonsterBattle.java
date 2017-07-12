@@ -1,6 +1,6 @@
 package com.billy.rpg.game.character.battle;
 
-import com.billy.rpg.game.character.FightCharacter;
+import com.billy.rpg.resource.role.RoleMetaData;
 
 import java.awt.*;
 
@@ -9,7 +9,7 @@ import java.awt.*;
  * @since 2017-07-11 12:08
  */
 public class MonsterBattle {
-    private FightCharacter monster;
+    private RoleMetaData monster;
     private Image image;
     private int left;
     private int top;
@@ -56,11 +56,11 @@ public class MonsterBattle {
         this.image = image;
     }
 
-    public FightCharacter getMonster() {
+    public RoleMetaData getMonster() {
         return monster;
     }
 
-    public void setMonster(FightCharacter monster) {
+    public void setMonster(RoleMetaData monster) {
         this.monster = monster;
     }
 }

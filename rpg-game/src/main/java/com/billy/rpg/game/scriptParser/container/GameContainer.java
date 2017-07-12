@@ -20,7 +20,7 @@ import com.billy.rpg.game.scriptParser.loader.data.AnimationDataLoader;
 import com.billy.rpg.game.scriptParser.loader.data.MapDataLoader;
 import com.billy.rpg.game.scriptParser.loader.data.ScriptDataLoader;
 import com.billy.rpg.resource.box.BoxImageLoader;
-import com.billy.rpg.resource.monster.MonsterImageLoader;
+import com.billy.rpg.resource.monster.MonsterDataLoader;
 import com.billy.rpg.resource.npc.NPCImageLoader;
 import org.apache.log4j.Logger;
 
@@ -56,7 +56,7 @@ public class GameContainer implements IContainer, IContainerLoader {
     private List<AnimationDataLoaderBean> animationList; // animation list;
 
     // TODO loader不应作为类属性，它的返回值应是类属性，loader本应作为一个方法的局部变量
-    private MonsterImageLoader monsterImageLoader;
+    private MonsterDataLoader monsterDataLoader;
 
 
     
@@ -95,7 +95,7 @@ public class GameContainer implements IContainer, IContainerLoader {
         npcImageLoader = new NPCImageLoader();
         boxImageLoader = new BoxImageLoader();
         battleImageItem = new BattleImageItem();
-        monsterImageLoader = new MonsterImageLoader();
+        monsterDataLoader = new MonsterDataLoader();
         try {
             bgImageItem.load();
             tileItem.load();
@@ -106,7 +106,7 @@ public class GameContainer implements IContainer, IContainerLoader {
             npcImageLoader.loadNpcs();
             boxImageLoader.loadBoxes();
             battleImageItem.load();
-            monsterImageLoader.load();
+            monsterDataLoader.load();
 
             loadMapData();
             loadScriptData();
@@ -325,7 +325,7 @@ public class GameContainer implements IContainer, IContainerLoader {
         return battleImageItem;
     }
 
-    public MonsterImageLoader getMonsterImageLoader() {
-        return monsterImageLoader;
+    public MonsterDataLoader getMonsterDataLoader() {
+        return monsterDataLoader;
     }
 }

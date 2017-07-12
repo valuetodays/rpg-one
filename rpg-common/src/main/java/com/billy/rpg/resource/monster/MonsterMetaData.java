@@ -1,6 +1,7 @@
 package com.billy.rpg.resource.monster;
 
-import java.awt.*;
+import com.billy.rpg.resource.role.RoleMetaData;
+
 import java.util.Map;
 
 /**
@@ -8,14 +9,14 @@ import java.util.Map;
  * @since 2017-07-11 10:22
  */
 public class MonsterMetaData {
-    Map<Integer, Image> monsterMap;
+    Map<Integer, RoleMetaData> monsterMap;
 
 
-    public Map<Integer, Image> getMonsterMap() {
+    public Map<Integer, RoleMetaData> getMonsterMap() {
         return monsterMap;
     }
 
-    public void setMonsterMap(Map<Integer, Image> monsterMap) {
+    public void setMonsterMap(Map<Integer, RoleMetaData> monsterMap) {
         this.monsterMap = monsterMap;
     }
 }
