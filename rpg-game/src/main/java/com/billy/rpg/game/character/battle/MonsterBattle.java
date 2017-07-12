@@ -1,5 +1,7 @@
 package com.billy.rpg.game.character.battle;
 
+import com.billy.rpg.game.character.FightCharacter;
+
 import java.awt.*;
 
 /**
@@ -7,6 +9,7 @@ import java.awt.*;
  * @since 2017-07-11 12:08
  */
 public class MonsterBattle {
+    private FightCharacter monster;
     private Image image;
     private int left;
     private int top;
@@ -51,5 +54,13 @@ public class MonsterBattle {
 
     public void setImage(Image image) {
         this.image = image;
+    }
+
+    public FightCharacter getMonster() {
+        return monster;
+    }
+
+    public void setMonster(FightCharacter monster) {
+        this.monster = monster;
     }
 }

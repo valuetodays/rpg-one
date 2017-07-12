@@ -28,7 +28,7 @@ import java.util.ListIterator;
 
 
 /**
- * main panel to show the map editor
+ * main panel to show the animation editor
  */
 public class AnimationEditorPanel extends JPanel {
     private static final long serialVersionUID = 1L;
@@ -141,7 +141,6 @@ public class AnimationEditorPanel extends JPanel {
         btnPlay.setToolTipText("播放当前动画");
         btnPlay.setMargin(new Insets(1,1,1,1));
         btnPlay.setBounds(280, 40, 70, 20);
-        this.add(btnPlay);
         btnPlay.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

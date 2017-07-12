@@ -20,10 +20,12 @@ public class BattleScreen extends BaseScreen {
     private int heroX = 8, heroY = 10;
     private java.util.List<MonsterBattle> monsterBattleList;
     private java.util.List<Image> monsterImages;
-    private int arrowY = 280;
+    private static int arrowY = 280;
     private int monsterIndex; // 当攻击妖怪时要显示
     private boolean chooseMonster;
     private int heroChoice = 1; // 普攻、技能等  1~4
+    private java.util.List<BaseScreen> screenStack; //
+
 
     public BattleScreen(final int[] metMonsterIds) {
         LOG.debug("met " + metMonsterIds.length + " monsters with["+ ArrayUtils.toString(metMonsterIds)+"]");
@@ -84,8 +86,10 @@ public class BattleScreen extends BaseScreen {
         Graphics g = paint.getGraphics();
 
         final Image roleFull1 = GameFrame.getInstance().getGameContainer().getRoleItem().getRoleFull1();
+        // TODO 战斗背景图应从*.map或*.s中加载
         Image battleImage = GameFrame.getInstance().getGameContainer().getBattleImageItem().getBattleImage("001-Grassland01.jpg");
-        g.setColor(Color.black); // TODO 先画出黑色背景，因为战斗背景图不是640*480的
+        // TODO 先画出黑色背景，因为战斗背景图不是640*480的 (640*320)
+        g.setColor(Color.black);
         g.fillRect(0, 0, paint.getWidth(), paint.getHeight());
         g.drawImage(battleImage, 0, 0, battleImage.getWidth(null), battleImage.getHeight(null), null);  // draw battleImage
         int posX = heroX;
@@ -167,7 +171,6 @@ public class BattleScreen extends BaseScreen {
         } else if (KeyUtil.isEnter(key)) {
             if (chooseMonster) {
                 // TODO 当动画还没播放完毕，就显示对话了 ^-^|||
-
                 MonsterBattle chosenMonsterBattle = monsterBattleList.get(monsterIndex);
                 BaseScreen bs = new AnimationScreen(2, chosenMonsterBattle.getLeft()-chosenMonsterBattle.getWidth()/2,
                         chosenMonsterBattle.getTop());

@@ -11,4 +11,13 @@
     <artifactId>rpg-role-editor</artifactId>
 
 
+    <dependencies>
+        <dependency>
+            <groupId>com.billy</groupId>
+            <artifactId>rpg-common</artifactId>
+            <version>1.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
+
 </project>
