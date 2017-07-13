@@ -33,6 +33,8 @@ public class BattleScreen extends BaseScreen {
     private int heroActionChoice = 1; // 普攻、技能等  1~4
     private java.util.List<BaseScreen> screenStack; //
     private java.util.List<String> msg;
+    private int money;
+    private int exp;
 
 
     public BattleScreen(final int[] metMonsterIds) {
@@ -58,6 +60,8 @@ public class BattleScreen extends BaseScreen {
             mb.setWidth(image.getWidth(null));
             mb.setHeight(image.getHeight(null));
             mb.setMonster(roleMetaData);
+            money += roleMetaData.getExp(); // TODO 没有金币呢。。。。
+            exp += roleMetaData.getExp();
             monsterBattleList.add(mb);
         }
 
@@ -132,7 +136,6 @@ public class BattleScreen extends BaseScreen {
         }
 
         if (chooseMonster) {
-
             Image gameArrowUp = GameFrame.getInstance().getGameContainer().getGameAboutItem().getGameArrowUp();
             MonsterBattle monsterBattleArrowTo = monsterBattleList.get(monsterIndex);
             g.drawImage(gameArrowUp,
@@ -307,6 +310,7 @@ public class BattleScreen extends BaseScreen {
             LOG.debug("victory!!! show victory ui");
             chooseMonster = false;
             GameFrame.getInstance().popScreen();
+            GameFrame.getInstance().pushScreen(new BattleSuccessScreen(heroBattleList, money, exp));
         }
 
         // TODO 失败
