@@ -421,7 +421,7 @@ public class RoleEditorPanel extends JPanel {
      * 获取到 输入框中的数字
      * @param textField 输入框
      */
-    private int getNumberOfTextField(JTextField textField) {
+    public static int getNumberOfTextField(JTextField textField) {
         String text = textField.getText();
         if (text == null) {
             textField.setText("");
