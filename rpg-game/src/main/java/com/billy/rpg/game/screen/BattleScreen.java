@@ -132,7 +132,7 @@ public class BattleScreen extends BaseScreen {
         }
 
         if (chooseMonster) {
-            checkWinOrLose();
+
             Image gameArrowUp = GameFrame.getInstance().getGameContainer().getGameAboutItem().getGameArrowUp();
             MonsterBattle monsterBattleArrowTo = monsterBattleList.get(monsterIndex);
             g.drawImage(gameArrowUp,
@@ -143,6 +143,7 @@ public class BattleScreen extends BaseScreen {
                     monsterBattleArrowTo.getWidth() / 2 - gameArrowUp.getWidth(null) / 2,
                     monsterBattleArrowTo.getTop() - 50);
         }
+        checkWinOrLose();
 
         g.setColor(Color.WHITE);
         g.drawRoundRect(0, 320, 200, 160, 4, 4);
@@ -164,8 +165,8 @@ public class BattleScreen extends BaseScreen {
             int size = msg.size();
             int startIndex = 0;
             int endIndex = size;
-            if (size > 10) {
-                startIndex = size - 10;
+            if (size > 8) {
+                startIndex = size - 8;
             }
 
             for (int i = startIndex; i < endIndex; i++) {
@@ -207,11 +208,17 @@ public class BattleScreen extends BaseScreen {
             }
         } else if (KeyUtil.isLeft(key)) {
             if (chooseMonster) {
-                monsterIndex = Math.max(0, monsterIndex - 1);
+                monsterIndex--;
+                if (monsterIndex < 0) {
+                    monsterIndex = monsterBattleList.size()-1;
+                }
             }
         } else if (KeyUtil.isRight(key)) {
             if (chooseMonster) {
-                monsterIndex = Math.min(monsterBattleList.size()-1, monsterIndex+1);
+                monsterIndex++;
+                if (monsterIndex > monsterBattleList.size()-1) {
+                    monsterIndex = 0;
+                }
             }
         } else if (KeyUtil.isEnter(key)) {
             if (chooseMonster) {
@@ -287,17 +294,18 @@ public class BattleScreen extends BaseScreen {
         if (hp <= 0) {
             msgText += "，妖怪的小身板扛不住就挂了";
             monsterBattleList.remove(monsterIndex);
-            checkWinOrLose();
             monsterIndex = 0;
+            checkWinOrLose();
         }
         msgText += "。";
         LOG.debug(msgText);
         appendMsg(msgText);
     }
 
-    private synchronized void checkWinOrLose() {
+    private void checkWinOrLose() {
         if (CollectionUtils.isEmpty(monsterBattleList)) {
             LOG.debug("victory!!! show victory ui");
+            chooseMonster = false;
             GameFrame.getInstance().popScreen();
         }
 
@@ -310,7 +318,7 @@ public class BattleScreen extends BaseScreen {
         }
 
         while (text.length() > 18) {
-            msg.add(text.substring(0, 17));
+            msg.add(text.substring(0, 18));
             text = text.substring(18);
         }
 
