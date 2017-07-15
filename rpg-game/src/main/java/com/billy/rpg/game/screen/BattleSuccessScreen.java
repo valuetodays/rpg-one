@@ -36,6 +36,9 @@ public class BattleSuccessScreen extends BaseScreen {
                 GameConstant.GAME_HEIGHT,
                 BufferedImage.TYPE_4BYTE_ABGR);
         Graphics g = paint.getGraphics();
+        g.setColor(Color.black);
+        g.fillRect(0, 0, paint.getWidth(), paint.getHeight());
+        g.setColor(Color.WHITE);
         g.drawString("Victory~~~", 20, 50);
         g.drawString("get money " + money, 20, 70);
         g.drawString("get exp " + exp, 20, 90);
@@ -47,6 +50,7 @@ public class BattleSuccessScreen extends BaseScreen {
             int newExp = oriExp + exp;
             g.drawString("money: " + oriMoney + "  -->  " + newMoney, 10 + 100*i, 120);
             g.drawString("exp: " + oriExp + "  -->  " + newExp, 10 + 100*i, 140);
+            heroBattle.getMonster().setExp(newExp);
         }
 
         gameCanvas.drawBitmap(paint, 0, 0);
@@ -59,6 +63,6 @@ public class BattleSuccessScreen extends BaseScreen {
 
     @Override
     public void onKeyUp(int key) {
-        GameFrame.getInstance().popScreen();
+        GameFrame.getInstance().changeScreen(1);
     }
 }
