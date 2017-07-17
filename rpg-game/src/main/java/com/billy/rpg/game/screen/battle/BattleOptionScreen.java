@@ -1,6 +1,7 @@
 package com.billy.rpg.game.screen.battle;
 
 import com.billy.rpg.game.GameCanvas;
+import com.billy.rpg.game.GameFrame;
 import com.billy.rpg.game.constants.GameConstant;
 import com.billy.rpg.game.screen.BaseScreen;
 import com.billy.rpg.game.util.KeyUtil;
@@ -19,6 +20,7 @@ import java.awt.image.BufferedImage;
  */
 public class BattleOptionScreen extends BaseScreen {
     private BattleUIScreen battleUIScreen;
+    protected int heroIndex; // 活动玩家的索引，暂取0
 
     public BattleOptionScreen(BattleUIScreen battleUIScreen) {
         this.battleUIScreen = battleUIScreen;
@@ -49,6 +51,11 @@ public class BattleOptionScreen extends BaseScreen {
         g.drawString("技能", 50, 375);
         g.drawString("物品", 50, 400);
         g.drawString("逃跑", 50, 425);
+
+        // 显示用户选项
+        Image gameArrowRight = GameFrame.getInstance().getGameContainer().getGameAboutItem().getGameArrowRight();
+        g.drawImage(gameArrowRight, 30, (heroActionChoice -1) * 25 + 333, null);
+
         gameCanvas.drawBitmap(paint, 0, 0);
     }
 
@@ -57,88 +64,56 @@ public class BattleOptionScreen extends BaseScreen {
 
     }
 
+    private boolean chooseMonster;
+    private int heroActionChoice = 1;
     @Override
     public void onKeyUp(int key) {
-
+        LOG.debug("who?");
         if (KeyUtil.isEsc(key)) {
-
-            // GameFrame.getInstance().popScreen();
         } else if (KeyUtil.isHome(key)) {
-            //BaseScreen bs = new AnimationScreen(2, heroX*32, heroY*32-198/2);
-            //GameFrame.getInstance().pushScreen(bs);
         } else if (KeyUtil.isUp(key)) {
-            if (!getBattleUIScreen().chooseMonster) {
-                getBattleUIScreen().heroActionChoice--;
-                if (getBattleUIScreen().heroActionChoice < 1) {
-                    getBattleUIScreen().heroActionChoice = 4;
+            if (!chooseMonster) {
+                heroActionChoice--;
+                if (heroActionChoice < 1) {
+                    heroActionChoice = 4;
                 }
             }
         } else if (KeyUtil.isDown(key)) {
-            if (!getBattleUIScreen().chooseMonster) {
-                getBattleUIScreen().heroActionChoice++;
-                if (getBattleUIScreen().heroActionChoice > 4) {
-                    getBattleUIScreen().heroActionChoice = 1;
+            if (!chooseMonster) {
+                heroActionChoice++;
+                if (heroActionChoice > 4) {
+                    heroActionChoice = 1;
                 }
             }
         } else if (KeyUtil.isLeft(key)) {
-            if (getBattleUIScreen().chooseMonster) {
-                getBattleUIScreen().monsterIndex--;
-                if (getBattleUIScreen().monsterIndex < 0) {
-                    getBattleUIScreen().monsterIndex = getBattleUIScreen().monsterBattleList.size()-1;
-                }
-            }
         } else if (KeyUtil.isRight(key)) {
-            if (getBattleUIScreen().chooseMonster) {
-                getBattleUIScreen().monsterIndex++;
-                if (getBattleUIScreen().monsterIndex > getBattleUIScreen().monsterBattleList.size()-1) {
-                    getBattleUIScreen().monsterIndex = 0;
-                }
-            }
         } else if (KeyUtil.isEnter(key)) {
-            /*if (chooseMonster) { // fix 两次回车会导致上一次的攻击动画还未玩毕就开始新的攻击动画 解决方案在com.billy.rpg.game.screen.BattleScreen
-                // .onKeyUp()
-                checkWinOrLose();
-                MonsterBattle chosenMonsterBattle = monsterBattleList.get(monsterIndex);
-                AnimationScreen bs = new AnimationScreen(2, chosenMonsterBattle.getLeft()-chosenMonsterBattle.getWidth()/2,
-                        chosenMonsterBattle.getTop(), parentScreen);
-//                GameFrame.getInstance().pushScreen(bs);
-                parentScreen.push(new BattleActionScreen(heroBattleList.get(heroIndex), monsterBattleList.get(monsterIndex), bs, new AttackAnimationFinishedListener(){
-                    @Override
-                    public void onFinished() {
-                        doFight();
-                    }
-
-                }));
-//                parentScreen.push(bs);
-                //CoreUtil.sleep(1000);
-                DialogScreen dialogScreen = new DialogScreen("sixsixsix，使用选项" + heroActionChoice + "对第" + monsterIndex +
-                        "只妖怪，打掉了1000血，");
-                // doFight();
-                //GameFrame.getInstance().pushScreen(dialogScreen);
-            } else {
-                switch (heroActionChoice) {
-                    case 1: // 普攻
-                        chooseMonster = true;
-                        //DialogScreen dialogScreen = new DialogScreen("`y`妖怪`/y`看打。");
-                        //GameFrame.getInstance().pushScreen(dialogScreen);
-                        break;
-                    case 2:
-                        chooseMonster = true;
-                        LOG.debug("暂没有技能");
-                        break;
-                    case 3:
-                        LOG.debug("暂没有物品");
-                        break;
-                    case 4:
-                        LOG.debug("众妖怪：菜鸡别跑！");
-                        // TODO 金币减少100*妖怪数量。
-                        GameFrame.getInstance().popScreen();
-                        break;
-                    default:
-                        LOG.debug("cannot be here.");
-                        break;
+            switch (heroActionChoice) {
+                case 1: { // 普攻
+                    //DialogScreen dialogScreen = new DialogScreen("`y`妖怪`/y`看打。");
+                    //GameFrame.getInstance().pushScreen(dialogScreen);
+                    ChooseMonsterScreen chooseMonsterScreen = new ChooseMonsterScreen(getBattleUIScreen(), heroActionChoice, heroIndex);
+                    getBattleUIScreen().getParentScreen().push(chooseMonsterScreen);
                 }
-            }*/
+                break;
+                case 2: { // 技能
+                    LOG.debug("暂没有技能");
+                }
+                break;
+                case 3:
+                    LOG.debug("暂没有物品");
+                    break;
+                case 4:
+                    LOG.debug("众妖怪：菜鸡别跑！");
+                    // TODO 金币减少100*妖怪数量。
+                    // TODO 此时要是逃跑成功，应该跳到地图界面
+                    GameFrame.getInstance().changeScreen(1);
+                    break;
+                default:
+                    LOG.debug("cannot be here.");
+                    break;
+            }
+
         }
     }
 

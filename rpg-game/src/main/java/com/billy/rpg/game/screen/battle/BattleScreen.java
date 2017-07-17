@@ -90,11 +90,12 @@ public class BattleScreen extends BaseScreen {
 
     @Override
     public void onKeyUp(int key) {
-        if (screenStack.size() == 2) {
-            screenStack.get(0).onKeyUp(key);
-        } else {
-            LOG.debug("尽管按了回车键，但上次攻击动画还未结束呢。。");
-        }
+        //if (screenStack.size() == 2) {
+         //   screenStack.get(0).onKeyUp(key);
+        //} else {
+        //    LOG.debug("尽管按了回车键，但上次攻击动画还未结束呢。。");
+        //}
+        screenStack.peek().onKeyUp(key);
     }
 
 }
