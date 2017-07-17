@@ -271,9 +271,9 @@ public class ScriptItem extends DataLoaderBean implements IItem {
             metMonsterIds[i] = predictedMonsterIds.get(n);
         }
 
-        BattleScreen bs = new BattleScreen(metMonsterIds);
-        GameFrame.getInstance().pushScreen(bs);
         steps = 0;
+        BattleScreen bs = new BattleScreen(metMonsterIds);
+
     }
 
     private void checkTrigger0() {

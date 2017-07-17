@@ -100,7 +100,7 @@ public class CmdExecutor {
             int no = ac.getNumber();
             int x = ac.getX();
             int y = ac.getY();
-            BaseScreen as = new AnimationScreen(no, x, y);
+            BaseScreen as = new AnimationScreen(no, x, y, new MapScreen());
             GameFrame.getInstance().pushScreen(as);
 //            AnimationTimer at = new AnimationTimer(500, 400, 200);
         } else if (cmd instanceof CreateNPCCmd) {

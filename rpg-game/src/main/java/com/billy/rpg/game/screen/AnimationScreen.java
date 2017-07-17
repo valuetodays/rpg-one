@@ -10,33 +10,39 @@ import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Stack;
 
 
 /**
  * to show animation (animation, magic )
+ * 目前情况下有两种情况
+ * - 战斗特效
+ * - 过场动画
  *
  * @author liulei
  */
 public class AnimationScreen extends BaseScreen {
+    private BaseScreen ownerScreen;
     private AnimationDataLoaderBean animationDataLoaderBean;
     private List<Key> mShowList = new LinkedList<>();
     private int ITERATOR = 1;
     private int posX;
     private int posY;
 
-    public AnimationScreen(int animationNumber, int posX, int posY) {
+    public AnimationScreen(int animationNumber, int posX, int posY, BaseScreen ownerScreen) {
         animationDataLoaderBean =
                 GameFrame.getInstance().getGameContainer().getAnimationOf(animationNumber);
         this.posX = posX;
         this.posY = posY;
+        this.ownerScreen = ownerScreen;
         mShowList.add(new Key(0));
     }
 
     /**
-     * 播放动画
+     * 播放动画 TODO 本方法之前是private的  2017-07-15
      * @return 返回true说明播放完毕
      */
-    private boolean update() {
+    public boolean update() {
         for (int j = 0; j < ITERATOR; j++) {
             ListIterator<Key> iter = mShowList.listIterator();
             while (iter.hasNext()) {
@@ -65,7 +71,7 @@ public class AnimationScreen extends BaseScreen {
     @Override
     public void update(long delta) {
         if (!update()) {
-           onKeyDown(1);
+           end();
         }
     }
 
@@ -119,7 +125,14 @@ public class AnimationScreen extends BaseScreen {
 
     @Override
     public void onKeyDown(int key) {
-        GameFrame.getInstance().popScreen();
+    }
+
+    private void end() {
+        if (ownerScreen instanceof BattleScreen) { // 战斗场景中的播放动画
+            ((BattleScreen)ownerScreen).pop();
+        } else {
+            GameFrame.getInstance().popScreen();
+        }
     }
 
     @Override
