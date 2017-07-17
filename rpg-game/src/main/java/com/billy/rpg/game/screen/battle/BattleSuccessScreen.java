@@ -1,9 +1,10 @@
-package com.billy.rpg.game.screen;
+package com.billy.rpg.game.screen.battle;
 
 import com.billy.rpg.game.GameCanvas;
 import com.billy.rpg.game.GameFrame;
 import com.billy.rpg.game.character.battle.HeroBattle;
 import com.billy.rpg.game.constants.GameConstant;
+import com.billy.rpg.game.screen.BaseScreen;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

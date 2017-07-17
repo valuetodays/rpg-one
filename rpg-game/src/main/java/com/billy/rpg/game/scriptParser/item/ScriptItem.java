@@ -1,12 +1,11 @@
 package com.billy.rpg.game.scriptParser.item;
 
-import com.billy.rpg.game.GameFrame;
 import com.billy.rpg.game.character.BoxCharacter;
 import com.billy.rpg.game.character.HeroCharacter;
 import com.billy.rpg.game.character.NPCCharacter;
 import com.billy.rpg.game.character.TransferCharacter;
 import com.billy.rpg.game.constants.GameConstant;
-import com.billy.rpg.game.screen.BattleScreen;
+import com.billy.rpg.game.screen.battle.BattleScreen;
 import com.billy.rpg.game.scriptParser.bean.DataLoaderBean;
 import com.billy.rpg.game.scriptParser.bean.script.LabelBean;
 import com.billy.rpg.game.scriptParser.bean.script.TalkBean;
@@ -272,8 +271,7 @@ public class ScriptItem extends DataLoaderBean implements IItem {
         }
 
         steps = 0;
-        BattleScreen bs = new BattleScreen(metMonsterIds);
-
+        new BattleScreen(metMonsterIds);
     }
 
     private void checkTrigger0() {

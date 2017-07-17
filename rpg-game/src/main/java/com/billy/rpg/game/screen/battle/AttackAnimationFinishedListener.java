@@ -1,4 +1,4 @@
-package com.billy.rpg.game.screen;
+package com.billy.rpg.game.screen.battle;
 
 /**
  *

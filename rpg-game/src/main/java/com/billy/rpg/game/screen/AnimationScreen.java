@@ -3,6 +3,7 @@ package com.billy.rpg.game.screen;
 import com.billy.rpg.game.GameCanvas;
 import com.billy.rpg.game.GameFrame;
 import com.billy.rpg.game.constants.GameConstant;
+import com.billy.rpg.game.screen.battle.BattleScreen;
 import com.billy.rpg.game.scriptParser.bean.AnimationDataLoaderBean;
 
 import java.awt.*;
@@ -10,7 +11,6 @@ import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.Stack;
 
 
 /**

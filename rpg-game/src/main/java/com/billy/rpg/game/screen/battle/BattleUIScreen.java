@@ -1,10 +1,13 @@
-package com.billy.rpg.game.screen;
+package com.billy.rpg.game.screen.battle;
 
 import com.billy.rpg.game.GameCanvas;
 import com.billy.rpg.game.GameFrame;
 import com.billy.rpg.game.character.battle.HeroBattle;
 import com.billy.rpg.game.character.battle.MonsterBattle;
 import com.billy.rpg.game.constants.GameConstant;
+import com.billy.rpg.game.screen.AnimationScreen;
+import com.billy.rpg.game.screen.BaseScreen;
+import com.billy.rpg.game.screen.DialogScreen;
 import com.billy.rpg.game.scriptParser.item.ScriptItem;
 import com.billy.rpg.game.util.KeyUtil;
 import com.billy.rpg.resource.role.RoleMetaData;
@@ -15,7 +18,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.Stack;
 
 /**
  *
@@ -24,18 +26,21 @@ import java.util.Stack;
  */
 public class BattleUIScreen extends BaseScreen {
     private BattleScreen parentScreen; // the basescreen contains this
-    private java.util.List<HeroBattle> heroBattleList;
-    private java.util.List<MonsterBattle> monsterBattleList;
+    protected java.util.List<HeroBattle> heroBattleList;
+    protected java.util.List<MonsterBattle> monsterBattleList;
     private java.util.List<Image> monsterImages;
     private static int arrowY = 280;
-    private int monsterIndex; // 活动妖怪，当攻击妖怪时要显示
-    private int heroIndex; // 活动玩家
-    private boolean chooseMonster;
-    private int heroActionChoice = 1; // 普攻、技能等  1~4
+    protected int monsterIndex; // 活动妖怪，当攻击妖怪时要显示
+    protected int heroIndex; // 活动玩家
+    protected boolean chooseMonster;
+    protected int heroActionChoice = 1; // 普攻、技能等  1~4
     private java.util.List<String> msg;
     private int money;
     private int exp;
 
+    public int getMonsterIndex() {
+        return monsterIndex;
+    }
 
     public BattleUIScreen(final int[] metMonsterIds, BattleScreen battleScreen) {
         LOG.debug("met " + metMonsterIds.length + " monsters with["+ ArrayUtils.toString(metMonsterIds)+"]");
@@ -111,8 +116,6 @@ public class BattleUIScreen extends BaseScreen {
                 GameConstant.GAME_WIDTH,
                 GameConstant.GAME_HEIGHT,
                 BufferedImage.TYPE_4BYTE_ABGR);
-
-        // 得到缓冲区的画笔
         Graphics g = paint.getGraphics();
 
         final Image roleFull1 = GameFrame.getInstance().getGameContainer().getRoleItem().getRoleFull1();
@@ -145,16 +148,6 @@ public class BattleUIScreen extends BaseScreen {
                     monsterBattleArrowTo.getTop() - 50);
         }
         checkWinOrLose();
-
-        g.setColor(Color.WHITE);
-        g.drawRoundRect(0, 320, 200, 160, 4, 4);
-        g.drawRoundRect(3, 323, 194, 154, 4, 4);
-        g.setFont(GameConstant.FONT_BATTLE);
-        g.setColor(Color.YELLOW);
-        g.drawString("普攻", 50, 350);
-        g.drawString("技能", 50, 375);
-        g.drawString("物品", 50, 400);
-        g.drawString("逃跑", 50, 425);
 
         // 显示用户选项
         Image gameArrowRight = GameFrame.getInstance().getGameContainer().getGameAboutItem().getGameArrowRight();
@@ -336,4 +329,6 @@ public class BattleUIScreen extends BaseScreen {
 
         msg.add(text);
     }
+
+
 }

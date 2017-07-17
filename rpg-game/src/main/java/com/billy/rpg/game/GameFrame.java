@@ -3,6 +3,7 @@ package com.billy.rpg.game;
 import com.billy.rpg.common.util.JavaVersionUtil;
 import com.billy.rpg.game.constants.GameConstant;
 import com.billy.rpg.game.screen.*;
+import com.billy.rpg.game.screen.battle.BattleScreen;
 import com.billy.rpg.game.scriptParser.container.GameContainer;
 import com.billy.rpg.game.util.CoreUtil;
 import org.apache.log4j.Logger;
@@ -188,5 +189,17 @@ public class GameFrame extends JFrame implements Runnable {
 
     public GamePanel getGamePanel() {
         return gamePanel;
+    }
+
+    /**
+     * switch to battle screen
+     *
+     * @param battleScreen battle screen
+     */
+    public void change2BattleScreen(BattleScreen battleScreen) {
+        synchronized (screenStack) {
+            screenStack.clear();
+            screenStack.push(battleScreen);
+        }
     }
 }

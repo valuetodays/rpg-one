@@ -1,21 +1,9 @@
-package com.billy.rpg.game.screen;
+package com.billy.rpg.game.screen.battle;
 
 import com.billy.rpg.game.GameCanvas;
 import com.billy.rpg.game.GameFrame;
-import com.billy.rpg.game.character.battle.HeroBattle;
-import com.billy.rpg.game.character.battle.MonsterBattle;
-import com.billy.rpg.game.constants.GameConstant;
-import com.billy.rpg.game.scriptParser.item.ScriptItem;
-import com.billy.rpg.game.util.CoreUtil;
-import com.billy.rpg.game.util.KeyUtil;
-import com.billy.rpg.resource.role.RoleMetaData;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.ArrayUtils;
+import com.billy.rpg.game.screen.BaseScreen;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.Map;
 import java.util.Stack;
 
 /**
@@ -29,7 +17,10 @@ public class BattleScreen extends BaseScreen {
     public BattleScreen(final int[] metMonsterIds) {
         BattleUIScreen battleUIScreen = new BattleUIScreen(metMonsterIds, this);
         screenStack.push(battleUIScreen);
-        GameFrame.getInstance().pushScreen(this);
+        BattleOptionScreen battleOptionScreen = new BattleOptionScreen(battleUIScreen);
+        screenStack.push(battleOptionScreen);
+
+        GameFrame.getInstance().change2BattleScreen(this);
     }
 
     @Override
@@ -86,6 +77,7 @@ public class BattleScreen extends BaseScreen {
         }
         screenStack.push(baseScreen);
     }
+
     public void pop() {
         if (!screenStack.isEmpty()) {
             screenStack.pop();
@@ -98,7 +90,7 @@ public class BattleScreen extends BaseScreen {
 
     @Override
     public void onKeyUp(int key) {
-        if (screenStack.size() == 1) {
+        if (screenStack.size() == 2) {
             screenStack.get(0).onKeyUp(key);
         } else {
             LOG.debug("尽管按了回车键，但上次攻击动画还未结束呢。。");

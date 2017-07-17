@@ -1,8 +1,10 @@
-package com.billy.rpg.game.screen;
+package com.billy.rpg.game.screen.battle;
 
 import com.billy.rpg.game.GameCanvas;
 import com.billy.rpg.game.character.battle.HeroBattle;
 import com.billy.rpg.game.character.battle.MonsterBattle;
+import com.billy.rpg.game.screen.AnimationScreen;
+import com.billy.rpg.game.screen.BaseScreen;
 
 public class BattleActionScreen extends BaseScreen {
     private static final int STATE_PRE = 1; // 起手动画
