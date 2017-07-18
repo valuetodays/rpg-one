@@ -7,7 +7,6 @@ import billy.rpg.game.character.TransferCharacter;
 import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.container.GameContainer;
 import billy.rpg.game.screen.battle.BattleScreen;
-import billy.rpg.game.scriptParser.bean.DataLoaderBean;
 import billy.rpg.game.scriptParser.bean.script.LabelBean;
 import billy.rpg.game.scriptParser.bean.script.TalkBean;
 import billy.rpg.game.scriptParser.bean.script.TriggerBean;
@@ -22,7 +21,7 @@ import java.util.Collections;
 import java.util.List;
 
 // TODO move it to MapDataLoaderBean ?
-public class ScriptItem extends DataLoaderBean implements IItem {
+public class ScriptItem implements IItem {
     private static final Logger LOG = Logger.getLogger(ScriptItem.class);
     public List<CmdBase> cmdList;
     private String fileId;

@@ -1,13 +1,11 @@
 package billy.rpg.game.scriptParser.item;
 
-import billy.rpg.game.scriptParser.bean.LoaderBean;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.InputStream;
-import java.util.List;
 
 /**
  * load background images, there are many background images
@@ -21,9 +19,8 @@ public class BgImageItem  implements IItem {
 
     private Image bgImage1;
     
-    public List<LoaderBean> load() throws Exception {
+    public void load() throws Exception {
         loadBgImage();   
-        return null;
     }
    
 

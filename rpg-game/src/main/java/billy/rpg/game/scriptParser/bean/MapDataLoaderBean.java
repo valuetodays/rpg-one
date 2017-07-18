@@ -6,7 +6,7 @@ import org.apache.log4j.Logger;
 import java.util.List;
 
 // TODO use a full png as map ?
-public class MapDataLoaderBean extends DataLoaderBean {
+public class MapDataLoaderBean {
     private static final Logger LOG = Logger.getLogger(MapDataLoaderBean.class);
 
     private String tileId; // tile image id

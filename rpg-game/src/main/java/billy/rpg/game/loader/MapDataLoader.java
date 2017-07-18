@@ -1,10 +1,9 @@
 package billy.rpg.game.loader;
 
+import billy.rpg.game.constants.MapConstant;
+import billy.rpg.game.scriptParser.bean.MapDataLoaderBean;
 import billy.rpg.resource.map.MapLoader;
 import billy.rpg.resource.map.MapMetaData;
-import billy.rpg.game.constants.MapConstant;
-import billy.rpg.game.scriptParser.bean.LoaderBean;
-import billy.rpg.game.scriptParser.bean.MapDataLoaderBean;
 import org.apache.log4j.Logger;
 
 import java.io.File;
@@ -27,7 +26,7 @@ import java.util.List;
 public class MapDataLoader {
     private static final Logger LOG = Logger.getLogger(MapDataLoader.class);
     
-    public List<LoaderBean> load() throws Exception {
+    public List<MapDataLoaderBean> load() throws Exception {
         List<String> mapFilepaths = load0();
         if (mapFilepaths == null) {
             LOG.warn("No maps found. System exit.");
@@ -37,7 +36,7 @@ public class MapDataLoader {
         
         LOG.debug(mapFilepaths);
         
-        List<LoaderBean> maps = new ArrayList<>();
+        List<MapDataLoaderBean> maps = new ArrayList<>();
         MapDataLoaderBean mapBean = null;
 
         for (String map : mapFilepaths) {

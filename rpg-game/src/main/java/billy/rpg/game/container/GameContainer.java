@@ -13,9 +13,7 @@ import billy.rpg.game.loader.RoleDataLoader;
 import billy.rpg.game.loader.ScriptDataLoader;
 import billy.rpg.game.screen.BaseScreen;
 import billy.rpg.game.screen.MapScreen;
-import billy.rpg.game.scriptParser.bean.LoaderBean;
 import billy.rpg.game.scriptParser.bean.MapDataLoaderBean;
-import billy.rpg.game.scriptParser.cmd.CmdBase;
 import billy.rpg.game.scriptParser.item.*;
 import billy.rpg.resource.animation.AnimationMetaData;
 import billy.rpg.resource.box.BoxImageLoader;
@@ -23,7 +21,9 @@ import billy.rpg.resource.npc.NPCImageLoader;
 import billy.rpg.resource.role.RoleMetaData;
 import org.apache.log4j.Logger;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Game Container
@@ -77,9 +77,9 @@ public class GameContainer {
      * 
      * @return un-important
      */
-    public synchronized List<LoaderBean> load() {
+    public void load() {
         if (loaded) {
-            return null;
+            return ;
         }
         
         bgImageItem = new BgImageItem();
@@ -110,7 +110,6 @@ public class GameContainer {
         }
         
         loaded = true;
-        return null;
     }
 
     private void loadRoleData() {
@@ -135,26 +134,17 @@ public class GameContainer {
     
     private void loadScriptData() throws Exception {
         ScriptDataLoader sl = new ScriptDataLoader();
-        List<LoaderBean> slLoad = sl.load();
-        List<ScriptItem> scriptItemList = new ArrayList<>();
-        for (LoaderBean lb : slLoad) {
-            ScriptItem si = (ScriptItem) lb;
-            List<CmdBase> cmdList = si.cmdList;
-            LOG.info(cmdList);
-            scriptItemList.add(si);
-        }
-        this.scriptItemList = Collections.unmodifiableList(scriptItemList);
+        List<ScriptItem> slLoad = sl.load();
+
+        this.scriptItemList = Collections.unmodifiableList(slLoad);
     }
 
 
     private void loadMapData() throws Exception {
         MapDataLoader ml = new MapDataLoader();
-        List<LoaderBean> mlLoad = ml.load();
-        List<MapDataLoaderBean> mapListTemp = new ArrayList<>();
-        for (LoaderBean lb : mlLoad) {
-            mapListTemp.add((MapDataLoaderBean) lb);
-        }
-        mapList = Collections.unmodifiableList(mapListTemp);
+        List<MapDataLoaderBean> mlLoad = ml.load();
+
+        mapList = Collections.unmodifiableList(mlLoad);
     }
 
     private void loadAnimationData() throws Exception {

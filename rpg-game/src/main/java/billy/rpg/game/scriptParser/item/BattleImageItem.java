@@ -1,6 +1,5 @@
 package billy.rpg.game.scriptParser.item;
 
-import billy.rpg.game.scriptParser.bean.LoaderBean;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.ArrayUtils;
 
@@ -11,15 +10,13 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class BattleImageItem implements IItem {
     private Map<String, Image> battleImages;
     
-    public List<LoaderBean> load() throws Exception {
+    public void load() throws Exception {
         loadImage();
-        return null;
     }
     
     private boolean loaded = false;

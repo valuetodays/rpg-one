@@ -1,6 +1,5 @@
 package billy.rpg.game.loader;
 
-import billy.rpg.game.scriptParser.bean.LoaderBean;
 import billy.rpg.game.scriptParser.cmd.CmdBase;
 import billy.rpg.game.scriptParser.cmd.executor.CmdExecutor;
 import billy.rpg.game.scriptParser.item.ScriptItem;
@@ -52,11 +51,9 @@ public class ScriptDataLoader {
 
     /**
      * 过滤指定的脚本文件
-     *
-     * @return
      */
     private static FileFilter filterScripts() {
-        FileFilter filter = new FileFilter() {            // anonymous class
+        FileFilter filter = new FileFilter() {
             @Override
             public boolean accept(File pathname) {
                 //  we want the file whose extension is 's'.  [1: file, 2: '.s' ]
@@ -71,7 +68,7 @@ public class ScriptDataLoader {
     }
 
 
-    public List<LoaderBean> load() throws Exception {
+    public List<ScriptItem> load() throws Exception {
         List<String> scripts = loadScripts0();
         if (scripts == null || scripts.isEmpty()) {
             LOG.warn("No scripts found. System exit.");
@@ -79,7 +76,7 @@ public class ScriptDataLoader {
         }
 
         String lineData = null;
-        List<LoaderBean> scriptItemList = new ArrayList<LoaderBean>();
+        List<ScriptItem> scriptItemList = new ArrayList<>();
         ScriptItem scriptItem = null;
         File file = null;
         Reader in = null;

@@ -1,10 +1,5 @@
 package billy.rpg.game.loader;
 
-import billy.rpg.game.scriptParser.bean.LoaderBean;
-
-import java.util.List;
-
-
 /**
  * to load goods, such as sword, accessory
  *
@@ -15,9 +10,7 @@ import java.util.List;
 public class GoodsDataLoader {
 
 
-    public List<LoaderBean> load() throws Exception {
-        
-        return null;
+    public void load() {
     }
 
 }
