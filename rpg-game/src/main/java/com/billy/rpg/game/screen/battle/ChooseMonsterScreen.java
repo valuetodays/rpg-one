@@ -15,6 +15,9 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+/**
+ * 选择普攻或技能对妖怪进行攻击时的选项及攻击
+ */
 public class ChooseMonsterScreen extends BaseScreen {
     private static int arrowY = 280; // 怪物指示器的y坐标
 
@@ -33,10 +36,10 @@ public class ChooseMonsterScreen extends BaseScreen {
     }
 
 
-
     public BattleUIScreen getBattleUIScreen() {
         return battleUIScreen;
     }
+
 
     @Override
     public void update(long delta) {
@@ -61,7 +64,6 @@ public class ChooseMonsterScreen extends BaseScreen {
                 monsterBattleArrowTo.getLeft() +
                         monsterBattleArrowTo.getWidth() / 2 - gameArrowUp.getWidth(null) / 2,
                 monsterBattleArrowTo.getTop() - 50);
-
 
         // 显示战斗信息
         g.setColor(Color.magenta);
@@ -89,7 +91,9 @@ public class ChooseMonsterScreen extends BaseScreen {
     @Override
     public void onKeyUp(int key) {
         LOG.debug("who?");
-        if (KeyUtil.isEnter(key)) {
+        if (KeyUtil.isEsc(key)) {
+            getBattleUIScreen().getParentScreen().pop();
+        } else if (KeyUtil.isEnter(key)) {
             MonsterBattle chosenMonsterBattle = getBattleUIScreen().monsterBattleList.get(monsterIndex);
             AnimationScreen bs = new AnimationScreen(2, chosenMonsterBattle.getLeft()-chosenMonsterBattle.getWidth()/2,
                     chosenMonsterBattle.getTop(), getBattleUIScreen().getParentScreen());

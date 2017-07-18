@@ -70,7 +70,6 @@ public class BattleOptionScreen extends BaseScreen {
     public void onKeyUp(int key) {
         LOG.debug("who?");
         if (KeyUtil.isEsc(key)) {
-        } else if (KeyUtil.isHome(key)) {
         } else if (KeyUtil.isUp(key)) {
             if (!chooseMonster) {
                 heroActionChoice--;
@@ -85,8 +84,6 @@ public class BattleOptionScreen extends BaseScreen {
                     heroActionChoice = 1;
                 }
             }
-        } else if (KeyUtil.isLeft(key)) {
-        } else if (KeyUtil.isRight(key)) {
         } else if (KeyUtil.isEnter(key)) {
             switch (heroActionChoice) {
                 case 1: { // 普攻
