@@ -50,6 +50,9 @@ public class RoleDataLoader {
     }
 
     public Map<Integer, RoleMetaData> getHeroList() {
+        if (heroList.isEmpty()) {
+            throw new RuntimeException("没有主角玩个P啊。");
+        }
         return Collections.unmodifiableMap(heroList);
     }
 

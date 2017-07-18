@@ -1,7 +1,7 @@
 package billy.rpg.game.scriptParser;
 
 import billy.rpg.game.character.HeroCharacter;
-import billy.rpg.game.scriptParser.container.GameContainer;
+import billy.rpg.game.container.GameContainer;
 import billy.rpg.game.scriptParser.display.ConsoleDisplay;
 import billy.rpg.game.scriptParser.item.ScriptItem;
 import org.apache.log4j.Logger;

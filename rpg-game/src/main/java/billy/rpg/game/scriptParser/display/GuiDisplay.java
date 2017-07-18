@@ -2,8 +2,8 @@ package billy.rpg.game.scriptParser.display;
 
 import billy.rpg.game.character.HeroCharacter;
 import billy.rpg.game.constants.GameConstant;
+import billy.rpg.game.container.GameContainer;
 import billy.rpg.game.scriptParser.bean.MapDataLoaderBean;
-import billy.rpg.game.scriptParser.container.GameContainer;
 import com.rupeng.game.GameCore;
 
 import java.awt.*;

@@ -1,6 +1,7 @@
 package billy.rpg.game.util;
 
-import billy.rpg.game.scriptParser.container.GameContainer;
+
+import billy.rpg.game.container.GameContainer;
 
 /**
  * 判断下一步是否可行走

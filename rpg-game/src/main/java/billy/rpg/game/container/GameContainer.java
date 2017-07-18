@@ -1,4 +1,4 @@
-package billy.rpg.game.scriptParser.container;
+package billy.rpg.game.container;
 
 import billy.rpg.game.GameFrame;
 import billy.rpg.game.character.BoxCharacter;

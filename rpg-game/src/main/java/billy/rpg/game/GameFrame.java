@@ -2,9 +2,9 @@ package billy.rpg.game;
 
 import billy.rpg.common.util.JavaVersionUtil;
 import billy.rpg.game.constants.GameConstant;
+import billy.rpg.game.container.GameContainer;
 import billy.rpg.game.screen.*;
 import billy.rpg.game.screen.battle.BattleScreen;
-import billy.rpg.game.scriptParser.container.GameContainer;
 import billy.rpg.game.util.CoreUtil;
 import org.apache.log4j.Logger;
 

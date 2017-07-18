@@ -4,10 +4,10 @@ import billy.rpg.game.GameFrame;
 import billy.rpg.game.character.NPCCharacter;
 import billy.rpg.game.character.npc.CommonNPCCharacter;
 import billy.rpg.game.character.npc.NoWalkNPCCharacter;
+import billy.rpg.game.container.GameContainer;
 import billy.rpg.game.screen.*;
 import billy.rpg.game.scriptParser.bean.script.LabelBean;
 import billy.rpg.game.scriptParser.cmd.*;
-import billy.rpg.game.scriptParser.container.GameContainer;
 import billy.rpg.game.scriptParser.virtualtable.GlobalVirtualTables;
 import org.apache.log4j.Logger;
 

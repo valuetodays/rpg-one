@@ -5,6 +5,7 @@ import billy.rpg.game.character.HeroCharacter;
 import billy.rpg.game.character.NPCCharacter;
 import billy.rpg.game.character.TransferCharacter;
 import billy.rpg.game.constants.GameConstant;
+import billy.rpg.game.container.GameContainer;
 import billy.rpg.game.screen.battle.BattleScreen;
 import billy.rpg.game.scriptParser.bean.DataLoaderBean;
 import billy.rpg.game.scriptParser.bean.script.LabelBean;
@@ -12,7 +13,6 @@ import billy.rpg.game.scriptParser.bean.script.TalkBean;
 import billy.rpg.game.scriptParser.bean.script.TriggerBean;
 import billy.rpg.game.scriptParser.cmd.*;
 import billy.rpg.game.scriptParser.cmd.executor.CmdExecutor;
-import billy.rpg.game.scriptParser.container.GameContainer;
 import billy.rpg.game.scriptParser.virtualtable.GlobalVirtualTables;
 import org.apache.log4j.Logger;
 
