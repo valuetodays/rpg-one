@@ -1,4 +1,4 @@
-package billy.rpg.game.scriptParser.loader.data;
+package billy.rpg.game.loader;
 
 import billy.rpg.resource.role.RoleLoader;
 import billy.rpg.resource.role.RoleMetaData;

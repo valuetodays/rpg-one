@@ -1,14 +1,12 @@
 package billy.rpg.game.scriptParser.item;
 
-import billy.rpg.game.scriptParser.bean.LoaderBean;
 import org.apache.commons.io.IOUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.InputStream;
-import java.util.List;
 
-public class GameAboutImageItem implements IItem {
+public class GameAboutImageItem {
     private Image gameCover;
     private Image gameOver;
     private Image gameArrowLeft;
@@ -17,19 +15,26 @@ public class GameAboutImageItem implements IItem {
     private Image gameArrowDown;
     private Image gameBalloon;
     private Image gameTransition;
+    private Image gameTransfer;
 
 
-    public List<LoaderBean> load() throws Exception {
-        load0();
-        return null;
-    }
-
-    private void load0() {
+    public void load() {
         loadGameCover();
         loadGameOver();
         loadGameArrows();
         loadGameBalloon();
         loadGameTransition();
+        loadGameTransfer();
+    }
+
+    private void loadGameTransfer() {
+        try {
+            InputStream is = this.getClass().getResourceAsStream("/Images/transfer.png");
+            gameTransfer = ImageIO.read(is);
+            IOUtils.closeQuietly(is);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void loadGameTransition() {
@@ -124,5 +129,9 @@ public class GameAboutImageItem implements IItem {
 
     public Image getGameTransition() {
         return gameTransition;
+    }
+
+    public Image getGameTransfer() {
+        return gameTransfer;
     }
 }

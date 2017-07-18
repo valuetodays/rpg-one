@@ -149,7 +149,7 @@ public class MapScreen extends BaseScreen {
 
 
         //////// draw event start
-        final Image transferImage = GameFrame.getInstance().getGameContainer().getTransferImageItem().getImage();
+        final Image transferImage = GameFrame.getInstance().getGameContainer().getGameAboutItem().getGameTransfer();
         java.util.List<TransferCharacter> transfers = active.getTransfers();
         for (TransferCharacter transfer : transfers) {
             transfer.move();

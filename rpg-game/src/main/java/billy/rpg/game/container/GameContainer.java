@@ -7,6 +7,10 @@ import billy.rpg.game.character.NPCCharacter;
 import billy.rpg.game.character.TransferCharacter;
 import billy.rpg.game.character.npc.CommonNPCCharacter;
 import billy.rpg.game.constants.CharacterConstant;
+import billy.rpg.game.loader.AnimationDataLoader;
+import billy.rpg.game.loader.MapDataLoader;
+import billy.rpg.game.loader.RoleDataLoader;
+import billy.rpg.game.loader.ScriptDataLoader;
 import billy.rpg.game.screen.BaseScreen;
 import billy.rpg.game.screen.MapScreen;
 import billy.rpg.game.scriptParser.bean.AnimationDataLoaderBean;
@@ -14,11 +18,6 @@ import billy.rpg.game.scriptParser.bean.LoaderBean;
 import billy.rpg.game.scriptParser.bean.MapDataLoaderBean;
 import billy.rpg.game.scriptParser.cmd.CmdBase;
 import billy.rpg.game.scriptParser.item.*;
-import billy.rpg.game.scriptParser.item.skill.TransferImageItem;
-import billy.rpg.game.scriptParser.loader.data.AnimationDataLoader;
-import billy.rpg.game.scriptParser.loader.data.MapDataLoader;
-import billy.rpg.game.scriptParser.loader.data.RoleDataLoader;
-import billy.rpg.game.scriptParser.loader.data.ScriptDataLoader;
 import billy.rpg.resource.box.BoxImageLoader;
 import billy.rpg.resource.npc.NPCImageLoader;
 import billy.rpg.resource.role.RoleMetaData;
@@ -50,7 +49,6 @@ public class GameContainer {
     private ScriptItem activeScriptItem; // active script
     private List<MapDataLoaderBean> mapList; // maps
     private MapDataLoaderBean activeMap; // active map
-    private TransferImageItem transferImageItem;
     private NPCImageLoader npcImageLoader;
     private BoxImageLoader boxImageLoader;
     private BattleImageItem battleImageItem;
@@ -92,7 +90,6 @@ public class GameContainer {
         npcItem = new NpcImageItem();
         roleItem = new RoleImageItem();
         gameAboutItem = new GameAboutImageItem();
-        transferImageItem = new TransferImageItem();
         npcImageLoader = new NPCImageLoader();
         boxImageLoader = new BoxImageLoader();
         battleImageItem = new BattleImageItem();
@@ -103,7 +100,6 @@ public class GameContainer {
             npcItem.load();
             roleItem.load();
             gameAboutItem.load();
-            transferImageItem.load();
             npcImageLoader.loadNpcs();
             boxImageLoader.loadBoxes();
             battleImageItem.load();
@@ -318,9 +314,7 @@ public class GameContainer {
     public GameAboutImageItem getGameAboutItem() {
         return gameAboutItem;
     }
-    public TransferImageItem getTransferImageItem() {
-        return transferImageItem;
-    }
+
     public NPCImageLoader getNpcImageLoader() {
         return npcImageLoader;
     }
