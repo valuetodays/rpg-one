@@ -7,10 +7,10 @@ import billy.rpg.game.character.HeroCharacter;
 import billy.rpg.game.character.NPCCharacter;
 import billy.rpg.game.character.TransferCharacter;
 import billy.rpg.game.constants.GameConstant;
-import billy.rpg.game.scriptParser.bean.MapDataLoaderBean;
 import billy.rpg.game.scriptParser.item.ScriptItem;
 import billy.rpg.game.util.KeyUtil;
 import billy.rpg.resource.box.BoxImageLoader;
+import billy.rpg.resource.map.MapMetaData;
 import billy.rpg.resource.npc.NPCImageLoader;
 import org.apache.log4j.Logger;
 
@@ -59,7 +59,7 @@ public class MapScreen extends BaseScreen {
         final Image bgImage1 = GameFrame.getInstance().getGameContainer().getBgImageItem().getBgImage1();
         g2.drawImage(bgImage1, 0, 0, bgImage1.getWidth(null), bgImage1.getHeight(null), null);  // draw bgImage
         
-        final MapDataLoaderBean activeMap = GameFrame.getInstance().getGameContainer().getActiveMap();
+        final MapMetaData activeMap = GameFrame.getInstance().getGameContainer().getActiveMap();
         
         //////// draw bgLayer start
         final Image tileImg = GameFrame.getInstance().getGameContainer().getTileItem().getTile(activeMap.getTileId());

@@ -93,7 +93,7 @@ public class MapEditorFrame extends JFrame {
                     String name = chooser.getSelectedFile().getPath();
                     mapMetaData = MapLoader.load(name);
                     getMapEditorPanel().getTileArea().setTileId(mapMetaData.getTileId());
-                    getMapEditorPanel().setMapName(mapMetaData.getMapName());
+                    getMapEditorPanel().setMapName(mapMetaData.getName());
                     MapAreaPanel mapArea = getMapEditorPanel().getMapArea();
                     mapArea.setLayers(mapMetaData.getLayers());
                     mapArea.setTileYheight(mapMetaData.getHeight());
@@ -201,7 +201,7 @@ public class MapEditorFrame extends JFrame {
         int width = mapArea.getTileXwidth();
         MapMetaData mapMetaData = new MapMetaData();
         mapMetaData.setTileId(tileId);
-        mapMetaData.setMapName(mapName);
+        mapMetaData.setName(mapName);
         mapMetaData.setLayers(layers);
         mapMetaData.setHeight(height);
         mapMetaData.setWidth(width);

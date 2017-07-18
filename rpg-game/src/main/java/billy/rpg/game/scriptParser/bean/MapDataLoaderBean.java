@@ -3,9 +3,8 @@ package billy.rpg.game.scriptParser.bean;
 import billy.rpg.game.constants.MapConstant;
 import org.apache.log4j.Logger;
 
-import java.util.List;
-
 // TODO use a full png as map ?
+@Deprecated
 public class MapDataLoaderBean {
     private static final Logger LOG = Logger.getLogger(MapDataLoaderBean.class);
 
@@ -99,84 +98,7 @@ public class MapDataLoaderBean {
     public void setTileId(String tileId) {
         this.tileId = tileId;
     }
-    public void parse(String filename, List<String> mapData) {
-        parseName(filename);
-        parseData(mapData);
-        
-        LOG.debug(this.height + "/" + this.width);
-    }
-    
-    private void parseData(List<String> mapData) {
 
-        for (int i = 0; i < mapData.size(); i++) {
-            String line = mapData.get(i).trim();
-            if (line.startsWith(MapConstant.MAP_COMMENT)) {
-                continue;
-            }
-//            System.out.println(line);
-            if (line.startsWith(MapConstant.MAP_HEIGHT)) {
-                String height = line.substring(MapConstant.MAP_HEIGHT.length());
-                height = height.trim();
-                this.height = Integer.valueOf(height);
-            } else if (line.startsWith(MapConstant.MAP_WIDTH)) {
-                String width = line.substring(MapConstant.MAP_WIDTH.length());
-                width = width.trim();
-                this.width = Integer.valueOf(width);
-            } else {
-                if (line.equals(MapConstant.MAP_LAYER1_START)) { // bgLayer
-                    int n = 0; 
-                    line = mapData.get(++i);
-                    LOG.debug("bgLayer start");
-                    bgLayer = new int[height][width];
-                    while (!line.equals(MapConstant.MAP_LAYER1_END)) {
-                        LOG.debug(line);
-                        String[] split = line.split(" ");
-                        for (int m = 0; m < split.length; m++) {
-                            String s = split[m];
-                            bgLayer[n][m] = Integer.valueOf(s);
-                        }
-                        line = mapData.get(++i);
-                        n++;
-                    }
-                    LOG.debug("bgLayer end");
-                } else if (line.equals(MapConstant.MAP_LAYER2_START)) { // npcLayer
-                    int n = 0; 
-                    line = mapData.get(++i);
-                    LOG.debug("npcLayer start");
-                    npcLayer = new int[height][width];
-                    while (!line.equals(MapConstant.MAP_LAYER2_END)) {
-                        LOG.debug(line);
-                        String[] split = line.split(" ");
-                        for (int m = 0; m < split.length; m++) {
-                            String s = split[m];
-                            npcLayer[n][m] = Integer.valueOf(s);
-                        }
-                        line = mapData.get(++i);
-                        n++;
-                    }
-                    LOG.debug("npcLayer end");
-                } else if (line.equals(MapConstant.MAP_FLAG_START)) { // walk
-                    LOG.debug("walk start");
-                    line = mapData.get(++i);
-                    int n = 0; 
-                    walk = new int[height][width];
-                    while (!line.equals(MapConstant.MAP_FLAG_END)) {
-                       LOG.debug(line);
-                       String[] split = line.split(" ");
-                       for (int m = 0; m < split.length; m++) {
-                           String s = split[m];
-                           walk[n][m] = Integer.valueOf(s);
-                       }
-                       line = mapData.get(++i);
-                       n++;
-                    } // end of while
-                    LOG.debug("walk end");
-                    
-                }
-            }
-        } // end of for
-        
-    }
 
     private void parseName(String filename) {
         final String mapName = filename.substring(0, filename.length() - MapConstant.MAP_EXT.length());
@@ -191,7 +113,5 @@ public class MapDataLoaderBean {
         this.event = event;
     }
 
-    public void initMapId(String filename) {
-        parseName(filename);
-    }
+
 }

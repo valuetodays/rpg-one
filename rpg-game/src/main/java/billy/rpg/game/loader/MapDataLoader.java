@@ -1,7 +1,6 @@
 package billy.rpg.game.loader;
 
 import billy.rpg.game.constants.MapConstant;
-import billy.rpg.game.scriptParser.bean.MapDataLoaderBean;
 import billy.rpg.resource.map.MapLoader;
 import billy.rpg.resource.map.MapMetaData;
 import org.apache.log4j.Logger;
@@ -10,10 +9,7 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -25,30 +21,31 @@ import java.util.List;
  */
 public class MapDataLoader {
     private static final Logger LOG = Logger.getLogger(MapDataLoader.class);
+
+    // this field name can not be mapMap....
+    private Map<String, MapMetaData> mapCollections = new HashMap<>();
     
-    public List<MapDataLoaderBean> load() throws Exception {
+    public void load() throws Exception {
         List<String> mapFilepaths = load0();
         if (mapFilepaths == null) {
             LOG.warn("No maps found. System exit.");
-//            System.exit(0);
             throw new RuntimeException("No maps found.");
         }
         
         LOG.debug(mapFilepaths);
-        
-        List<MapDataLoaderBean> maps = new ArrayList<>();
-        MapDataLoaderBean mapBean = null;
 
         for (String map : mapFilepaths) {
             MapMetaData mapMetaData = MapLoader.load(map);
-            mapBean = toMapBean(mapMetaData);
-
-            maps.add(mapBean);
-        } // end of for 
+            mapCollections.put(mapMetaData.getMapId(), mapMetaData);
+        }
         
-        return Collections.unmodifiableList(maps);
     }
 
+    public Map<String, MapMetaData> getMapCollections() {
+        return Collections.unmodifiableMap(mapCollections);
+    }
+
+    /*
     private MapDataLoaderBean toMapBean(final MapMetaData mapMetaData) {
         List<int[][]> layers = mapMetaData.getLayers();
         MapDataLoaderBean mapDataLoaderBean = new MapDataLoaderBean();
@@ -65,7 +62,7 @@ public class MapDataLoader {
         mapDataLoaderBean.setMapId(mapMetaData.getMapId());
 
         return mapDataLoaderBean;
-    }
+    }*/
 
     private List<String> load0() {
         Enumeration<URL> urls = null;
@@ -109,7 +106,7 @@ public class MapDataLoader {
      *
      */
     private static FileFilter filterMap() {
-        FileFilter filter = new FileFilter() {            // anonymous class
+        FileFilter filter = new FileFilter() {
             @Override
             public boolean accept(File pathname) {
                 //  we want the file  [1: file, 2: '.map' ]

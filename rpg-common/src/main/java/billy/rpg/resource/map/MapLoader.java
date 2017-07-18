@@ -53,7 +53,7 @@ public class MapLoader {
             dis.read(mapNameBytes, 0, mapNameBytesLength);
             String mapName = new String(mapNameBytes, "utf-8");
             LOG.debug("mapName `"+mapName+"` read as utf-8");
-            mapMetaData.setMapName(mapName);
+            mapMetaData.setName(mapName);
 
             int height = dis.readInt();
             LOG.debug("height `"+height+"` read");

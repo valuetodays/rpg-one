@@ -31,7 +31,7 @@ public class MapSaver {
      */
     public static void save(String mapFilePath, MapMetaData mapMetaData) {
         String tileId = mapMetaData.getTileId();
-        String mapName = mapMetaData.getMapName();
+        String mapName = mapMetaData.getName();
         List<int[][]> layers = mapMetaData.getLayers();
         int height = mapMetaData.getHeight();
         int width = mapMetaData.getWidth();

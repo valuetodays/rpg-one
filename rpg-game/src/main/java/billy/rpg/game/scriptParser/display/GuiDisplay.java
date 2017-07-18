@@ -3,7 +3,7 @@ package billy.rpg.game.scriptParser.display;
 import billy.rpg.game.character.HeroCharacter;
 import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.container.GameContainer;
-import billy.rpg.game.scriptParser.bean.MapDataLoaderBean;
+import billy.rpg.resource.map.MapMetaData;
 import com.rupeng.game.GameCore;
 
 import java.awt.*;
@@ -104,9 +104,9 @@ public class GuiDisplay implements IDisplay {
         Image roleFull1 = GameContainer.getInstance().getRoleItem().getRoleFull1();
         Image bgImage1 = GameContainer.getInstance().getBgImageItem().getBgImage1();
         g2.drawImage(bgImage1, 0, 0, bgImage1.getWidth(null), bgImage1.getHeight(null), null);  // draw bgImage
-        
-        MapDataLoaderBean activeMap = GameContainer.getInstance().getActiveMap();
-        
+
+        MapMetaData activeMap = GameContainer.getInstance().getActiveMap();
+
         //////// draw layer1 start
         int[][] layer1 = activeMap.getBgLayer();
         for (int i = 0; i < layer1.length; i++) {

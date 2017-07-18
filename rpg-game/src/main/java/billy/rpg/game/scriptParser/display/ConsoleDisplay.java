@@ -2,7 +2,7 @@ package billy.rpg.game.scriptParser.display;
 
 import billy.rpg.game.character.HeroCharacter;
 import billy.rpg.game.container.GameContainer;
-import billy.rpg.game.scriptParser.bean.MapDataLoaderBean;
+import billy.rpg.resource.map.MapMetaData;
 
 /**
  *
@@ -40,8 +40,8 @@ public class ConsoleDisplay implements IDisplay {
         HeroCharacter mm = GameContainer.getInstance().getActiveFileItem().getHero();
         int posX = mm.getPosX();
         int posY = mm.getPosY();
-        
-        MapDataLoaderBean activeMap = GameContainer.getInstance().getActiveMap();
+
+        MapMetaData activeMap = GameContainer.getInstance().getActiveMap();
         int[][] data = activeMap.getNpcLayer();
         for (int i = 0; i < data.length; i++) {
             int lineLen = data[i].length;

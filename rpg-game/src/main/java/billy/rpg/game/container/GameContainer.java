@@ -13,10 +13,10 @@ import billy.rpg.game.loader.RoleDataLoader;
 import billy.rpg.game.loader.ScriptDataLoader;
 import billy.rpg.game.screen.BaseScreen;
 import billy.rpg.game.screen.MapScreen;
-import billy.rpg.game.scriptParser.bean.MapDataLoaderBean;
 import billy.rpg.game.scriptParser.item.*;
 import billy.rpg.resource.animation.AnimationMetaData;
 import billy.rpg.resource.box.BoxImageLoader;
+import billy.rpg.resource.map.MapMetaData;
 import billy.rpg.resource.npc.NPCImageLoader;
 import billy.rpg.resource.role.RoleMetaData;
 import org.apache.log4j.Logger;
@@ -44,8 +44,8 @@ public class GameContainer {
     private GameAboutImageItem gameAboutItem;
     private List<ScriptItem> scriptItemList; // scripts
     private ScriptItem activeScriptItem; // active script
-    private List<MapDataLoaderBean> mapList; // maps
-    private MapDataLoaderBean activeMap; // active map
+    private Map<String, MapMetaData> mapCollections; // maps
+    private MapMetaData activeMap; // active map
     private NPCImageLoader npcImageLoader;
     private BoxImageLoader boxImageLoader;
     private BattleImageItem battleImageItem;
@@ -142,9 +142,8 @@ public class GameContainer {
 
     private void loadMapData() throws Exception {
         MapDataLoader ml = new MapDataLoader();
-        List<MapDataLoaderBean> mlLoad = ml.load();
-
-        mapList = Collections.unmodifiableList(mlLoad);
+        ml.load();
+        mapCollections = ml.getMapCollections();
     }
 
     private void loadAnimationData() throws Exception {
@@ -252,14 +251,7 @@ public class GameContainer {
     }
     
     public void changeActiveMapItemTo(int m, int n) {
-        if (mapList == null) {
-            return ;
-        }
-        for (MapDataLoaderBean map : mapList) {
-            if (("" + m + "-" + n).equals(map.getMapId())) {
-                activeMap = map;
-            }
-        }
+        activeMap = mapCollections.get(m + "-" + n);
    }
     
     
@@ -287,12 +279,11 @@ public class GameContainer {
     public void setActiveFileItem(ScriptItem activeFileItem) {
         this.activeScriptItem = activeFileItem;
     }
-    public List<MapDataLoaderBean> getMapList() {
-        return mapList;
-    }
-    public MapDataLoaderBean getActiveMap() {
+
+    public MapMetaData getActiveMap() {
         return activeMap;
     }
+
     public GameAboutImageItem getGameAboutItem() {
         return gameAboutItem;
     }

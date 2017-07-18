@@ -25,7 +25,7 @@ import java.util.List;
 public class MapMetaData {
     private String mapId; // mapId is map's name, such like 1-1 in 1-1.map, when save map, this field is null
     private String tileId; // tile name
-    private String mapName; // map name
+    private String name; // map name
     private List<int[][]> layers; // map data
     private int height;
     private int width;
@@ -38,12 +38,12 @@ public class MapMetaData {
         this.tileId = tileId;
     }
 
-    public String getMapName() {
-        return mapName;
+    public String getName() {
+        return name;
     }
 
-    public void setMapName(String mapName) {
-        this.mapName = mapName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public List<int[][]> getLayers() {
@@ -77,11 +77,29 @@ public class MapMetaData {
     public void setMapId(String mapId) {
         if (mapId != null) {
             if (mapId.endsWith(".map")) {
-                mapId = mapId.substring(0, mapId.length()-".map".length());
+                mapId = mapId.substring(0, mapId.length() - ".map".length());
             }
         }
         this.mapId = mapId;
     }
 
+
+    public int[][] getEvent() {
+        return layers.get(4);
+    }
+
+    public int[][] getNpcLayer() {
+        return layers.get(1);
+    }
+
+    public int[][] getBgLayer() {
+        return layers.get(0);
+    }
+    public int[][] getFgLayer() {
+        return layers.get(2);
+    }
+    public int[][] getWalk() {
+        return layers.get(3);
+    }
 
 }
