@@ -1,7 +1,7 @@
 package test.billy.rpg.common;
 
-import com.billy.rpg.common.util.ImageUtil;
-import com.billy.rpg.resource.box.BoxImageLoader;
+import billy.rpg.common.util.ImageUtil;
+import billy.rpg.resource.box.BoxImageLoader;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 

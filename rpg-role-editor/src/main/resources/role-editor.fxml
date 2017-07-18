@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.billy.rpg.roleeditor.RoleTypeItem?>
+<?import billy.rpg.roleeditor.RoleTypeItem?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.ImageView?>
@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Text?>
 <?import java.lang.String?>
 
-<GridPane alignment="center" hgap="10" styleClass="root" vgap="10" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.billy.rpg.roleeditor.RoleEditorController">
+<GridPane alignment="center" hgap="10" styleClass="root" vgap="10" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="billy.rpg.roleeditor.RoleEditorController">
   <padding><Insets bottom="10" left="25" right="25" top="25" /></padding>
    <children>
 

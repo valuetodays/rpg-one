@@ -12,7 +12,7 @@
 
 #### 2017-05-04
 
-- entry is `com.billy.rpg.mapeditor.MapEditorFrame`
+- entry is `billy.rpg.mapeditor.MapEditorFrame`
 
 #### 2017-04-29
 

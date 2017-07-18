@@ -1,6 +1,6 @@
 package test.billy.animation;
 
-import com.billy.rpg.resource.animation.AnimationMetaData;
+import billy.rpg.resource.animation.AnimationMetaData;
 
 import javax.swing.*;
 import java.awt.*;

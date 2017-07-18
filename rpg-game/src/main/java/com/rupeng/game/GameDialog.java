@@ -1,13 +1,10 @@
 package com.rupeng.game;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Point;
+import org.apache.log4j.Logger;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
@@ -22,14 +19,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
-import javax.imageio.ImageIO;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
-import org.apache.log4j.Logger;
-
-import com.billy.rpg.game.scriptParser.display.GuiDisplay;
 
 class GameDialog extends JFrame {
     private static final long serialVersionUID = 1L;
@@ -37,12 +26,10 @@ class GameDialog extends JFrame {
     
     private BufferedImage bgImage;
 	private Thread gameThread;
-	private GuiDisplay guiDisplay; 
-	
+
     @Override
     public void paint(Graphics g) {
 //        super.paint(g); // this cause screen-blink
-        guiDisplay.display(g);
         GameUtils.pause(50);
     }
     
@@ -137,7 +124,7 @@ class GameDialog extends JFrame {
 			}
 		});
 		
-		guiDisplay = new GuiDisplay();
+
 	}
 
 
