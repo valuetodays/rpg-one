@@ -1,7 +1,6 @@
 package billy.rpg.game.scriptParser.item;
 
 import billy.rpg.game.scriptParser.bean.LoaderBean;
-import billy.rpg.game.scriptParser.loader.image.IImageLoader;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 
@@ -17,12 +16,11 @@ import java.util.List;
  * 
  * @since 2016-12-7 10:57:08
  */
-public class BgImageItem  implements IImageLoader, IItem {
+public class BgImageItem  implements IItem {
     private static final Logger LOG = Logger.getLogger(BgImageItem.class);
 
     private Image bgImage1;
     
-    @Override
     public List<LoaderBean> load() throws Exception {
         loadBgImage();   
         return null;

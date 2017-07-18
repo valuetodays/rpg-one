@@ -2,7 +2,6 @@ package billy.rpg.game.scriptParser.item.skill;
 
 import billy.rpg.game.scriptParser.bean.LoaderBean;
 import billy.rpg.game.scriptParser.item.IItem;
-import billy.rpg.game.scriptParser.loader.image.IImageLoader;
 import com.rupeng.game.GameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
@@ -18,12 +17,11 @@ import java.util.List;
  * @since 2017-05-16 20:43 update class name to TransferImageItem
  * @since 2017-04-25 15:21
  */
-public class TransferImageItem implements IImageLoader, IItem {
+public class TransferImageItem implements IItem {
     private static final Logger LOG = Logger.getLogger(TransferImageItem.class);
     private Image image;
     private boolean loaded = false;
 
-    @Override
     public List<LoaderBean> load() throws Exception {
         load0();
         return null;

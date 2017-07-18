@@ -12,7 +12,7 @@ import java.util.Stack;
  * @since 2017-06-08 15:29
  */
 public class BattleScreen extends BaseScreen {
-    private Stack<BaseScreen> screenStack = new Stack<>(); //
+    private Stack<BaseScreen> screenStack = new Stack<>();
 
     public BattleScreen(final int[] metMonsterIds) {
         BattleUIScreen battleUIScreen = new BattleUIScreen(metMonsterIds, this);

@@ -84,6 +84,9 @@ public class RoleSaver {
             int exp = roleMetaData.getExp();
             dos.writeInt(exp);
             LOG.debug("exp written with " + exp);
+            int money = roleMetaData.getMoney();
+            dos.writeInt(money);
+            LOG.debug("money written with " + money);
             int levelChain = roleMetaData.getLevelChain();
             dos.writeInt(levelChain);
             LOG.debug("levelChain written with " + levelChain);

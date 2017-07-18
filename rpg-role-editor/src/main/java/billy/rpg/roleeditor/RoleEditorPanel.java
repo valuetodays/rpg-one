@@ -40,6 +40,7 @@ public class RoleEditorPanel extends JPanel {
     private JTextField tfAttack; // attack
     private JTextField tfDefend; // defend
     private JTextField tfExp; // exp
+    private JTextField tfMoney; // money
     private JTextField tfLevelChain; // TODO levelChain
 
     private JFileChooser rolePicFileChooser;
@@ -278,6 +279,21 @@ public class RoleEditorPanel extends JPanel {
             }
         });
         this.add(tfExp);
+
+        JLabel lableMoney = new JLabel("money");
+        lableMoney.setBounds(10, 260, 40, 20);
+        this.add(lableMoney);
+        tfMoney = new JTextField();
+        tfMoney.setBounds(50, 260, 35, 20);
+        tfMoney.addKeyListener(new KeyAdapter() {
+            public void keyReleased(KeyEvent e) {
+                JTextField textField = (JTextField) e.getSource();
+                int n = getNumberOfTextField(textField);
+                textField.setText("" + n);
+            }
+        });
+        this.add(tfMoney);
+
     }
 
     private void pickImage() throws IOException {
@@ -286,6 +302,7 @@ public class RoleEditorPanel extends JPanel {
             File selectedFile = rolePicFileChooser.getSelectedFile();
             image = ImageIO.read(selectedFile);
         }
+        repaint();
     }
 
 
@@ -307,6 +324,7 @@ public class RoleEditorPanel extends JPanel {
             tfAttack.setText("" + rmd.getAttack());
             tfDefend.setText("" + rmd.getDefend());
             tfExp.setText("" + rmd.getExp());
+            tfMoney.setText("" + rmd.getMoney());
             image = rmd.getImage();
             repaint();
 
@@ -387,6 +405,10 @@ public class RoleEditorPanel extends JPanel {
         if (!res) {
             return;
         }
+        res = checkNumber(tfMoney.getText(), "money");
+        if (!res) {
+            return;
+        }
 
         int result = roleSaveFileChooser.showSaveDialog(null);
         if (result == JFileChooser.APPROVE_OPTION){
@@ -410,8 +432,9 @@ public class RoleEditorPanel extends JPanel {
             roleMetaData.setAttack(Integer.parseInt(tfAttack.getText()));
             roleMetaData.setDefend(Integer.parseInt(tfDefend.getText()));
             roleMetaData.setExp(Integer.parseInt(tfExp.getText()));
+            roleMetaData.setMoney(Integer.parseInt(tfMoney.getText()));
             RoleSaver.save(roleSaveFileChooser.getCurrentDirectory() + File.separator + name, roleMetaData);
-            System.out.println("save ani to file end");
+            System.out.println("save role to file end");
         }
 
     }

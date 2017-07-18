@@ -1,7 +1,6 @@
 package billy.rpg.game.scriptParser.item;
 
 import billy.rpg.game.scriptParser.bean.LoaderBean;
-import billy.rpg.game.scriptParser.loader.image.IImageLoader;
 import org.apache.commons.io.IOUtils;
 
 import javax.imageio.ImageIO;
@@ -9,7 +8,7 @@ import java.awt.*;
 import java.io.InputStream;
 import java.util.List;
 
-public class GameAboutImageItem implements IImageLoader, IItem {
+public class GameAboutImageItem implements IItem {
     private Image gameCover;
     private Image gameOver;
     private Image gameArrowLeft;
@@ -20,7 +19,6 @@ public class GameAboutImageItem implements IImageLoader, IItem {
     private Image gameTransition;
 
 
-    @Override
     public List<LoaderBean> load() throws Exception {
         load0();
         return null;

@@ -1,7 +1,6 @@
 package billy.rpg.game.scriptParser.item;
 
 import billy.rpg.game.scriptParser.bean.LoaderBean;
-import billy.rpg.game.scriptParser.loader.image.IImageLoader;
 import com.rupeng.game.GameUtils;
 import org.apache.commons.io.IOUtils;
 
@@ -10,11 +9,9 @@ import java.awt.*;
 import java.io.InputStream;
 import java.util.List;
 
-public class RoleImageItem implements IImageLoader, IItem {
+public class RoleImageItem implements IItem {
     private Image roleFull1;
 
-
-    @Override
     public List<LoaderBean> load() throws Exception {
         loadRole();   // TODO change to loadImage(); ??
         return null;

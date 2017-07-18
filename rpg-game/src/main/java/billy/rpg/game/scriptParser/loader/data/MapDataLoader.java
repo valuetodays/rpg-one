@@ -24,10 +24,9 @@ import java.util.List;
  * 
  * @since 2016-11-30 09:13:28
  */
-public class MapDataLoader implements IDataLoader {
+public class MapDataLoader {
     private static final Logger LOG = Logger.getLogger(MapDataLoader.class);
     
-    @Override
     public List<LoaderBean> load() throws Exception {
         List<String> mapFilepaths = load0();
         if (mapFilepaths == null) {

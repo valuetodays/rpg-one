@@ -78,6 +78,9 @@ public class RoleLoader {
             int exp = dis.readInt();
             LOG.debug("role exp is " + exp);
             rmd.setExp(exp);
+            int money = dis.readInt();
+            LOG.debug("role money is " + money);
+            rmd.setMoney(money);
             int levelChain = dis.readInt();
             LOG.debug("role levelChain is " + levelChain);
             rmd.setLevelChain(levelChain);
@@ -89,6 +92,7 @@ public class RoleLoader {
             IOUtils.closeQuietly(fis);
         }
 
+        LOG.debug("loaded role file ["+roleFilePath+"].");
         return rmd;
     }
 }

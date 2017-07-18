@@ -1,8 +1,8 @@
 package billy.rpg.game.scriptParser.loader.data;
 
-import java.util.List;
-
 import billy.rpg.game.scriptParser.bean.LoaderBean;
+
+import java.util.List;
 
 
 /**
@@ -12,9 +12,9 @@ import billy.rpg.game.scriptParser.bean.LoaderBean;
  * 
  * @since 2016-12-02 09:15:16
  */
-public class GoodsDataLoader implements IDataLoader {
+public class GoodsDataLoader {
 
-    @Override
+
     public List<LoaderBean> load() throws Exception {
         
         return null;

@@ -1,8 +1,7 @@
 package billy.rpg.game.screen.battle;
 
 import billy.rpg.game.GameCanvas;
-import billy.rpg.game.character.battle.HeroBattle;
-import billy.rpg.game.character.battle.MonsterBattle;
+import billy.rpg.game.character.battle.FightableCharacter;
 import billy.rpg.game.screen.AnimationScreen;
 import billy.rpg.game.screen.BaseScreen;
 
@@ -12,21 +11,21 @@ public class BattleActionScreen extends BaseScreen {
     private static final int STATE_AFT = 3; // 伤害动画
     private static final int STATE_FIN = 4; // 结束
 
-    private HeroBattle attacker;
-    private MonsterBattle target;
+    private FightableCharacter attacker;
+    private FightableCharacter target;
     private AnimationScreen animationScreen;
     private int state = STATE_PRE;
-    private static final int ATTACKER_FRAMES = 10;
     private int attackFrame;
     private AttackAnimationFinishedListener afterListener;
     private int attackerPreTopPos;
     /**
      *
-     * @param attacker TODO 战斗角色类
-     * @param target
+     * @param attacker 攻击者
+     * @param target 被攻击者
      * @param animationScreen 技能动画
      */
-    public BattleActionScreen(HeroBattle attacker, MonsterBattle target, AnimationScreen animationScreen, AttackAnimationFinishedListener al) {
+    public BattleActionScreen(FightableCharacter attacker, FightableCharacter target, AnimationScreen animationScreen,
+                              AttackAnimationFinishedListener al) {
         this.attacker = attacker;
         this.target = target;
         this.animationScreen = animationScreen;

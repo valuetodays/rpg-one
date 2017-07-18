@@ -476,7 +476,6 @@ public class AnimationEditorPanel extends JPanel {
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = aniLoadFileChooser.getSelectedFile();
             AnimationMetaData loadedAmd = AnimationLoader.load(selectedFile.getPath());
-            AnimationMetaData amd = new AnimationMetaData();
             tfNumber.setText("" + loadedAmd.getNumber());
             tfFrameCount.setText("" + loadedAmd.getFrameCount());
             setListFrames(loadedAmd.getFrameCount());

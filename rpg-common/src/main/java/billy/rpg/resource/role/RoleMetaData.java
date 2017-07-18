@@ -20,12 +20,18 @@ import java.awt.image.BufferedImage;
  *     <li>4 bytes attack</li>
  *     <li>4 bytes defend</li>
  *     <li>4 bytes exp</li>
+ *     <li>4 bytes money</li>
  *     <li>4 bytes leveChain</li> TODO
  * </ol>
  * @author liulei@bshf360.com
  * @since 2017-07-12 10:57
  */
 public class RoleMetaData implements Cloneable { // TODO 添加级别
+    public static final int TYPE_PLAYER = 1;
+    public static final int TYPE_NPC = 2;
+    public static final int TYPE_MONSTER = 3;
+    public static final int TYPE_SCENE = 4;
+
     private int type;
     private int number;
     private String name;
@@ -38,6 +44,7 @@ public class RoleMetaData implements Cloneable { // TODO 添加级别
     private int attack;
     private int defend;
     private int exp;
+    private int money;
     private int levelChain = 1; // TODO 先固定成1
 
 
@@ -135,6 +142,14 @@ public class RoleMetaData implements Cloneable { // TODO 添加级别
 
     public void setExp(int exp) {
         this.exp = exp;
+    }
+
+    public int getMoney() {
+        return money;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
     }
 
     public int getLevelChain() {

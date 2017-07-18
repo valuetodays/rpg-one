@@ -17,7 +17,7 @@ import java.util.List;
  * 
  *
  */
-public class ScriptDataLoader implements IDataLoader {
+public class ScriptDataLoader {
     private static final Logger LOG = Logger.getLogger(ScriptDataLoader.class);
 
     private List<String> loadScripts0() throws IOException {

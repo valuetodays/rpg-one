@@ -64,7 +64,7 @@ public class BattleOptionScreen extends BaseScreen {
 
     }
 
-    private boolean chooseMonster;
+    private boolean chooseMonster;   // TODO 该变量有存在的必要？
     private int heroActionChoice = 1;
     @Override
     public void onKeyUp(int key) {
@@ -110,7 +110,6 @@ public class BattleOptionScreen extends BaseScreen {
                     LOG.debug("cannot be here.");
                     break;
             }
-
         }
     }
 

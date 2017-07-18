@@ -53,8 +53,8 @@ public class BattleSuccessScreen extends BaseScreen {
         // 这里只【显示】升级所得经验及金币
         for (int i = 0; i < heroBattleList.size(); i++) {
             HeroBattle heroBattle = heroBattleList.get(i);
-            int oriMoney = heroBattle.getMonster().getExp(); // TODO 先用经验吧
-            int oriExp = heroBattle.getMonster().getExp();
+            int oriMoney = heroBattle.getRoleMetaData().getMoney();
+            int oriExp = heroBattle.getRoleMetaData().getExp();
             int newMoney = oriMoney + money;
             int newExp = oriExp + exp;
             g.drawString("money: " + oriMoney + "  -->  " + newMoney, 10 + 100*i, 120);
@@ -73,13 +73,12 @@ public class BattleSuccessScreen extends BaseScreen {
     public void onKeyUp(int key) {
         for (int i = 0; i < heroBattleList.size(); i++) {
             HeroBattle heroBattle = heroBattleList.get(i);
-            int oriMoney = heroBattle.getMonster().getExp(); // TODO 先用经验吧
-            int oriExp = heroBattle.getMonster().getExp();
+            int oriMoney = heroBattle.getRoleMetaData().getMoney();
+            int oriExp = heroBattle.getRoleMetaData().getExp();
             int newMoney = oriMoney + money;
             int newExp = oriExp + exp;
-            // TODO 添加金币
-            // TODO 没有给玩家加上金币及经验值，因为com.billy.rpg.game.character.battle.HeroBattle.setMonster()
-            heroBattle.getMonster().setExp(newExp); // 该方法放在draw()中会导致，money和exp一直在增加。。。。。
+            heroBattle.getRoleMetaData().setMoney(newMoney);
+            heroBattle.getRoleMetaData().setExp(newExp); // 该方法放在draw()中会导致，money和exp一直在增加。。。。。
         }
         GameFrame.getInstance().changeScreen(1);
     }

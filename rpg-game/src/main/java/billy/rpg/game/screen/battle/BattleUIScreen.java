@@ -13,7 +13,6 @@ import org.apache.commons.lang.ArrayUtils;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Map;
 
 /**
  *
@@ -28,8 +27,8 @@ public class BattleUIScreen extends BaseScreen {
     protected int monsterIndex;
     protected int heroIndex; // 活动玩家
 
-    protected final int money;
     protected final int exp;
+    protected final int money;
 
     public int getMonsterIndex() {
         return monsterIndex;
@@ -43,12 +42,9 @@ public class BattleUIScreen extends BaseScreen {
         LOG.debug("met " + metMonsterIds.length + " monsters with["+ ArrayUtils.toString(metMonsterIds)+"]");
         parentScreen = battleScreen;
 
-        Map<Integer, RoleMetaData> monsterMap = GameFrame.getInstance().getGameContainer().getMonsterDataLoader()
-                .getMonsterMetaData().getMonsterMap();
-
         monsterImages = new ArrayList<>();
         for (int i = 0; i < metMonsterIds.length; i++) {
-            Image image = monsterMap.get(metMonsterIds[i]).getImage();
+            Image image = GameFrame.getInstance().getGameContainer().getMonsterRoleOf(metMonsterIds[i]).getImage();
             monsterImages.add(image);
         }
 
@@ -56,21 +52,20 @@ public class BattleUIScreen extends BaseScreen {
         int tempMoney = 0;
         int tempExp = 0;
         for (int i = 0; i < metMonsterIds.length; i++) {
-            RoleMetaData roleMetaData = monsterMap.get(metMonsterIds[i]);
+            RoleMetaData roleMetaData = GameFrame.getInstance().getGameContainer().getMonsterRoleOf(metMonsterIds[i]);
             Image image = roleMetaData.getImage();
             MonsterBattle mb = new MonsterBattle();
-            mb.setImage(image);
             mb.setLeft(getLeftInWindow(i));
             mb.setTop(100);
             mb.setWidth(image.getWidth(null));
             mb.setHeight(image.getHeight(null));
-            mb.setMonster(roleMetaData);
-            tempMoney += roleMetaData.getExp(); // TODO 没有金币呢。。。。
+            mb.setRoleMetaData(roleMetaData);
             tempExp += roleMetaData.getExp();
+            tempMoney += roleMetaData.getMoney();
             monsterBattleList.add(mb);
         }
-        this.money = tempMoney;
         this.exp = tempExp;
+        this.money = tempMoney;
 
         heroBattleList = new ArrayList<>();
         java.util.List<Integer> heroIds = ScriptItem.getHeroIds();
@@ -80,8 +75,7 @@ public class BattleUIScreen extends BaseScreen {
             e.setTop(10*32);
             e.setWidth(32);
             e.setHeight(32);
-            e.setMonster(monsterMap.get(51)); // TODO 没有数据，先使用着妖怪的
-            e.setImage(monsterMap.get(51).getImage());
+            e.setRoleMetaData(GameFrame.getInstance().getGameContainer().getHeroRoleOf(heroIds.get(i)));
 
             heroBattleList.add(e);
         }
@@ -118,7 +112,6 @@ public class BattleUIScreen extends BaseScreen {
                 BufferedImage.TYPE_4BYTE_ABGR);
         Graphics g = paint.getGraphics();
 
-        final Image roleFull1 = GameFrame.getInstance().getGameContainer().getRoleItem().getRoleFull1();
         // TODO 战斗背景图应从*.map或*.s中加载
         Image battleImage = GameFrame.getInstance().getGameContainer().getBattleImageItem().getBattleImage("001-Grassland01.jpg");
         // TODO 先画出黑色背景，因为战斗背景图不是640*480的 (640*320)
@@ -126,11 +119,10 @@ public class BattleUIScreen extends BaseScreen {
         g.fillRect(0, 0, paint.getWidth(), paint.getHeight());
         g.drawImage(battleImage, 0, 0, battleImage.getWidth(null), battleImage.getHeight(null), null);  // draw battleImage
         HeroBattle heroBattle = heroBattleList.get(heroIndex);
-        g.drawImage(roleFull1, heroBattle.getLeft(), heroBattle.getTop(), null); // 面向右，打妖怪。
+        g.drawImage(heroBattle.getRoleMetaData().getImage(), heroBattle.getLeft(), heroBattle.getTop(), null); // 面向右，打妖怪。
 
-        for (int i = 0; i < monsterBattleList.size(); i++) {
-            MonsterBattle monsterBattle = monsterBattleList.get(i);
-            Image image = monsterBattle.getImage();
+        for (MonsterBattle monsterBattle : monsterBattleList) {
+            Image image = monsterBattle.getRoleMetaData().getImage();
             int left = monsterBattle.getLeft();
             int top = monsterBattle.getTop();
             g.drawImage(image, left, top, null);

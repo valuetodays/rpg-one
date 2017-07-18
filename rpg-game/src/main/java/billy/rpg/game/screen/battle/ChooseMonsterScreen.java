@@ -60,7 +60,7 @@ public class ChooseMonsterScreen extends BaseScreen {
         g.drawImage(gameArrowUp,
                 monsterBattleArrowTo.getLeft() + monsterBattleArrowTo.getWidth() / 2 - gameArrowUp.getWidth(null) / 2,
                 arrowY, null);
-        g.drawString(monsterBattleArrowTo.getMonster().getName(),
+        g.drawString(monsterBattleArrowTo.getRoleMetaData().getName(),
                 monsterBattleArrowTo.getLeft() +
                         monsterBattleArrowTo.getWidth() / 2 - gameArrowUp.getWidth(null) / 2,
                 monsterBattleArrowTo.getTop() - 50);
@@ -147,16 +147,16 @@ public class ChooseMonsterScreen extends BaseScreen {
     private void doAttack() {
         HeroBattle heroBattle = getBattleUIScreen().heroBattleList.get(heroIndex);
         MonsterBattle monsterBattle = getBattleUIScreen().monsterBattleList.get(monsterIndex);
-        int attack = heroBattle.getMonster().getAttack();
-        int defend = monsterBattle.getMonster().getDefend();
+        int attack = heroBattle.getRoleMetaData().getAttack();
+        int defend = monsterBattle.getRoleMetaData().getDefend();
 
         float dmgF = 1.0f * (attack*1) / (defend/100+1);
-        dmgF += GameConstant.random.nextInt((int)(Math.floor(1.0f * heroBattle.getMonster().getSpeed() *
-                heroBattle.getMonster().getHp() / heroBattle.getMonster().getMaxHp())));
+        dmgF += GameConstant.random.nextInt((int)(Math.floor(1.0f * heroBattle.getRoleMetaData().getSpeed() *
+                heroBattle.getRoleMetaData().getHp() / heroBattle.getRoleMetaData().getMaxHp())));
         int dmg = (int)dmgF;
-        int hp = monsterBattle.getMonster().getHp();
+        int hp = monsterBattle.getRoleMetaData().getHp();
         hp -= dmg;
-        monsterBattle.getMonster().setHp(hp);
+        monsterBattle.getRoleMetaData().setHp(hp);
         String msgText = "玩家"+ heroIndex + "对妖怪"+monsterIndex+"造成了"+dmg + "伤害";
         if (hp <= 0) {
             msgText += "，妖怪的小身板扛不住就挂了";

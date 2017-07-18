@@ -22,11 +22,9 @@ import java.util.List;
  * @author liulei@bshf360.com
  * @since 2017-07-10 11:06
  */
-public class AnimationDataLoader implements IDataLoader {
+public class AnimationDataLoader {
     private static final Logger LOG = Logger.getLogger(AnimationDataLoader.class);
 
-
-    @Override
     public List<LoaderBean> load() throws Exception {
         List<String> aniFilePaths = load0();
         if (aniFilePaths == null) {

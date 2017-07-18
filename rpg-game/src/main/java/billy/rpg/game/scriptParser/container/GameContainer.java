@@ -14,18 +14,20 @@ import billy.rpg.game.scriptParser.bean.LoaderBean;
 import billy.rpg.game.scriptParser.bean.MapDataLoaderBean;
 import billy.rpg.game.scriptParser.cmd.CmdBase;
 import billy.rpg.game.scriptParser.item.*;
-import billy.rpg.resource.box.BoxImageLoader;
-import billy.rpg.resource.monster.MonsterDataLoader;
-import billy.rpg.resource.npc.NPCImageLoader;
 import billy.rpg.game.scriptParser.item.skill.TransferImageItem;
 import billy.rpg.game.scriptParser.loader.data.AnimationDataLoader;
 import billy.rpg.game.scriptParser.loader.data.MapDataLoader;
+import billy.rpg.game.scriptParser.loader.data.RoleDataLoader;
 import billy.rpg.game.scriptParser.loader.data.ScriptDataLoader;
+import billy.rpg.resource.box.BoxImageLoader;
+import billy.rpg.resource.npc.NPCImageLoader;
+import billy.rpg.resource.role.RoleMetaData;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Game Container
@@ -52,15 +54,15 @@ public class GameContainer {
     private NPCImageLoader npcImageLoader;
     private BoxImageLoader boxImageLoader;
     private BattleImageItem battleImageItem;
-    private List<AnimationDataLoaderBean> animationList; // animation list;
+    // animation list, each *.ani is an instance of AnimationDataLoaderBean
+    private List<AnimationDataLoaderBean> animationList;
 
-    // TODO loader不应作为类属性，它的返回值应是类属性，loader本应作为一个方法的局部变量
-    private MonsterDataLoader monsterDataLoader;
+    private Map<Integer, RoleMetaData> heroRoleMap;
+    private Map<Integer, RoleMetaData> monsterRoleMap;
 
 
-    
     // make private 
-    private GameContainer () {    }
+    private GameContainer () { }
     // the instance 
     private static GameContainer instance = new GameContainer();
     // loaded or not 
@@ -94,7 +96,7 @@ public class GameContainer {
         npcImageLoader = new NPCImageLoader();
         boxImageLoader = new BoxImageLoader();
         battleImageItem = new BattleImageItem();
-        monsterDataLoader = new MonsterDataLoader();
+
         try {
             bgImageItem.load();
             tileItem.load();
@@ -105,17 +107,24 @@ public class GameContainer {
             npcImageLoader.loadNpcs();
             boxImageLoader.loadBoxes();
             battleImageItem.load();
-            monsterDataLoader.load();
 
             loadMapData();
             loadScriptData();
             loadAnimationData();
+            loadRoleData();
         } catch (Exception e) {
             e.printStackTrace();
         }
         
         loaded = true;
         return null;
+    }
+
+    private void loadRoleData() {
+        RoleDataLoader roleDataLoader = new RoleDataLoader();
+        roleDataLoader.load();
+        heroRoleMap = roleDataLoader.getHeroList();
+        monsterRoleMap = roleDataLoader.getMonsterList();
     }
 
     public void startChapter(int m, int n, String pos) {
@@ -324,7 +333,19 @@ public class GameContainer {
         return battleImageItem;
     }
 
-    public MonsterDataLoader getMonsterDataLoader() {
-        return monsterDataLoader;
+    /**
+     * get hero role by number
+     * @param number number
+     */
+    public RoleMetaData getHeroRoleOf(int number) {
+        return heroRoleMap.get(number);
+    }
+
+    /**
+     * get monster role by number
+     * @param number number
+     */
+    public RoleMetaData getMonsterRoleOf(int number) {
+        return monsterRoleMap.get(number);
     }
 }

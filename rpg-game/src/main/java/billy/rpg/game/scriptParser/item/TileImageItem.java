@@ -1,7 +1,6 @@
 package billy.rpg.game.scriptParser.item;
 
 import billy.rpg.game.scriptParser.bean.LoaderBean;
-import billy.rpg.game.scriptParser.loader.image.IImageLoader;
 import com.rupeng.game.GameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.ArrayUtils;
@@ -16,11 +15,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TileImageItem  implements IImageLoader, IItem {
+public class TileImageItem  implements IItem {
     private Map<String, Image> tiles;
-    
-    
-    @Override
+
     public List<LoaderBean> load() throws Exception {
         loadTile(); // TODO change to loadImage(); ??
         return null;
