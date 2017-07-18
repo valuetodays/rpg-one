@@ -13,20 +13,17 @@ import billy.rpg.game.loader.RoleDataLoader;
 import billy.rpg.game.loader.ScriptDataLoader;
 import billy.rpg.game.screen.BaseScreen;
 import billy.rpg.game.screen.MapScreen;
-import billy.rpg.game.scriptParser.bean.AnimationDataLoaderBean;
 import billy.rpg.game.scriptParser.bean.LoaderBean;
 import billy.rpg.game.scriptParser.bean.MapDataLoaderBean;
 import billy.rpg.game.scriptParser.cmd.CmdBase;
 import billy.rpg.game.scriptParser.item.*;
+import billy.rpg.resource.animation.AnimationMetaData;
 import billy.rpg.resource.box.BoxImageLoader;
 import billy.rpg.resource.npc.NPCImageLoader;
 import billy.rpg.resource.role.RoleMetaData;
 import org.apache.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Game Container
@@ -53,7 +50,7 @@ public class GameContainer {
     private BoxImageLoader boxImageLoader;
     private BattleImageItem battleImageItem;
     // animation list, each *.ani is an instance of AnimationDataLoaderBean
-    private List<AnimationDataLoaderBean> animationList;
+    private Map<Integer, AnimationMetaData> animationMap;
 
     private Map<Integer, RoleMetaData> heroRoleMap;
     private Map<Integer, RoleMetaData> monsterRoleMap;
@@ -162,21 +159,16 @@ public class GameContainer {
 
     private void loadAnimationData() throws Exception {
         AnimationDataLoader adl = new AnimationDataLoader();
-        List<LoaderBean> mlLoad = adl.load();
-        List<AnimationDataLoaderBean> aniListTemp = new ArrayList<>();
-        for (LoaderBean lb : mlLoad) {
-            aniListTemp.add((AnimationDataLoaderBean) lb);
-        }
-        animationList = Collections.unmodifiableList(aniListTemp);
+        adl.load();
+        animationMap = adl.getAnimationMap();
     }
 
-    public AnimationDataLoaderBean getAnimationOf(int number) {
-        for ( AnimationDataLoaderBean adlb : animationList) {
-            if (adlb.getNumber() == number) {
-                return adlb;
-            }
-        }
-        return null;
+    /**
+     * get specified animation
+     * @param number number
+     */
+    public AnimationMetaData getAnimationOf(int number) {
+        return animationMap.get(number);
     }
 
 

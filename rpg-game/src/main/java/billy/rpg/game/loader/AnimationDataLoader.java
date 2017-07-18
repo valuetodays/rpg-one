@@ -1,22 +1,15 @@
 package billy.rpg.game.loader;
 
 import billy.rpg.game.constants.AnimationConstant;
-import billy.rpg.game.scriptParser.bean.AnimationDataLoaderBean;
-import billy.rpg.game.scriptParser.bean.LoaderBean;
 import billy.rpg.resource.animation.AnimationLoader;
 import billy.rpg.resource.animation.AnimationMetaData;
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author liulei@bshf360.com
@@ -25,7 +18,9 @@ import java.util.List;
 public class AnimationDataLoader {
     private static final Logger LOG = Logger.getLogger(AnimationDataLoader.class);
 
-    public List<LoaderBean> load() throws Exception {
+    private Map<Integer, AnimationMetaData> animationMap = new HashMap<>();
+
+    public void load() throws Exception {
         List<String> aniFilePaths = load0();
         if (aniFilePaths == null) {
             throw new RuntimeException("No ani file(s) found.");
@@ -33,25 +28,12 @@ public class AnimationDataLoader {
 
         LOG.debug("read data from " + aniFilePaths);
 
-        List<LoaderBean> anis = new ArrayList<>();
-        AnimationDataLoaderBean aniBean = null;
-
         for (String aniFilePath : aniFilePaths) {
             AnimationMetaData amd = AnimationLoader.load(aniFilePath);
-            aniBean = toAniBean(amd);
-
-            anis.add(aniBean);
+            animationMap.put(amd.getNumber(), amd);
         } // end of for
-
-        return Collections.unmodifiableList(anis);
     }
 
-    private AnimationDataLoaderBean toAniBean(AnimationMetaData aniMetaData) throws InvocationTargetException,
-            IllegalAccessException {
-        AnimationDataLoaderBean adlb = new AnimationDataLoaderBean();
-        BeanUtils.copyProperties(adlb, aniMetaData);
-        return adlb;
-    }
 
     private List<String> load0() {
         Enumeration<URL> urls = null;
@@ -95,7 +77,7 @@ public class AnimationDataLoader {
      * 过滤指定的ani文件
      */
     private static FileFilter filterMap() {
-        FileFilter filter = new FileFilter() {            // anonymous class
+        FileFilter filter = new FileFilter() {
             @Override
             public boolean accept(File pathname) {
                 //  we want the file [1: '.ani' ]
@@ -109,5 +91,7 @@ public class AnimationDataLoader {
         return filter;
     }
 
-
+    public Map<Integer, AnimationMetaData> getAnimationMap() {
+        return Collections.unmodifiableMap(animationMap);
+    }
 }

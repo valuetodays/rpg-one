@@ -4,7 +4,7 @@ import billy.rpg.game.GameCanvas;
 import billy.rpg.game.GameFrame;
 import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.screen.battle.BattleScreen;
-import billy.rpg.game.scriptParser.bean.AnimationDataLoaderBean;
+import billy.rpg.resource.animation.AnimationMetaData;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -23,15 +23,14 @@ import java.util.ListIterator;
  */
 public class AnimationScreen extends BaseScreen {
     private BaseScreen ownerScreen;
-    private AnimationDataLoaderBean animationDataLoaderBean;
+    private AnimationMetaData animationMetaData;
     private List<Key> mShowList = new LinkedList<>();
-    private int ITERATOR = 1;
+    private int ITERATOR = 1;  // TODO 该值要存放到动画文件里？
     private int posX;
     private int posY;
 
     public AnimationScreen(int animationNumber, int posX, int posY, BaseScreen ownerScreen) {
-        animationDataLoaderBean =
-                GameFrame.getInstance().getGameContainer().getAnimationOf(animationNumber);
+        animationMetaData = GameFrame.getInstance().getGameContainer().getAnimationOf(animationNumber);
         this.posX = posX;
         this.posY = posY;
         this.ownerScreen = ownerScreen;
@@ -49,7 +48,7 @@ public class AnimationScreen extends BaseScreen {
                 Key i = iter.next();
                 --i.show;
                 --i.nshow;
-                if (i.nshow == 0 && i.index + 1 < animationDataLoaderBean.getFrameData().length) {
+                if (i.nshow == 0 && i.index + 1 < animationMetaData.getFrameData().length) {
                     iter.add(new Key(i.index + 1)); // 下一帧开始显示
                 }
             }
@@ -86,8 +85,8 @@ public class AnimationScreen extends BaseScreen {
          */
         private Key(int index) {
             this.index = index;
-            this.show = animationDataLoaderBean.getFrameData()[index].show;
-            this.nshow = animationDataLoaderBean.getFrameData()[index].nShow;
+            this.show = animationMetaData.getFrameData()[index].show;
+            this.nshow = animationMetaData.getFrameData()[index].nShow;
         }
     }
 
@@ -98,23 +97,17 @@ public class AnimationScreen extends BaseScreen {
                 GameConstant.GAME_WIDTH,
                 GameConstant.GAME_HEIGHT,
                 BufferedImage.TYPE_4BYTE_ABGR);
-
         Graphics g = paint.getGraphics();
-        //g.setColor(Color.yellow); //透明色
-        //g.fillRect(0, 0, paint.getWidth(), paint.getHeight());
-        //int COLOR_WHITE = new Color(204, 199, 237, 255).getRGB();//Color.argb(255, 199, 237, 204);
-        //int COLOR_BLACK = new Color(0, 0, 0, 255).getRGB();//Color.argb(255, 0, 0, 0);
-        //int COLOR_TRANSP = new Color(0, 0, 0, 0).getRGB();//Color.argb(0, 0, 0, 0);
 
         if (!mShowList.isEmpty()) {
             ListIterator<Key> iter = mShowList.listIterator();
             while (iter.hasNext()) {
                 Key key = iter.next();
                 int frameIndex = key.index;
-                int picIndex = animationDataLoaderBean.getFrameData()[frameIndex].picNumber;
-                BufferedImage bufferedImage = animationDataLoaderBean.getImages().get(picIndex);
-                int x = animationDataLoaderBean.getFrameData()[frameIndex].x;
-                int y = animationDataLoaderBean.getFrameData()[frameIndex].y;
+                int picIndex = animationMetaData.getFrameData()[frameIndex].picNumber;
+                BufferedImage bufferedImage = animationMetaData.getImages().get(picIndex);
+                int x = animationMetaData.getFrameData()[frameIndex].x;
+                int y = animationMetaData.getFrameData()[frameIndex].y;
                 g.drawImage(bufferedImage, x, y, null);
             }
         } else {
@@ -128,7 +121,7 @@ public class AnimationScreen extends BaseScreen {
     }
 
     private void end() {
-        if (ownerScreen instanceof BattleScreen) { // 战斗场景中的播放动画
+        if (ownerScreen instanceof BattleScreen) { // 战斗场景中的播放动画，就把战斗场景弹出一个
             ((BattleScreen)ownerScreen).pop();
         } else {
             GameFrame.getInstance().popScreen();

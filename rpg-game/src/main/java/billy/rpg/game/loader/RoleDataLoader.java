@@ -24,11 +24,11 @@ public class RoleDataLoader {
         URL resource = RoleDataLoader.class.getResource(roleFileDirectory);
 
         File file = new File(resource.getPath());
-        // little
+        // 只取一层文件夹
         File[] files = file.listFiles(new FileFilter() {
             @Override
             public boolean accept(File pathname) {
-                return pathname.getName().endsWith(".role"); // 只取一层文件夹
+                return pathname.getName().endsWith(".role");
             }
         });
         if (ArrayUtils.isEmpty(files)) {
