@@ -335,16 +335,16 @@ public class RoleEditorPanel extends JPanel {
 
     private boolean checkNumber(String tfText, String type) {
         if (StringUtils.isEmpty(tfText)) {
-            JOptionPane.showMessageDialog(null, type + "不能为空");
+            JOptionPane.showMessageDialog(this, type + "不能为空");
             return false;
         }
         if (!StringUtils.isNumeric(tfText)) {
-            JOptionPane.showMessageDialog(null, type + "只能是整数");
+            JOptionPane.showMessageDialog(this, type + "只能是整数");
             return false;
         }
         int number = Integer.parseInt(tfText);
         if (number <= 0) {
-            JOptionPane.showMessageDialog(null, type + "不能小于1");
+            JOptionPane.showMessageDialog(this, type + "不能小于1");
             return false;
         }
         return true;
@@ -359,11 +359,11 @@ public class RoleEditorPanel extends JPanel {
         }
         String tfNameText = tfName.getText();
         if (StringUtils.isEmpty(tfNameText)) {
-            JOptionPane.showMessageDialog(null, "角色名称不能为空");
+            JOptionPane.showMessageDialog(this, "角色名称不能为空");
             return;
         }
         if (tfNameText.length() > 10) {
-            JOptionPane.showMessageDialog(null, "角色名称不能大于10个字符。");
+            JOptionPane.showMessageDialog(this, "角色名称不能大于10个字符。");
             return;
         }
 
