@@ -37,6 +37,7 @@ public class BattleFightScreen extends BaseScreen {
                 update0();
             }
         } else {
+            // TODO 当第二个人攻击时，在攻击过程中时，该处被反复调用
             if (battleActionPreIndex + 1 == battleActionCurIndex) {
                 battleActionPreIndex = battleActionCurIndex;
                 update0();
