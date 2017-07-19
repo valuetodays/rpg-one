@@ -17,7 +17,7 @@ public class BattleActionScreen extends BaseScreen {
     private int state = STATE_PRE;
     private int attackFrame;
     private AttackAnimationFinishedListener afterListener;
-    private int attackerPreTopPos;
+    private final int attackerPreTopPos;
     /**
      *
      * @param attacker 攻击者

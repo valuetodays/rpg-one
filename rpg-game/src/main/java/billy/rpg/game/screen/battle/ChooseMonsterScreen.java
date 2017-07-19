@@ -2,12 +2,9 @@ package billy.rpg.game.screen.battle;
 
 import billy.rpg.game.GameCanvas;
 import billy.rpg.game.GameFrame;
-import billy.rpg.game.character.battle.HeroBattle;
 import billy.rpg.game.character.battle.MonsterBattle;
 import billy.rpg.game.constants.GameConstant;
-import billy.rpg.game.screen.AnimationScreen;
 import billy.rpg.game.screen.BaseScreen;
-import billy.rpg.game.screen.DialogScreen;
 import billy.rpg.game.util.KeyUtil;
 import org.apache.commons.collections.CollectionUtils;
 
@@ -23,16 +20,14 @@ public class ChooseMonsterScreen extends BaseScreen {
 
     private BattleUIScreen battleUIScreen;
     private int monsterIndex;  // 活动妖怪，当攻击妖怪时要显示
-    private final int heroActionChoice;
-    private final int heroIndex;
+    private BattleOptionScreen battleOptionScreen;
 
     private java.util.List<String> msg;
 
 
-    public ChooseMonsterScreen(BattleUIScreen battleUIScreen, int heroActionChoice, int heroIndex) {
+    public ChooseMonsterScreen(BattleUIScreen battleUIScreen, BattleOptionScreen battleOptionScreen) {
         this.battleUIScreen = battleUIScreen;
-        this.heroActionChoice = heroActionChoice;
-        this.heroIndex = heroIndex;
+        this.battleOptionScreen = battleOptionScreen;
     }
 
 
@@ -48,7 +43,9 @@ public class ChooseMonsterScreen extends BaseScreen {
 
     @Override
     public void draw(GameCanvas gameCanvas) {
-        checkWinOrLose();
+        if (getBattleUIScreen().fighting) {
+            return;
+        }
 
         BufferedImage paint = new BufferedImage(
                 GameConstant.GAME_WIDTH,
@@ -94,6 +91,19 @@ public class ChooseMonsterScreen extends BaseScreen {
         if (KeyUtil.isEsc(key)) {
             getBattleUIScreen().getParentScreen().pop();
         } else if (KeyUtil.isEnter(key)) {
+            getBattleUIScreen().actionList.add(new BattleAction(getBattleUIScreen().heroIndex, monsterIndex,
+                    battleOptionScreen.heroActionChoice, 0, 0));
+            getBattleUIScreen().getParentScreen().pop();
+            getBattleUIScreen().heroIndex++;
+            battleOptionScreen.heroActionChoice = 1;
+            if (getBattleUIScreen().heroIndex < getBattleUIScreen().heroBattleList.size()) {
+//                BattleOptionScreen battleOptionScreen = new BattleOptionScreen(battleUIScreen);
+//                getBattleUIScreen().getParentScreen().push(battleOptionScreen);
+            } else {
+                getBattleUIScreen().startAttack();
+            }
+
+            /*
             MonsterBattle chosenMonsterBattle = getBattleUIScreen().monsterBattleList.get(monsterIndex);
             AnimationScreen bs = new AnimationScreen(2, chosenMonsterBattle.getLeft()-chosenMonsterBattle.getWidth()/2,
                     chosenMonsterBattle.getTop(), getBattleUIScreen().getParentScreen());
@@ -104,7 +114,7 @@ public class ChooseMonsterScreen extends BaseScreen {
                 }
             }));
             DialogScreen dialogScreen = new DialogScreen("sixsixsix，使用选项" + heroActionChoice + "对第" + monsterIndex +
-                    "只妖怪，打掉了1000血，");
+                    "只妖怪，打掉了1000血，");*/
             //GameFrame.getInstance().pushScreen(dialogScreen);
         } else if (KeyUtil.isLeft(key)) {
             monsterIndex--;
@@ -125,65 +135,8 @@ public class ChooseMonsterScreen extends BaseScreen {
         return true;
     }
 
-    private void doFight() {
-        getBattleUIScreen().getParentScreen().pop();
-        switch (heroActionChoice) {
-            case 1: // 普攻
-                doAttack();
-                break;
-            case 2: // 技能
-                LOG.debug("暂没有技能可供使用");
-                break;
-            case 3: // 物品
-                LOG.debug("暂没有物品可供使用");
-                break;
-            default:
-                LOG.debug("哇噻！你是怎么找到这儿的？");
-                break;
-        }
-    }
 
 
-    private void doAttack() {
-        HeroBattle heroBattle = getBattleUIScreen().heroBattleList.get(heroIndex);
-        MonsterBattle monsterBattle = getBattleUIScreen().monsterBattleList.get(monsterIndex);
-        int attack = heroBattle.getRoleMetaData().getAttack();
-        int defend = monsterBattle.getRoleMetaData().getDefend();
-
-        float dmgF = 1.0f * (attack*1) / (defend/100+1);
-        dmgF += GameConstant.random.nextInt((int)(Math.floor(1.0f * heroBattle.getRoleMetaData().getSpeed() *
-                heroBattle.getRoleMetaData().getHp() / heroBattle.getRoleMetaData().getMaxHp())));
-        int dmg = (int)dmgF;
-        int hp = monsterBattle.getRoleMetaData().getHp();
-        hp -= dmg;
-        monsterBattle.getRoleMetaData().setHp(hp);
-        String msgText = "玩家"+ heroIndex + "对妖怪"+monsterIndex+"造成了"+dmg + "伤害";
-        if (hp <= 0) {
-            msgText += "，妖怪的小身板扛不住就挂了";
-            getBattleUIScreen().monsterBattleList.remove(monsterIndex);
-            checkWinOrLose();
-            monsterIndex = 0;
-        }
-        msgText += "。";
-        LOG.debug(msgText);
-        appendMsg(msgText);
-    }
-
-
-
-
-    private void checkWinOrLose() {
-        // TODO 应该先判断玩家是不是挂了
-        if (CollectionUtils.isEmpty(getBattleUIScreen().monsterBattleList)) {
-            LOG.debug("victory!!! show victory ui");
-            BattleSuccessScreen success = new BattleSuccessScreen(
-                    getBattleUIScreen().heroBattleList,
-                    getBattleUIScreen().money,
-                    getBattleUIScreen().exp);
-            getBattleUIScreen().getParentScreen().push(success);
-        }
-
-    }
     private void appendMsg(String text) {
         if (msg == null) {
             msg = new ArrayList<>();

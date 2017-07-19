@@ -20,7 +20,6 @@ import java.awt.image.BufferedImage;
  */
 public class BattleOptionScreen extends BaseScreen {
     private BattleUIScreen battleUIScreen;
-    protected int heroIndex; // 活动玩家的索引，暂取0
 
     public BattleOptionScreen(BattleUIScreen battleUIScreen) {
         this.battleUIScreen = battleUIScreen;
@@ -37,6 +36,9 @@ public class BattleOptionScreen extends BaseScreen {
 
     @Override
     public void draw(GameCanvas gameCanvas) {
+        if (getBattleUIScreen().fighting) {
+            return;
+        }
         BufferedImage paint = new BufferedImage(
                 GameConstant.GAME_WIDTH,
                 GameConstant.GAME_HEIGHT,
@@ -65,7 +67,7 @@ public class BattleOptionScreen extends BaseScreen {
     }
 
     private boolean chooseMonster;   // TODO 该变量有存在的必要？
-    private int heroActionChoice = 1;
+    protected int heroActionChoice = 1;
     @Override
     public void onKeyUp(int key) {
         LOG.debug("who?");
@@ -85,31 +87,13 @@ public class BattleOptionScreen extends BaseScreen {
                 }
             }
         } else if (KeyUtil.isEnter(key)) {
-            switch (heroActionChoice) {
-                case 1: { // 普攻
-                    //DialogScreen dialogScreen = new DialogScreen("`y`妖怪`/y`看打。");
-                    //GameFrame.getInstance().pushScreen(dialogScreen);
-                    ChooseMonsterScreen chooseMonsterScreen = new ChooseMonsterScreen(getBattleUIScreen(), heroActionChoice, heroIndex);
-                    getBattleUIScreen().getParentScreen().push(chooseMonsterScreen);
-                }
-                break;
-                case 2: { // 技能
-                    LOG.debug("暂没有技能");
-                }
-                break;
-                case 3:
-                    LOG.debug("暂没有物品");
-                    break;
-                case 4:
-                    LOG.debug("众妖怪：菜鸡别跑！");
-                    // TODO 金币减少100*妖怪数量。
-                    // TODO 此时要是逃跑成功，应该跳到地图界面
-                    GameFrame.getInstance().changeScreen(1);
-                    break;
-                default:
-                    LOG.debug("cannot be here.");
-                    break;
+            if (getBattleUIScreen().heroIndex >= getBattleUIScreen().heroBattleList.size()) {
+
+            } else {
+                ChooseMonsterScreen chooseMonsterScreen = new ChooseMonsterScreen(battleUIScreen, this);
+                getBattleUIScreen().getParentScreen().push(chooseMonsterScreen);
             }
+
         }
     }
 

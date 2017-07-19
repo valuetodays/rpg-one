@@ -38,7 +38,7 @@ public class ScriptItem implements IItem {
     private int steps; // 当前地图下的移动步数，当达到STEP_MEET_MONSTER时会遇到怪物进行战斗
 //    private List<Integer> predictedMonsterIds = Arrays.asList(51, 52, 53, 54, 55); // TODO 可从*.map或*.s中加载
     private List<Integer> predictedMonsterIds = Arrays.asList(51, 51); // TODO 可从*.map或*.s中加载
-    private static List<Integer> heroIds = Arrays.asList(1); // TODO 玩家离队入队的话，将这个数据存放到何处
+    private static List<Integer> heroIds = Arrays.asList(1, 3); // TODO 玩家离队入队的话，将这个数据存放到何处
 
 
     public static List<Integer> getHeroIds() {

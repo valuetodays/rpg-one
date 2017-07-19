@@ -19,4 +19,6 @@ public abstract class BaseScreen {
     public boolean isPopup() {
         return false;
     }
+
+
 }

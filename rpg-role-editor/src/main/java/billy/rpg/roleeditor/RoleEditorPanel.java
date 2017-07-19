@@ -434,6 +434,7 @@ public class RoleEditorPanel extends JPanel {
             roleMetaData.setExp(Integer.parseInt(tfExp.getText()));
             roleMetaData.setMoney(Integer.parseInt(tfMoney.getText()));
             RoleSaver.save(roleSaveFileChooser.getCurrentDirectory() + File.separator + name, roleMetaData);
+            JOptionPane.showMessageDialog(this, "保存完成");
             System.out.println("save role to file end");
         }
 

@@ -6,13 +6,13 @@ import billy.rpg.game.character.battle.HeroBattle;
 import billy.rpg.game.character.battle.MonsterBattle;
 import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.screen.BaseScreen;
-import billy.rpg.game.scriptParser.item.ScriptItem;
 import billy.rpg.resource.role.RoleMetaData;
 import org.apache.commons.lang.ArrayUtils;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -21,26 +21,23 @@ import java.util.ArrayList;
  */
 public class BattleUIScreen extends BaseScreen {
     private BattleScreen parentScreen; // the basescreen contains this
-    protected java.util.List<HeroBattle> heroBattleList;
     protected java.util.List<MonsterBattle> monsterBattleList;
+    protected java.util.List<HeroBattle> heroBattleList;
     private java.util.List<Image> monsterImages;
-    protected int monsterIndex;
     protected int heroIndex; // 活动玩家
-
     protected final int exp;
     protected final int money;
-
-    public int getMonsterIndex() {
-        return monsterIndex;
-    }
+    protected List<BattleAction> actionList = new ArrayList<>();
+    protected boolean fighting;
 
     public BattleScreen getParentScreen() {
         return parentScreen;
     }
 
-    public BattleUIScreen(final int[] metMonsterIds, BattleScreen battleScreen) {
+    public BattleUIScreen(final int[] metMonsterIds, BattleScreen battleScreen, List<HeroBattle> heroBattleList) {
         LOG.debug("met " + metMonsterIds.length + " monsters with["+ ArrayUtils.toString(metMonsterIds)+"]");
         parentScreen = battleScreen;
+        this.heroBattleList = heroBattleList;
 
         monsterImages = new ArrayList<>();
         for (int i = 0; i < metMonsterIds.length; i++) {
@@ -67,18 +64,7 @@ public class BattleUIScreen extends BaseScreen {
         this.exp = tempExp;
         this.money = tempMoney;
 
-        heroBattleList = new ArrayList<>();
-        java.util.List<Integer> heroIds = ScriptItem.getHeroIds();
-        for (int i = 0; i < heroIds.size(); i++) {
-            HeroBattle e = new HeroBattle();
-            e.setLeft(8*32 + i*32);
-            e.setTop(10*32);
-            e.setWidth(32);
-            e.setHeight(32);
-            e.setRoleMetaData(GameFrame.getInstance().getGameContainer().getHeroRoleOf(heroIds.get(i)));
 
-            heroBattleList.add(e);
-        }
     }
 
     /**
@@ -111,21 +97,33 @@ public class BattleUIScreen extends BaseScreen {
                 GameConstant.GAME_HEIGHT,
                 BufferedImage.TYPE_4BYTE_ABGR);
         Graphics g = paint.getGraphics();
-
-        // TODO 战斗背景图应从*.map或*.s中加载
-        Image battleImage = GameFrame.getInstance().getGameContainer().getBattleImageItem().getBattleImage("001-Grassland01.jpg");
-        // TODO 先画出黑色背景，因为战斗背景图不是640*480的 (640*320)
         g.setColor(Color.black);
         g.fillRect(0, 0, paint.getWidth(), paint.getHeight());
-        g.drawImage(battleImage, 0, 0, battleImage.getWidth(null), battleImage.getHeight(null), null);  // draw battleImage
-        HeroBattle heroBattle = heroBattleList.get(heroIndex);
-        g.drawImage(heroBattle.getRoleMetaData().getImage(), heroBattle.getLeft(), heroBattle.getTop(), null); // 面向右，打妖怪。
+        Image battleImage = GameFrame.getInstance().getGameContainer().getBattleImageItem().getBattleImage("001-Grassland01.jpg");
+        // TODO 战斗背景图应从*.map或*.s中加载
+        // TODO 先画出黑色背景，因为战斗背景图不是640*480的 (640*320)
+        g.drawImage(battleImage, 0, 0, battleImage.getWidth(null), battleImage.getHeight(null), null);
 
         for (MonsterBattle monsterBattle : monsterBattleList) {
             Image image = monsterBattle.getRoleMetaData().getImage();
             int left = monsterBattle.getLeft();
             int top = monsterBattle.getTop();
             g.drawImage(image, left, top, null);
+        }
+
+        // 将当前活动玩家高亮出来
+        for (int i = 0; i < heroBattleList.size(); i++) {
+            HeroBattle heroBattle = heroBattleList.get(i);
+            RoleMetaData roleMetaData = heroBattle.getRoleMetaData();
+            if (i == heroIndex) {
+                g.setColor(Color.yellow);
+                g.fillRect(heroBattle.getLeft()-5, heroBattle.getTop(), roleMetaData.getImage().getWidth() + 10,
+                    roleMetaData.getImage().getHeight());
+            }
+            g.drawImage(roleMetaData.getImage(),
+                    heroBattle.getLeft(),
+                    heroBattle.getTop(),
+                    null);
         }
 
         gameCanvas.drawBitmap(paint, 0, 0);
@@ -139,6 +137,15 @@ public class BattleUIScreen extends BaseScreen {
     public void onKeyUp(int key) {
         LOG.debug("who?");
     }
+
+    public void startAttack() {
+        System.out.println("fight!!!");
+        fighting = true;
+        BattleFightScreen bfs = new BattleFightScreen(this, actionList);
+        getParentScreen().push(bfs);
+    }
+
+
 
 
 }

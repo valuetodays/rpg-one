@@ -15,6 +15,7 @@ public abstract class FightableCharacter {
     private int top;
     private int width;
     private int height;
+    private boolean died;
 
     /**
      * 设置角色元数据，独立出本方法是因为妖怪的属性是不变的，而玩家的属性是成长的
@@ -59,6 +60,11 @@ public abstract class FightableCharacter {
         return roleMetaData;
     }
 
+    public boolean isDied() {
+        return died;
+    }
 
-
+    public void setDied(boolean died) {
+        this.died = died;
+    }
 }
