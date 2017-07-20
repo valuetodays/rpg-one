@@ -34,8 +34,12 @@ ILoader
 
      
 #### 2017-05-18 18:29
-    to add head pic in dialog
+    [TODO] to add head pic in dialog
     
 #### 2017-07-07 13:10
     show animation 
 
+#### 2017-07-20 13:20
+    meet monster and begin battle. 
+    [TODO] make monster's attack action
+    [TODO] esc in chooseMonsterScreen and optionScreen
