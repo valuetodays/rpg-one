@@ -24,7 +24,6 @@ public class ChooseMonsterScreen extends BaseScreen {
 
     private java.util.List<String> msg;
 
-
     public ChooseMonsterScreen(BattleUIScreen battleUIScreen, BattleOptionScreen battleOptionScreen) {
         this.battleUIScreen = battleUIScreen;
         this.battleOptionScreen = battleOptionScreen;

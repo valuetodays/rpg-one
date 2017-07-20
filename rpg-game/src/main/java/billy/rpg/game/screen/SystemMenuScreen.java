@@ -22,7 +22,8 @@ public class SystemMenuScreen extends BaseScreen {
                 GameConstant.GAME_HEIGHT, 
                 BufferedImage.TYPE_4BYTE_ABGR);
         Graphics g = paint.getGraphics();
-        
+
+        // 此处Color若是(0,0,0,0)即为透明色
         g.setColor(new Color(64, 64, 102, 128));
         g.fillRect(0, 0, GameConstant.GAME_WIDTH, GameConstant.GAME_HEIGHT);
         g.setColor(Color.WHITE);

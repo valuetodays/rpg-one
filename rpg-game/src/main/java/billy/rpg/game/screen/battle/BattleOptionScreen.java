@@ -72,6 +72,14 @@ public class BattleOptionScreen extends BaseScreen {
     public void onKeyUp(int key) {
         LOG.debug("who?");
         if (KeyUtil.isEsc(key)) {
+            if (getBattleUIScreen().heroIndex > 0) {
+                getBattleUIScreen().heroIndex--;
+                if (getBattleUIScreen().heroIndex <= 0) {
+                    getBattleUIScreen().heroIndex = 0;
+                }
+                getBattleUIScreen().actionList.remove(getBattleUIScreen().heroIndex);
+            }
+
         } else if (KeyUtil.isUp(key)) {
             if (!chooseMonster) {
                 heroActionChoice--;

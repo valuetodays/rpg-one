@@ -42,4 +42,4 @@ ILoader
 #### 2017-07-20 13:20
     meet monster and begin battle. 
     [TODO] make monster's attack action
-    [TODO] esc in chooseMonsterScreen and optionScreen
+    ESC in chooseMonsterScreen and optionScreen
