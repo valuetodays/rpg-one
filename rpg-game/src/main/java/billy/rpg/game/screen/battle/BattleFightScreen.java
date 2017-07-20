@@ -61,7 +61,7 @@ public class BattleFightScreen extends BaseScreen {
                     LOG.debug("attack at " + battleActionPreIndex + "," + battleActionCurIndex);
                     update0();
                 } else {
-                    LOG.debug("终于打完了");
+                    LOG.debug("一回合终于打完了");
                     getBattleUIScreen().fighting = false;
                     getBattleUIScreen().getParentScreen().pop();
                     getBattleUIScreen().heroIndex = 0; // TODO 提取成方法？ 将当前活动的heroIndex置为首个

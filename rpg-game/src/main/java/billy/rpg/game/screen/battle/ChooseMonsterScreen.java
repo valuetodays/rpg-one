@@ -28,6 +28,14 @@ public class ChooseMonsterScreen extends BaseScreen {
     public ChooseMonsterScreen(BattleUIScreen battleUIScreen, BattleOptionScreen battleOptionScreen) {
         this.battleUIScreen = battleUIScreen;
         this.battleOptionScreen = battleOptionScreen;
+        java.util.List<MonsterBattle> monsterBattleList = getBattleUIScreen().monsterBattleList;
+        for (int i = 0; i < monsterBattleList.size(); i++) {
+            MonsterBattle monsterBattle = monsterBattleList.get(i);
+            if (!monsterBattle.isDied()) {
+                monsterIndex = i;
+                break;
+            }
+        }
     }
 
 
@@ -119,17 +127,32 @@ public class ChooseMonsterScreen extends BaseScreen {
                     "只妖怪，打掉了1000血，");*/
             //GameFrame.getInstance().pushScreen(dialogScreen);
         } else if (KeyUtil.isLeft(key)) {
-            MonsterBattle monsterBattle = getBattleUIScreen().monsterBattleList.get(monsterIndex);
-            monsterIndex--;
-
-            if (monsterIndex < 0) {
-                monsterIndex = getBattleUIScreen().monsterBattleList.size()-1;
+            int nextMonsterIndex = monsterIndex - 1;
+            if (nextMonsterIndex >= 0
+                    && !getBattleUIScreen().monsterBattleList.get(nextMonsterIndex).isDied()) {
+                monsterIndex = nextMonsterIndex;
             }
+            /*while (monsterBattle.isDied()) {
+                monsterIndex--;
+            }*/
+
+            /*List<MonsterBattle> unDiedMonster = getBattleUIScreen().monsterBattleList.stream().filter(e -> !e
+            .isDied()).collect(Collectors.toList());*/
+
+            /*if (monsterIndex < 0) {
+                monsterIndex = getBattleUIScreen().monsterBattleList.size()-1;
+            }*/
         } else if (KeyUtil.isRight(key)) {
+            int nextMonsterIndex = monsterIndex + 1;
+            if (nextMonsterIndex < getBattleUIScreen().monsterBattleList.size()
+                && !getBattleUIScreen().monsterBattleList.get(nextMonsterIndex).isDied()) {
+                monsterIndex = nextMonsterIndex;
+            }
+/*
             monsterIndex++;
             if (monsterIndex > getBattleUIScreen().monsterBattleList.size()-1) {
                 monsterIndex = 0;
-            }
+            }*/
         }
 
     }
