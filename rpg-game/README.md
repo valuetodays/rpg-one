@@ -43,3 +43,5 @@ ILoader
     meet monster and begin battle. 
     [TODO] make monster's attack action
     ESC in chooseMonsterScreen and optionScreen
+    [TODO] 造成伤害时要显示血量减少
+    [TODO] 对话要能有先后
