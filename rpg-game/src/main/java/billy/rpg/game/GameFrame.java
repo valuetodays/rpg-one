@@ -107,6 +107,11 @@ public class GameFrame extends JFrame implements Runnable {
         case 8:
             tmp = new TransitionScreen();
             break;
+        case 9:
+            // TODO 当玩家被小怪打死后来到该处时，会导致玩家的hp是负数的。
+            // 解决办法是在此处 重新从文件中加载玩家和其它数据
+            tmp = new GameCoverScreen();
+            break;
         }
         if (tmp != null) {
             synchronized (screenStack) {

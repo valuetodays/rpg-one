@@ -141,7 +141,6 @@ public class BattleUIScreen extends BaseScreen {
     }
 
     public void startAttack() {
-        System.out.println("fight!!!");
         fighting = true;
         BattleFightScreen bfs = new BattleFightScreen(this, actionList);
         getParentScreen().push(bfs);

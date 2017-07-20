@@ -14,7 +14,7 @@ import java.awt.image.BufferedImage;
  * @author liulei@bshf360.com
  * @since 2017-07-18 18:21
  */
-public class BattleFailScreen extends BaseScreen {
+public class BattleDefeatScreen extends BaseScreen {
 
     @Override
     public void update(long delta) {
@@ -45,6 +45,6 @@ public class BattleFailScreen extends BaseScreen {
 
     @Override
     public void onKeyUp(int key) {
-        GameFrame.getInstance().changeScreen(1);
+        GameFrame.getInstance().changeScreen(9);
     }
 }

@@ -8,7 +8,7 @@ import java.awt.*;
 import java.io.InputStream;
 
 public class RoleImageItem implements IItem {
-    private Image roleFull1;
+    private Image roleFull1; // TODO what fuck the name
 
     public void load() throws Exception {
         loadRole();   // TODO change to loadImage(); ??

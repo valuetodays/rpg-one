@@ -38,8 +38,6 @@ public class BattleScreen extends BaseScreen {
         screenStack.push(battleUIScreen);
         BattleOptionScreen battleOptionScreen = new BattleOptionScreen(battleUIScreen);
         screenStack.push(battleOptionScreen);
-//        ChooseHeroScreen chooseHeroScreen = new ChooseHeroScreen(this, heroBattleList);
-//        screenStack.push(chooseHeroScreen);
 
         GameFrame.getInstance().change2BattleScreen(this);
     }

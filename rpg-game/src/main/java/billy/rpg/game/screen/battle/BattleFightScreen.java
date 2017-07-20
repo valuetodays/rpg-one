@@ -2,6 +2,7 @@ package billy.rpg.game.screen.battle;
 
 import billy.rpg.game.GameCanvas;
 import billy.rpg.game.GameFrame;
+import billy.rpg.game.character.battle.FightableCharacter;
 import billy.rpg.game.character.battle.HeroBattle;
 import billy.rpg.game.character.battle.MonsterBattle;
 import billy.rpg.game.constants.GameConstant;
@@ -22,7 +23,6 @@ public class BattleFightScreen extends BaseScreen {
     private final List<BattleAction> actionList;
     private int battleActionPreIndex = -1;
     private int battleActionCurIndex;
-    private boolean playing;
 
     public BattleUIScreen getBattleUIScreen() {
         return battleUIScreen;
@@ -73,13 +73,86 @@ public class BattleFightScreen extends BaseScreen {
 
     private void update0() {
         BattleAction battleAction = actionList.get(battleActionCurIndex);
-        int actionType = battleAction.actionType;
+        boolean fromHero = battleAction.fromHero;
+        if (!fromHero) {
+            monsterAction(battleAction);
+        } else {
+            heroAction(battleAction);
+        }
+    }
+
+    /**
+     * 妖怪行动的显示
+     */
+    private void monsterAction(BattleAction battleAction) {
+        // 攻击者已阵亡的话，就不能攻击了
         int attackerId = battleAction.attackerId;
-        // 当玩家攻击都已阵亡时就不再进行攻击 TODO
+        if (getBattleUIScreen().monsterBattleList.get(attackerId).isDied()) {
+            return;
+        }
+        // 当妖怪阵亡时，就从第一个开始选择一个未死亡的进行攻击
+        int targetIndex = battleAction.targetIndex;
+        if (getBattleUIScreen().heroBattleList.get(targetIndex).isDied()) {
+            targetIndex = 0;
+            while (getBattleUIScreen().heroBattleList.get(targetIndex).isDied()) {
+                targetIndex++;
+            }
+        }
+
+        int actionType = battleAction.actionType;
+        int high = battleAction.high;
+        int low = battleAction.low;
+
+        switch (actionType) {
+            case BattleAction.ACTION_ATTACK: { // 普攻
+                FightableCharacter targetFightableCharacter = getBattleUIScreen().heroBattleList.get(targetIndex);
+                AnimationScreen bs = new AnimationScreen(2,
+                        targetFightableCharacter.getLeft() - targetFightableCharacter.getWidth() / 2,
+                        targetFightableCharacter.getTop(), getBattleUIScreen().getParentScreen());
+                final int finalTargetIndex = targetIndex;
+                getBattleUIScreen().getParentScreen().push(
+                    new BattleActionScreen(
+                            getBattleUIScreen().monsterBattleList.get(attackerId),
+                            getBattleUIScreen().heroBattleList.get(finalTargetIndex),
+                            bs,
+                            new AttackAnimationFinishedListener() {
+                                @Override
+                                public void onFinished() {
+                                    doCommonAttack(BattleAction.FROM_MONSTER, attackerId, finalTargetIndex);
+                                    getBattleUIScreen().getParentScreen().pop();
+                                    battleActionCurIndex++;
+                                    checkWinOrLose();
+                                }
+                            }));
+            }
+            break;
+            case BattleAction.ACTION_SKILL: { // 技能
+                LOG.debug("使用技能攻击");
+            }
+            break;
+            case BattleAction.ACTION_GOODS: {
+                // TODO
+                LOG.debug("妖怪不会使用物品");
+            }
+            break;
+            case BattleAction.ACTION_FLEE: {
+                // TODO
+                LOG.debug("非特殊妖怪不会逃跑");
+            }
+            break;
+            default:
+                LOG.debug("cannot be here.");
+                break;
+        }
+    }
+
+    /**
+     * 玩家行动的显示
+     */
+    private void heroAction(BattleAction battleAction) {
+        // 攻击者已阵亡的话，就不能攻击了
+        int attackerId = battleAction.attackerId;
         if (getBattleUIScreen().heroBattleList.get(attackerId).isDied()) {
-            battleActionCurIndex++;
-            checkWinOrLose();
-            playing = false;
             return;
         }
         // 当妖怪阵亡时，就从第一个开始选择一个未死亡的进行攻击
@@ -91,33 +164,31 @@ public class BattleFightScreen extends BaseScreen {
             }
         }
 
+        int actionType = battleAction.actionType;
         int high = battleAction.high;
         int low = battleAction.low;
-        LOG.debug("battleAction: " + battleAction);
 
-        // TODO 全员行动分配完毕，开始行动
         switch (actionType) {
             case BattleAction.ACTION_ATTACK: { // 普攻
-                MonsterBattle chosenMonsterBattle = getBattleUIScreen().monsterBattleList.get(targetIndex);
+                FightableCharacter chosenMonsterBattle = getBattleUIScreen().monsterBattleList.get(targetIndex);
                 AnimationScreen bs = new AnimationScreen(2,
                         chosenMonsterBattle.getLeft() - chosenMonsterBattle.getWidth() / 2,
                         chosenMonsterBattle.getTop(), getBattleUIScreen().getParentScreen());
                 final int finalTargetIndex = targetIndex;
                 getBattleUIScreen().getParentScreen().push(
                         new BattleActionScreen(
-                            getBattleUIScreen().heroBattleList.get(attackerId),
-                            getBattleUIScreen().monsterBattleList.get(finalTargetIndex),
-                            bs,
-                            new AttackAnimationFinishedListener() {
-                                @Override
-                                public void onFinished() {
-                                    doCommonAttack(attackerId, finalTargetIndex);
-                                    getBattleUIScreen().getParentScreen().pop();
-                                    battleActionCurIndex++;
-                                    checkWinOrLose();
-                                    playing = false;
-                                }
-                        }));
+                                getBattleUIScreen().heroBattleList.get(attackerId),
+                                getBattleUIScreen().monsterBattleList.get(finalTargetIndex),
+                                bs,
+                                new AttackAnimationFinishedListener() {
+                                    @Override
+                                    public void onFinished() {
+                                        doCommonAttack(BattleAction.FROM_HERO, attackerId, finalTargetIndex);
+                                        getBattleUIScreen().getParentScreen().pop();
+                                        battleActionCurIndex++;
+                                        checkWinOrLose();
+                                    }
+                                }));
             }
             break;
             case BattleAction.ACTION_SKILL: { // 技能
@@ -139,26 +210,47 @@ public class BattleFightScreen extends BaseScreen {
                 LOG.debug("cannot be here.");
                 break;
         }
-
     }
 
-    private void doCommonAttack(int attackerId, int targetIndex) {
-        HeroBattle heroBattle = getBattleUIScreen().heroBattleList.get(attackerId);
-        MonsterBattle monsterBattle = getBattleUIScreen().monsterBattleList.get(targetIndex);
-        int attack = heroBattle.getRoleMetaData().getAttack();
-        int defend = monsterBattle.getRoleMetaData().getDefend();
+    /**
+     * 普攻
+     * @param fromHero true是玩家发起的，false是妖怪发起的
+     * @param attackerId 攻击者索引 TODO 这名字不应该用id,应该用index啊
+     * @param targetIndex 被攻击者索引
+     */
+    private void doCommonAttack(boolean fromHero, int attackerId, int targetIndex) {
+        FightableCharacter attacker = null;
+        FightableCharacter target = null;
+        String attackerName = null;
+        String targetName = null;
+        if (fromHero) {
+            attacker = getBattleUIScreen().heroBattleList.get(attackerId);
+            target = getBattleUIScreen().monsterBattleList.get(targetIndex);
+            attackerName = "玩家";
+            targetName = "妖怪";
+        } else {
+            attacker = getBattleUIScreen().monsterBattleList.get(attackerId);
+            target = getBattleUIScreen().heroBattleList.get(targetIndex);
+            attackerName = "妖怪";
+            targetName = "玩家";
+        }
+        int attack = attacker.getRoleMetaData().getAttack();
+        int defend = target.getRoleMetaData().getDefend();
 
+        LOG.debug(attackerName + attackerId + " --> " + targetName + targetIndex);
         float dmgF = 1.0f * (attack*1) / (defend/100+1);
-        dmgF += GameConstant.random.nextInt((int)(Math.floor(1.0f * heroBattle.getRoleMetaData().getSpeed() *
-                heroBattle.getRoleMetaData().getHp() / heroBattle.getRoleMetaData().getMaxHp())));
+        float v = 1.0f * attacker.getRoleMetaData().getSpeed() *
+                attacker.getRoleMetaData().getHp() / attacker.getRoleMetaData().getMaxHp();
+        dmgF += GameConstant.random.nextInt((int)(Math.ceil(v)) + 1);
         int dmg = (int)dmgF;
-        int hp = monsterBattle.getRoleMetaData().getHp();
+        int hp = target.getRoleMetaData().getHp();
         hp -= dmg;
-        monsterBattle.getRoleMetaData().setHp(hp);
-        String msgText = "玩家"+ attackerId + "对妖怪"+targetIndex+"造成了"+dmg + "伤害";
+        target.getRoleMetaData().setHp(hp);
+
+        String msgText = attackerName + attackerId + "对"+targetName+targetIndex+"造成了"+dmg + "伤害，";
         if (hp <= 0) {
-            msgText += "，妖怪的小身板扛不住就挂了";
-            monsterBattle.setDied(true);
+            msgText += targetName + targetIndex + "的小身板扛不住就挂了";
+            target.setDied(true);
         }
 
         msgText += "。";
@@ -168,9 +260,25 @@ public class BattleFightScreen extends BaseScreen {
     }
 
 
+    /**
+     * 胜负判定
+     * 先判断玩家是不是挂了
+     * 再判断妖怪是不是全挂了
+     */
     private void checkWinOrLose() {
-        // TODO 应该先判断玩家是不是挂了
-        // TODO 再判断妖怪是不是全怪了
+        boolean heroAllDieFlag = true;
+        for (HeroBattle heroBattle : getBattleUIScreen().heroBattleList) {
+            if (!heroBattle.isDied()) {
+                heroAllDieFlag = false;
+            }
+        }
+        if (heroAllDieFlag) {
+            LOG.debug("defeat -_-||| show defeat ui");
+            BattleDefeatScreen defeat = new BattleDefeatScreen();
+            getBattleUIScreen().getParentScreen().push(defeat);
+            return;
+        }
+
         boolean monsterDieAllFlag = true;
         for (MonsterBattle monsterBattle : getBattleUIScreen().monsterBattleList) {
             if (!monsterBattle.isDied()) {

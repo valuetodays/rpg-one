@@ -100,7 +100,9 @@ public class ChooseMonsterScreen extends BaseScreen {
         if (KeyUtil.isEsc(key)) {
             getBattleUIScreen().getParentScreen().pop();
         } else if (KeyUtil.isEnter(key)) {
-            getBattleUIScreen().actionList.add(new BattleAction(getBattleUIScreen().heroIndex, monsterIndex,
+            getBattleUIScreen().actionList.add(new BattleAction(BattleAction.FROM_HERO,
+                    getBattleUIScreen().heroIndex,
+                    monsterIndex,
                     battleOptionScreen.heroActionChoice, 0, 0));
             getBattleUIScreen().getParentScreen().pop();
             getBattleUIScreen().heroIndex++;
@@ -109,6 +111,7 @@ public class ChooseMonsterScreen extends BaseScreen {
 //                BattleOptionScreen battleOptionScreen = new BattleOptionScreen(battleUIScreen);
 //                getBattleUIScreen().getParentScreen().push(battleOptionScreen);
             } else {
+                generateMonsterAttackAction();
                 getBattleUIScreen().startAttack();
             }
 
@@ -154,6 +157,20 @@ public class ChooseMonsterScreen extends BaseScreen {
             }*/
         }
 
+    }
+
+    /**
+     * 生成怪物的攻击方式
+     */
+    private void generateMonsterAttackAction() {
+        for (int i = 0; i < getBattleUIScreen().monsterBattleList.size(); i++) {
+            BattleAction battleAction = new BattleAction(BattleAction.FROM_MONSTER,
+                    i,
+                    GameConstant.random.nextInt(getBattleUIScreen().heroBattleList.size()) ,
+                    // TODO 全部使用普攻
+                    BattleAction.ACTION_ATTACK, 0, 0);
+            getBattleUIScreen().actionList.add(battleAction);
+        }
     }
 
     @Override

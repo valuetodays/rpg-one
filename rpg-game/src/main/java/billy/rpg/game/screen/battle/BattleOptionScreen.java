@@ -66,7 +66,6 @@ public class BattleOptionScreen extends BaseScreen {
 
     }
 
-    private boolean chooseMonster;   // TODO 该变量有存在的必要？
     protected int heroActionChoice = 1;
     @Override
     public void onKeyUp(int key) {
@@ -79,20 +78,15 @@ public class BattleOptionScreen extends BaseScreen {
                 }
                 getBattleUIScreen().actionList.remove(getBattleUIScreen().heroIndex);
             }
-
         } else if (KeyUtil.isUp(key)) {
-            if (!chooseMonster) {
-                heroActionChoice--;
-                if (heroActionChoice < 1) {
-                    heroActionChoice = 4;
-                }
+            heroActionChoice--;
+            if (heroActionChoice < 1) {
+                heroActionChoice = 4;
             }
         } else if (KeyUtil.isDown(key)) {
-            if (!chooseMonster) {
-                heroActionChoice++;
-                if (heroActionChoice > 4) {
-                    heroActionChoice = 1;
-                }
+            heroActionChoice++;
+            if (heroActionChoice > 4) {
+                heroActionChoice = 1;
             }
         } else if (KeyUtil.isEnter(key)) {
             if (getBattleUIScreen().heroIndex >= getBattleUIScreen().heroBattleList.size()) {
