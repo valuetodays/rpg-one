@@ -54,13 +54,15 @@ public class ChooseMonsterScreen extends BaseScreen {
         Graphics g = paint.getGraphics();
         Image gameArrowUp = GameFrame.getInstance().getGameContainer().getGameAboutItem().getGameArrowUp();
         MonsterBattle monsterBattleArrowTo = getBattleUIScreen().monsterBattleList.get(monsterIndex);
-        g.drawImage(gameArrowUp,
-                monsterBattleArrowTo.getLeft() + monsterBattleArrowTo.getWidth() / 2 - gameArrowUp.getWidth(null) / 2,
-                arrowY, null);
-        g.drawString(monsterBattleArrowTo.getRoleMetaData().getName(),
-                monsterBattleArrowTo.getLeft() +
-                        monsterBattleArrowTo.getWidth() / 2 - gameArrowUp.getWidth(null) / 2,
-                monsterBattleArrowTo.getTop() - 50);
+        if (!monsterBattleArrowTo.isDied()) {
+            g.drawImage(gameArrowUp,
+                    monsterBattleArrowTo.getLeft() + monsterBattleArrowTo.getWidth() / 2 - gameArrowUp.getWidth(null) / 2,
+                    arrowY, null);
+            g.drawString(monsterBattleArrowTo.getRoleMetaData().getName(),
+                    monsterBattleArrowTo.getLeft() +
+                            monsterBattleArrowTo.getWidth() / 2 - gameArrowUp.getWidth(null) / 2,
+                    monsterBattleArrowTo.getTop() - 50);
+        }
 
         // 显示战斗信息
         g.setColor(Color.magenta);
@@ -95,7 +97,7 @@ public class ChooseMonsterScreen extends BaseScreen {
                     battleOptionScreen.heroActionChoice, 0, 0));
             getBattleUIScreen().getParentScreen().pop();
             getBattleUIScreen().heroIndex++;
-            battleOptionScreen.heroActionChoice = 1;
+            battleOptionScreen.heroActionChoice = BattleAction.ACTION_ATTACK; // 重置成普攻
             if (getBattleUIScreen().heroIndex < getBattleUIScreen().heroBattleList.size()) {
 //                BattleOptionScreen battleOptionScreen = new BattleOptionScreen(battleUIScreen);
 //                getBattleUIScreen().getParentScreen().push(battleOptionScreen);
@@ -117,7 +119,9 @@ public class ChooseMonsterScreen extends BaseScreen {
                     "只妖怪，打掉了1000血，");*/
             //GameFrame.getInstance().pushScreen(dialogScreen);
         } else if (KeyUtil.isLeft(key)) {
+            MonsterBattle monsterBattle = getBattleUIScreen().monsterBattleList.get(monsterIndex);
             monsterIndex--;
+
             if (monsterIndex < 0) {
                 monsterIndex = getBattleUIScreen().monsterBattleList.size()-1;
             }
@@ -134,8 +138,6 @@ public class ChooseMonsterScreen extends BaseScreen {
     public boolean isPopup() {
         return true;
     }
-
-
 
     private void appendMsg(String text) {
         if (msg == null) {

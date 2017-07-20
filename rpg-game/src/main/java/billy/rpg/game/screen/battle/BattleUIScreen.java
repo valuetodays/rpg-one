@@ -108,7 +108,9 @@ public class BattleUIScreen extends BaseScreen {
             Image image = monsterBattle.getRoleMetaData().getImage();
             int left = monsterBattle.getLeft();
             int top = monsterBattle.getTop();
-            g.drawImage(image, left, top, null);
+            if (!monsterBattle.isDied()) { // 只画活着的妖怪
+                g.drawImage(image, left, top, null);
+            }
         }
 
         // 将当前活动玩家高亮出来

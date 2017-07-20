@@ -11,6 +11,9 @@ import billy.rpg.game.screen.BaseScreen;
 import java.util.List;
 
 /**
+ * 战斗行动，轮番播放
+ *
+ *
  * @author liulei@bshf360.com
  * @since 2017-07-19 14:01
  */
@@ -19,6 +22,7 @@ public class BattleFightScreen extends BaseScreen {
     private final List<BattleAction> actionList;
     private int battleActionPreIndex = -1;
     private int battleActionCurIndex;
+    private boolean playing;
 
     public BattleUIScreen getBattleUIScreen() {
         return battleUIScreen;
@@ -29,32 +33,47 @@ public class BattleFightScreen extends BaseScreen {
         this.actionList = actionList;
     }
 
+
     @Override
     public void update(long delta) {
+        /*if (!playing) {
+            playing = true;
+            update0();
+            LOG.debug("updated..." + playing + "..." + battleActionCurIndex);
+        } else {
+            LOG.debug("else.updated..." + playing + "..." + battleActionCurIndex);
+        }*/
+
+/*
         if (battleActionPreIndex == -1) {
             if (battleActionCurIndex == 0) {
                 battleActionPreIndex = battleActionCurIndex;
+                LOG.debug("1..attack..," +battleActionPreIndex + "," + battleActionCurIndex);
                 update0();
             }
-        } else {
+        } else */
+            {
             // TODO 当第二个人攻击时，在攻击过程中时，该处被反复调用
-            if (battleActionPreIndex + 1 == battleActionCurIndex) {
+            if (battleActionPreIndex != battleActionCurIndex) {
+                LOG.debug("2..attack..," +battleActionPreIndex + "," + battleActionCurIndex);
                 battleActionPreIndex = battleActionCurIndex;
-                update0();
+                if (battleActionCurIndex < actionList.size()) {
+                    LOG.debug("attack at " + battleActionPreIndex + "," + battleActionCurIndex);
+                    update0();
+                } else {
+                    LOG.debug("终于打完了");
+                    getBattleUIScreen().fighting = false;
+                    getBattleUIScreen().getParentScreen().pop();
+                    getBattleUIScreen().heroIndex = 0; // TODO 提取成方法？ 将当前活动的heroIndex置为首个
+                    getBattleUIScreen().actionList.clear(); // 清空播放动画
+//                    BattleOptionScreen battleOptionScreen = new BattleOptionScreen(getBattleUIScreen());
+//                    getBattleUIScreen().getParentScreen().push(battleOptionScreen);
+                }
             }
         }
     }
 
     private void update0() {
-        if (battleActionCurIndex > actionList.size()-1) {
-            LOG.debug("终于打完了");
-            getBattleUIScreen().fighting = false;
-            getBattleUIScreen().getParentScreen().pop();
-            BattleOptionScreen battleOptionScreen = new BattleOptionScreen(getBattleUIScreen());
-            getBattleUIScreen().getParentScreen().push(battleOptionScreen);
-            return;
-        }
-
         BattleAction battleAction = actionList.get(battleActionCurIndex);
         int actionType = battleAction.actionType;
         int attackerId = battleAction.attackerId;
@@ -79,9 +98,10 @@ public class BattleFightScreen extends BaseScreen {
                                 @Override
                                 public void onFinished() {
                                     doAttack(battleAction);
-//                                    getBattleUIScreen().getParentScreen().pop();
+                                    getBattleUIScreen().getParentScreen().pop();
                                     battleActionCurIndex++;
                                     checkWinOrLose();
+                                    playing = false;
                                 }
                         }));
             }
@@ -101,8 +121,9 @@ public class BattleFightScreen extends BaseScreen {
                                     @Override
                                     public void onFinished() {
                                         doAttack(battleAction);
-//                                    getBattleUIScreen().getParentScreen().pop();
+                                    getBattleUIScreen().getParentScreen().pop();
                                         battleActionCurIndex++;
+                                        playing = false;
                                         checkWinOrLose();
                                     }
                                 }));
@@ -157,12 +178,10 @@ public class BattleFightScreen extends BaseScreen {
     private void checkWinOrLose() {
         // TODO 应该先判断玩家是不是挂了
         // TODO 再判断妖怪是不是全怪了
-        boolean monsterDieAllFlag = false;
+        boolean monsterDieAllFlag = true;
         for (MonsterBattle monsterBattle : getBattleUIScreen().monsterBattleList) {
-            if (monsterDieAllFlag) {
-                break;
-            } else if (monsterBattle.isDied()) {
-                monsterDieAllFlag = true;
+            if (!monsterBattle.isDied()) {
+                monsterDieAllFlag = false;
             }
         }
 
