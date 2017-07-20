@@ -108,53 +108,24 @@ public class ChooseMonsterScreen extends BaseScreen {
             getBattleUIScreen().heroIndex++;
             battleOptionScreen.heroActionChoice = BattleAction.ACTION_ATTACK; // 重置成普攻
             if (getBattleUIScreen().heroIndex < getBattleUIScreen().heroBattleList.size()) {
-//                BattleOptionScreen battleOptionScreen = new BattleOptionScreen(battleUIScreen);
-//                getBattleUIScreen().getParentScreen().push(battleOptionScreen);
+
             } else {
                 generateMonsterAttackAction();
                 getBattleUIScreen().startAttack();
             }
 
-            /*
-            MonsterBattle chosenMonsterBattle = getBattleUIScreen().monsterBattleList.get(monsterIndex);
-            AnimationScreen bs = new AnimationScreen(2, chosenMonsterBattle.getLeft()-chosenMonsterBattle.getWidth()/2,
-                    chosenMonsterBattle.getTop(), getBattleUIScreen().getParentScreen());
-            getBattleUIScreen().getParentScreen().push(new BattleActionScreen(getBattleUIScreen().heroBattleList.get(heroIndex), getBattleUIScreen().monsterBattleList.get(monsterIndex), bs, new AttackAnimationFinishedListener() {
-                @Override
-                public void onFinished() {
-                    doFight();
-                }
-            }));
-            DialogScreen dialogScreen = new DialogScreen("sixsixsix，使用选项" + heroActionChoice + "对第" + monsterIndex +
-                    "只妖怪，打掉了1000血，");*/
-            //GameFrame.getInstance().pushScreen(dialogScreen);
         } else if (KeyUtil.isLeft(key)) {
             int nextMonsterIndex = monsterIndex - 1;
             if (nextMonsterIndex >= 0
                     && !getBattleUIScreen().monsterBattleList.get(nextMonsterIndex).isDied()) {
                 monsterIndex = nextMonsterIndex;
             }
-            /*while (monsterBattle.isDied()) {
-                monsterIndex--;
-            }*/
-
-            /*List<MonsterBattle> unDiedMonster = getBattleUIScreen().monsterBattleList.stream().filter(e -> !e
-            .isDied()).collect(Collectors.toList());*/
-
-            /*if (monsterIndex < 0) {
-                monsterIndex = getBattleUIScreen().monsterBattleList.size()-1;
-            }*/
         } else if (KeyUtil.isRight(key)) {
             int nextMonsterIndex = monsterIndex + 1;
             if (nextMonsterIndex < getBattleUIScreen().monsterBattleList.size()
                 && !getBattleUIScreen().monsterBattleList.get(nextMonsterIndex).isDied()) {
                 monsterIndex = nextMonsterIndex;
             }
-/*
-            monsterIndex++;
-            if (monsterIndex > getBattleUIScreen().monsterBattleList.size()-1) {
-                monsterIndex = 0;
-            }*/
         }
 
     }

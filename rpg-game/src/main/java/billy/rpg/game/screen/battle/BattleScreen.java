@@ -44,11 +44,6 @@ public class BattleScreen extends BaseScreen {
 
     @Override
     public void update(long delta) {
-//        for (int j = 0; j < screenStack.size(); j++) {
-//            BaseScreen baseScreen = screenStack.get(j);
-//            baseScreen.update(delta);
-//        }
-
         int n = 0;
         for (n = screenStack.size()-1; n >= 0 ;n--) {
             BaseScreen baseScreen = screenStack.get(n);
@@ -69,10 +64,6 @@ public class BattleScreen extends BaseScreen {
 
     @Override
     public void draw(GameCanvas gameCanvas) {
-//        for (int j = 0; j < screenStack.size(); j++) {
-//            BaseScreen baseScreen = screenStack.get(j);
-//            baseScreen.draw(gameCanvas);
-//        }
        int n = 0;
         for (n = screenStack.size()-1; n >= 0 ;n--) {
             BaseScreen baseScreen = screenStack.get(n);
@@ -109,11 +100,6 @@ public class BattleScreen extends BaseScreen {
 
     @Override
     public void onKeyUp(int key) {
-        //if (screenStack.size() == 2) {
-         //   screenStack.get(0).onKeyUp(key);
-        //} else {
-        //    LOG.debug("尽管按了回车键，但上次攻击动画还未结束呢。。");
-        //}
         screenStack.peek().onKeyUp(key);
     }
 

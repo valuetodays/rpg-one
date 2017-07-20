@@ -36,37 +36,18 @@ public class BattleFightScreen extends BaseScreen {
 
     @Override
     public void update(long delta) {
-        /*if (!playing) {
-            playing = true;
-            update0();
-            LOG.debug("updated..." + playing + "..." + battleActionCurIndex);
-        } else {
-            LOG.debug("else.updated..." + playing + "..." + battleActionCurIndex);
-        }*/
-
-/*
-        if (battleActionPreIndex == -1) {
-            if (battleActionCurIndex == 0) {
-                battleActionPreIndex = battleActionCurIndex;
-                LOG.debug("1..attack..," +battleActionPreIndex + "," + battleActionCurIndex);
+        if (battleActionPreIndex != battleActionCurIndex) {
+            LOG.debug("2..attack..," +battleActionPreIndex + "," + battleActionCurIndex);
+            battleActionPreIndex = battleActionCurIndex;
+            if (battleActionCurIndex < actionList.size()) {
+                LOG.debug("attack at " + battleActionPreIndex + "," + battleActionCurIndex);
                 update0();
-            }
-        } else */
-            {
-            // TODO 当第二个人攻击时，在攻击过程中时，该处被反复调用
-            if (battleActionPreIndex != battleActionCurIndex) {
-                LOG.debug("2..attack..," +battleActionPreIndex + "," + battleActionCurIndex);
-                battleActionPreIndex = battleActionCurIndex;
-                if (battleActionCurIndex < actionList.size()) {
-                    LOG.debug("attack at " + battleActionPreIndex + "," + battleActionCurIndex);
-                    update0();
-                } else {
-                    LOG.debug("一回合终于打完了");
-                    getBattleUIScreen().fighting = false;
-                    getBattleUIScreen().getParentScreen().pop();
-                    getBattleUIScreen().heroIndex = 0; // TODO 提取成方法？ 将当前活动的heroIndex置为首个
-                    getBattleUIScreen().actionList.clear(); // 清空播放动画
-                }
+            } else {
+                LOG.debug("一回合终于打完了");
+                getBattleUIScreen().fighting = false;
+                getBattleUIScreen().getParentScreen().pop();
+                getBattleUIScreen().heroIndex = 0; // TODO 提取成方法？ 将当前活动的heroIndex置为首个
+                getBattleUIScreen().actionList.clear(); // 清空播放动画
             }
         }
     }

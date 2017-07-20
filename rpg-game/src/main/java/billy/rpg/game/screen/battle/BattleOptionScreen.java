@@ -90,7 +90,7 @@ public class BattleOptionScreen extends BaseScreen {
             }
         } else if (KeyUtil.isEnter(key)) {
             if (getBattleUIScreen().heroIndex >= getBattleUIScreen().heroBattleList.size()) {
-
+                ;
             } else {
                 ChooseMonsterScreen chooseMonsterScreen = new ChooseMonsterScreen(battleUIScreen, this);
                 getBattleUIScreen().getParentScreen().push(chooseMonsterScreen);
