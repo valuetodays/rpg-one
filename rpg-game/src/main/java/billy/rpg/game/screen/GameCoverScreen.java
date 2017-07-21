@@ -13,7 +13,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GameCoverScreen extends BaseScreen {
-
     private int arrowX = 160;
     private int f = 1; // 1:new game;  -1:continue
     private Map<Integer, Integer> map = new HashMap<>(); 
@@ -68,8 +67,8 @@ public class GameCoverScreen extends BaseScreen {
                 LOG.debug("you choose `开始游戏`");
                 GameFrame.getInstance().getGameContainer().startChapter(1, 1, "1-2");
                 GameFrame.getInstance().changeScreen(1);
-            } else {
-                // TODO show saves
+            } else if (f == -1) {
+                LOG.debug("you choose `继续游戏`，可是我还没有完成的啊。。。。sorry");
             }
             player.close();
             
