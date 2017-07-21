@@ -10,15 +10,14 @@ import org.apache.log4j.Logger;
  * @since 2016-05-10 13:00
  */
 public class CmdParser {
-
     private static final Logger LOG = Logger.getLogger(CmdParser.class);
+    private CmdParser() { }
 
     /**
      * 核心方法，解析一行数据到一个命令里
      * @param line command & its argument
-     * @return
      */
-    public static CmdBase parse(String line) {
+    private static CmdBase parse(String line) {
         int spaceInx = line.indexOf(" ");
         CmdBase cmdBase = null;
         if (spaceInx < 0) { // 没有' '，说明是无参数命令（rtn, label）
@@ -33,9 +32,8 @@ public class CmdParser {
 
     /**
      * 处理多个参数的命令，现有if scenename  attr showText set trigger loadmap talk
-     * @param cmdname
-     * @param cmdarg
-     * @return
+     * @param cmdname cmd name
+     * @param cmdarg cmd arg
      */
     private static CmdBase parseN(String cmdname, String cmdarg) {
         if ("if".equals(cmdname)) { // 两个参数
@@ -136,7 +134,6 @@ public class CmdParser {
     /**
      * 处理0个参数的命令 现有 rtn, label
      * @param cmdname command name
-     * @return
      */
     private static CmdBase parse0(String cmdname) {
         // TODO 可优化，尽量不要使用if语句
@@ -147,5 +144,40 @@ public class CmdParser {
         }
 
         return null;
+    }
+
+
+
+    /**
+     * 解析一行脚本 处理成命令
+     *
+     *  各命令可进一步解析（可根据参数个数与参数中是否允许出现' '联合判断）：
+     *   scenename 后只有一个参数
+     *   attr 后跟4个参数（纯数字）
+     *   showText 后只有一个参数
+     *   if 两个参数 (条件 触发器)
+     *   rtn 无参数
+     *   set
+     *   *: 以冒号结尾 说明是标签
+     * @param line 命令
+     */
+    public static CmdBase parseLine(String line) {
+        if (line == null) {
+            return null;
+        }
+        line = line.trim();
+        if (line.length() == 0) {
+            return null;
+        }
+
+        LOG.debug("data is `"+line+"`");
+
+        // 注释，忽略本行数据
+        if (line.startsWith("@")) {
+            //	StaticPrintUtils.p("ignoring ... ");
+            return null;
+        }
+
+        return parse(line);
     }
 }

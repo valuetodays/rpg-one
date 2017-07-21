@@ -127,39 +127,6 @@ public class CmdExecutor {
         return 0;
     }
 
-    /**
-     * 解析一行脚本 处理成命令
-     *
-     *  各命令可进一步解析（可根据参数个数与参数中是否允许出现' '联合判断）：
-     *   scenename 后只有一个参数
-     *   attr 后跟4个参数（纯数字）
-     *   showText 后只有一个参数
-     *   if 两个参数 (条件 触发器)
-     *   rtn 无参数
-     *   set
-     *   *: 以冒号结尾 说明是标签
-     * @param line 命令
-     * @return
-     */
-    public static CmdBase processLine(String line) {
-        if (line == null) {
-            return null;
-        }
-        line = line.trim();
-        if (line.length() == 0) {
-            return null;
-        }
-
-        logger.debug("data is `"+line+"`");
-
-        // 注释，忽略本行数据
-        if (line.startsWith("@")) {
-            //	StaticPrintUtils.p("ignoring ... ");
-            return null;
-        }
-
-        return CmdParser.parse(line);
-    }
 
 
 

@@ -1,7 +1,7 @@
 package billy.rpg.game.loader;
 
 import billy.rpg.game.scriptParser.cmd.CmdBase;
-import billy.rpg.game.scriptParser.cmd.executor.CmdExecutor;
+import billy.rpg.game.scriptParser.cmd.executor.CmdParser;
 import billy.rpg.game.scriptParser.item.ScriptItem;
 import org.apache.log4j.Logger;
 
@@ -30,7 +30,7 @@ public class ScriptDataLoader {
                 String filepath = url.getPath();
                 String packagename = filepath + "script/";
                 File file = new File(packagename);
-                if (file == null || !file.exists()) {
+                if (!file.exists()) {
                     continue;
                 }
                 File[] listFiles = file.listFiles(filterScripts());
@@ -53,7 +53,7 @@ public class ScriptDataLoader {
      * 过滤指定的脚本文件
      */
     private static FileFilter filterScripts() {
-        FileFilter filter = new FileFilter() {
+        return new FileFilter() {
             @Override
             public boolean accept(File pathname) {
                 //  we want the file whose extension is 's'.  [1: file, 2: '.s' ]
@@ -63,8 +63,6 @@ public class ScriptDataLoader {
                 return false;
             }
         };
-
-        return filter;
     }
 
 
@@ -72,7 +70,7 @@ public class ScriptDataLoader {
         List<String> scripts = loadScripts0();
         if (scripts == null || scripts.isEmpty()) {
             LOG.warn("No scripts found. System exit.");
-            System.exit(0);
+            throw new RuntimeException("no scripts found.");
         }
 
         String lineData = null;
@@ -92,7 +90,7 @@ public class ScriptDataLoader {
             List<CmdBase> cmdList = new ArrayList<>();
             int lineNumber = 1;
             while (lineData != null) {
-                CmdBase tmp = CmdExecutor.processLine(lineData);
+                CmdBase tmp = CmdParser.parseLine(lineData);
                 if (tmp != null) {
                     tmp.setLineNo(lineNumber);
                     cmdList.add(tmp);
