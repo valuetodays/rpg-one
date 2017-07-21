@@ -16,6 +16,8 @@ public class GameAboutImageItem {
     private Image gameBalloon;
     private Image gameTransition;
     private Image gameTransfer;
+    private Image gameDlgBg;
+    private Image gameDlgRoleName;
 
 
     public void load() {
@@ -25,6 +27,28 @@ public class GameAboutImageItem {
         loadGameBalloon();
         loadGameTransition();
         loadGameTransfer();
+        loadGameDlgBg();
+        loadGameDlgRoleName();
+    }
+
+    private void loadGameDlgRoleName() {
+        try {
+            InputStream is = this.getClass().getResourceAsStream("/Images/dlg_role_name.png");
+            gameDlgRoleName = ImageIO.read(is);
+            IOUtils.closeQuietly(is);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadGameDlgBg() {
+        try {
+            InputStream is = this.getClass().getResourceAsStream("/Images/dlg_bg.png");
+            gameDlgBg = ImageIO.read(is);
+            IOUtils.closeQuietly(is);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void loadGameTransfer() {
@@ -133,5 +157,13 @@ public class GameAboutImageItem {
 
     public Image getGameTransfer() {
         return gameTransfer;
+    }
+
+    public Image getGameDlgBg() {
+        return gameDlgBg;
+    }
+
+    public Image getGameDlgRoleName() {
+        return gameDlgRoleName;
     }
 }

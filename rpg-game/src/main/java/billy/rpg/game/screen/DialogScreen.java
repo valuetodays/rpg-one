@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DialogScreen extends BaseScreen {
-    private static final int SEP = 10; // TODO cause problem when this is 14...
+    private static final int SEP = GameConstant.WORDS_NUM_PER_LINE; // TODO cause problem when this is 14...
     private int totalLine;
     private int curLine;
     private String msg;
@@ -163,22 +163,37 @@ public class DialogScreen extends BaseScreen {
 
     @Override
     public void draw(GameCanvas gameCanvas) {
-        // 创建一个缓冲区
+        if (StringUtils.isEmpty(msg)) {
+            return;
+        }
         BufferedImage paint = new BufferedImage(
                 GameConstant.GAME_WIDTH,
                 GameConstant.GAME_HEIGHT,
                 BufferedImage.TYPE_4BYTE_ABGR);
-        // 得到缓冲区的画笔
         Graphics g = paint.getGraphics();
 
-        if (StringUtils.isEmpty(msg)) {
-            msg = "empty";
-        }
+        Image gameDlgBg = GameFrame.getInstance().getGameContainer().getGameAboutItem().getGameDlgBg();
+        Image gameDlgRoleName = GameFrame.getInstance().getGameContainer().getGameAboutItem().getGameDlgRoleName();
+        final int dlgBgLeft = (GameConstant.GAME_WIDTH-gameDlgBg.getWidth(null)) / 2;
+        final int dlgBgTop = (GameConstant.GAME_HEIGHT-gameDlgBg.getHeight(null)) - 20;
+        g.drawImage(gameDlgBg,
+                dlgBgLeft,
+                dlgBgTop,
+                null);
+        g.drawImage(gameDlgRoleName,
+                dlgBgLeft + 20,
+                dlgBgTop - gameDlgRoleName.getHeight(null),
+                null);
+        g.setFont(GameConstant.FONT_ROLENAME_IN_DLG);
+        g.drawString("冷血小毛", // TODO name从脚本中读取
+                dlgBgLeft + 30,
+                dlgBgTop - gameDlgRoleName.getHeight(null)/3);
+
         int fontHeight = g.getFontMetrics().getHeight();
-        g.setColor(Color.darkGray);
-        g.fillRoundRect(30, 200,
-                g.getFontMetrics(GameConstant.FONT_DLG_MSG).stringWidth("测") * (SEP + 2),
-                fontHeight * 3, 20, 20);
+        //g.setColor(Color.darkGray);
+//        g.fillRoundRect(30, 200,
+//                g.getFontMetrics(GameConstant.FONT_DLG_MSG).stringWidth("测") * (SEP + 2),
+//                fontHeight * 3, 20, 20);
         g.setFont(GameConstant.FONT_DLG_MSG);
         g.setColor(Color.WHITE);
         Color oldColor = g.getColor();
@@ -215,15 +230,15 @@ public class DialogScreen extends BaseScreen {
             } else {
                 g.setColor(msgContent.color);
                 g.drawString(msgContent.content,
-                        (30 + g.getFontMetrics(GameConstant.FONT_DLG_MSG).stringWidth("测"))
+                        (dlgBgLeft + 20 + g.getFontMetrics(GameConstant.FONT_DLG_MSG).stringWidth("测"))
                                 + g.getFontMetrics(GameConstant.FONT_DLG_MSG).stringWidth(msgShown),
-                        220 + (newline ? fontHeight : 0));
+                        dlgBgTop + 40 + (newline ? fontHeight : 0));
                 msgShown += msgContent.content;
             }
         }
 
         g.setColor(oldColor);
-        gameCanvas.drawBitmap(paint, 10, 30);
+        gameCanvas.drawBitmap(paint, 0, 0);
     }
 
 
