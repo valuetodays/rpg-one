@@ -3,6 +3,7 @@ package billy.rpg.game.screen;
 import billy.rpg.game.GameCanvas;
 import billy.rpg.game.GameFrame;
 import billy.rpg.game.constants.GameConstant;
+import billy.rpg.game.scriptParser.cmd.executor.CmdProcessor;
 import billy.rpg.game.util.KeyUtil;
 import org.apache.commons.lang.StringUtils;
 
@@ -17,8 +18,10 @@ public class DialogScreen extends BaseScreen {
     private int curLine;
     private String msg;
     private List<MsgContent> msgList;
+    private CmdProcessor cmdProcessor;
 
-    public DialogScreen(String msg) {
+    public DialogScreen(CmdProcessor cmdProcessor, String msg) {
+        this.cmdProcessor = cmdProcessor;
         if (StringUtils.isEmpty(msg)) {
             this.msg = "";
         } else {
@@ -31,7 +34,7 @@ public class DialogScreen extends BaseScreen {
     public static void main(String[] args) {
 //		String msg = "我是`y`天大地大我最大张三`/y`，十分、一百分`r`、`/r`一千分、一万分、十万分、百万分郑重地命令你这小厮快去打`r`大龙`/r`！你快去啊，真是不听话，害我说那么多话，真可恶！什么？！你说`b`我废话多`/b`？你再说，再说一次试试？";
         String msg = "我是";
-        new DialogScreen(msg);
+        new DialogScreen(null, msg);
     }
 
     private List<MsgContent> dealTag() {
@@ -150,6 +153,9 @@ public class DialogScreen extends BaseScreen {
     @Override
     public void update(long delta) {
         if (curLine > totalLine) {
+            if (cmdProcessor != null) {
+                cmdProcessor.endPause();
+            }
             GameFrame.getInstance().popScreen();
         }
     }

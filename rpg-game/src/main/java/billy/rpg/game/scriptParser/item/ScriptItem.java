@@ -11,7 +11,7 @@ import billy.rpg.game.scriptParser.bean.script.LabelBean;
 import billy.rpg.game.scriptParser.bean.script.TalkBean;
 import billy.rpg.game.scriptParser.bean.script.TriggerBean;
 import billy.rpg.game.scriptParser.cmd.*;
-import billy.rpg.game.scriptParser.cmd.executor.CmdExecutor;
+import billy.rpg.game.scriptParser.cmd.executor.CmdProcessor;
 import billy.rpg.game.scriptParser.virtualtable.GlobalVirtualTables;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
@@ -21,8 +21,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-// TODO move it to MapDataLoaderBean ?
-public class ScriptItem implements IItem {
+
+public class ScriptItem {
     private static final Logger LOG = Logger.getLogger(ScriptItem.class);
     public List<CmdBase> cmdList;
     private String fileId;
@@ -166,7 +166,7 @@ public class ScriptItem implements IItem {
         this.primarySection = Collections.unmodifiableList(primarySection);
     }
 
-    private void initTalk(List<CmdBase> cmdList2) {
+    private void initTalk(List<CmdBase> cmdList) {
         List<TalkBean> talkList = new ArrayList<>();
 
         for (int i = 0; i < cmdList.size(); i++) {
@@ -216,7 +216,8 @@ public class ScriptItem implements IItem {
         }
 
         if (label != null) {
-            CmdExecutor.executeCmds(label.getCmds());
+            //CmdExecutor.executeCmds(label.getCmds());
+            cmdProcessor = new CmdProcessor(label.getCmds());
         }
     }
 
@@ -236,7 +237,8 @@ public class ScriptItem implements IItem {
         }
 
         if (label != null) {
-            CmdExecutor.executeCmds(label.getCmds());
+            //CmdExecutor.executeCmds(label.getCmds());
+            cmdProcessor = new CmdProcessor(label.getCmds());
         }
     }
 
@@ -277,6 +279,7 @@ public class ScriptItem implements IItem {
         new BattleScreen(metMonsterIds);
     }
 
+    // TODO 应该根据角色方向处理
     private void checkTrigger0() {
         HeroCharacter mm = GameContainer.getInstance().getActiveFileItem().getHero();
         String posX = mm.getNextPosX() + "";
@@ -303,8 +306,7 @@ public class ScriptItem implements IItem {
             return ;
         }
 
-            executeTalk(getTalkByNum(eventNum));
-
+        executeTalk(getTalkByNum(eventNum));
         return;
     }
 
@@ -335,7 +337,8 @@ public class ScriptItem implements IItem {
             return;
         }
         List<CmdBase> primarySection = getPrimarySection();
-        CmdExecutor.executeCmds(primarySection);
+        cmdProcessor = new CmdProcessor(primarySection);
+        // CmdExecutor.executeCmds(primarySection);
         flagExecutePrimarySection = true;
     }
 
@@ -360,5 +363,12 @@ public class ScriptItem implements IItem {
     }
     public void initBoxes() {
         this.boxes = new ArrayList<>();
+    }
+
+    private CmdProcessor cmdProcessor;
+
+    public CmdProcessor getCmdProcessor() {
+
+        return cmdProcessor;
     }
 }

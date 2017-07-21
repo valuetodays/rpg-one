@@ -12,7 +12,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BattleImageItem implements IItem {
+public class BattleImageItem {
     private Map<String, Image> battleImages;
     
     public void load() throws Exception {

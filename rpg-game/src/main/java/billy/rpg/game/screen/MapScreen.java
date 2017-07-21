@@ -7,6 +7,7 @@ import billy.rpg.game.character.HeroCharacter;
 import billy.rpg.game.character.NPCCharacter;
 import billy.rpg.game.character.TransferCharacter;
 import billy.rpg.game.constants.GameConstant;
+import billy.rpg.game.scriptParser.cmd.executor.CmdProcessor;
 import billy.rpg.game.scriptParser.item.ScriptItem;
 import billy.rpg.game.util.KeyUtil;
 import billy.rpg.resource.box.BoxImageLoader;
@@ -22,16 +23,13 @@ public class MapScreen extends BaseScreen {
     private static Logger LOG = Logger.getLogger(MapScreen.class);
     
     public MapScreen() {
-//        AnimationTimer at = new AnimationTimer(30);
-//        at.start();
-        
     }
     
     @Override
     public void update(long delta) {
-        if (delta > 3000) {
-            LOG.debug("change screen");
-            GameFrame.getInstance().changeScreen(1);
+        CmdProcessor cmdProcessor = GameFrame.getInstance().getGameContainer().getActiveFileItem().getCmdProcessor();
+        if (cmdProcessor != null) {
+            cmdProcessor.update();
         }
     }
 

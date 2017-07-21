@@ -9,53 +9,65 @@ import billy.rpg.game.screen.*;
 import billy.rpg.game.scriptParser.bean.script.LabelBean;
 import billy.rpg.game.scriptParser.cmd.*;
 import billy.rpg.game.scriptParser.virtualtable.GlobalVirtualTables;
-import billy.rpg.game.util.StackPrintUtil;
 import org.apache.log4j.Logger;
 
 import java.util.List;
 
-/**
- * 命令执行器
- *
- * 本类在最初设计时是为CUI而实现的。现在要转到GUI里，该类暂时因为如下原因不能胜任。
- * <ul>
- *     <li>命令应该是阻塞式的，它没执行完毕不应该往下执行，典型的就是对话</li>
- * </ul>
- *
- * @author <a href="http://blog.sina.com.cn/valuetodays">liulei-frx</a>
- * @since 2016-05-10 11:40
- */
-@Deprecated
-public class CmdExecutor {
-    private static final Logger LOG = Logger.getLogger(CmdExecutor.class);
 
-    /*
-     * 执行脚本命令s
-     */
-    public static int executeCmds(List<CmdBase> cmdList) {
+/**
+ * @author liulei@bshf360.com
+ * @since 2017-07-21 14:03
+ */
+public class CmdProcessor {
+    private static Logger LOG = Logger.getLogger(CmdProcessor.class);
+    private boolean pausing; // 当对话开始时，该值为true，命令暂时不再往下执行
+    private List<CmdBase> cmdList;
+    private int cmdSize;
+    private int cmdIndex;
+    // 遇到了return命令就说明执行完毕了，典型是的if语句的子语句，它的每个分支都有return，任何一个分支走完都算结束了
+    private boolean metReturnCmd;
+
+    public void update() {
+        if (!pausing) {
+            if (endExecute()) {
+                return;
+            }
+            executeCmd(cmdList.get(cmdIndex));
+            cmdIndex++;
+        }
+    }
+
+    private boolean endExecute() {
+        if (cmdIndex >= cmdSize) {
+            return true;
+        }
+
+        return metReturnCmd;
+    }
+
+    private void executeCmds(List<CmdBase> cmdList) {
         for (int i = 0; i < cmdList.size(); i++) {
             CmdBase caa = cmdList.get(i);
             int executeCode = executeCmd(caa);
             if (-1 == executeCode) {
-                return -1;
+                metReturnCmd = true;
             } else if (-2 == executeCode) {
                 continue;
             }
         }
-
-        return 0;
     }
 
 
     /**
      *
      * 执行脚本命令
+     * 有的脚本应该是阻塞式的，它没执行完毕不应该往下执行，典型的就是对话
      *
      * @param cmd 命令对象
      * @return  -1: rtn occurs;
      *          -2: does not fulfill the if condition
      */
-    private static int executeCmd(CmdBase cmd) {
+    private int executeCmd(CmdBase cmd) {
         // 使用instanceof 分开处理各种情况
         if (cmd instanceof ReturnCmd) {
             return -1;
@@ -65,19 +77,17 @@ public class CmdExecutor {
             IfCmd ic = (IfCmd) cmd;
             if (GlobalVirtualTables.containsVariable(ic.getCondition())) { // global variable exists
                 LabelBean fun = GlobalVirtualTables.getLabel(ic.getTriggerName());
-                if (-1 == executeCmds(fun.getCmds())) {
-                    return -1;
-                }
+                executeCmds(fun.getCmds());
             } else {    // global variable does not exist
                 return -2;
             }
         } else if (cmd instanceof ShowTextCmd) {
             final String text = ((ShowTextCmd)cmd).getText();
             final String text0 = text.substring(1, text.length() - 1);
-            StackPrintUtil.p("scriptprocessor");
             LOG.debug(text0);
-            DialogScreen ms = new DialogScreen(null, text0);
+            DialogScreen ms = new DialogScreen(this, text0);
             GameFrame.getInstance().pushScreen(ms);
+            startPause();
         } else if (cmd instanceof LoadMapCmd) {
             LoadMapCmd lmc = (LoadMapCmd) cmd;
             LOG.debug("go to map" + lmc.getM() + "-" + lmc.getN() + " in " + lmc.getX() + "," + lmc.getY());
@@ -106,7 +116,6 @@ public class CmdExecutor {
             int y = ac.getY();
             BaseScreen as = new AnimationScreen(no, x, y, new MapScreen());
             GameFrame.getInstance().pushScreen(as);
-//            AnimationTimer at = new AnimationTimer(500, 400, 200);
         } else if (cmd instanceof CreateNPCCmd) {
             final CreateNPCCmd cnc = (CreateNPCCmd) cmd;
             int x = cnc.getX();
@@ -131,6 +140,18 @@ public class CmdExecutor {
         return 0;
     }
 
+
+    public CmdProcessor(List<CmdBase> cmdList) {
+        this.cmdList = cmdList;
+        cmdSize = cmdList.size();
+    }
+
+    public void startPause() {
+        pausing = true;
+    }
+    public void endPause() {
+        pausing = false;
+    }
 
 
 

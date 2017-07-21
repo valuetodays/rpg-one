@@ -15,7 +15,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class NpcImageItem implements IItem {
+public class NpcImageItem {
     private Map<String, Image> npcs;
     
     public void load() throws Exception {

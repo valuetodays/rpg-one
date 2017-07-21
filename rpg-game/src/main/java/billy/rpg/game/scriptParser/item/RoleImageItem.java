@@ -7,7 +7,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.InputStream;
 
-public class RoleImageItem implements IItem {
+public class RoleImageItem {
     private Image roleFull1; // TODO what fuck the name
 
     public void load() throws Exception {

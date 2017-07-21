@@ -13,7 +13,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TileImageItem  implements IItem {
+public class TileImageItem {
     private Map<String, Image> tiles;
 
     public void load() throws Exception {

@@ -14,7 +14,7 @@ import java.io.InputStream;
  * 
  * @since 2016-12-7 10:57:08
  */
-public class BgImageItem  implements IItem {
+public class BgImageItem {
     private static final Logger LOG = Logger.getLogger(BgImageItem.class);
 
     private Image bgImage1;
