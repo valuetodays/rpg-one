@@ -30,6 +30,7 @@ public class GameFrame extends JFrame implements Runnable {
     private boolean running;
     private GamePanel gamePanel;
     private GameContainer gameContainer;
+    private MapScreen mapScreen = new MapScreen(); // TODO 游戏中应该只有一个地图屏幕
 
     public static void main(String[] args) {
         JavaVersionUtil.validateJava();
@@ -95,11 +96,8 @@ public class GameFrame extends JFrame implements Runnable {
     public void changeScreen(int screenCode) {
         BaseScreen tmp = null;
         switch (screenCode) {
-        case 11:
-            tmp = new DialogScreen("你好");
-            break;
         case 1:
-            tmp = new MapScreen();
+            tmp = mapScreen;
             break;
         case 2:
             tmp = new SystemMenuScreen();
