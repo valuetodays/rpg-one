@@ -38,16 +38,12 @@ public class MapScreen extends BaseScreen {
      */
     @Override
     public void draw(GameCanvas gameCanvas) {
-        // 创建一个缓冲区
         BufferedImage paint = new BufferedImage(
                 GameConstant.GAME_WIDTH, 
                 GameConstant.GAME_HEIGHT, 
                 BufferedImage.TYPE_4BYTE_ABGR);
-
-        // 得到缓冲区的画笔
         Graphics g2 = paint.getGraphics();
         
-        // 将想要绘制的图形绘制到缓冲区
         HeroCharacter hero = GameFrame.getInstance().getGameContainer().getActiveFileItem().getHero();
         int posX = hero.getPosX();
         int posY = hero.getPosY();
@@ -160,7 +156,9 @@ public class MapScreen extends BaseScreen {
         }
         //////// draw event end
 
-        // 将缓冲区的图形绘制到显示面板上
+        String name = GameFrame.getInstance().getGameContainer().getActiveMap().getName();
+        g2.drawString(name, 600, 20);
+
         gameCanvas.drawBitmap(paint, 0, 0);
     }
 

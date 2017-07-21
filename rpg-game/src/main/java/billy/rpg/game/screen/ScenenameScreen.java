@@ -10,9 +10,11 @@ import java.awt.image.BufferedImage;
 
 /**
  * show scene name, and it will disappear in {@link #delay} ms, cannot cancel by key down
+ *
+ * this class is of little use. because map name was drew in MapScreen
+ *
  * @author liulei-home
  * @since 2016-12-23 02:16
- *
  */
 public class ScenenameScreen extends BaseScreen {
     private String name;

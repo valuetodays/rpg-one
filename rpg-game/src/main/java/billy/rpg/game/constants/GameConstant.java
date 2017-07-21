@@ -15,6 +15,9 @@ public interface GameConstant {
 
     int SCALE = 1; //游戏放大缩小倍数
 
+    /**
+     * 对话框中一行有多少个字
+     */
     int WORDS_NUM_PER_LINE = 24;
     Font FONT_DLG_MSG = new Font("楷体", Font.BOLD, 24);
     Font FONT_ROLENAME_IN_DLG = new Font("楷体", Font.BOLD, 18);

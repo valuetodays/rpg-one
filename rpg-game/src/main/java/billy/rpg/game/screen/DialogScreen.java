@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DialogScreen extends BaseScreen {
-    private static final int SEP = GameConstant.WORDS_NUM_PER_LINE; // TODO cause problem when this is 14...
+    private static final int SEP = GameConstant.WORDS_NUM_PER_LINE;
     private int totalLine;
     private int curLine;
     private String msg;
