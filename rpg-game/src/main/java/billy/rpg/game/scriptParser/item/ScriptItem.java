@@ -13,6 +13,7 @@ import billy.rpg.game.scriptParser.bean.script.TriggerBean;
 import billy.rpg.game.scriptParser.cmd.*;
 import billy.rpg.game.scriptParser.cmd.executor.CmdExecutor;
 import billy.rpg.game.scriptParser.virtualtable.GlobalVirtualTables;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -36,8 +37,8 @@ public class ScriptItem implements IItem {
     private List<BoxCharacter> boxes = new ArrayList<>();
     private static final int STEP_MEET_MONSTER = 8;
     private int steps; // 当前地图下的移动步数，当达到STEP_MEET_MONSTER时会遇到怪物进行战斗
-//    private List<Integer> predictedMonsterIds = Arrays.asList(51, 52, 53, 54, 55); // TODO 可从*.map或*.s中加载
-    private List<Integer> predictedMonsterIds = Arrays.asList(51, 51); // TODO 可从*.map或*.s中加载
+//    private List<Integer> predictedMonsterIds = Arrays.asList(51, 51); // TODO 可从*.map或*.s中加载
+    private List<Integer> predictedMonsterIds = Arrays.asList(); // 可能遇到的妖怪编号，为空时不发生战斗 TODO 可从*.map或*.s中加载
     private static List<Integer> heroIds = Arrays.asList(1, 3); // TODO 玩家离队入队的话，将这个数据存放到何处
 
 
@@ -257,10 +258,13 @@ public class ScriptItem implements IItem {
 
 
     private void checkMonster() {
+        // 为空时不发生战斗
+        if (CollectionUtils.isEmpty(predictedMonsterIds)) {
+            return;
+        }
         if (steps < STEP_MEET_MONSTER) {
             return;
         }
-//        LOG.info("meet monster(s)..");
         int monsterNumbers = GameConstant.random.nextInt(3) + 1;
 //        monsterNumbers = 1;
         int[] metMonsterIds = new int[monsterNumbers];
