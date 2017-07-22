@@ -21,6 +21,7 @@ import billy.rpg.resource.npc.NPCImageLoader;
 import billy.rpg.resource.role.RoleMetaData;
 import org.apache.log4j.Logger;
 
+import java.awt.*;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -49,6 +50,7 @@ public class GameContainer {
     private NPCImageLoader npcImageLoader;
     private BoxImageLoader boxImageLoader;
     private BattleImageItem battleImageItem;
+    private HeadImageItem headImageItem;
     // animation list, each *.ani is an instance of AnimationDataLoaderBean
     private Map<Integer, AnimationMetaData> animationMap;
 
@@ -90,16 +92,18 @@ public class GameContainer {
         npcImageLoader = new NPCImageLoader();
         boxImageLoader = new BoxImageLoader();
         battleImageItem = new BattleImageItem();
+        headImageItem = new HeadImageItem();
 
         try {
             bgImageItem.load();
             tileItem.load();
-            npcItem.load();
+            //npcItem.load();
             roleItem.load();
             gameAboutItem.load();
             npcImageLoader.loadNpcs();
             boxImageLoader.loadBoxes();
             battleImageItem.load();
+            headImageItem.load();
 
             loadMapData();
             loadScriptData();
@@ -314,5 +318,9 @@ public class GameContainer {
      */
     public RoleMetaData getMonsterRoleOf(int number) {
         return monsterRoleMap.get(number);
+    }
+
+    public Image getHeadImageItemOf(int number) {
+        return headImageItem.getHead(number);
     }
 }

@@ -6,10 +6,12 @@ package billy.rpg.game.scriptParser.cmd;
  */
 public class ShowTextCmd extends CmdBase {
     private String text;
+    private int headNumber;
 
-    public ShowTextCmd(String key) {
+    public ShowTextCmd(int number, String text) {
         super("showtext");
-        this.text = key;
+        headNumber = number;
+        this.text = text;
     }
 
     public String getText() {
@@ -18,5 +20,13 @@ public class ShowTextCmd extends CmdBase {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public int getHeadNumber() {
+        return headNumber;
+    }
+
+    public void setHeadNumber(int headNumber) {
+        this.headNumber = headNumber;
     }
 }
