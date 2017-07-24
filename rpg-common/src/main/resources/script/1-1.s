@@ -46,6 +46,7 @@ return
 
 
 goright:
+animation 100 0 0
 loadmap 1 2 1 0
 return
 
