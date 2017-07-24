@@ -253,7 +253,7 @@ public class DialogScreen extends BaseScreen {
                 g.drawString(msgContent.content,
                         (dlgBgLeft + 20 + g.getFontMetrics(GameConstant.FONT_DLG_MSG).stringWidth("测"))
                                 + g.getFontMetrics(GameConstant.FONT_DLG_MSG).stringWidth(msgShown),
-                        dlgBgTop + 40 + (newline ? fontHeight : 0));
+                        dlgBgTop + 60 + (newline ? fontHeight : 0));
                 msgShown += msgContent.content;
             }
         }

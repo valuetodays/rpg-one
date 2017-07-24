@@ -8,4 +8,6 @@
     dlg_cover.png & dlg_role_name.png is collected from `http://bbs.66rpg.com/thread-349079-1-1.html`
     directory `docs` is the original file from net.
 
+2017-07-24
 
+    dlg_bg1.png dlg_role_name1.png 的边框有淡淡的黄色，显示之后不太好看。就换了个背景。
