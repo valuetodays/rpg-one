@@ -4,7 +4,6 @@ attr 1 1
 scenename '新手村'
 @showText 'common english charactor'
 @showText 'haha,含有中文字符哦亲'
-@@@@@messagebox 与showText 不要同时出现， [at 20161223]
 @messagebox '欢迎进入小小地图一'
 @ will use createbox
 @ createnpc 8 5 99 1
@@ -18,29 +17,31 @@ return
 @showText 'showed hello'
 @return
 
-Hello:
-if a2 Helloed
+hello:
+if a2 helloed
 @         x  y n type
 @ createnpc 9 5 2 1
 showText 1675 '哈喽'
 set a2
 return
 
-Helloed:
-showText 1675 '给你说过哈喽了啊'
+helloed:
+@showText 1675 '给你说过哈喽了啊'
 @ choice title choice1 choice2 choice3 label1 label2 label3
-choice '我给你说过话了吗' '说过了' '没有说过' '记不得了' aaa bbb ccc
+choice '我们说过话了吗' '说过了' '没有说过' '记不得了' aaa bbb ccc
+@showText 1675 '哈哈，你还没做选择呢'
 return
 
 aaa:
-showText 1675 '给你说过哈喽了啊'
+showText 1675 '果然说过话啊，我就在说怎么看你那么`r`脸熟`/r`。'
 return
 
 bbb:
-showText 1675 '给你说过哈喽了啊'
+showText 1675 '我看也是，我根本`y`没有见过你`/y`。'
 return
 
 ccc:
+showText 1675 '神经病吧你。'
 return
 
 
@@ -55,6 +56,7 @@ return
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@
 box1:
 showText 1675 '这是一个宝箱，可是`y`打不开`/y`，好气啊！'
+showText 1675 '第二个窗口对话。'
 @播放动画 参数是要播放的动画编号 屏幕posx 屏幕posy
 animation 3 50 100
 animation 11 50 100
@@ -78,5 +80,5 @@ talk 255 goright
 talk 2 roshan
 talk 237 box1
 
-trigger 1 1 Hello
+trigger 1 1 hello
 @trigger 14 14 goright

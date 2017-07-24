@@ -2,6 +2,7 @@ package billy.rpg.game.container;
 
 import billy.rpg.game.cmd.CmdBase;
 import billy.rpg.game.item.ScriptItem;
+import billy.rpg.game.loader.ScriptDataLoader;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
@@ -24,6 +25,16 @@ public class GameContainerTest {
             LOG.debug(cmdBase);
         }
 
+    }
+
+    @Test
+    public void testLoadScript() throws Exception {
+        ScriptDataLoader sl = new ScriptDataLoader();
+        List<ScriptItem> slLoad = sl.load();
+        for (ScriptItem scriptItem : slLoad) {
+
+            LOG.debug(scriptItem);
+        }
     }
 
 }

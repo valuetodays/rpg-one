@@ -368,7 +368,10 @@ public class ScriptItem {
     private CmdProcessor cmdProcessor;
 
     public CmdProcessor getCmdProcessor() {
-
         return cmdProcessor;
+    }
+
+    public void setCmdProcessor(CmdProcessor cmdProcessor) {
+        this.cmdProcessor = cmdProcessor;
     }
 }

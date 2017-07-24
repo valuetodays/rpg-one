@@ -27,14 +27,19 @@ public class CmdProcessor {
     private int cmdIndex;
     // 遇到了return命令就说明执行完毕了，典型是的if语句的子语句，它的每个分支都有return，任何一个分支走完都算结束了
     private boolean metReturnCmd;
+    private CmdProcessor innerCmdProcessor;
 
     public void update() {
-        if (!pausing) {
-            if (endExecute()) {
-                return;
+        if (innerCmdProcessor != null) {
+            innerCmdProcessor.update();
+        } else {
+            if (!pausing) {
+                if (endExecute()) {
+                    return;
+                }
+                executeCmd(cmdList.get(cmdIndex));
+                cmdIndex++;
             }
-            executeCmd(cmdList.get(cmdIndex));
-            cmdIndex++;
         }
     }
 
@@ -78,7 +83,8 @@ public class CmdProcessor {
             IfCmd ic = (IfCmd) cmd;
             if (GlobalVirtualTables.containsVariable(ic.getCondition())) { // global variable exists
                 LabelBean fun = GlobalVirtualTables.getLabel(ic.getTriggerName());
-                executeCmds(fun.getCmds());
+//                executeCmds(fun.getCmds());
+                innerCmdProcessor = new CmdProcessor(fun.getCmds());
             } else {    // global variable does not exist
                 return -2;
             }
@@ -101,7 +107,7 @@ public class CmdProcessor {
         } else if (cmd instanceof AttrCmd) {
             LOG.debug(" >> basic attribute of this map ");
             AttrCmd ac = (AttrCmd) cmd;
-        } else if (cmd instanceof TalkCmd)  {
+        } else if (cmd instanceof TalkCmd) {
             System.out.println("talk to u");
         } else if (cmd instanceof MessageBoxCmd) {
             final MessageBoxCmd mb = (MessageBoxCmd) cmd;
@@ -133,6 +139,14 @@ public class CmdProcessor {
             npc.initPos(x, y);
             npc.setTileNum(npcNum);
             GameFrame.getInstance().getGameContainer().getActiveFileItem().getNpcs().add(npc);
+        } else if (cmd instanceof ChoiceCmd) {
+            final ChoiceCmd cc = (ChoiceCmd) cmd;
+            String title = cc.getTitle();
+            List<String> choice = cc.getChoice();
+            List<String> label = cc.getLabel();
+            ChoiceScreen cs = new ChoiceScreen(this, title, choice, label);
+            GameFrame.getInstance().pushScreen(cs);
+            startPause();
         } else {
             LOG.warn("no command comfit " + cmd);
         }

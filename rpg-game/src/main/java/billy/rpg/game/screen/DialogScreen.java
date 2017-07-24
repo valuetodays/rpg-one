@@ -279,12 +279,6 @@ public class DialogScreen extends BaseScreen {
         }
     }
 
-
-    @Override
-    public boolean isPopup() {
-        return false;
-    }
-
     private Color getColor(String tagName) {
         char flagName = tagName.charAt(1);
         if ('r' == flagName || 'R' == flagName) {

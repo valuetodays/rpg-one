@@ -177,6 +177,9 @@ public class GameFrame extends JFrame implements Runnable {
             }
             @Override
             public void keyPressed(KeyEvent e) {
+                if (screenStack.isEmpty()) {
+                    return;
+                }
                 int key = c(e.getKeyCode());
 //                synchronized (screenStack) {
                     screenStack.peek().onKeyDown(key);

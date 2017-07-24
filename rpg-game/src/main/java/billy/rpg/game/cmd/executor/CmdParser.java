@@ -182,7 +182,7 @@ public class CmdParser {
             String title = cmdargs[0];
             ChoiceCmd cc = new ChoiceCmd(title);
             int length = cmdargs.length;
-            for (int i = 1; i < length/2; i++) {
+            for (int i = 1; i <= length/2; i++) {
                 String choice1 = cmdargs[i]; // 要把它的左右两个引号去掉
                 String label1 = cmdargs[length/2 + i];
                 cc.addItem(choice1.substring(1, choice1.length()-1), label1);
