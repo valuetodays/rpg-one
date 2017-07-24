@@ -11,6 +11,7 @@ import billy.rpg.game.scriptParser.cmd.*;
 import billy.rpg.game.scriptParser.virtualtable.GlobalVirtualTables;
 import org.apache.log4j.Logger;
 
+import java.awt.*;
 import java.util.List;
 
 
@@ -82,10 +83,14 @@ public class CmdProcessor {
                 return -2;
             }
         } else if (cmd instanceof ShowTextCmd) {
-            final String text = ((ShowTextCmd)cmd).getText();
+
+            ShowTextCmd stc = ((ShowTextCmd) cmd);
+            int headNumber = stc.getHeadNumber();
+            final String text = stc.getText();
             final String text0 = text.substring(1, text.length() - 1);
             LOG.debug(text0);
-            DialogScreen ms = new DialogScreen(this, text0);
+            Image headImage = GameContainer.getInstance().getHeadImageItemOf(headNumber);
+            DialogScreen ms = new DialogScreen(this, headImage, text0);
             GameFrame.getInstance().pushScreen(ms);
             startPause();
         } else if (cmd instanceof LoadMapCmd) {
@@ -146,9 +151,16 @@ public class CmdProcessor {
         cmdSize = cmdList.size();
     }
 
+    /**
+     * 挂起脚本执行 - 开始
+     */
     public void startPause() {
         pausing = true;
     }
+
+    /**
+     * 挂起脚本执行 - 结束
+     */
     public void endPause() {
         pausing = false;
     }

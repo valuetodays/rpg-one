@@ -12,16 +12,27 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * intend to show dialog in game
+ */
 public class DialogScreen extends BaseScreen {
     private static final int SEP = GameConstant.WORDS_NUM_PER_LINE;
-    private int totalLine;
-    private int curLine;
-    private String msg;
-    private List<MsgContent> msgList;
+    private int totalLine; // 对话总共会显示多少行
+    private int curLine; // 对话显示到哪一行了
+    private final String msg; // 对话的内容，含有格式
+    private List<MsgContent> msgList; // 处理后的对话的内容
+    private Image headImg; // 说话者的头像
     private CmdProcessor cmdProcessor;
 
-    public DialogScreen(CmdProcessor cmdProcessor, String msg) {
+    /**
+     * 对话框窗口
+     * @param cmdProcessor 脚本处理器
+     * @param headImg 说话者头像编号
+     * @param msg 对话内容
+     */
+    public DialogScreen(CmdProcessor cmdProcessor, Image headImg, String msg) {
         this.cmdProcessor = cmdProcessor;
+        this.headImg = headImg;
         if (StringUtils.isEmpty(msg)) {
             this.msg = "";
         } else {
@@ -32,9 +43,13 @@ public class DialogScreen extends BaseScreen {
     }
 
     public static void main(String[] args) {
-//		String msg = "我是`y`天大地大我最大张三`/y`，十分、一百分`r`、`/r`一千分、一万分、十万分、百万分郑重地命令你这小厮快去打`r`大龙`/r`！你快去啊，真是不听话，害我说那么多话，真可恶！什么？！你说`b`我废话多`/b`？你再说，再说一次试试？";
-        String msg = "我是";
-        new DialogScreen(null, msg);
+		String msg = "我是`y`天大地大我最大张三`/y`，十分、一百分`r`、`/r`一千分、一万分、十万分、百万分郑重地命令你这小厮快去打`r`大龙`/r`！你快去啊，真是不听话，害我说那么多话，真可恶！什么？！你说`b`我废话多`/b`？你再说，再说一次试试？";
+//        String msg = "我是";
+        DialogScreen dialogScreen = new DialogScreen(null, null, msg);
+        List<MsgContent> msgListTemp = dialogScreen.msgList;
+        msgListTemp.forEach(e -> {
+            LOG.debug(e);
+        });
     }
 
     private List<MsgContent> dealTag() {
@@ -42,7 +57,6 @@ public class DialogScreen extends BaseScreen {
 
         String msgTemp = msg;
         while (true) {
-
             int colorTagPos = msgTemp.indexOf('`');
             if (colorTagPos == -1) {
                 break;
@@ -66,6 +80,9 @@ public class DialogScreen extends BaseScreen {
         return msgListTemp;
     }
 
+    /**
+     * 处理对话内容，将颜色值提取出来
+     */
     private void dealMsg() {
         List<MsgContent> msgListTemp = dealTag();
 
@@ -118,7 +135,7 @@ public class DialogScreen extends BaseScreen {
             }
         }
 
-        calcuteTotalLine();
+        calculateTotalLine();
     }
 
     private void initMsgList() {
@@ -126,7 +143,7 @@ public class DialogScreen extends BaseScreen {
         appendSeperator(Color.WHITE);
     }
 
-    private void calcuteTotalLine() {
+    private void calculateTotalLine() {
         totalLine--; // remove first
         totalLine = totalLine / 2 + (totalLine % 2 > 0 ? 1 : 0);
     }
@@ -137,17 +154,17 @@ public class DialogScreen extends BaseScreen {
         totalLine++;
     }
 
-    private static List<String> tags = new ArrayList<>();
+    private static List<String> TAGS_COLOR = new ArrayList<>();
 
     static {
-        tags.add("`r`");
-        tags.add("`g`");
-        tags.add("`b`");
-        tags.add("`y`");
-        tags.add("`/r`");
-        tags.add("`/g`");
-        tags.add("`/b`");
-        tags.add("`/y`");
+        TAGS_COLOR.add("`r`");
+        TAGS_COLOR.add("`g`");
+        TAGS_COLOR.add("`b`");
+        TAGS_COLOR.add("`y`");
+        TAGS_COLOR.add("`/r`");
+        TAGS_COLOR.add("`/g`");
+        TAGS_COLOR.add("`/b`");
+        TAGS_COLOR.add("`/y`");
     }
 
     @Override
@@ -184,8 +201,12 @@ public class DialogScreen extends BaseScreen {
                 dlgBgLeft + 20,
                 dlgBgTop - gameDlgRoleName.getHeight(null),
                 null);
+        g.drawImage(headImg,
+                dlgBgLeft + 10,
+                dlgBgTop - gameDlgRoleName.getHeight(null) - headImg.getHeight(null)-2,
+                null);
         g.setFont(GameConstant.FONT_ROLENAME_IN_DLG);
-        g.drawString("冷血小毛", // TODO name从脚本中读取
+        g.drawString("蔡文姬", // TODO name从脚本中读取
                 dlgBgLeft + 30,
                 dlgBgTop - gameDlgRoleName.getHeight(null)/3);
 

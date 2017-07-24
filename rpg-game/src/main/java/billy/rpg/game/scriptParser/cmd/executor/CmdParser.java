@@ -58,7 +58,16 @@ public class CmdParser {
             attrCmd.setN(Integer.parseInt(cmdargs[1]));
             return attrCmd;
         } else if ("showtext".toLowerCase().equals(cmdname.toLowerCase())) {
-            return new ShowTextCmd(cmdarg);
+            String[] cmdargs = cmdarg.split(" ");
+            if (cmdargs.length != 2) {
+                LOG.debug("command "+cmdname+" needs "+2+" arguments, "
+                        + "but "+cmdargs.length+" in fact.");
+                return null;
+            }
+
+            ShowTextCmd showTextCmd = new ShowTextCmd(Integer.parseInt(cmdargs[0]), cmdargs[1]);
+
+            return showTextCmd;
         } else if ("set".equals(cmdname)) {
             return new SetCmd(cmdarg);
         } else if ("trigger".equals(cmdname)) {
