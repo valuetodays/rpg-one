@@ -19,10 +19,14 @@ public class ChoiceCmd extends CmdBase {
         this.title = title;
     }
 
-    public ChoiceCmd addItem(String choice, String label) {
+    /**
+     * 添加一个选项
+     * @param choice 选项文本
+     * @param label 当该项被选择时跳转到的标签
+     */
+    public void addItem(String choice, String label) {
         this.choice.add(choice);
         this.label.add(label);
-        return this;
     }
 
     public String getTitle() {
