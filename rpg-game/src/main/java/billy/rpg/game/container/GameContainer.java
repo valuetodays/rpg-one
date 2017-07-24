@@ -13,7 +13,7 @@ import billy.rpg.game.loader.RoleDataLoader;
 import billy.rpg.game.loader.ScriptDataLoader;
 import billy.rpg.game.screen.BaseScreen;
 import billy.rpg.game.screen.MapScreen;
-import billy.rpg.game.scriptParser.item.*;
+import billy.rpg.game.item.*;
 import billy.rpg.resource.animation.AnimationMetaData;
 import billy.rpg.resource.box.BoxImageLoader;
 import billy.rpg.resource.map.MapMetaData;

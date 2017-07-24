@@ -4,7 +4,7 @@ import billy.rpg.game.GameCanvas;
 import billy.rpg.game.GameFrame;
 import billy.rpg.game.character.battle.HeroBattle;
 import billy.rpg.game.screen.BaseScreen;
-import billy.rpg.game.scriptParser.item.ScriptItem;
+import billy.rpg.game.item.ScriptItem;
 import billy.rpg.resource.role.RoleMetaData;
 
 import java.util.ArrayList;

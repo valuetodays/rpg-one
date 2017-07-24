@@ -34,12 +34,19 @@ goright:
 loadmap 1 2 1 0
 return
 
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ box1这个tag说明showText命令是阻塞式的，当执行该命令时，下一句命令不会执行
+@ 而animation命令没有完成时也不会执行下面的语句
+@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 box1:
 showText 1675 '这是一个宝箱，可是`y`打不开`/y`，好气啊！'
 @播放动画 参数是要播放的动画编号 屏幕posx 屏幕posy
-@animation 3 50 100
+animation 3 50 100
+animation 11 50 100
 @@if say0 say0ed
-@@showText '私は有恩报恩，有仇报仇！'
+showText 1675 '私は有恩报恩，有仇报仇！'
+animation 12 50 100
 @@set say0
 return
 

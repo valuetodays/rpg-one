@@ -3,7 +3,7 @@ package billy.rpg.game.screen;
 import billy.rpg.game.GameCanvas;
 import billy.rpg.game.GameFrame;
 import billy.rpg.game.constants.GameConstant;
-import billy.rpg.game.scriptParser.cmd.executor.CmdProcessor;
+import billy.rpg.game.cmd.executor.CmdProcessor;
 import billy.rpg.game.util.KeyUtil;
 import org.apache.commons.lang.StringUtils;
 

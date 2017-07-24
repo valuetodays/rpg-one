@@ -1,0 +1,192 @@
+package billy.rpg.game.cmd.executor;
+
+import billy.rpg.game.cmd.*;
+import org.apache.log4j.Logger;
+
+/**
+ * 脚本解析成命令
+ *
+ * @author <a href="http://blog.sina.com.cn/valuetodays">liulei-frx</a>
+ * @since 2016-05-10 13:00
+ */
+public class CmdParser {
+    private static final Logger LOG = Logger.getLogger(CmdParser.class);
+    private CmdParser() { }
+
+    /**
+     * 核心方法，解析一行数据到一个命令里
+     * @param line command & its argument
+     */
+    private static CmdBase parse(String line) {
+        int spaceInx = line.indexOf(" ");
+        CmdBase cmdBase = null;
+        if (spaceInx < 0) { // 没有' '，说明是无参数命令（rtn, label）
+            cmdBase = parse0(line);
+        } else {
+            cmdBase = parseN(line.substring(0, spaceInx), line.substring(spaceInx+1));
+        }
+
+        return cmdBase;
+    }
+
+
+    /**
+     * 处理多个参数的命令，现有if scenename  attr showText set trigger loadmap talk
+     * @param cmdname cmd name
+     * @param cmdarg cmd arg
+     */
+    private static CmdBase parseN(String cmdname, String cmdarg) {
+        if ("if".equals(cmdname)) { // 两个参数
+            String[] cmdargs = cmdarg.split(" ");
+            if (cmdargs.length != 2) {
+                LOG.debug("command "+cmdname+" needs "+2+" arguments, "
+                        + "but "+cmdargs.length+" in fact.");
+                return null;
+            }
+            return new IfCmd(cmdargs[0], cmdargs[1]);
+        } else if ("scenename".equals(cmdname)) {
+            return new ScenenameCmd(cmdarg);
+        } else if ("attr".equals(cmdname)) {
+            String[] cmdargs = cmdarg.split(" ");
+            if (cmdargs.length != 2) {
+                LOG.debug("command "+cmdname+" needs "+2+" arguments, "
+                        + "but "+cmdargs.length+" in fact.");
+                return null;
+            }
+            AttrCmd attrCmd = new AttrCmd();
+            attrCmd.setM(Integer.parseInt(cmdargs[0]));
+            attrCmd.setN(Integer.parseInt(cmdargs[1]));
+            return attrCmd;
+        } else if ("showtext".toLowerCase().equals(cmdname.toLowerCase())) {
+            String[] cmdargs = cmdarg.split(" ");
+            if (cmdargs.length != 2) {
+                LOG.debug("command "+cmdname+" needs "+2+" arguments, "
+                        + "but "+cmdargs.length+" in fact.");
+                return null;
+            }
+
+            ShowTextCmd showTextCmd = new ShowTextCmd(Integer.parseInt(cmdargs[0]), cmdargs[1]);
+
+            return showTextCmd;
+        } else if ("set".equals(cmdname)) {
+            return new SetCmd(cmdarg);
+        } else if ("trigger".equals(cmdname)) {
+            String[] cmdargs = cmdarg.split(" ");
+            if (cmdargs.length != 3) {
+                LOG.debug("command "+cmdname+" needs "+3+" arguments, "
+                        + "but "+cmdargs.length+" in fact.");
+                return null;
+            }
+            TriggerCmd tc = new TriggerCmd();
+            tc.setX(Integer.valueOf(cmdargs[0]));
+            tc.setY(Integer.valueOf(cmdargs[1]));
+            tc.setTriggerName(cmdargs[2]);
+            return tc;
+        } else if ("loadmap".equals(cmdname)) {
+            String[] cmdargs = cmdarg.split(" ");
+            if (cmdargs.length != 4) {
+                LOG.debug("command "+cmdname+" needs "+4+" arguments, "
+                        + "but "+cmdargs.length+" in fact.");
+                return null;
+            }
+            return new LoadMapCmd(Integer.valueOf(cmdargs[0]), Integer.valueOf(cmdargs[1]),
+                    Integer.valueOf(cmdargs[2]), Integer.valueOf(cmdargs[3]));
+        } else if ("talk".equals(cmdname)) {
+            String[] cmdargs = cmdarg.split(" ");
+            if (cmdargs.length != 2) {
+                LOG.debug("command "+cmdname+" needs "+2+" arguments, "
+                        + "but "+cmdargs.length+" in fact.");
+                return null;
+            }
+            TalkCmd tc = new TalkCmd(Integer.valueOf(cmdargs[0]), cmdargs[1]);
+            return tc;
+        } else if ("messagebox".equals(cmdname)) {
+            return new MessageBoxCmd(cmdarg);
+        } else if ("animation".equals(cmdname)) {
+            return parseToAnimation(cmdname, cmdarg);
+        } else if ("createnpc".equals(cmdname)) {
+            String[] cmdargs = cmdarg.split(" ");
+            if (cmdargs.length != 4) {
+                LOG.debug("command "+cmdname+" needs "+4+" arguments, "
+                        + "but "+cmdargs.length+" in fact.");
+                return null;
+            }
+            CreateNPCCmd cnc = new CreateNPCCmd(
+                    Integer.parseInt(cmdargs[0]),
+                    Integer.parseInt(cmdargs[1]),
+                    Integer.parseInt(cmdargs[2]),
+                    Integer.parseInt(cmdargs[3])
+                    );
+            return cnc;
+        } else{
+            LOG.warn("unknown command " +  cmdname  + cmdarg);
+        }
+
+        return null;
+    }
+
+    private static CmdBase parseToAnimation(String cmdname, String cmdarg) {
+        String[] cmdargs = cmdarg.split(" ");
+        if (cmdargs.length != 3) {
+            LOG.debug("command "+cmdname+" needs "+3+" arguments, "
+                    + "but "+cmdargs.length+" in fact.");
+            return null;
+        }
+        int number = Integer.parseInt(cmdargs[0]);
+        int x = Integer.parseInt(cmdargs[1]);
+        int y = Integer.parseInt(cmdargs[2]);
+
+        return new AnimationCmd(number, x, y);
+    }
+
+
+    /**
+     * 处理0个参数的命令 现有 rtn, label
+     * @param cmdname command name
+     */
+    private static CmdBase parse0(String cmdname) {
+        // TODO 可优化，尽量不要使用if语句
+        if ("return".equals(cmdname)) {
+            return new ReturnCmd(cmdname); // TODO 可优化，只要是这个命令就可以忽略cmdname了
+        } else if (cmdname.endsWith(":")) {
+            return new LabelCmd(cmdname);
+        }
+
+        return null;
+    }
+
+
+
+    /**
+     * 解析一行脚本 处理成命令
+     *
+     *  各命令可进一步解析（可根据参数个数与参数中是否允许出现' '联合判断）：
+     *   scenename 后只有一个参数
+     *   attr 后跟4个参数（纯数字）
+     *   showText 后只有一个参数
+     *   if 两个参数 (条件 触发器)
+     *   rtn 无参数
+     *   set
+     *   *: 以冒号结尾 说明是标签
+     * @param line 命令
+     */
+    public static CmdBase parseLine(String line) {
+        if (line == null) {
+            return null;
+        }
+        line = line.trim();
+        if (line.length() == 0) {
+            return null;
+        }
+
+        LOG.debug("data is `"+line+"`");
+
+        // 注释，忽略本行数据
+        if (line.startsWith("@")) {
+            //	StaticPrintUtils.p("ignoring ... ");
+            return null;
+        }
+
+        return parse(line);
+    }
+}
