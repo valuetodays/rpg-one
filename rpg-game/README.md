@@ -44,6 +44,7 @@ ILoader
     make monster's attack action
     ESC in chooseMonsterScreen and optionScreen
     [TODO] 造成伤害时要显示血量减少
+    [普通攻击时，攻击者应移动至目标处，再进行攻击，应有动画]
     对话要能有先后
     [TODO add command]指定发生战斗的命令
     [TODO add command]可供选择的选择框
@@ -53,3 +54,4 @@ ILoader
     - 全局有效 or 本script文件有效
     - 布尔型变量 or 整数型变量 （布尔型变量用于事件判断，整数可用于ifcmpt/decrease/increase等）
     [TODO] set/unset, use boolean[1024] not map in virtualtable，但是只能使用数字不能使用字符串了，得重新考虑
+    [TODO] showtext 要提供选择头像在左/右/无
