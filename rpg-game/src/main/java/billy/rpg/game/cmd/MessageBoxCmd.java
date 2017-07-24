@@ -24,10 +24,8 @@ public class MessageBoxCmd extends CmdBase {
 
     @Override
     public String toString() {
-        return "MessageBoxCmd [msg=" + msg + ", toString()=" + super.toString()
-                + "]";
+        return "MessageBoxCmd{" +
+                "msg='" + msg + '\'' +
+                "} " + super.toString();
     }
-
-
-
 }

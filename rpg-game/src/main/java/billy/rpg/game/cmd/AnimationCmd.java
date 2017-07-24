@@ -23,4 +23,13 @@ public class AnimationCmd extends CmdBase {
     public int getY() {
         return y;
     }
+
+    @Override
+    public String toString() {
+        return "AnimationCmd{" +
+                "number=" + number +
+                ", x=" + x +
+                ", y=" + y +
+                "} " + super.toString();
+    }
 }

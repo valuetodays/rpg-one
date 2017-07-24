@@ -21,4 +21,11 @@ public class ScenenameCmd extends CmdBase {
     public void setSname(String sname) {
         this.sname = sname;
     }
+
+    @Override
+    public String toString() {
+        return "ScenenameCmd{" +
+                "sname='" + sname + '\'' +
+                "} " + super.toString();
+    }
 }

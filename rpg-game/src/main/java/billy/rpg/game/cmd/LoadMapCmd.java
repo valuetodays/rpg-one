@@ -51,4 +51,14 @@ public class LoadMapCmd extends CmdBase {
     public void setY(int y) {
         this.y = y;
     }
+
+    @Override
+    public String toString() {
+        return "LoadMapCmd{" +
+                "m=" + m +
+                ", n=" + n +
+                ", x=" + x +
+                ", y=" + y +
+                "} " + super.toString();
+    }
 }

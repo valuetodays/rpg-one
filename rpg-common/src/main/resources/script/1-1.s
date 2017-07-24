@@ -28,7 +28,21 @@ return
 
 Helloed:
 showText 1675 '给你说过哈喽了啊'
+@ choice title choice1 choice2 choice3 label1 label2 label3
+choice '我给你说过话了吗' '说过了' '没有说过' '记不得了' aaa bbb ccc
 return
+
+aaa:
+showText 1675 '给你说过哈喽了啊'
+return
+
+bbb:
+showText 1675 '给你说过哈喽了啊'
+return
+
+ccc:
+return
+
 
 goright:
 loadmap 1 2 1 0

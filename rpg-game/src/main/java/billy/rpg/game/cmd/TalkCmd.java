@@ -28,5 +28,12 @@ public class TalkCmd extends CmdBase {
     public void setTriggerName(String triggerName) {
         this.triggerName = triggerName;
     }
-    
+
+    @Override
+    public String toString() {
+        return "TalkCmd{" +
+                "num=" + num +
+                ", triggerName='" + triggerName + '\'' +
+                "} " + super.toString();
+    }
 }

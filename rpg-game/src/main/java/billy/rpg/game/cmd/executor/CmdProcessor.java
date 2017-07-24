@@ -86,10 +86,8 @@ public class CmdProcessor {
             ShowTextCmd stc = ((ShowTextCmd) cmd);
             int headNumber = stc.getHeadNumber();
             final String text = stc.getText();
-            final String text0 = text.substring(1, text.length() - 1);
-            LOG.debug(text0);
             Image headImage = GameContainer.getInstance().getHeadImageItemOf(headNumber);
-            DialogScreen ms = new DialogScreen(this, headImage, text0);
+            DialogScreen ms = new DialogScreen(this, headImage, text);
             GameFrame.getInstance().pushScreen(ms);
             startPause();
         } else if (cmd instanceof LoadMapCmd) {
@@ -97,9 +95,8 @@ public class CmdProcessor {
             LOG.debug("go to map" + lmc.getM() + "-" + lmc.getN() + " in " + lmc.getX() + "," + lmc.getY());
             GameContainer.getInstance().startChapter(lmc.getM(), lmc.getN(), lmc.getX() + "-" + lmc.getY());
         } else if (cmd instanceof ScenenameCmd) {
-            final String scenename = ((ScenenameCmd) cmd).getSname();
-            final String scenename0 = scenename.substring(1, scenename.length() - 1);
-            BaseScreen bs = new ScenenameScreen(scenename0);
+            String sname = ((ScenenameCmd) cmd).getSname();
+            BaseScreen bs = new ScenenameScreen(sname);
             GameFrame.getInstance().pushScreen(bs);
         } else if (cmd instanceof AttrCmd) {
             LOG.debug(" >> basic attribute of this map ");
@@ -110,8 +107,7 @@ public class CmdProcessor {
             final MessageBoxCmd mb = (MessageBoxCmd) cmd;
             LOG.debug(mb);
             final String msg = mb.getMsg();
-            final String msg0 = msg.substring(1, msg.length() - 1);
-            final BaseScreen bs = new MessageBoxScreen(msg0);
+            final BaseScreen bs = new MessageBoxScreen(msg);
             GameFrame.getInstance().pushScreen(bs);
         } else if (cmd instanceof AnimationCmd) {
             final AnimationCmd ac = (AnimationCmd) cmd;

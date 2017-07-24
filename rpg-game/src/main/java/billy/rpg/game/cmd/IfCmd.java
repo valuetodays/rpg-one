@@ -34,4 +34,12 @@ public class IfCmd extends CmdBase {
     public void setTriggerName(String triggerName) {
         this.triggerName = triggerName;
     }
+
+    @Override
+    public String toString() {
+        return "IfCmd{" +
+                "condition='" + condition + '\'' +
+                ", triggerName='" + triggerName + '\'' +
+                "} " + super.toString();
+    }
 }

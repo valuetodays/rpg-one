@@ -40,4 +40,13 @@ public class TriggerCmd extends CmdBase {
     public void setTriggerName(String triggerName) {
         this.triggerName = triggerName;
     }
+
+    @Override
+    public String toString() {
+        return "TriggerCmd{" +
+                "x=" + x +
+                ", y=" + y +
+                ", triggerName='" + triggerName + '\'' +
+                "} " + super.toString();
+    }
 }

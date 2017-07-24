@@ -31,4 +31,11 @@ public class AttrCmd extends CmdBase {
         this.n = n;
     }
 
+    @Override
+    public String toString() {
+        return "AttrCmd{" +
+                "m=" + m +
+                ", n=" + n +
+                "} " + super.toString();
+    }
 }

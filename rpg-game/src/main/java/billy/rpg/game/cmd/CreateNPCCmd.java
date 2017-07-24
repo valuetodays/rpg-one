@@ -35,4 +35,14 @@ public class CreateNPCCmd extends CmdBase {
     public int getType() {
         return type;
     }
+
+    @Override
+    public String toString() {
+        return "CreateNPCCmd{" +
+                "x=" + x +
+                ", y=" + y +
+                ", npcNum=" + npcNum +
+                ", type=" + type +
+                "} " + super.toString();
+    }
 }

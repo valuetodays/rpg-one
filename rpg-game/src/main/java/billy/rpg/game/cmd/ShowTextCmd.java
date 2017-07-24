@@ -29,4 +29,12 @@ public class ShowTextCmd extends CmdBase {
     public void setHeadNumber(int headNumber) {
         this.headNumber = headNumber;
     }
+
+    @Override
+    public String toString() {
+        return "ShowTextCmd{" +
+                "text='" + text + '\'' +
+                ", headNumber=" + headNumber +
+                "} " + super.toString();
+    }
 }
