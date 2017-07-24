@@ -5,8 +5,8 @@ import billy.rpg.game.constants.GameConstant;
 
 
 public class CommonNPCCharacter extends NPCCharacter {
-
     private long lastTime = System.currentTimeMillis();
+    private long delay = 500;
 
     public CommonNPCCharacter() {
     }
@@ -14,27 +14,29 @@ public class CommonNPCCharacter extends NPCCharacter {
     @Override
     public void move() {
         long now = System.currentTimeMillis();
-        if (now - lastTime < 500) {
+        if (now - lastTime < delay) {
             return ;
         }
         lastTime = now;
-        int i = GameConstant.random.nextInt(8 << 2);
-        if (i % 7 == 1) {
-            decreaseX();
+        int i = GameConstant.random.nextInt(4);
+        switch (i) {
+            case 0:
+                decreaseX();
+                break;
+            case 1:
+                decreaseY();
+                break;
+            case 2:
+                increaseX();
+                break;
+            case 3:
+                increaseY();
+                break;
         }
-        if (i % 7 == 2) {
-            decreaseY();
-        }
-        if (i % 7 == 3) {
-            increaseX();
-        }
-        if (i % 7 == 3) {
-            increaseY();
-        }
+
         if (i % 2 == 0) {
             super.increaseCurFrame();
         }
-
     }
 
 

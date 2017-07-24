@@ -1,8 +1,7 @@
 package billy.rpg.game.character;
 
+import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.util.WalkUtil;
-
-import java.util.Random;
 
 
 public class HeroCharacter extends BaseCharacter {
@@ -50,45 +49,38 @@ public class HeroCharacter extends BaseCharacter {
     }
 
     public void increaseX() {
-        if (direction == DIRECTION_RIGHT) {
-            increaseCurFrame();
+        increaseCurFrame();
         int nextPosX = posX + 1;
-        if ((nextPosX <= width - 1) && WalkUtil.isWalkable(posX + 1, posY)) {
+        if ((nextPosX <= width - 1) && WalkUtil.isWalkable(nextPosX, posY)) {
             posX++;
-        }
         }
         direction = DIRECTION_RIGHT;
     }
 
     public void decreaseX() {
-        if (direction == DIRECTION_LEFT) {
-            increaseCurFrame();
+        increaseCurFrame();
         int nextPosX = posX - 1;
-        if (nextPosX >= 0 && WalkUtil.isWalkable(posX - 1, posY)) {
+        if (nextPosX >= 0 && WalkUtil.isWalkable(nextPosX, posY)) {
             posX--;
         }
-        }
+
         direction = DIRECTION_LEFT;
     }
 
     public void increaseY() {
-        if (direction == DIRECTION_DOWN) {
-            increaseCurFrame();
-            int nextPosY = posY + 1;
-            if (nextPosY <= height - 1 && WalkUtil.isWalkable(posX, posY + 1)) {
-                posY++;
-            }
+        increaseCurFrame();
+        int nextPosY = posY + 1;
+        if (nextPosY <= height - 1 && WalkUtil.isWalkable(posX, nextPosY)) {
+            posY++;
         }
         direction = DIRECTION_DOWN;
     }
 
     public void decreaseY() {
-        if (direction == DIRECTION_UP) {
-            increaseCurFrame();
+        increaseCurFrame();
         int nextPosY = posY - 1;
-        if (nextPosY >= 0 && WalkUtil.isWalkable(posX, posY - 1)) {
+        if (nextPosY >= 0 && WalkUtil.isWalkable(posX, nextPosY)) {
             posY--;
-        }
         }
         direction = DIRECTION_UP;
     }
@@ -96,22 +88,14 @@ public class HeroCharacter extends BaseCharacter {
     @Override
     public String toString() {
         return "[h=" + height + ", w=" + width + ", posX=" + posX + ", posY=" + posY + ", nextPosX="
-                + getNextPosX() + ", nextPosY=" + getNextPosY() + "dir=" + direction + "]";
+                + getNextPosX() + ", nextPosY=" + getNextPosY() + ",dir=" + direction + "]";
     }
 
     public int getDirection() {
         return direction;
     }
 
-    public boolean isX() {
-        return (direction == DIRECTION_LEFT || direction == DIRECTION_RIGHT);
-    }
 
-    public boolean isY() {
-        return (direction == DIRECTION_UP || direction == DIRECTION_DOWN);
-    }
-
-    private static Random random = new Random();
     private long lastTime = System.currentTimeMillis();
 
 
@@ -122,7 +106,7 @@ public class HeroCharacter extends BaseCharacter {
             return ;
         }
         lastTime = now;
-        int i = random.nextInt(8 << 2);
+        int i = GameConstant.random.nextInt(8 << 2);
         if (i % 7 == 1) {
             decreaseX();
         }
