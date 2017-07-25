@@ -1,5 +1,7 @@
 package billy.rpg.roleeditor;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,11 +30,6 @@ public class RoleEditorController implements Initializable {
     private TextField tfName;
     @FXML
     private ChoiceBox<Item> cbType;
-    /*= new ChoiceBox<>(FXCollections.observableArrayList(
-            new Item(1, "玩家角色"),
-            new Item(2, "NPC 角色"),
-            new Item(3, "妖怪角色"),
-            new Item(4, "场景对象")));*/
 
 
     @Override
@@ -42,18 +39,28 @@ public class RoleEditorController implements Initializable {
                 new Item(2, "NPC 角色"),
                 new Item(3, "妖怪角色"),
                 new Item(4, "场景对象")));
-        tfNumber.setOnKeyTyped(event -> {
-            int n = getNumberOfTextField(tfNumber);
-            tfNumber.setText("" + n);
-        });
         cbType.getSelectionModel().select(0);
+
+        tfNumber.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    String s = newValue.replaceAll("[^\\d]", "");
+                    tfNumber.setText(Integer.parseInt(s) + "");
+                }
+                // remove the leading '0'
+                String oriText = tfNumber.getText();
+                tfNumber.setText("" + Integer.parseInt(oriText));
+            }
+        });
+
     }
 
-    private static int getNumberOfTextField(TextField textField) {
+    private void ensureNumber(TextField textField) {
         String text = textField.getText();
         if (text == null) {
             textField.setText("");
-            return 0;
+            return;
         }
         if (text.startsWith("-")) {
             text = text.substring(1);
@@ -74,7 +81,9 @@ public class RoleEditorController implements Initializable {
             numberText = "0";
         }
         int number = Integer.parseInt(numberText);
-        return number;
+        tfNumber.setText("" + number);
+        tfNumber.positionCaret(tfNumber.getLength());
+        return;
     }
 
 

@@ -138,6 +138,7 @@ public class CmdProcessor {
             npc.setWidth(GameFrame.getInstance().getGameContainer().getActiveMap().getWidth());
             npc.initPos(x, y);
             npc.setTileNum(npcNum);
+            npc.setNumber(GameFrame.getInstance().getGameContainer().getActiveFileItem().getNpcs().size() + 1001);
             GameFrame.getInstance().getGameContainer().getActiveFileItem().getNpcs().add(npc);
         } else if (cmd instanceof ChoiceCmd) {
             final ChoiceCmd cc = (ChoiceCmd) cmd;

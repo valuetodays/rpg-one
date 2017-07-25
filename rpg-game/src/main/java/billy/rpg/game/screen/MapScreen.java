@@ -159,6 +159,7 @@ public class MapScreen extends BaseScreen {
         String name = GameFrame.getInstance().getGameContainer().getActiveMap().getName();
         g2.drawString(name, 600, 20);
 
+        g2.dispose();
         gameCanvas.drawBitmap(paint, 0, 0);
     }
 

@@ -1,5 +1,6 @@
 package billy.rpg.game.item;
 
+import billy.rpg.game.GameFrame;
 import billy.rpg.game.character.BoxCharacter;
 import billy.rpg.game.character.HeroCharacter;
 import billy.rpg.game.character.NPCCharacter;
@@ -216,7 +217,6 @@ public class ScriptItem {
         }
 
         if (label != null) {
-            //CmdExecutor.executeCmds(label.getCmds());
             cmdProcessor = new CmdProcessor(label.getCmds());
         }
     }
@@ -227,7 +227,6 @@ public class ScriptItem {
         }
 
         String triggername = talk.getLabelTitle();
-
         LabelBean label = null;
         for (TalkBean t : talks) {
             if (t.getLabelTitle().equals(triggername)) {
@@ -237,7 +236,6 @@ public class ScriptItem {
         }
 
         if (label != null) {
-            //CmdExecutor.executeCmds(label.getCmds());
             cmdProcessor = new CmdProcessor(label.getCmds());
         }
     }
@@ -288,27 +286,51 @@ public class ScriptItem {
         executeTrigger(getTriggerByPos(posX, posY));
     }
 
+    /**
+     * 检测地图上的对话，顺序为
+     * <ul>
+     *     <ol>若地图上有npc，就执行npc事件</ol>
+     *     <ol>若地图上有事件，就执行事件</ol>
+     * </ul>
+     */
     private void checkTalk0() {
         HeroCharacter mm = GameContainer.getInstance().getActiveFileItem().getHero();
-        int posX = mm.getNextPosX();
-        int posY = mm.getNextPosY();
-        if (posX == -1 && posY == -1) { // a new map, not check talk
-            return ;
+        int heroNextPosX = mm.getNextPosX();
+        int heroNextPosY = mm.getNextPosY();
+        if (heroNextPosX == -1 && heroNextPosY == -1) { // a new map, not check talk
+            return;
         }
-        int[][] event = GameContainer.getInstance().getActiveMap().getEvent();
-        int eventNum = 0;
-        try {
-            eventNum = event[posX][posY];
-            if (eventNum == -1) {
-                return;
+        TalkBean talkBean = null;
+        List<NPCCharacter> npcs = GameFrame.getInstance().getGameContainer().getActiveFileItem().getNpcs();
+        for (NPCCharacter npc : npcs) {
+            int npcPosX = npc.getPosX();
+            int npcPosY = npc.getPosY();
+            if (heroNextPosX == npcPosX && heroNextPosY == npcPosY) {
+                int number = npc.getNumber();
+                TalkBean talkByNum = getTalkByNum(number);
+                if (talkByNum != null) {
+                    talkBean = talkByNum;
+                    break;
+                }
             }
-        } catch(ArrayIndexOutOfBoundsException e) {
-            return ;
+        }
+        if (talkBean != null) {
+            executeTalk(talkBean);
+            return;
         }
 
-        executeTalk(getTalkByNum(eventNum));
-        return;
+        int[][] event = GameContainer.getInstance().getActiveMap().getEvent();
+        int eventNum = event[heroNextPosX][heroNextPosY];
+        if (eventNum == -1) {
+            return;
+        }
+        talkBean = getTalkByNum(eventNum);
+        if (talkBean != null) {
+            executeTalk(talkBean);
+            return;
+        }
     }
+
 
     public void init(List<CmdBase> cmdList) {
         initPrimarySection(cmdList); // 第一行到第一个return之间的命令全部属于primarySection
@@ -338,7 +360,6 @@ public class ScriptItem {
         }
         List<CmdBase> primarySection = getPrimarySection();
         cmdProcessor = new CmdProcessor(primarySection);
-        // CmdExecutor.executeCmds(primarySection);
         flagExecutePrimarySection = true;
     }
 

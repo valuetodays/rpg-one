@@ -21,6 +21,8 @@ public class AlertBox {
         window.initModality(Modality.APPLICATION_MODAL);
         window.setMinWidth(300);
         window.setMinHeight(150);
+        window.setMaximized(false);
+        window.setResizable(false);
 
         Button button = new Button("OK");
         button.setOnAction(e -> window.close());

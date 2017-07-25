@@ -9,20 +9,17 @@ public class HeroCharacter extends BaseCharacter {
     private int direction; // 方向
 
 
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
 
     public int getNextPosX() {
-        return posX + (direction == DIRECTION_LEFT ? -1 : (direction == DIRECTION_RIGHT ? 1 : 0 ));
+        return posX + ((direction == DIRECTION_LEFT && posX > 0) ? -1 :
+                ((direction == DIRECTION_RIGHT && posX < getWidth() - 1) ? 1 : 0)
+        );
     }
 
     public int getNextPosY() {
-        return posY + (direction == DIRECTION_UP ? -1 : (direction == DIRECTION_DOWN ? 1 : 0 ));
+        return posY + ((direction == DIRECTION_UP && posY > 0) ? -1 :
+                ((direction == DIRECTION_DOWN && posY < getHeight() - 1) ? 1 : 0 )
+        );
     }
 
     public void initPos(int posX, int posY) {

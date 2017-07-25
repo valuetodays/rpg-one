@@ -11,7 +11,7 @@ return
 
 say0ed:
 return
- 
+
 @set a1
 @if a1 Hello
 @showText 'showed hello'
@@ -53,7 +53,6 @@ return
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ box1这个tag说明showText命令是阻塞式的，当执行该命令时，下一句命令不会执行
 @ 而animation命令没有完成时也不会执行下面的语句
-@
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@
 box1:
 showText 1675 '这是一个宝箱，可是`y`打不开`/y`，好气啊！'
@@ -76,10 +75,18 @@ showText 1675 '我是`y`大BOSS`/y`，我怕谁！`r`毛宁`/r`我都不怕！�
 @showText 1675 '第三段对话也来了'
 return
 
+npc1:
+showtext 1510 '啊！你怎么沦落至此地？'
+return
+
+
+
+
 @ 肉山，大龙
 talk 255 goright
 talk 2 roshan
 talk 237 box1
+talk 1001 npc1
 
 trigger 1 1 hello
 @trigger 14 14 goright

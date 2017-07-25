@@ -8,41 +8,50 @@ import billy.rpg.game.constants.CharacterConstant;
  * @since 2017-05-18 14:04
  */
 public abstract class BaseCharacter implements CharacterConstant {
-    protected int height = 5; // 当前地图的高
-    protected int width = 5;  // 当前地图的宽
-    protected int posX = 6; // 当前x
-    protected int posY = 6; // 当前y
+    public int number; // 编号
+    public int height = 5; // 当前地图的高
+    public int width = 5;  // 当前地图的宽
+    public int posX = 6; // 当前x
+    public int posY = 6; // 当前y
 
-    protected int getPosX() {
-        return posX;
+    public int getNumber() {
+        return number;
     }
 
-    protected int getPosY() {
-        return posY;
+    public void setNumber(int number) {
+        this.number = number;
     }
 
-    protected void setPosX(int posX) {
-        this.posX = posX;
-    }
-
-    protected void setPosY(int posY) {
-        this.posY = posY;
-    }
-
-    protected int getHeight() {
+    public int getHeight() {
         return height;
     }
 
-    protected void setHeight(int height) {
+    public void setHeight(int height) {
         this.height = height;
     }
 
-    protected int getWidth() {
+    public int getWidth() {
         return width;
     }
 
-    protected void setWidth(int width) {
+    public void setWidth(int width) {
         this.width = width;
+    }
+
+    public int getPosX() {
+        return posX;
+    }
+
+    public void setPosX(int posX) {
+        this.posX = posX;
+    }
+
+    public int getPosY() {
+        return posY;
+    }
+
+    public void setPosY(int posY) {
+        this.posY = posY;
     }
 
     /**

@@ -26,20 +26,25 @@ public class NPCDialog extends JDialog {
     private List<String> npcNames;
     private MapEditorFrame mapEditorFrame;
     private NPCDialog instance;
+    private JTextField tfNumber;
 
     public NPCDialog(MapEditorFrame frame) {
         super(frame, "请选择npc", true);
         this.mapEditorFrame = frame;
-        LayoutManager borderLayout = new BorderLayout(5, 5);
-        setLayout(borderLayout);
+        setLayout(null);
 
         initNpcs();
 
-        add(npcs, BorderLayout.NORTH);
+        add(npcs);
+        JLabel labelNumber = new JLabel("唯一编号");
+        labelNumber.setToolTipText("唯一编号是指在一个地图中该npc的唯一标识，脚本中可使用'talk 唯一编号 标签'来给该npc触发事件哦~");
+        add(labelNumber);
+        tfNumber = new JTextField(10);
+        add(tfNumber);
         btnOK = new JButton("确定");
-        add(btnOK, BorderLayout.SOUTH);
+        add(btnOK);
         bindOKListener();
-        setBounds(120, 120, 180, 150);
+        setBounds(120, 120, 280, 180);
         instance = this;
     }
 
@@ -89,6 +94,5 @@ public class NPCDialog extends JDialog {
 
     public BufferedImage getImageOf(int npcNum) {
         return npcImageLoader.getLittleImageOf(npcNum);
-
     }
 }

@@ -212,6 +212,7 @@ public class GameContainer {
                     npc.setWidth(getActiveMap().getWidth());
                     npc.initPos(i, j);
                     npc.setTileNum(npcLayer[i][j]);
+                    npc.setNumber(activeScriptItem.getNpcs().size() + 1001);
                     activeScriptItem.getNpcs().add(npc);
                 }
             }
