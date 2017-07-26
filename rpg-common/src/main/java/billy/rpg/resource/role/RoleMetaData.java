@@ -34,6 +34,7 @@ public class RoleMetaData implements Cloneable { // TODO 添加级别
 
     private int type;
     private int number;
+    private int level = 1; // TODO 等级，默认开始时都是1
     private String name;
     private BufferedImage image;
     private int hp;
@@ -62,6 +63,14 @@ public class RoleMetaData implements Cloneable { // TODO 添加级别
 
     public void setNumber(int number) {
         this.number = number;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 
     public int getType() {

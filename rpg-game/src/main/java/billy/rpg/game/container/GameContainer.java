@@ -7,15 +7,13 @@ import billy.rpg.game.character.NPCCharacter;
 import billy.rpg.game.character.TransferCharacter;
 import billy.rpg.game.character.npc.CommonNPCCharacter;
 import billy.rpg.game.constants.CharacterConstant;
-import billy.rpg.game.loader.AnimationDataLoader;
-import billy.rpg.game.loader.MapDataLoader;
-import billy.rpg.game.loader.RoleDataLoader;
-import billy.rpg.game.loader.ScriptDataLoader;
+import billy.rpg.game.loader.*;
 import billy.rpg.game.screen.BaseScreen;
 import billy.rpg.game.screen.MapScreen;
 import billy.rpg.game.item.*;
 import billy.rpg.resource.animation.AnimationMetaData;
 import billy.rpg.resource.box.BoxImageLoader;
+import billy.rpg.resource.level.LevelMetaData;
 import billy.rpg.resource.map.MapMetaData;
 import billy.rpg.resource.npc.NPCImageLoader;
 import billy.rpg.resource.role.RoleMetaData;
@@ -56,6 +54,8 @@ public class GameContainer {
 
     private Map<Integer, RoleMetaData> heroRoleMap;
     private Map<Integer, RoleMetaData> monsterRoleMap;
+    private Map<Integer, LevelMetaData> levelMetaDataMap;
+
 
 
     // make private 
@@ -76,8 +76,6 @@ public class GameContainer {
      *      <li>map</li>
      *      <li></li>
      * </ul>
-     * 
-     * @return un-important
      */
     public void load() {
         if (loaded) {
@@ -109,11 +107,18 @@ public class GameContainer {
             loadScriptData();
             loadAnimationData();
             loadRoleData();
+            loadLevelData();
         } catch (Exception e) {
             e.printStackTrace();
         }
         
         loaded = true;
+    }
+
+    private void loadLevelData() {
+        LevelDataLoader ldl = new LevelDataLoader();
+        ldl.load();
+        levelMetaDataMap = ldl.getLevleMap();
     }
 
     private void loadRoleData() {
@@ -323,5 +328,9 @@ public class GameContainer {
 
     public Image getHeadImageItemOf(int number) {
         return headImageItem.getHead(number);
+    }
+
+    public LevelMetaData getLevelMetaDataOf(int number) {
+        return levelMetaDataMap.get(number);
     }
 }

@@ -38,9 +38,9 @@ public class ScriptItem {
     private List<BoxCharacter> boxes = new ArrayList<>();
     private static final int STEP_MEET_MONSTER = 8;
     private int steps; // 当前地图下的移动步数，当达到STEP_MEET_MONSTER时会遇到怪物进行战斗
-//    private List<Integer> predictedMonsterIds = Arrays.asList(51, 51); // TODO 可从*.map或*.s中加载
-    private List<Integer> predictedMonsterIds = Arrays.asList(); // 可能遇到的妖怪编号，为空时不发生战斗 TODO 可从*.map或*.s中加载
-    private static List<Integer> heroIds = Arrays.asList(1, 3); // TODO 玩家离队入队的话，将这个数据存放到何处
+    private List<Integer> predictedMonsterIds = Arrays.asList(51, 51); // TODO 可从*.map或*.s中加载
+//    private List<Integer> predictedMonsterIds = Arrays.asList(); // 可能遇到的妖怪编号，为空时不发生战斗 TODO 可从*.map或*.s中加载
+    private static List<Integer> heroIds = Arrays.asList(1); // TODO 玩家离队入队的话，将这个数据存放到何处
 
 
     public static List<Integer> getHeroIds() {
@@ -266,7 +266,7 @@ public class ScriptItem {
             return;
         }
         int monsterNumbers = GameConstant.random.nextInt(3) + 1;
-//        monsterNumbers = 1;
+        monsterNumbers = 1;
         int[] metMonsterIds = new int[monsterNumbers];
         for (int i = 0; i < monsterNumbers; i++) {
             int n = GameConstant.random.nextInt(predictedMonsterIds.size());

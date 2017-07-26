@@ -22,7 +22,6 @@ import java.io.IOException;
 
 
 /**
- * TODO save to file
  * main panel to show the role editor
  */
 public class RoleEditorPanel extends JPanel {
