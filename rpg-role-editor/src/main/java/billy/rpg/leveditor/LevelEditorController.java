@@ -1,24 +1,26 @@
 package billy.rpg.leveditor;
 
 import billy.rpg.resource.level.LevelData;
+import billy.rpg.resource.level.LevelLoader;
 import billy.rpg.resource.level.LevelMetaData;
 import billy.rpg.resource.level.LevelSaver;
 import billy.rpg.roleeditor.AlertBox;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.MenuItem;
+import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 import javafx.util.converter.IntegerStringConverter;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import java.io.File;
@@ -31,7 +33,7 @@ import java.util.stream.Collectors;
 
 /**
  * 注意要想让表格里的数据可编辑，要使用 TableColumn.setCellFactory(TextFieldTableCell.forTableColumn());
- *  我也是整了好久没有仔细看官方示例http://docs.oracle.com/javafx/2/ui_controls/table-view.htm
+ *  我也是整了好久没有仔细看官方示例http://docs.oracle.com/javafx/2/ui_controls/tvTable-view.htm
  *  最终在该页面http://blog.csdn.net/mexel310/article/details/23364397
  *  才找到解决办法的。
  *
@@ -42,48 +44,24 @@ public class LevelEditorController implements Initializable {
     private static final Logger LOG = Logger.getLogger(LevelEditorController.class);
 
     @FXML
-    private MenuItem menuFileNew;
-    @FXML
-    private MenuItem menuFileClose;
-    @FXML
-    private MenuItem menuHelpAbout;
-    @FXML
-    private TableView<LevelData> table;
+    private TableView<LevelData> tvTable;
 
-    private int maxLevel; // 最大等级数
-    private int number; // 编号
+    @FXML
+    private TextField tfNumber; // 编号
+    @FXML
+    private TextField tfMaxLevel; // 最大等级数
+    private FileChooser fileSaveChooser = new FileChooser();
+    private FileChooser fileLoadChooser = new FileChooser();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        menuFileNew.setOnAction((ActionEvent t) -> {
-            new LevelDataController(this).display();
-        });
-        menuFileClose.setOnAction((ActionEvent t) -> {
-            LOG.debug("exit");
-            Platform.exit();
-        });
-        menuHelpAbout.setOnAction((ActionEvent t) -> {
-            LOG.debug("help -> about");
-            AlertBox.alert("帮助：\r\n1. aaaa\r\n2. bbbb\r\n3. cccc");
-        });
-
-        /*
-                  <TableColumn prefWidth="44.0" text="level" />
-            <TableColumn prefWidth="70.0" text="maxHp" />
-            <TableColumn prefWidth="58.0" text="maxMp" />
-            <TableColumn prefWidth="50.0" text="attack" />
-            <TableColumn prefWidth="50.0" text="defend" />
-            <TableColumn prefWidth="53.0" text="exp" />
-
-         */
-        table.setEditable(true);
+        tvTable.setEditable(true);
         String[] columns = new String[]{"level", "maxHp", "maxMp", "attack", "defend", "exp"};
         TableColumn<LevelData, Integer> levelCol = new TableColumn<>(columns[0]);
         levelCol.setMinWidth(100);
-        //levelCol.setEditable(false);
         levelCol.setCellValueFactory(
                 new PropertyValueFactory<>("level"));
-        table.getColumns().add(levelCol);
+        tvTable.getColumns().add(levelCol);
         for (int i = 1; i < columns.length; i++) {
             String columnName = columns[i];
             TableColumn<LevelData, Integer> col = new TableColumn<>(columnName);
@@ -109,28 +87,70 @@ public class LevelEditorController implements Initializable {
                 }
             );
             col.setCellValueFactory(new PropertyValueFactory<>(columnName));
-            table.getColumns().add(col);
-        }
+            tvTable.getColumns().add(col);
+        } // end of for
+
+        fileSaveChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+        fileSaveChooser.getExtensionFilters().addAll(
+            new FileChooser.ExtensionFilter("level file", "*.lvl")
+        );
+        fileLoadChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+        fileLoadChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("level file", "*.lvl")
+        );
+    }
+
+    /**
+     * 获取控件元素的窗口对象
+     * @param event
+     * @return
+     */
+    public static Window getWindow(ActionEvent event){
+        return((Node)event.getSource()).getScene().getWindow();
     }
 
 
     public void initLevelInfo(int maxLevel, int number) {
-        this.maxLevel = maxLevel;
-        this.number = number;
-        System.out.println(maxLevel);
+        tfMaxLevel.setText("" + maxLevel);
+        tfNumber.setText("" + number);
         List<LevelData> metaDataList = new ArrayList<>();
         for (int i = 1; i <= maxLevel; i++) {
             metaDataList.add(new LevelData(i));
         }
-        table.setEditable(true);
-        table.setItems(FXCollections.observableArrayList(metaDataList));
+        tvTable.setEditable(true);
+        tvTable.setItems(FXCollections.observableArrayList(metaDataList));
     }
 
+    /**
+     * 新建
+     * @param event event
+     */
+    @FXML
+    public void onNewAction(ActionEvent event) {
+        new LevelDataController(this).display();
+    }
+
+    /**
+     * 保存
+     * @param event event
+     */
     @FXML
     public void onSaveAction(ActionEvent event) {
-        LOG.debug("maxLevel:" + maxLevel);
+        String numberText = tfNumber.getText();
+        if (StringUtils.isEmpty(numberText)) {
+            AlertBox.alert("请输入编号");
+            return;
+        }
+        int number = Integer.parseInt(numberText);
+        String maxLevelText = tfMaxLevel.getText();
+        if (StringUtils.isEmpty(maxLevelText)) {
+            AlertBox.alert("请输入最大等级数");
+            return;
+        }
+        int maxLevel = Integer.parseInt(maxLevelText);
         LOG.debug("number:" + number);
-        ObservableList<LevelData> items = table.getItems();
+        LOG.debug("maxLevel:" + maxLevel);
+        ObservableList<LevelData> items = tvTable.getItems();
         for (LevelData item : items) {
             if (!item.isValid()) {
                 AlertBox.alert("有数据为空，请补全后再保存");
@@ -144,11 +164,8 @@ public class LevelEditorController implements Initializable {
         List<LevelData> levelDataList = items.stream().collect(Collectors.toList());
         lmd.setLevelDataList(levelDataList);
 
-        Window ownerWindow = menuFileNew.getParentPopup().getOwnerWindow();
-        FileChooser fileChooser = new FileChooser();
-        File fileSave = fileChooser.showSaveDialog(ownerWindow);
+        File fileSave = fileSaveChooser.showSaveDialog(getWindow(event));
         if (fileSave != null) {
-            System.out.println(fileSave.getPath());
             String parentPath = fileSave.getParentFile().getPath();
             String name = fileSave.getName();
             // TODO aa.LVL ??
@@ -159,4 +176,28 @@ public class LevelEditorController implements Initializable {
         }
 
     }
+
+    /**
+     * 加载
+     * @param event event
+     */
+    @FXML
+    public void onLoadAction(ActionEvent event) {
+        File fileLoad = fileLoadChooser.showOpenDialog(getWindow(event));
+
+        if (fileLoad != null) {
+            LevelMetaData loadedLmd = LevelLoader.load(fileLoad.getPath());
+            tfNumber.setText("" + loadedLmd.getNumber());
+            tfMaxLevel.setText("" + loadedLmd.getMaxLevel());
+            List<LevelData> levelDataList = loadedLmd.getLevelDataList();
+            tvTable.setItems(FXCollections.observableArrayList(levelDataList));
+        }
+    }
+
+    @FXML
+    public void onAboutAction(ActionEvent event) {
+        AlertBox.alert("帮助：\r\n1. aaaa\r\n2. bbbb\r\n3. cccc");
+    }
+
+
 }
