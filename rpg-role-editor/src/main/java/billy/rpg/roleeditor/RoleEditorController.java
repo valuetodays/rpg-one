@@ -97,7 +97,7 @@ public class RoleEditorController implements Initializable {
     protected void save() {
         String tfNumberText = tfNumber.getText();
         if (StringUtils.isEmpty(tfNumberText)) {
-            AlertBox.display("不能为空");
+            AlertBox.alert("不能为空");
             return;
         }
         LOG.debug("number=" + tfNumberText);

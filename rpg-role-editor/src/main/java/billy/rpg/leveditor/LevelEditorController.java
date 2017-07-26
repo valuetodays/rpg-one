@@ -1,5 +1,8 @@
 package billy.rpg.leveditor;
 
+import billy.rpg.resource.level.LevelData;
+import billy.rpg.resource.level.LevelMetaData;
+import billy.rpg.resource.level.LevelSaver;
 import billy.rpg.roleeditor.AlertBox;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -13,14 +16,18 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.stage.FileChooser;
+import javafx.stage.Window;
 import javafx.util.converter.IntegerStringConverter;
 import org.apache.log4j.Logger;
 
+import java.io.File;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 /**
  * 注意要想让表格里的数据可编辑，要使用 TableColumn.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -41,7 +48,7 @@ public class LevelEditorController implements Initializable {
     @FXML
     private MenuItem menuHelpAbout;
     @FXML
-    private TableView<LevelMetaData> table;
+    private TableView<LevelData> table;
 
     private int maxLevel; // 最大等级数
     private int number; // 编号
@@ -49,7 +56,7 @@ public class LevelEditorController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         menuFileNew.setOnAction((ActionEvent t) -> {
-            new LevelInfoController(this).display();
+            new LevelDataController(this).display();
         });
         menuFileClose.setOnAction((ActionEvent t) -> {
             LOG.debug("exit");
@@ -57,7 +64,7 @@ public class LevelEditorController implements Initializable {
         });
         menuHelpAbout.setOnAction((ActionEvent t) -> {
             LOG.debug("help -> about");
-            AlertBox.display("帮助：\r\n1. aaaa\r\n2. bbbb\r\n3. cccc");
+            AlertBox.alert("帮助：\r\n1. aaaa\r\n2. bbbb\r\n3. cccc");
         });
 
         /*
@@ -71,7 +78,7 @@ public class LevelEditorController implements Initializable {
          */
         table.setEditable(true);
         String[] columns = new String[]{"level", "maxHp", "maxMp", "attack", "defend", "exp"};
-        TableColumn<LevelMetaData, Integer> levelCol = new TableColumn<>(columns[0]);
+        TableColumn<LevelData, Integer> levelCol = new TableColumn<>(columns[0]);
         levelCol.setMinWidth(100);
         //levelCol.setEditable(false);
         levelCol.setCellValueFactory(
@@ -79,24 +86,24 @@ public class LevelEditorController implements Initializable {
         table.getColumns().add(levelCol);
         for (int i = 1; i < columns.length; i++) {
             String columnName = columns[i];
-            TableColumn<LevelMetaData, Integer> col = new TableColumn<>(columnName);
+            TableColumn<LevelData, Integer> col = new TableColumn<>(columnName);
             col.setMinWidth(100);
             col.setEditable(true);
             col.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
             col.setOnEditCommit(
-                new EventHandler<TableColumn.CellEditEvent<LevelMetaData, Integer>>() {
+                new EventHandler<TableColumn.CellEditEvent<LevelData, Integer>>() {
                     @Override
-                    public void handle(TableColumn.CellEditEvent<LevelMetaData, Integer> t) {
+                    public void handle(TableColumn.CellEditEvent<LevelData, Integer> t) {
                         try {
-                            Method declaredMethod = LevelMetaData.class.getDeclaredMethod(
+                            Method declaredMethod = LevelData.class.getDeclaredMethod(
                                     "set" + columnName.substring(0, 1).toUpperCase() +
                                     columnName.substring(1), t.getNewValue().getClass());
 
-                            LevelMetaData levelMetaData = t.getTableView().getItems().get(t.getTablePosition().getRow());
+                            LevelData levelMetaData = t.getTableView().getItems().get(t.getTablePosition().getRow());
                             declaredMethod.invoke(levelMetaData, t.getNewValue());
                         } catch (Exception e) {
                             e.printStackTrace();
-                            AlertBox.display("编辑时出错，请检查。");
+                            AlertBox.alert("编辑时出错，请检查。");
                         }
                     }
                 }
@@ -107,13 +114,13 @@ public class LevelEditorController implements Initializable {
     }
 
 
-    public void setLevelInfo(int maxLevel, int number) {
+    public void initLevelInfo(int maxLevel, int number) {
         this.maxLevel = maxLevel;
         this.number = number;
         System.out.println(maxLevel);
-        List<LevelMetaData> metaDataList = new ArrayList<>();
+        List<LevelData> metaDataList = new ArrayList<>();
         for (int i = 1; i <= maxLevel; i++) {
-            metaDataList.add(new LevelMetaData(i));
+            metaDataList.add(new LevelData(i));
         }
         table.setEditable(true);
         table.setItems(FXCollections.observableArrayList(metaDataList));
@@ -123,9 +130,33 @@ public class LevelEditorController implements Initializable {
     public void onSaveAction(ActionEvent event) {
         LOG.debug("maxLevel:" + maxLevel);
         LOG.debug("number:" + number);
-        ObservableList<LevelMetaData> items = table.getItems();
-        items.forEach(e -> {
-            LOG.debug(e);
-        });
+        ObservableList<LevelData> items = table.getItems();
+        for (LevelData item : items) {
+            if (!item.isValid()) {
+                AlertBox.alert("有数据为空，请补全后再保存");
+                return;
+            }
+        }
+        LevelMetaData lmd = new LevelMetaData();
+        lmd.setNumber(number);
+        lmd.setMaxLevel(maxLevel);
+        // 将ObservableList转成ArrayList
+        List<LevelData> levelDataList = items.stream().collect(Collectors.toList());
+        lmd.setLevelDataList(levelDataList);
+
+        Window ownerWindow = menuFileNew.getParentPopup().getOwnerWindow();
+        FileChooser fileChooser = new FileChooser();
+        File fileSave = fileChooser.showSaveDialog(ownerWindow);
+        if (fileSave != null) {
+            System.out.println(fileSave.getPath());
+            String parentPath = fileSave.getParentFile().getPath();
+            String name = fileSave.getName();
+            // TODO aa.LVL ??
+            if (!name.endsWith(".lvl")) {
+                name += ".lvl";
+            }
+            LevelSaver.save(parentPath + File.separator + name, lmd);
+        }
+
     }
 }

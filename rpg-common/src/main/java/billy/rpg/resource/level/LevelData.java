@@ -1,10 +1,10 @@
-package billy.rpg.leveditor;
+package billy.rpg.resource.level;
 
 /**
  * @author liulei@bshf360.com
  * @since 2017-07-25 17:11
  */
-public class LevelMetaData {
+public class LevelData {
     private Integer level;
     private Integer maxHp;
     private Integer maxMp;
@@ -12,7 +12,7 @@ public class LevelMetaData {
     private Integer defend;
     private Integer exp;
 
-    public LevelMetaData(Integer level) {
+    public LevelData(Integer level) {
         this.level = level;
     }
 
@@ -66,7 +66,7 @@ public class LevelMetaData {
 
     @Override
     public String toString() {
-        return "LevelMetaData{" +
+        return "LevelData{" +
                 "level=" + level +
                 ", maxHp=" + maxHp +
                 ", maxMp=" + maxMp +
@@ -74,5 +74,9 @@ public class LevelMetaData {
                 ", defend=" + defend +
                 ", exp=" + exp +
                 '}';
+    }
+
+    public boolean isValid() {
+        return level != null && maxHp != null && maxMp != null && attack != null && defend != null && exp != null;
     }
 }

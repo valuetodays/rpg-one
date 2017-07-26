@@ -14,7 +14,7 @@ import javafx.stage.Stage;
  */
 public class AlertBox {
 
-    public static void display(String message) {
+    public static void alert(String message) {
         Stage window = new Stage();
         window.setTitle("message");
         //modality要使用Modality.APPLICATION_MODEL

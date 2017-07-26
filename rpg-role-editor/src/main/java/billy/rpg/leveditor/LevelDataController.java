@@ -17,8 +17,8 @@ import java.io.IOException;
  * @author liulei@bshf360.com
  * @since 2017-07-25 15:24
  */
-public class LevelInfoController extends Pane {
-    private static final Logger LOG = Logger.getLogger(LevelInfoController.class);
+public class LevelDataController extends Pane {
+    private static final Logger LOG = Logger.getLogger(LevelDataController.class);
     private LevelEditorController levelEditorController;
     private Stage maxLevelStage;
     @FXML
@@ -26,11 +26,11 @@ public class LevelInfoController extends Pane {
     @FXML
     private TextField tfNumber; // 编号
 
-    public LevelInfoController(LevelEditorController levelEditorController) {
+    public LevelDataController(LevelEditorController levelEditorController) {
         this.levelEditorController = levelEditorController;
-        FXMLLoader fXMLLoader = new FXMLLoader(LevelInfoController.class.getResource("/level-info.fxml"));
-        fXMLLoader.setRoot(LevelInfoController.this);
-        fXMLLoader.setController(LevelInfoController.this);
+        FXMLLoader fXMLLoader = new FXMLLoader(LevelDataController.class.getResource("/level-info.fxml"));
+        fXMLLoader.setRoot(this);
+        fXMLLoader.setController(this);
         try {
             fXMLLoader.load();
         } catch (IOException exception) {
@@ -41,8 +41,7 @@ public class LevelInfoController extends Pane {
     public void display() {
         maxLevelStage = new Stage(StageStyle.DECORATED);
         maxLevelStage.setResizable(false);
-
-        maxLevelStage.setTitle("关于");
+        maxLevelStage.setTitle("新建");
         maxLevelStage.setMaximized(false);
         maxLevelStage.setResizable(false);
         maxLevelStage.setScene(new Scene(this));
@@ -57,10 +56,10 @@ public class LevelInfoController extends Pane {
         try {
             int maxLevel = Integer.parseInt(maxLevelText);
             int number = Integer.parseInt(numberText);
-            levelEditorController.setLevelInfo(maxLevel, number);
+            levelEditorController.initLevelInfo(maxLevel, number);
             maxLevelStage.hide();
         } catch (NumberFormatException nfe) {
-            AlertBox.display("输入格式不对。");
+            AlertBox.alert("输入格式不对。");
         }
     }
 

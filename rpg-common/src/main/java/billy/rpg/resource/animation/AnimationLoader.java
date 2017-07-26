@@ -10,7 +10,6 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * load from *.ani file
@@ -20,9 +19,8 @@ import java.util.Map;
  */
 public class AnimationLoader {
     private static final Logger LOG = Logger.getLogger(AnimationLoader.class);
-
     private static final String ANI_MAGIC = AnimationEditorConstant.ANI_MAGIC;
-    private Map<Integer, AnimationMetaData> animationMetaDataMap;
+
     /**
      * load from specified file
      *
