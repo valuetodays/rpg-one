@@ -270,7 +270,7 @@ public class BattleFightScreen extends BaseScreen {
         if (monsterDieAllFlag) {
             LOG.debug("victory!!! show victory ui");
             BattleSuccessScreen success = new BattleSuccessScreen(
-                    getBattleUIScreen().heroBattleList,
+                    getBattleUIScreen().getParentScreen(),
                     getBattleUIScreen().money,
                     getBattleUIScreen().exp);
             getBattleUIScreen().getParentScreen().push(success);

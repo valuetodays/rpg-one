@@ -26,13 +26,14 @@ import java.util.List;
 public class BattleSuccessScreen extends BaseScreen {
     private int money;
     private int exp;
-    private List<HeroBattle> heroBattleList;
+    private BattleScreen battleScreen;
     private List<HeroBattle> newHeroBatleList = new ArrayList<>();
 
-    public BattleSuccessScreen(List<HeroBattle> heroBattleList, int money, int exp) {
-        this.heroBattleList = heroBattleList;
+    public BattleSuccessScreen(BattleScreen battleScreen, int money, int exp) {
+        this.battleScreen = battleScreen;
         this.money = money;
         this.exp = exp;
+        List<HeroBattle> heroBattleList = battleScreen.getHeroBattleList();
         for (HeroBattle heroBattle : heroBattleList) {
             HeroBattle newHeroBattle = new HeroBattle();
             newHeroBattle.setDied(heroBattle.isDied());
@@ -103,6 +104,7 @@ public class BattleSuccessScreen extends BaseScreen {
         g.drawString("get money " + money, 120, 70);
         g.drawString("get exp " + exp, 120, 90);
         // 这里只【显示】升级所得经验及金币
+        List<HeroBattle> heroBattleList = battleScreen.getHeroBattleList();
         for (int i = 0; i < heroBattleList.size(); i++) {
             RoleMetaData oldRoleMetaData = heroBattleList.get(i).getRoleMetaData();
             RoleMetaData newRoleMetaData = newHeroBatleList.get(i).getRoleMetaData();
@@ -125,16 +127,14 @@ public class BattleSuccessScreen extends BaseScreen {
     }
 
     @Override
-    public void onKeyDown(int key) {
-
-    }
+    public void onKeyDown(int key) { }
 
     @Override
     public void onKeyUp(int key) {
         // TODO 这种情况并不能修改现有的hero数据
         for (int i = 0; i < newHeroBatleList.size(); i++) {
             HeroBattle newHeroBattle = newHeroBatleList.get(i);
-            HeroBattle heroBattle = heroBattleList.get(i);
+            HeroBattle heroBattle = battleScreen.getHeroBattleList().get(i);
             heroBattle.setRoleMetaData(newHeroBattle.getRoleMetaData().clone());
         }
 

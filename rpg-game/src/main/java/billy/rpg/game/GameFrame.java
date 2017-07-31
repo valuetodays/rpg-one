@@ -29,6 +29,7 @@ public class GameFrame extends JFrame implements Runnable {
     private GameCanvas gameCanvas;
     private boolean running;
     private GamePanel gamePanel;
+    private GameData gameData;
     private GameContainer gameContainer;
     private MapScreen mapScreen = new MapScreen(); // TODO 游戏中应该只有一个地图屏幕
 
@@ -45,6 +46,7 @@ public class GameFrame extends JFrame implements Runnable {
         running = true;
         gamePanel = new GamePanel();
         this.add(gamePanel);
+        gameData = new GameData();
 
         setTitle(GameConstant.GAME_TITLE);
         setLocation(GameConstant.GAME_WINDOW_LEFT, GameConstant.GAME_WINDOW_TOP);
@@ -207,5 +209,9 @@ public class GameFrame extends JFrame implements Runnable {
             screenStack.clear();
             screenStack.push(battleScreen);
         }
+    }
+
+    public GameData getGameData() {
+        return gameData;
     }
 }

@@ -4,10 +4,8 @@ import billy.rpg.game.GameCanvas;
 import billy.rpg.game.GameFrame;
 import billy.rpg.game.character.battle.HeroBattle;
 import billy.rpg.game.screen.BaseScreen;
-import billy.rpg.game.item.ScriptItem;
-import billy.rpg.resource.role.RoleMetaData;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 /**
@@ -17,23 +15,9 @@ import java.util.Stack;
  */
 public class BattleScreen extends BaseScreen {
     private Stack<BaseScreen> screenStack = new Stack<>();
-    protected java.util.List<HeroBattle> heroBattleList;
+    protected java.util.List<HeroBattle> heroBattleList = GameFrame.getInstance().getGameData().getHeroBattleList();
 
     public BattleScreen(final int[] metMonsterIds) {
-        heroBattleList = new ArrayList<>();
-        java.util.List<Integer> heroIds = ScriptItem.getHeroIds();
-        for (int i = 0; i < heroIds.size(); i++) {
-            RoleMetaData heroRole = GameFrame.getInstance().getGameContainer().getHeroRoleOf(heroIds.get(i));
-            HeroBattle e = new HeroBattle();
-            e.setLeft(200 + i*150 + 10);
-            e.setTop(10*32);
-            e.setWidth(heroRole.getImage().getWidth());
-            e.setHeight(heroRole.getImage().getHeight());
-            e.setRoleMetaData(heroRole);
-
-            heroBattleList.add(e);
-        }
-
         BattleUIScreen battleUIScreen = new BattleUIScreen(metMonsterIds, this, heroBattleList);
         screenStack.push(battleUIScreen);
         BattleOptionScreen battleOptionScreen = new BattleOptionScreen(battleUIScreen);
@@ -103,4 +87,7 @@ public class BattleScreen extends BaseScreen {
         screenStack.peek().onKeyUp(key);
     }
 
+    public List<HeroBattle> getHeroBattleList() {
+        return heroBattleList;
+    }
 }
