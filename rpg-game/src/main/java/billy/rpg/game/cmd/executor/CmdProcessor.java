@@ -51,19 +51,6 @@ public class CmdProcessor {
         return metReturnCmd;
     }
 
-    private void executeCmds(List<CmdBase> cmdList) {
-        for (int i = 0; i < cmdList.size(); i++) {
-            CmdBase caa = cmdList.get(i);
-            int executeCode = executeCmd(caa);
-            if (-1 == executeCode) {
-                metReturnCmd = true;
-            } else if (-2 == executeCode) {
-                continue;
-            }
-        }
-    }
-
-
     /**
      *
      * 执行脚本命令
@@ -148,8 +135,12 @@ public class CmdProcessor {
             ChoiceScreen cs = new ChoiceScreen(this, title, choice, label);
             GameFrame.getInstance().pushScreen(cs);
             startPause();
+        } else if (cmd instanceof MonstersCmd) {
+            List<Integer> monsterIds = ((MonstersCmd) cmd).getMonsterIds();
+            GameFrame.getInstance().getGameContainer().getActiveFileItem().setPredictedMonsterIds(monsterIds);
         } else {
-            LOG.warn("no command comfit " + cmd);
+            LOG.warn("unknown command " + cmd);
+            throw new RuntimeException("unknown command " + cmd);
         }
 
         return 0;

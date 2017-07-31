@@ -2,6 +2,7 @@
 @attr 1 1 15 15
 attr 1 1
 scenename '新手村'
+monsters 51
 @showText 'common english charactor'
 @showText 'haha,含有中文字符哦亲'
 @messagebox '欢迎进入小小地图一'

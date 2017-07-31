@@ -1,7 +1,11 @@
 package billy.rpg.game.cmd.executor;
 
 import billy.rpg.game.cmd.*;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 脚本解析成命令
@@ -55,6 +59,7 @@ public class CmdParser {
     private static CmdBase parse(String line) {
         int spaceInx = line.indexOf(" ");
         CmdBase cmdBase = null;
+        // 注意monsters命令是一个例外，它可以出现的形式有 monsters; monsters 10;两种
         if (spaceInx < 0) { // 没有' '，说明是无参数命令（rtn, label）
             cmdBase = parse0(line.toLowerCase());
         } else {
@@ -66,7 +71,7 @@ public class CmdParser {
 
 
     /**
-     * 处理0个参数的命令 现有 rtn, label
+     * 处理0个参数的命令 现有 rtn, label, 以及特殊情况下的monsters
      * @param cmdname command name
      */
     private static CmdBase parse0(String cmdname) {
@@ -75,6 +80,8 @@ public class CmdParser {
             return new ReturnCmd(cmdname); // TODO 可优化，只要是这个命令就可以忽略cmdname了
         } else if (cmdname.endsWith(":")) {
             return new LabelCmd(cmdname);
+        } else if ("monsters".equals(cmdname)) {
+            return new MonstersCmd(null);
         }
 
         return null;
@@ -189,11 +196,22 @@ public class CmdParser {
             }
 
             return cc;
+        } else if ("monsters".equals(cmdname)) {
+            if (StringUtils.isEmpty(cmdarg)) {
+                return new MonstersCmd(null);
+            }
+            List<Integer> list = new ArrayList<>();
+            String[] monsterIdsStr = cmdarg.split(" ");
+            for (String monsterIdStr : monsterIdsStr) {
+                if (StringUtils.isNotEmpty(monsterIdStr)) {
+                    list.add(Integer.valueOf(monsterIdStr));
+                }
+            }
+            return new MonstersCmd(list);
         } else {
-            LOG.warn("unknown command " +  cmdname  + cmdarg);
+            LOG.warn("unknown command " +  cmdname + cmdarg);
+            throw new RuntimeException("unknown command " + cmdname + cmdarg);
         }
-
-        return null;
     }
 
 }

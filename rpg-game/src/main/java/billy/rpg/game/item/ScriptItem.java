@@ -18,7 +18,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -37,8 +36,7 @@ public class ScriptItem {
     private List<BoxCharacter> boxes = new ArrayList<>();
     private static final int STEP_MEET_MONSTER = 8;
     private int steps; // 当前地图下的移动步数，当达到STEP_MEET_MONSTER时会遇到怪物进行战斗
-    private List<Integer> predictedMonsterIds = Arrays.asList(51, 51); // TODO 可从*.map或*.s中加载
-//    private List<Integer> predictedMonsterIds = Arrays.asList(); // 可能遇到的妖怪编号，为空时不发生战斗 TODO 可从*.map或*.s中加载
+    private List<Integer> predictedMonsterIds; // 本地图中可遇到的妖怪ids
 
 
     public String getFileId() {
@@ -80,7 +78,11 @@ public class ScriptItem {
     public void setHero(HeroCharacter hero) {
         this.hero = hero;
     }
-    ////////////////////////////////////////////////////
+
+    public void setPredictedMonsterIds(List<Integer> predictedMonsterIds) {
+        this.predictedMonsterIds = predictedMonsterIds;
+    }
+////////////////////////////////////////////////////
 
 
     public TriggerBean getTriggerByPos(String posX, String posY) {
