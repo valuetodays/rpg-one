@@ -13,14 +13,20 @@ public class HeroCharacter extends BaseCharacter {
 
 
     public int getNextPosX() {
+        MapScreen mapScreen = GameFrame.getInstance().getGameContainer().getMapScreen();
+        int offsetTileX = mapScreen.getOffsetTileX();
+        int offsetTileY = mapScreen.getOffsetTileY();
         return posX + ((direction == DIRECTION_LEFT && posX > 0) ? -1 :
-                ((direction == DIRECTION_RIGHT && posX < getWidth() - 1) ? 1 : 0)
+                ((direction == DIRECTION_RIGHT && (posX + offsetTileX)< getWidth() - 1) ? 1 : 0)
         );
     }
 
     public int getNextPosY() {
+        MapScreen mapScreen = GameFrame.getInstance().getGameContainer().getMapScreen();
+        int offsetTileX = mapScreen.getOffsetTileX();
+        int offsetTileY = mapScreen.getOffsetTileY();
         return posY + ((direction == DIRECTION_UP && posY > 0) ? -1 :
-                ((direction == DIRECTION_DOWN && posY < getHeight() - 1) ? 1 : 0 )
+                ((direction == DIRECTION_DOWN && (posY+offsetTileY) < getHeight() - 1) ? 1 : 0 )
         );
     }
 

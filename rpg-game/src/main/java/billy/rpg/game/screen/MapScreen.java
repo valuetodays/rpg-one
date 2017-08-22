@@ -55,21 +55,6 @@ public class MapScreen extends BaseScreen {
         final MapMetaData activeMap = GameFrame.getInstance().getGameContainer().getActiveMap();
         
         //////// draw bgLayer start
-//        // 限制offsetTileX, offsetTileY
-//        if (offsetTileX < 0) {
-//            offsetTileX = 0;
-//        }
-//        if (offsetTileX > activeMap.getWidth() - GameConstant.Game_TILE_X_NUM + 1) {
-//            offsetTileX = activeMap.getWidth() - GameConstant.Game_TILE_X_NUM + 1;
-//        }
-//        if (offsetTileY < 0) {
-//            offsetTileY = 0;
-//        }
-//        if (offsetTileY > activeMap.getHeight() - GameConstant.Game_TILE_Y_NUM) {
-//            offsetTileY = activeMap.getHeight() - GameConstant.Game_TILE_Y_NUM;
-//        }
-
-        //LOG.debug("offsetTile x/y=" + offsetTileX + "/" + offsetTileY);
         final Image tileImg = GameFrame.getInstance().getGameContainer().getTileItem().getTile(activeMap.getTileId());
         final int[][] layer1 = activeMap.getBgLayer();
         for (int i = offsetTileX; i < offsetTileX + GameConstant.Game_TILE_X_NUM; i++) {
@@ -105,7 +90,8 @@ public class MapScreen extends BaseScreen {
             int curFrame = npc.getCurFrame();
             int direction = npc.getDirection();
             BufferedImage fullImageOf = npcImageLoader.getFullImageOf(npc.getTileNum());
-            g2.drawImage(fullImageOf, posX1*32, posY1*32, posX1*32 + 32, posY1*32 + 32,
+            g2.drawImage(fullImageOf, (posX1-offsetTileX)*32, (posY1-offsetTileY)*32,
+                    (posX1-offsetTileX)*32 + 32, (posY1-offsetTileY)*32 + 32,
                     curFrame*32, direction*32,
                     curFrame*32 + 32, direction*32 + 32, null);
         }
@@ -117,7 +103,7 @@ public class MapScreen extends BaseScreen {
             int posY1 = box.getPosY();
             int tileNum = box.getTileNum();
             BufferedImage boxImage = boxImageLoader.getImageOf(tileNum);
-            g2.drawImage(boxImage, posX1*32, posY1*32, null);
+            g2.drawImage(boxImage, (posX1-offsetTileX)*32, (posY1-offsetTileY)*32, null);
         }
         //////// draw role & npc end
 
@@ -149,14 +135,15 @@ public class MapScreen extends BaseScreen {
             int curFrame = transfer.getCurFrame();
             int posX1 = transfer.getPosX();
             int posY1 = transfer.getPosY();
-            g2.drawImage(transferImage, posX1*32, posY1*32, posX1*32 + 32, posY1*32 + 32,
+            g2.drawImage(transferImage, (posX1-offsetTileX)*32, (posY1-offsetTileY)*32,
+                    (posX1-offsetTileX)*32 + 32, (posY1-offsetTileY)*32 + 32,
                     0, curFrame*32,
                     32, curFrame*32 + 32, null);
         }
         //////// draw event end
 
         String name = GameFrame.getInstance().getGameContainer().getActiveMap().getName();
-        g2.drawString(name, 600, 20);
+        g2.drawString(name, 580, 20);
 
         g2.dispose();
         gameCanvas.drawBitmap(paint, 0, 0);
@@ -241,5 +228,9 @@ public class MapScreen extends BaseScreen {
 
     public int getOffsetTileY() {
         return offsetTileY;
+    }
+    public void clearOffset() {
+        offsetTileX = 0;
+        offsetTileY = 0;
     }
 }

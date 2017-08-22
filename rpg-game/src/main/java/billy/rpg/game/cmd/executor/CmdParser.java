@@ -172,8 +172,8 @@ public class CmdParser {
             return new AnimationCmd(number, x, y);
         } else if ("createnpc".equals(cmdname)) {
             String[] cmdargs = cmdarg.split(" ");
-            if (cmdargs.length != 4) {
-                LOG.debug("command "+cmdname+" needs "+4+" arguments, "
+            if (cmdargs.length != 5) {
+                LOG.debug("command "+cmdname+" needs "+5+" arguments, "
                         + "but "+cmdargs.length+" in fact.");
                 return null;
             }
@@ -181,7 +181,8 @@ public class CmdParser {
                     Integer.parseInt(cmdargs[0]),
                     Integer.parseInt(cmdargs[1]),
                     Integer.parseInt(cmdargs[2]),
-                    Integer.parseInt(cmdargs[3])
+                    Integer.parseInt(cmdargs[3]),
+                    Integer.parseInt(cmdargs[4])
                     );
             return cnc;
         } else if ("choice".equals(cmdname)) {

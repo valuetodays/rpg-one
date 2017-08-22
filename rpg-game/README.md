@@ -47,7 +47,7 @@ ILoader
     [普通攻击时，攻击者应移动至目标处，再进行攻击，应有动画]
     对话要能有先后
     [TODO add command]指定发生战斗的命令
-    [TODO add command]可供选择的选择框
+    可供选择的选择框
     
 #### 2017-07-24 11:30
     [TODO] virtualtable要分情况
@@ -55,3 +55,10 @@ ILoader
     - 布尔型变量 or 整数型变量 （布尔型变量用于事件判断，整数可用于ifcmpt/decrease/increase等）
     [TODO] set/unset, use boolean[1024] not map in virtualtable，但是只能使用数字不能使用字符串了，得重新考虑
     [TODO] showtext 要提供选择头像在左/右/无
+    
+#### 2017-08-22 17:17
+    完成滚屏
+    add npcId argument to the command `createnpc`, and 0 means no event to this npc
+    [TODO] 对同一地图中多个宝箱的操作
+    [TODO] BaseCharacter中的height与width是否可以删除？
+    

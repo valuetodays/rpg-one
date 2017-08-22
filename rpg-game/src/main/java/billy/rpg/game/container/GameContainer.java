@@ -237,11 +237,7 @@ public class GameContainer {
                     TransferCharacter transfer = new TransferCharacter();
                     transfer.initPos(i, j);
                     activeScriptItem.getTransfers().add(transfer);
-                } else if (tileNum == 0xee) { // open-box
-                    BoxCharacter box = new BoxCharacter(tileNum);
-                    box.initPos(i, j);
-                    activeScriptItem.getBoxes().add(box);
-                } else if (tileNum == 0xed) { // closed-box
+                } else if (tileNum == 0xee || tileNum == 0xed) { // open-box & closed-box
                     BoxCharacter box = new BoxCharacter(tileNum);
                     box.initPos(i, j);
                     activeScriptItem.getBoxes().add(box);

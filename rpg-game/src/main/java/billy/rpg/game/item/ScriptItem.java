@@ -9,6 +9,7 @@ import billy.rpg.game.cmd.*;
 import billy.rpg.game.cmd.executor.CmdProcessor;
 import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.container.GameContainer;
+import billy.rpg.game.screen.MapScreen;
 import billy.rpg.game.screen.battle.BattleScreen;
 import billy.rpg.game.script.LabelBean;
 import billy.rpg.game.script.TalkBean;
@@ -303,10 +304,12 @@ public class ScriptItem {
             int npcPosY = npc.getPosY();
             if (heroNextPosX == npcPosX && heroNextPosY == npcPosY) {
                 int number = npc.getNumber();
-                TalkBean talkByNum = getTalkByNum(number);
-                if (talkByNum != null) {
-                    talkBean = talkByNum;
-                    break;
+                if (0 != number) {
+                    TalkBean talkByNum = getTalkByNum(number);
+                    if (talkByNum != null) {
+                        talkBean = talkByNum;
+                        break;
+                    }
                 }
             }
         }
@@ -314,9 +317,11 @@ public class ScriptItem {
             executeTalk(talkBean);
             return;
         }
-
+        MapScreen mapScreen = GameFrame.getInstance().getGameContainer().getMapScreen();
+        int offsetTileX = mapScreen.getOffsetTileX();
+        int offsetTileY = mapScreen.getOffsetTileY();
         int[][] event = GameContainer.getInstance().getActiveMap().getEvent();
-        int eventNum = event[heroNextPosX][heroNextPosY];
+        int eventNum = event[offsetTileX + heroNextPosX][offsetTileY+heroNextPosY];
         if (eventNum == -1) {
             return;
         }

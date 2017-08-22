@@ -7,7 +7,8 @@ monsters 51
 @showText 'haha,含有中文字符哦亲'
 @messagebox '欢迎进入小小地图一'
 @ will use createbox
-@ createnpc 8 5 99 1
+createnpc 9001 8 5 14 1
+createnpc 0 8 10 15 2
 return
 
 say0ed:
@@ -46,8 +47,12 @@ showText 1675 '神经病吧你。'
 return
 
 
+npc2:
+showtext 1675 '我是从`y`地图编辑器`/y`中出现的。'
+return
+
 goright:
-animation 100 0 0
+@animation 100 0 0
 loadmap 1 2 1 0
 return
 
@@ -81,13 +86,12 @@ showtext 1510 '啊！你怎么沦落至此地？'
 return
 
 
-
-
-@ 肉山，大龙
 talk 255 goright
+@ 肉山，大龙
 talk 2 roshan
 talk 237 box1
-talk 1001 npc1
+talk 9001 npc1
+talk 9901 npc2
 
 trigger 1 1 hello
 @trigger 14 14 goright

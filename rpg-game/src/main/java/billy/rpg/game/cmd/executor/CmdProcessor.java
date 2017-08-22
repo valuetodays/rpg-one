@@ -84,6 +84,7 @@ public class CmdProcessor {
             GameFrame.getInstance().pushScreen(ms);
             startPause();
         } else if (cmd instanceof LoadMapCmd) {
+            GameFrame.getInstance().getGameContainer().getMapScreen().clearOffset();
             LoadMapCmd lmc = (LoadMapCmd) cmd;
             LOG.debug("go to map" + lmc.getM() + "-" + lmc.getN() + " in " + lmc.getX() + "," + lmc.getY());
             GameContainer.getInstance().startChapter(lmc.getM(), lmc.getN(), lmc.getX() + "-" + lmc.getY());
@@ -107,7 +108,7 @@ public class CmdProcessor {
             int no = ac.getNumber();
             int x = ac.getX();
             int y = ac.getY();
-            BaseScreen as = new AnimationScreen(no, x, y, new MapScreen());
+            BaseScreen as = new AnimationScreen(no, x, y, GameFrame.getInstance().getGameContainer().getMapScreen());
             GameFrame.getInstance().pushScreen(as);
         } else if (cmd instanceof CreateNPCCmd) {
             final CreateNPCCmd cnc = (CreateNPCCmd) cmd;
@@ -125,7 +126,7 @@ public class CmdProcessor {
             npc.setWidth(GameFrame.getInstance().getGameContainer().getActiveMap().getWidth());
             npc.initPos(x, y);
             npc.setTileNum(npcNum);
-            npc.setNumber(GameFrame.getInstance().getGameContainer().getActiveFileItem().getNpcs().size() + 1001);
+            npc.setNumber(cnc.getNpcId());
             GameFrame.getInstance().getGameContainer().getActiveFileItem().getNpcs().add(npc);
         } else if (cmd instanceof ChoiceCmd) {
             final ChoiceCmd cc = (ChoiceCmd) cmd;
