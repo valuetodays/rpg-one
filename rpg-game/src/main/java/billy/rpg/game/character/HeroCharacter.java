@@ -62,33 +62,40 @@ public class HeroCharacter extends BaseCharacter {
         int offsetTileX = mapScreen.getOffsetTileX();
         int offsetTileY = mapScreen.getOffsetTileY();
         MapMetaData activeMap = GameFrame.getInstance().getGameContainer().getActiveMap();
-        if (offsetTileX <= 0) {
-            if (posX < GameConstant.Game_TILE_X_NUM / 2) {
-                int nextPosX = posX + 1;
-                if (WalkUtil.isWalkable(offsetTileX + nextPosX, offsetTileY +posY)) {
-                    posX = nextPosX;
-                }
-            } else {
-                int nextPosX = posX + 1;
-                if (WalkUtil.isWalkable(offsetTileX + nextPosX, offsetTileY +posY)) {
-                    mapScreen.increaseOffsetX();
-                }
-            }
-        } else if (offsetTileX < activeMap.getWidth() - GameConstant.Game_TILE_X_NUM) {
+        if (activeMap.getWidth() <= GameConstant.Game_TILE_X_NUM) {
             int nextPosX = posX + 1;
-            if (WalkUtil.isWalkable(offsetTileX + nextPosX, offsetTileY +posY)) {
-                mapScreen.increaseOffsetX();
+            if (WalkUtil.isWalkable(offsetTileX + nextPosX, offsetTileY + posY)) {
+                posX = nextPosX;
             }
-        } else if (offsetTileX >= activeMap.getWidth() - GameConstant.Game_TILE_X_NUM) {
-            if (posX >= GameConstant.Game_TILE_X_NUM/2) {
-                int nextPosX = posX + 1;
-                if (WalkUtil.isWalkable(offsetTileX + nextPosX, offsetTileY + posY)) {
-                    posX = nextPosX;
+        } else {
+            if (offsetTileX <= 0) {
+                if (posX < GameConstant.Game_TILE_X_NUM / 2) {
+                    int nextPosX = posX + 1;
+                    if (WalkUtil.isWalkable(offsetTileX + nextPosX, offsetTileY + posY)) {
+                        posX = nextPosX;
+                    }
+                } else {
+                    int nextPosX = posX + 1;
+                    if (WalkUtil.isWalkable(offsetTileX + nextPosX, offsetTileY + posY)) {
+                        mapScreen.increaseOffsetX();
+                    }
                 }
-            } else {
+            } else if (offsetTileX < activeMap.getWidth() - GameConstant.Game_TILE_X_NUM) {
                 int nextPosX = posX + 1;
                 if (WalkUtil.isWalkable(offsetTileX + nextPosX, offsetTileY + posY)) {
                     mapScreen.increaseOffsetX();
+                }
+            } else if (offsetTileX >= activeMap.getWidth() - GameConstant.Game_TILE_X_NUM) {
+                if (posX >= GameConstant.Game_TILE_X_NUM / 2) {
+                    int nextPosX = posX + 1;
+                    if (WalkUtil.isWalkable(offsetTileX + nextPosX, offsetTileY + posY)) {
+                        posX = nextPosX;
+                    }
+                } else {
+                    int nextPosX = posX + 1;
+                    if (WalkUtil.isWalkable(offsetTileX + nextPosX, offsetTileY + posY)) {
+                        mapScreen.increaseOffsetX();
+                    }
                 }
             }
         }
@@ -106,37 +113,44 @@ public class HeroCharacter extends BaseCharacter {
         int offsetTileY = mapScreen.getOffsetTileY();
         MapMetaData activeMap = GameFrame.getInstance().getGameContainer().getActiveMap();
 
-        // 如下有注意点：
-        // 当人物在右半屏幕且大地图在右半部分时，offsetTileX的值是大于(大地图宽度-一屏纵向Tile数的)，
-        // 并且该值也是大于0的
-        // 所以，千万不要把下面的第二个if放在第一个之前
-        if (offsetTileX >= activeMap.getWidth() - GameConstant.Game_TILE_X_NUM) {
-            if (posX > GameConstant.Game_TILE_X_NUM/2) {
-                int nextPosX = posX - 1;
-                if (WalkUtil.isWalkable(offsetTileX + nextPosX, offsetTileY + posY)) {
-                    posX = nextPosX;
-                }
-            } else {
-                int nextPosX = posX - 1;
-                if (WalkUtil.isWalkable(offsetTileX + nextPosX, offsetTileY + posY)) {
-                    mapScreen.decreaseOffsetX();
-                }
-            }
-        } else if (offsetTileX > 0) {
+        if (activeMap.getWidth() <= GameConstant.Game_TILE_X_NUM) {
             int nextPosX = posX - 1;
             if (WalkUtil.isWalkable(offsetTileX + nextPosX, offsetTileY + posY)) {
-                mapScreen.decreaseOffsetX();
+                posX = nextPosX;
             }
-        } else if (offsetTileX <= 0) {
-            if (posX <= GameConstant.Game_TILE_X_NUM/2) {
-                int nextPosX = posX - 1;
-                if (WalkUtil.isWalkable(offsetTileX + nextPosX, offsetTileY + posY)) {
-                    posX = nextPosX;
+        } else {
+            // 如下有注意点：
+            // 当人物在右半屏幕且大地图在右半部分时，offsetTileX的值是大于(大地图宽度-一屏纵向Tile数的)，
+            // 并且该值也是大于0的
+            // 所以，千万不要把下面的第二个if放在第一个之前
+            if (offsetTileX >= activeMap.getWidth() - GameConstant.Game_TILE_X_NUM) {
+                if (posX > GameConstant.Game_TILE_X_NUM / 2) {
+                    int nextPosX = posX - 1;
+                    if (WalkUtil.isWalkable(offsetTileX + nextPosX, offsetTileY + posY)) {
+                        posX = nextPosX;
+                    }
+                } else {
+                    int nextPosX = posX - 1;
+                    if (WalkUtil.isWalkable(offsetTileX + nextPosX, offsetTileY + posY)) {
+                        mapScreen.decreaseOffsetX();
+                    }
                 }
-            } else {
+            } else if (offsetTileX > 0) {
                 int nextPosX = posX - 1;
                 if (WalkUtil.isWalkable(offsetTileX + nextPosX, offsetTileY + posY)) {
                     mapScreen.decreaseOffsetX();
+                }
+            } else if (offsetTileX <= 0) {
+                if (posX <= GameConstant.Game_TILE_X_NUM / 2) {
+                    int nextPosX = posX - 1;
+                    if (WalkUtil.isWalkable(offsetTileX + nextPosX, offsetTileY + posY)) {
+                        posX = nextPosX;
+                    }
+                } else {
+                    int nextPosX = posX - 1;
+                    if (WalkUtil.isWalkable(offsetTileX + nextPosX, offsetTileY + posY)) {
+                        mapScreen.decreaseOffsetX();
+                    }
                 }
             }
         }
@@ -154,33 +168,40 @@ public class HeroCharacter extends BaseCharacter {
         int offsetTileY = mapScreen.getOffsetTileY();
         MapMetaData activeMap = GameFrame.getInstance().getGameContainer().getActiveMap();
 
-        if (offsetTileY <= 0) {
-            if (posY < GameConstant.Game_TILE_Y_NUM/2) {
-                int nextPosY = posY + 1;
-                if (WalkUtil.isWalkable(offsetTileX + posX, offsetTileY + nextPosY)) {
-                    posY = nextPosY;
-                }
-            } else {
-                int nextPosY = posY + 1;
-                if (WalkUtil.isWalkable(offsetTileX + posX, offsetTileY + nextPosY)) {
-                    mapScreen.increaseOffsetY();
-                }
-            }
-        } else if (offsetTileY < activeMap.getHeight() - GameConstant.Game_TILE_Y_NUM) {
+        if (activeMap.getHeight() <= GameConstant.Game_TILE_Y_NUM) {
             int nextPosY = posY + 1;
             if (WalkUtil.isWalkable(offsetTileX + posX, offsetTileY + nextPosY)) {
-                mapScreen.increaseOffsetY();
+                posY = nextPosY;
             }
-        } else if (offsetTileY >= activeMap.getHeight() - GameConstant.Game_TILE_Y_NUM) {
-            if (posY >= GameConstant.Game_TILE_Y_NUM/2) {
-                int nextPosY = posY + 1;
-                if (WalkUtil.isWalkable(offsetTileX + posX, offsetTileY + nextPosY)) {
-                    posY = nextPosY;
+        } else {
+            if (offsetTileY <= 0) {
+                if (posY < GameConstant.Game_TILE_Y_NUM / 2) {
+                    int nextPosY = posY + 1;
+                    if (WalkUtil.isWalkable(offsetTileX + posX, offsetTileY + nextPosY)) {
+                        posY = nextPosY;
+                    }
+                } else {
+                    int nextPosY = posY + 1;
+                    if (WalkUtil.isWalkable(offsetTileX + posX, offsetTileY + nextPosY)) {
+                        mapScreen.increaseOffsetY();
+                    }
                 }
-            } else {
+            } else if (offsetTileY < activeMap.getHeight() - GameConstant.Game_TILE_Y_NUM) {
                 int nextPosY = posY + 1;
                 if (WalkUtil.isWalkable(offsetTileX + posX, offsetTileY + nextPosY)) {
                     mapScreen.increaseOffsetY();
+                }
+            } else if (offsetTileY >= activeMap.getHeight() - GameConstant.Game_TILE_Y_NUM) {
+                if (posY >= GameConstant.Game_TILE_Y_NUM / 2) {
+                    int nextPosY = posY + 1;
+                    if (WalkUtil.isWalkable(offsetTileX + posX, offsetTileY + nextPosY)) {
+                        posY = nextPosY;
+                    }
+                } else {
+                    int nextPosY = posY + 1;
+                    if (WalkUtil.isWalkable(offsetTileX + posX, offsetTileY + nextPosY)) {
+                        mapScreen.increaseOffsetY();
+                    }
                 }
             }
         }
@@ -198,33 +219,40 @@ public class HeroCharacter extends BaseCharacter {
         int offsetTileY = mapScreen.getOffsetTileY();
         MapMetaData activeMap = GameFrame.getInstance().getGameContainer().getActiveMap();
 
-        if (offsetTileY >= activeMap.getHeight() - GameConstant.Game_TILE_Y_NUM) {
-            if (posY > GameConstant.Game_TILE_Y_NUM/2) {
-                int nextPosY = posY - 1;
-                if (WalkUtil.isWalkable(offsetTileX + posX, offsetTileY + nextPosY)) {
-                    posY = nextPosY;
-                }
-            } else {
-                int nextPosY = posY - 1;
-                if (WalkUtil.isWalkable(offsetTileX + posX, offsetTileY + nextPosY)) {
-                    mapScreen.decreaseOffsetY();
-                }
-            }
-        } else if (offsetTileY > 0) {
+        if (activeMap.getHeight() <= GameConstant.Game_TILE_Y_NUM) {
             int nextPosY = posY - 1;
             if (WalkUtil.isWalkable(offsetTileX + posX, offsetTileY + nextPosY)) {
-                mapScreen.decreaseOffsetY();
+                posY = nextPosY;
             }
-        } else if (offsetTileY <= 0) {
-            if (posY <= GameConstant.Game_TILE_Y_NUM/2) {
-                int nextPosY = posY - 1;
-                if (WalkUtil.isWalkable(offsetTileX + posX, offsetTileY + nextPosY)) {
-                    posY = nextPosY;
+        } else {
+            if (offsetTileY >= activeMap.getHeight() - GameConstant.Game_TILE_Y_NUM) {
+                if (posY > GameConstant.Game_TILE_Y_NUM / 2) {
+                    int nextPosY = posY - 1;
+                    if (WalkUtil.isWalkable(offsetTileX + posX, offsetTileY + nextPosY)) {
+                        posY = nextPosY;
+                    }
+                } else {
+                    int nextPosY = posY - 1;
+                    if (WalkUtil.isWalkable(offsetTileX + posX, offsetTileY + nextPosY)) {
+                        mapScreen.decreaseOffsetY();
+                    }
                 }
-            } else {
+            } else if (offsetTileY > 0) {
                 int nextPosY = posY - 1;
                 if (WalkUtil.isWalkable(offsetTileX + posX, offsetTileY + nextPosY)) {
                     mapScreen.decreaseOffsetY();
+                }
+            } else if (offsetTileY <= 0) {
+                if (posY <= GameConstant.Game_TILE_Y_NUM / 2) {
+                    int nextPosY = posY - 1;
+                    if (WalkUtil.isWalkable(offsetTileX + posX, offsetTileY + nextPosY)) {
+                        posY = nextPosY;
+                    }
+                } else {
+                    int nextPosY = posY - 1;
+                    if (WalkUtil.isWalkable(offsetTileX + posX, offsetTileY + nextPosY)) {
+                        mapScreen.decreaseOffsetY();
+                    }
                 }
             }
         }
@@ -247,21 +275,18 @@ public class HeroCharacter extends BaseCharacter {
     @Override
     public void move(MapScreen mapScreen) {
         long now = System.currentTimeMillis();
-        if (now - lastTime < 500) {
+        if (now - lastTime < 800) {
             return ;
         }
         lastTime = now;
         int i = GameConstant.random.nextInt(8 << 2);
         if (i % 7 == 1) {
             decreaseX(mapScreen);
-        }
-        if (i % 7 == 2) {
+        } else if (i % 7 == 2) {
             decreaseY(mapScreen);
-        }
-        if (i % 7 == 3) {
+        } else if (i % 7 == 3) {
             increaseX(mapScreen);
-        }
-        if (i % 7 == 3) {
+        } else if (i % 7 == 4) {
             increaseY(mapScreen);
         }
         if (i % 2 == 0) {

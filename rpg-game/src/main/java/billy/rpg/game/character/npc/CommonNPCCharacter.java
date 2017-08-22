@@ -7,7 +7,7 @@ import billy.rpg.game.screen.MapScreen;
 
 public class CommonNPCCharacter extends NPCCharacter {
     private long lastTime = System.currentTimeMillis();
-    private long delay = 500;
+    private long delay = 2000;
 
     public CommonNPCCharacter() {
     }

@@ -2,6 +2,7 @@ package billy.rpg.mapeditor;
 
 import billy.rpg.resource.npc.NPCImageLoader;
 import billy.rpg.resource.npc.NPCMetaData;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
@@ -78,8 +79,18 @@ public class NPCDialog extends JDialog {
             public void mouseClicked(MouseEvent e) {
                 String npcName = npcNames.get(npcs.getSelectedIndex());
                 int npcNum = npcImageLoader.getLittleNpcNum(npcName);
+                String txtNumber = tfNumber.getText();
+                if (StringUtils.isEmpty(txtNumber)) {
+                    // TODO error msg
+                    return;
+                }
+                if (!StringUtils.isNumeric(txtNumber)) {
+                    // TODO error msg
+                }
+                int number = Integer.valueOf(txtNumber);
+                int finalNpcNum = (number << 16) + npcNum;
 
-                mapEditorFrame.getMapEditorPanel().setNPC(npcNum);
+                mapEditorFrame.getMapEditorPanel().setNPC(finalNpcNum);
                 instance.setVisible(false);
             }
             @Override

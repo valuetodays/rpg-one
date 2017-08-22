@@ -219,6 +219,7 @@ public class MapAreaPanel extends JPanel {
             for (int j = 0; j < tileYheight; j++) {
                 int num = npcLayer[i][j];
                 if (num != -1) {
+                    num = num & 0xffff;
                     BufferedImage image = mapEditorPanel.getMapEditorFrame().getNpcDialog().getImageOf(num);
                     if (NPC_LAYER == currentLayer) {
                         g.drawImage(image, i*32, j*32, null);

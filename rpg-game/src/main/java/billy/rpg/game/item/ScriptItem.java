@@ -228,6 +228,7 @@ public class ScriptItem {
         for (TalkBean t : talks) {
             if (t.getLabelTitle().equals(triggername)) {
                 label = getLabelByTitle(triggername);
+                LOG.debug("label named \""+triggername+"\" not found, maybe it start with a uppercase letter.");
                 break;
             }
         }
