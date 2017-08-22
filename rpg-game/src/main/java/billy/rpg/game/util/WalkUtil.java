@@ -20,6 +20,7 @@ public class WalkUtil {
     /**
      * 判断顺序是
      * <ul>
+     *     <li>传入的x,y不合法，不可行走</li>
      *     <li>case 1. 行走层位置不可行走，不可行走</li>
      *     <li>case 2. 事件层位置是传送门，不可行走</li>
      *     <li>case 3. 事件层位置是宝箱，不可行走</li>
@@ -32,8 +33,8 @@ public class WalkUtil {
      */
     public static boolean isWalkable(int x, int y) {
         MapMetaData activeMap = GameFrame.getInstance().getGameContainer().getActiveMap();
-        if (x < 0 || x > activeMap.getWidth()
-            || y < 0 || y > activeMap.getHeight() ) {
+        if (x < 0 || x >= activeMap.getWidth()
+            || y < 0 || y >= activeMap.getHeight() ) {
             return false;
         }
         int[][] flag = activeMap.getWalk();

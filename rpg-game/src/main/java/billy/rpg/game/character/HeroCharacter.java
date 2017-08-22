@@ -63,7 +63,10 @@ public class HeroCharacter extends BaseCharacter {
                     posX = nextPosX;
                 }
             } else {
-                mapScreen.increaseOffsetX();
+                int nextPosX = posX + 1;
+                if (WalkUtil.isWalkable(offsetTileX + nextPosX, offsetTileY +posY)) {
+                    mapScreen.increaseOffsetX();
+                }
             }
         } else if (offsetTileX < activeMap.getWidth() - GameConstant.Game_TILE_X_NUM) {
             int nextPosX = posX + 1;
@@ -77,7 +80,10 @@ public class HeroCharacter extends BaseCharacter {
                     posX = nextPosX;
                 }
             } else {
-                mapScreen.increaseOffsetX();
+                int nextPosX = posX + 1;
+                if (WalkUtil.isWalkable(offsetTileX + nextPosX, offsetTileY + posY)) {
+                    mapScreen.increaseOffsetX();
+                }
             }
         }
 
@@ -105,7 +111,10 @@ public class HeroCharacter extends BaseCharacter {
                     posX = nextPosX;
                 }
             } else {
-                mapScreen.decreaseOffsetX();
+                int nextPosX = posX - 1;
+                if (WalkUtil.isWalkable(offsetTileX + nextPosX, offsetTileY + posY)) {
+                    mapScreen.decreaseOffsetX();
+                }
             }
         } else if (offsetTileX > 0) {
             int nextPosX = posX - 1;
@@ -119,28 +128,101 @@ public class HeroCharacter extends BaseCharacter {
                     posX = nextPosX;
                 }
             } else {
-                mapScreen.decreaseOffsetX();
+                int nextPosX = posX - 1;
+                if (WalkUtil.isWalkable(offsetTileX + nextPosX, offsetTileY + posY)) {
+                    mapScreen.decreaseOffsetX();
+                }
             }
         }
 
         direction = DIRECTION_LEFT;
     }
 
+    /**
+     * move down
+     * @param mapScreen mapScreen
+     */
     public void increaseY(MapScreen mapScreen) {
         increaseCurFrame();
-        int nextPosY = posY + 1;
-        if (nextPosY <= height - 1 && WalkUtil.isWalkable(posX, nextPosY)) {
-            posY++;
+        int offsetTileX = mapScreen.getOffsetTileX();
+        int offsetTileY = mapScreen.getOffsetTileY();
+        MapMetaData activeMap = GameFrame.getInstance().getGameContainer().getActiveMap();
+
+        if (offsetTileY <= 0) {
+            if (posY < GameConstant.Game_TILE_Y_NUM/2) {
+                int nextPosY = posY + 1;
+                if (WalkUtil.isWalkable(offsetTileX + posX, offsetTileY + nextPosY)) {
+                    posY = nextPosY;
+                }
+            } else {
+                int nextPosY = posY + 1;
+                if (WalkUtil.isWalkable(offsetTileX + posX, offsetTileY + nextPosY)) {
+                    mapScreen.increaseOffsetY();
+                }
+            }
+        } else if (offsetTileY < activeMap.getHeight() - GameConstant.Game_TILE_Y_NUM) {
+            int nextPosY = posY + 1;
+            if (WalkUtil.isWalkable(offsetTileX + posX, offsetTileY + nextPosY)) {
+                mapScreen.increaseOffsetY();
+            }
+        } else if (offsetTileY >= activeMap.getHeight() - GameConstant.Game_TILE_Y_NUM) {
+            if (posY >= GameConstant.Game_TILE_Y_NUM/2) {
+                int nextPosY = posY + 1;
+                if (WalkUtil.isWalkable(offsetTileX + posX, offsetTileY + nextPosY)) {
+                    posY = nextPosY;
+                }
+            } else {
+                int nextPosY = posY + 1;
+                if (WalkUtil.isWalkable(offsetTileX + posX, offsetTileY + nextPosY)) {
+                    mapScreen.increaseOffsetY();
+                }
+            }
         }
+
         direction = DIRECTION_DOWN;
     }
 
+    /**
+     * move up
+     * @param mapScreen mapScreen
+     */
     public void decreaseY(MapScreen mapScreen) {
         increaseCurFrame();
-        int nextPosY = posY - 1;
-        if (nextPosY >= 0 && WalkUtil.isWalkable(posX, nextPosY)) {
-            posY--;
+        int offsetTileX = mapScreen.getOffsetTileX();
+        int offsetTileY = mapScreen.getOffsetTileY();
+        MapMetaData activeMap = GameFrame.getInstance().getGameContainer().getActiveMap();
+
+        if (offsetTileY >= activeMap.getHeight() - GameConstant.Game_TILE_Y_NUM) {
+            if (posY > GameConstant.Game_TILE_Y_NUM/2) {
+                int nextPosY = posY - 1;
+                if (WalkUtil.isWalkable(offsetTileX + posX, offsetTileY + nextPosY)) {
+                    posY = nextPosY;
+                }
+            } else {
+                int nextPosY = posY - 1;
+                if (WalkUtil.isWalkable(offsetTileX + posX, offsetTileY + nextPosY)) {
+                    mapScreen.decreaseOffsetY();
+                }
+            }
+        } else if (offsetTileY > 0) {
+            int nextPosY = posY - 1;
+            if (WalkUtil.isWalkable(offsetTileX + posX, offsetTileY + nextPosY)) {
+                mapScreen.decreaseOffsetY();
+            }
+        } else if (offsetTileY <= 0) {
+            if (posY <= GameConstant.Game_TILE_Y_NUM/2) {
+                int nextPosY = posY - 1;
+                if (WalkUtil.isWalkable(offsetTileX + posX, offsetTileY + nextPosY)) {
+                    posY = nextPosY;
+                }
+            } else {
+                int nextPosY = posY - 1;
+                if (WalkUtil.isWalkable(offsetTileX + posX, offsetTileY + nextPosY)) {
+                    mapScreen.decreaseOffsetY();
+                }
+            }
         }
+
         direction = DIRECTION_UP;
     }
 

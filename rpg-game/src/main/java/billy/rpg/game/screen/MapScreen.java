@@ -55,6 +55,21 @@ public class MapScreen extends BaseScreen {
         final MapMetaData activeMap = GameFrame.getInstance().getGameContainer().getActiveMap();
         
         //////// draw bgLayer start
+//        // 限制offsetTileX, offsetTileY
+//        if (offsetTileX < 0) {
+//            offsetTileX = 0;
+//        }
+//        if (offsetTileX > activeMap.getWidth() - GameConstant.Game_TILE_X_NUM + 1) {
+//            offsetTileX = activeMap.getWidth() - GameConstant.Game_TILE_X_NUM + 1;
+//        }
+//        if (offsetTileY < 0) {
+//            offsetTileY = 0;
+//        }
+//        if (offsetTileY > activeMap.getHeight() - GameConstant.Game_TILE_Y_NUM) {
+//            offsetTileY = activeMap.getHeight() - GameConstant.Game_TILE_Y_NUM;
+//        }
+
+        //LOG.debug("offsetTile x/y=" + offsetTileX + "/" + offsetTileY);
         final Image tileImg = GameFrame.getInstance().getGameContainer().getTileItem().getTile(activeMap.getTileId());
         final int[][] layer1 = activeMap.getBgLayer();
         for (int i = offsetTileX; i < offsetTileX + GameConstant.Game_TILE_X_NUM; i++) {
@@ -64,10 +79,10 @@ public class MapScreen extends BaseScreen {
                     int y = tileNum % 100;
                     int x = tileNum / 100;
                     //LOG.debug("bgLayer---------------");
-                    g2.drawImage(tileImg, (i-offsetTileX)*32, (j-offsetTileY)*32,
-                            (i-offsetTileX)*32+32, (j-offsetTileY)*32+32,
-                            x*32, y*32,
-                            x*32+32, y*32+32,
+                    g2.drawImage(tileImg, (i - offsetTileX) * 32, (j - offsetTileY) * 32,
+                            (i - offsetTileX) * 32 + 32, (j - offsetTileY) * 32 + 32,
+                            x * 32, y * 32,
+                            x * 32 + 32, y * 32 + 32,
                             null);
                 }
             }
@@ -188,7 +203,7 @@ public class MapScreen extends BaseScreen {
         final MapMetaData activeMap = GameFrame.getInstance().getGameContainer().getActiveMap();
         int height = activeMap.getHeight();
         int width = activeMap.getWidth();
-        if (offsetTileX < (width - GameConstant.Game_TILE_X_NUM/2)) {
+        if (offsetTileX < (width - GameConstant.Game_TILE_X_NUM)) {
             offsetTileX++;
         }
     }
@@ -206,7 +221,7 @@ public class MapScreen extends BaseScreen {
         final MapMetaData activeMap = GameFrame.getInstance().getGameContainer().getActiveMap();
         int height = activeMap.getHeight();
         int width = activeMap.getWidth();
-        if (offsetTileY < (height - GameConstant.Game_TILE_Y_NUM/2)) {
+        if (offsetTileY < (height - GameConstant.Game_TILE_Y_NUM)) {
             offsetTileY++;
         }
     }
