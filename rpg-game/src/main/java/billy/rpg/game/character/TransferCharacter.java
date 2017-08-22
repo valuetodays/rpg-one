@@ -36,7 +36,7 @@ public class TransferCharacter extends BaseCharacter {
     /**
      * 传送门的自动切换
      */
-    public void move() {
+    public void move(MapScreen mapScreen) {
         long now = System.currentTimeMillis();
         if (now - lastTime < 400) {
             return;

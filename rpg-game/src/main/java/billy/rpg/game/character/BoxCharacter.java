@@ -1,5 +1,7 @@
 package billy.rpg.game.character;
 
+import billy.rpg.game.screen.MapScreen;
+
 public class BoxCharacter extends BaseCharacter {
     private int tileNum;
 
@@ -11,7 +13,7 @@ public class BoxCharacter extends BaseCharacter {
      * 宝箱的不可移动
      */
     @Override
-    public void move() {    }
+    public void move(MapScreen mapScreen) {    }
 
     @Override
     public int getPosX() {

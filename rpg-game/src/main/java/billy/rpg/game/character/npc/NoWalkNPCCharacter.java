@@ -2,6 +2,7 @@ package billy.rpg.game.character.npc;
 
 
 import billy.rpg.game.character.NPCCharacter;
+import billy.rpg.game.screen.MapScreen;
 
 /**
  *
@@ -11,7 +12,7 @@ import billy.rpg.game.character.NPCCharacter;
 public class NoWalkNPCCharacter extends NPCCharacter {
 
     @Override
-    public void move() {
+    public void move(MapScreen mapScreen) {
         // do nothing
     }
 }

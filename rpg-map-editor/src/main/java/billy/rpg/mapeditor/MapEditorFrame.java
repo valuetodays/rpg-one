@@ -36,10 +36,11 @@ public class MapEditorFrame extends JFrame {
         eventNumDialog = new EventNumDialog(this);
         npcDialog = new NPCDialog(this);
 
-        setTitle("地图编辑器");
+        setTitle("地图编辑器MapEditor");
         setLocation(500, 100);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
+        setResizable(false);
         initMenuBar();
 
         pack();
@@ -52,14 +53,15 @@ public class MapEditorFrame extends JFrame {
      */
     private void initMenuBar() {
         JMenuBar mb;
-        JMenu menuFile, menuLayer;
-        JMenuItem mItemFileOpen, mItemFileLoad, mItemFileSave, menuItemFileExit, menuItemLayer1, menuItemLayer2,
-                menuItemLayer3,
-                menuItemLayer4, menuItemLayer5;
+        JMenu menuFile, menuLayer, menuHelp;
+        JMenuItem mItemFileOpen, mItemFileLoad, mItemFileSave, menuItemFileExit,
+                menuItemLayer1, menuItemLayer2, menuItemLayer3, menuItemLayer4, menuItemLayer5,
+                menuItemHelpAbout, menuItemHelpHelp;
 
         mb = new JMenuBar(); // 创建菜单栏MenuBar
         menuFile = new JMenu("File");
         menuLayer = new JMenu("Layer");
+        menuHelp = new JMenu("Help");
 
         mItemFileOpen = new JMenuItem("Open");
         mItemFileOpen.addActionListener(new ActionListener() {
@@ -81,7 +83,7 @@ public class MapEditorFrame extends JFrame {
                 LOG.debug("to load *.map");
                 MapMetaData mapMetaData = gatherMapData();
                 if (null != mapMetaData.getTileId()) {
-                    int option = JOptionPane.showConfirmDialog(instance, "现在数据会被覆盖，确定要加载吗？");
+                    int option = JOptionPane.showConfirmDialog(instance, "现在数据会丢失，确定要加载吗？");
                     if (JOptionPane.OK_OPTION != option) {
                         return ;
                     }
@@ -94,6 +96,9 @@ public class MapEditorFrame extends JFrame {
                     mapMetaData = MapLoader.load(name);
                     getMapEditorPanel().getTileArea().setTileId(mapMetaData.getTileId());
                     getMapEditorPanel().setMapName(mapMetaData.getName());
+                    getMapEditorPanel().setMapWidth(mapMetaData.getWidth());
+                    getMapEditorPanel().setMapHeight(mapMetaData.getHeight());
+                    getMapEditorPanel().setMapAreaWidthHeight(mapMetaData.getWidth(), mapMetaData.getHeight());
                     MapAreaPanel mapArea = getMapEditorPanel().getMapArea();
                     mapArea.setLayers(mapMetaData.getLayers());
                     mapArea.setTileYheight(mapMetaData.getHeight());
@@ -187,6 +192,25 @@ public class MapEditorFrame extends JFrame {
         menuLayer.addSeparator();
 
         mb.add(menuLayer);
+
+        menuItemHelpAbout = new JMenuItem("About");
+        menuItemHelpAbout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(instance, "MapEditor for rpg-one\n\nby billy.\n\n2017-07");
+            }
+        });
+        menuHelp.add(menuItemHelpAbout);
+        menuItemHelpHelp = new JMenuItem("Help");
+        menuItemHelpHelp.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String msg = "点击左侧tile区域选择tile块，再点击右侧地图区域绘制地图，在地图区域中：\nnpc层：shift+点击 --> 清理npc\t点击 --> 添加npc";
+                JOptionPane.showMessageDialog(instance, msg);
+            }
+        });
+        menuHelp.add(menuItemHelpHelp);
+        mb.add(menuHelp);
 
         // setMenuBar:将此窗体的菜单栏设置为指定的菜单栏。
         setJMenuBar(mb);

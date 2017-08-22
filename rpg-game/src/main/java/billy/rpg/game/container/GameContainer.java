@@ -55,6 +55,7 @@ public class GameContainer {
     private Map<Integer, RoleMetaData> heroRoleMap;
     private Map<Integer, RoleMetaData> monsterRoleMap;
     private Map<Integer, LevelMetaData> levelMetaDataMap;
+    private MapScreen mapScreen;
 
 
 
@@ -91,6 +92,7 @@ public class GameContainer {
         boxImageLoader = new BoxImageLoader();
         battleImageItem = new BattleImageItem();
         headImageItem = new HeadImageItem();
+        mapScreen = new MapScreen();
 
         try {
             bgImageItem.load();
@@ -332,5 +334,9 @@ public class GameContainer {
 
     public LevelMetaData getLevelMetaDataOf(int number) {
         return levelMetaDataMap.get(number);
+    }
+
+    public MapScreen getMapScreen() {
+        return mapScreen;
     }
 }

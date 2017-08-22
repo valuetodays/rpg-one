@@ -58,7 +58,7 @@ public class MapAreaPanel extends JPanel {
         int[][] layer5 = new int[width][height]; // EVENT_LAYER
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                layer1[i][j] = -1;
+                layer1[i][j] = 0;
                 layer2[i][j] = -1;
                 layer3[i][j] = -1;
                 layer4[i][j] = -1;
@@ -143,7 +143,7 @@ public class MapAreaPanel extends JPanel {
                     LOG.debug("layer " + currentLayer
                             + " in map (x/y" + x + "/" + y + ")[" + rectX + "," + rectY + "]="
                             + tmpLayer[rectX][rectY]);
-                } else { // npc层
+                } else if (currentLayer == NPC_LAYER) { // npc层
                     if (e.isShiftDown()) {
                         setNPC(-1);
                     } else {
@@ -152,6 +152,7 @@ public class MapAreaPanel extends JPanel {
                         npcDialog.setVisible(true);
                     }
                 }
+
                 repaint();
             }
             @Override

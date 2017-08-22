@@ -1,6 +1,7 @@
 package billy.rpg.game.character;
 
 import billy.rpg.game.constants.CharacterConstant;
+import billy.rpg.game.screen.MapScreen;
 
 /**
  *
@@ -59,5 +60,5 @@ public abstract class BaseCharacter implements CharacterConstant {
      * 宝箱的不可移动
      * npc的移动，可以有指定移动，随机移动，etc...
      */
-    public abstract void move();
+    public abstract void move(MapScreen mapScreen);
 }

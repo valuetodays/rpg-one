@@ -35,10 +35,7 @@ public class MapEditorPanel extends JPanel {
         initComponents();
     }
 
-    public void setMapName(String mapName) {
-        this.mapName = mapName;
-        tfMapName.setText(getMapName());
-    }
+
 
     private JTextField tfMapName = null;
     private JTextField tfMapWidth = null;
@@ -100,18 +97,16 @@ public class MapEditorPanel extends JPanel {
 
         // add center start
         mapArea = new MapAreaPanel(this);
-        mapArea.setPreferredSize(new Dimension(1500, 1200));
+        mapArea.setPreferredSize(new Dimension(20 << 5, 15 << 5));
         mapArea.setBackground(new Color(199, 170, 90));
         mapArea.bindMapListener();
 
         jspCenter = new JScrollPane(mapArea);
-        jspCenter.setPreferredSize(new Dimension(600, 600));
+        jspCenter.setPreferredSize(new Dimension(20 << 5, 15 << 5));
         jspCenter.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-//        jspCenter.bindMapListener();
 
         add(jspCenter, BorderLayout.CENTER);
         // add center end
-
 
         boxImageLoader.loadBoxes();
     }
@@ -126,6 +121,7 @@ public class MapEditorPanel extends JPanel {
                 mapArea.initMapLayer(newwidth, newheight);
                 mapName = tfMapName.getText();
                 LOG.debug("clicked, and get `map name="+mapName+"`.");
+                setMapAreaWidthHeight(newwidth, newheight);
             }
             @Override
             public void mousePressed(MouseEvent e) {
@@ -194,7 +190,7 @@ public class MapEditorPanel extends JPanel {
     }
 
     public String getMapName() {
-        return mapName;
+        return tfMapName.getText();
     }
 
     public MapEditorFrame getMapEditorFrame() {
@@ -204,6 +200,24 @@ public class MapEditorPanel extends JPanel {
     public BoxImageLoader getBoxImageLoader() {
         return boxImageLoader;
     }
+    public void setMapName(String mapName) {
+        this.mapName = mapName;
+        tfMapName.setText(getMapName());
+    }
+    public void setMapWidth(int mapWidth) {
+        tfMapWidth.setText(""+mapWidth);
+    }
+    public void setMapHeight(int mapHeight) {
+        tfMapHeight.setText(""+mapHeight);
+    }
 
+    /**
+     *
+     * @param width width
+     * @param height height
+     */
+    public void setMapAreaWidthHeight(int width, int height) {
+        mapArea.setPreferredSize(new Dimension(width*32, height*32));
+    }
 
 }

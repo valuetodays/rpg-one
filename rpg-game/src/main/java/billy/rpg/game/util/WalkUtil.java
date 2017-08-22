@@ -5,6 +5,8 @@ import billy.rpg.game.GameFrame;
 import billy.rpg.game.character.HeroCharacter;
 import billy.rpg.game.character.NPCCharacter;
 import billy.rpg.game.item.ScriptItem;
+import billy.rpg.game.screen.MapScreen;
+import billy.rpg.resource.map.MapMetaData;
 
 import java.util.List;
 
@@ -29,13 +31,18 @@ public class WalkUtil {
      * @return true ok, false not
      */
     public static boolean isWalkable(int x, int y) {
-        int[][] flag = GameFrame.getInstance().getGameContainer().getActiveMap().getWalk();
+        MapMetaData activeMap = GameFrame.getInstance().getGameContainer().getActiveMap();
+        if (x < 0 || x > activeMap.getWidth()
+            || y < 0 || y > activeMap.getHeight() ) {
+            return false;
+        }
+        int[][] flag = activeMap.getWalk();
         if (flag[x][y] == WALK_NO) {
             return false;  // case 1
         }
 
         {
-            int[][] event = GameFrame.getInstance().getGameContainer().getActiveMap().getEvent();
+            int[][] event = activeMap.getEvent();
             int tileNum = event[x][y];
             if (tileNum <= 0xef && tileNum >= 0xef) { // transfer
                 return false; // case 2
@@ -60,10 +67,13 @@ public class WalkUtil {
 
         // case 5
         {
+            MapScreen mapScreen = GameFrame.getInstance().getGameContainer().getMapScreen();
             HeroCharacter hero = GameFrame.getInstance().getGameContainer().getActiveFileItem().getHero();
+            int offsetTileX = mapScreen.getOffsetTileX();
+            int offsetTileY = mapScreen.getOffsetTileY();
             int posX = hero.getPosX();
             int posY = hero.getPosY();
-            if (x == posX && y == posY) {
+            if (x == offsetTileX + posX && y == offsetTileY + posY) {
                 return false;
             }
         }
