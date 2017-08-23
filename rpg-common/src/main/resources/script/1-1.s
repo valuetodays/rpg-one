@@ -88,9 +88,9 @@ return
 
 trigger 255 goright
 @ 肉山，大龙
-trigger 1 hello
 trigger 2 roshan
 trigger 237 box1
+trigger 555 hello
 trigger 9001 npc1
 trigger 9901 npc2
 
