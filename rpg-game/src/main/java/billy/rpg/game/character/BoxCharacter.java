@@ -15,10 +15,6 @@ public class BoxCharacter extends BaseCharacter {
     @Override
     public void move(MapScreen mapScreen) {    }
 
-    @Override
-    public int getPosX() {
-        return posX;
-    }
 
     @Override
     public int getPosY() {
@@ -29,9 +25,5 @@ public class BoxCharacter extends BaseCharacter {
         return tileNum;
     }
 
-    public void initPos(int posX, int posY) {
-        this.posX = posX;
-        this.posY = posY;
-    }
 }
 

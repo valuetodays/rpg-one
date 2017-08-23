@@ -3,40 +3,28 @@ package billy.rpg.game.cmd;
 /**
  * 命令 - 触发器
  * @author <a href="http://blog.sina.com.cn/valuetodays">liulei-home</a>
- * @date 2016-05-09 22:31
- * @since 2016-05-09 22:31
+ * @since 2016-12-08 15:37
  */
 public class TriggerCmd extends CmdBase {
 
-    private int x; // 地图坐标 x
-    private int y; // 地图坐标 y
+    private int num; // npc number
     private String triggerName; // 触发器名称
 
-    public TriggerCmd() {
+    public TriggerCmd(int num, String triggerName) {
         super("trigger");
+        this.num = num;
+        this.triggerName = triggerName;
     }
 
-
-    public int getX() {
-        return x;
+    public int getNum() {
+        return num;
     }
-
-    public void setX(int x) {
-        this.x = x;
+    public void setNum(int num) {
+        this.num = num;
     }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
     public String getTriggerName() {
         return triggerName;
     }
-
     public void setTriggerName(String triggerName) {
         this.triggerName = triggerName;
     }
@@ -44,8 +32,7 @@ public class TriggerCmd extends CmdBase {
     @Override
     public String toString() {
         return "TriggerCmd{" +
-                "x=" + x +
-                ", y=" + y +
+                "num=" + num +
                 ", triggerName='" + triggerName + '\'' +
                 "} " + super.toString();
     }

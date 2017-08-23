@@ -5,32 +5,6 @@ import billy.rpg.game.screen.MapScreen;
 
 
 public class TransferCharacter extends BaseCharacter {
-    private int curFrame;  // 步数
-
-    public int getPosX() {
-        return posX;
-    }
-
-    public int getPosY() {
-        return posY;
-    }
-
-    public void initPos(int posX, int posY) {
-        this.posX = posX;
-        this.posY = posY;
-    }
-
-    private void increaseCurFrame() {
-        curFrame++;
-        if (curFrame == 4) {
-            curFrame = 0;
-        }
-    }
-
-    public int getCurFrame() {
-        return curFrame;
-    }
-
     private long lastTime = System.currentTimeMillis();
 
     /**

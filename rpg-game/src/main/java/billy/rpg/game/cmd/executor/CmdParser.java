@@ -127,18 +127,6 @@ public class CmdParser {
             return new ShowTextCmd(headNumber, text);
         } else if ("set".equals(cmdname)) {
             return new SetCmd(cmdarg);
-        } else if ("trigger".equals(cmdname)) {
-            String[] cmdargs = cmdarg.split(" ");
-            if (cmdargs.length != 3) {
-                LOG.debug("command "+cmdname+" needs "+3+" arguments, "
-                        + "but "+cmdargs.length+" in fact.");
-                return null;
-            }
-            TriggerCmd tc = new TriggerCmd();
-            tc.setX(Integer.valueOf(cmdargs[0]));
-            tc.setY(Integer.valueOf(cmdargs[1]));
-            tc.setTriggerName(cmdargs[2]);
-            return tc;
         } else if ("loadmap".equals(cmdname)) {
             String[] cmdargs = cmdarg.split(" ");
             if (cmdargs.length != 4) {
@@ -148,14 +136,14 @@ public class CmdParser {
             }
             return new LoadMapCmd(Integer.valueOf(cmdargs[0]), Integer.valueOf(cmdargs[1]),
                     Integer.valueOf(cmdargs[2]), Integer.valueOf(cmdargs[3]));
-        } else if ("talk".equals(cmdname)) {
+        } else if ("trigger".equals(cmdname)) {
             String[] cmdargs = cmdarg.split(" ");
             if (cmdargs.length != 2) {
                 LOG.debug("command "+cmdname+" needs "+2+" arguments, "
                         + "but "+cmdargs.length+" in fact.");
                 return null;
             }
-            return new TalkCmd(Integer.valueOf(cmdargs[0]), cmdargs[1]);
+            return new TriggerCmd(Integer.valueOf(cmdargs[0]), cmdargs[1]);
         } else if ("messagebox".equals(cmdname)) {
             return new MessageBoxCmd(cmdarg.substring(1, cmdarg.length()-1));
         } else if ("animation".equals(cmdname)) {

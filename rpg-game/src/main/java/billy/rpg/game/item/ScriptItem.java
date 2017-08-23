@@ -12,7 +12,6 @@ import billy.rpg.game.container.GameContainer;
 import billy.rpg.game.screen.MapScreen;
 import billy.rpg.game.screen.battle.BattleScreen;
 import billy.rpg.game.script.LabelBean;
-import billy.rpg.game.script.TalkBean;
 import billy.rpg.game.script.TriggerBean;
 import billy.rpg.game.virtualtable.GlobalVirtualTables;
 import org.apache.commons.collections.CollectionUtils;
@@ -30,7 +29,6 @@ public class ScriptItem {
     private boolean flagExecutePrimarySection;
     private List<LabelBean> labelList;
     private List<TriggerBean> triggers;
-    private List<TalkBean> talks;
     private HeroCharacter hero = new HeroCharacter();
     private List<NPCCharacter> npcs = new ArrayList<>();
     private List<TransferCharacter> transfers = new ArrayList<>();
@@ -85,21 +83,9 @@ public class ScriptItem {
     }
 ////////////////////////////////////////////////////
 
-
-    public TriggerBean getTriggerByPos(String posX, String posY) {
+    private TriggerBean getTriggerByNum(int flagNum) {
         for (int i = 0; i < triggers.size(); i++) {
             TriggerBean tmp = triggers.get(i);
-            if (tmp.getPosition().equals(posX + "-" + posY)) {
-                return tmp;
-            }
-        }
-
-        return null;
-    }
-
-    private TalkBean getTalkByNum(int flagNum) {
-        for (int i = 0; i < talks.size(); i++) {
-            TalkBean tmp = talks.get(i);
             if (tmp.getNum() == flagNum) {
                 return tmp;
             }
@@ -158,30 +144,12 @@ public class ScriptItem {
             caa = cmdList.get(i);
         }
 
-
         caa = cmdList.get(i);
         primarySection.add(caa);
         this.primarySection = Collections.unmodifiableList(primarySection);
     }
 
-    private void initTalk(List<CmdBase> cmdList) {
-        List<TalkBean> talkList = new ArrayList<>();
-
-        for (int i = 0; i < cmdList.size(); i++) {
-            CmdBase caa = cmdList.get(i);
-            if (caa instanceof TalkCmd) {
-                TalkCmd tc = (TalkCmd) caa;
-                TalkBean t = new TalkBean();
-                t.setNum(tc.getNum());
-                t.setLabelTitle(tc.getTriggerName());
-                talkList.add(t);
-            }
-        }
-
-        this.talks = Collections.unmodifiableList(talkList);
-    }
-
-    public void initTriggers(List<CmdBase> cmdList) {
+    private void initTriggers(List<CmdBase> cmdList) {
         List<TriggerBean> triggerList = new ArrayList<>();
 
         for (int i = 0; i < cmdList.size(); i++) {
@@ -189,7 +157,7 @@ public class ScriptItem {
             if (caa instanceof TriggerCmd) {
                 TriggerCmd tc = (TriggerCmd) caa;
                 TriggerBean t = new TriggerBean();
-                t.setPosition(tc.getX() + "-" + tc.getY());
+                t.setNum(tc.getNum());
                 t.setLabelTitle(tc.getTriggerName());
                 triggerList.add(t);
             }
@@ -197,6 +165,7 @@ public class ScriptItem {
 
         this.triggers = Collections.unmodifiableList(triggerList);
     }
+
 
     public void executeTrigger(TriggerBean trigger) {
         if (trigger == null) {
@@ -209,26 +178,9 @@ public class ScriptItem {
         for (TriggerBean t : triggerList) {
             if (t.getLabelTitle().equals(triggername)) {
                 label = getLabelByTitle(triggername);
-                break;
-            }
-        }
-
-        if (label != null) {
-            cmdProcessor = new CmdProcessor(label.getCmds());
-        }
-    }
-
-    public void executeTalk(TalkBean talk) {
-        if (talk == null) {
-            return ;
-        }
-
-        String triggername = talk.getLabelTitle();
-        LabelBean label = null;
-        for (TalkBean t : talks) {
-            if (t.getLabelTitle().equals(triggername)) {
-                label = getLabelByTitle(triggername);
-                LOG.debug("label named \""+triggername+"\" not found, maybe it start with a uppercase letter.");
+                if (label == null) {
+                    LOG.debug("label named \""+triggername+"\" not found, maybe it start with a uppercase letter.");
+                }
                 break;
             }
         }
@@ -250,7 +202,6 @@ public class ScriptItem {
         steps++; // checkTrigger()方法的执行之前会的上下左右的移动
         //checkMonster();
         checkTrigger0();
-        checkTalk0();
         checkTriggerFlag = false;
     }
 
@@ -275,15 +226,6 @@ public class ScriptItem {
         new BattleScreen(metMonsterIds);
     }
 
-    // TODO 应该根据角色方向处理
-    private void checkTrigger0() {
-        HeroCharacter mm = GameContainer.getInstance().getActiveFileItem().getHero();
-        String posX = mm.getNextPosX() + "";
-        String posY = mm.getNextPosY() + "";
-
-        executeTrigger(getTriggerByPos(posX, posY));
-    }
-
     /**
      * 检测地图上的对话，顺序为
      * <ul>
@@ -291,14 +233,14 @@ public class ScriptItem {
      *     <ol>若地图上有事件，就执行事件</ol>
      * </ul>
      */
-    private void checkTalk0() {
+    private void checkTrigger0() {
         HeroCharacter mm = GameContainer.getInstance().getActiveFileItem().getHero();
         int heroNextPosX = mm.getNextPosX();
         int heroNextPosY = mm.getNextPosY();
         if (heroNextPosX == -1 && heroNextPosY == -1) { // a new map, not check talk
             return;
         }
-        TalkBean talkBean = null;
+        TriggerBean triggerBean = null;
         List<NPCCharacter> npcs = GameFrame.getInstance().getGameContainer().getActiveFileItem().getNpcs();
         for (NPCCharacter npc : npcs) {
             int npcPosX = npc.getPosX();
@@ -306,16 +248,16 @@ public class ScriptItem {
             if (heroNextPosX == npcPosX && heroNextPosY == npcPosY) {
                 int number = npc.getNumber();
                 if (0 != number) {
-                    TalkBean talkByNum = getTalkByNum(number);
+                    TriggerBean talkByNum = getTriggerByNum(number);
                     if (talkByNum != null) {
-                        talkBean = talkByNum;
+                        triggerBean = talkByNum;
                         break;
                     }
                 }
             }
         }
-        if (talkBean != null) {
-            executeTalk(talkBean);
+        if (triggerBean != null) {
+            executeTrigger(triggerBean);
             return;
         }
         MapScreen mapScreen = GameFrame.getInstance().getGameContainer().getMapScreen();
@@ -326,9 +268,9 @@ public class ScriptItem {
         if (eventNum == -1) {
             return;
         }
-        talkBean = getTalkByNum(eventNum);
-        if (talkBean != null) {
-            executeTalk(talkBean);
+        triggerBean = getTriggerByNum(eventNum);
+        if (triggerBean != null) {
+            executeTrigger(triggerBean);
             return;
         }
     }
@@ -338,7 +280,6 @@ public class ScriptItem {
         initPrimarySection(cmdList); // 第一行到第一个return之间的命令全部属于primarySection
         initLabelList(cmdList); // 初始化标签集合
         initTriggers(cmdList); // 初始化触发器
-        initTalk(cmdList);
     }
 
 

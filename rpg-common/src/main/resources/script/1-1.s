@@ -86,12 +86,11 @@ showtext 1510 '啊！你怎么沦落至此地？'
 return
 
 
-talk 255 goright
+trigger 255 goright
 @ 肉山，大龙
-talk 2 roshan
-talk 237 box1
-talk 9001 npc1
-talk 9901 npc2
+trigger 1 hello
+trigger 2 roshan
+trigger 237 box1
+trigger 9001 npc1
+trigger 9901 npc2
 
-trigger 1 1 hello
-@trigger 14 14 goright

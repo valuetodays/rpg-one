@@ -9,9 +9,6 @@ public class CommonNPCCharacter extends NPCCharacter {
     private long lastTime = System.currentTimeMillis();
     private long delay = 2000;
 
-    public CommonNPCCharacter() {
-    }
-
     @Override
     public void move(MapScreen mapScreen) {
         long now = System.currentTimeMillis();
@@ -22,16 +19,16 @@ public class CommonNPCCharacter extends NPCCharacter {
         int i = GameConstant.random.nextInt(4);
         switch (i) {
             case 0:
-                decreaseX();
+                decreaseX(mapScreen);
                 break;
             case 1:
-                decreaseY();
+                decreaseY(mapScreen);
                 break;
             case 2:
-                increaseX();
+                increaseX(mapScreen);
                 break;
             case 3:
-                increaseY();
+                increaseY(mapScreen);
                 break;
         }
 

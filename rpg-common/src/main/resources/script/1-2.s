@@ -17,10 +17,9 @@ return
 
 
 
-talk 10 girl
-talk 11 girl
-talk 12 girl
-talk 13 girl
-talk 255 goleft
-talk 254 goright
-@trigger 8 8 goright
+trigger 10 girl
+trigger 11 girl
+trigger 12 girl
+trigger 13 girl
+trigger 255 goleft
+trigger 254 goright

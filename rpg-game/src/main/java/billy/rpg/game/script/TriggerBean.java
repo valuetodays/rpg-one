@@ -1,14 +1,15 @@
 package billy.rpg.game.script;
 
 public class TriggerBean {
-	private String position;
+	private int num;
 	private String labelTitle;
-	
-	public String getPosition() {
-		return position;
+
+
+	public int getNum() {
+		return num;
 	}
-	public void setPosition(String position) {
-		this.position = position;
+	public void setNum(int num) {
+		this.num = num;
 	}
 	public String getLabelTitle() {
 		return labelTitle;
@@ -16,12 +17,12 @@ public class TriggerBean {
 	public void setLabelTitle(String labelTitle) {
 		this.labelTitle = labelTitle;
 	}
+
 	@Override
 	public String toString() {
-		return "Trigger [position=" + position + ", labelTitle=" + labelTitle
-				+ "]";
+		return "TalkBean [num=" + num + ", labelTitle=" + labelTitle + "]";
 	}
-	
+
 	
 	
 }

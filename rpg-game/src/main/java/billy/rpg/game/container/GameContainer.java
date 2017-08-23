@@ -204,8 +204,6 @@ public class GameContainer {
         String[] position = pos.split("-");
         activeScriptItem = fi;
         activeScriptItem.reenter();
-        activeScriptItem.getHero().setHeight(getActiveMap().getHeight());
-        activeScriptItem.getHero().setWidth(getActiveMap().getWidth());
         activeScriptItem.getHero().initPos(Integer.parseInt(position[0]), Integer.parseInt(position[1]));
         activeScriptItem.getHero().setDirection(oldDirection);
         activeScriptItem.initNpcs();
@@ -215,8 +213,6 @@ public class GameContainer {
             for (int j = 0; j < getActiveMap().getHeight(); j++) {
                 if (npcLayer[i][j] != -1) {
                     NPCCharacter npc = new CommonNPCCharacter();
-                    npc.setHeight(getActiveMap().getHeight());
-                    npc.setWidth(getActiveMap().getWidth());
                     npc.initPos(i, j);
                     int npcTileNumAndId = npcLayer[i][j];
                     npc.setTileNum(npcTileNumAndId & 0xffff);

@@ -11,9 +11,8 @@ goleft:
 loadmap 1 2 17 7
 return
 
-talk 255 goleft
-talk 10 hello
-talk 11 hello
-talk 12 hello
-trigger 0 0 goleft
+trigger 255 goleft
+trigger 10 hello
+trigger 11 hello
+trigger 12 hello
 

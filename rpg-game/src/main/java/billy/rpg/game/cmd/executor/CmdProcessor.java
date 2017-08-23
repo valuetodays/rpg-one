@@ -95,8 +95,6 @@ public class CmdProcessor {
         } else if (cmd instanceof AttrCmd) {
             LOG.debug(" >> basic attribute of this map ");
             AttrCmd ac = (AttrCmd) cmd;
-        } else if (cmd instanceof TalkCmd) {
-            System.out.println("talk to u");
         } else if (cmd instanceof MessageBoxCmd) {
             final MessageBoxCmd mb = (MessageBoxCmd) cmd;
             LOG.debug(mb);
@@ -122,8 +120,6 @@ public class CmdProcessor {
             } else {
                 npc = new CommonNPCCharacter();
             }
-            npc.setHeight(GameFrame.getInstance().getGameContainer().getActiveMap().getHeight());
-            npc.setWidth(GameFrame.getInstance().getGameContainer().getActiveMap().getWidth());
             npc.initPos(x, y);
             npc.setTileNum(npcNum);
             npc.setNumber(cnc.getNpcId());
