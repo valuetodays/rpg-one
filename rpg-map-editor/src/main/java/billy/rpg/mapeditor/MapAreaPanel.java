@@ -158,8 +158,11 @@ public class MapAreaPanel extends JPanel {
                     if (e.isShiftDown()) {
                         setNPC(-1);
                     } else {
+                        int[][] npcLayer = layers.get(NPC_LAYER);
+                        int currentNpcNum = npcLayer[rectX][rectY];
                         NPCDialog npcDialog = mapEditorPanel.getMapEditorFrame().getNpcDialog();
                         npcDialog.setLocation(e.getXOnScreen(), e.getYOnScreen());
+                        npcDialog.setNPCNum(currentNpcNum);
                         npcDialog.setVisible(true);
                     }
                 }

@@ -72,6 +72,12 @@ public class NPCDialog extends JDialog {
             npcs.setSelectedIndex(0);  // 置第一个为选中
         }
     }
+    public void setNPCNum(int npcNum) {
+        int eventNum = npcNum >> 16;
+        int tileNum = npcNum & 0xffff;
+        tfNumber.setText("" + eventNum);
+        npcs.setSelectedIndex(tileNum-1);
+    }
 
     private void bindOKListener() {
         btnOK.addMouseListener( new MouseListener() {

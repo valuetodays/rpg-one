@@ -172,14 +172,13 @@ public class MapEditorPanel extends JPanel {
     public void setTileImage(String imagePath) {
         // 加载Tile图片
         getTileArea().initTileImage(imagePath);
-//        mapAreaPanelEx.repaint();
     }
     public void setEventNum(int eventNum) {
         getMapArea().setEventNum(eventNum);
     }
 
-    public void setNPC(int npcName) {
-        getMapArea().setNPC(npcName);
+    public void setNPC(int npcNum) {
+        getMapArea().setNPC(npcNum);
     }
 
     public TileAreaPanel getTileArea() {

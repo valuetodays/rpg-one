@@ -23,4 +23,8 @@
 
 - use `JPanelEx` to show the map area.
 
+#### 2017-08-24
+
+- use offsetX/offsetY to replace JScrollPane, because of the larger map.
+- show its info(number & tileImage) when there is an npc in npcLayer
 
