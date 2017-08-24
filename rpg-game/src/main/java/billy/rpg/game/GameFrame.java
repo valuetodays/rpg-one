@@ -9,6 +9,7 @@ import billy.rpg.game.util.CoreUtil;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Stack;
@@ -51,6 +52,9 @@ public class GameFrame extends JFrame implements Runnable {
         setLocation(GameConstant.GAME_WINDOW_LEFT, GameConstant.GAME_WINDOW_TOP);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
+        String path = this.getClass().getClassLoader().getResource("").getPath() + "/Game.png";
+        Image iconImage = Toolkit.getDefaultToolkit().getImage(path);
+        setIconImage(iconImage);
 //        setResizable(false);
 //        setAlwaysOnTop(true);
         addListener();//键盘监听
