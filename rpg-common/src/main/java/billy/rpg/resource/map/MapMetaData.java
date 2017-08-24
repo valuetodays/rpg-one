@@ -16,7 +16,7 @@ import java.util.List;
  * <li>4 bytes height</li>
  * <li>4 bytes width</li>
  * <li>4 bytes layers size</li>
- * <li>N bytes width*height*4 4-layers map data</li>
+ * <li>N bytes width*height*NLayerSize N-layers map data</li>
  * </ol>
  *
  * @author <a href="http://blog.sina.com.cn/valuetodays">liulei-home</a>
