@@ -65,7 +65,7 @@ public class GameCoverScreen extends BaseScreen {
         if (KeyUtil.isEnter(key)) {
             if (f == 1) {
                 LOG.debug("you choose `开始游戏`");
-                GameFrame.getInstance().getGameContainer().startChapter(1, 1, "1-2");
+                GameFrame.getInstance().getGameContainer().startChapter(1, 1, "0-1");
                 GameFrame.getInstance().changeScreen(1);
             } else if (f == -1) {
                 LOG.debug("you choose `继续游戏`，可是我还没有完成的啊。。。。sorry");

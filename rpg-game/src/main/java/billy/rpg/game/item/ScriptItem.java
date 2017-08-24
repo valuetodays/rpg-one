@@ -234,10 +234,11 @@ public class ScriptItem {
      * </ul>
      */
     private void checkTrigger0() {
+        MapScreen mapScreen = GameFrame.getInstance().getGameContainer().getMapScreen();
         HeroCharacter mm = GameContainer.getInstance().getActiveFileItem().getHero();
-        int heroNextPosX = mm.getNextPosX();
-        int heroNextPosY = mm.getNextPosY();
-        if (heroNextPosX == -1 && heroNextPosY == -1) { // a new map, not check talk
+        int heroNextPosXInFullMap = mm.getNextPosX() + mapScreen.getOffsetTileX();
+        int heroNextPosYInFullMap = mm.getNextPosY() + mapScreen.getOffsetTileY();
+        if (heroNextPosXInFullMap == -1 && heroNextPosYInFullMap == -1) { // a new map, not check talk
             return;
         }
         TriggerBean triggerBean = null;
@@ -245,7 +246,7 @@ public class ScriptItem {
         for (NPCCharacter npc : npcs) {
             int npcPosX = npc.getPosX();
             int npcPosY = npc.getPosY();
-            if (heroNextPosX == npcPosX && heroNextPosY == npcPosY) {
+            if (heroNextPosXInFullMap == npcPosX && heroNextPosYInFullMap == npcPosY) {
                 int number = npc.getNumber();
                 if (0 != number) {
                     TriggerBean talkByNum = getTriggerByNum(number);
@@ -260,11 +261,9 @@ public class ScriptItem {
             executeTrigger(triggerBean);
             return;
         }
-        MapScreen mapScreen = GameFrame.getInstance().getGameContainer().getMapScreen();
-        int offsetTileX = mapScreen.getOffsetTileX();
-        int offsetTileY = mapScreen.getOffsetTileY();
+
         int[][] event = GameContainer.getInstance().getActiveMap().getEvent();
-        int eventNum = event[offsetTileX + heroNextPosX][offsetTileY+heroNextPosY];
+        int eventNum = event[heroNextPosXInFullMap][heroNextPosYInFullMap];
         if (eventNum == -1) {
             return;
         }

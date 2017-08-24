@@ -98,14 +98,15 @@ public class MapEditorPanel extends JPanel {
         // add center start
         mapArea = new MapAreaPanel(this);
         mapArea.setPreferredSize(new Dimension(20 << 5, 15 << 5));
-        mapArea.setBackground(new Color(199, 170, 90));
         mapArea.bindMapListener();
+        mapArea.setFocusable(true);
 
-        jspCenter = new JScrollPane(mapArea);
-        jspCenter.setPreferredSize(new Dimension(20 << 5, 15 << 5));
-        jspCenter.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+//        jspCenter = new JScrollPane();
+//        jspCenter.setViewportView(mapArea);
+//        jspCenter.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+//        jspCenter.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
-        add(jspCenter, BorderLayout.CENTER);
+        add(mapArea, BorderLayout.CENTER);
         // add center end
 
         boxImageLoader.loadBoxes();
@@ -121,7 +122,6 @@ public class MapEditorPanel extends JPanel {
                 mapArea.initMapLayer(newwidth, newheight);
                 mapName = tfMapName.getText();
                 LOG.debug("clicked, and get `map name="+mapName+"`.");
-                setMapAreaWidthHeight(newwidth, newheight);
             }
             @Override
             public void mousePressed(MouseEvent e) {
@@ -211,13 +211,6 @@ public class MapEditorPanel extends JPanel {
         tfMapHeight.setText(""+mapHeight);
     }
 
-    /**
-     *
-     * @param width width
-     * @param height height
-     */
-    public void setMapAreaWidthHeight(int width, int height) {
-        mapArea.setPreferredSize(new Dimension(width*32, height*32));
-    }
 
 }
+

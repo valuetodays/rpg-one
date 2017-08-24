@@ -3,6 +3,7 @@ package billy.rpg.game.character.npc;
 import billy.rpg.game.character.NPCCharacter;
 import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.screen.MapScreen;
+import billy.rpg.game.util.WalkUtil;
 
 
 public class CommonNPCCharacter extends NPCCharacter {
@@ -37,7 +38,37 @@ public class CommonNPCCharacter extends NPCCharacter {
         }
     }
 
+    private void increaseY(MapScreen mapScreen) {
+        increaseCurFrame();
+        int nextPosY = posY + 1;
+        if (WalkUtil.isWalkable(posX, nextPosY)) {
+            posY = nextPosY;
+        }
+    }
 
+    private void increaseX(MapScreen mapScreen) {
+        increaseCurFrame();
+        int nextPosX = posX + 1;
+        if (WalkUtil.isWalkable(nextPosX, posY)) {
+            posX = nextPosX;
+        }
+    }
+
+    private void decreaseY(MapScreen mapScreen) {
+        increaseCurFrame();
+        int nextPosY = posY - 1;
+        if (WalkUtil.isWalkable(posX, nextPosY)) {
+            posY = nextPosY;
+        }
+    }
+
+    private void decreaseX(MapScreen mapScreen) {
+        increaseCurFrame();
+        int nextPosX = posX - 1;
+        if (WalkUtil.isWalkable(nextPosX, posY)) {
+            posX = nextPosX;
+        }
+    }
 
 
 }

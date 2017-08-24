@@ -1,5 +1,6 @@
 package billy.rpg.mapeditor;
 
+import billy.rpg.common.constant.MapEditorConstant;
 import billy.rpg.resource.map.MapLoader;
 import billy.rpg.resource.map.MapMetaData;
 import billy.rpg.resource.map.MapSaver;
@@ -36,7 +37,7 @@ public class MapEditorFrame extends JFrame {
         eventNumDialog = new EventNumDialog(this);
         npcDialog = new NPCDialog(this);
 
-        setTitle("地图编辑器MapEditor");
+        setTitle(MapEditorConstant.MAPEDITOR_NAME);
         setLocation(500, 100);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
@@ -98,7 +99,6 @@ public class MapEditorFrame extends JFrame {
                     getMapEditorPanel().setMapName(mapMetaData.getName());
                     getMapEditorPanel().setMapWidth(mapMetaData.getWidth());
                     getMapEditorPanel().setMapHeight(mapMetaData.getHeight());
-                    getMapEditorPanel().setMapAreaWidthHeight(mapMetaData.getWidth(), mapMetaData.getHeight());
                     MapAreaPanel mapArea = getMapEditorPanel().getMapArea();
                     mapArea.setLayers(mapMetaData.getLayers());
                     mapArea.setTileYheight(mapMetaData.getHeight());
@@ -205,8 +205,7 @@ public class MapEditorFrame extends JFrame {
         menuItemHelpHelp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String msg = "点击左侧tile区域选择tile块，再点击右侧地图区域绘制地图，在地图区域中：\nnpc层：shift+点击 --> 清理npc\t点击 --> 添加npc";
-                JOptionPane.showMessageDialog(instance, msg);
+                JOptionPane.showMessageDialog(instance, MapEditorConstant.HELP_MSG);
             }
         });
         menuHelp.add(menuItemHelpHelp);
