@@ -7,6 +7,7 @@ import billy.rpg.resource.map.MapSaver;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -36,6 +37,10 @@ public class MapEditorFrame extends JFrame {
         this.setContentPane(mapEditorPanel);
         eventNumDialog = new EventNumDialog(this);
         npcDialog = new NPCDialog(this);
+
+        String path = this.getClass().getClassLoader().getResource("").getPath() + "map-editor.png";
+        Image iconImage = Toolkit.getDefaultToolkit().getImage(path);
+        setIconImage(iconImage);
 
         setTitle(MapEditorConstant.MAPEDITOR_NAME);
         setLocation(500, 100);
