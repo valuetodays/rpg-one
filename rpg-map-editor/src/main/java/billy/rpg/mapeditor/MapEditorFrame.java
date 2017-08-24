@@ -38,7 +38,7 @@ public class MapEditorFrame extends JFrame {
         eventNumDialog = new EventNumDialog(this);
         npcDialog = new NPCDialog(this);
 
-        String path = this.getClass().getClassLoader().getResource("").getPath() + "map-editor.png";
+        String path = this.getClass().getClassLoader().getResource("").getPath() + "/map-editor.png";
         Image iconImage = Toolkit.getDefaultToolkit().getImage(path);
         setIconImage(iconImage);
 

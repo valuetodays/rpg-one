@@ -78,6 +78,9 @@ public class AnimationEditorPanel extends JPanel {
         frame.setLocation(500, 100);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
+        String path = frame.getContentPane().getClass().getClassLoader().getResource("").getPath() + "/AnimationEditor.png";
+        Image iconImage = Toolkit.getDefaultToolkit().getImage(path);
+        frame.setIconImage(iconImage);
 
         frame.pack();
         LOG.info("AnimationEditorPanel starts");
