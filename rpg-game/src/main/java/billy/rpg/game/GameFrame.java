@@ -107,6 +107,9 @@ public class GameFrame extends JFrame implements Runnable {
         case 2:
             tmp = new SystemMenuScreen();
             break;
+        case 3:
+            tmp = new ProducerScreen();
+            break;
         case 8:
             tmp = new TransitionScreen();
             break;

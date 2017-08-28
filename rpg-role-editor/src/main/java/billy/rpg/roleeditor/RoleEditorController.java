@@ -8,6 +8,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -30,6 +32,8 @@ public class RoleEditorController implements Initializable {
     private TextField tfName;
     @FXML
     private ChoiceBox<Item> cbType;
+    @FXML
+    private ImageView imagePreview;
 
 
     @Override
@@ -91,6 +95,8 @@ public class RoleEditorController implements Initializable {
     @FXML
     protected void handleSubmitButtonAction(ActionEvent event) {
         actiontarget.setText("Sign in button pressed");
+        Image image = imagePreview.getImage();
+
     }
 
     @FXML
