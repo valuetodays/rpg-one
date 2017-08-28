@@ -22,7 +22,7 @@ public class BattleFightScreen extends BaseScreen {
     private final BattleUIScreen battleUIScreen;
     private final List<BattleAction> actionList;
     private int battleActionPreIndex = -1;
-    private int battleActionCurIndex;
+    private int battleActionCurIndex = 0;
 
     public BattleUIScreen getBattleUIScreen() {
         return battleUIScreen;
@@ -37,10 +37,10 @@ public class BattleFightScreen extends BaseScreen {
     @Override
     public void update(long delta) {
         if (battleActionPreIndex != battleActionCurIndex) {
-            LOG.debug("2..attack..," +battleActionPreIndex + "," + battleActionCurIndex);
+            LOG.debug("attack..," +battleActionPreIndex + "," + battleActionCurIndex);
             battleActionPreIndex = battleActionCurIndex;
+            LOG.debug("attack at " + battleActionPreIndex + "," + battleActionCurIndex);
             if (battleActionCurIndex < actionList.size()) {
-                LOG.debug("attack at " + battleActionPreIndex + "," + battleActionCurIndex);
                 update0();
             } else {
                 LOG.debug("一回合终于打完了");
@@ -66,9 +66,10 @@ public class BattleFightScreen extends BaseScreen {
      * 妖怪行动的显示
      */
     private void monsterAction(BattleAction battleAction) {
-        // 攻击者已阵亡的话，就不能攻击了
+        // 攻击者已阵亡的话，就不能攻击了，此时要换下个攻击者
         int attackerId = battleAction.attackerId;
         if (getBattleUIScreen().monsterBattleList.get(attackerId).isDied()) {
+            nextAction();
             return;
         }
         // 当妖怪阵亡时，就从第一个开始选择一个未死亡的进行攻击
@@ -101,7 +102,7 @@ public class BattleFightScreen extends BaseScreen {
                                 public void onFinished() {
                                     doCommonAttack(BattleAction.FROM_MONSTER, attackerId, finalTargetIndex);
                                     getBattleUIScreen().getParentScreen().pop();
-                                    battleActionCurIndex++;
+                                    nextAction();
                                     checkWinOrLose();
                                 }
                             }));
@@ -125,6 +126,10 @@ public class BattleFightScreen extends BaseScreen {
                 LOG.debug("cannot be here.");
                 break;
         }
+    }
+
+    private void nextAction() {
+        battleActionCurIndex++;
     }
 
     /**
@@ -166,7 +171,7 @@ public class BattleFightScreen extends BaseScreen {
                                     public void onFinished() {
                                         doCommonAttack(BattleAction.FROM_HERO, attackerId, finalTargetIndex);
                                         getBattleUIScreen().getParentScreen().pop();
-                                        battleActionCurIndex++;
+                                        nextAction();
                                         checkWinOrLose();
                                     }
                                 }));

@@ -33,15 +33,16 @@ public class TransitionScreen extends BaseScreen {
     public void draw(GameCanvas gameCanvas) {
         LOG.debug("draw transition.....");
 
-        Image gameOver = GameFrame.getInstance().getGameContainer().getGameAboutItem().getGameTransition();
+        Image transition = GameFrame.getInstance().getGameContainer().getGameAboutItem().getGameTransition();
         BufferedImage paint = new BufferedImage(
                 GameConstant.GAME_WIDTH,
                 GameConstant.GAME_HEIGHT,
                 BufferedImage.TYPE_4BYTE_ABGR);
         // 得到缓冲区的画笔
         Graphics g = paint.getGraphics();
-        g.drawImage(gameOver, 0, 0, null);
+        g.drawImage(transition, 0, 0, null);
         gameCanvas.drawBitmap(paint, 0, 0);
+        g.dispose();
     }
 
     @Override

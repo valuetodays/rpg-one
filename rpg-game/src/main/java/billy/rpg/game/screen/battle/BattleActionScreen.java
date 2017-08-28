@@ -5,6 +5,9 @@ import billy.rpg.game.character.battle.FightableCharacter;
 import billy.rpg.game.screen.AnimationScreen;
 import billy.rpg.game.screen.BaseScreen;
 
+/**
+ * 一次战斗动画
+ */
 public class BattleActionScreen extends BaseScreen {
     private static final int STATE_PRE = 1; // 起手动画
     private static final int STATE_ANI = 2; // 魔法动画
@@ -17,7 +20,8 @@ public class BattleActionScreen extends BaseScreen {
     private int state = STATE_PRE;
     private int attackFrame;
     private AttackAnimationFinishedListener afterListener;
-    private final int attackerPreTopPos;
+    private final int attackerPreTop;
+    private final int attackerPreLeft;
     /**
      *
      * @param attacker 攻击者
@@ -30,7 +34,8 @@ public class BattleActionScreen extends BaseScreen {
         this.target = target;
         this.animationScreen = animationScreen;
         afterListener = al;
-        attackerPreTopPos = attacker.getTop();
+        attackerPreTop = attacker.getTop();
+        attackerPreLeft = attacker.getLeft();
     }
 
     @Override
@@ -39,7 +44,10 @@ public class BattleActionScreen extends BaseScreen {
             if (attackFrame > 10) {
                 state = STATE_ANI;
             } else {
-                attacker.setTop(attacker.getTop() - 10);
+                int targetCenterX = target.getLeft() + target.getWidth()/2;
+                int targetY       = target.getTop();
+                attacker.setLeft(attacker.getLeft() + (targetCenterX - attackerPreLeft)/10);
+                attacker.setTop(attacker.getTop() + (targetY - attackerPreTop)/10);
                 attackFrame++;
             }
         } else if (state == STATE_ANI) {
@@ -49,7 +57,8 @@ public class BattleActionScreen extends BaseScreen {
         } else if (state == STATE_AFT) {
             state = STATE_FIN;
         } else if (state == STATE_FIN) {
-            attacker.setTop(attackerPreTopPos);
+            attacker.setTop(attackerPreTop);
+            attacker.setLeft(attackerPreLeft);
             afterListener.onFinished();
         }
 

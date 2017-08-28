@@ -1,12 +1,18 @@
-## script parser
+## rpg-game
 
-added on 2015-09-16 
+#### desc
+
+`rpg-game` is a game with pure java & some utils of apache. It contains many as follows:
+- image (png) read and show
+- map editor, role editor, animation editor
+- show map(two-dimensional array), ground-layer, npc-layer, tree-layer, event-layer, scroll-screen
+- deal with battle, attack/beating[TODO] animation(common attack/beating & magic attack/beating), hp 
+decrease/increase, etc;
+
 
 #### 2015-09-16
 
-execute the method com.billy.rpg.game.scriptParser.ScriptParser#main() 
-to show ...
-
+execute the method `com.billy.rpg.game.scriptParser.ScriptParser#main()` to show ...
 
 #### 2016-05-11 
 add `bbk a rpg` development tools in `docs/`
@@ -60,7 +66,10 @@ ILoader
     完成滚屏，且处理当地图宽20高15时hero去不了右，下，右下这三个区域的问题
     add npcId argument to the command `createnpc`, and 0 means no event to this npc
     [TODO] 对同一地图中多个宝箱的操作
-    BaseCharacter中的height与width已删除？
+    BaseCharacter中的height与width已删除
     将talk命令与trigger命令合并成trigger命令，map的坐标事件改由事件触发
     处理地图编辑器中添加npc时的npcId问题，npc层的一个整数的前16位代表npcId,后16位代表tileNum.
-    
+  
+#### 2017-08-28 17:37
+    修复战斗中玩家将多个妖怪中的第一个妖怪kill后，战斗停止的情况
+    修正了战斗中攻击者会向被攻击者移动的情况

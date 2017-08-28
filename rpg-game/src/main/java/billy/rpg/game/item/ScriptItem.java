@@ -33,7 +33,7 @@ public class ScriptItem {
     private List<NPCCharacter> npcs = new ArrayList<>();
     private List<TransferCharacter> transfers = new ArrayList<>();
     private List<BoxCharacter> boxes = new ArrayList<>();
-    private static final int STEP_MEET_MONSTER = 8;
+    private static final int STEP_MEET_MONSTER = 4;
     private int steps; // 当前地图下的移动步数，当达到STEP_MEET_MONSTER时会遇到怪物进行战斗
     private List<Integer> predictedMonsterIds; // 本地图中可遇到的妖怪ids
 
@@ -200,8 +200,8 @@ public class ScriptItem {
             return ;
         }
         steps++; // checkTrigger()方法的执行之前会的上下左右的移动
-        //checkMonster();
-        checkTrigger0();
+        checkMonster();
+        //checkTrigger0();
         checkTriggerFlag = false;
     }
 
@@ -215,7 +215,7 @@ public class ScriptItem {
             return;
         }
         int monsterNumbers = GameConstant.random.nextInt(3) + 1;
-        monsterNumbers = 1;
+        monsterNumbers = 3;
         int[] metMonsterIds = new int[monsterNumbers];
         for (int i = 0; i < monsterNumbers; i++) {
             int n = GameConstant.random.nextInt(predictedMonsterIds.size());
@@ -228,10 +228,10 @@ public class ScriptItem {
 
     /**
      * 检测地图上的对话，顺序为
-     * <ul>
-     *     <ol>若地图上有npc，就执行npc事件</ol>
-     *     <ol>若地图上有事件，就执行事件</ol>
-     * </ul>
+     * <ol>
+     *     <li>若地图上有npc，就执行npc事件</li>
+     *     <li>若地图上有事件，就执行事件</li>
+     * </ol>
      */
     private void checkTrigger0() {
         MapScreen mapScreen = GameFrame.getInstance().getGameContainer().getMapScreen();
