@@ -61,14 +61,18 @@ public class BattleActionScreen extends BaseScreen {
                 attackFrame++;
             }
         } else if (state == STATE_ANI) {
-            if (dmgFrame > 10) {
-                if (animationScreen != null) {
-                    if (!animationScreen.update()) {
-                        state = STATE_AFT;
-                    }
-                } else {
+            if (animationScreen != null) {
+                if (!animationScreen.update()) {
                     state = STATE_AFT;
                 }
+            } else {
+                state = STATE_AFT;
+            }
+
+        } else if (state == STATE_AFT) {
+            if (dmgFrame > 10) {
+                state = STATE_FIN;
+                commonAttackListener.doAttack();
             } else {
                 int targetCenterX = target.getLeft() + target.getWidth()/2;
                 int targetY       = target.getTop();
@@ -76,9 +80,8 @@ public class BattleActionScreen extends BaseScreen {
                 dmgTop = targetY - dmgFrame*3;
                 dmgFrame++;
             }
-        } else if (state == STATE_AFT) {
-            commonAttackListener.doAttack();
-            state = STATE_FIN;
+
+
         } else if (state == STATE_FIN) {
             if (attackFrame == 0) {
                 commonAttackListener.onFinished();
@@ -97,6 +100,11 @@ public class BattleActionScreen extends BaseScreen {
         if (state == STATE_PRE) {
 
         } else if (state == STATE_ANI) {
+
+            if (animationScreen != null) {
+                animationScreen.draw(gameCanvas);
+            }
+        } else if (state == STATE_AFT) {
             BufferedImage paint = new BufferedImage(
                     GameConstant.GAME_WIDTH,
                     GameConstant.GAME_HEIGHT,
@@ -108,11 +116,6 @@ public class BattleActionScreen extends BaseScreen {
             LOG.debug("damage & pos: -" + dmg + " " + dmgLeft + " " + dmgTop);
             g.dispose();
             gameCanvas.drawBitmap(paint, 0, 0);
-
-            if (animationScreen != null) {
-                animationScreen.draw(gameCanvas);
-            }
-        } else if (state == STATE_AFT) {
 
         }
     }
