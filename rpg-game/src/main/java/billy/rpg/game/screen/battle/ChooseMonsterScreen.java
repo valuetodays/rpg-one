@@ -91,12 +91,10 @@ public class ChooseMonsterScreen extends BaseScreen {
 
     @Override
     public void onKeyDown(int key) {
-
     }
 
     @Override
     public void onKeyUp(int key) {
-        LOG.debug("who?");
         if (KeyUtil.isEsc(key)) {
             getBattleUIScreen().getParentScreen().pop();
         } else if (KeyUtil.isEnter(key)) {
@@ -135,11 +133,13 @@ public class ChooseMonsterScreen extends BaseScreen {
      */
     private void generateMonsterAttackAction() {
         for (int i = 0; i < getBattleUIScreen().monsterBattleList.size(); i++) {
+            // TODO 暂先随机使用普攻和技能
+            int actionAttack = GameConstant.random.nextInt(2);
             BattleAction battleAction = new BattleAction(BattleAction.FROM_MONSTER,
                     i,
                     GameConstant.random.nextInt(getBattleUIScreen().heroBattleList.size()) ,
-                    // TODO 全部使用普攻
-                    BattleAction.ACTION_ATTACK, 0, 0);
+                    // TODO 暂先随机使用普攻和技能
+                    actionAttack + 1, 0, 0);
             getBattleUIScreen().actionList.add(battleAction);
         }
     }

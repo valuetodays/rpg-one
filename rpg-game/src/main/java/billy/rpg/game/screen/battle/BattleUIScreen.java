@@ -137,7 +137,6 @@ public class BattleUIScreen extends BaseScreen {
 
     @Override
     public void onKeyUp(int key) {
-        LOG.debug("who?");
     }
 
     public void startAttack() {

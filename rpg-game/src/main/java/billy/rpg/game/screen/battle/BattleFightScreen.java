@@ -87,14 +87,11 @@ public class BattleFightScreen extends BaseScreen {
 
         switch (actionType) {
             case BattleAction.ACTION_ATTACK: { // 普攻
-                FightableCharacter targetFightableCharacter = getBattleUIScreen().heroBattleList.get(targetIndex);
-
                 final int finalTargetIndex = targetIndex;
                 getBattleUIScreen().getParentScreen().push(
-                    new BattleActionScreen(
+                    new BattleCommonActionScreen(
                             getBattleUIScreen().monsterBattleList.get(attackerId),
                             getBattleUIScreen().heroBattleList.get(finalTargetIndex),
-                            null,
                             new CommonAttackListener() {
                                 @Override
                                 public int doGetAttackDamage() {
@@ -113,8 +110,35 @@ public class BattleFightScreen extends BaseScreen {
                             }));
             }
             break;
-            case BattleAction.ACTION_SKILL: { // 技能
+            case BattleAction.ACTION_SKILL: { // 技能攻击
+                // TODO 技能攻击时，攻击者不应向目标行动
                 LOG.debug("使用技能攻击");
+                FightableCharacter targetFightableCharacter = getBattleUIScreen().heroBattleList.get(targetIndex);
+                AnimationScreen bs = new AnimationScreen(2,
+                        targetFightableCharacter.getLeft() - targetFightableCharacter.getWidth() / 2,
+                        targetFightableCharacter.getTop(), getBattleUIScreen().getParentScreen());
+                final int finalTargetIndex = targetIndex;
+                getBattleUIScreen().getParentScreen().push(
+                    new BattleSkillActionScreen(
+                        getBattleUIScreen().monsterBattleList.get(attackerId),
+                        getBattleUIScreen().heroBattleList.get(finalTargetIndex),
+                        bs,
+                        new CommonAttackListener() {
+                            @Override
+                            public int doGetAttackDamage() {
+                                return getAttackDamage(BattleAction.FROM_MONSTER, attackerId, finalTargetIndex);
+                            }
+                            @Override
+                            public void doAttack() {
+                                doCommonAttack(BattleAction.FROM_MONSTER, attackerId, finalTargetIndex);
+                            }
+                            @Override
+                            public void onFinished() {
+                                getBattleUIScreen().getParentScreen().pop();
+                                nextAction();
+                                checkWinOrLose();
+                            }
+                        }));
             }
             break;
             case BattleAction.ACTION_GOODS: {
@@ -161,13 +185,39 @@ public class BattleFightScreen extends BaseScreen {
 
         switch (actionType) {
             case BattleAction.ACTION_ATTACK: { // 普攻
+                final int finalTargetIndex = targetIndex;
+                getBattleUIScreen().getParentScreen().push(
+                    new BattleCommonActionScreen(
+                        getBattleUIScreen().heroBattleList.get(attackerId),
+                        getBattleUIScreen().monsterBattleList.get(finalTargetIndex),
+                        new CommonAttackListener() {
+                            @Override
+                            public int doGetAttackDamage() {
+                                return getAttackDamage(BattleAction.FROM_HERO, attackerId, finalTargetIndex);
+                            }
+                            @Override
+                            public void doAttack() {
+                                doCommonAttack(BattleAction.FROM_HERO, attackerId, finalTargetIndex);
+                            }
+                            @Override
+                            public void onFinished() {
+
+                                getBattleUIScreen().getParentScreen().pop();
+                                nextAction();
+                                checkWinOrLose();
+                            }
+                        }));
+            }
+            break;
+            case BattleAction.ACTION_SKILL: { // 技能
+                LOG.debug("使用技能攻击妖怪");
                 FightableCharacter chosenMonsterBattle = getBattleUIScreen().monsterBattleList.get(targetIndex);
                 AnimationScreen bs = new AnimationScreen(2,
                         chosenMonsterBattle.getLeft() - chosenMonsterBattle.getWidth() / 2,
                         chosenMonsterBattle.getTop(), getBattleUIScreen().getParentScreen());
                 final int finalTargetIndex = targetIndex;
                 getBattleUIScreen().getParentScreen().push(
-                        new BattleActionScreen(
+                        new BattleSkillActionScreen(
                                 getBattleUIScreen().heroBattleList.get(attackerId),
                                 getBattleUIScreen().monsterBattleList.get(finalTargetIndex),
                                 bs,
@@ -188,10 +238,6 @@ public class BattleFightScreen extends BaseScreen {
                                         checkWinOrLose();
                                     }
                                 }));
-            }
-            break;
-            case BattleAction.ACTION_SKILL: { // 技能
-                LOG.debug("使用技能攻击妖怪");
             }
             break;
             case BattleAction.ACTION_GOODS: {

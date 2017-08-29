@@ -3,16 +3,15 @@ package billy.rpg.game.screen.battle;
 import billy.rpg.game.GameCanvas;
 import billy.rpg.game.character.battle.FightableCharacter;
 import billy.rpg.game.constants.GameConstant;
-import billy.rpg.game.screen.AnimationScreen;
 import billy.rpg.game.screen.BaseScreen;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**
- * 一次战斗动画
+ * 一次战斗(普攻)动画
  */
-public class BattleActionScreen extends BaseScreen {
+public class BattleCommonActionScreen extends BaseScreen {
     private static final int STATE_PRE = 1; // 起手动画
     private static final int STATE_ANI = 2; // 魔法动画
     private static final int STATE_AFT = 3; // 伤害动画
@@ -20,7 +19,6 @@ public class BattleActionScreen extends BaseScreen {
 
     private FightableCharacter attacker;
     private FightableCharacter target;
-    private AnimationScreen animationScreen;
     private int state = STATE_PRE;
     private int attackFrame;
     private CommonAttackListener commonAttackListener;
@@ -35,13 +33,11 @@ public class BattleActionScreen extends BaseScreen {
      *
      * @param attacker 攻击者
      * @param target 被攻击者
-     * @param animationScreen 技能动画
      */
-    public BattleActionScreen(FightableCharacter attacker, FightableCharacter target, AnimationScreen animationScreen,
-                              CommonAttackListener al) {
+    public BattleCommonActionScreen(FightableCharacter attacker, FightableCharacter target,
+                                    CommonAttackListener al) {
         this.attacker = attacker;
         this.target = target;
-        this.animationScreen = animationScreen;
         this.commonAttackListener = al;
         this.attackerPreTop = attacker.getTop();
         this.attackerPreLeft = attacker.getLeft();
@@ -61,14 +57,7 @@ public class BattleActionScreen extends BaseScreen {
                 attackFrame++;
             }
         } else if (state == STATE_ANI) {
-            if (animationScreen != null) {
-                if (!animationScreen.update()) {
-                    state = STATE_AFT;
-                }
-            } else {
                 state = STATE_AFT;
-            }
-
         } else if (state == STATE_AFT) {
             if (dmgFrame > 10) {
                 state = STATE_FIN;
@@ -101,9 +90,6 @@ public class BattleActionScreen extends BaseScreen {
 
         } else if (state == STATE_ANI) {
 
-            if (animationScreen != null) {
-                animationScreen.draw(gameCanvas);
-            }
         } else if (state == STATE_AFT) {
             BufferedImage paint = new BufferedImage(
                     GameConstant.GAME_WIDTH,
@@ -113,7 +99,7 @@ public class BattleActionScreen extends BaseScreen {
             g.setFont(GameConstant.FONT_DAMAGE);
             g.setColor(Color.red);
             g.drawString("-" + dmg, dmgLeft, dmgTop);
-            LOG.debug("damage & pos: -" + dmg + " " + dmgLeft + " " + dmgTop);
+            //LOG.debug("damage & pos: -" + dmg + " " + dmgLeft + " " + dmgTop);
             g.dispose();
             gameCanvas.drawBitmap(paint, 0, 0);
 
