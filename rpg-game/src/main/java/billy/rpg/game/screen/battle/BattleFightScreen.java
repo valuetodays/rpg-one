@@ -5,7 +5,6 @@ import billy.rpg.game.GameFrame;
 import billy.rpg.game.character.battle.FightableCharacter;
 import billy.rpg.game.character.battle.HeroBattle;
 import billy.rpg.game.character.battle.MonsterBattle;
-import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.screen.AnimationScreen;
 import billy.rpg.game.screen.BaseScreen;
 
@@ -111,7 +110,7 @@ public class BattleFightScreen extends BaseScreen {
             }
             break;
             case BattleAction.ACTION_SKILL: { // 技能攻击
-                // TODO 技能攻击时，攻击者不应向目标行动
+                // 技能攻击时，攻击者不应向目标行动
                 LOG.debug("使用技能攻击");
                 FightableCharacter targetFightableCharacter = getBattleUIScreen().heroBattleList.get(targetIndex);
                 AnimationScreen bs = new AnimationScreen(2,
@@ -271,10 +270,10 @@ public class BattleFightScreen extends BaseScreen {
 
         int attack = attacker.getRoleMetaData().getAttack();
         int defend = target.getRoleMetaData().getDefend();
-        float dmgF = 1.0f * (attack*1) / (defend/100+1);
-        float v = 1.0f * attacker.getRoleMetaData().getSpeed() *
-                attacker.getRoleMetaData().getHp() / attacker.getRoleMetaData().getMaxHp();
-        dmgF += GameConstant.random.nextInt((int)(Math.ceil(v)) + 1);
+        float dmgF = 1.0f * (attack*1.0f) * (100f/(defend+100f));
+//        float v = 1.0f * attacker.getRoleMetaData().getSpeed() *
+//                attacker.getRoleMetaData().getHp() / attacker.getRoleMetaData().getMaxHp();
+//        dmgF += GameConstant.random.nextInt((int)(Math.ceil(v)) + 1);
         return (int)dmgF;
     }
     /**
