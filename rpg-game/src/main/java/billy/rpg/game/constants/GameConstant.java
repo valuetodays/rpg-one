@@ -58,6 +58,7 @@ public interface GameConstant {
     Font FONT_DLG_MSG = new Font("楷体", Font.BOLD, 24);
     Font FONT_ROLENAME_IN_DLG = new Font("楷体", Font.BOLD, 18);
     Font FONT_BATTLE = new Font("楷体", Font.BOLD, 18);
+    Font FONT_DAMAGE = new Font("楷体", Font.BOLD, 28);
 
     /**
      * 游戏中使用的随机数生成器
