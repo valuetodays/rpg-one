@@ -9,15 +9,15 @@
     <packaging>pom</packaging>
     <modules>
         <module>rpg-common</module>
-        <module>rpg-map-editor</module>
-        <module>rpg-role-editor</module>
-        <module>rpg-animation-editor</module>
-        <module>rpg-game</module>
+        <!--<module>rpg-map-editor</module>-->
+        <!--<module>rpg-role-editor</module>-->
+        <!--<module>rpg-animation-editor</module>-->
         <module>rpg-tools</module>
+        <module>rpg-game</module>
     </modules>
 
     <properties>
-        <encoding>utf-8</encoding>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
@@ -43,7 +43,7 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
-                    <encoding>${encoding}</encoding>
+                    <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
             </plugin>
         </plugins>

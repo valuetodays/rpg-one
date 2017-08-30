@@ -257,6 +257,10 @@ public class MapAreaPanel extends JPanel {
             LOG.debug("image is null");
             return ;
         }
+        if (layers == null) {
+            LOG.debug("layers is null");
+            return ;
+        }
 
         // 先画地图层(后景，前景)
         for (int layern = 0; layern < WALK_LAYER; layern++) {
