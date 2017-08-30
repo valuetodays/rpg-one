@@ -45,26 +45,7 @@ public class MapDataLoader {
         return Collections.unmodifiableMap(mapCollections);
     }
 
-    /*
-    private MapDataLoaderBean toMapBean(final MapMetaData mapMetaData) {
-        List<int[][]> layers = mapMetaData.getLayers();
-        MapDataLoaderBean mapDataLoaderBean = new MapDataLoaderBean();
-        mapDataLoaderBean.setName(mapMetaData.getMapName());
-        mapDataLoaderBean.setWidth(mapMetaData.getWidth());
-        mapDataLoaderBean.setHeight(mapMetaData.getHeight());
-        mapDataLoaderBean.setBgLayer(layers.get(0));
-        mapDataLoaderBean.setNpcLayer(layers.get(1));
-        mapDataLoaderBean.setFgLayer(layers.get(2));
-        mapDataLoaderBean.setWalk(layers.get(3));
-        mapDataLoaderBean.setEvent(layers.get(4));
-//        mapDataLoaderBean.initMapId(file.getName()); TODO
-        mapDataLoaderBean.setTileId(mapMetaData.getTileId());
-        mapDataLoaderBean.setMapId(mapMetaData.getMapId());
-
-        return mapDataLoaderBean;
-    }*/
-
-    private List<String> load0() {
+   private List<String> load0() {
         Enumeration<URL> urls = null;
         List<String> list = new ArrayList<>();
         try {

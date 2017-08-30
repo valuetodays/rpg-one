@@ -16,8 +16,10 @@ public interface CommonAttackListener {
 
     /**
      * 攻击
+     * 处理伤害值，等相关，
+     * @param dmg 此值不应得新计算（因为计算中含有随机数），应为{@link #doGetAttackDamage()}
      */
-    void doAttack();
+    void doAttack(int dmg);
 
     /**
      * 攻击结束后的动作

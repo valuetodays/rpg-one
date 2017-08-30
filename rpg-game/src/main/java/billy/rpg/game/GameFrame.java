@@ -178,14 +178,14 @@ public class GameFrame extends JFrame implements Runnable {
             public void keyReleased(KeyEvent e) {
                 int key = c(e.getKeyCode());
 //                synchronized (screenStack) {
-                if (screenStack.peek() != null) {
+                if (null != screenStack && screenStack.peek() != null) {
                     screenStack.peek().onKeyUp(key);
                 }
 //                }
             }
             @Override
             public void keyPressed(KeyEvent e) {
-                if (screenStack.isEmpty()) {
+                if (null == screenStack || screenStack.isEmpty()) {
                     return;
                 }
                 int key = c(e.getKeyCode());

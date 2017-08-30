@@ -7,20 +7,22 @@ import billy.rpg.game.character.NPCCharacter;
 import billy.rpg.game.character.TransferCharacter;
 import billy.rpg.game.character.npc.CommonNPCCharacter;
 import billy.rpg.game.constants.CharacterConstant;
+import billy.rpg.game.item.*;
 import billy.rpg.game.loader.*;
 import billy.rpg.game.screen.BaseScreen;
 import billy.rpg.game.screen.MapScreen;
-import billy.rpg.game.item.*;
 import billy.rpg.resource.animation.AnimationMetaData;
 import billy.rpg.resource.box.BoxImageLoader;
 import billy.rpg.resource.level.LevelMetaData;
 import billy.rpg.resource.map.MapMetaData;
 import billy.rpg.resource.npc.NPCImageLoader;
 import billy.rpg.resource.role.RoleMetaData;
+import billy.rpg.resource.skill.SkillMetaData;
 import org.apache.log4j.Logger;
 
 import java.awt.*;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -56,6 +58,7 @@ public class GameContainer {
     private Map<Integer, RoleMetaData> monsterRoleMap;
     private Map<Integer, LevelMetaData> levelMetaDataMap;
     private MapScreen mapScreen;
+    private Map<Integer, SkillMetaData> skillMetaDataMap;
 
 
 
@@ -110,11 +113,40 @@ public class GameContainer {
             loadAnimationData();
             loadRoleData();
             loadLevelData();
+            loadSkillData();
         } catch (Exception e) {
             e.printStackTrace();
         }
         
         loaded = true;
+    }
+
+    private void loadSkillData() {
+        skillMetaDataMap = new HashMap<>();
+        SkillMetaData e = new SkillMetaData();
+        e.setNumber(2);
+        e.setName("飞剑斩");
+        e.setDesc("剑法中最基本的招式。伤敌80。");
+        e.setBaseDamage(80);
+        e.setConsume(10);
+
+        SkillMetaData e2 = new SkillMetaData();
+        e2.setNumber(3);
+        e2.setName("飞剑斩1");
+        e2.setDesc("剑法中最基本的招式1。伤敌80。");
+        e2.setBaseDamage(80);
+        e2.setConsume(10);
+
+        SkillMetaData e3 = new SkillMetaData();
+        e3.setNumber(4);
+        e3.setName("飞剑斩2");
+        e3.setDesc("剑法中最基本的招式2。伤敌80。");
+        e3.setBaseDamage(80);
+        e3.setConsume(10);
+
+        skillMetaDataMap.put(e.getNumber(), e);
+        skillMetaDataMap.put(e2.getNumber(), e2);
+        skillMetaDataMap.put(e3.getNumber(), e3);
     }
 
     private void loadLevelData() {
@@ -331,5 +363,9 @@ public class GameContainer {
 
     public MapScreen getMapScreen() {
         return mapScreen;
+    }
+
+    public SkillMetaData getSkillMetaDataOf(int number) {
+        return skillMetaDataMap.get(number);
     }
 }

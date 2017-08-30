@@ -61,7 +61,7 @@ public class BattleCommonActionScreen extends BaseScreen {
         } else if (state == STATE_AFT) {
             if (dmgFrame > 10) {
                 state = STATE_FIN;
-                commonAttackListener.doAttack();
+                commonAttackListener.doAttack(dmg);
             } else {
                 int targetCenterX = target.getLeft() + target.getWidth()/2;
                 int targetY       = target.getTop();

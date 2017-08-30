@@ -19,6 +19,11 @@ import java.awt.image.BufferedImage;
  * @since 2017-07-17 18:22
  */
 public class BattleOptionScreen extends BaseScreen {
+    public static final int OPTION_COMMON = 1;
+    public static final int OPTION_SKILL = 2;
+
+
+
     private BattleUIScreen battleUIScreen;
 
     public BattleOptionScreen(BattleUIScreen battleUIScreen) {
@@ -67,13 +72,13 @@ public class BattleOptionScreen extends BaseScreen {
     }
 
     protected int heroActionChoice = 1;
+
     @Override
     public void onKeyUp(int key) {
-        LOG.debug("who?");
         if (KeyUtil.isEsc(key)) {
             if (getBattleUIScreen().heroIndex > 0) {
                 getBattleUIScreen().heroIndex--;
-                if (getBattleUIScreen().heroIndex <= 0) {
+                if (getBattleUIScreen().heroIndex < 0) {
                     getBattleUIScreen().heroIndex = 0;
                 }
                 getBattleUIScreen().actionList.remove(getBattleUIScreen().heroIndex);
@@ -89,13 +94,21 @@ public class BattleOptionScreen extends BaseScreen {
                 heroActionChoice = 1;
             }
         } else if (KeyUtil.isEnter(key)) {
-            if (getBattleUIScreen().heroIndex >= getBattleUIScreen().heroBattleList.size()) {
-                ;
-            } else {
-                ChooseMonsterScreen chooseMonsterScreen = new ChooseMonsterScreen(battleUIScreen, this);
-                getBattleUIScreen().getParentScreen().push(chooseMonsterScreen);
-            }
+            if (getBattleUIScreen().heroIndex < getBattleUIScreen().heroBattleList.size()) {
+                switch (heroActionChoice) {
+                    case OPTION_COMMON: {  // 普攻
+                        MonsterSelectScreen chooseMonsterScreen = new MonsterSelectScreen(battleUIScreen, this, -1);
+                        getBattleUIScreen().getParentScreen().push(chooseMonsterScreen);
+                    }
+                    break;
+                    case OPTION_SKILL: {  // 技能
+                        SkillSelectScreen sss = new SkillSelectScreen(battleUIScreen, this);
+                        getBattleUIScreen().getParentScreen().push(sss);
+                    }
+                    break;
+                }
 
+            }
         }
     }
 

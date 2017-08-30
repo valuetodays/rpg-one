@@ -7,6 +7,7 @@ import billy.rpg.game.character.battle.HeroBattle;
 import billy.rpg.game.character.battle.MonsterBattle;
 import billy.rpg.game.screen.AnimationScreen;
 import billy.rpg.game.screen.BaseScreen;
+import billy.rpg.resource.skill.SkillMetaData;
 
 import java.util.List;
 
@@ -94,11 +95,12 @@ public class BattleFightScreen extends BaseScreen {
                             new CommonAttackListener() {
                                 @Override
                                 public int doGetAttackDamage() {
-                                    return getAttackDamage(BattleAction.FROM_MONSTER, attackerId, finalTargetIndex);
+                                    return getCommonAttackDamage(BattleAction.FROM_MONSTER, attackerId,
+                                            finalTargetIndex);
                                 }
                                 @Override
-                                public void doAttack() {
-                                    doCommonAttack(BattleAction.FROM_MONSTER, attackerId, finalTargetIndex);
+                                public void doAttack(int dmg) {
+                                    doCauseDamage(BattleAction.FROM_MONSTER, attackerId, finalTargetIndex, dmg);
                                 }
                                 @Override
                                 public void onFinished() {
@@ -125,11 +127,11 @@ public class BattleFightScreen extends BaseScreen {
                         new CommonAttackListener() {
                             @Override
                             public int doGetAttackDamage() {
-                                return getAttackDamage(BattleAction.FROM_MONSTER, attackerId, finalTargetIndex);
+                                return getSkillAttackDamage(high);
                             }
                             @Override
-                            public void doAttack() {
-                                doCommonAttack(BattleAction.FROM_MONSTER, attackerId, finalTargetIndex);
+                            public void doAttack(int dmg) {
+                                doCauseDamage(BattleAction.FROM_MONSTER, attackerId, finalTargetIndex, dmg);
                             }
                             @Override
                             public void onFinished() {
@@ -192,15 +194,14 @@ public class BattleFightScreen extends BaseScreen {
                         new CommonAttackListener() {
                             @Override
                             public int doGetAttackDamage() {
-                                return getAttackDamage(BattleAction.FROM_HERO, attackerId, finalTargetIndex);
+                                return getCommonAttackDamage(BattleAction.FROM_HERO, attackerId, finalTargetIndex);
                             }
                             @Override
-                            public void doAttack() {
-                                doCommonAttack(BattleAction.FROM_HERO, attackerId, finalTargetIndex);
+                            public void doAttack(int dmg) {
+                                doCauseDamage(BattleAction.FROM_HERO, attackerId, finalTargetIndex, dmg);
                             }
                             @Override
                             public void onFinished() {
-
                                 getBattleUIScreen().getParentScreen().pop();
                                 nextAction();
                                 checkWinOrLose();
@@ -211,7 +212,7 @@ public class BattleFightScreen extends BaseScreen {
             case BattleAction.ACTION_SKILL: { // 技能
                 LOG.debug("使用技能攻击妖怪");
                 FightableCharacter chosenMonsterBattle = getBattleUIScreen().monsterBattleList.get(targetIndex);
-                AnimationScreen bs = new AnimationScreen(2,
+                AnimationScreen bs = new AnimationScreen(high,
                         chosenMonsterBattle.getLeft() - chosenMonsterBattle.getWidth() / 2,
                         chosenMonsterBattle.getTop(), getBattleUIScreen().getParentScreen());
                 final int finalTargetIndex = targetIndex;
@@ -223,15 +224,14 @@ public class BattleFightScreen extends BaseScreen {
                                 new CommonAttackListener() {
                                     @Override
                                     public int doGetAttackDamage() {
-                                        return getAttackDamage(BattleAction.FROM_HERO, attackerId, finalTargetIndex);
+                                        return getSkillAttackDamage(high);
                                     }
                                     @Override
-                                    public void doAttack() {
-                                        doCommonAttack(BattleAction.FROM_HERO, attackerId, finalTargetIndex);
+                                    public void doAttack(int dmg) {
+                                        doCauseDamage(BattleAction.FROM_HERO, attackerId, finalTargetIndex, dmg);
                                     }
                                     @Override
                                     public void onFinished() {
-
                                         getBattleUIScreen().getParentScreen().pop();
                                         nextAction();
                                         checkWinOrLose();
@@ -256,7 +256,22 @@ public class BattleFightScreen extends BaseScreen {
         }
     }
 
-    private int getAttackDamage(boolean fromHero, int attackerId, int targetIndex) {
+    /**
+     * 计算技能伤害，TODO 暂时只处理固定伤害
+     * @param skillId skillId
+     */
+    private int getSkillAttackDamage(int skillId) {
+        if (skillId <= 0) {
+            throw new RuntimeException("illegal skillId: " + skillId);
+        }
+        SkillMetaData skill = GameFrame.getInstance().getGameContainer().getSkillMetaDataOf(skillId);
+        if (null == skill) {
+            throw new RuntimeException("illegal skillId: " + skillId);
+        }
+        return skill.getBaseDamage();
+    }
+
+    private int getCommonAttackDamage(boolean fromHero, int attackerId, int targetIndex) {
         FightableCharacter attacker = null;
         FightableCharacter target = null;
 
@@ -277,12 +292,13 @@ public class BattleFightScreen extends BaseScreen {
         return (int)dmgF;
     }
     /**
-     * 普攻
+     * 攻击伤害判定
+     *
      * @param fromHero true是玩家发起的，false是妖怪发起的
      * @param attackerId 攻击者索引 TODO 这名字不应该用id,应该用index啊
      * @param targetIndex 被攻击者索引
      */
-    private void doCommonAttack(boolean fromHero, int attackerId, int targetIndex) {
+    private void doCauseDamage(boolean fromHero, int attackerId, int targetIndex, int dmg) {
         FightableCharacter target = null;
         String attackerName = null;
         String targetName = null;
@@ -297,8 +313,6 @@ public class BattleFightScreen extends BaseScreen {
         }
 
         LOG.debug(attackerName + attackerId + " --> " + targetName + targetIndex);
-
-        int dmg = getAttackDamage(fromHero, attackerId, targetIndex);
         int hp = target.getRoleMetaData().getHp();
         hp -= dmg;
         target.getRoleMetaData().setHp(hp);

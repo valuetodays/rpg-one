@@ -19,6 +19,15 @@ public class BattleAction {
     final int high;
     final int low;
 
+    /**
+     *
+     * @param fromHero
+     * @param attackerId
+     * @param targetIndex
+     * @param actionType 行动类型，
+     * @param high 技能编号，当行动类型为｛@link #ACTION_SKILL}时该值有效，为0时
+     * @param low
+     */
     public BattleAction(boolean fromHero, int attackerId, int targetIndex, int actionType, int high, int low) {
         this.fromHero = fromHero;
         this.attackerId = attackerId;

@@ -15,18 +15,26 @@ import java.util.ArrayList;
 /**
  * 选择普攻或技能对妖怪进行攻击时的选项及攻击
  */
-public class ChooseMonsterScreen extends BaseScreen {
+public class MonsterSelectScreen extends BaseScreen {
     private static int arrowY = 280; // 怪物指示器的y坐标
 
     private BattleUIScreen battleUIScreen;
-    private int monsterIndex;  // 活动妖怪，当攻击妖怪时要显示
     private BattleOptionScreen battleOptionScreen;
+    private final int skillId;
 
+    private int monsterIndex;  // 活动妖怪，当攻击妖怪时要显示
     private java.util.List<String> msg;
 
-    public ChooseMonsterScreen(BattleUIScreen battleUIScreen, BattleOptionScreen battleOptionScreen) {
+    /**
+     *
+     * @param battleUIScreen battleUI
+     * @param battleOptionScreen battleOption
+     * @param skillId skillId, skill id
+     */
+    public MonsterSelectScreen(BattleUIScreen battleUIScreen, BattleOptionScreen battleOptionScreen, int skillId) {
         this.battleUIScreen = battleUIScreen;
         this.battleOptionScreen = battleOptionScreen;
+        this.skillId = skillId;
         java.util.List<MonsterBattle> monsterBattleList = getBattleUIScreen().monsterBattleList;
         for (int i = 0; i < monsterBattleList.size(); i++) {
             MonsterBattle monsterBattle = monsterBattleList.get(i);
@@ -101,8 +109,11 @@ public class ChooseMonsterScreen extends BaseScreen {
             getBattleUIScreen().actionList.add(new BattleAction(BattleAction.FROM_HERO,
                     getBattleUIScreen().heroIndex,
                     monsterIndex,
-                    battleOptionScreen.heroActionChoice, 0, 0));
-            getBattleUIScreen().getParentScreen().pop();
+                    battleOptionScreen.heroActionChoice, skillId, 0));
+            if (skillId != -1) { // 将技能选择屏幕清除掉
+                getBattleUIScreen().getParentScreen().pop();
+            }
+            getBattleUIScreen().getParentScreen().pop(); // TODO 清除什么？
             getBattleUIScreen().heroIndex++;
             battleOptionScreen.heroActionChoice = BattleAction.ACTION_ATTACK; // 重置成普攻
             if (getBattleUIScreen().heroIndex < getBattleUIScreen().heroBattleList.size()) {
@@ -135,11 +146,16 @@ public class ChooseMonsterScreen extends BaseScreen {
         for (int i = 0; i < getBattleUIScreen().monsterBattleList.size(); i++) {
             // TODO 暂先随机使用普攻和技能
             int actionAttack = GameConstant.random.nextInt(2);
+            int skillId = 0;
+            if (BattleAction.ACTION_SKILL == (actionAttack+1)) {
+                skillId = 2;
+            }
+
             BattleAction battleAction = new BattleAction(BattleAction.FROM_MONSTER,
                     i,
                     GameConstant.random.nextInt(getBattleUIScreen().heroBattleList.size()) ,
                     // TODO 暂先随机使用普攻和技能
-                    actionAttack + 1, 0, 0);
+                    actionAttack + 1, skillId, 0);
             getBattleUIScreen().actionList.add(battleAction);
         }
     }
