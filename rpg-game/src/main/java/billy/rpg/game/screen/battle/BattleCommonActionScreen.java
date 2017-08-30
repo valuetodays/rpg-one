@@ -97,7 +97,7 @@ public class BattleCommonActionScreen extends BaseScreen {
                     BufferedImage.TYPE_4BYTE_ABGR);
             Graphics g = paint.getGraphics();
             g.setFont(GameConstant.FONT_DAMAGE);
-            g.setColor(Color.red);
+            g.setColor(Color.YELLOW);
             g.drawString("-" + dmg, dmgLeft, dmgTop);
             //LOG.debug("damage & pos: -" + dmg + " " + dmgLeft + " " + dmgTop);
             g.dispose();

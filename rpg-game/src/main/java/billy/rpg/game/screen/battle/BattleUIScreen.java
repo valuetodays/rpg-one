@@ -109,6 +109,13 @@ public class BattleUIScreen extends BaseScreen {
             int left = monsterBattle.getLeft();
             int top = monsterBattle.getTop();
             if (!monsterBattle.isDied()) { // 只画活着的妖怪
+                g.setColor(Color.red);
+                g.drawString("" + monsterBattle.getRoleMetaData().getHp() + "/" + monsterBattle.getRoleMetaData().getMaxHp(),
+                        left + monsterBattle.getWidth() / 4,
+                        top + monsterBattle.getHeight() + 20);
+                g.drawString("" + monsterBattle.getRoleMetaData().getMp() + "/" + monsterBattle.getRoleMetaData().getMaxMp(),
+                        left + monsterBattle.getWidth() / 4,
+                        top + monsterBattle.getHeight() + 40);
                 g.drawImage(image, left, top, null);
             }
         }
