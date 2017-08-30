@@ -71,7 +71,6 @@ public class SkillSelectScreen extends BaseScreen {
             return;
         }
 
-
         BufferedImage paint = new BufferedImage(
                 GameConstant.GAME_WIDTH,
                 GameConstant.GAME_HEIGHT,
@@ -79,7 +78,7 @@ public class SkillSelectScreen extends BaseScreen {
         Graphics g = paint.getGraphics();
         g.setFont(GameConstant.FONT_BATTLE);
         g.setColor(Color.black);
-        g.fillRect(0, 0, paint.getWidth(), paint.getHeight());
+        g.fillRect(0, 0, paint.getWidth(), 320); // 大小和战斗背景一致为640*320
         g.setColor(Color.YELLOW);
         g.drawRoundRect(10, 10, 620, 200, 5, 5);
         Image gameArrowRight = GameFrame.getInstance().getGameContainer().getGameAboutItem().getGameArrowRight();
@@ -89,7 +88,6 @@ public class SkillSelectScreen extends BaseScreen {
             g.drawString(smd.getName() + " [消耗" + smd.getConsume() +"]", 30, 30 + i * 25);
         }
         g.drawString(skillList.get(skillIndex).getDesc(), 35, 230);
-
 
         gameCanvas.drawBitmap(paint, 0, 0);
     }
@@ -102,6 +100,7 @@ public class SkillSelectScreen extends BaseScreen {
     @Override
     public void onKeyUp(int key) {
         if (KeyUtil.isEsc(key)) {
+            getBattleUIScreen().getParentScreen().pop();
         } else if (KeyUtil.isEnter(key)) {
             MonsterSelectScreen chooseMonsterScreen = new MonsterSelectScreen(getBattleUIScreen(),
                     battleOptionScreen, skillList.get(skillIndex).getNumber());
@@ -109,7 +108,7 @@ public class SkillSelectScreen extends BaseScreen {
         } else if (KeyUtil.isUp(key)) {
             skillIndex--;
             if (skillIndex < 0) {
-                skillIndex = skillList.size();
+                skillIndex = skillList.size()-1;
             }
         } else if (KeyUtil.isDown(key)) {
             skillIndex++;

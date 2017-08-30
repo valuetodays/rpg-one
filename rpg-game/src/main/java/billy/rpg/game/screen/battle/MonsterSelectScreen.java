@@ -67,6 +67,15 @@ public class MonsterSelectScreen extends BaseScreen {
                 GameConstant.GAME_HEIGHT,
                 BufferedImage.TYPE_4BYTE_ABGR);
         Graphics g = paint.getGraphics();
+
+        Image battleImage = GameFrame.getInstance().getGameContainer().getBattleImageItem().getBattleImage("001-Grassland01.jpg");
+        // TODO 战斗背景图应从*.map或*.s中加载
+        // TODO 先画出黑色背景，因为战斗背景图不是640*480的 (640*320)
+        g.drawImage(battleImage, 0, 0, battleImage.getWidth(null), battleImage.getHeight(null), null);
+
+        getBattleUIScreen().drawMonster(g);
+        getBattleUIScreen().drawMonster(g);
+
         Image gameArrowUp = GameFrame.getInstance().getGameContainer().getGameAboutItem().getGameArrowUp();
         MonsterBattle monsterBattleArrowTo = getBattleUIScreen().monsterBattleList.get(monsterIndex);
         if (!monsterBattleArrowTo.isDied()) {
@@ -155,7 +164,7 @@ public class MonsterSelectScreen extends BaseScreen {
                     i,
                     GameConstant.random.nextInt(getBattleUIScreen().heroBattleList.size()) ,
                     // TODO 暂先随机使用普攻和技能
-                    actionAttack + 1, skillId, 0);
+                    1, skillId, 0);
             getBattleUIScreen().actionList.add(battleAction);
         }
     }

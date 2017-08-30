@@ -107,7 +107,41 @@ public class BattleUIScreen extends BaseScreen {
         Graphics g = paint.getGraphics();
         g.setColor(Color.black);
         g.fillRect(0, 0, paint.getWidth(), paint.getHeight());
-        Image battleImage = GameFrame.getInstance().getGameContainer().getBattleImageItem().getBattleImage("001-Grassland01.jpg");
+
+        drawMonster(g);
+
+        drawHero(g);
+
+        gameCanvas.drawBitmap(paint, 0, 0);
+    }
+
+    private void drawHero(Graphics g) {
+        // 将当前活动玩家高亮出来
+        for (int i = 0; i < heroBattleList.size(); i++) {
+            HeroBattle heroBattle = heroBattleList.get(i);
+            RoleMetaData roleMetaData = heroBattle.getRoleMetaData();
+            if (i == heroIndex) {
+                g.setColor(Color.yellow);
+                g.fillRect(heroBattle.getLeft()-5, heroBattle.getTop(), roleMetaData.getImage().getWidth() + 10,
+                        roleMetaData.getImage().getHeight());
+            }
+            g.setColor(Color.green);
+            g.drawString("" + heroBattle.getRoleMetaData().getHp() + "/" + heroBattle.getRoleMetaData().getMaxHp(),
+                    heroBattle.getLeft() + heroBattle.getWidth() / 4,
+                    heroBattle.getTop() - 40);
+            g.drawString("" + heroBattle.getRoleMetaData().getMp() + "/" + heroBattle.getRoleMetaData().getMaxMp(),
+                    heroBattle.getLeft() + heroBattle.getWidth() / 4,
+                    heroBattle.getTop() - 20);
+            g.drawImage(roleMetaData.getImage(),
+                    heroBattle.getLeft(),
+                    heroBattle.getTop(),
+                    null);
+        }
+    }
+
+    public void drawMonster(Graphics g) {
+        Image battleImage = GameFrame.getInstance().getGameContainer().getBattleImageItem().getBattleImage
+                ("001-Grassland01.jpg");
         // TODO 战斗背景图应从*.map或*.s中加载
         // TODO 先画出黑色背景，因为战斗背景图不是640*480的 (640*320)
         g.drawImage(battleImage, 0, 0, battleImage.getWidth(null), battleImage.getHeight(null), null);
@@ -127,30 +161,6 @@ public class BattleUIScreen extends BaseScreen {
                 g.drawImage(image, left, top, null);
             }
         }
-
-        // 将当前活动玩家高亮出来
-        for (int i = 0; i < heroBattleList.size(); i++) {
-            HeroBattle heroBattle = heroBattleList.get(i);
-            RoleMetaData roleMetaData = heroBattle.getRoleMetaData();
-            if (i == heroIndex) {
-                g.setColor(Color.yellow);
-                g.fillRect(heroBattle.getLeft()-5, heroBattle.getTop(), roleMetaData.getImage().getWidth() + 10,
-                    roleMetaData.getImage().getHeight());
-            }
-            g.setColor(Color.green);
-            g.drawString("" + heroBattle.getRoleMetaData().getHp() + "/" + heroBattle.getRoleMetaData().getMaxHp(),
-                    heroBattle.getLeft() + heroBattle.getWidth() / 4,
-                    heroBattle.getTop() - 40);
-            g.drawString("" + heroBattle.getRoleMetaData().getMp() + "/" + heroBattle.getRoleMetaData().getMaxMp(),
-                    heroBattle.getLeft() + heroBattle.getWidth() / 4,
-                    heroBattle.getTop() - 20);
-            g.drawImage(roleMetaData.getImage(),
-                    heroBattle.getLeft(),
-                    heroBattle.getTop(),
-                    null);
-        }
-
-        gameCanvas.drawBitmap(paint, 0, 0);
     }
 
     @Override
