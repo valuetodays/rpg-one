@@ -45,6 +45,9 @@ public class GameData {
             heroBattleList = new ArrayList<>();
             for (int i = 0; i < heroIds.size(); i++) {
                 RoleMetaData heroRole = GameFrame.getInstance().getGameContainer().getHeroRoleOf(heroIds.get(i));
+                if (heroRole == null) {
+                    throw new RuntimeException("玩家角色"+heroIds.get(i) + "不存在");
+                }
                 HeroBattle e = new HeroBattle();
                 e.setLeft(200 + i * 150 + 10);
                 e.setTop(10 * 32);

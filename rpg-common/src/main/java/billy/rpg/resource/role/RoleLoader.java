@@ -57,15 +57,11 @@ public class RoleLoader {
             int hp = dis.readInt();
             LOG.debug("role hp is " + hp);
             rmd.setHp(hp);
-            int maxHp = dis.readInt();
-            LOG.debug("role maxHp is " + maxHp);
-            rmd.setMaxHp(maxHp);
+            rmd.setMaxHp(hp);
             int mp = dis.readInt();
             LOG.debug("role mp is " + mp);
             rmd.setMp(mp);
-            int maxMp = dis.readInt();
-            LOG.debug("role maxMp is " + maxMp);
-            rmd.setMaxMp(maxMp);
+            rmd.setMaxMp(mp);
             int speed = dis.readInt();
             LOG.debug("role speed is " + speed);
             rmd.setSpeed(speed);

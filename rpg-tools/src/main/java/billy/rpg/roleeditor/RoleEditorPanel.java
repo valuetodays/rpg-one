@@ -32,9 +32,7 @@ public class RoleEditorPanel extends JPanel {
     private JTextField tfName; // name
     private JComboBox<Item> cbType;
     private JTextField tfHp; // hp
-    private JTextField tfMaxHp; // maxHp
     private JTextField tfMp; // mp
-    private JTextField tfMaxMp; // maxMp
     private JTextField tfSpeed; // speed
     private JTextField tfAttack; // attack
     private JTextField tfDefend; // defend
@@ -50,6 +48,7 @@ public class RoleEditorPanel extends JPanel {
         JFrame frame = new JFrame();
         frame.setContentPane(new RoleEditorPanel());
         frame.setTitle("角色编辑器");
+
         frame.setLocation(500, 100);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
@@ -184,20 +183,6 @@ public class RoleEditorPanel extends JPanel {
         });
         this.add(tfHp);
 
-        JLabel lableMaxHp = new JLabel("maxHp");
-        lableMaxHp.setBounds(80, 80, 50, 20);
-        this.add(lableMaxHp);
-        tfMaxHp = new JTextField();
-        tfMaxHp.setBounds(130, 80, 35, 20);
-        tfMaxHp.addKeyListener(new KeyAdapter() {
-            public void keyReleased(KeyEvent e) {
-                JTextField textField = (JTextField) e.getSource();
-                int n = getNumberOfTextField(textField);
-                textField.setText("" + n);
-            }
-        });
-        this.add(tfMaxHp);
-
         JLabel lableMp = new JLabel("mp");
         lableMp.setBounds(10, 110, 30, 20);
         this.add(lableMp);
@@ -211,20 +196,6 @@ public class RoleEditorPanel extends JPanel {
             }
         });
         this.add(tfMp);
-
-        JLabel lableMaxMp = new JLabel("maxMp");
-        lableMaxMp.setBounds(80, 110, 50, 20);
-        this.add(lableMaxMp);
-        tfMaxMp = new JTextField();
-        tfMaxMp.setBounds(130, 110, 35, 20);
-        tfMaxMp.addKeyListener(new KeyAdapter() {
-            public void keyReleased(KeyEvent e) {
-                JTextField textField = (JTextField) e.getSource();
-                int n = getNumberOfTextField(textField);
-                textField.setText("" + n);
-            }
-        });
-        this.add(tfMaxMp);
 
         JLabel lableSpeed = new JLabel("speed");
         lableSpeed.setBounds(10, 140, 40, 20);
@@ -319,9 +290,7 @@ public class RoleEditorPanel extends JPanel {
             tfName.setText(rmd.getName());
             cbType.setSelectedIndex(rmd.getType() - 1);
             tfHp.setText("" + rmd.getHp());
-            tfMaxHp.setText("" + rmd.getMaxHp());
             tfMp.setText("" + rmd.getMp());
-            tfMaxMp.setText("" + rmd.getMaxMp());
             tfSpeed.setText("" + rmd.getSpeed());
             tfAttack.setText("" + rmd.getAttack());
             tfDefend.setText("" + rmd.getDefend());
@@ -373,21 +342,11 @@ public class RoleEditorPanel extends JPanel {
             JOptionPane.showMessageDialog(null, "请选择角色图片");
             return;
         }
-
-
         res = checkNumber(tfHp.getText(), "hp");
         if (!res) {
             return;
         }
-        res = checkNumber(tfMaxHp.getText(), "maxHp");
-        if (!res) {
-            return;
-        }
         res = checkNumber(tfMp.getText(), "mp");
-        if (!res) {
-            return;
-        }
-        res = checkNumber(tfMaxMp.getText(), "maxMp");
         if (!res) {
             return;
         }
@@ -427,9 +386,7 @@ public class RoleEditorPanel extends JPanel {
             roleMetaData.setName(tfNameText);
             roleMetaData.setImage(image);
             roleMetaData.setHp(Integer.parseInt(tfHp.getText()));
-            roleMetaData.setMaxHp(Integer.parseInt(tfMaxHp.getText()));
             roleMetaData.setMp(Integer.parseInt(tfMp.getText()));
-            roleMetaData.setMaxMp(Integer.parseInt(tfMaxMp.getText()));
             roleMetaData.setSpeed(Integer.parseInt(tfSpeed.getText()));
             roleMetaData.setAttack(Integer.parseInt(tfAttack.getText()));
             roleMetaData.setDefend(Integer.parseInt(tfDefend.getText()));

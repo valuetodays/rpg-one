@@ -13,9 +13,7 @@ import java.awt.image.BufferedImage;
  *     <li>4 bytes image-length</li>
  *     <li>N bytes image(reversed)</li>
  *     <li>4 bytes hp</li>
- *     <li>4 bytes maxHp</li>
  *     <li>4 bytes mp</li>
- *     <li>4 bytes maxMp</li>
  *     <li>4 bytes speed</li>
  *     <li>4 bytes attack</li>
  *     <li>4 bytes defend</li>
@@ -34,7 +32,7 @@ public class RoleMetaData implements Cloneable { // TODO 添加级别
 
     private int type;
     private int number;
-    private int level = 1; // TODO 等级，默认开始时都是1
+    private int level = 1; // TODO 等级，默认开始时都是1，不过有玩家是中途入场的
     private String name;
     private BufferedImage image;
     private int hp;

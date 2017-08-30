@@ -122,6 +122,13 @@ public class BattleUIScreen extends BaseScreen {
                 g.fillRect(heroBattle.getLeft()-5, heroBattle.getTop(), roleMetaData.getImage().getWidth() + 10,
                     roleMetaData.getImage().getHeight());
             }
+            g.setColor(Color.green);
+            g.drawString("" + heroBattle.getRoleMetaData().getHp() + "/" + heroBattle.getRoleMetaData().getMaxHp(),
+                    heroBattle.getLeft() + heroBattle.getWidth() / 4,
+                    heroBattle.getTop() - 40);
+            g.drawString("" + heroBattle.getRoleMetaData().getMp() + "/" + heroBattle.getRoleMetaData().getMaxMp(),
+                    heroBattle.getLeft() + heroBattle.getWidth() / 4,
+                    heroBattle.getTop() - 20);
             g.drawImage(roleMetaData.getImage(),
                     heroBattle.getLeft(),
                     heroBattle.getTop(),

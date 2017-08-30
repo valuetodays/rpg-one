@@ -63,15 +63,9 @@ public class RoleSaver {
             int hp = roleMetaData.getHp();
             dos.writeInt(hp);
             LOG.debug("hp written with " + hp);
-            int maxHp = roleMetaData.getMaxHp();
-            dos.writeInt(maxHp);
-            LOG.debug("maxHp written with " + maxHp);
             int mp = roleMetaData.getMp();
             dos.writeInt(mp);
             LOG.debug("mp written with " + mp);
-            int maxMp = roleMetaData.getMaxMp();
-            dos.writeInt(maxMp);
-            LOG.debug("maxMp written with " + maxMp);
             int speed = roleMetaData.getSpeed();
             dos.writeInt(speed);
             LOG.debug("speed written with " + speed);
