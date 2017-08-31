@@ -77,6 +77,12 @@ public class RoleLoader {
             int money = dis.readInt();
             LOG.debug("role money is " + money);
             rmd.setMoney(money);
+            int skillIdsBytesLen = dis.readInt();
+            byte[] skillIdsBytes = new byte[skillIdsBytesLen];
+            dis.read(skillIdsBytes);
+            String skillIds = new String(skillIdsBytes, "utf-8");
+            LOG.debug("skillIds is " + skillIds);
+            rmd.setSkillIds(skillIds);
             int levelChain = dis.readInt();
             LOG.debug("role levelChain is " + levelChain);
             rmd.setLevelChain(levelChain);

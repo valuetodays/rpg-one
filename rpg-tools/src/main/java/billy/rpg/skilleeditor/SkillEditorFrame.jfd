@@ -5,12 +5,12 @@ new FormModel {
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
 			"$horizontalGroup": "par l {seq {space :::p, comp panel1:::p::p, space ::7:x}, seq l {space :p:51:p, comp btnSave:::p::p, space ::52:x, comp btnLoad:::p::p, space :p:54:p}}"
-			"$verticalGroup": "par l {seq l {comp panel1:::p::p, space u:::p, par b {comp btnLoad::b:p::p, comp btnSave::b:p::p}, space :0:11:x}}"
+			"$verticalGroup": "par l {seq l {comp panel1:::p:261:p, space u:::p, par b {comp btnLoad::b:p::p, comp btnSave::b:p::p}, space :0:27:x}}"
 		} ) {
 			name: "this"
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-				"$horizontalGroup": "par l {seq l {par l {seq l {comp label10:::p:37:p, space u:::p, comp textField7:::p:66:p}, seq l {comp label7:::p:37:p, space u:::p, comp comboBox2:::p::p}, seq l {comp label8:::p:60:p, space :::p, comp textField5:::p:48:p}}, space u:::p, par l {comp label6:::p:34:p, comp textArea1:::p:123:p}}, seq {par l {seq {comp label4:::p:37:p, space u:::p, comp textField3:::p:66:p, space :::x, comp label5:::p:66:p}, comp label2::l:p:42:p, seq l {par t {comp label1::t:p:37:p, comp label3:::p:37:p}, par l {seq {space :p:11:p, par l {comp comboBox1:::::x, comp textField2:::p:66:p}, space :p:90:p, comp textField4:::p:31:p}, seq l {space u:::p, comp textField1:::p:66:p}}}}, space :::p}}"
-				"$verticalGroup": "par l {seq l {par b {comp label1::b:p::p, comp textField1::b:p::p}, par l {seq {space :p:12:p, par b {comp label3::b:p:25:p, comp textField2::b:::x}, space :::p, par t {comp label2:::p::p, comp comboBox1:::::x}, space :p:13:p}, seq l {space :p:36:p, comp textField4:::p::p, space :::x}}, par b {comp label4::b:p:25:p, comp textField3::b:p::p, comp label5::b:p:25:p}, space :::p, par b {comp label10::b:p:25:p, comp textField7::b:p::p, comp label6::b:p:25:p}, space u:::p, par l {seq {par l {comp label7:::p:27:p, comp comboBox2:::p::p}, space u:::p, par b {comp label8::b:p:25:p, comp textField5::b:p::p}}, comp textArea1:::p:71:p}, space :p::p}}"
+				"$horizontalGroup": "par l {seq l {par l {seq l {comp label10:::p:37:p, space u:::p, comp textField7:::p:66:p}, seq l {comp label7:::p:37:p, space u:::p, comp comboBox2:::p::p}, seq l {comp label8:::p:60:p, space :::p, comp textField5:::p:48:p}}, space u:::p, par l {comp label6:::p:34:p, comp textArea1:::p:123:p}}, seq l {par t {comp label1::t:p:37:p, comp label3:::p:37:p}, par l {seq {space :p:11:p, par l:::p {comp textField2:::::x, comp comboBox1:::::x}}, seq l {space u:::p, comp textField1:::p:66:p}}}, seq {comp label4:::p:37:p, space u:::p, comp textField3:::p:66:p}, comp label2::l:p:42:p}"
+				"$verticalGroup": "par l {seq l {par l {seq {par b {comp label1::b:p::p, comp textField1::b:p::p}, space :::x}, seq {space :p:34:p, par b {comp label3::b:p:25:p, comp textField2::b:::x}, space :::p, par l {seq {space :0:0:x, comp label2:::p::p}, comp comboBox1:::::x}, space :p:13:p}}, par b {comp label4::b:p:25:p, comp textField3::b:p::p}, space :::p, par b {comp label10::b:p:25:p, comp textField7::b:p::p, comp label6::b:p:25:p}, space u:::p, par l {seq {par l {comp label7:::p:27:p, comp comboBox2:::p::p}, space u:::p, par b {comp label8::b:p:25:p, comp textField5::b:p::p}}, comp textArea1:::p:71:p}, space :p::p}}"
 			} ) {
 				name: "panel1"
 				"border": new javax.swing.border.TitledBorder( "基本信息" )
@@ -90,13 +90,6 @@ new FormModel {
 					auxiliary() {
 						"JavaCodeGenerator.variableName": "tfAnimationId"
 					}
-				} )
-				add( new FormComponent( "javax.swing.JLabel" ) {
-					name: "label5"
-					"text": "持续回合数"
-				} )
-				add( new FormComponent( "javax.swing.JTextField" ) {
-					name: "textField4"
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "label6"

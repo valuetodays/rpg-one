@@ -95,8 +95,10 @@ public class RoleEditorController implements Initializable {
     @FXML
     protected void handleSubmitButtonAction(ActionEvent event) {
         actiontarget.setText("Sign in button pressed");
-        Image image = imagePreview.getImage();
-
+//        Image image = imagePreview.getImage();
+        String path = "/AnimationEditor.png";
+        Image image = new Image(path);
+        imagePreview.setImage(image);
     }
 
     @FXML

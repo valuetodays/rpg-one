@@ -1,9 +1,6 @@
 package billy.rpg.resource.role;
 
-import billy.rpg.resource.skill.SkillMetaData;
-
 import java.awt.image.BufferedImage;
-import java.util.List;
 
 /**
  * <ol>
@@ -22,6 +19,8 @@ import java.util.List;
  *     <li>4 bytes defend</li>
  *     <li>4 bytes exp</li>
  *     <li>4 bytes money</li>
+ *     <li>4 bytes skillIds length</li>
+ *     <li>n bytes skiilIds</li>
  *     <li>4 bytes leveChain</li> TODO
  * </ol>
  * @author liulei@bshf360.com
@@ -47,9 +46,8 @@ public class RoleMetaData implements Cloneable { // TODO 添加级别
     private int defend;
     private int exp;
     private int money;
+    private String skillIds;
     private int levelChain = 1; // TODO 先固定成1
-    private List<SkillMetaData> skillList;
-
 
     public BufferedImage getImage() {
         return image;
@@ -171,12 +169,12 @@ public class RoleMetaData implements Cloneable { // TODO 添加级别
         this.levelChain = levelChain;
     }
 
-    public List<SkillMetaData> getSkillList() {
-        return skillList;
+    public String getSkillIds() {
+        return skillIds;
     }
 
-    public void setSkillList(List<SkillMetaData> skillList) {
-        this.skillList = skillList;
+    public void setSkillIds(String skillIds) {
+        this.skillIds = skillIds;
     }
 
     @Override

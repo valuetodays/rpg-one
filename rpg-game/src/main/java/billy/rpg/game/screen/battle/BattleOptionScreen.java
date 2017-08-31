@@ -2,9 +2,12 @@ package billy.rpg.game.screen.battle;
 
 import billy.rpg.game.GameCanvas;
 import billy.rpg.game.GameFrame;
+import billy.rpg.game.character.battle.HeroBattle;
 import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.screen.BaseScreen;
+import billy.rpg.game.screen.MessageBoxScreen;
 import billy.rpg.game.util.KeyUtil;
+import org.apache.commons.lang.StringUtils;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -102,8 +105,24 @@ public class BattleOptionScreen extends BaseScreen {
                     }
                     break;
                     case OPTION_SKILL: {  // 技能
-                        SkillSelectScreen sss = new SkillSelectScreen(battleUIScreen, this);
-                        getBattleUIScreen().getParentScreen().push(sss);
+                        HeroBattle activeHero = getBattleUIScreen().getActiveHero();
+                        int mp = activeHero.getRoleMetaData().getMp();
+                        if (mp == 0) {
+                            final BaseScreen bs = new MessageBoxScreen("mp为0，不能施放技能");
+                            getBattleUIScreen().getParentScreen().push(bs);
+                            break;
+                        }
+
+                        String skillIds = activeHero.getRoleMetaData().getSkillIds();
+                        if (StringUtils.isEmpty(skillIds)) {
+                            final BaseScreen bs = new MessageBoxScreen("未习得技能，不能施放技能");
+                            getBattleUIScreen().getParentScreen().push(bs);
+                            break;
+                        }
+
+                        final BaseScreen bs = new SkillSelectScreen(battleUIScreen, this);
+                        getBattleUIScreen().getParentScreen().push(bs);
+
                     }
                     break;
                 }

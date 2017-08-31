@@ -17,6 +17,7 @@ import java.io.*;
 public class RoleSaver {
     private static final Logger LOG = Logger.getLogger(RoleSaver.class);
     private static final String ROLE_MAGIC = RoleEditorConstant.ROLE_MAGIC;
+    private static final String CHARSET_NAME = "utf-8";
 
 
 
@@ -34,8 +35,8 @@ public class RoleSaver {
         try {
             fos = new FileOutputStream(file);
             dos = new DataOutputStream(fos);
-            dos.write(ROLE_MAGIC.getBytes("utf-8"));
-            LOG.debug("ROLE_MAGIC `" + ROLE_MAGIC + "` written as utf-8");
+            dos.write(ROLE_MAGIC.getBytes(CHARSET_NAME));
+            LOG.debug("ROLE_MAGIC `" + ROLE_MAGIC + "` written as " + CHARSET_NAME);
             dos.writeInt(AnimationEditorConstant.VERSION);
             LOG.debug("version written with " + RoleEditorConstant.VERSION);
             int type = roleMetaData.getType();
@@ -45,10 +46,10 @@ public class RoleSaver {
             dos.writeInt(number);
             LOG.debug("number written with " + number);
             String name = roleMetaData.getName();
-            byte[] bytes = name.getBytes("utf-8");
+            byte[] bytes = name.getBytes(CHARSET_NAME);
             dos.writeInt(bytes.length);
             dos.write(bytes);
-            LOG.debug("name written with " + name + " in utf-8");
+            LOG.debug("name written with " + name + " in " + CHARSET_NAME);
 
             BufferedImage image = roleMetaData.getImage();
             ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -81,6 +82,11 @@ public class RoleSaver {
             int money = roleMetaData.getMoney();
             dos.writeInt(money);
             LOG.debug("money written with " + money);
+            String skillIds = roleMetaData.getSkillIds();
+            byte[] skillIdsBytes = skillIds.getBytes(CHARSET_NAME);
+            dos.writeInt(skillIdsBytes.length);
+            dos.write(skillIdsBytes);
+            LOG.debug("skillIds written with " + skillIds);
             int levelChain = roleMetaData.getLevelChain();
             dos.writeInt(levelChain);
             LOG.debug("levelChain written with " + levelChain);

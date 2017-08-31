@@ -38,6 +38,7 @@ public class RoleEditorPanel extends JPanel {
     private JTextField tfDefend; // defend
     private JTextField tfExp; // exp
     private JTextField tfMoney; // money
+    private JTextField tfSkills; // skills
     private JTextField tfLevelChain; // TODO levelChain
 
     private JFileChooser rolePicFileChooser;
@@ -267,6 +268,13 @@ public class RoleEditorPanel extends JPanel {
         });
         this.add(tfMoney);
 
+        JLabel labelSkills = new JLabel("skills");
+        labelSkills.setBounds(10, 290, 40, 20);
+        labelSkills.setToolTipText("技能ids，以,分隔，留空为无技能，用于妖怪，hero有升级链");
+        this.add(labelSkills);
+        tfSkills = new JTextField();
+        tfSkills.setBounds(50, 290, 35, 20);
+        this.add(tfSkills);
     }
 
     private void pickImage() throws IOException {
@@ -296,6 +304,7 @@ public class RoleEditorPanel extends JPanel {
             tfDefend.setText("" + rmd.getDefend());
             tfExp.setText("" + rmd.getExp());
             tfMoney.setText("" + rmd.getMoney());
+            tfSkills.setText(rmd.getSkillIds());
             image = rmd.getImage();
             repaint();
 
@@ -370,6 +379,7 @@ public class RoleEditorPanel extends JPanel {
         if (!res) {
             return;
         }
+        String tfSkillsText = StringUtils.trimToEmpty(tfSkills.getText());
 
         int result = roleSaveFileChooser.showSaveDialog(null);
         if (result == JFileChooser.APPROVE_OPTION){
@@ -392,6 +402,7 @@ public class RoleEditorPanel extends JPanel {
             roleMetaData.setDefend(Integer.parseInt(tfDefend.getText()));
             roleMetaData.setExp(Integer.parseInt(tfExp.getText()));
             roleMetaData.setMoney(Integer.parseInt(tfMoney.getText()));
+            roleMetaData.setSkillIds(tfSkillsText);
             RoleSaver.save(roleSaveFileChooser.getCurrentDirectory() + File.separator + name, roleMetaData);
             JOptionPane.showMessageDialog(this, "保存完成");
             System.out.println("save role to file end");

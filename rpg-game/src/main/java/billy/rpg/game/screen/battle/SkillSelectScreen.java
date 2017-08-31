@@ -5,12 +5,15 @@ import billy.rpg.game.GameFrame;
 import billy.rpg.game.character.battle.HeroBattle;
 import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.screen.BaseScreen;
+import billy.rpg.game.screen.MessageBoxScreen;
 import billy.rpg.game.util.KeyUtil;
 import billy.rpg.resource.skill.SkillMetaData;
+import org.apache.commons.lang.StringUtils;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * 战斗中选择技界面
@@ -26,32 +29,20 @@ public class SkillSelectScreen extends BaseScreen {
         this.battleUIScreen = battleUIScreen;
         this.battleOptionScreen = battleOptionScreen;
 
-        // TODO 技能列表
+        // 技能列表
         HeroBattle activeHero = getBattleUIScreen().getActiveHero();
-        java.util.List<SkillMetaData> skillList = activeHero.getRoleMetaData().getSkillList();
-        skillList = new ArrayList<>();
-        SkillMetaData e = new SkillMetaData();
-        e.setNumber(2);
-        e.setName("飞剑斩");
-        e.setDesc("剑法中最基本的招式。伤敌80。");
-        e.setBaseDamage(80);
-        e.setConsume(10);
-        skillList.add(e);
-        SkillMetaData e2 = new SkillMetaData();
-        e2.setNumber(2);
-        e2.setName("飞剑斩1");
-        e2.setDesc("剑法中最基本的招式1。伤敌80。");
-        e2.setBaseDamage(80);
-        e2.setConsume(10);
-        skillList.add(e2);
-        SkillMetaData e3 = new SkillMetaData();
-        e3.setNumber(2);
-        e3.setName("飞剑斩2");
-        e3.setDesc("剑法中最基本的招式2。伤敌80。");
-        e3.setBaseDamage(80);
-        e3.setConsume(10);
-        skillList.add(e3);
-        this.skillList = skillList;
+        java.util.List<SkillMetaData> skillList = new ArrayList<>();
+        String skillIds = activeHero.getRoleMetaData().getSkillIds();
+        if (StringUtils.isNotEmpty(skillIds)) { // 如果有技能
+            String[] skillIdArr = skillIds.split(",");
+            for (String skillId : skillIdArr) {
+                int si = Integer.parseInt(skillId);
+                SkillMetaData skillMetaData = GameFrame.getInstance().getGameContainer().getSkillMetaDataOf(si);
+                skillList.add(skillMetaData);
+            }
+        }
+
+        this.skillList = Collections.unmodifiableList(skillList);
     }
 
 
@@ -102,8 +93,18 @@ public class SkillSelectScreen extends BaseScreen {
         if (KeyUtil.isEsc(key)) {
             getBattleUIScreen().getParentScreen().pop();
         } else if (KeyUtil.isEnter(key)) {
+            int skillId = skillList.get(skillIndex).getNumber();
+            SkillMetaData skillMetaData = GameFrame.getInstance().getGameContainer().getSkillMetaDataOf(skillId);
+            final int mp = getBattleUIScreen().getActiveHero().getRoleMetaData().getMp();
+            final int consume = skillMetaData.getConsume();
+            if (mp < consume) {
+                final BaseScreen bs = new MessageBoxScreen("mp不足"+consume+"，不能施放技能" + skillMetaData.getName(),
+                        getBattleUIScreen().getParentScreen());
+                getBattleUIScreen().getParentScreen().push(bs);
+                return;
+            }
             MonsterSelectScreen chooseMonsterScreen = new MonsterSelectScreen(getBattleUIScreen(),
-                    battleOptionScreen, skillList.get(skillIndex).getNumber());
+                    battleOptionScreen, skillId);
             getBattleUIScreen().getParentScreen().push(chooseMonsterScreen);
         } else if (KeyUtil.isUp(key)) {
             skillIndex--;

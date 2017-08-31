@@ -135,6 +135,11 @@ public class BattleFightScreen extends BaseScreen {
                             }
                             @Override
                             public void onFinished() {
+                                int consume = GameFrame.getInstance().getGameContainer()
+                                        .getSkillMetaDataOf(high).getConsume();
+                                int mp = getBattleUIScreen().monsterBattleList.get(attackerId).getRoleMetaData().getMp();
+                                mp-=consume;
+                                getBattleUIScreen().monsterBattleList.get(attackerId).getRoleMetaData().setMp(mp);
                                 getBattleUIScreen().getParentScreen().pop();
                                 nextAction();
                                 checkWinOrLose();
@@ -212,7 +217,8 @@ public class BattleFightScreen extends BaseScreen {
             case BattleAction.ACTION_SKILL: { // 技能
                 LOG.debug("使用技能攻击妖怪");
                 FightableCharacter chosenMonsterBattle = getBattleUIScreen().monsterBattleList.get(targetIndex);
-                AnimationScreen bs = new AnimationScreen(high,
+                final SkillMetaData smd = GameFrame.getInstance().getGameContainer().getSkillMetaDataOf(high);
+                AnimationScreen bs = new AnimationScreen(smd.getAnimationId(),
                         chosenMonsterBattle.getLeft() - chosenMonsterBattle.getWidth() / 2,
                         chosenMonsterBattle.getTop(), getBattleUIScreen().getParentScreen());
                 final int finalTargetIndex = targetIndex;
@@ -232,6 +238,11 @@ public class BattleFightScreen extends BaseScreen {
                                     }
                                     @Override
                                     public void onFinished() {
+                                        int consume = GameFrame.getInstance().getGameContainer()
+                                                .getSkillMetaDataOf(high).getConsume();
+                                        int mp = getBattleUIScreen().heroBattleList.get(attackerId).getRoleMetaData().getMp();
+                                        mp-=consume;
+                                        getBattleUIScreen().heroBattleList.get(attackerId).getRoleMetaData().setMp(mp);
                                         getBattleUIScreen().getParentScreen().pop();
                                         nextAction();
                                         checkWinOrLose();
@@ -261,13 +272,7 @@ public class BattleFightScreen extends BaseScreen {
      * @param skillId skillId
      */
     private int getSkillAttackDamage(int skillId) {
-        if (skillId <= 0) {
-            throw new RuntimeException("illegal skillId: " + skillId);
-        }
         SkillMetaData skill = GameFrame.getInstance().getGameContainer().getSkillMetaDataOf(skillId);
-        if (null == skill) {
-            throw new RuntimeException("illegal skillId: " + skillId);
-        }
         return skill.getBaseDamage();
     }
 

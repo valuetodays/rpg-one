@@ -161,16 +161,21 @@ public class SkillEditorFrame extends JFrame {
         }
     }
 
-
-
     private void btnLoadActionPerformed(ActionEvent e) {
         int result = sklLoadFileChooser.showSaveDialog(this);
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = sklLoadFileChooser.getSelectedFile();
             SkillMetaData loadData = SkillLoader.load(selectedFile.getPath());
-            tfNumber.setText("" + loadData.getNumber()); // TODO
+            tfNumber.setText("" + loadData.getNumber());
+            tfName.setText("" + loadData.getName());
+            cbType.setSelectedIndex(loadData.getType());
+            tfEffect.setText("" + loadData.getBaseDamage());
+            tfConsume.setText("" + loadData.getConsume());
+            cbTargetType.setSelectedIndex(loadData.getTargetType());
+            tfAnimationId.setText("" + loadData.getAnimationId());
+            taDesc.setText("" + loadData.getDesc());
 
-            LOG.debug("load from aniFile end");
+            LOG.debug("load from sklFile end");
         }
     }
 
@@ -191,8 +196,6 @@ public class SkillEditorFrame extends JFrame {
         cbTargetType = new JComboBox();
         label8 = new JLabel();
         tfAnimationId = new JTextField();
-        label5 = new JLabel();
-        textField4 = new JTextField();
         label6 = new JLabel();
         taDesc = new JTextArea();
         btnSave = new JButton();
@@ -233,9 +236,6 @@ public class SkillEditorFrame extends JFrame {
             label8.setText("\u52a8\u753b\u7f16\u53f7");
             label8.setToolTipText("\u8be5\u6280\u80fd\u4f7f\u7528\u54ea\u4e2a\u6280\u80fd");
 
-            //---- label5 ----
-            label5.setText("\u6301\u7eed\u56de\u5408\u6570");
-
             //---- label6 ----
             label6.setText("\u8bf4\u660e");
             label6.setToolTipText("\u6280\u80fd\u63cf\u8ff0");
@@ -268,56 +268,48 @@ public class SkillEditorFrame extends JFrame {
                             .addComponent(label6, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
                             .addComponent(taDesc, GroupLayout.PREFERRED_SIZE, 123, GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panel1Layout.createSequentialGroup()
+                        .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                            .addComponent(label1, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(label3, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
                         .addGroup(panel1Layout.createParallelGroup()
                             .addGroup(panel1Layout.createSequentialGroup()
-                                .addComponent(label4, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(tfEffect, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(label5, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE))
-                            .addComponent(label2, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
+                                .addGap(11, 11, 11)
+                                .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(tfName)
+                                    .addComponent(cbType)))
                             .addGroup(panel1Layout.createSequentialGroup()
-                                .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                                    .addComponent(label1, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(label3, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
-                                .addGroup(panel1Layout.createParallelGroup()
-                                    .addGroup(panel1Layout.createSequentialGroup()
-                                        .addGap(11, 11, 11)
-                                        .addGroup(panel1Layout.createParallelGroup()
-                                            .addComponent(cbType)
-                                            .addComponent(tfName, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE))
-                                        .addGap(90, 90, 90)
-                                        .addComponent(textField4, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(panel1Layout.createSequentialGroup()
-                                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(tfNumber, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)))))
-                        .addContainerGap())
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(tfNumber, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(panel1Layout.createSequentialGroup()
+                        .addComponent(label4, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tfEffect, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE))
+                    .addComponent(label2, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
             );
             panel1Layout.setVerticalGroup(
                 panel1Layout.createParallelGroup()
                     .addGroup(panel1Layout.createSequentialGroup()
-                        .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                            .addComponent(label1)
-                            .addComponent(tfNumber, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                         .addGroup(panel1Layout.createParallelGroup()
                             .addGroup(panel1Layout.createSequentialGroup()
-                                .addGap(12, 12, 12)
+                                .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                    .addComponent(label1)
+                                    .addComponent(tfNumber, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(panel1Layout.createSequentialGroup()
+                                .addGap(34, 34, 34)
                                 .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                     .addComponent(label3, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
                                     .addComponent(tfName))
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                                    .addComponent(label2)
+                                .addGroup(panel1Layout.createParallelGroup()
+                                    .addGroup(panel1Layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(label2))
                                     .addComponent(cbType))
-                                .addGap(13, 13, 13))
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addGap(36, 36, 36)
-                                .addComponent(textField4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGap(13, 13, 13)))
                         .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                             .addComponent(label4, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfEffect, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label5, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tfEffect, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                             .addComponent(label10, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
@@ -364,12 +356,12 @@ public class SkillEditorFrame extends JFrame {
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
                 .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addComponent(panel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panel1, GroupLayout.PREFERRED_SIZE, 261, GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(btnLoad)
                         .addComponent(btnSave))
-                    .addGap(0, 11, Short.MAX_VALUE))
+                    .addGap(0, 27, Short.MAX_VALUE))
         );
         pack();
         setLocationRelativeTo(getOwner());
@@ -392,8 +384,6 @@ public class SkillEditorFrame extends JFrame {
     private JComboBox cbTargetType;
     private JLabel label8;
     private JTextField tfAnimationId;
-    private JLabel label5;
-    private JTextField textField4;
     private JLabel label6;
     private JTextArea taDesc;
     private JButton btnSave;

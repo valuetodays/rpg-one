@@ -22,7 +22,6 @@ import org.apache.log4j.Logger;
 
 import java.awt.*;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -116,37 +115,16 @@ public class GameContainer {
             loadSkillData();
         } catch (Exception e) {
             e.printStackTrace();
+            throw new RuntimeException("exception occurs: " + e.getMessage());
         }
         
         loaded = true;
     }
 
     private void loadSkillData() {
-        skillMetaDataMap = new HashMap<>();
-        SkillMetaData e = new SkillMetaData();
-        e.setNumber(2);
-        e.setName("飞剑斩");
-        e.setDesc("剑法中最基本的招式。伤敌80。");
-        e.setBaseDamage(80);
-        e.setConsume(10);
-
-        SkillMetaData e2 = new SkillMetaData();
-        e2.setNumber(3);
-        e2.setName("飞剑斩1");
-        e2.setDesc("剑法中最基本的招式1。伤敌80。");
-        e2.setBaseDamage(80);
-        e2.setConsume(10);
-
-        SkillMetaData e3 = new SkillMetaData();
-        e3.setNumber(4);
-        e3.setName("飞剑斩2");
-        e3.setDesc("剑法中最基本的招式2。伤敌80。");
-        e3.setBaseDamage(80);
-        e3.setConsume(10);
-
-        skillMetaDataMap.put(e.getNumber(), e);
-        skillMetaDataMap.put(e2.getNumber(), e2);
-        skillMetaDataMap.put(e3.getNumber(), e3);
+        SkillDataLoader sdl = new SkillDataLoader();
+        sdl.load();
+        skillMetaDataMap = sdl.getSkillMap();
     }
 
     private void loadLevelData() {
@@ -365,7 +343,14 @@ public class GameContainer {
         return mapScreen;
     }
 
-    public SkillMetaData getSkillMetaDataOf(int number) {
-        return skillMetaDataMap.get(number);
+    public SkillMetaData getSkillMetaDataOf(int skillId) {
+        if (skillId <= 0) {
+            throw new RuntimeException("illegal skillId: " + skillId);
+        }
+        SkillMetaData skillMetaData = skillMetaDataMap.get(skillId);
+        if (null == skillMetaData) {
+            throw new RuntimeException("illegal skillId: " + skillId);
+        }
+        return skillMetaData;
     }
 }

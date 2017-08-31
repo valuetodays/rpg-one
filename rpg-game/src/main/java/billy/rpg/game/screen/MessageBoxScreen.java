@@ -3,6 +3,7 @@ package billy.rpg.game.screen;
 import billy.rpg.game.GameCanvas;
 import billy.rpg.game.GameFrame;
 import billy.rpg.game.constants.GameConstant;
+import billy.rpg.game.screen.battle.BattleScreen;
 import org.apache.commons.lang.StringUtils;
 
 import java.awt.*;
@@ -21,22 +22,30 @@ public class MessageBoxScreen extends BaseScreen {
      */
     private int delay;
     private int cnt = 0;
+    private final BaseScreen ownerScreen;
     
     public MessageBoxScreen(String msg) {
-        this(msg, 2000);
+        this(msg, null, 2000);
     }
-    public MessageBoxScreen(String msg, int delay) {
+
+    public MessageBoxScreen(String msg, BaseScreen ownerScreen) {
+        this(msg, ownerScreen, 2000);
+    }
+    public MessageBoxScreen(String msg, BaseScreen ownerScreen, int delay) {
         this.msg = msg;
         this.delay = delay;
+        this.ownerScreen = ownerScreen;
     }
 
     @Override
     public void update(long delta) {
         cnt += delta;
         if (cnt > delay) {
-            GameFrame.getInstance().popScreen();
+            popScreen();
         }
     }
+
+
 
     @Override
     public void draw(GameCanvas gameCanvas) {
@@ -63,13 +72,20 @@ public class MessageBoxScreen extends BaseScreen {
 
     @Override
     public void onKeyDown(int key) {
-        GameFrame.getInstance().popScreen();
+        popScreen();
+
     }
 
     @Override
     public void onKeyUp(int key) {
         
     }
-
+    private void popScreen() {
+        if (ownerScreen instanceof BattleScreen) { // 战斗场景中的播放动画，就把战斗场景弹出一个
+            ((BattleScreen)ownerScreen).pop();
+        } else {
+            GameFrame.getInstance().popScreen();
+        }
+    }
 
 }

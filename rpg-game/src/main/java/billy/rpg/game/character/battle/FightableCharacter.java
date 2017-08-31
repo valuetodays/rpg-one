@@ -67,4 +67,5 @@ public abstract class FightableCharacter {
     public void setDied(boolean died) {
         this.died = died;
     }
+
 }
