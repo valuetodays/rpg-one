@@ -1,6 +1,6 @@
 package billy.rpg.resource.animation;
 
-import billy.rpg.common.constant.AnimationEditorConstant;
+import billy.rpg.common.constant.ToolsConstant;
 import billy.rpg.common.util.ImageUtil;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
@@ -19,7 +19,8 @@ import java.util.List;
  */
 public class AnimationLoader {
     private static final Logger LOG = Logger.getLogger(AnimationLoader.class);
-    private static final String ANI_MAGIC = AnimationEditorConstant.ANI_MAGIC;
+    private static final String ANI_MAGIC = ToolsConstant.MAGIC_ANI;
+    private static final String CHARSET = ToolsConstant.CHARSET;
 
     /**
      * load from specified file
@@ -36,13 +37,10 @@ public class AnimationLoader {
         try {
             fis = new FileInputStream(file);
             dis = new DataInputStream(fis);
-            byte[] bAniMagic = new byte[ANI_MAGIC.getBytes("utf-8").length];
+            byte[] bAniMagic = new byte[ANI_MAGIC.getBytes(CHARSET).length];
             dis.read(bAniMagic, 0 , bAniMagic.length);
-            String aniMagicUtf8 = new String(bAniMagic, "utf-8");
+            String aniMagicUtf8 = new String(bAniMagic, CHARSET);
             LOG.debug("ani magic `"+aniMagicUtf8+"` read");
-            int version = dis.readInt();
-            LOG.debug("ani version is " + version);
-            animationMetaData.setVersion(version);
             int number = dis.readInt();
             LOG.debug("ani number is " + number);
             animationMetaData.setNumber(number);

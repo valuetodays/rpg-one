@@ -1,6 +1,6 @@
 package billy.rpg.resource.map;
 
-import billy.rpg.common.constant.MapFileConstant;
+import billy.rpg.common.constant.ToolsConstant;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 
@@ -19,8 +19,8 @@ import java.util.List;
  */
 public class MapLoader {
     private static final Logger LOG = Logger.getLogger(MapLoader.class);
-
-    private static final String MAP_HEADER = MapFileConstant.MAP_HEADER;
+    private static final String MAP_HEADER = ToolsConstant.MAGIC_MAP;
+    private static final String CHARSET = ToolsConstant.CHARSET;
 
     /**
      *
@@ -36,23 +36,23 @@ public class MapLoader {
         try {
             fis = new FileInputStream(file);
             dis = new DataInputStream(fis);
-            byte[] bMapHead = new byte[MAP_HEADER.getBytes("utf-8").length];
+            byte[] bMapHead = new byte[MAP_HEADER.getBytes(CHARSET).length];
             dis.read(bMapHead, 0, bMapHead.length);
-            String mapHeadUtf8 = new String(bMapHead, "utf-8");
+            String mapHeadUtf8 = new String(bMapHead, CHARSET);
             LOG.debug("MAP_HEADER `"+mapHeadUtf8+"` read");
 
             int tileIdBytesLength = dis.readInt();
             byte[] tileIdBytes = new byte[tileIdBytesLength];
             dis.read(tileIdBytes, 0, tileIdBytesLength);
-            String tileId = new String(tileIdBytes, "utf-8");
-            LOG.debug("tileId `" + tileId + "` read as utf-8");
+            String tileId = new String(tileIdBytes, CHARSET);
+            LOG.debug("tileId `" + tileId + "` read as " + CHARSET);
             mapMetaData.setTileId(tileId);
 
             int mapNameBytesLength = dis.readInt();
             byte[] mapNameBytes = new byte[mapNameBytesLength];
             dis.read(mapNameBytes, 0, mapNameBytesLength);
-            String mapName = new String(mapNameBytes, "utf-8");
-            LOG.debug("mapName `"+mapName+"` read as utf-8");
+            String mapName = new String(mapNameBytes, CHARSET);
+            LOG.debug("mapName `"+mapName+"` read as " + CHARSET);
             mapMetaData.setName(mapName);
 
             int height = dis.readInt();

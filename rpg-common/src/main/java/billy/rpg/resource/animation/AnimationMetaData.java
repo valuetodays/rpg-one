@@ -8,7 +8,6 @@ import java.util.List;
 /**
  * <ol>
  *  <li>9 bytes ani magic</li>
- *  <li>4 bytes version</li>
  *  <li>4 bytes number</li>
  *  <li>4 bytes imageCount</li>
  *  <li>4 bytes imageX length</li>
@@ -25,7 +24,6 @@ import java.util.List;
  */
 public class AnimationMetaData {
     private int number; // 编号
-    private int version; // 版本
     private int frameCount; // 帧数
     private int imageCount; // 图片数量
     private FrameData[] frameData;
@@ -78,11 +76,4 @@ public class AnimationMetaData {
         this.imageCount = imageCount;
     }
 
-    public int getVersion() {
-        return version;
-    }
-
-    public void setVersion(int version) {
-        this.version = version;
-    }
 }

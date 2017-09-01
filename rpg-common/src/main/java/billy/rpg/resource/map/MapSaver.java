@@ -1,6 +1,6 @@
 package billy.rpg.resource.map;
 
-import billy.rpg.common.constant.MapFileConstant;
+import billy.rpg.common.constant.ToolsConstant;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 
@@ -18,9 +18,8 @@ import java.util.List;
  */
 public class MapSaver {
     private static final Logger LOG = Logger.getLogger(MapSaver.class);
-
-
-    private static final String MAP_HEADER = MapFileConstant.MAP_HEADER;
+    private static final String MAP_HEADER = ToolsConstant.MAGIC_MAP;
+    private static final String CHARSET = ToolsConstant.CHARSET;
 
     /**
      * save map to specified file
@@ -42,18 +41,18 @@ public class MapSaver {
         try {
             fos = new FileOutputStream(file);
             dos = new DataOutputStream(fos);
-            dos.write(MAP_HEADER.getBytes("utf-8"));
-            LOG.debug("MAP_HEADER `"+MAP_HEADER+"` written as utf-8");
+            dos.write(MAP_HEADER.getBytes(CHARSET));
+            LOG.debug("MAP_HEADER `"+MAP_HEADER+"` written as " + CHARSET);
 
-            byte[] tileIdBytes = tileId.getBytes("utf-8");
+            byte[] tileIdBytes = tileId.getBytes(CHARSET);
             dos.writeInt(tileIdBytes.length);
             dos.write(tileIdBytes);
-            LOG.debug("tileId `"+tileId+"` written as utf-8");
+            LOG.debug("tileId `"+tileId+"` written as " + CHARSET);
 
-            byte[] mapNameBytes = mapName.getBytes("utf-8");
+            byte[] mapNameBytes = mapName.getBytes(CHARSET);
             dos.writeInt(mapNameBytes.length);
             dos.write(mapNameBytes);
-            LOG.debug("mapName `"+mapName+"` written as utf-8");
+            LOG.debug("mapName `"+mapName+"` written as " + CHARSET);
 
             dos.writeInt(height);
             LOG.debug("height `"+height+"` written");

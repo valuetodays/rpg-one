@@ -1,6 +1,5 @@
 package billy.rpg.roleeditor;
 
-import billy.rpg.common.constant.RoleEditorConstant;
 import billy.rpg.resource.role.RoleLoader;
 import billy.rpg.resource.role.RoleMetaData;
 import billy.rpg.resource.role.RoleSaver;
@@ -62,7 +61,7 @@ public class RoleEditorPanel extends JPanel {
     }
 
     public RoleEditorPanel() {
-        setPreferredSize(new Dimension(RoleEditorConstant.PANEL_WIDTH, RoleEditorConstant.PANEL_HEIGHT));
+        setPreferredSize(new Dimension(800, 600));
         LOG.debug("new " + this.getClass().getSimpleName() + "()");
 
         try {

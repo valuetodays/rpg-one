@@ -1,6 +1,5 @@
 package billy.rpg.animationeditor;
 
-import billy.rpg.common.constant.AnimationEditorConstant;
 import billy.rpg.resource.animation.AnimationLoader;
 import billy.rpg.resource.animation.AnimationMetaData;
 import billy.rpg.resource.animation.AnimationSaver;
@@ -87,7 +86,7 @@ public class AnimationEditorPanel extends JPanel {
     }
 
     public AnimationEditorPanel() {
-        setPreferredSize(new Dimension(AnimationEditorConstant.PANEL_WIDTH, AnimationEditorConstant.PANEL_HEIGHT));
+        setPreferredSize(new Dimension(1000, 350));
         LOG.debug("new " + this.getClass().getSimpleName() + "()");
 
         try {

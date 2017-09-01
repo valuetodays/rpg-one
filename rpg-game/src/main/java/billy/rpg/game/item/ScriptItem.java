@@ -200,8 +200,8 @@ public class ScriptItem {
             return ;
         }
         steps++; // checkTrigger()方法的执行之前会的上下左右的移动
-        checkMonster();
-        //checkTrigger0();
+        //checkMonster();
+        checkTrigger0();
         checkTriggerFlag = false;
     }
 

@@ -1,6 +1,6 @@
 package billy.rpg.resource.skill;
 
-import billy.rpg.common.constant.SkillEditorConstant;
+import billy.rpg.common.constant.ToolsConstant;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 
@@ -16,7 +16,9 @@ import java.io.IOException;
  */
 public class SkillSaver {
     private static final Logger LOG = Logger.getLogger(SkillSaver.class);
-    private static final String SKL_MAGIC = SkillEditorConstant.MAGIC;
+    private static final String SKL_MAGIC = ToolsConstant.MAGIC_SKL;
+    private static final String CHARSET = ToolsConstant.CHARSET;
+
     /**
      * save skl to specified file
      *
@@ -32,12 +34,12 @@ public class SkillSaver {
         try {
             fos = new FileOutputStream(file);
             dos = new DataOutputStream(fos);
-            dos.write(SKL_MAGIC.getBytes("utf-8"));
-            LOG.debug("SKL_MAGIC `" + SKL_MAGIC + "` written as utf-8");
+            dos.write(SKL_MAGIC.getBytes(CHARSET));
+            LOG.debug("SKL_MAGIC `" + SKL_MAGIC + "` written as " + CHARSET);
 
             dos.writeInt(skillMetaData.getNumber());
             String name = skillMetaData.getName();
-            byte[] nameBytes = name.getBytes("utf-8");
+            byte[] nameBytes = name.getBytes(CHARSET);
             dos.writeInt(nameBytes.length);
             dos.write(nameBytes);
             dos.writeInt(skillMetaData.getType());
@@ -46,7 +48,7 @@ public class SkillSaver {
             dos.writeInt(skillMetaData.getTargetType());
             dos.writeInt(skillMetaData.getAnimationId());
             String desc = skillMetaData.getDesc();
-            byte[] descBytes = desc.getBytes("utf-8");
+            byte[] descBytes = desc.getBytes(CHARSET);
             dos.writeInt(descBytes.length);
             dos.write(descBytes);
 

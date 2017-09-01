@@ -16,10 +16,15 @@ import java.util.*;
 public class Merger {
     protected static final Logger LOG = Logger.getLogger(Merger.class);
     private final Map<String, Integer> extMap;
-    private Map<Integer, Integer> resourceTypeCount = new HashMap<>();
-    private Map<Integer, Set<String>> resourceSetMap = new HashMap<>();
+    private Map<Integer, Integer> resourceTypeCount = new LinkedHashMap<>();
+    private Map<Integer, Set<String>> resourceSetMap = new LinkedHashMap<>();
+    private long[] lengthTable;
+    private String lengthTableBytesStr = "";
     private long[] jumpTable;
-    private String buffer = "";
+    private String jumpTableBytesStr = "";
+    private String resourceFileBytesStr = "";
+    private String resourceTypeCountBytesStr = "";
+    private String resourceCountBytesStr = "";
 
 
     public Merger() {
@@ -33,6 +38,19 @@ public class Merger {
         extMap = Collections.unmodifiableMap(m);
     }
 
+    /**
+     * 写入规则为
+     * <ol>
+     *     <li>4bytes     - resourceTypeCountSize</li>
+     *     <li>2bytes * N - resourceCount of every type</li>
+     *     <li>4bytes * N - lengthTable</li>
+     *     <li>4bytes * N - jumpTable</li>
+     *     <li>Nbytes     - resourceFileBytesStr</li>
+     * </ol>
+     * @param targetLibPath targetLibPath
+     * @param srcFilePathList srcFilePathList
+     * @throws Exception e
+     */
     public void merge(String targetLibPath, List<String> srcFilePathList) throws Exception {
         for (String srcFilePath : srcFilePathList) {
             String ext = srcFilePath.substring(srcFilePath.lastIndexOf("."));
@@ -47,13 +65,10 @@ public class Merger {
 
         int resourcesCount = resourceTypeCount.values().stream().mapToInt(x -> x).sum();
         LOG.debug("resourcesCount=" + resourcesCount);
+        lengthTable = new long[resourcesCount];
         jumpTable = new long[resourcesCount];
 
         final Set<Map.Entry<Integer, Set<String>>> resourceSetMapEntries = resourceSetMap.entrySet();
-        for (Map.Entry<Integer, Set<String>> entry : resourceSetMapEntries) {
-            Integer key = entry.getKey();
-            Set<String> value = entry.getValue();
-        }
 
         {
             // 这段代码加{}是为了防止resourceCountTmp被乱用
@@ -62,54 +77,70 @@ public class Merger {
                 Set<String> filePathSet = entry.getValue();
                 for (String filePath : filePathSet) {
                     File f = new File(filePath);
-                    jumpTable[resourceCountTmp++] = f.length();
+                    lengthTable[resourceCountTmp++] = f.length();
                 }
             }
         }
 
-        LOG.debug("resourceTypeCount: " + resourceTypeCount);
-        LOG.debug("resourceSetMap: " + resourceSetMap);
-        for (int n = 0; n < jumpTable.length; n++) {
-            LOG.debug(" " + n + "=" + jumpTable[n]);
-        }
-
         final int resourceTypeCountSize = resourceTypeCount.size();
-        buffer += int2HexString(resourceTypeCountSize); // 1 resourceTypeCountSize (4bytes)
-        appendLine();
+        resourceTypeCountBytesStr = int2HexString(resourceTypeCountSize); // 1 resourceTypeCountSize (4bytes)
 
         Set<Map.Entry<Integer, Integer>> resourceTypeCountEntries = resourceTypeCount.entrySet();
         for (Map.Entry<Integer, Integer> entry : resourceTypeCountEntries) {
             Integer value = entry.getValue();
-            buffer += short2HexString(value.shortValue()); // 2 n bytes,
+            resourceCountBytesStr += short2HexString(value.shortValue()); // 2 n bytes,
         }
-        appendLine();
 
-        appendLine();
+        LOG.debug("resourceTypeCount: " + resourceTypeCount);
+        LOG.debug("resourceSetMap: " + resourceSetMap);
+
+        for (int n = 0; n < lengthTable.length; n++) {
+            LOG.debug("lengthTable[" + n + "]=" + lengthTable[n]);
+            lengthTableBytesStr += int2HexString((int) lengthTable[n]);
+        }
 
         //int sectionSize = (resourceTypeCountSize * 6);
         //buffer += int2HexString(sectionSize);
 
-        for (Map.Entry<Integer, Set<String>> entry : resourceSetMapEntries) {
-            Integer key = entry.getKey();
-            Set<String> filePathSet = entry.getValue();
-            for (String filePath : filePathSet) {
-                ; //
-                byte[] bytes = FileUtils.readFileToByteArray(new File(filePath));
-                //buffer += int2HexString(bytes.length);
-//                //buffer += bytes2HexString(bytes);
-                appendLine();
-            }
+        {
+            long fileLen = 0L;
+            int jumpTableLen = 0;
+            for (Map.Entry<Integer, Set<String>> entry : resourceSetMapEntries) {
+                Integer key = entry.getKey();
+                Set<String> filePathSet = entry.getValue();
+                String[] objects = new String[filePathSet.size()];
+                filePathSet.toArray(objects);
+                for (int i = 0; i < filePathSet.size(); i++) {
+                    String filePath = objects[i];
+//                buffer += short2HexString(key.shortValue()); // type
+//                buffer += short2HexString((short)i); // index
+                    byte[] bytes = FileUtils.readFileToByteArray(new File(filePath));
+                    resourceFileBytesStr += bytes2HexString(bytes);
+                    jumpTable[jumpTableLen++] = fileLen;
+                    fileLen += bytes.length;
+//                buffer += int2HexString((int)new File(filePath).length());
+//                appendLine();
+                }
 
+            }
         }
 
 
-        LOG.debug("buffer=\n[" + buffer + "\n]");
-        writeFile();
+        for (int n = 0; n < jumpTable.length; n++) {
+            LOG.debug("jumpTable[" + n + "]=" + jumpTable[n]);
+            jumpTableBytesStr += int2HexString((int) jumpTable[n]);
+        }
+
+        writeFile(targetLibPath);
     }
 
-    private void writeFile() throws Exception {
-        FileOutputStream fos = new FileOutputStream("z:/merge/dat.lib");
-        writeHexString(fos, buffer);
+    private void writeFile(String targetLibPath) throws Exception {
+        FileOutputStream fos = new FileOutputStream(targetLibPath);
+        writeHexString(fos, resourceTypeCountBytesStr);
+        writeHexString(fos, resourceCountBytesStr);
+        writeHexString(fos, lengthTableBytesStr);
+        writeHexString(fos, jumpTableBytesStr);
+        writeHexString(fos, resourceFileBytesStr);
         IOUtils.closeQuietly(fos);
     }
 
@@ -127,9 +158,7 @@ public class Merger {
         }
     }
 
-    private void appendLine() {
-        buffer += "";
-    }
+
     private static String bytes2HexString(byte[] b) {
         String r = "";
 

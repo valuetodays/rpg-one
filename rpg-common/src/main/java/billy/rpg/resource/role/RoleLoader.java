@@ -1,6 +1,6 @@
 package billy.rpg.resource.role;
 
-import billy.rpg.common.constant.RoleEditorConstant;
+import billy.rpg.common.constant.ToolsConstant;
 import billy.rpg.common.util.ImageUtil;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
@@ -15,7 +15,8 @@ import java.io.*;
  */
 public class RoleLoader {
     private static final Logger LOG = Logger.getLogger(RoleLoader.class);
-    private static final String ROLE_MAGIC = RoleEditorConstant.ROLE_MAGIC;
+    private static final String ROLE_MAGIC = ToolsConstant.MAGIC_ROL;
+    private static final String CHARSET = ToolsConstant.CHARSET;
 
 
     public static RoleMetaData load(String roleFilePath) {
@@ -27,12 +28,10 @@ public class RoleLoader {
         try {
             fis = new FileInputStream(file);
             dis = new DataInputStream(fis);
-            byte[] bRoleMagic = new byte[ROLE_MAGIC.getBytes("utf-8").length];
+            byte[] bRoleMagic = new byte[ROLE_MAGIC.getBytes(CHARSET).length];
             dis.read(bRoleMagic, 0 , bRoleMagic.length);
-            String aniMagicUtf8 = new String(bRoleMagic, "utf-8");
+            String aniMagicUtf8 = new String(bRoleMagic, CHARSET);
             LOG.debug("role magic `"+aniMagicUtf8+"` read");
-            int version = dis.readInt();
-            LOG.debug("role version is " + version);
             int type = dis.readInt();
             LOG.debug("role type is " + type);
             rmd.setType(type);
@@ -42,7 +41,7 @@ public class RoleLoader {
             int roleNameByteLength = dis.readInt();
             byte[] roleNameBytes = new byte[roleNameByteLength];
             dis.read(roleNameBytes);
-            String roleName = new String(roleNameBytes, "utf-8");
+            String roleName = new String(roleNameBytes, CHARSET);
             LOG.debug("role name is " + roleName);
             rmd.setName(roleName);
             int imageLength = dis.readInt();
@@ -80,7 +79,7 @@ public class RoleLoader {
             int skillIdsBytesLen = dis.readInt();
             byte[] skillIdsBytes = new byte[skillIdsBytesLen];
             dis.read(skillIdsBytes);
-            String skillIds = new String(skillIdsBytes, "utf-8");
+            String skillIds = new String(skillIdsBytes, CHARSET);
             LOG.debug("skillIds is " + skillIds);
             rmd.setSkillIds(skillIds);
             int levelChain = dis.readInt();

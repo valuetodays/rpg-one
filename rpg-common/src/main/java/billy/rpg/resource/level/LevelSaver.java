@@ -1,6 +1,6 @@
 package billy.rpg.resource.level;
 
-import billy.rpg.common.constant.LevelEditorConstant;
+import billy.rpg.common.constant.ToolsConstant;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 
@@ -16,7 +16,8 @@ import java.util.List;
  */
 public class LevelSaver {
     private static final Logger LOG = Logger.getLogger(LevelSaver.class);
-    private static final String LVL_MAGIC = LevelEditorConstant.LVL_MAGIC;
+    private static final String LVL_MAGIC = ToolsConstant.MAGIC_LVL;
+    private static final String CHARSET = ToolsConstant.CHARSET;
 
     /**
      * 保存升级数据成文件
@@ -34,8 +35,8 @@ public class LevelSaver {
         try {
             fos = new FileOutputStream(file);
             dos = new DataOutputStream(fos);
-            dos.write(LVL_MAGIC.getBytes("utf-8"));
-            LOG.debug("LVL_MAGIC `" + LVL_MAGIC + "` written as utf-8");
+            dos.write(LVL_MAGIC.getBytes(CHARSET));
+            LOG.debug("LVL_MAGIC `" + LVL_MAGIC + "` written as " + CHARSET);
             dos.writeInt(number);
             LOG.debug("number written with " + number);
             dos.writeInt(maxLevel);

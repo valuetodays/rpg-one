@@ -1,6 +1,6 @@
 package billy.rpg.resource.level;
 
-import billy.rpg.common.constant.LevelEditorConstant;
+import billy.rpg.common.constant.ToolsConstant;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 
@@ -17,8 +17,8 @@ import java.util.List;
  */
 public class LevelLoader {
     private static final Logger LOG = Logger.getLogger(LevelLoader.class);
-    private static final String LVL_MAGIC = LevelEditorConstant.LVL_MAGIC;
-
+    private static final String LVL_MAGIC = ToolsConstant.MAGIC_LVL;
+    private static final String CHARSET = ToolsConstant.CHARSET;
 
     /**
      * 从指定文件加载升级文件
@@ -33,9 +33,9 @@ public class LevelLoader {
         try {
             fis = new FileInputStream(file);
             dis = new DataInputStream(fis);
-            byte[] bLvlMagic = new byte[LVL_MAGIC.getBytes("utf-8").length];
+            byte[] bLvlMagic = new byte[LVL_MAGIC.getBytes(CHARSET).length];
             dis.read(bLvlMagic, 0 , bLvlMagic.length);
-            String lvlMagicUtf8 = new String(bLvlMagic, "utf-8");
+            String lvlMagicUtf8 = new String(bLvlMagic, CHARSET);
             LOG.debug("ani magic `"+lvlMagicUtf8+"` read");
             levelMetaData.setNumber(dis.readInt());
             int maxLevel = dis.readInt();

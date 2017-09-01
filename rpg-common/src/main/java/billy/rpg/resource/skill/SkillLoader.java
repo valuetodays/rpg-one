@@ -1,6 +1,6 @@
 package billy.rpg.resource.skill;
 
-import billy.rpg.common.constant.SkillEditorConstant;
+import billy.rpg.common.constant.ToolsConstant;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 
@@ -16,7 +16,8 @@ import java.io.IOException;
  */
 public class SkillLoader {
     private static final Logger LOG = Logger.getLogger(SkillLoader.class);
-    private static final String SKL_MAGIC = SkillEditorConstant.MAGIC;
+    private static final String SKL_MAGIC = ToolsConstant.MAGIC_SKL;
+    private static final String CHARSET = ToolsConstant.CHARSET;
 
     /**
      * load skl from specified file
@@ -33,16 +34,16 @@ public class SkillLoader {
         try {
             fis = new FileInputStream(file);
             dis = new DataInputStream(fis);
-            byte[] sklMagic = new byte[SKL_MAGIC.getBytes("utf-8").length];
+            byte[] sklMagic = new byte[SKL_MAGIC.getBytes(CHARSET).length];
             dis.read(sklMagic, 0 , sklMagic.length);
-            String sklMagicUtf8 = new String(sklMagic, "utf-8");
+            String sklMagicUtf8 = new String(sklMagic, CHARSET);
             LOG.debug("skl magic `"+sklMagicUtf8+"` read");
 
             smd.setNumber(dis.readInt());
             int nameBytesLen = dis.readInt();
             byte[] nameBytes = new byte[nameBytesLen];
             dis.read(nameBytes);
-            String nameUtf8 = new String(nameBytes, "utf-8");
+            String nameUtf8 = new String(nameBytes, CHARSET);
             smd.setName(nameUtf8);
             smd.setType(dis.readInt());
             smd.setBaseDamage(dis.readInt());
@@ -52,7 +53,7 @@ public class SkillLoader {
             int descBytesLen = dis.readInt();
             byte[] descBytes = new byte[descBytesLen];
             dis.read(descBytes);
-            String descUtf8 = new String(descBytes, "utf-8");
+            String descUtf8 = new String(descBytes, CHARSET);
             smd.setDesc(descUtf8);
 
         } catch (IOException e) {

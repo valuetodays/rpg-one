@@ -1,6 +1,6 @@
 package billy.rpg.resource.animation;
 
-import billy.rpg.common.constant.AnimationEditorConstant;
+import billy.rpg.common.constant.ToolsConstant;
 import billy.rpg.common.util.ImageUtil;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
@@ -18,7 +18,9 @@ import java.util.List;
  */
 public class AnimationSaver {
     private static final Logger LOG = Logger.getLogger(AnimationSaver.class);
-    private static final String ANI_MAGIC = AnimationEditorConstant.ANI_MAGIC;
+    private static final String ANI_MAGIC = ToolsConstant.MAGIC_ANI;
+    private static final String CHARSET = ToolsConstant.CHARSET;
+
 
     private AnimationSaver() {}
 
@@ -42,10 +44,8 @@ public class AnimationSaver {
         try {
             fos = new FileOutputStream(file);
             dos = new DataOutputStream(fos);
-            dos.write(ANI_MAGIC.getBytes("utf-8"));
-            LOG.debug("ANI_MAGIC `" + ANI_MAGIC + "` written as utf-8");
-            dos.writeInt(AnimationEditorConstant.VERSION);
-            LOG.debug("version written with " + AnimationEditorConstant.VERSION);
+            dos.write(ANI_MAGIC.getBytes(CHARSET));
+            LOG.debug("ANI_MAGIC `" + ANI_MAGIC + "` written as " + CHARSET);
             dos.writeInt(number);
             LOG.debug("number written with " + number);
             dos.writeInt(images.size());

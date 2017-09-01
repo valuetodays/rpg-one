@@ -1,7 +1,6 @@
 package billy.rpg.resource.role;
 
-import billy.rpg.common.constant.AnimationEditorConstant;
-import billy.rpg.common.constant.RoleEditorConstant;
+import billy.rpg.common.constant.ToolsConstant;
 import billy.rpg.common.util.ImageUtil;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
@@ -16,8 +15,8 @@ import java.io.*;
  */
 public class RoleSaver {
     private static final Logger LOG = Logger.getLogger(RoleSaver.class);
-    private static final String ROLE_MAGIC = RoleEditorConstant.ROLE_MAGIC;
-    private static final String CHARSET_NAME = "utf-8";
+    private static final String ROLE_MAGIC = ToolsConstant.MAGIC_ROL;
+    private static final String CHARSET = ToolsConstant.CHARSET;
 
 
 
@@ -35,10 +34,8 @@ public class RoleSaver {
         try {
             fos = new FileOutputStream(file);
             dos = new DataOutputStream(fos);
-            dos.write(ROLE_MAGIC.getBytes(CHARSET_NAME));
-            LOG.debug("ROLE_MAGIC `" + ROLE_MAGIC + "` written as " + CHARSET_NAME);
-            dos.writeInt(AnimationEditorConstant.VERSION);
-            LOG.debug("version written with " + RoleEditorConstant.VERSION);
+            dos.write(ROLE_MAGIC.getBytes(CHARSET));
+            LOG.debug("ROLE_MAGIC `" + ROLE_MAGIC + "` written as " + CHARSET);
             int type = roleMetaData.getType();
             dos.writeInt(type);
             LOG.debug("type written with " + type);
@@ -46,10 +43,10 @@ public class RoleSaver {
             dos.writeInt(number);
             LOG.debug("number written with " + number);
             String name = roleMetaData.getName();
-            byte[] bytes = name.getBytes(CHARSET_NAME);
+            byte[] bytes = name.getBytes(CHARSET);
             dos.writeInt(bytes.length);
             dos.write(bytes);
-            LOG.debug("name written with " + name + " in " + CHARSET_NAME);
+            LOG.debug("name written with " + name + " in " + CHARSET);
 
             BufferedImage image = roleMetaData.getImage();
             ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -83,7 +80,7 @@ public class RoleSaver {
             dos.writeInt(money);
             LOG.debug("money written with " + money);
             String skillIds = roleMetaData.getSkillIds();
-            byte[] skillIdsBytes = skillIds.getBytes(CHARSET_NAME);
+            byte[] skillIdsBytes = skillIds.getBytes(CHARSET);
             dos.writeInt(skillIdsBytes.length);
             dos.write(skillIdsBytes);
             LOG.debug("skillIds written with " + skillIds);

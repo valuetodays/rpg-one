@@ -1,11 +1,11 @@
 package billy.rpg.resource.role;
 
 import java.awt.image.BufferedImage;
+import billy.rpg.common.constant.ToolsConstant;
 
 /**
  * <ol>
- *     <li>4 bytes RoleEditorConstant.ROLE_MAGIC</li>
- *     <li>4 bytes version</li>
+ *     <li>4 bytes {@link ToolsConstant.MAGIC_ROL}</li>
  *     <li>4 bytes type</li>
  *     <li>4 bytes number</li>
  *     <li>4 bytes role-name-length</li>
