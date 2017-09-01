@@ -19,7 +19,7 @@ public class MergerTest {
     public void merge() throws Exception {
         List<String> srcList = new ArrayList<>();
         srcList.add("z:/merge/1.rol");
-//        srcList.add("z:/merge/2.rol");
+//        srcList.add("z:/merge/2.rol");``
         srcList.add("z:/merge/3.rol");
         srcList.add("z:/merge/51.rol");
         srcList.add("z:/merge/1.skl");
@@ -31,8 +31,11 @@ public class MergerTest {
 
     @Test
     public void loadLib() throws Exception {
+
         String libPath = "z:/merge/dat.lib";
         Splitter splitter = new Splitter(libPath);
+        String resourceList = splitter.getResourceList();
+        LOG.debug("resourceList:\n" + resourceList);
         String bytes1_1 = splitter.getResource(1, 1);
         LOG.debug("bytes1_1 = " + bytes1_1);
         splitter.close();

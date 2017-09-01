@@ -114,6 +114,25 @@ public class Splitter {
         return ByteHexStringUtil.bytes2HexString(fileContent);
     }
 
+    public String getResourceList() {
+        String result = "|----------\n";
+        Set<Map.Entry<String, Integer>> entries = typeIndexResourceIdMap.entrySet();
+        for (Map.Entry<String, Integer> entry : entries) {
+            String key = entry.getKey();
+            String[] split = key.split(",");
+            String type = String.valueOf(Integer.valueOf(split[0]) + 1);
+            String number = split[1];
+
+            result += "| " + type + ", " + number + "\n";
+        }
+
+        return result + "|----------";
+    }
+
+
+    /**
+     * output debug string
+     */
     private void debugOutput() {
         LOG.debug("resourceTypeCount=" + resourceTypeCount);
         for (int i = 0; i < resourceCountArr.length; i++) {
