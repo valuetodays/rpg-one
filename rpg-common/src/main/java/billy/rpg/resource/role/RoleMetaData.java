@@ -6,8 +6,8 @@ import billy.rpg.common.constant.ToolsConstant;
 /**
  * <ol>
  *     <li>4 bytes {@link ToolsConstant.MAGIC_ROL}</li>
- *     <li>4 bytes type</li>
  *     <li>4 bytes number</li>
+ *     <li>4 bytes type</li>
  *     <li>4 bytes role-name-length</li>
  *     <li>n bytes role-name</li>
  *     <li>4 bytes image-length</li>
@@ -32,8 +32,8 @@ public class RoleMetaData implements Cloneable { // TODO 添加级别
     public static final int TYPE_MONSTER = 3;
     public static final int TYPE_SCENE = 4;
 
-    private int type;
     private int number;
+    private int type;
     private int level = 1; // TODO 等级，默认开始时都是1，不过有玩家是中途入场的
     private String name;
     private BufferedImage image;

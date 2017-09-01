@@ -36,12 +36,12 @@ public class RoleSaver {
             dos = new DataOutputStream(fos);
             dos.write(ROLE_MAGIC.getBytes(CHARSET));
             LOG.debug("ROLE_MAGIC `" + ROLE_MAGIC + "` written as " + CHARSET);
-            int type = roleMetaData.getType();
-            dos.writeInt(type);
-            LOG.debug("type written with " + type);
             int number = roleMetaData.getNumber();
             dos.writeInt(number);
             LOG.debug("number written with " + number);
+            int type = roleMetaData.getType();
+            dos.writeInt(type);
+            LOG.debug("type written with " + type);
             String name = roleMetaData.getName();
             byte[] bytes = name.getBytes(CHARSET);
             dos.writeInt(bytes.length);

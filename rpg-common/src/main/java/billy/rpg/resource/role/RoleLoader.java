@@ -32,12 +32,12 @@ public class RoleLoader {
             dis.read(bRoleMagic, 0 , bRoleMagic.length);
             String aniMagicUtf8 = new String(bRoleMagic, CHARSET);
             LOG.debug("role magic `"+aniMagicUtf8+"` read");
-            int type = dis.readInt();
-            LOG.debug("role type is " + type);
-            rmd.setType(type);
             int number = dis.readInt();
             LOG.debug("role number is " + number);
             rmd.setNumber(number);
+            int type = dis.readInt();
+            LOG.debug("role type is " + type);
+            rmd.setType(type);
             int roleNameByteLength = dis.readInt();
             byte[] roleNameBytes = new byte[roleNameByteLength];
             dis.read(roleNameBytes);
