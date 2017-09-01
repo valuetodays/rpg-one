@@ -56,7 +56,7 @@ public class EventNumDialog extends JDialog {
                 }
 
                 int eventNum = Integer.parseInt(text);
-                LOG.debug("clicked, and get `event num="+eventNum+"`.");
+                LOG.debug("clicked, and getResource `event num="+eventNum+"`.");
                 mapEditorFrame.getMapEditorPanel().setEventNum(eventNum);
                 tfEventNum.setText("1".trim());
 //                instance.setVisible(false);

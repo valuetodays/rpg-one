@@ -29,7 +29,7 @@ public class RoleLoader {
             fis = new FileInputStream(file);
             dis = new DataInputStream(fis);
             byte[] bRoleMagic = new byte[ROLE_MAGIC.getBytes(CHARSET).length];
-            dis.read(bRoleMagic, 0 , bRoleMagic.length);
+            dis.read(bRoleMagic);
             String aniMagicUtf8 = new String(bRoleMagic, CHARSET);
             LOG.debug("role magic `"+aniMagicUtf8+"` read");
             int number = dis.readInt();

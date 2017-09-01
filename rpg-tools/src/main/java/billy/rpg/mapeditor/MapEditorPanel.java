@@ -121,7 +121,7 @@ public class MapEditorPanel extends JPanel {
                 int newwidth = Integer.parseInt(tfMapWidth.getText());
                 mapArea.initMapLayer(newwidth, newheight);
                 mapName = tfMapName.getText();
-                LOG.debug("clicked, and get `map name="+mapName+"`.");
+                LOG.debug("clicked, and getResource `map name="+mapName+"`.");
             }
             @Override
             public void mousePressed(MouseEvent e) {

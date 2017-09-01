@@ -1,5 +1,6 @@
 package billy.rpg.merger;
 
+import billy.rpg.common.util.ByteHexStringUtil;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 
@@ -9,17 +10,18 @@ import java.util.Map;
 import java.util.Set;
 
 /**
+ * resource(s)  -->  *.lib
+ *
  * @author liulei@bshf360.com
  * @since 2017-09-01 10:20
  */
-public class LibLoader {
-    protected static final Logger LOG = Logger.getLogger(LibLoader.class);
+public class Splitter {
+    private static final Logger LOG = Logger.getLogger(Splitter.class);
     private RandomAccessFile raf;
 
-    public LibLoader(String libPath) throws Exception {
+    public Splitter(String libPath) throws Exception {
         raf = new RandomAccessFile(libPath, "r");
         load();
-        IOUtils.closeQuietly(raf);
     }
 
 
@@ -28,8 +30,11 @@ public class LibLoader {
     private int resourceCounts;
     private Map<Integer, String> resourceIdTypeIndexMap = new LinkedHashMap<>();
     private Map<String, Integer> typeIndexResourceIdMap = new LinkedHashMap<>();
+    private int[] numberTable;
     private int[] lengthTable;
     private int[] jumpTable;
+
+    private int offset;
 
     private void load() throws Exception {
         resourceTypeCount = readInt();
@@ -39,6 +44,10 @@ public class LibLoader {
             resourceCounts += resourceCountArr[i];
         }
 
+        numberTable = new int[resourceCounts];
+        for (int i = 0; i < numberTable.length; i++) {
+            numberTable[i] = readInt();
+        }
         lengthTable = new int[resourceCounts];
         for (int i = 0; i < lengthTable.length; i++) {
             lengthTable[i] = readInt();
@@ -48,27 +57,25 @@ public class LibLoader {
             jumpTable[i] = readInt();
         }
 
-        // get all type & index
+        // getResource all type & index
         for (int i = 0; i < resourceCounts; i++) {
             int type = 0;
-            int index = 0;
             int preIndex = 0;
             int nextIndex = 0;
             for (int j = 0; j < resourceCountArr.length; j++) {
                 nextIndex += resourceCountArr[j];
                 if (i >= preIndex && i < nextIndex) {
                     type = j;
-                    index = i - preIndex;
                     break;
                 }
                 preIndex += resourceCountArr[j];
             }
-            LOG.debug("resourceCount" + i + "  <<type=" + type + " & index=" + index + ">>");
-            resourceIdTypeIndexMap.put(i, type + "," + index);
-            typeIndexResourceIdMap.put(type + "," + index, i);
+            LOG.debug("resourceCount" + i + "  <<type=" + type + " & number=" + numberTable[i] + ">>");
+            resourceIdTypeIndexMap.put(i, type + "," + numberTable[i]); // 不要index, 要文件的number
+            typeIndexResourceIdMap.put(type + "," + numberTable[i], i);
         }
 
-        int offset = 4 + resourceTypeCount * 2 + resourceCounts * 8;
+        offset = 4 + resourceTypeCount * 2 + resourceCounts * 12;
         Set<Map.Entry<Integer, String>> resourceIdTypeIndexEntries = resourceIdTypeIndexMap.entrySet();
         for (Map.Entry<Integer, String> resourceIdTypeIndexEntry : resourceIdTypeIndexEntries) {
             Integer key = resourceIdTypeIndexEntry.getKey();
@@ -77,33 +84,36 @@ public class LibLoader {
             int jump = jumpTable[key];
             byte[] fileContent = new byte[length];
             raf.seek(offset + jump);
-//            long filePointer = raf.getFilePointer();
-//            long jump_ = filePointer - offset;
-//            LOG.debug("length=" + length + ", jump=" + jump + ", jump_" + jump_);
             raf.read(fileContent);
-            LOG.debug("fileContent: " + bytes2HexString(fileContent));
+            LOG.debug("fileContent: " + ByteHexStringUtil.bytes2HexString(fileContent));
         }
 
         debugOutput();
     }
 
-    private static String bytes2HexString(byte[] b) {
-        String r = "";
-
-        for (int i = 0; i < b.length; i++) {
-            r += byte2HexString(b[i]);
+    /**
+     * get resource
+     *
+     * @param type type
+     * @param number number
+     * @return the file's byte string
+     */
+    public String getResource(int type, int number) throws Exception {
+        int realType = type - 1;
+        Integer integer = typeIndexResourceIdMap.get(realType + "," + number);
+        if (null == integer) {
+            throw new RuntimeException("err: unknown type/number " + type + "/" + number);
         }
+        LOG.debug(integer);
 
-        return r;
+        int length = lengthTable[integer];
+        int jump = jumpTable[integer];
+        byte[] fileContent = new byte[length];
+        raf.seek(offset + jump);
+        raf.read(fileContent);
+        return ByteHexStringUtil.bytes2HexString(fileContent);
     }
-    private static String byte2HexString(byte b) {
-        String hex = Integer.toHexString(b & 0xFF);
-        if (hex.length() == 1) {
-            hex = '0' + hex;
-        }
 
-        return hex.toUpperCase();
-    }
     private void debugOutput() {
         LOG.debug("resourceTypeCount=" + resourceTypeCount);
         for (int i = 0; i < resourceCountArr.length; i++) {
@@ -114,11 +124,15 @@ public class LibLoader {
         LOG.debug("typeIndexResourceIdMap=" + typeIndexResourceIdMap);
     }
 
+    public void close() {
+        IOUtils.closeQuietly(raf);
+    }
+
 
     /**
-     * get int (4 bytes)
+     * getResource int (4 bytes)
      */
-    int readInt() throws Exception {
+    private int readInt() throws Exception {
         int wTmp = readShort();
         wTmp |= readShort() << 16;
 
@@ -126,9 +140,9 @@ public class LibLoader {
     }
 
     /**
-     * get int/short (2 bytes)
+     * getResource short (2 bytes)
      */
-    short readShort() throws Exception {
+    private short readShort() throws Exception {
         int low = raf.read();
         int high = raf.read();
         return (short)(low | (high << 8));
