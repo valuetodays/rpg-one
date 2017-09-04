@@ -45,15 +45,13 @@ public class BattleSuccessScreen extends BaseScreen {
             newHeroBatleList.add(newHeroBattle);
         }
 
+
         // 在这里处理战斗前后的数据，并处理是否升级
         // 然后draw()方法只是显示，onKeyUp()方法负责做角色属性的修改
         for (int i = 0; i < newHeroBatleList.size(); i++) {
             HeroBattle heroBattle = newHeroBatleList.get(i);
-            int oriMoney = heroBattle.getRoleMetaData().getMoney();
             int oriExp = heroBattle.getRoleMetaData().getExp();
-            int newMoney = oriMoney + money;
             int newExp = oriExp + exp;
-            heroBattle.getRoleMetaData().setMoney(newMoney);
             int level = heroBattle.getRoleMetaData().getLevel();
             int levelChain = heroBattle.getRoleMetaData().getLevelChain();
             LevelMetaData levelMetaData = GameFrame.getInstance().getGameContainer().getLevelMetaDataOf(levelChain);
@@ -131,7 +129,9 @@ public class BattleSuccessScreen extends BaseScreen {
 
     @Override
     public void onKeyUp(int key) {
-        // TODO 这种情况并不能修改现有的hero数据
+        // 增加金币
+        GameFrame.getInstance().getGameData().increaseMoney(money);
+
         for (int i = 0; i < newHeroBatleList.size(); i++) {
             HeroBattle newHeroBattle = newHeroBatleList.get(i);
             HeroBattle heroBattle = battleScreen.getHeroBattleList().get(i);

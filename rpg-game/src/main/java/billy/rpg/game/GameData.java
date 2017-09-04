@@ -12,7 +12,8 @@ import java.util.List;
  * @since 2017-07-31 17:19
  */
 public class GameData {
-    private List<Integer> heroIds = Arrays.asList(1);
+    private int money; // 金币数
+    private List<Integer> heroIds = Arrays.asList(1, 3);
 
     /**
      * 指定id的hero离队
@@ -37,6 +38,18 @@ public class GameData {
     public void setControllId(int heroId) {
         heroIds.remove((Object)heroId);
         heroIds.add(0, heroId);
+    }
+
+    public int getMoney() {
+        return money;
+    }
+
+    public void increaseMoney(int money) {
+        this.money += money;
+    }
+    public void decreaseMoney(int money) {
+        this.money -= money;
+        this.money = Math.max(0, this.money);
     }
 
     private List<HeroBattle> heroBattleList;

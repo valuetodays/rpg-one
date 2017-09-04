@@ -3,8 +3,12 @@ package billy.rpg.game;
 import billy.rpg.common.util.JavaVersionUtil;
 import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.container.GameContainer;
-import billy.rpg.game.screen.*;
+import billy.rpg.game.screen.BaseScreen;
+import billy.rpg.game.screen.GameCoverScreen;
+import billy.rpg.game.screen.ProducerScreen;
+import billy.rpg.game.screen.TransitionScreen;
 import billy.rpg.game.screen.battle.BattleScreen;
+import billy.rpg.game.screen.system.SystemScreen;
 import billy.rpg.game.util.CoreUtil;
 import org.apache.log4j.Logger;
 
@@ -55,7 +59,7 @@ public class GameFrame extends JFrame implements Runnable {
         String path = this.getClass().getClassLoader().getResource("").getPath() + "/Game.png";
         Image iconImage = Toolkit.getDefaultToolkit().getImage(path);
         setIconImage(iconImage);
-//        setResizable(false);
+        setResizable(false);
 //        setAlwaysOnTop(true);
         addListener();//键盘监听
         instance = this;
@@ -105,7 +109,7 @@ public class GameFrame extends JFrame implements Runnable {
             tmp = getGameContainer().getMapScreen();
             break;
         case 2:
-            tmp = new SystemMenuScreen();
+            tmp = new SystemScreen();
             break;
         case 3:
             tmp = new ProducerScreen();

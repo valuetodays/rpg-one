@@ -153,20 +153,7 @@ public class MapScreen extends BaseScreen {
 
 
     @Override
-    public void onKeyDown(int key) {    }
-
-
-    @Override
-    public void onKeyUp(int key) {
-        if (KeyUtil.isEsc(key)) {
-            GameFrame.getInstance().changeScreen(2);
-            return;
-        } else if (KeyUtil.isHome(key)) {
-            BaseScreen bs = new AnimationScreen(2, 100, 150, new MapScreen());
-            GameFrame.getInstance().pushScreen(bs);
-            return ;
-        }
-
+    public void onKeyDown(int key) {
         ScriptItem active = GameFrame.getInstance().getGameContainer().getActiveFileItem();
         HeroCharacter hero = active.getHero();
         if (KeyUtil.isLeft(key)) {
@@ -181,6 +168,20 @@ public class MapScreen extends BaseScreen {
 
         active.checkTrigger(); // 检查触发器
         active.toCheckTrigger(); // 设置下一步要检查触发器
+    }
+
+
+    @Override
+    public void onKeyUp(int key) {
+        if (KeyUtil.isEsc(key)) {
+            GameFrame.getInstance().changeScreen(2);
+            return;
+        } else if (KeyUtil.isHome(key)) {
+            BaseScreen bs = new AnimationScreen(2, 100, 150, new MapScreen());
+            GameFrame.getInstance().pushScreen(bs);
+            return ;
+        }
+
     }
 
     @Override
