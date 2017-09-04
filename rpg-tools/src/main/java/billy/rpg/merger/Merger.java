@@ -14,7 +14,8 @@ import java.util.*;
 
 /**
  *
- * *.lib  -->  resource(s)
+ *
+ * resource(s)  -->  *.lib
  *
  * @author liulei@bshf360.com
  * @since 2017-08-31 14:53
@@ -84,7 +85,7 @@ public class Merger {
         Set<Map.Entry<Integer, TreeMap<Integer, String>>> resourceSetMapEntries = resourceSetMap.entrySet();
 
         {
-            // 这段代码加{}是为了防止resourceCountTmp被乱用
+            // 这段代码加{}是为了防止tmpCount被乱用
             int tmpCount = 0;
             long fileLen = 0L;
             for (Map.Entry<Integer, TreeMap<Integer, String>> entry : resourceSetMapEntries) {

@@ -27,10 +27,10 @@ public class ByteHexStringUtil {
     }
 
 
-
     public static String int2HexString(int n) {
         return short2HexString((short) n) + short2HexString((short) (n >> 16));
     }
+
     public static String short2HexString(short b) {
         return byte2HexString((byte) (b)) + byte2HexString((byte) (b >> 8));
     }

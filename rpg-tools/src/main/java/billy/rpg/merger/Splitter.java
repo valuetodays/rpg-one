@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * resource(s)  -->  *.lib
+ * *.lib  -->  resource(s)
  *
  * @author liulei@bshf360.com
  * @since 2017-09-01 10:20
@@ -19,6 +19,11 @@ public class Splitter {
     private static final Logger LOG = Logger.getLogger(Splitter.class);
     private RandomAccessFile raf;
 
+    /**
+     *
+     * @param libPath lib file path
+     * @throws Exception e
+     */
     public Splitter(String libPath) throws Exception {
         raf = new RandomAccessFile(libPath, "r");
         load();
@@ -92,7 +97,7 @@ public class Splitter {
     }
 
     /**
-     * get resource
+     * get resource with type & number
      *
      * @param type type
      * @param number number
@@ -114,6 +119,11 @@ public class Splitter {
         return ByteHexStringUtil.bytes2HexString(fileContent);
     }
 
+    /**
+     * get resource list
+     *
+     * @return the string contains resource list
+     */
     public String getResourceList() {
         String result = "|----------\n";
         Set<Map.Entry<String, Integer>> entries = typeIndexResourceIdMap.entrySet();
