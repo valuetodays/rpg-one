@@ -48,6 +48,10 @@ public class MenuScreen extends BaseScreen {
         g.drawString("技能", 30, 130);
         g.drawString("系统", 30, 160);
 
+        g.setColor(Color.YELLOW);
+        g.drawRect(25, 400, 100, 30);
+        g.drawString("money: " + GameFrame.getInstance().getGameData().getMoney(), 30, 420);
+
         gameCanvas.drawBitmap(paint, 0, 0);
     }
 
