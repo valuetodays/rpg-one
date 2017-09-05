@@ -74,10 +74,11 @@ public class MenuScreen extends BaseScreen {
             GameFrame.getInstance().changeScreen(1);
         } else if (KeyUtil.isEnter(key)) {
             switch (menuPosX) {
-                case 1:
+                case 1: //
                     systemScreen.push(new AttributeScreen(systemScreen));
                     break;
                 case 2:
+                    systemScreen.push(new GoodsScreen(systemScreen));
                     break;
                 case 3:
                     break;

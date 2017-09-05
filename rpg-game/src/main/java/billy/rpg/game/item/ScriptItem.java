@@ -33,7 +33,7 @@ public class ScriptItem {
     private List<NPCCharacter> npcs = new ArrayList<>();
     private List<TransferCharacter> transfers = new ArrayList<>();
     private List<BoxCharacter> boxes = new ArrayList<>();
-    private static final int STEP_MEET_MONSTER = 4;
+    private static final int STEP_MEET_MONSTER = 15;
     private int steps; // 当前地图下的移动步数，当达到STEP_MEET_MONSTER时会遇到怪物进行战斗
     private List<Integer> predictedMonsterIds; // 本地图中可遇到的妖怪ids
 
@@ -200,7 +200,7 @@ public class ScriptItem {
             return ;
         }
         steps++; // checkTrigger()方法的执行之前会的上下左右的移动
-        //checkMonster();
+        checkMonster();
         checkTrigger0();
         checkTriggerFlag = false;
     }

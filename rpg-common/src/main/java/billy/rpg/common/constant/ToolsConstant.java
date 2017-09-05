@@ -21,5 +21,9 @@ public interface ToolsConstant {
     /** skl magic */
     String MAGIC_SKL = ".skl";
 
+    /** gds magic  */
+    String MAGIC_GDS = ".gds";
+
+    /** charset */
     String CHARSET = "utf-8";
 }

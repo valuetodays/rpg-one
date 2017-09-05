@@ -2,7 +2,8 @@
 @attr 1 1 15 15
 attr 1 1
 scenename '新手村'
-monsters 51
+@monsters 51
+monsters
 @showText 'common english charactor'
 @showText 'haha,含有中文字符哦亲'
 @messagebox '欢迎进入小小地图一'
@@ -13,6 +14,25 @@ return
 
 say0ed:
 return
+
+
+npc1new:
+showtext 1510 '好巧，又见到你了。'
+showtext 1510 '这颗止血草送给你吧。'
+increasegoods 1
+return
+
+npc1:
+if npc1ed npc1new
+showtext 1510 '啊！你怎么沦落至此地？'
+showtext 1510 '算了，这是100金币。给你吧。'
+inscreasemoney 100
+showtext 1510 '不对，还是给你80金币吧。'
+descreasemoney 20
+showtext 1675 '十分感谢，定会相报。'
+set npc1ed
+return
+
 
 @set a1
 @if a1 Hello
@@ -81,9 +101,6 @@ showText 1675 '我是`y`大BOSS`/y`，我怕谁！`r`毛宁`/r`我都不怕！�
 @showText 1675 '第三段对话也来了'
 return
 
-npc1:
-showtext 1510 '啊！你怎么沦落至此地？'
-return
 
 
 trigger 255 goright

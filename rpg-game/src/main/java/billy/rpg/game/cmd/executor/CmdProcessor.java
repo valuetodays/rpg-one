@@ -135,6 +135,19 @@ public class CmdProcessor {
         } else if (cmd instanceof MonstersCmd) {
             List<Integer> monsterIds = ((MonstersCmd) cmd).getMonsterIds();
             GameFrame.getInstance().getGameContainer().getActiveFileItem().setPredictedMonsterIds(monsterIds);
+        } else if (cmd instanceof IncreaseMoneyCmd) {
+            int money = ((IncreaseMoneyCmd) cmd).getMoney();
+            GameFrame.getInstance().getGameData().increaseMoney(money);
+        } else if (cmd instanceof DecreaseMoneyCmd) {
+            int money = ((DecreaseMoneyCmd) cmd).getMoney();
+            GameFrame.getInstance().getGameData().decreaseMoney(money);
+        } else if (cmd instanceof IncreaseGoodsCmd) {
+            int number = ((IncreaseGoodsCmd) cmd).getNumber();
+            GameFrame.getInstance().getGameData().increaseGoods(number);
+        } else if (cmd instanceof DecreaseGoodsCmd) {
+            int number = ((DecreaseGoodsCmd) cmd).getNumber();
+            int count  = ((DecreaseGoodsCmd) cmd).getCount();
+            GameFrame.getInstance().getGameData().decreaseGoods(number, count);
         } else {
             LOG.warn("unknown command " + cmd);
             throw new RuntimeException("unknown command " + cmd);

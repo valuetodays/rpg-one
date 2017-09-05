@@ -82,3 +82,9 @@ ILoader
     
 #### 2017-08-28 17:39
     [TODO]角色编辑器中添加技能列表，妖怪级别不会升
+
+### 2017-09-05 11:07
+    increasemoney decreasemoney命令完成
+    increasegoods decreasegoods命令
+    GoodsScreen
+    [TODO]命令testmoney

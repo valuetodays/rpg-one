@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="663.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <HBox prefHeight="11.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <MenuBar prefHeight="25.0" prefWidth="717.0">
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                        <MenuItem mnemonicParsing="false" text="New" />
+                    <MenuItem mnemonicParsing="false" onAction="#onLoad" text="Load" />
+                        <MenuItem mnemonicParsing="false" onAction="#onSave" text="Save" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" onAction="#onExit" text="Exit" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Delete" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="About" />
+                        <MenuItem mnemonicParsing="false" text="Help" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+         </children>
+      </HBox>
+   </top>
+   <left>
+      <VBox prefHeight="375.0" prefWidth="161.0" BorderPane.alignment="CENTER">
+         <children>
+            <TitledPane collapsible="false" prefHeight="340.0" prefWidth="202.0" text="基本属性" textOverrun="CLIP">
+               <content>
+                  <AnchorPane prefHeight="332.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="14.0" layoutY="18.0" text="number" />
+                        <TextField fx:id="tfNumber" layoutX="76.0" layoutY="15.0" prefHeight="23.0" prefWidth="69.0" />
+                        <Label layoutX="14.0" layoutY="45.0" prefWidth="47.0" text="name" />
+                        <TextField fx:id="tfName" layoutX="77.0" layoutY="42.0" prefHeight="23.0" prefWidth="69.0" />
+                        <Label layoutX="14.0" layoutY="72.0" text="buy" />
+                        <Label layoutX="14.0" layoutY="98.0" prefHeight="15.0" prefWidth="32.0" text="sell" />
+                        <TextField fx:id="tfBuy" layoutX="76.0" layoutY="68.0" prefHeight="23.0" prefWidth="69.0" />
+                        <TextField fx:id="tfSell" layoutX="76.0" layoutY="94.0" prefHeight="23.0" prefWidth="69.0" />
+                        <Label layoutX="14.0" layoutY="127.0" prefHeight="15.0" prefWidth="46.0" text="image" />
+                        <TextField fx:id="tfImageId" layoutX="76.0" layoutY="123.0" prefHeight="23.0" prefWidth="69.0" />
+                        <Label layoutX="13.0" layoutY="155.0" prefHeight="15.0" prefWidth="46.0" text="event" />
+                        <TextField fx:id="tfEvent" layoutX="77.0" layoutY="150.0" prefHeight="23.0" prefWidth="69.0" />
+                        <Label layoutX="11.0" layoutY="185.0" prefHeight="15.0" prefWidth="55.0" text="动画编号" />
+                        <TextField fx:id="tfAnimationId" layoutX="75.0" layoutY="180.0" prefHeight="23.0" prefWidth="69.0" />
+                        <ChoiceBox fx:id="cbType" layoutX="74.0" layoutY="214.0" prefHeight="23.0" prefWidth="71.0" />
+                        <Label layoutX="8.0" layoutY="218.0" prefHeight="15.0" prefWidth="55.0" text="type" />
+                     </children>
+                  </AnchorPane>
+               </content></TitledPane>
+            <TitledPane collapsible="false" prefHeight="166.0" prefWidth="202.0" text="equip?">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <CheckBox fx:id="cbHero1" layoutX="14.0" layoutY="17.0" mnemonicParsing="false" text="主角1" />
+                        <CheckBox fx:id="cbHero2" layoutX="93.0" layoutY="17.0" mnemonicParsing="false" text="主角2" />
+                        <CheckBox fx:id="cbHero3" layoutX="14.0" layoutY="48.0" mnemonicParsing="false" text="主角3" />
+                        <CheckBox fx:id="cbHero4" layoutX="93.0" layoutY="48.0" mnemonicParsing="false" text="主角4" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </TitledPane>
+         </children>
+      </VBox>
+   </left>
+   <center>
+      <TitledPane collapsible="false" prefHeight="382.0" prefWidth="259.0" text="effect" BorderPane.alignment="CENTER">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="351.0" prefWidth="245.0">
+               <children>
+                  <Label layoutX="14.0" layoutY="18.0" prefHeight="15.0" prefWidth="29.0" text="hp" />
+                  <TextField fx:id="tfHp" layoutX="43.0" layoutY="14.0" prefHeight="23.0" prefWidth="69.0" />
+                  <Label layoutX="137.0" layoutY="18.0" prefHeight="15.0" prefWidth="29.0" text="mp" />
+                  <TextField fx:id="tfMp" layoutX="166.0" layoutY="14.0" prefHeight="23.0" prefWidth="69.0" />
+                  <Label layoutX="15.0" layoutY="46.0" prefHeight="15.0" prefWidth="29.0" text="at" />
+                  <TextField fx:id="tfAttack" layoutX="44.0" layoutY="42.0" prefHeight="23.0" prefWidth="69.0" />
+                  <Label layoutX="138.0" layoutY="46.0" prefHeight="15.0" prefWidth="29.0" text="de" />
+                  <TextField fx:id="tfDefend" layoutX="167.0" layoutY="42.0" prefHeight="23.0" prefWidth="69.0" />
+                  <TextArea fx:id="taDesc" layoutY="216.0" prefHeight="135.0" prefWidth="181.0" />
+                  <Label layoutX="6.0" layoutY="192.0" prefHeight="15.0" prefWidth="47.0" text="说明" />
+               </children>
+            </AnchorPane>
+        </content>
+      </TitledPane>
+   </center>
+   <right>
+      <TitledPane animated="false" collapsible="false" prefHeight="422.0" prefWidth="202.0" text="usage" BorderPane.alignment="CENTER">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <TextArea prefHeight="200.0" prefWidth="200.0" text="image，event，动画编号，type，equip?&#10;mp/at/de 先不使用" wrapText="true" />
+               </children>
+            </AnchorPane>
+        </content>
+      </TitledPane>
+   </right>
+</BorderPane>

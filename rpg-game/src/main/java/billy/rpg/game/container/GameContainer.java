@@ -13,6 +13,7 @@ import billy.rpg.game.screen.BaseScreen;
 import billy.rpg.game.screen.MapScreen;
 import billy.rpg.resource.animation.AnimationMetaData;
 import billy.rpg.resource.box.BoxImageLoader;
+import billy.rpg.resource.goods.GoodsMetaData;
 import billy.rpg.resource.level.LevelMetaData;
 import billy.rpg.resource.map.MapMetaData;
 import billy.rpg.resource.npc.NPCImageLoader;
@@ -58,6 +59,7 @@ public class GameContainer {
     private Map<Integer, LevelMetaData> levelMetaDataMap;
     private MapScreen mapScreen;
     private Map<Integer, SkillMetaData> skillMetaDataMap;
+    private Map<Integer, GoodsMetaData> goodsMetaDataMap;
 
 
 
@@ -113,12 +115,18 @@ public class GameContainer {
             loadRoleData();
             loadLevelData();
             loadSkillData();
+            loadGoodsData();
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("exception occurs: " + e.getMessage());
         }
         
         loaded = true;
+    }
+    private void loadGoodsData() {
+        GoodsDataLoader gdl = new GoodsDataLoader();
+        gdl.load();
+        goodsMetaDataMap = gdl.getGoodsMap();
     }
 
     private void loadSkillData() {
@@ -352,5 +360,16 @@ public class GameContainer {
             throw new RuntimeException("illegal skillId: " + skillId);
         }
         return skillMetaData;
+    }
+
+    public GoodsMetaData getGoodsMetaDataOf(int goodsId) {
+        if (goodsId <= 0) {
+            throw new RuntimeException("illegal goodsId: " + goodsId);
+        }
+        GoodsMetaData md = goodsMetaDataMap.get(goodsId);
+        if (null == md) {
+            throw new RuntimeException("illegal goodsId: " + goodsId);
+        }
+        return md;
     }
 }

@@ -197,6 +197,28 @@ public class CmdParser {
                 }
             }
             return new MonstersCmd(list);
+        } else if ("inscreasemoney".equals(cmdname)) {
+            String moneyTxt = cmdarg;
+            if (StringUtils.isEmpty(cmdarg)) {
+                moneyTxt = "0";
+            }
+            return new IncreaseMoneyCmd(Integer.valueOf(moneyTxt));
+        }  else if ("descreasemoney".equals(cmdname)) {
+            String moneyTxt = cmdarg;
+            if (StringUtils.isEmpty(cmdarg)) {
+                moneyTxt = "0";
+            }
+            return new DecreaseMoneyCmd(Integer.valueOf(moneyTxt));
+        } else if ("increasegoods".equals(cmdname)) {
+            return new IncreaseGoodsCmd(Integer.valueOf(cmdarg));
+        } else if ("decreasegoods".equals(cmdname)) {
+            String[] cmdargArr = cmdarg.split(" ");
+            if (cmdargArr.length != 2) {
+                LOG.debug("command "+cmdname+" needs "+2+" arguments, "
+                        + "but "+cmdargArr.length+" in fact.");
+                return null;
+            }
+            return new DecreaseGoodsCmd(Integer.valueOf(cmdargArr[0]), Integer.valueOf(cmdargArr[1]));
         } else {
             LOG.warn("unknown command " +  cmdname + cmdarg);
             throw new RuntimeException("unknown command " + cmdname + cmdarg);
