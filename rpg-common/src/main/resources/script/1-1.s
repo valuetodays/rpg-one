@@ -18,8 +18,24 @@ return
 
 npc1new:
 showtext 1510 '好巧，又见到你了。'
-showtext 1510 '这颗止血草送给你吧。'
+showtext 1510 '这些送给你吧。'
 increasegoods 1
+increasegoods 2
+increasegoods 3
+increasegoods 4
+increasegoods 5
+increasegoods 6
+increasegoods 7
+increasegoods 8
+increasegoods 9
+increasegoods 10
+increasegoods 11
+increasegoods 12
+increasegoods 13
+increasegoods 14
+increasegoods 15
+increasegoods 16
+increasegoods 17
 return
 
 npc1:
