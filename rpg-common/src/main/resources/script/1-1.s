@@ -72,6 +72,8 @@ return
 
 aaa:
 showText 1675 '果然说过话啊，我就在说怎么看你那么`r`脸熟`/r`。'
+decreasegoods 1 1
+showText 1675 '谢谢你的止血草'
 return
 
 bbb:

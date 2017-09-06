@@ -9,6 +9,7 @@ import billy.rpg.game.container.GameContainer;
 import billy.rpg.game.screen.*;
 import billy.rpg.game.script.LabelBean;
 import billy.rpg.game.virtualtable.GlobalVirtualTables;
+import billy.rpg.resource.goods.GoodsMetaData;
 import org.apache.log4j.Logger;
 
 import java.awt.*;
@@ -138,16 +139,23 @@ public class CmdProcessor {
         } else if (cmd instanceof IncreaseMoneyCmd) {
             int money = ((IncreaseMoneyCmd) cmd).getMoney();
             GameFrame.getInstance().getGameData().increaseMoney(money);
+            GameFrame.getInstance().pushScreen(new MessageBoxScreen("金币增加 " + money));
         } else if (cmd instanceof DecreaseMoneyCmd) {
             int money = ((DecreaseMoneyCmd) cmd).getMoney();
             GameFrame.getInstance().getGameData().decreaseMoney(money);
+            GameFrame.getInstance().pushScreen(new MessageBoxScreen("金币减少 " + money));
         } else if (cmd instanceof IncreaseGoodsCmd) {
             int number = ((IncreaseGoodsCmd) cmd).getNumber();
             GameFrame.getInstance().getGameData().increaseGoods(number);
+            GoodsMetaData goodsMetaData = GameFrame.getInstance().getGameContainer().getGoodsMetaDataOf(number);
+            GameFrame.getInstance().pushScreen(new MessageBoxScreen("物品增加 " + goodsMetaData.getName()));
         } else if (cmd instanceof DecreaseGoodsCmd) {
             int number = ((DecreaseGoodsCmd) cmd).getNumber();
             int count  = ((DecreaseGoodsCmd) cmd).getCount();
             GameFrame.getInstance().getGameData().decreaseGoods(number, count);
+            GoodsMetaData goodsMetaData = GameFrame.getInstance().getGameContainer().getGoodsMetaDataOf(number);
+            GameFrame.getInstance().pushScreen(new MessageBoxScreen("物品减少 " + goodsMetaData.getName() + " * " +
+                    count));
         } else {
             LOG.warn("unknown command " + cmd);
             throw new RuntimeException("unknown command " + cmd);
