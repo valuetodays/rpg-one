@@ -55,9 +55,15 @@ public class GoodsScreen extends BaseScreen {
                         180 + (((i-start) % 2 == 0) ? 0 : 200),
                         70 + ((i-start)/2)*50);
             }
+            if (start > 0) {
+                g.drawString("^", 200, 45);
+            }
+            if (start < goodsList.size()-MAX_SHOW) {
+                g.drawString("V", 200, 320);
+            }
 
             g.drawRect(175 + posX *200, 50 + ((posY)/2) * 50, 150, 30); // 当前选中物品
-            g.drawString(goodsList.get(posY+start).getDesc(), 175, 400);
+            //g.drawString(goodsList.get(posY+start).getDesc(), 175, 400);
         } else {
             g.drawString("无物品", 175, 50);
         }
@@ -67,23 +73,7 @@ public class GoodsScreen extends BaseScreen {
 
     @Override
     public void onKeyDown(int key) {
-        if (KeyUtil.isUp(key)) {
-            if (posY > 1) {
-                posY -= 2;
-            } else {
-                start -= 2;
-            }
-            start = Math.max(start, 0);
-        } else if (KeyUtil.isDown(key)) {
-            GameData gameData = GameFrame.getInstance().getGameData();
-            java.util.List<GoodsMetaData> goodsList = gameData.getGoodsList();
-            if (posY < MAX_SHOW-2) {
-                posY += 2;
-            } else {
-                start += 2;
-            }
-            start = Math.min(start, goodsList.size()-MAX_SHOW+1);
-        } else if (KeyUtil.isLeft(key)) {
+        if (KeyUtil.isLeft(key)) {
             if (posY > 0) {
                 posX = (posX+1) % 2;
                 posY--;
@@ -110,7 +100,6 @@ public class GoodsScreen extends BaseScreen {
             }
             start = Math.min(start, goodsList.size()-MAX_SHOW+1);
         }
-
     }
 
     @Override
