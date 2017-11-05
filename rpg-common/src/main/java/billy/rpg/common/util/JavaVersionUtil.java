@@ -8,31 +8,22 @@ package billy.rpg.common.util;
  */
 public class JavaVersionUtil {
     private static int getJavaVersion() {
-        try {
-            Class.forName("java.time.Clock");
-            return 8;
-        } catch (Exception e) {
-        }
-
-        try {
-            Class.forName("java.util.concurrent.LinkedTransferQueue");
-            return 7;
-        } catch (Exception e) {
-        }
-
-        try {
-            Class.forName("java.awt.Desktop");
-            return 6;
-        } catch (Exception e) {
-        }
+        int version = 0;
 
         try {
             Class.forName("java.lang.Override");
-            return 5;
+            version = 5;
+            Class.forName("java.awt.Desktop");
+            version = 6;
+            Class.forName("java.util.concurrent.LinkedTransferQueue");
+            version = 7;
+            Class.forName("java.time.Clock");
+            version = 8;
         } catch (Exception e) {
+            // fall through
         }
 
-        return 0;
+        return version;
     }
 
 
