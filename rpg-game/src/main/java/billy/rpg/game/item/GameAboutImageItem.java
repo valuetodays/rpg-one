@@ -16,8 +16,9 @@ public class GameAboutImageItem {
     private Image gameBalloon;
     private Image gameTransition;
     private Image gameTransfer;
-    private Image gameDlgBg;
-    private Image gameDlgRoleName;
+    private Image gameDlgBg; // 对话框背景图
+    private Image gameDlgRoleName; // 对话框角色名称图
+    private Image gameMessageBoxBg; // 消息框背景图
 
 
     public void load() {
@@ -29,6 +30,17 @@ public class GameAboutImageItem {
         loadGameTransfer();
         loadGameDlgBg();
         loadGameDlgRoleName();
+        loadGameMessageBoxBg();
+    }
+
+    private void loadGameMessageBoxBg() {
+        try {
+            InputStream is = this.getClass().getResourceAsStream("/Images/messagebox_bg.png");
+            gameMessageBoxBg = ImageIO.read(is);
+            IOUtils.closeQuietly(is);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void loadGameDlgRoleName() {
@@ -165,5 +177,9 @@ public class GameAboutImageItem {
 
     public Image getGameDlgRoleName() {
         return gameDlgRoleName;
+    }
+
+    public Image getGameMessageBoxBg() {
+        return gameMessageBoxBg;
     }
 }

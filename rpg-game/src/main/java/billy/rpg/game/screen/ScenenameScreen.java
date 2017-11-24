@@ -51,10 +51,10 @@ public class ScenenameScreen extends BaseScreen {
         Graphics g = paint.getGraphics();
         
         g.setColor(new Color(64, 64, 64, 5)); // the last argument indicates the transparency
-        g.fillRoundRect(70, 150, 100, 30, 14, 14);
+        g.fillRoundRect(220, 140, 100, 30, 14, 14);
         g.setFont(new Font("黑体", Font.BOLD, 14));
         g.setColor(Color.YELLOW);
-        g.drawString(name, 90, 170);
+        g.drawString(name, 240, 160);
         
         gameCanvas.drawBitmap(paint, 0, 0);
     }

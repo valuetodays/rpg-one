@@ -3,6 +3,7 @@ package billy.rpg.game.screen;
 import billy.rpg.game.GameCanvas;
 import billy.rpg.game.GameFrame;
 import billy.rpg.game.constants.GameConstant;
+import billy.rpg.game.container.GameContainer;
 import billy.rpg.game.screen.battle.BattleScreen;
 import org.apache.commons.lang.StringUtils;
 
@@ -58,15 +59,18 @@ public class MessageBoxScreen extends BaseScreen {
                 GameConstant.GAME_WIDTH, 
                 GameConstant.GAME_HEIGHT, 
                 BufferedImage.TYPE_4BYTE_ABGR);
+
         // 得到缓冲区的画笔
         Graphics g = paint.getGraphics();
-        
+        Image gameMessageBoxBg = GameContainer.getInstance().getGameAboutItem().getGameMessageBoxBg();
+        g.drawImage(gameMessageBoxBg, 160, 140, null);
         g.setColor(new Color(64, 64, 64, 128));
-        g.fillRoundRect(30, 50, 200, 45, 20, 20);
+        //g.fillRoundRect(30, 50, 200, 45, 20, 20);
         g.setFont(new Font("黑体", Font.BOLD, 14));
         g.setColor(Color.WHITE);
-        g.drawString(msg, 38, 70);
-        
+        g.drawString(msg, 200, 180);
+
+        g.dispose();
         gameCanvas.drawBitmap(paint, 0, 0);
     }
 

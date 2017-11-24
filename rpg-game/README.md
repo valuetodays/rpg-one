@@ -40,7 +40,7 @@ ILoader
 
      
 #### 2017-05-18 18:29
-    [TODO] to add head pic in dialog
+    add head pic in dialog
     
 #### 2017-07-07 13:10
     show animation 
@@ -49,7 +49,7 @@ ILoader
     meet monster and begin battle. 
     make monster's attack action
     ESC in chooseMonsterScreen and optionScreen
-    [TODO] 造成伤害时要显示血量减少
+    造成伤害时要显示血量减少
     [普通攻击时，攻击者应移动至目标处，再进行攻击，应有动画]
     对话要能有先后
     [TODO add command]指定发生战斗的命令

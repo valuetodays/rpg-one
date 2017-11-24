@@ -59,6 +59,8 @@ public interface GameConstant {
     Font FONT_ROLENAME_IN_DLG = new Font("楷体", Font.BOLD, 18);
     Font FONT_BATTLE = new Font("楷体", Font.BOLD, 18);
     Font FONT_DAMAGE = new Font("楷体", Font.BOLD, 28);
+    Font FONT_SIZE_MAP_NAME = new Font("黑体", Font.BOLD, 24);
+    Color FONT_COLOR_MAP_NAME = Color.YELLOW;
 
     /**
      * 游戏中使用的随机数生成器

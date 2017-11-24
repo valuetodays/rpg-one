@@ -145,7 +145,9 @@ public class MapScreen extends BaseScreen {
         //////// draw event end
 
         String name = GameFrame.getInstance().getGameContainer().getActiveMap().getName();
-        g2.drawString(name, 580, 20);
+        g2.setFont(GameConstant.FONT_SIZE_MAP_NAME);
+        g2.setColor(GameConstant.FONT_COLOR_MAP_NAME);
+        g2.drawString(name, 500, 20);
 
         g2.dispose();
         gameCanvas.drawBitmap(paint, 0, 0);
