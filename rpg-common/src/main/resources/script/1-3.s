@@ -4,7 +4,7 @@ return
 
 
 hello:
-showText 1000 '你好，你现在在故人居里。'
+showText 1000 1 '你好，你现在在故人居里。'
 return
 
 goleft:
