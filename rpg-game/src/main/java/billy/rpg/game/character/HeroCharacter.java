@@ -14,6 +14,11 @@ public class HeroCharacter extends BaseCharacter {
         // control by player
     }
 
+    @Override
+    public void resetFrame() {
+        curFrame = 1;
+    }
+
     /**
      * move right
      * @param mapScreen mapScreen

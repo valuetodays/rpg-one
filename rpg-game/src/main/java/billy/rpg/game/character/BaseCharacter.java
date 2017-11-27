@@ -13,8 +13,8 @@ public abstract class BaseCharacter implements CharacterConstant {
     protected int number; // 编号
     protected int posX = 6; // 当前x
     protected int posY = 6; // 当前y
-    protected int curFrame;  // 步数
-    protected int direction; // 方向
+    protected int curFrame;  // 步数 0右，1停止，2左
+    protected int direction; // 方向 0下，1左，2右，3下
 
     /**
      * init position
@@ -114,4 +114,7 @@ public abstract class BaseCharacter implements CharacterConstant {
      * npc的移动，可以有指定移动，随机移动，etc...
      */
     public abstract void move(MapScreen mapScreen);
+
+    public void resetFrame() { }
+
 }
