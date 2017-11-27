@@ -5,12 +5,14 @@ package billy.rpg.game.cmd;
  * @since 2016-05-10 22:38
  */
 public class ShowTextCmd extends CmdBase {
-    private String text;
     private int headNumber;
+    private int location;
+    private String text;
 
-    public ShowTextCmd(int number, String text) {
+    public ShowTextCmd(int number, int location, String text) {
         super("showtext");
         headNumber = number;
+        this.location = location;
         this.text = text;
     }
 
@@ -33,8 +35,17 @@ public class ShowTextCmd extends CmdBase {
     @Override
     public String toString() {
         return "ShowTextCmd{" +
-                "text='" + text + '\'' +
-                ", headNumber=" + headNumber +
+                "headNumber=" + headNumber +
+                ", location=" + location +
+                ", text='" + text + '\'' +
                 "} " + super.toString();
+    }
+
+    public int getLocation() {
+        return location;
+    }
+
+    public void setLocation(int location) {
+        this.location = location;
     }
 }

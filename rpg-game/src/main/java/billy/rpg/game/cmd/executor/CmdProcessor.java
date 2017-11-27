@@ -81,7 +81,7 @@ public class CmdProcessor {
             int headNumber = stc.getHeadNumber();
             final String text = stc.getText();
             Image headImage = GameContainer.getInstance().getHeadImageItemOf(headNumber);
-            DialogScreen ms = new DialogScreen(this, headImage, text);
+            DialogScreen ms = new DialogScreen(this, headImage, stc.getLocation(), text);
             GameFrame.getInstance().pushScreen(ms);
             startPause();
         } else if (cmd instanceof LoadMapCmd) {

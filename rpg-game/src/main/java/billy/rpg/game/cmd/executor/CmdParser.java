@@ -117,14 +117,15 @@ public class CmdParser {
             return attrCmd;
         } else if ("showtext".equals(cmdname)) {
             String[] cmdargs = cmdarg.split(" ");
-            if (cmdargs.length != 2) {
-                LOG.debug("command "+cmdname+" needs "+2+" arguments, "
+            if (cmdargs.length != 3) {
+                LOG.debug("command "+cmdname+" needs "+3+" arguments, "
                         + "but "+cmdargs.length+" in fact.");
                 return null;
             }
             final int headNumber = Integer.parseInt(cmdargs[0]);
-            final String text = cmdargs[1].substring(1, cmdargs[1].length()-1);
-            return new ShowTextCmd(headNumber, text);
+            final int location = Integer.parseInt(cmdargs[1]);
+            final String text = cmdargs[2].substring(1, cmdargs[2].length()-1);
+            return new ShowTextCmd(headNumber, location, text);
         } else if ("set".equals(cmdname)) {
             return new SetCmd(cmdarg);
         } else if ("loadmap".equals(cmdname)) {
