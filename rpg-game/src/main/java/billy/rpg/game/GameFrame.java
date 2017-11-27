@@ -3,10 +3,7 @@ package billy.rpg.game;
 import billy.rpg.common.util.JavaVersionUtil;
 import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.container.GameContainer;
-import billy.rpg.game.screen.BaseScreen;
-import billy.rpg.game.screen.GameCoverScreen;
-import billy.rpg.game.screen.ProducerScreen;
-import billy.rpg.game.screen.TransitionScreen;
+import billy.rpg.game.screen.*;
 import billy.rpg.game.screen.battle.BattleScreen;
 import billy.rpg.game.screen.system.SystemScreen;
 import billy.rpg.game.util.CoreUtil;
@@ -67,7 +64,8 @@ public class GameFrame extends JFrame implements Runnable {
         gameContainer.load();
 
         screenStack = new Stack<>();
-        screenStack.push(new GameCoverScreen()); // 进入封面
+//        screenStack.push(new GameCoverScreen()); // 进入封面
+        screenStack.push(new ShowGutScreen(null)); // 进入封面
 //        screenStack.push(new MapScreen());
 ///        screenStack.push(new AnimationScreen(0)); // show animation
 
