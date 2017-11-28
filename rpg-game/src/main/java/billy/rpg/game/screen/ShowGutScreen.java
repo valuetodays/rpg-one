@@ -1,7 +1,9 @@
 package billy.rpg.game.screen;
 
 import billy.rpg.game.GameCanvas;
+import billy.rpg.game.GameFrame;
 import billy.rpg.game.constants.GameConstant;
+import org.apache.commons.lang.StringUtils;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -17,9 +19,15 @@ public class ShowGutScreen extends BaseScreen {
     private long lastUpdateTime = System.currentTimeMillis();
     private int delay = 2000; // 2s
 
+    /**
+     * `br` --> \n
+     * @param content
+     */
     public ShowGutScreen(String content) {
-        content = "引：                 天地玄黄，宇宙洪荒  自古道魔不两立，    世虽以道为正，道魔  之争却从未休止。    究其因，何以道正而  魔始未灭，          属正邪者，心也！    正所谓：             道非道，魔非魔      善恶在人心！                            江湖中有耳朵的人，绝无一人没有听见过“无机道长”这人的名字，江湖中有眼睛的人，也绝无一人不想瞧瞧“无机道长”绝世风采和他的绝代神功。        只因为任何人都知道，世上绝没有一个少女能抵挡“无机道长”的微微一笑，也绝没有一个英雄能抵挡“无机道长”的轻轻一剑！      任何人都相信，“无机道长”的剑非但能在百万军中取主帅之首级，也能将一根头发分成两根，而他的笑，却可令少女的心碎。        3月28日晚，无机和 当时危害人间的大魔头——赤血天魔依约在三清山的伏魔洞前进行生死决斗。              决斗后，无机负伤而归，赤血天魔不知所终。决斗结果无人知晓。  二十年后……                                                                                      ";
-        this.content = linefeed(content, 20);
+        if (StringUtils.isEmpty(content)) {
+            throw new RuntimeException("content of shougut is null or empty.");
+        }
+        this.content = linefeed(content.replace("`br`", "\n"), 20);
         this.contentArr = this.content.split("\n");
     }
 
@@ -40,8 +48,23 @@ public class ShowGutScreen extends BaseScreen {
             if (start_pos + num > str.length()) {
                 num = str.length() - start_pos;
             }
-            ret += str.substring(start_pos, start_pos+num) + "\n";
-            start_pos += num;
+            String substring = str.substring(start_pos, start_pos + num);
+            int n = substring.indexOf("\n");
+            if (n  > -1) {
+                String ret0 = "";
+                while (n > -1) {
+                    String substring1 = substring.substring(0, n+1);
+                    ret0 += substring1;
+                    substring = substring.substring(n+1);
+                    n = substring.indexOf("\n");
+                }
+                int num0 =  str.substring(start_pos, start_pos + num).length() - ret0.length();
+                ret += ret0;
+                start_pos += ret0.length();
+            } else {
+                ret += substring + "\n";
+                start_pos += num;
+            }
         }
 
         return ret;
@@ -51,7 +74,7 @@ public class ShowGutScreen extends BaseScreen {
         if (System.currentTimeMillis() - lastUpdateTime >= delay) {
             currentLine++;
             if (currentLine > contentArr.length) {
-//                GameFrame.getInstance().popScreen();
+                GameFrame.getInstance().popScreen();
             }
             lastUpdateTime = System.currentTimeMillis();
         }
@@ -69,7 +92,7 @@ public class ShowGutScreen extends BaseScreen {
         g.fillRect(0, 0, paint.getWidth(), paint.getHeight());
         g.setColor(Color.BLACK);
 
-        g.setFont(new Font("宋体", Font.BOLD, 24));
+        g.setFont(new Font("黑体", Font.BOLD, 24));
         for (int i = currentLine; i < Math.min(contentArr.length, currentLine + 6); i++) {
             g.drawString(contentArr[i], 60, 150 + (i-currentLine) * (g.getFontMetrics().getHeight() + 4));
         }

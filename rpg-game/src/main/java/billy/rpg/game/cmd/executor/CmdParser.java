@@ -220,6 +220,8 @@ public class CmdParser {
                 return null;
             }
             return new DecreaseGoodsCmd(Integer.valueOf(cmdargArr[0]), Integer.valueOf(cmdargArr[1]));
+        } else if ("showgut".equals(cmdname)) {
+            return new ShowGutCmd(cmdarg.substring(1, cmdarg.length()-1));
         } else {
             LOG.warn("unknown command " +  cmdname + cmdarg);
             throw new RuntimeException("unknown command " + cmdname + cmdarg);

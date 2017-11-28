@@ -156,6 +156,9 @@ public class CmdProcessor {
             GoodsMetaData goodsMetaData = GameFrame.getInstance().getGameContainer().getGoodsMetaDataOf(number);
             GameFrame.getInstance().pushScreen(new MessageBoxScreen("物品减少 " + goodsMetaData.getName() + " * " +
                     count));
+        } else if (cmd instanceof ShowGutCmd) {
+            ShowGutScreen showGutScreen = new ShowGutScreen(((ShowGutCmd) cmd).getContent());
+            GameFrame.getInstance().pushScreen(showGutScreen);
         } else {
             LOG.warn("unknown command " + cmd);
             throw new RuntimeException("unknown command " + cmd);

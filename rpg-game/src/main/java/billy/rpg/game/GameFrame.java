@@ -25,7 +25,9 @@ import java.util.Stack;
  */
 public class GameFrame extends JFrame implements Runnable {
     private static final long serialVersionUID = 1L;
+
     private static final Logger LOG = Logger.getLogger(GameFrame.class);
+
     private static GameFrame instance;
     private Stack<BaseScreen> screenStack;
     private GameCanvas gameCanvas;
@@ -64,8 +66,8 @@ public class GameFrame extends JFrame implements Runnable {
         gameContainer.load();
 
         screenStack = new Stack<>();
-//        screenStack.push(new GameCoverScreen()); // 进入封面
-        screenStack.push(new ShowGutScreen(null)); // 进入封面
+        screenStack.push(new GameCoverScreen()); // 进入封面
+
 //        screenStack.push(new MapScreen());
 ///        screenStack.push(new AnimationScreen(0)); // show animation
 
