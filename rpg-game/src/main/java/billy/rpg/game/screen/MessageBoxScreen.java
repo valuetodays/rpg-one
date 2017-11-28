@@ -47,7 +47,6 @@ public class MessageBoxScreen extends BaseScreen {
     }
 
 
-
     @Override
     public void draw(GameCanvas gameCanvas) {
         if (StringUtils.isEmpty(msg)) {
@@ -76,14 +75,13 @@ public class MessageBoxScreen extends BaseScreen {
 
     @Override
     public void onKeyDown(int key) {
-        popScreen();
-
     }
 
     @Override
     public void onKeyUp(int key) {
-        
+        popScreen();
     }
+
     private void popScreen() {
         if (ownerScreen instanceof BattleScreen) { // 战斗场景中的播放动画，就把战斗场景弹出一个
             ((BattleScreen)ownerScreen).pop();

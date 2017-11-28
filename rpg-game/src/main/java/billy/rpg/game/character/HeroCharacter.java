@@ -11,7 +11,7 @@ public class HeroCharacter extends BaseCharacter {
 
     @Override
     public void move(MapScreen mapScreen) {
-        // control by player
+        // controll by player
     }
 
     @Override

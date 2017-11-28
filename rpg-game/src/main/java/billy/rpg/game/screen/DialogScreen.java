@@ -317,7 +317,7 @@ public class DialogScreen extends BaseScreen {
         if ('y' == flagName || 'Y' == flagName) {
             return Color.yellow;
         } else {
-            return null;
+            return Color.BLACK;
         }
     }
 

@@ -1,13 +1,8 @@
-@attr已不再需要后两个参数，因为现在地图文件(*.map)中已经保存了地图的宽高 2017-05-12
-@attr 1 1 15 15
 attr 1 1
 scenename '新手村'
-monsters 51
-@monsters
-@showText 'common english charactor'
-@showText 'haha,含有中文字符哦亲'
-@messagebox '欢迎进入小小地图一'
-@ will use createbox
+monsters
+
+
 createnpc 9001 8 5 14 1
 createnpc 0 8 10 15 2
 
@@ -15,121 +10,63 @@ createnpc 0 8 10 15 2
 @ showgut中可以使用`br`来换行
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 showgut '引：`br`    天地玄黄，宇宙洪荒  自古道魔不两立，世虽以道为正，道魔之争却从未休止。究其因，何以道正而魔始未灭，属正邪者，心也！正所谓：`br`    道非道，魔非魔，善恶在人心！`br`江湖中有耳朵的人，绝无一人没有听见过“无机道长”这人的名字，江湖中有眼睛的人，也绝无一人不想瞧瞧“无机道长”绝世风采和他的绝代神功。只因为任何人都知道，世上绝没有一个少女能抵挡“无机道长”的微微一笑，也绝没有一个英雄能抵挡“无机道长”的轻轻一剑！`br`任何人都相信，“无机道长”的剑非但能在百万军中取主帅之首级，也能将一根头发分成两根，而他的笑，却可令少女的心碎。`br`三月廿八晚，无机和当时危害人间的大魔头——赤血天魔依约在三清山的伏魔洞前进行生死决斗。决斗后，无机负伤而归，赤血天魔不知所终。决斗结果无人知晓。`br`二十年后……'
-return
-
-say0ed:
-return
 
 
-npc1new:
-showtext 1510 1 '好巧，又见到你了。'
-showtext 1510 1 '这些送给你吧。'
-increasegoods 1
-increasegoods 2
-increasegoods 3
-increasegoods 4
-increasegoods 5
-increasegoods 6
-increasegoods 7
-increasegoods 8
-increasegoods 9
-increasegoods 10
-increasegoods 11
-increasegoods 12
-increasegoods 13
-increasegoods 14
-increasegoods 15
-increasegoods 16
-increasegoods 17
-return
+@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ showText headImg-id location[1左2右] text
+@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-npc1:
-if npc1ed npc1new
-showtext 1510 1 '啊！你怎么沦落至此地？'
-showtext 1510 1 '算了，这是100金币。给你吧。'
-inscreasemoney 100
-showtext 1510 1 '不对，还是给你80金币吧。'
-descreasemoney 20
-showtext 1675 1 '十分感谢，定会相报。'
-set npc1ed
-return
+showText 1 1 '小蝴蝶，不要跑……'
+@@@@@@@@@@@@@@@@@@@@@
+@ NPCSTEP id faceto step
+@@@@@@@@@@@@@@@@@@@@@
+npcstep 0 3 1
+@animation 3 50 100
+showText 1 2 '小蝴蝶，不要跑……'
+npcstep 0 1 1
+showtext 1 1 '小蝴蝶，快出来……'
+npcstep 0 2 1
+showtext 1 1 '小蝴蝶，不要跑……'
+npcstep 0 0 1
+showtext 1 1 '小蝴蝶……，哪去了？？'
+npcstep 0 3 1
 
+createnpc 2 0 2 1 1
+npcstep 2 3 1
+npcstep 0 0 1
 
-@set a1
-@if a1 Hello
-@showText 'showed hello'
-@return
+showtext 2 1 '师兄，原来你在这啊，师父找不到你，正在无机阁大发雷霆呢，你快点到无机阁见师傅吧。'
+showtext 1 2 '好，你先走，我就去。'
+move 2 0
+move 2 0
+move 2 0
+move 2 2
+move 2 2
+move 2 2
+move 2 2
+move 2 2
+move 2 2
+move 2 0
+move 2 2
+move 2 2
+move 2 3
+move 2 2
+move 2 2
+move 2 2
+move 2 2
+move 2 2
+move 2 2
+move 2 2
+move 2 2
+move 2 2
+move 2 2
+move 2 2
+move 2 2
+move 2 2
 
-hello:
-if a2 helloed
-@         x  y n type
-@ createnpc 9 5 2 1
-showText 1675 1 '哈喽'
-set a2
-return
-
-helloed:
-@showText 1675 1 '给你说过哈喽了啊'
-@ choice title choice1 choice2 choice3 label1 label2 label3
-choice '我们说过话了吗' '说过了' '没有说过' '记不得了' aaa bbb ccc
-@showText 1675 1 '哈哈，你还没做选择呢'
-return
-
-aaa:
-showText 1675 1 '果然说过话啊，我就在说怎么看你那么`r`脸熟`/r`。'
-decreasegoods 1 1
-showText 1675 1 '谢谢你的止血草'
-return
-
-bbb:
-showText 1675 1 '我看也是，我根本`y`没有见过你`/y`。'
-return
-
-ccc:
-showText 1675 1 '神经病吧你。'
+move 2 2
+DELETENPC 2
 return
 
 
-npc2:
-showtext 1675 1 '我是从`y`地图编辑器`/y`中出现的。'
-return
-
-goright:
-@animation 100 0 0
-loadmap 1 2 1 0
-return
-
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@ box1这个tag说明showText命令是阻塞式的，当执行该命令时，下一句命令不会执行
-@ 而animation命令没有完成时也不会执行下面的语句
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-box1:
-showText 1675 1 '这是一个宝箱，可是`y`打不开`/y`，好气啊！'
-showText 1675 1 '第二个窗口对话。'
-@播放动画 参数是要播放的动画编号 屏幕posx 屏幕posy
-animation 3 50 100
-animation 11 50 100
-@@if say0 say0ed
-showText 1675 1 '私は有恩报恩，有仇报仇！'
-animation 12 50 100
-@@set say0
-return
-
-roshan:
-showText 1675 1 '我是`y`大BOSS`/y`，我怕谁！`r`毛宁`/r`我都不怕！说过多少次了，我不怕毛宁不怕不怕，我小毛要吊打毛宁！'
-@showText 1675 1 '我是`y`张三`/y`，命令你快去打`r`大龙`/r`！你快去啊，真是不听话，害我说那么多话，真可恶！什么？！你说`b`我废话多`/b`？你再说，再说一次试试？'
-@showText 1675 1 '我是`y`天大地大我最大张三`/y`，十分、一百分`r`、`/r`一千分、一万分、十万分、百万分郑重地命令你这小厮快去打`r`大龙`/r`！你快去啊，真是不听话，害我说那么多话，真可恶！什么？！你说`b
-`我废话多`/b`？你再说，再说一次试试？'
-@showText 1675 1 '第二段对话开始了'
-@showText 1675 1 '第三段对话也来了'
-return
-
-
-trigger 255 goright
-@ 肉山，大龙
-trigger 2 roshan
-trigger 237 box1
-trigger 555 hello
-trigger 9001 npc1
-trigger 9901 npc2
 

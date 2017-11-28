@@ -14,7 +14,7 @@ public abstract class BaseCharacter implements CharacterConstant {
     protected int posX = 6; // 当前x
     protected int posY = 6; // 当前y
     protected int curFrame;  // 步数 0右，1停止，2左
-    protected int direction; // 方向 0下，1左，2右，3下
+    protected int direction; // 方向 0下，1左，2右，3上
 
     /**
      * init position

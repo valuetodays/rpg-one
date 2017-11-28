@@ -222,9 +222,28 @@ public class CmdParser {
             return new DecreaseGoodsCmd(Integer.valueOf(cmdargArr[0]), Integer.valueOf(cmdargArr[1]));
         } else if ("showgut".equals(cmdname)) {
             return new ShowGutCmd(cmdarg.substring(1, cmdarg.length()-1));
+        } else if ("npcstep".equals(cmdname)) {
+            String[] cmdargArr = cmdarg.split(" ");
+            if (cmdargArr.length != 3) {
+                LOG.debug("command "+cmdname+" needs "+3+" arguments, "
+                        + "but "+cmdargArr.length+" in fact.");
+                return null;
+            }
+            return new NpcstepCmd(Integer.parseInt(cmdargArr[0]), Integer.parseInt(cmdargArr[1]), Integer.parseInt
+                    (cmdargArr[2]));
+        } else if ("move".equals(cmdname)) {
+            String[] cmdargArr = cmdarg.split(" ");
+            if (cmdargArr.length != 2) {
+                LOG.debug("command "+cmdname+" needs "+2+" arguments, "
+                        + "but "+cmdargArr.length+" in fact.");
+                return null;
+            }
+            return new MoveCmd(Integer.parseInt(cmdargArr[0]), Integer.parseInt(cmdargArr[1]));
+        } else if ("deletenpc".equals(cmdname)) {
+            return new DeleteNpcCmd(Integer.parseInt(cmdarg));
         } else {
             LOG.warn("unknown command " +  cmdname + cmdarg);
-            throw new RuntimeException("unknown command " + cmdname + cmdarg);
+            throw new RuntimeException("unknown command " + cmdname + " " + cmdarg);
         }
     }
 

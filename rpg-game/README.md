@@ -88,3 +88,12 @@ ILoader
     increasegoods decreasegoods命令
     GoodsScreen
     [TODO]命令testmoney
+    
+### 2017-11-28 14:50
+    BaseCharacter:
+    curFrame;  // 步数 0右，1停止，2左
+    direction; // 方向 0下，1左，2右，3上
+    add command: move, npcstep, deletenpc
+    
+    
+    
