@@ -1,5 +1,9 @@
 package billy.rpg.game.cmd;
 
+import billy.rpg.game.GameFrame;
+import billy.rpg.game.cmd.executor.CmdProcessor;
+import billy.rpg.game.screen.ShowGutScreen;
+
 /**
  * show gut
  *
@@ -12,6 +16,13 @@ public class ShowGutCmd extends CmdBase {
     public ShowGutCmd(String content) {
         super("shwowgut");
         this.content = content;
+    }
+
+    @Override
+    public int execute(CmdProcessor cmdProcessor) {
+        ShowGutScreen showGutScreen = new ShowGutScreen(content);
+        GameFrame.getInstance().pushScreen(showGutScreen);
+        return 0;
     }
 
     public String getContent() {

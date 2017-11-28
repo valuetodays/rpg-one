@@ -3,6 +3,7 @@ package billy.rpg.game.screen;
 import billy.rpg.game.GameCanvas;
 import billy.rpg.game.GameFrame;
 import billy.rpg.game.constants.GameConstant;
+import billy.rpg.game.util.KeyUtil;
 import org.apache.commons.lang.StringUtils;
 
 import java.awt.*;
@@ -17,11 +18,11 @@ public class ShowGutScreen extends BaseScreen {
     private String[] contentArr;
     private int currentLine = 0;
     private long lastUpdateTime = System.currentTimeMillis();
-    private int delay = 2000; // 2s
+    private int delay = 1500; // 2s
 
     /**
      * `br` --> \n
-     * @param content
+     * @param content  content
      */
     public ShowGutScreen(String content) {
         if (StringUtils.isEmpty(content)) {
@@ -69,6 +70,7 @@ public class ShowGutScreen extends BaseScreen {
 
         return ret;
     }
+
     @Override
     public void update(long delta) {
         if (System.currentTimeMillis() - lastUpdateTime >= delay) {
@@ -102,7 +104,10 @@ public class ShowGutScreen extends BaseScreen {
 
     @Override
     public void onKeyDown(int key) {
-
+        if (KeyUtil.isDown(key)) {
+            currentLine++;
+            update(0L);
+        }
     }
 
     @Override

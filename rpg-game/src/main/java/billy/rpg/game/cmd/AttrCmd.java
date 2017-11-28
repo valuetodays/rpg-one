@@ -1,5 +1,7 @@
 package billy.rpg.game.cmd;
 
+import billy.rpg.game.cmd.executor.CmdProcessor;
+
 /**
  * 命令 - attr
  * @author <a href="http://blog.sina.com.cn/valuetodays">liulei-home</a>
@@ -13,6 +15,11 @@ public class AttrCmd extends CmdBase {
 
     public AttrCmd() {
         super("attr");
+    }
+
+    @Override
+    public int execute(CmdProcessor cmdProcessor) {
+        return 0;
     }
 
     public int getM() {

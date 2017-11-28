@@ -1,5 +1,8 @@
 package billy.rpg.game.cmd;
 
+import billy.rpg.game.GameFrame;
+import billy.rpg.game.cmd.executor.CmdProcessor;
+
 import java.util.List;
 
 /**
@@ -9,12 +12,18 @@ import java.util.List;
 public class MonstersCmd extends CmdBase {
     private List<Integer> monsterIds;
 
-    public MonstersCmd(List monsterIds) {
+    public MonstersCmd(List<Integer> monsterIds) {
         super("monsters");
         this.monsterIds = monsterIds;
     }
 
     public List<Integer> getMonsterIds() {
         return monsterIds;
+    }
+
+    @Override
+    public int execute(CmdProcessor cmdProcessor) {
+        GameFrame.getInstance().getGameContainer().getActiveFileItem().setPredictedMonsterIds(monsterIds);
+        return 0;
     }
 }

@@ -1,5 +1,12 @@
 package billy.rpg.game.cmd;
 
+import billy.rpg.game.GameFrame;
+import billy.rpg.game.cmd.executor.CmdProcessor;
+import billy.rpg.game.container.GameContainer;
+import billy.rpg.game.screen.DialogScreen;
+
+import java.awt.*;
+
 /**
  * @author <a href="http://blog.sina.com.cn/valuetodays">liulei-home</a>
  * @since 2016-05-10 22:38
@@ -30,6 +37,15 @@ public class ShowTextCmd extends CmdBase {
 
     public void setHeadNumber(int headNumber) {
         this.headNumber = headNumber;
+    }
+
+    @Override
+    public int execute(CmdProcessor cmdProcessor) {
+        Image headImage = GameContainer.getInstance().getHeadImageItemOf(headNumber);
+        DialogScreen ms = new DialogScreen(cmdProcessor, headImage, getLocation(), text);
+        GameFrame.getInstance().pushScreen(ms);
+        cmdProcessor.startPause();
+        return 0;
     }
 
     @Override

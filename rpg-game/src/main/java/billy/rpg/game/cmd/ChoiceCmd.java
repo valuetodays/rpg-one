@@ -1,5 +1,9 @@
 package billy.rpg.game.cmd;
 
+import billy.rpg.game.GameFrame;
+import billy.rpg.game.cmd.executor.CmdProcessor;
+import billy.rpg.game.screen.ChoiceScreen;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +21,17 @@ public class ChoiceCmd extends CmdBase {
     public ChoiceCmd(String title) {
         super("choice");
         this.title = title;
+    }
+
+    @Override
+    public int execute(CmdProcessor cmdProcessor) {
+        String title = getTitle();
+        List<String> choice = getChoice();
+        List<String> label = getLabel();
+        ChoiceScreen cs = new ChoiceScreen(cmdProcessor, title, choice, label);
+        GameFrame.getInstance().pushScreen(cs);
+        cmdProcessor.startPause();
+        return 0;
     }
 
     /**

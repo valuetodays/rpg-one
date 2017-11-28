@@ -1,6 +1,8 @@
 package billy.rpg.game.cmd;
 
 
+import billy.rpg.game.cmd.executor.CmdProcessor;
+
 /**
  * 命令 - 标签 （其下会有很多其它基础命令）
  * @author <a href="http://blog.sina.com.cn/valuetodays">liulei-home</a>
@@ -11,5 +13,10 @@ public class LabelCmd extends CmdBase {
 
     public LabelCmd(String name) {
         super(name);
+    }
+
+    @Override
+    public int execute(CmdProcessor cmdProcessor) {
+        return 0;
     }
 }

@@ -1,5 +1,11 @@
 package billy.rpg.game.cmd;
 
+import billy.rpg.game.GameFrame;
+import billy.rpg.game.character.NPCCharacter;
+import billy.rpg.game.character.npc.CommonNPCCharacter;
+import billy.rpg.game.character.npc.NoWalkNPCCharacter;
+import billy.rpg.game.cmd.executor.CmdProcessor;
+
 /**
  * @author liulei
  * @since 2017-05-18 17:02
@@ -40,6 +46,25 @@ public class CreateNPCCmd extends CmdBase {
 
     public int getType() {
         return type;
+    }
+
+    @Override
+    public int execute(CmdProcessor cmdProcessor) {
+        int x = getX();
+        int y = getY();
+        int npcNum = getNpcNum();
+        int type = getType();
+        NPCCharacter npc = null;
+        if (type == 1) {
+            npc = new NoWalkNPCCharacter();
+        } else {
+            npc = new CommonNPCCharacter();
+        }
+        npc.initPos(x, y);
+        npc.setTileNum(npcNum);
+        npc.setNumber(getNpcId());
+        GameFrame.getInstance().getGameContainer().getActiveFileItem().getNpcs().add(npc);
+        return 0;
     }
 
     @Override

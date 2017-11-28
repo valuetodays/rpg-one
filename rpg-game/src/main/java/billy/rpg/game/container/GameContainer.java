@@ -149,6 +149,7 @@ public class GameContainer {
     }
 
     public void startChapter(int m, int n, String pos) {
+        LOG.debug("go to map" + m + "-" + m + " in " + pos);
         // TODO 添加过渡场景
         GameFrame.getInstance().changeScreen(8);
         // init the active map, but it is called in {@link GameContainer#changeActiveScriptItemTo(int, int, String)})

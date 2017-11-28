@@ -1,5 +1,9 @@
 package billy.rpg.game.cmd;
 
+import billy.rpg.game.GameFrame;
+import billy.rpg.game.cmd.executor.CmdProcessor;
+import billy.rpg.game.container.GameContainer;
+
 /**
  * 命令 - 加载地图
  * @author <a href="http://blog.sina.com.cn/valuetodays">liulei-home</a>
@@ -50,6 +54,13 @@ public class LoadMapCmd extends CmdBase {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    @Override
+    public int execute(CmdProcessor cmdProcessor) {
+        GameFrame.getInstance().getGameContainer().getMapScreen().clearOffset();
+        GameContainer.getInstance().startChapter(getM(), getN(), getX() + "-" + getY());
+        return 0;
     }
 
     @Override

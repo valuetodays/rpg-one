@@ -1,11 +1,13 @@
 package billy.rpg.game.cmd;
 
+import billy.rpg.game.cmd.executor.CmdProcessor;
+
 /**
  * 命令 - 基础
  * @author <a href="http://blog.sina.com.cn/valuetodays">liulei-home</a>
  * @since 2016-05-09 22:27
  */
-public class CmdBase {
+public abstract class CmdBase {
     private String name; // 命令名称
     private int lineNo;
 
@@ -28,6 +30,9 @@ public class CmdBase {
     }
     public CmdBase() {
     }
+
+    public abstract int execute(CmdProcessor cmdProcessor);
+
     @Override
     public String toString() {
         return "CmdBase [name=" + name + ", lineNo=" + lineNo + "]";

@@ -1,5 +1,10 @@
 package billy.rpg.game.cmd;
 
+import billy.rpg.game.GameFrame;
+import billy.rpg.game.cmd.executor.CmdProcessor;
+import billy.rpg.game.screen.BaseScreen;
+import billy.rpg.game.screen.ScenenameScreen;
+
 /**
  * @author <a href="http://blog.sina.com.cn/valuetodays">liulei-frx</a>
  * @date 2016-05-10 20:09
@@ -13,6 +18,12 @@ public class ScenenameCmd extends CmdBase {
         this.sname = sname;
     }
 
+    @Override
+    public int execute(CmdProcessor cmdProcessor) {
+        BaseScreen bs = new ScenenameScreen(sname);
+        GameFrame.getInstance().pushScreen(bs);
+        return 0;
+    }
 
     public String getSname() {
         return sname;

@@ -1,5 +1,9 @@
 package billy.rpg.game.cmd;
 
+import billy.rpg.game.GameFrame;
+import billy.rpg.game.cmd.executor.CmdProcessor;
+import billy.rpg.game.screen.MessageBoxScreen;
+
 /**
  * 增加金币
  *
@@ -16,5 +20,12 @@ public class IncreaseMoneyCmd extends CmdBase {
 
     public int getMoney() {
         return money;
+    }
+
+    @Override
+    public int execute(CmdProcessor cmdProcessor) {
+        GameFrame.getInstance().getGameData().increaseMoney(money);
+        GameFrame.getInstance().pushScreen(new MessageBoxScreen("金币增加 " + money));
+        return 0;
     }
 }

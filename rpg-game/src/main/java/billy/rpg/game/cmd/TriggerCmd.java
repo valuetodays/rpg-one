@@ -1,5 +1,7 @@
 package billy.rpg.game.cmd;
 
+import billy.rpg.game.cmd.executor.CmdProcessor;
+
 /**
  * 命令 - 触发器
  * @author <a href="http://blog.sina.com.cn/valuetodays">liulei-home</a>
@@ -27,6 +29,12 @@ public class TriggerCmd extends CmdBase {
     }
     public void setTriggerName(String triggerName) {
         this.triggerName = triggerName;
+    }
+
+    @Override
+    public int execute(CmdProcessor cmdProcessor) {
+        // TODO
+        return 0;
     }
 
     @Override
