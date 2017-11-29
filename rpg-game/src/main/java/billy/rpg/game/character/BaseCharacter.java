@@ -85,7 +85,7 @@ public abstract class BaseCharacter implements CharacterConstant {
         int offsetTileX = mapScreen.getOffsetTileX();
         int offsetTileY = mapScreen.getOffsetTileY();
         return posX + ((direction == DIRECTION_LEFT && posX > 0) ? -1 :
-                ((direction == DIRECTION_RIGHT && (posX + offsetTileX)< mapWidth - 1) ? 1 : 0)
+                ((direction == DIRECTION_RIGHT && (posX)< mapWidth - 1) ? 1 : 0)
         );
     }
 
@@ -99,7 +99,7 @@ public abstract class BaseCharacter implements CharacterConstant {
         int offsetTileX = mapScreen.getOffsetTileX();
         int offsetTileY = mapScreen.getOffsetTileY();
         return posY + ((direction == DIRECTION_UP && posY > 0) ? -1 :
-                ((direction == DIRECTION_DOWN && (posY+offsetTileY) < mapHeight - 1) ? 1 : 0 )
+                ((direction == DIRECTION_DOWN && (posY) < mapHeight - 1) ? 1 : 0 )
         );
     }
 

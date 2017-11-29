@@ -101,8 +101,10 @@ public class MapAreaPanel extends JPanel {
                 mapEditorPanel.getMapArea().requestFocus();
                 int x = e.getX();
                 int y = e.getY();
-                rectX = x / 32; // TODO 无用？？
-                rectY = y / 32;
+//                rectX = x / 32; // TODO 无用？？
+//                rectY = y / 32;
+                rectX = offsetX + x / 32;
+                rectY = offsetY + y / 32;
 //                LOG.debug("rectX/rectY=" + rectX + "/" + rectY);
                 repaint();
             }
@@ -239,6 +241,8 @@ public class MapAreaPanel extends JPanel {
                 ", currentLayer=" + currentLayer +
                 ", offsetX=" + offsetX +
                 ", offsetY=" + offsetY +
+                ", rectX=" + rectX +
+                ", rectY=" + rectY +
                 "} ";
     }
 

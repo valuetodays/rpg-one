@@ -69,7 +69,7 @@ public class GameCoverScreen extends BaseScreen {
             switch (f) {
                 case 1: {
                     LOG.debug("you choose `开始游戏`");
-                    GameFrame.getInstance().getGameContainer().startChapter(1, 1, "0-1");
+                    GameFrame.getInstance().getGameContainer().startChapter(1, 1, "14-2");
                     GameFrame.getInstance().changeScreen(1);
                 }
                 break;

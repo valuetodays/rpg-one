@@ -15,13 +15,17 @@ public class LoadMapCmd extends CmdBase {
     private int n; // 地图序号 n
     private int x; // 地图坐标 x
     private int y; // 地图坐标 y
+    private int offsetX;
+    private int offsetY;
 
-    public LoadMapCmd(int m, int n, int x, int y) {
+    public LoadMapCmd(int m, int n, int x, int y, int offsetX, int offsetY) {
         super("loadmap");
         this.m = m;
         this.n = n;
         this.x = x;
         this.y = y;
+        this.offsetX = offsetX;
+        this.offsetY = offsetY;
     }
 
     public int getM() {
@@ -56,9 +60,26 @@ public class LoadMapCmd extends CmdBase {
         this.y = y;
     }
 
+    public int getOffsetX() {
+        return offsetX;
+    }
+
+    public void setOffsetX(int offsetX) {
+        this.offsetX = offsetX;
+    }
+
+    public int getOffsetY() {
+        return offsetY;
+    }
+
+    public void setOffsetY(int offsetY) {
+        this.offsetY = offsetY;
+    }
+
     @Override
     public int execute(CmdProcessor cmdProcessor) {
-        GameFrame.getInstance().getGameContainer().getMapScreen().clearOffset();
+//        GameFrame.getInstance().getGameContainer().getMapScreen().clearOffset();
+        GameFrame.getInstance().getGameContainer().getMapScreen().setOffset(offsetX, offsetY);
         GameContainer.getInstance().startChapter(getM(), getN(), getX() + "-" + getY());
         return 0;
     }
@@ -70,6 +91,8 @@ public class LoadMapCmd extends CmdBase {
                 ", n=" + n +
                 ", x=" + x +
                 ", y=" + y +
+                ", offsetX=" + offsetX +
+                ", offsetY=" + offsetY +
                 "} " + super.toString();
     }
 }

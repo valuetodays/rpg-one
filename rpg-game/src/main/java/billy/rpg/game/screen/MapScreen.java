@@ -23,8 +23,8 @@ import java.awt.image.BufferedImage;
  */
 public class MapScreen extends BaseScreen {
     private static Logger LOG = Logger.getLogger(MapScreen.class);
-    private int offsetTileX;
-    private int offsetTileY;
+    private int offsetTileX = 10;
+    private int offsetTileY = 0;
 
     @Override
     public void update(long delta) {
@@ -241,5 +241,10 @@ public class MapScreen extends BaseScreen {
     public void clearOffset() {
         offsetTileX = 0;
         offsetTileY = 0;
+    }
+
+    public void setOffset(int offsetX, int offsetY) {
+        offsetTileX = offsetX;
+        offsetTileY = offsetY;
     }
 }

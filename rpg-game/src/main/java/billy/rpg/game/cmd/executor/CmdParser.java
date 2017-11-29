@@ -130,13 +130,14 @@ public class CmdParser {
             return new SetCmd(cmdarg);
         } else if ("loadmap".equals(cmdname)) {
             String[] cmdargs = cmdarg.split(" ");
-            if (cmdargs.length != 4) {
-                LOG.debug("command "+cmdname+" needs "+4+" arguments, "
+            if (cmdargs.length != 6) {
+                LOG.debug("command "+cmdname+" needs "+6+" arguments, "
                         + "but "+cmdargs.length+" in fact.");
                 return null;
             }
             return new LoadMapCmd(Integer.valueOf(cmdargs[0]), Integer.valueOf(cmdargs[1]),
-                    Integer.valueOf(cmdargs[2]), Integer.valueOf(cmdargs[3]));
+                    Integer.valueOf(cmdargs[2]), Integer.valueOf(cmdargs[3]),
+                    Integer.valueOf(cmdargs[4]), Integer.valueOf(cmdargs[5]) );
         } else if ("trigger".equals(cmdname)) {
             String[] cmdargs = cmdarg.split(" ");
             if (cmdargs.length != 2) {

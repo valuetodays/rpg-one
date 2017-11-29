@@ -3,7 +3,7 @@ package billy.rpg.mapeditor;
 import billy.rpg.common.constant.MapEditorConstant;
 import billy.rpg.resource.map.MapLoader;
 import billy.rpg.resource.map.MapMetaData;
-import billy.rpg.resource.map.MapSaver;
+import billy.rpg.resource.map.MapSaverContext;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
@@ -126,7 +126,8 @@ public class MapEditorFrame extends JFrame {
                         name += ".map";
                     }
                     MapMetaData mapMetaData = gatherMapData();
-                    MapSaver.save(chooser.getCurrentDirectory() + File.separator + name, mapMetaData);
+                    MapSaverContext.getInstance().getDefultMapSaver().save(chooser.getCurrentDirectory() + File.separator + name,
+                            mapMetaData);
                 }
             }
         });
