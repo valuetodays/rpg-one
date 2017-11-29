@@ -10,7 +10,7 @@ import billy.rpg.game.cmd.executor.CmdProcessor;
 public class TriggerCmd extends CmdBase {
 
     private int num; // npc number
-    private String triggerName; // 触发器名称
+    private String triggerName; // 触发器名称，不区分大小写
 
     public TriggerCmd(int num, String triggerName) {
         super("trigger");

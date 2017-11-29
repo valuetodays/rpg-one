@@ -152,8 +152,7 @@ public class GameContainer {
         LOG.debug("go to map" + m + "-" + m + " in " + pos);
         // TODO 添加过渡场景
         GameFrame.getInstance().changeScreen(8);
-        // init the active map, but it is called in {@link GameContainer#changeActiveScriptItemTo(int, int, String)})
-        changeActiveMapItemTo(m, n);
+
 
         // initialize the entry script-item
         changeActiveScriptItemTo(m, n, pos);
@@ -210,7 +209,7 @@ public class GameContainer {
         }
 
         // TODO 之前已经加载了，为什么又加载了一次
-//        changeActiveMapItemTo(m, n);
+        changeActiveMapItemTo(m, n);
 
         // 第一次加载时没有主角的方向
         int oldDirection = CharacterConstant.DIRECTION_DOWN;

@@ -145,7 +145,7 @@ public class CmdParser {
                         + "but "+cmdargs.length+" in fact.");
                 return null;
             }
-            return new TriggerCmd(Integer.valueOf(cmdargs[0]), cmdargs[1]);
+            return new TriggerCmd(Integer.valueOf(cmdargs[0]), cmdargs[1].toLowerCase());
         } else if ("messagebox".equals(cmdname)) {
             return new MessageBoxCmd(cmdarg.substring(1, cmdarg.length()-1));
         } else if ("animation".equals(cmdname)) {
