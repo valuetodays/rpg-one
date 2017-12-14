@@ -95,5 +95,7 @@ ILoader
     direction; // 方向 0下，1左，2右，3上
     add command: move, npcstep, deletenpc
     
+    [todo] clear / set
+    
     
     

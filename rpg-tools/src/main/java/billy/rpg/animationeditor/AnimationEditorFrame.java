@@ -18,6 +18,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
@@ -307,6 +308,7 @@ public class AnimationEditorFrame extends JFrame {
             return;
         }
         LOG.debug("play the animation. ");
+
         timer.stop();
         mShowList.clear();
         mShowList.add(new Key(0));
@@ -462,6 +464,21 @@ public class AnimationEditorFrame extends JFrame {
         panel6 = new JPanel();
         scrollPane2 = new JScrollPane();
         picList = new JList();
+        picList.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                // if (!e.getValueIsAdjusting()) {
+                repaint();
+                int frameIndex = frameList.getSelectedIndex();
+                if (-1 == frameIndex) {
+                    return;
+                }
+                frameDataArr[frameIndex].picNumber = picList.getSelectedIndex();
+                updateXYShowNshow();
+                // }
+            }
+        });
+
         btnPicAdd = new JButton();
         btnPicCls = new JButton();
         textPane1 = new JTextPane();
