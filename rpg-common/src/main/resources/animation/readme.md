@@ -2,7 +2,9 @@
 
 
 1.ani 桃花飘飘
-
+2.ani rm 爆炸
+3.ani rm 治疗
+4.ani 降魔伏法
 
 
 11.ani 傲剑诀
