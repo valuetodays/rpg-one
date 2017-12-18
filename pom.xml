@@ -15,6 +15,7 @@
         <module>rpg-tools</module>
         <module>rpg-game</module>
         <module>rpg-standalone-test</module>
+        <module>rpg-rb2demo</module>
     </modules>
 
     <properties>
