@@ -21,7 +21,7 @@ public class MapDraw extends BaseDraw {
 
     private int speed = 32;
     private int offsetX = 0;
-    private int offsetY = 960;
+    private int offsetY = 0;
 
     @Override
     public void onKeyUp(int keyCode) {
