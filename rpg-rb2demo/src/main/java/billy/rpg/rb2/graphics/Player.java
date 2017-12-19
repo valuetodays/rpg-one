@@ -42,25 +42,25 @@ public class Player {
         return biaoshi14;
     }
 
-    public void toLeft() {
+    public void toLeft(int offsetX, int offsetY) {
         direction = Constants.DIRECTION_LEFT;
-        x -= WIDTH/8;
-        x = Math.max(x, 0);
+        x -= WIDTH/6;
+        x = Math.max(x, 0 - WIDTH/6*3);
         increaseCurrentFrame();
     }
 
-    private void increaseCurrentFrame() {
+    public void increaseCurrentFrame() {
         currentFrame++;
         currentFrame = currentFrame % MAX_FRAME;
     }
 
-    public void toRight() {
+    public void toRight(int offsetX, int offsetY) {
         direction = Constants.DIRECTION_RIGHT;
-        x += WIDTH/8;
+        x += WIDTH/6;
         GraphicsHolder graphicsHolder = GameReourceHolder.getInstance().getGraphicsHolder();
         PanoramasGroup currentPanoramasGroup = graphicsHolder.getPanoramasHolder().getCurrentPanoramasGroup();
-        currentPanoramasGroup.getPanoramas().getWidth();
-        x = Math.min(x, currentPanoramasGroup.getPanoramas().getWidth()-WIDTH/8);
+        int mapWidth = currentPanoramasGroup.getPanoramas().getWidth();
+        x = Math.min(x, mapWidth - offsetX - WIDTH/6*3);
         increaseCurrentFrame();
     }
 
@@ -95,8 +95,8 @@ public class Player {
     }
 
     public void draw(Graphics g, int offsetX, int offsetY) {
-        LOG.debug("" + getX() + "," + getY());
-        LOG.debug(offsetX + getX() + ", " + (offsetY + getY()));
+        LOG.debug("x/y: " + getX() + "/" + getY());
+        //LOG.debug(offsetX + getX() + ", " + (offsetY + getY()));
 //        g.drawImage(getBiaoshi14(), offsetX + getX(),
 //                offsetY + getY(),
 //                offsetX + getX() + Player.WIDTH,
@@ -113,6 +113,14 @@ public class Player {
                 getCurrentFrame() * Player.WIDTH, getDirection() * Player.HEIGHT,
                 getCurrentFrame() * Player.WIDTH + Player.WIDTH, getDirection() * Player.HEIGHT + Player.HEIGHT,
                 null);
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 
     public int getCurrentFrame() {

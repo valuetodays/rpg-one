@@ -54,20 +54,75 @@ public class MapDraw extends BaseDraw {
 
         GraphicsHolder graphicsHolder = GameReourceHolder.getInstance().getGraphicsHolder();
         PanoramasGroup currentPanoramasGroup = graphicsHolder.getPanoramasHolder().getCurrentPanoramasGroup();
+        int mapWidth = currentPanoramasGroup.getPanoramas().getWidth();
+        int mapHeight = currentPanoramasGroup.getPanoramas().getHeight();
         Player player = graphicsHolder.getCharacterHolder().getPlayer();
+        int playerX = player.getX();
+        int playerY = player.getY();
+        ;
         if (KeyUtil.isUp(keyCode)) {
             player.toUp();
         } else if (KeyUtil.isDown(keyCode)) {
             player.toDown();
         } else if (KeyUtil.isLeft(keyCode)) {
-            player.toLeft();
-            offsetX -= speed;
-            offsetX = Math.max(offsetX, 0);
+
+            if (mapWidth <= RB2Panel.PANEL_WIDTH) {
+                int nextPlayerX = playerX - speed;
+                player.toLeft(offsetX, offsetY);
+            } else {
+                if (offsetX >= mapWidth - RB2Panel.PANEL_WIDTH) {
+                    if (playerX > RB2Panel.PANEL_WIDTH/2) {
+                        int nextPlayerX = playerX - speed;
+                        player.toLeft(offsetX, offsetY);
+                    } else {
+                        int nextPlayerX = playerX - speed;
+                        offsetX -= speed;
+                        offsetX = Math.max(offsetX, 0);
+                        player.increaseCurrentFrame();
+                    }
+                } else if (offsetX > 0) {
+                    int nextPlayerX = playerX - speed;
+                    offsetX -= speed;
+                    offsetX = Math.max(offsetX, 0);
+                    player.increaseCurrentFrame();
+                } else if (offsetX <= 0) {
+                    if (playerX <= RB2Panel.PANEL_WIDTH / 2) {
+                        int nextPlayerX = playerX - speed;
+                        player.toLeft(offsetX, offsetY);
+                    } else {
+                        int nextPlayerX = playerX - speed;
+                        offsetX -= speed;
+                        offsetX = Math.max(offsetX, 0);
+                        player.increaseCurrentFrame();
+                    }
+                }
+            }
         } else if (KeyUtil.isRight(keyCode)) {
-            player.toRight();
-            offsetX += speed;
-            int width = currentPanoramasGroup.getPanoramas().getWidth();
-            offsetX = Math.min(offsetX, width - RB2Panel.PANEL_WIDTH - 1);
+            if (mapWidth < RB2Panel.PANEL_WIDTH) {
+                player.toRight(offsetX, offsetY);
+            } else {
+                if (offsetX <= 0) {
+                    if (playerX < RB2Panel.PANEL_WIDTH/2) {
+                        player.toRight(offsetX, offsetY);
+                    } else {
+                        offsetX += speed;
+                        offsetX = Math.min(offsetX, mapWidth - RB2Panel.PANEL_WIDTH);
+                        player.increaseCurrentFrame();
+                    }
+                } else if (offsetX < mapWidth - RB2Panel.PANEL_WIDTH) {
+                    offsetX += speed;
+                    offsetX = Math.min(offsetX, mapWidth - RB2Panel.PANEL_WIDTH);
+                    player.increaseCurrentFrame();
+                } else if (offsetX >= mapWidth - RB2Panel.PANEL_WIDTH) {
+                    if (playerX >= RB2Panel.PANEL_WIDTH/2) {
+                        player.toRight(offsetX, offsetY);
+                    } else {
+                        offsetX += speed;
+                        offsetX = Math.min(offsetX, mapWidth - RB2Panel.PANEL_WIDTH);
+                        player.increaseCurrentFrame();
+                    }
+                }
+            }
         }
     }
 
@@ -78,47 +133,11 @@ public class MapDraw extends BaseDraw {
     private void drawPanoramas(Graphics g) {
         GraphicsHolder graphicsHolder = GameReourceHolder.getInstance().getGraphicsHolder();
         Player player = graphicsHolder.getCharacterHolder().getPlayer();
-        PanoramasGroup panoramasGroup = currentPanoramasGroup();
-//        int mapWidth = panoramasGroup.getPanoramas().getWidth();
-//        offsetX = player.getX() - RB2Panel.PANEL_WIDTH / 2;
-//        if (offsetX < 0) {
-//            offsetX = 0;
-//        } else if (offsetX > mapWidth - RB2Panel.PANEL_WIDTH) {
-//            offsetX = mapWidth - RB2Panel.PANEL_WIDTH;
-//        }
-//        int mapHeight = panoramasGroup.getPanoramas().getHeight();
-//        int offsetY = player.getY() - RB2Panel.PANEL_HEIGHT / 2;
-//        if (offsetY < 0) {
-//            offsetY = 0;
-//        } else if (offsetY > mapHeight - RB2Panel.PANEL_HEIGHT) {
-//            offsetY = mapHeight - RB2Panel.PANEL_HEIGHT;
-//        }
+        PanoramasGroup panoramasGroup = graphicsHolder.getPanoramasHolder().getCurrentPanoramasGroup();
         LOG.debug("offsetX/offsetY: " + offsetX + "/" + offsetY);
         panoramasGroup.draw(g, offsetX, offsetY);
         player.draw(g, offsetX, offsetY);
         panoramasGroup.draw2(g, offsetX, offsetY);
-    }
-
-    private PanoramasGroup currentPanoramasGroup() {
-        String panoramasName = currentPanoramasName();
-        GraphicsHolder graphicsHolder = GameReourceHolder.getInstance().getGraphicsHolder();
-        return graphicsHolder.getPanoramasHolder().getPanoramasGroup(panoramasName);
-    }
-
-    private String currentPanoramasName() {
-        GraphicsHolder graphicsHolder = GameReourceHolder.getInstance().getGraphicsHolder();
-        return graphicsHolder.getPanoramasHolder().getCurrentName();
-    }
-    private int currentPanoramasWidth() {
-        String panoramasName = currentPanoramasName();
-        GraphicsHolder graphicsHolder = GameReourceHolder.getInstance().getGraphicsHolder();
-        return graphicsHolder.getPanoramasHolder().getPanoramasGroup(panoramasName).getPanoramas().getWidth();
-    }
-
-    private int currentPanoramasHeight() {
-        String panoramasName = currentPanoramasName();
-        GraphicsHolder graphicsHolder = GameReourceHolder.getInstance().getGraphicsHolder();
-        return graphicsHolder.getPanoramasHolder().getPanoramasGroup(panoramasName).getPanoramas().getHeight();
     }
 
     @Override
