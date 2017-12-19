@@ -19,12 +19,14 @@ public class Player {
     private static final Logger LOG = Logger.getLogger(Player.class);
     private final static String basePath = "/Graphics/Characters";
 
+    private static final int FRAME_ATTENTION = 5; // 立正
+
     private BufferedImage biaoshi14;
     public static final int WIDTH = 192;
     public static final int HEIGHT = 192;
     private int x = 10, y = 120;
     private int sx, sy;
-    private int currentFrame = 5; // [0, 7]
+    private int currentFrame = FRAME_ATTENTION; // [0, 7]
     private static final int MAX_FRAME = 8;
     private int direction = Constants.DIRECTION_RIGHT;
 
@@ -95,7 +97,7 @@ public class Player {
     }
 
     public void draw(Graphics g, int offsetX, int offsetY) {
-        LOG.debug("x/y: " + getX() + "/" + getY());
+        //LOG.debug("x/y: " + getX() + "/" + getY());
         //LOG.debug(offsetX + getX() + ", " + (offsetY + getY()));
 //        g.drawImage(getBiaoshi14(), offsetX + getX(),
 //                offsetY + getY(),
@@ -137,5 +139,12 @@ public class Player {
 
     public void setDirection(int direction) {
         this.direction = direction;
+    }
+
+    /**
+     * 使人物处于立正状态
+     */
+    public void attention() {
+        this.currentFrame = FRAME_ATTENTION;
     }
 }

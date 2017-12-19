@@ -12,7 +12,7 @@ public class GameReourceHolder {
 
     private GameReourceHolder() {
         graphicsHolder.init();
-        graphicsHolder.getPanoramasHolder().changeTo("beginning");
+        graphicsHolder.getPanoramasHolder().changeTo("moutain1");
     }
 
     public static GameReourceHolder getInstance() {

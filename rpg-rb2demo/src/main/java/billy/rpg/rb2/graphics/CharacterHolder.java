@@ -7,7 +7,6 @@ import java.awt.image.BufferedImage;
  * @since 2017-12-18 13:37
  */
 public class CharacterHolder {
-    private final static String basePath = "/Graphics/Characters";
     private Player player = new Player();
 
     public void init() {

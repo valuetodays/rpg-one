@@ -25,37 +25,18 @@ public class MapDraw extends BaseDraw {
 
     @Override
     public void onKeyUp(int keyCode) {
-
+        GraphicsHolder graphicsHolder = GameReourceHolder.getInstance().getGraphicsHolder();
+        Player player = graphicsHolder.getCharacterHolder().getPlayer();
+        player.attention();
     }
 
     @Override
     public void onKeyDown(int keyCode) {
-
-//        PanoramasGroup panoramasGroup = currentPanoramasGroup();
-//        int offsetX = panoramasGroup.getOffsetX();
-//        int offsetY = panoramasGroup.getOffsetY();
-//        if (KeyUtil.isLeft(keyCode)) {
-//            offsetX -= speed;
-//        } else if (KeyUtil.isRight(keyCode)) {
-//            offsetX += speed;
-//        } else if (KeyUtil.isDown(keyCode)) {
-//            offsetY += speed;
-//        } else if (KeyUtil.isUp(keyCode)) {
-//            offsetY -= speed;
-//        }
-//
-//        offsetX = Math.max(offsetX, 0);
-//        offsetX = Math.min(offsetX, currentPanoramasWidth() - RB2Panel.PANEL_WIDTH - 1);
-//        offsetY = Math.max(offsetY, 0);
-//        offsetY = Math.min(offsetY, currentPanoramasHeight() - RB2Panel.PANEL_HEIGHT - 1);
-//        LOG.debug("offsetX/offsetY: " + offsetX + "/" + offsetY);
-//        panoramasGroup.setOffsetX(offsetX);
-//        panoramasGroup.setOffsetY(offsetY);
-
         GraphicsHolder graphicsHolder = GameReourceHolder.getInstance().getGraphicsHolder();
         PanoramasGroup currentPanoramasGroup = graphicsHolder.getPanoramasHolder().getCurrentPanoramasGroup();
         int mapWidth = currentPanoramasGroup.getPanoramas().getWidth();
         int mapHeight = currentPanoramasGroup.getPanoramas().getHeight();
+        BufferedImage panoramasWalk = currentPanoramasGroup.getPanoramasWalk();
         Player player = graphicsHolder.getCharacterHolder().getPlayer();
         int playerX = player.getX();
         int playerY = player.getY();
@@ -65,65 +46,140 @@ public class MapDraw extends BaseDraw {
         } else if (KeyUtil.isDown(keyCode)) {
             player.toDown();
         } else if (KeyUtil.isLeft(keyCode)) {
-
             if (mapWidth <= RB2Panel.PANEL_WIDTH) {
                 int nextPlayerX = playerX - speed;
-                player.toLeft(offsetX, offsetY);
+                if (inMapX(offsetX + nextPlayerX)) {
+                    int rgb = panoramasWalk.getRGB(offsetX + nextPlayerX, offsetY + playerY);
+                    if (Color.WHITE.getRGB() == rgb) {
+                        player.toLeft(offsetX, offsetY);
+                    }
+                }
             } else {
                 if (offsetX >= mapWidth - RB2Panel.PANEL_WIDTH) {
                     if (playerX > RB2Panel.PANEL_WIDTH/2) {
                         int nextPlayerX = playerX - speed;
-                        player.toLeft(offsetX, offsetY);
+                        if (inMapX(offsetX+nextPlayerX)) {
+                            int rgb = panoramasWalk.getRGB(offsetX+nextPlayerX, offsetY + playerY);
+                            if (Color.WHITE.getRGB() == rgb) {
+                                player.toLeft(offsetX, offsetY);
+                            }
+                        }
                     } else {
-                        int nextPlayerX = playerX - speed;
-                        offsetX -= speed;
-                        offsetX = Math.max(offsetX, 0);
-                        player.increaseCurrentFrame();
+                        int nextOffsetX = offsetX - speed;
+                        if (inMapX(nextOffsetX+playerX)) {
+                            int rgb = panoramasWalk.getRGB(nextOffsetX+playerX, offsetY + playerY);
+                            if (Color.WHITE.getRGB() == rgb) {
+                                offsetX = nextOffsetX;
+                                offsetX = Math.max(offsetX, 0);
+                                player.increaseCurrentFrame();
+                            }
+                        }
                     }
                 } else if (offsetX > 0) {
-                    int nextPlayerX = playerX - speed;
-                    offsetX -= speed;
-                    offsetX = Math.max(offsetX, 0);
-                    player.increaseCurrentFrame();
+                    int nextOffsetX = offsetX - speed;
+                    if (inMapX(nextOffsetX + playerX)) {
+                        int rgb = panoramasWalk.getRGB(nextOffsetX + playerX, offsetY + playerY);
+                        if (Color.WHITE.getRGB() == rgb) {
+                            offsetX = nextOffsetX;
+                            offsetX = Math.max(offsetX, 0);
+                            player.increaseCurrentFrame();
+                        }
+                    }
                 } else if (offsetX <= 0) {
                     if (playerX <= RB2Panel.PANEL_WIDTH / 2) {
                         int nextPlayerX = playerX - speed;
-                        player.toLeft(offsetX, offsetY);
+                        LOG.debug("x=" + (offsetX+nextPlayerX) + ", y=" + playerY);
+                        if (inMapX(offsetX + nextPlayerX)) {
+                            int rgb = panoramasWalk.getRGB(offsetX + nextPlayerX, offsetY + playerY);
+                            if (Color.WHITE.getRGB() == rgb) {
+                                player.toLeft(offsetX, offsetY);
+                            }
+                        }
                     } else {
-                        int nextPlayerX = playerX - speed;
-                        offsetX -= speed;
-                        offsetX = Math.max(offsetX, 0);
-                        player.increaseCurrentFrame();
+                        int nextOffsetX = offsetX - speed;
+                        if (inMapX(nextOffsetX + playerX)) {
+                            int rgb = panoramasWalk.getRGB(nextOffsetX + playerX, offsetY + playerY);
+                            if (Color.WHITE.getRGB() == rgb) {
+                                offsetX = nextOffsetX;
+                                offsetX = Math.max(offsetX, 0);
+                                player.increaseCurrentFrame();
+                            }
+                        }
                     }
                 }
             }
         } else if (KeyUtil.isRight(keyCode)) {
             if (mapWidth < RB2Panel.PANEL_WIDTH) {
-                player.toRight(offsetX, offsetY);
+                int nextPlayerX = playerX + speed;
+                if (inMapX(offsetX + nextPlayerX)) {
+                    int rgb = panoramasWalk.getRGB(offsetX + nextPlayerX, offsetY + playerY);
+                    if (Color.WHITE.getRGB() == rgb) {
+                        player.toRight(offsetX, offsetY);
+                    }
+                }
             } else {
                 if (offsetX <= 0) {
                     if (playerX < RB2Panel.PANEL_WIDTH/2) {
-                        player.toRight(offsetX, offsetY);
+                        int nextPlayerX = playerX + speed;
+                        if (inMapX(offsetX + nextPlayerX)) {
+                            int rgb = panoramasWalk.getRGB(offsetX + nextPlayerX, offsetY + playerY);
+                            Color c = new Color(rgb);
+                            if (Color.WHITE.getRGB() == rgb) {
+                                player.toRight(offsetX, offsetY);
+                            }
+                        }
                     } else {
-                        offsetX += speed;
-                        offsetX = Math.min(offsetX, mapWidth - RB2Panel.PANEL_WIDTH);
-                        player.increaseCurrentFrame();
+                        int nextOffsetX = offsetX + speed;
+                        if (inMapX(nextOffsetX + playerX)) {
+                            int rgb = panoramasWalk.getRGB(nextOffsetX + playerX, offsetY + playerY);
+                            if (Color.WHITE.getRGB() == rgb) {
+                                offsetX = nextOffsetX;
+                                offsetX = Math.min(offsetX, mapWidth - RB2Panel.PANEL_WIDTH);
+                                player.increaseCurrentFrame();
+                            }
+                        }
                     }
                 } else if (offsetX < mapWidth - RB2Panel.PANEL_WIDTH) {
-                    offsetX += speed;
-                    offsetX = Math.min(offsetX, mapWidth - RB2Panel.PANEL_WIDTH);
-                    player.increaseCurrentFrame();
+                    int nextOffsetX = offsetX + speed;
+                    if (inMapX(nextOffsetX + playerX)) {
+                        int rgb = panoramasWalk.getRGB(nextOffsetX + playerX, offsetY + playerY);
+                        if (Color.WHITE.getRGB() == rgb) {
+                            offsetX = nextOffsetX;
+                            offsetX = Math.min(offsetX, mapWidth - RB2Panel.PANEL_WIDTH);
+                            player.increaseCurrentFrame();
+                        }
+                    }
                 } else if (offsetX >= mapWidth - RB2Panel.PANEL_WIDTH) {
                     if (playerX >= RB2Panel.PANEL_WIDTH/2) {
-                        player.toRight(offsetX, offsetY);
+                        int nextPlayerX = playerX + speed;
+                        if (inMapX(offsetX + nextPlayerX)) {
+                            int rgb = panoramasWalk.getRGB(offsetX + nextPlayerX, offsetY + playerY);
+                            if (Color.WHITE.getRGB() == rgb) {
+                                player.toRight(offsetX, offsetY);
+                            }
+                        }
                     } else {
-                        offsetX += speed;
-                        offsetX = Math.min(offsetX, mapWidth - RB2Panel.PANEL_WIDTH);
-                        player.increaseCurrentFrame();
+                        int nextOffsetX = offsetX + speed;
+                        if (inMapX(nextOffsetX + playerX)) {
+                            int rgb = panoramasWalk.getRGB(nextOffsetX + playerX, offsetY + playerY);
+                            if (Color.WHITE.getRGB() == rgb) {
+                                offsetX = nextOffsetX;
+                                offsetX = Math.min(offsetX, mapWidth - RB2Panel.PANEL_WIDTH);
+                                player.increaseCurrentFrame();
+                            }
+                        }
                     }
                 }
             }
         }
+    }
+
+    private boolean inMapX(int x) {
+        GraphicsHolder graphicsHolder = GameReourceHolder.getInstance().getGraphicsHolder();
+        PanoramasGroup currentPanoramasGroup = graphicsHolder.getPanoramasHolder().getCurrentPanoramasGroup();
+        int mapWidth = currentPanoramasGroup.getPanoramas().getWidth();
+        int mapHeight = currentPanoramasGroup.getPanoramas().getHeight();
+        return x >= 0 && x <= mapWidth;
     }
 
     /**
@@ -134,7 +190,7 @@ public class MapDraw extends BaseDraw {
         GraphicsHolder graphicsHolder = GameReourceHolder.getInstance().getGraphicsHolder();
         Player player = graphicsHolder.getCharacterHolder().getPlayer();
         PanoramasGroup panoramasGroup = graphicsHolder.getPanoramasHolder().getCurrentPanoramasGroup();
-        LOG.debug("offsetX/offsetY: " + offsetX + "/" + offsetY);
+        //LOG.debug("offsetX/offsetY: " + offsetX + "/" + offsetY);
         panoramasGroup.draw(g, offsetX, offsetY);
         player.draw(g, offsetX, offsetY);
         panoramasGroup.draw2(g, offsetX, offsetY);
