@@ -24,7 +24,7 @@ public class Player {
     private BufferedImage biaoshi14;
     public static final int WIDTH = 192;
     public static final int HEIGHT = 192;
-    private int x = 10, y = 120;
+    private int x = 10, y = 220;
     private int sx, sy;
     private int currentFrame = FRAME_ATTENTION; // [0, 7]
     private static final int MAX_FRAME = 8;
