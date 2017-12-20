@@ -9,7 +9,7 @@ monsters
 @createnpc 9001 8 5 14 1
 @createnpc 0 8 10 15 2
 
-if 1 找师傅
+
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ showgut中可以使用`br`来换行
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -83,7 +83,8 @@ DELETENPC 2
 set 1
 return
 
-找师傅:
+先找师傅吧:
+showText 1 1 '还是先去见师父再来玩吧。'
 return
 
 三清宫:
@@ -91,7 +92,8 @@ loadmap 1 2 1 1 0 0
 return
 
 百草地西:
-showText 1 1 '还是先去见师父再来玩吧。'
+if 1 先找师傅吧
+showtext 1 1 "再往西就是"
 return
 
 玉兰草:

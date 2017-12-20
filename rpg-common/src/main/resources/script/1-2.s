@@ -1,14 +1,14 @@
 attr 1 2
-scenename '三清宫'
 
 createnpc 11 8 3 2 1
 
 createnpc 12 12 5 2 1
+scenename '三清宫'
 return
- 
+
 
 toWest:
-loadmap 1 1 19 8 10 0
+loadmap 1 1 19 8 10 1
 return
 
 toSouth:
@@ -17,6 +17,11 @@ return
 
 师傅:
 if 2 取剑
+if 1 见师傅
+return
+
+见师傅:
+showtext 3 1 "无机阁在三清宫的中心。"
 showtext 1 1 "弟子拜见师父，不知师父急招弟子，有何吩咐？"
 showtext 3 1 "哼&$#!一天到晚就知道玩，上次比武大会拿了个倒数第二，现在还不好好练功，就会给我丢脸。"
 showtext 1 1 "师父，我不是在玩，我是在练一种我自创的功夫，我打给你看……"

@@ -209,7 +209,8 @@ public class HeroCharacter extends BaseCharacter {
                     mapScreen.decreaseOffsetY();
                 }
             } else if (offsetTileY <= 0) {
-                if (posY <= GameConstant.Game_TILE_Y_NUM / 2) {
+                // 当从三清宫回到百草地时，不加后面的+1导致不能从百草地的下半地图走至上半地图
+                if (posY <= GameConstant.Game_TILE_Y_NUM / 2+1) {
                     int nextPosY = posY - 1;
                     if (WalkUtil.isWalkable(offsetTileX + posX, offsetTileY + nextPosY)) {
                         posY = nextPosY;

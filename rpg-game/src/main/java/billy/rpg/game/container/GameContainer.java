@@ -199,7 +199,7 @@ public class GameContainer {
         
         ScriptItem fi = null;
         for (ScriptItem f : scriptItemList) {
-            if((m + "-" + n).equals(f.getFileId())){
+            if((m + "-" + n).equals(f.getScriptId())){
                 fi = f;
                 break;
             }

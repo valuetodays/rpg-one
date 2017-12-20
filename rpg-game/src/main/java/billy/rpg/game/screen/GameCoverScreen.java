@@ -84,9 +84,7 @@ public class GameCoverScreen extends BaseScreen {
                 break;
             }
             return ;
-        }
-
-        if (KeyUtil.isUp(key)) {
+        } else if (KeyUtil.isUp(key)) {
             toUp();
         } else if (KeyUtil.isDown(key)) {
             toDown();

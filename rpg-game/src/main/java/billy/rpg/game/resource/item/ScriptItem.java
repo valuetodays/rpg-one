@@ -27,7 +27,7 @@ import java.util.List;
 public class ScriptItem {
     private static final Logger LOG = Logger.getLogger(ScriptItem.class);
     public List<CmdBase> cmdList;
-    private String fileId;
+    private String scriptId;
     private List<CmdBase> primarySection; // execute these when re-enter this map
     private boolean flagExecutePrimarySection;
     private List<LabelBean> labelList;
@@ -41,12 +41,12 @@ public class ScriptItem {
     private List<Integer> predictedMonsterIds; // 本地图中可遇到的妖怪ids
 
 
-    public String getFileId() {
-        return fileId;
+    public String getScriptId() {
+        return scriptId;
     }
 
-    public void setFileId(String fileId) {
-        this.fileId = fileId;
+    public void setScriptId(String scriptId) {
+        this.scriptId = scriptId;
     }
 
     public List<CmdBase> getPrimarySection() {
@@ -139,7 +139,7 @@ public class ScriptItem {
             if (caa instanceof AttrCmd) {
                 AttrCmd ac = (AttrCmd) caa;
                 LOG.debug(ac);
-                this.fileId = ac.getM() + "-" + ac.getN();
+                this.scriptId = ac.getM() + "-" + ac.getN();
 
             }
             primarySection.add(caa);
