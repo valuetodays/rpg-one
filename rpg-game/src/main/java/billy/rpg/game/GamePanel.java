@@ -14,7 +14,6 @@ public class GamePanel extends JPanel {
     private static final long serialVersionUID = -104477368799466779L;
     private static final Logger LOG = Logger.getLogger(GamePanel.class);
 
-
     AffineTransform transform = new AffineTransform();
     AffineTransformOp ato;
 
@@ -32,7 +31,6 @@ public class GamePanel extends JPanel {
         this.background = background;
     }
 
-
     public void paint(Graphics g) {
         super.paint(g);
         if (background != null) {
@@ -48,4 +46,5 @@ public class GamePanel extends JPanel {
             GameFrame.getInstance().getGameContainer().executePrimary();
         }
     }
+
 }

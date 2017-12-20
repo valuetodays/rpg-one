@@ -25,9 +25,6 @@ public class ChoiceCmd extends CmdBase {
 
     @Override
     public int execute(CmdProcessor cmdProcessor) {
-        String title = getTitle();
-        List<String> choice = getChoice();
-        List<String> label = getLabel();
         ChoiceScreen cs = new ChoiceScreen(cmdProcessor, title, choice, label);
         GameFrame.getInstance().pushScreen(cs);
         cmdProcessor.startPause();
@@ -44,29 +41,6 @@ public class ChoiceCmd extends CmdBase {
         this.label.add(label);
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public List<String> getChoice() {
-        return choice;
-    }
-
-    public void setChoice(List<String> choice) {
-        this.choice = choice;
-    }
-
-    public List<String> getLabel() {
-        return label;
-    }
-
-    public void setLabel(List<String> label) {
-        this.label = label;
-    }
 
     @Override
     public String toString() {

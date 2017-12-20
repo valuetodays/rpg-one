@@ -17,24 +17,9 @@ public class AnimationCmd extends CmdBase {
         this.y = y;
     }
 
-    public int getNumber() {
-        return number;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
     @Override
     public int execute(CmdProcessor cmdProcessor) {
-        int no = getNumber();
-        int x = getX();
-        int y = getY();
-        BaseScreen as = new AnimationScreen(no, x, y, GameFrame.getInstance().getGameContainer().getMapScreen());
+        BaseScreen as = new AnimationScreen(number, x, y, GameFrame.getInstance().getGameContainer().getMapScreen());
         GameFrame.getInstance().pushScreen(as);
         return 0;
     }

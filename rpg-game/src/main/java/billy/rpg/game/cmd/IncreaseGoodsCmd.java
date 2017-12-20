@@ -19,10 +19,6 @@ public class IncreaseGoodsCmd extends CmdBase {
         this.number = number;
     }
 
-    public int getNumber() {
-        return number;
-    }
-
     @Override
     public int execute(CmdProcessor cmdProcessor) {
         GameFrame.getInstance().getGameData().increaseGoods(number);

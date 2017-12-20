@@ -111,10 +111,7 @@ public class CmdParser {
                         + "but "+cmdargs.length+" in fact.");
                 return null;
             }
-            AttrCmd attrCmd = new AttrCmd();
-            attrCmd.setM(Integer.parseInt(cmdargs[0]));
-            attrCmd.setN(Integer.parseInt(cmdargs[1]));
-            return attrCmd;
+            return new AttrCmd(Integer.parseInt(cmdargs[0]), Integer.parseInt(cmdargs[1]));
         } else if ("showtext".equals(cmdname)) {
             String[] cmdargs = cmdarg.split(" ");
             if (cmdargs.length != 3) {

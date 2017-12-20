@@ -40,7 +40,7 @@ public class MapDraw extends BaseDraw {
         Player player = graphicsHolder.getCharacterHolder().getPlayer();
         int playerX = player.getX();
         int playerY = player.getY();
-        ;
+
         if (KeyUtil.isUp(keyCode)) {
             player.toUp();
         } else if (KeyUtil.isDown(keyCode)) {

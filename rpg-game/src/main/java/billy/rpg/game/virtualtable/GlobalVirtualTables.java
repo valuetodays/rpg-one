@@ -14,11 +14,10 @@ public class GlobalVirtualTables {
 	
 	public static Boolean getGlobalVariable(String variable){
 		Boolean f = globalVariables.get(variable);
-		return f != null;
+		return f != null && f.booleanValue();
 	}
 	public static Boolean containsVariable(String variable){
-		Boolean f = globalVariables.get(variable);
-		return f != null;
+		return getGlobalVariable(variable);
 	}
 	public static Boolean putGlobalVariable(String variable){
 		return globalVariables.put(variable, true);

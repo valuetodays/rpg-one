@@ -13,29 +13,24 @@ public class AttrCmd extends CmdBase {
     private int m;
     private int n;
 
-    public AttrCmd() {
+    public AttrCmd(int m, int n) {
         super("attr");
-    }
-
-    @Override
-    public int execute(CmdProcessor cmdProcessor) {
-        return 0;
+        this.m = m;
+        this.n = n;
     }
 
     public int getM() {
         return m;
     }
 
-    public void setM(int m) {
-        this.m = m;
-    }
-
     public int getN() {
         return n;
     }
 
-    public void setN(int n) {
-        this.n = n;
+    @Override
+    public int execute(CmdProcessor cmdProcessor) {
+        // TODO nothing?
+        return 0;
     }
 
     @Override

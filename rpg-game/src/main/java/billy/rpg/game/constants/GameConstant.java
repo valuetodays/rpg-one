@@ -37,7 +37,7 @@ public interface GameConstant {
     /**
      * 游戏主循环更新时间(ms)
      */
-    long TIME_GAMELOOP      = 25;
+    long TIME_GAMELOOP      = 30;
     /**
      * 游戏在windows桌面的左上角的左坐标
      */
@@ -61,6 +61,7 @@ public interface GameConstant {
     Font FONT_DAMAGE = new Font("楷体", Font.BOLD, 28);
     Font FONT_SIZE_MAP_NAME = new Font("黑体", Font.BOLD, 24);
     Color FONT_COLOR_MAP_NAME = Color.YELLOW;
+    Font FONT_FPS = new Font("黑体", Font.PLAIN, 24);
 
     /**
      * 游戏中使用的随机数生成器

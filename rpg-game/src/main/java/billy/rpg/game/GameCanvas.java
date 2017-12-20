@@ -25,15 +25,14 @@ public class GameCanvas extends Canvas {
         
 //        g.fillRect(left, top, bitmap.getWidth(), bitmap.getHeight());
         g.drawImage(bitmap, left, top, null);
-
         GameFrame.getInstance().getGamePanel().setBackground(background);
     }
-    
-    
-	public void drawColor(Color color) {
-	    Graphics g=background.getGraphics();
-		g.setColor(color);
-		g.fillRect(0, 0, background.getWidth(),background.getHeight()); 
-		GameFrame.getInstance().getGamePanel().setBackground(background);
-	}
+
+    public void drawFPS(String frameRate) {
+        Graphics g = background.getGraphics();
+        g.setColor(Color.yellow);
+        g.setFont(GameConstant.FONT_FPS);
+        g.drawString(frameRate, 30, 30);
+        GameFrame.getInstance().getGamePanel().setBackground(background);
+    }
 }

@@ -22,27 +22,10 @@ public class IfCmd extends CmdBase {
     }
 
 
-
-    public String getCondition() {
-        return condition;
-    }
-
-    public void setCondition(String condition) {
-        this.condition = condition;
-    }
-
-    public String getTriggerName() {
-        return triggerName;
-    }
-
-    public void setTriggerName(String triggerName) {
-        this.triggerName = triggerName;
-    }
-
     @Override
     public int execute(CmdProcessor cmdProcessor) {
-        if (GlobalVirtualTables.containsVariable(getCondition())) { // global variable exists
-            LabelBean fun = GlobalVirtualTables.getLabel(getTriggerName());
+        if (GlobalVirtualTables.containsVariable(condition)) { // global variable exists
+            LabelBean fun = GlobalVirtualTables.getLabel(triggerName);
             cmdProcessor.setInnerCmdProcessor(new CmdProcessor(fun.getCmds()));
         } else {    // global variable does not exist
             return -2;

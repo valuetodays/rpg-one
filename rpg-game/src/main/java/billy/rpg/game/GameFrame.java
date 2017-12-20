@@ -3,10 +3,14 @@ package billy.rpg.game;
 import billy.rpg.common.util.JavaVersionUtil;
 import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.container.GameContainer;
-import billy.rpg.game.screen.*;
+import billy.rpg.game.screen.BaseScreen;
+import billy.rpg.game.screen.GameCoverScreen;
+import billy.rpg.game.screen.ProducerScreen;
+import billy.rpg.game.screen.TransitionScreen;
 import billy.rpg.game.screen.battle.BattleScreen;
 import billy.rpg.game.screen.system.SystemScreen;
 import billy.rpg.game.util.CoreUtil;
+import billy.rpg.game.util.FPSUtil;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
@@ -27,6 +31,7 @@ public class GameFrame extends JFrame implements Runnable {
     private static final long serialVersionUID = 1L;
 
     private static final Logger LOG = Logger.getLogger(GameFrame.class);
+    private FPSUtil fpsUtil = new FPSUtil();
 
     private static GameFrame instance;
     private Stack<BaseScreen> screenStack;
@@ -45,6 +50,7 @@ public class GameFrame extends JFrame implements Runnable {
     }
 
     public GameFrame() {
+        fpsUtil.init();
         gameCanvas = new GameCanvas();
         running = true;
         gamePanel = new GamePanel();
@@ -162,6 +168,8 @@ public class GameFrame extends JFrame implements Runnable {
                         BaseScreen baseScreen = screenStack.get(j);
                         baseScreen.draw(gameCanvasTemp);
                     }
+                    fpsUtil.calculate();
+                    gameCanvas.drawFPS(fpsUtil.getFrameRate());
                     gamePanel.repaint();
                 }
             //            } // end of synchronized
