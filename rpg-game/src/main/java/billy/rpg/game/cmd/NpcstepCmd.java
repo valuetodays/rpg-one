@@ -27,13 +27,13 @@ public class NpcstepCmd extends CmdBase {
     @Override
     public int execute(CmdProcessor cmdProcessor) {
         if (npcid == 0) {
-            ScriptItem active = GameFrame.getInstance().getGameContainer().getActiveFileItem();
+            ScriptItem active = GameFrame.getInstance().getGameContainer().getActiveScriptItem();
             HeroCharacter hero = active.getHero();
             hero.setCurFrame(step);
             hero.setDirection(faceto);
-            System.out.println("change face and step:" + faceto + "," + step);
+            LOG.debug("change face and step:" + faceto + "," + step);
         } else {
-            List<NPCCharacter> npcs = GameFrame.getInstance().getGameContainer().getActiveFileItem().getNpcs();
+            List<NPCCharacter> npcs = GameFrame.getInstance().getGameContainer().getActiveScriptItem().getNpcs();
             for (NPCCharacter npcCharacter : npcs) {
                 if (npcid == npcCharacter.getNumber()) {
                     npcCharacter.setCurFrame(step);
@@ -44,11 +44,4 @@ public class NpcstepCmd extends CmdBase {
         return 0;
     }
 
-    public void setFaceto(int faceto) {
-        this.faceto = faceto;
-    }
-
-    public void setStep(int step) {
-        this.step = step;
-    }
 }

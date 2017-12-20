@@ -10,6 +10,7 @@ import billy.rpg.game.cmd.executor.CmdProcessor;
 import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.item.ScriptItem;
 import billy.rpg.game.util.KeyUtil;
+import billy.rpg.game.virtualtable.GlobalVirtualTables;
 import billy.rpg.resource.box.BoxImageLoader;
 import billy.rpg.resource.map.MapMetaData;
 import billy.rpg.resource.npc.NPCImageLoader;
@@ -28,7 +29,7 @@ public class MapScreen extends BaseScreen {
 
     @Override
     public void update(long delta) {
-        CmdProcessor cmdProcessor = GameFrame.getInstance().getGameContainer().getActiveFileItem().getCmdProcessor();
+        CmdProcessor cmdProcessor = GameFrame.getInstance().getGameContainer().getActiveScriptItem().getCmdProcessor();
         if (cmdProcessor != null) {
             cmdProcessor.update();
         }
@@ -45,7 +46,7 @@ public class MapScreen extends BaseScreen {
                 BufferedImage.TYPE_4BYTE_ABGR);
         Graphics g2 = paint.getGraphics();
         
-        HeroCharacter hero = GameFrame.getInstance().getGameContainer().getActiveFileItem().getHero();
+        HeroCharacter hero = GameFrame.getInstance().getGameContainer().getActiveScriptItem().getHero();
         int posX = hero.getPosX();
         int posY = hero.getPosY();
         GameFrame.getInstance().setTitle("offset x/y="+ offsetTileX + "/" + offsetTileY + hero.toString());
@@ -83,7 +84,7 @@ public class MapScreen extends BaseScreen {
                 hero.getCurFrame()*32 + 32, hero.getDirection()*32 + 32, null);
 
         NPCImageLoader npcImageLoader = GameFrame.getInstance().getGameContainer().getNpcImageLoader();
-        ScriptItem active = GameFrame.getInstance().getGameContainer().getActiveFileItem();
+        ScriptItem active = GameFrame.getInstance().getGameContainer().getActiveScriptItem();
         java.util.List<NPCCharacter> npcs = active.getNpcs();
         for (NPCCharacter npc : npcs) {
             npc.move(this);
@@ -156,7 +157,7 @@ public class MapScreen extends BaseScreen {
 
     @Override
     public void onKeyDown(int key) {
-        ScriptItem active = GameFrame.getInstance().getGameContainer().getActiveFileItem();
+        ScriptItem active = GameFrame.getInstance().getGameContainer().getActiveScriptItem();
         HeroCharacter hero = active.getHero();
         if (KeyUtil.isLeft(key)) {
             hero.decreaseX(this);
@@ -183,9 +184,11 @@ public class MapScreen extends BaseScreen {
             GameFrame.getInstance().pushScreen(bs);
             return;
         } else if (KeyUtil.isLeft(key) || KeyUtil.isRight(key) || KeyUtil.isUp(key) || KeyUtil.isDown(key)) {
-            ScriptItem active = GameFrame.getInstance().getGameContainer().getActiveFileItem();
+            ScriptItem active = GameFrame.getInstance().getGameContainer().getActiveScriptItem();
             HeroCharacter hero = active.getHero();
             hero.resetFrame();
+        } else if (KeyUtil.isG(key)) {
+            GlobalVirtualTables.printGlobalVariablesListString();
         }
     }
 

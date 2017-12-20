@@ -60,7 +60,7 @@ ILoader
     - 全局有效 or 本script文件有效
     - 布尔型变量 or 整数型变量 （布尔型变量用于事件判断，整数可用于ifcmpt/decrease/increase等）
     [TODO] set/unset, use boolean[1024] not map in virtualtable，但是只能使用数字不能使用字符串了，得重新考虑
-    showtext 要提供选择头像在左/右/无
+    [TODO] showtext 要提供选择头像在左/右/无
     
 #### 2017-08-22 17:17
     完成滚屏，且处理当地图宽20高15时hero去不了右，下，右下这三个区域的问题
@@ -96,6 +96,9 @@ ILoader
     add command: move, npcstep, deletenpc
     
     [todo] clear / set
+    
+### 2017-12-20 13:50
+    原loadmap的参数为 
     
     
     

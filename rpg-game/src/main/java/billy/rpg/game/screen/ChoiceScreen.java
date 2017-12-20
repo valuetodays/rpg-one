@@ -73,12 +73,12 @@ public class ChoiceScreen extends BaseScreen {
         }
         if (KeyUtil.isEnter(key)) {
             String selectedLabelTitle = label.get(selectedInx);
-            LabelBean selectedLabel = GameFrame.getInstance().getGameContainer().getActiveFileItem().getLabelByTitle
+            LabelBean selectedLabel = GameFrame.getInstance().getGameContainer().getActiveScriptItem().getLabelByTitle
                     (selectedLabelTitle);
             LOG.debug("selectInx/selectedLabelTitle=" + selectedInx + "/"+ selectedLabelTitle);
             GameFrame.getInstance().popScreen();
             CmdProcessor cmdProcessor = new CmdProcessor(selectedLabel.getCmds());
-            GameFrame.getInstance().getGameContainer().getActiveFileItem().setCmdProcessor(cmdProcessor);
+            GameFrame.getInstance().getGameContainer().getActiveScriptItem().setCmdProcessor(cmdProcessor);
         }
         if (KeyUtil.isUp(key)) {
             if (selectedInx > 0) {

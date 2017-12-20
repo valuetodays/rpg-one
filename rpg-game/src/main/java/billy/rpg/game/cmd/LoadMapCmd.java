@@ -7,7 +7,6 @@ import billy.rpg.game.container.GameContainer;
 /**
  * 命令 - 加载地图
  * @author <a href="http://blog.sina.com.cn/valuetodays">liulei-home</a>
- * @date 2016-05-09 22:25
  * @since 2016-05-09 22:25
  */
 public class LoadMapCmd extends CmdBase {

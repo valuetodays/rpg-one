@@ -22,7 +22,7 @@ public class MoveCmd extends CmdBase {
 
     @Override
     public int execute(CmdProcessor cmdProcessor) {
-        List<NPCCharacter> npcs = GameFrame.getInstance().getGameContainer().getActiveFileItem().getNpcs();
+        List<NPCCharacter> npcs = GameFrame.getInstance().getGameContainer().getActiveScriptItem().getNpcs();
         for (NPCCharacter npcCharacter : npcs) {
             if (npcid == npcCharacter.getNumber()) {
                 npcCharacter.setDirection(faceto);

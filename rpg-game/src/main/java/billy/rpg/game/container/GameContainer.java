@@ -296,7 +296,7 @@ public class GameContainer {
     public List<ScriptItem> getScriptItemList() {
         return scriptItemList;
     }
-    public ScriptItem getActiveFileItem() {
+    public ScriptItem getActiveScriptItem() {
         return activeScriptItem;
     }
     public void setActiveFileItem(ScriptItem activeFileItem) {

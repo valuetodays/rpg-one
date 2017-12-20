@@ -21,6 +21,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * 对应一个script文件
+ */
 public class ScriptItem {
     private static final Logger LOG = Logger.getLogger(ScriptItem.class);
     public List<CmdBase> cmdList;
@@ -235,14 +238,14 @@ public class ScriptItem {
      */
     private void checkTrigger0() {
         MapScreen mapScreen = GameFrame.getInstance().getGameContainer().getMapScreen();
-        HeroCharacter mm = GameContainer.getInstance().getActiveFileItem().getHero();
+        HeroCharacter mm = GameContainer.getInstance().getActiveScriptItem().getHero();
         int heroNextPosXInFullMap = mm.getNextPosX() + mapScreen.getOffsetTileX();
         int heroNextPosYInFullMap = mm.getNextPosY() + mapScreen.getOffsetTileY();
         if (heroNextPosXInFullMap == -1 && heroNextPosYInFullMap == -1) { // a new map, not check talk
             return;
         }
         TriggerBean triggerBean = null;
-        List<NPCCharacter> npcs = GameFrame.getInstance().getGameContainer().getActiveFileItem().getNpcs();
+        List<NPCCharacter> npcs = GameFrame.getInstance().getGameContainer().getActiveScriptItem().getNpcs();
         for (NPCCharacter npc : npcs) {
             int npcPosX = npc.getPosX();
             int npcPosY = npc.getPosY();

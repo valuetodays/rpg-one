@@ -23,7 +23,7 @@ public class MonstersCmd extends CmdBase {
 
     @Override
     public int execute(CmdProcessor cmdProcessor) {
-        GameFrame.getInstance().getGameContainer().getActiveFileItem().setPredictedMonsterIds(monsterIds);
+        GameFrame.getInstance().getGameContainer().getActiveScriptItem().setPredictedMonsterIds(monsterIds);
         return 0;
     }
 }

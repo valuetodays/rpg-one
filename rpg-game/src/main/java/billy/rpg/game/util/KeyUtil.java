@@ -3,6 +3,7 @@ package billy.rpg.game.util;
 import java.awt.event.KeyEvent;
 
 public class KeyUtil {
+    private KeyUtil() { }
     
     public static boolean isUp(int key) {
         if (key == KeyEvent.VK_UP || key == KeyEvent.VK_W) {
@@ -53,6 +54,16 @@ public class KeyUtil {
 
     public static boolean isEnter(int key) {
         if (key == KeyEvent.VK_ENTER) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * to show GlobalVirtualTables
+     */
+    public static boolean isG(int key) {
+        if (key == KeyEvent.VK_G) {
             return true;
         }
         return false;

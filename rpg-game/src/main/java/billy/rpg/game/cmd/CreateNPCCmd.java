@@ -63,7 +63,7 @@ public class CreateNPCCmd extends CmdBase {
         npc.initPos(x, y);
         npc.setTileNum(npcNum);
         npc.setNumber(getNpcId());
-        GameFrame.getInstance().getGameContainer().getActiveFileItem().getNpcs().add(npc);
+        GameFrame.getInstance().getGameContainer().getActiveScriptItem().getNpcs().add(npc);
         return 0;
     }
 

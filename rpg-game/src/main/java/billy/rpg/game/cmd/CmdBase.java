@@ -1,6 +1,7 @@
 package billy.rpg.game.cmd;
 
 import billy.rpg.game.cmd.executor.CmdProcessor;
+import org.apache.log4j.Logger;
 
 /**
  * 命令 - 基础
@@ -8,6 +9,7 @@ import billy.rpg.game.cmd.executor.CmdProcessor;
  * @since 2016-05-09 22:27
  */
 public abstract class CmdBase {
+    protected Logger LOG = Logger.getLogger(CmdBase.class);
     private String name; // 命令名称
     private int lineNo;
 

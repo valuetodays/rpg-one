@@ -19,7 +19,7 @@ public class DeleteNpcCmd extends CmdBase {
 
     @Override
     public int execute(CmdProcessor cmdProcessor) {
-        List<NPCCharacter> npcs = GameFrame.getInstance().getGameContainer().getActiveFileItem().getNpcs();
+        List<NPCCharacter> npcs = GameFrame.getInstance().getGameContainer().getActiveScriptItem().getNpcs();
         NPCCharacter npcCharacter2Del = null;
         for (NPCCharacter npcCharacter : npcs) {
             if (npcid == npcCharacter.getNumber()) {

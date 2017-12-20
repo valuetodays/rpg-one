@@ -55,7 +55,7 @@ public class WalkUtil {
 
         // case 4
         {
-            ScriptItem activeFileItem = GameFrame.getInstance().getGameContainer().getActiveFileItem();
+            ScriptItem activeFileItem = GameFrame.getInstance().getGameContainer().getActiveScriptItem();
             List<NPCCharacter> npcs = activeFileItem.getNpcs();
             for (NPCCharacter npc : npcs) {
                 int posX = npc.getPosX();
@@ -69,7 +69,7 @@ public class WalkUtil {
         // case 5
         {
             MapScreen mapScreen = GameFrame.getInstance().getGameContainer().getMapScreen();
-            HeroCharacter hero = GameFrame.getInstance().getGameContainer().getActiveFileItem().getHero();
+            HeroCharacter hero = GameFrame.getInstance().getGameContainer().getActiveScriptItem().getHero();
             int offsetTileX = mapScreen.getOffsetTileX();
             int offsetTileY = mapScreen.getOffsetTileY();
             int posX = hero.getPosX();
