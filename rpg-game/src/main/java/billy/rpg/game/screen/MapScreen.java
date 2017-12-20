@@ -181,13 +181,12 @@ public class MapScreen extends BaseScreen {
         } else if (KeyUtil.isHome(key)) {
             BaseScreen bs = new AnimationScreen(2, 100, 150, new MapScreen());
             GameFrame.getInstance().pushScreen(bs);
-            return ;
+            return;
         } else if (KeyUtil.isLeft(key) || KeyUtil.isRight(key) || KeyUtil.isUp(key) || KeyUtil.isDown(key)) {
             ScriptItem active = GameFrame.getInstance().getGameContainer().getActiveFileItem();
             HeroCharacter hero = active.getHero();
             hero.resetFrame();
         }
-
     }
 
     @Override

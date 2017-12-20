@@ -16,6 +16,10 @@ public abstract class BaseScreen {
     public abstract void onKeyDown(int key);
     public abstract void onKeyUp(int key);
 
+    /**
+     * 是否是弹出弹出窗口
+     * @return true是
+     */
     public boolean isPopup() {
         return false;
     }

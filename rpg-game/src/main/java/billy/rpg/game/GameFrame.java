@@ -93,7 +93,6 @@ public class GameFrame extends JFrame implements Runnable {
         return gameCanvas;
     }
 
-
     public void pushScreen(final BaseScreen screen) {
 //        if (getCurScreen().isEnd()) {
             screenStack.push(screen);
