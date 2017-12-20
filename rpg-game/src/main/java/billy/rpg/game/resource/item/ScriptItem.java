@@ -1,4 +1,4 @@
-package billy.rpg.game.item;
+package billy.rpg.game.resource.item;
 
 import billy.rpg.game.GameFrame;
 import billy.rpg.game.character.BoxCharacter;

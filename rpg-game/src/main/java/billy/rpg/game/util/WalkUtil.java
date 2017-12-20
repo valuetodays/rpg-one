@@ -4,7 +4,7 @@ package billy.rpg.game.util;
 import billy.rpg.game.GameFrame;
 import billy.rpg.game.character.HeroCharacter;
 import billy.rpg.game.character.NPCCharacter;
-import billy.rpg.game.item.ScriptItem;
+import billy.rpg.game.resource.item.ScriptItem;
 import billy.rpg.game.screen.MapScreen;
 import billy.rpg.resource.map.MapMetaData;
 

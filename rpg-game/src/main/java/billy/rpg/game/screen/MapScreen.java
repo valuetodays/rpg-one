@@ -8,7 +8,7 @@ import billy.rpg.game.character.NPCCharacter;
 import billy.rpg.game.character.TransferCharacter;
 import billy.rpg.game.cmd.executor.CmdProcessor;
 import billy.rpg.game.constants.GameConstant;
-import billy.rpg.game.item.ScriptItem;
+import billy.rpg.game.resource.item.ScriptItem;
 import billy.rpg.game.util.KeyUtil;
 import billy.rpg.game.virtualtable.GlobalVirtualTables;
 import billy.rpg.resource.box.BoxImageLoader;

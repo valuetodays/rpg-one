@@ -2,7 +2,7 @@ package billy.rpg.game.loader;
 
 import billy.rpg.game.cmd.CmdBase;
 import billy.rpg.game.cmd.executor.CmdParser;
-import billy.rpg.game.item.ScriptItem;
+import billy.rpg.game.resource.item.ScriptItem;
 import org.apache.log4j.Logger;
 
 import java.io.*;
