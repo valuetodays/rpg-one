@@ -26,10 +26,10 @@ import java.util.*;
 public class ScriptItem {
     private static final Logger LOG = Logger.getLogger(ScriptItem.class);
 
-    /** 所有命令列表 */
-    private List<CmdBase> cmdList;
     /** 脚本id */
     private String scriptId;
+    /** 所有命令列表 */
+    private List<CmdBase> cmdList;
     /**
      * 初入地图命令[第一行到第一个return之间的命令全部属于此]
      * execute these when re-enter this map
@@ -53,6 +53,8 @@ public class ScriptItem {
     private List<Integer> predictedMonsterIds;
     /** bgm播放器 */
     private AsyncAudioPlayer bgmPlayer;
+    /** 本脚本中的所有变量 */
+    private Set<String> variables = new HashSet<>();
 
     public String getScriptId() {
         return scriptId;
@@ -317,5 +319,22 @@ public class ScriptItem {
 
     public void setCmdProcessor(CmdProcessor cmdProcessor) {
         this.cmdProcessor = cmdProcessor;
+    }
+    public void addVariable(String var) {
+        variables.add(var);
+    }
+    public boolean getVariable(String var) {
+        return variables.contains(var);
+    }
+
+    /**
+     * 打印局部变量
+     */
+    public void printVariable() {
+        System.out.println("=== localVariables `"+scriptId+"` starts ===");
+        for (String s : variables) {
+            System.out.println("    " + s);
+        }
+        System.out.println("=== localVariables `"+scriptId+"` ends ===");
     }
 }

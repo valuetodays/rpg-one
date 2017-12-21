@@ -1,11 +1,10 @@
 package billy.rpg.game.cmd;
 
 import billy.rpg.game.cmd.executor.CmdProcessor;
-import billy.rpg.game.virtualtable.GlobalVirtualTables;
+import billy.rpg.game.script.variable.VariableTableDeterminer;
 
 /**
  * @author <a href="http://blog.sina.com.cn/valuetodays">liulei-home</a>
- * @date 2016-05-10 22:38
  * @since 2016-05-10 22:38
  */
 public class SetCmd extends CmdBase {
@@ -18,7 +17,7 @@ public class SetCmd extends CmdBase {
 
     @Override
     public int execute(CmdProcessor cmdProcessor) {
-        GlobalVirtualTables.putGlobalVariable(key); // only one argument
+        VariableTableDeterminer.getInstance().putVariable(key);
         return 0;
     }
 

@@ -10,7 +10,7 @@ import billy.rpg.game.cmd.executor.CmdProcessor;
 import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.resource.item.ScriptItem;
 import billy.rpg.game.util.KeyUtil;
-import billy.rpg.game.virtualtable.GlobalVirtualTables;
+import billy.rpg.game.script.variable.VariableTableDeterminer;
 import billy.rpg.resource.box.BoxImageLoader;
 import billy.rpg.resource.map.MapMetaData;
 import billy.rpg.resource.npc.NPCImageLoader;
@@ -188,7 +188,7 @@ public class MapScreen extends BaseScreen {
             HeroCharacter hero = active.getHero();
             hero.resetFrame();
         } else if (KeyUtil.isG(key)) {
-            GlobalVirtualTables.printGlobalVariablesListString();
+            VariableTableDeterminer.getInstance().printVariables();
         }
     }
 

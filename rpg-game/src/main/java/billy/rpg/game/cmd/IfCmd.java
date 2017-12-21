@@ -4,7 +4,7 @@ import billy.rpg.game.GameFrame;
 import billy.rpg.game.cmd.executor.CmdProcessor;
 import billy.rpg.game.resource.item.ScriptItem;
 import billy.rpg.game.script.LabelBean;
-import billy.rpg.game.virtualtable.GlobalVirtualTables;
+import billy.rpg.game.script.variable.VariableTableDeterminer;
 
 /**
  * 命令 - if
@@ -26,7 +26,7 @@ public class IfCmd extends CmdBase {
 
     @Override
     public int execute(CmdProcessor cmdProcessor) {
-        if (GlobalVirtualTables.containsVariable(condition)) { // global variable exists
+        if (VariableTableDeterminer.getInstance().getVariable(condition)) {
             ScriptItem activeScriptItem = GameFrame.getInstance().getGameContainer().getActiveScriptItem();
             LabelBean fun = activeScriptItem.getLabelByTitle(triggerName);
             if (fun == null) {
