@@ -54,6 +54,7 @@ public class GameCoverScreen extends BaseScreen {
         g2.drawImage(gameBalloon, 220, 130, 220+32, 130+32,
         		1*32, 0, 1*32+32, 0*32+32,  
         		null);
+//        g2.dispose();
         gameCanvas.drawBitmap(paint, 0, 0);
     }
 
