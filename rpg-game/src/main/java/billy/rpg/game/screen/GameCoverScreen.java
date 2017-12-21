@@ -22,7 +22,7 @@ public class GameCoverScreen extends BaseScreen {
         map.put(1, 320); 
         map.put(2, 350);
         map.put(3, 380);
-        URL resource = Thread.currentThread().getContextClassLoader().getResource("sounds/game_cover.mp3");
+        URL resource = Thread.currentThread().getContextClassLoader().getResource("/audio/game_cover.mp3");
         player = new AsyncAudioPlayer(resource.getPath(), true);
         player.playAsync();
     }

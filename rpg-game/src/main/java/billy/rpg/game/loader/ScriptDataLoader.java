@@ -103,8 +103,8 @@ public class ScriptDataLoader {
             scriptItem.init(cmdList);
             scriptItemList.add(scriptItem);
 
-            in.close();
             br.close();
+            in.close();
         }
 
         return  scriptItemList;

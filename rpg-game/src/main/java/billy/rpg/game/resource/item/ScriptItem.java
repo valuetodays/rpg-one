@@ -1,5 +1,6 @@
 package billy.rpg.game.resource.item;
 
+import billy.rpg.game.GameData;
 import billy.rpg.game.GameFrame;
 import billy.rpg.game.character.BoxCharacter;
 import billy.rpg.game.character.HeroCharacter;
@@ -14,6 +15,7 @@ import billy.rpg.game.screen.battle.BattleScreen;
 import billy.rpg.game.script.LabelBean;
 import billy.rpg.game.script.TriggerBean;
 import billy.rpg.game.virtualtable.GlobalVirtualTables;
+import com.rupeng.game.AsyncAudioPlayer;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
 
@@ -26,20 +28,34 @@ import java.util.List;
  */
 public class ScriptItem {
     private static final Logger LOG = Logger.getLogger(ScriptItem.class);
-    public List<CmdBase> cmdList;
-    private String scriptId;
-    private List<CmdBase> primarySection; // execute these when re-enter this map
-    private boolean flagExecutePrimarySection;
-    private List<LabelBean> labelList;
-    private List<TriggerBean> triggers;
-    private HeroCharacter hero = new HeroCharacter();
-    private List<NPCCharacter> npcs = new ArrayList<>();
-    private List<TransferCharacter> transfers = new ArrayList<>();
-    private List<BoxCharacter> boxes = new ArrayList<>();
-    private static final int STEP_MEET_MONSTER = 15;
-    private int steps; // 当前地图下的移动步数，当达到STEP_MEET_MONSTER时会遇到怪物进行战斗
-    private List<Integer> predictedMonsterIds; // 本地图中可遇到的妖怪ids
 
+    /** 所有命令列表 */
+    private List<CmdBase> cmdList;
+    /** 脚本id */
+    private String scriptId;
+    /**
+     * 初入地图命令[第一行到第一个return之间的命令全部属于此]
+     * execute these when re-enter this map
+     */
+    private List<CmdBase> primarySection;
+    /** 是否已执行了初入地图命令 */
+    private boolean flagExecutePrimarySection;
+    /** 脚本中的标签列表 */
+    private List<LabelBean> labelList;
+    /** 脚本中的触发器列表 */
+    private List<TriggerBean> triggers;
+    /** 玩家角色 */
+    private HeroCharacter hero = new HeroCharacter();
+    /** npc角色 */
+    private List<NPCCharacter> npcs = new ArrayList<>();
+    /** 传送门角色 */
+    private List<TransferCharacter> transfers = new ArrayList<>();
+    /** 宝箱角色 */
+    private List<BoxCharacter> boxes = new ArrayList<>();
+    /** 本地图中可遇到的妖怪ids */
+    private List<Integer> predictedMonsterIds;
+    /** bgm播放器 */
+    private AsyncAudioPlayer bgmPlayer;
 
     public String getScriptId() {
         return scriptId;
@@ -99,7 +115,6 @@ public class ScriptItem {
 
     ////////////////////////////////////////////////////
     public void initLabelList(List<CmdBase> cmdList) {
-        this.cmdList = cmdList;
         List<CmdBase> labelCaa = null;
         List<LabelBean> labelList = new ArrayList<>();
         LabelBean label = null;
@@ -202,7 +217,7 @@ public class ScriptItem {
         if (!checkTriggerFlag) {
             return ;
         }
-        steps++; // checkTrigger()方法的执行之前会的上下左右的移动
+        GameData.addSteps();
         checkMonster();
         checkTrigger0();
         checkTriggerFlag = false;
@@ -214,9 +229,10 @@ public class ScriptItem {
         if (CollectionUtils.isEmpty(predictedMonsterIds)) {
             return;
         }
-        if (steps < STEP_MEET_MONSTER) {
+        if (!GameData.randomFight()) {
             return;
         }
+
         int monsterNumbers = GameConstant.random.nextInt(3) + 1;
         monsterNumbers = 3;
         int[] metMonsterIds = new int[monsterNumbers];
@@ -225,7 +241,7 @@ public class ScriptItem {
             metMonsterIds[i] = predictedMonsterIds.get(n);
         }
 
-        steps = 0;
+        GameData.clearSteps();
         new BattleScreen(metMonsterIds);
     }
 
@@ -279,6 +295,7 @@ public class ScriptItem {
 
 
     public void init(List<CmdBase> cmdList) {
+        this.cmdList = cmdList;
         initPrimarySection(cmdList); // 第一行到第一个return之间的命令全部属于primarySection
         initLabelList(cmdList); // 初始化标签集合
         initTriggers(cmdList); // 初始化触发器

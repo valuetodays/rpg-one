@@ -16,10 +16,33 @@ import java.util.stream.Collectors;
  * @since 2017-07-31 17:19
  */
 public class GameData {
-    private int money; // 金币数
+    /** 金币数 */
+    private int money;
+    /** 角色战斗列表 */
     private List<HeroBattle> heroBattleList;
+    /** 角色列表 */
     private List<Integer> heroIds = Arrays.asList(1, 3);
+    /** 角色列表 */
     private List<GoodsMetaData> goodsList = new ArrayList<>();
+    /** 遇敌步数 */
+    private static final int STEP_MEET_MONSTER = 15;
+    /** 当前地图下的移动步数，当达到STEP_MEET_MONSTER时会遇到怪物进行战斗 */
+    private static int steps;
+
+    /**
+     * 是否发生随机战斗
+     * @return true是，false否
+     */
+    public static boolean randomFight() {
+        return steps >= STEP_MEET_MONSTER;
+    }
+    public static void clearSteps() {
+        steps = 0;
+    }
+    public static void addSteps() {
+        steps++;
+    }
+
 
     /**
      * 指定id的hero离队
@@ -158,5 +181,6 @@ public class GameData {
         }
         return heroBattleList;
     }
+
 
 }
