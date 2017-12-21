@@ -14,14 +14,11 @@ import billy.rpg.game.screen.MapScreen;
 import billy.rpg.game.screen.battle.BattleScreen;
 import billy.rpg.game.script.LabelBean;
 import billy.rpg.game.script.TriggerBean;
-import billy.rpg.game.virtualtable.GlobalVirtualTables;
 import com.rupeng.game.AsyncAudioPlayer;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * 对应一个script文件
@@ -41,9 +38,9 @@ public class ScriptItem {
     /** 是否已执行了初入地图命令 */
     private boolean flagExecutePrimarySection;
     /** 脚本中的标签列表 */
-    private List<LabelBean> labelList;
+    private Map<String, LabelBean> labelMap;
     /** 脚本中的触发器列表 */
-    private List<TriggerBean> triggers;
+    private Map<Integer, TriggerBean> triggerMap;
     /** 玩家角色 */
     private HeroCharacter hero = new HeroCharacter();
     /** npc角色 */
@@ -73,22 +70,6 @@ public class ScriptItem {
         this.primarySection = primarySection;
     }
 
-    public List<LabelBean> getLabelList() {
-        return labelList;
-    }
-
-    public void setLabelList(List<LabelBean> labelList) {
-        this.labelList = labelList;
-    }
-
-    public List<TriggerBean> getTriggers() {
-        return triggers;
-    }
-
-    public void setTriggers(List<TriggerBean> triggers) {
-        this.triggers = triggers;
-    }
-
     public HeroCharacter getHero() {
         return hero;
     }
@@ -103,20 +84,13 @@ public class ScriptItem {
 ////////////////////////////////////////////////////
 
     private TriggerBean getTriggerByNum(int flagNum) {
-        for (int i = 0; i < triggers.size(); i++) {
-            TriggerBean tmp = triggers.get(i);
-            if (tmp.getNum() == flagNum) {
-                return tmp;
-            }
-        }
-
-        return null;
+        return triggerMap.get(flagNum);
     }
 
     ////////////////////////////////////////////////////
     public void initLabelList(List<CmdBase> cmdList) {
         List<CmdBase> labelCaa = null;
-        List<LabelBean> labelList = new ArrayList<>();
+        Map<String, LabelBean> labelMap = new HashMap<>();
         LabelBean label = null;
 
         for (int i = 0; i < cmdList.size(); i++) {
@@ -137,12 +111,11 @@ public class ScriptItem {
                 caa = cmdList.get(i);
                 labelCaa.add(caa);
                 label.setCmds(labelCaa);
-                labelList.add(label);
-                GlobalVirtualTables.addLabel(label);
+                labelMap.put(label.getTitle(), label);
             }
         }
 
-        this.labelList = labelList;
+        this.labelMap = Collections.unmodifiableMap(labelMap);
     }
 
     public void initPrimarySection(List<CmdBase> cmdList) {
@@ -168,7 +141,7 @@ public class ScriptItem {
     }
 
     private void initTriggers(List<CmdBase> cmdList) {
-        List<TriggerBean> triggerList = new ArrayList<>();
+        Map<Integer, TriggerBean> triggerMap0 = new HashMap<>();
 
         for (int i = 0; i < cmdList.size(); i++) {
             CmdBase caa = cmdList.get(i);
@@ -177,11 +150,11 @@ public class ScriptItem {
                 TriggerBean t = new TriggerBean();
                 t.setNum(tc.getNum());
                 t.setLabelTitle(tc.getTriggerName());
-                triggerList.add(t);
+                triggerMap0.put(t.getNum(), t);
             }
         }
 
-        this.triggers = Collections.unmodifiableList(triggerList);
+        this.triggerMap = Collections.unmodifiableMap(triggerMap0);
     }
 
 
@@ -190,17 +163,11 @@ public class ScriptItem {
             return ;
         }
 
-        String triggername = trigger.getLabelTitle();
         LabelBean label = null;
-        List<TriggerBean> triggerList = this.triggers;
-        for (TriggerBean t : triggerList) {
-            if (t.getLabelTitle().equals(triggername)) {
-                label = getLabelByTitle(triggername);
-                if (label == null) {
-                    LOG.debug("label named \""+triggername+"\" not found, maybe it start with a uppercase letter.");
-                }
-                break;
-            }
+
+        TriggerBean triggerBean = triggerMap.get(trigger.getNum());
+        if (triggerBean != null) {
+            label = getLabelByTitle(trigger.getLabelTitle());
         }
 
         if (label != null) {
@@ -301,15 +268,9 @@ public class ScriptItem {
         initTriggers(cmdList); // 初始化触发器
     }
 
-
     public LabelBean getLabelByTitle(String labelTitle) {
-        for (int i = 0; i < labelList.size(); i++) {
-            LabelBean tmpLabel = labelList.get(i);
-            if (tmpLabel.getTitle().equals(labelTitle + ":")) {
-                return tmpLabel;
-            }
-        }
-        return null;
+        // magic string?
+        return labelMap.get(labelTitle + ":");
     }
 
     public void reenter() {

@@ -1,6 +1,8 @@
 package billy.rpg.game.cmd;
 
+import billy.rpg.game.GameFrame;
 import billy.rpg.game.cmd.executor.CmdProcessor;
+import billy.rpg.game.resource.item.ScriptItem;
 import billy.rpg.game.script.LabelBean;
 import billy.rpg.game.virtualtable.GlobalVirtualTables;
 
@@ -25,7 +27,13 @@ public class IfCmd extends CmdBase {
     @Override
     public int execute(CmdProcessor cmdProcessor) {
         if (GlobalVirtualTables.containsVariable(condition)) { // global variable exists
-            LabelBean fun = GlobalVirtualTables.getLabel(triggerName);
+            ScriptItem activeScriptItem = GameFrame.getInstance().getGameContainer().getActiveScriptItem();
+            LabelBean fun = activeScriptItem.getLabelByTitle(triggerName);
+            if (fun == null) {
+                throw new RuntimeException("cannot find label '"+triggerName+"' in script " + activeScriptItem
+                        .getScriptId());
+            }
+            //LabelBean fun = GlobalVirtualTables.getLabel(triggerName);
             cmdProcessor.setInnerCmdProcessor(new CmdProcessor(fun.getCmds()));
         } else {    // global variable does not exist
             return -2;

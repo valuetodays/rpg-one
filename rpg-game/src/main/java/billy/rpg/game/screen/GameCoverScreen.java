@@ -3,12 +3,12 @@ package billy.rpg.game.screen;
 import billy.rpg.game.GameCanvas;
 import billy.rpg.game.GameFrame;
 import billy.rpg.game.constants.GameConstant;
+import billy.rpg.game.util.CoreUtil;
 import billy.rpg.game.util.KeyUtil;
 import com.rupeng.game.AsyncAudioPlayer;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,8 +22,8 @@ public class GameCoverScreen extends BaseScreen {
         map.put(1, 320); 
         map.put(2, 350);
         map.put(3, 380);
-        URL resource = Thread.currentThread().getContextClassLoader().getResource("/audio/game_cover.mp3");
-        player = new AsyncAudioPlayer(resource.getPath(), true);
+        String audioPath = CoreUtil.getAudioPath("audio/game_cover.mp3");
+        player = new AsyncAudioPlayer(audioPath, true);
         player.playAsync();
     }
     

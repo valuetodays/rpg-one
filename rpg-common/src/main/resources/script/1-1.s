@@ -81,7 +81,7 @@ set 1
 return
 
 找师傅:
-return;
+return
 
 先找师傅吧:
 showText 1 1 '还是先去见师父再来玩吧。'

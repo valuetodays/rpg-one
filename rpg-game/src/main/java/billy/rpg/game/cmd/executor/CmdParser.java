@@ -42,6 +42,9 @@ public class CmdParser {
         }
 
         LOG.debug("data is `"+line+"`");
+        if (line.endsWith(";")) {
+            throw new RuntimeException("命令以;结尾了，是想要的吗？");
+        }
 
         // 注释，忽略本行数据
         if (line.startsWith("@")) {
