@@ -5,7 +5,9 @@ import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.screen.MapScreen;
 import billy.rpg.game.util.WalkUtil;
 
-
+/**
+ * 普通npc
+ */
 public class CommonNPCCharacter extends NPCCharacter {
     private long lastTime = System.currentTimeMillis();
     private long delay = 2000;

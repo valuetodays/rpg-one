@@ -3,8 +3,6 @@ package billy.rpg.game.character;
 public abstract class NPCCharacter extends BaseCharacter {
     private int tileNum; // for npc
 
-
-
     @Override
     public String toString() {
         return "[posX=" + getPosX() + ", posY=" + getPosY() + ", nextPosX="

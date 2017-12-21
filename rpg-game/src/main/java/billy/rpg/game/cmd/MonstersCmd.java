@@ -6,6 +6,8 @@ import billy.rpg.game.cmd.executor.CmdProcessor;
 import java.util.List;
 
 /**
+ * 随机战斗怪物
+ *
  * @author liulei@bshf360.com
  * @since 2017-07-31 17:47
  */

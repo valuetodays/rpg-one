@@ -7,6 +7,8 @@ import billy.rpg.game.character.npc.NoWalkNPCCharacter;
 import billy.rpg.game.cmd.executor.CmdProcessor;
 
 /**
+ * 创建npc
+ *
  * @author liulei
  * @since 2017-05-18 17:02
  */

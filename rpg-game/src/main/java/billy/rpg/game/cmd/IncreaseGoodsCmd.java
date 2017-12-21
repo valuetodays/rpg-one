@@ -6,7 +6,7 @@ import billy.rpg.game.screen.MessageBoxScreen;
 import billy.rpg.resource.goods.GoodsMetaData;
 
 /**
- * 增加金币
+ * 增加物品
  *
  * @author liulei@bshf360.com
  * @since 2017-09-05 10:53

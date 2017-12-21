@@ -6,7 +6,7 @@ import billy.rpg.game.screen.MessageBoxScreen;
 import billy.rpg.resource.goods.GoodsMetaData;
 
 /**
- * 减少金币
+ * 减少物品
  *
  * @author liulei@bshf360.com
  * @since 2017-09-05 10:53

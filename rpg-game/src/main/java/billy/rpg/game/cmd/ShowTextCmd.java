@@ -8,6 +8,7 @@ import billy.rpg.game.screen.DialogScreen;
 import java.awt.*;
 
 /**
+ * 显示对话
  * @author <a href="http://blog.sina.com.cn/valuetodays">liulei-home</a>
  * @since 2016-05-10 22:38
  */

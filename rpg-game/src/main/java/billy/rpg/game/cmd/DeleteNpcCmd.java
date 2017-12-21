@@ -7,6 +7,7 @@ import billy.rpg.game.cmd.executor.CmdProcessor;
 import java.util.List;
 
 /**
+ * 删除npc
  * @author liulei@bshf360.com
  * @since 2017-11-28 15:42
  */

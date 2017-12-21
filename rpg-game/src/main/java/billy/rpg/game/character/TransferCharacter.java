@@ -3,7 +3,9 @@ package billy.rpg.game.character;
 import billy.rpg.game.GameFrame;
 import billy.rpg.game.screen.MapScreen;
 
-
+/**
+ * 传送门
+ */
 public class TransferCharacter extends BaseCharacter {
     private long lastTime = System.currentTimeMillis();
 

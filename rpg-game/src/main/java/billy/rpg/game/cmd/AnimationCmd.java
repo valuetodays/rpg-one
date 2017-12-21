@@ -5,6 +5,9 @@ import billy.rpg.game.cmd.executor.CmdProcessor;
 import billy.rpg.game.screen.AnimationScreen;
 import billy.rpg.game.screen.BaseScreen;
 
+/**
+ * 动画命令
+ */
 public class AnimationCmd extends CmdBase {
     private int number;
     private int x;

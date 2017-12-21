@@ -7,7 +7,7 @@ import billy.rpg.game.cmd.executor.CmdProcessor;
 import java.util.List;
 
 /**
- *
+ * 移动角色
  */
 public class MoveCmd extends CmdBase {
 

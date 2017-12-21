@@ -9,7 +9,6 @@ import billy.rpg.game.script.variable.VariableTableDeterminer;
 /**
  * 命令 - if
  * @author <a href="http://blog.sina.com.cn/valuetodays">liulei-home</a>
- * @date 2016-05-10 12:31
  * @since 2016-05-10 12:31
  */
 public class IfCmd extends CmdBase {

@@ -6,8 +6,8 @@ import billy.rpg.game.screen.BaseScreen;
 import billy.rpg.game.screen.ScenenameScreen;
 
 /**
+ * 显示场景名称
  * @author <a href="http://blog.sina.com.cn/valuetodays">liulei-frx</a>
- * @date 2016-05-10 20:09
  * @since 2016-05-10 20:09
  */
 public class ScenenameCmd extends CmdBase {
