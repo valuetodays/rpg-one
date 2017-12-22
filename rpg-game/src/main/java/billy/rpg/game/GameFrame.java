@@ -72,7 +72,9 @@ public class GameFrame extends JFrame implements Runnable {
         gameContainer.load();
 
         screenStack = new Stack<>();
-        screenStack.push(new GameCoverScreen()); // 进入封面
+        //screenStack.push(new GameCoverScreen()); // 进入封面
+        int[] monsterIds = new int[]{51, 51};
+        screenStack.push(new BattleScreen(monsterIds)); // 进入战斗界面
 
 //        screenStack.push(new MapScreen());
 ///        screenStack.push(new AnimationScreen(0)); // show animation

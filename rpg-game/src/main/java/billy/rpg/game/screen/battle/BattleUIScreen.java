@@ -106,12 +106,14 @@ public class BattleUIScreen extends BaseScreen {
                 BufferedImage.TYPE_4BYTE_ABGR);
         Graphics g = paint.getGraphics();
         g.setColor(Color.black);
+//        g.setColor(new Color(0, 0, 0, 0));
         g.fillRect(0, 0, paint.getWidth(), paint.getHeight());
 
         drawMonster(g);
 
         drawHero(g);
 
+        g.dispose();
         gameCanvas.drawBitmap(paint, 0, 0);
     }
 
@@ -119,8 +121,8 @@ public class BattleUIScreen extends BaseScreen {
         // 将当前活动玩家高亮出来
         for (int i = 0; i < heroBattleList.size(); i++) {
             HeroBattle heroBattle = heroBattleList.get(i);
-            RoleMetaData roleMetaData = heroBattle.getRoleMetaData();
             if (i == heroIndex) {
+                RoleMetaData roleMetaData = heroBattle.getRoleMetaData();
                 g.setColor(Color.yellow);
                 g.fillRect(heroBattle.getLeft()-5, heroBattle.getTop(), roleMetaData.getImage().getWidth() + 10,
                         roleMetaData.getImage().getHeight());
@@ -132,9 +134,15 @@ public class BattleUIScreen extends BaseScreen {
             g.drawString("" + heroBattle.getRoleMetaData().getMp() + "/" + heroBattle.getRoleMetaData().getMaxMp(),
                     heroBattle.getLeft() + heroBattle.getWidth() / 4,
                     heroBattle.getTop() - 20);
-            g.drawImage(roleMetaData.getImage(),
-                    heroBattle.getLeft(),
-                    heroBattle.getTop(),
+
+            Image battleImage = heroBattle.getBattleImage();
+            g.drawImage(battleImage,
+                    heroBattle.getLeft() + 20, heroBattle.getTop() + 30,
+                    heroBattle.getLeft() + 20 + battleImage.getWidth(null),
+                    heroBattle.getTop()  + 30 + battleImage.getHeight(null)/12,
+                    // 站立是第一帧
+                    0, 0*1,
+                    battleImage.getWidth(null), battleImage.getHeight(null)/12*1,
                     null);
         }
     }

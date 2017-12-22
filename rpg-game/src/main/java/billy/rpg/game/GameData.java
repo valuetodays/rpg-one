@@ -21,7 +21,8 @@ public class GameData {
     /** 角色战斗列表 */
     private List<HeroBattle> heroBattleList;
     /** 角色列表 */
-    private List<Integer> heroIds = Arrays.asList(1, 3);
+    private List<Integer> heroIds = Arrays.asList(1);
+//    private List<Integer> heroIds = Arrays.asList(1, 3);
     /** 角色列表 */
     private List<GoodsMetaData> goodsList = new ArrayList<>();
     /** 遇敌步数 */
@@ -165,16 +166,16 @@ public class GameData {
         if (heroBattleList == null) {
             heroBattleList = new ArrayList<>();
             for (int i = 0; i < heroIds.size(); i++) {
-                RoleMetaData heroRole = GameFrame.getInstance().getGameContainer().getHeroRoleOf(heroIds.get(i));
-                if (heroRole == null) {
-                    throw new RuntimeException("玩家角色"+heroIds.get(i) + "不存在");
-                }
+                Integer heroId = heroIds.get(i);
+                RoleMetaData heroRole = GameFrame.getInstance().getGameContainer().getHeroRoleOf(heroId);
+
                 HeroBattle e = new HeroBattle();
                 e.setLeft(200 + i * 150 + 10);
                 e.setTop(10 * 32);
                 e.setWidth(heroRole.getImage().getWidth());
                 e.setHeight(heroRole.getImage().getHeight());
                 e.setRoleMetaData(heroRole);
+                e.setBattleImage(GameFrame.getInstance().getGameContainer().getRoleItem().getRoleBattleOf(heroId));
 
                 heroBattleList.add(e);
             }

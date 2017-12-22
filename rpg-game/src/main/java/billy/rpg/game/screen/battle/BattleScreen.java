@@ -15,7 +15,7 @@ import java.util.Stack;
  */
 public class BattleScreen extends BaseScreen {
     private Stack<BaseScreen> screenStack = new Stack<>();
-    protected java.util.List<HeroBattle> heroBattleList = GameFrame.getInstance().getGameData().getHeroBattleList();
+    private java.util.List<HeroBattle> heroBattleList = GameFrame.getInstance().getGameData().getHeroBattleList();
 
     public BattleScreen(final int[] metMonsterIds) {
         BattleUIScreen battleUIScreen = new BattleUIScreen(metMonsterIds, this, heroBattleList);

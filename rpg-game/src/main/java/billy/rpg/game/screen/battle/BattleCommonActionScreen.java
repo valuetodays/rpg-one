@@ -54,7 +54,7 @@ public class BattleCommonActionScreen extends BaseScreen {
                 int targetY       = target.getTop();
                 attacker.setLeft(attacker.getLeft() + (targetCenterX - attackerPreLeft)/10);
                 attacker.setTop(attacker.getTop() + (targetY - attackerPreTop)/10);
-                attackFrame++;
+                attacker.setAcctackFrame(attackFrame++);
             }
         } else if (state == STATE_ANI) {
                 state = STATE_AFT;
@@ -79,7 +79,7 @@ public class BattleCommonActionScreen extends BaseScreen {
                 int targetY       = target.getTop();
                 attacker.setLeft(attacker.getLeft() - (targetCenterX - attackerPreLeft)/10);
                 attacker.setTop(attacker.getTop() - (targetY - attackerPreTop)/10);
-                attackFrame--;
+                attacker.setAcctackFrame(attackFrame--);
             }
         }
     }

@@ -329,7 +329,11 @@ public class GameContainer {
      * @param number number
      */
     public RoleMetaData getHeroRoleOf(int number) {
-        return heroRoleMap.get(number);
+        RoleMetaData roleMetaData = heroRoleMap.get(number);
+        if (roleMetaData == null) {
+            throw new RuntimeException("玩家角色"+ number + "不存在");
+        }
+        return roleMetaData;
     }
 
     /**
