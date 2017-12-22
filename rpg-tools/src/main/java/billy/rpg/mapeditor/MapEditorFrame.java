@@ -116,7 +116,6 @@ public class MapEditorFrame extends JFrame {
         mItemFileSave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 JFileChooser chooser = mapEditorPanel.getFileMapSaveChooser();
                 int result = chooser.showSaveDialog(null);
                 if (result == JFileChooser.APPROVE_OPTION){

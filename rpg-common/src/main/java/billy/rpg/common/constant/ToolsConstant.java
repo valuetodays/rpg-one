@@ -26,4 +26,8 @@ public interface ToolsConstant {
 
     /** charset */
     String CHARSET = "utf-8";
+
+    /** tile图片中有多少个图块，图片的宽度是256，一个title宽32 */
+    int TILE_NUM_ONE_LINE = 256/32;;
+
 }

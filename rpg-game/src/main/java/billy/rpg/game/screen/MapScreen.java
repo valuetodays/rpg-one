@@ -1,5 +1,6 @@
 package billy.rpg.game.screen;
 
+import billy.rpg.common.constant.ToolsConstant;
 import billy.rpg.game.GameCanvas;
 import billy.rpg.game.GameFrame;
 import billy.rpg.game.character.BoxCharacter;
@@ -68,8 +69,8 @@ public class MapScreen extends BaseScreen {
             for (int j = offsetTileY; j < offsetTileY + GameConstant.Game_TILE_Y_NUM; j++) {
                 int tileNum = layer1[i][j];
                 if (tileNum != -1) {
-                    int y = tileNum % 100;
-                    int x = tileNum / 100;
+                    int y = tileNum % ToolsConstant.TILE_NUM_ONE_LINE;
+                    int x = tileNum / ToolsConstant.TILE_NUM_ONE_LINE;
                     //LOG.debug("bgLayer---------------");
                     g2.drawImage(tileImg, (i - offsetTileX) * 32, (j - offsetTileY) * 32,
                             (i - offsetTileX) * 32 + 32, (j - offsetTileY) * 32 + 32,

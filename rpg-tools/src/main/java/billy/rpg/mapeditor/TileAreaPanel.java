@@ -1,5 +1,6 @@
 package billy.rpg.mapeditor;
 
+import billy.rpg.common.constant.ToolsConstant;
 import org.apache.log4j.Logger;
 
 import javax.imageio.ImageIO;
@@ -19,6 +20,8 @@ import java.io.FileInputStream;
  */
 public class TileAreaPanel extends JPanel {
     private static final Logger LOG = Logger.getLogger(TileAreaPanel.class);
+
+    public static final int TILE_NUM_ONE_LINE = ToolsConstant.TILE_NUM_ONE_LINE;
 
     private MapEditorPanel mapEditorPanel;
     private File tilePath;
@@ -78,7 +81,8 @@ public class TileAreaPanel extends JPanel {
                 LOG.debug("title...x/y=[" + x + "," + y + "], "
                         + ", nx/ny=" + nx + "/" + ny
                 );
-                lastTileN = nx * 100 + ny;
+
+                lastTileN = nx * TILE_NUM_ONE_LINE + ny;
             }
             @Override
             public void mouseReleased(MouseEvent e) {

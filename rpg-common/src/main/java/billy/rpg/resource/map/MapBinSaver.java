@@ -20,6 +20,7 @@ public class MapBinSaver extends MapSaver {
     private static final String CHARSET = ToolsConstant.CHARSET;
 
 
+    @Override
     public void save(String mapFilePath, MapMetaData mapMetaData) {
         String tileId = mapMetaData.getTileId();
         String mapName = mapMetaData.getName();

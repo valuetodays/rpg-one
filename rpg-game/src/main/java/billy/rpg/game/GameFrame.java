@@ -29,8 +29,8 @@ import java.util.Stack;
  */
 public class GameFrame extends JFrame implements Runnable {
     private static final long serialVersionUID = 1L;
-
     private static final Logger LOG = Logger.getLogger(GameFrame.class);
+
     private FPSUtil fpsUtil = new FPSUtil();
 
     private static GameFrame instance;
