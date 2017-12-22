@@ -154,11 +154,8 @@ public class GameContainer {
         // TODO 添加过渡场景
         GameFrame.getInstance().changeScreen(8);
 
-
         // initialize the entry script-item
         changeActiveScriptItemTo(m, n, pos);
-        
-//        executePrimary();
     }
     
     
@@ -209,7 +206,6 @@ public class GameContainer {
             throw new RuntimeException("error when loadmap.");
         }
 
-        // TODO 之前已经加载了，为什么又加载了一次
         changeActiveMapItemTo(m, n);
 
         // 第一次加载时没有主角的方向
@@ -300,9 +296,7 @@ public class GameContainer {
     public ScriptItem getActiveScriptItem() {
         return activeScriptItem;
     }
-    public void setActiveFileItem(ScriptItem activeFileItem) {
-        this.activeScriptItem = activeFileItem;
-    }
+
 
     public MapMetaData getActiveMap() {
         return activeMap;

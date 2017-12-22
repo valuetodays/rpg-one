@@ -136,14 +136,30 @@ public class BattleUIScreen extends BaseScreen {
                     heroBattle.getTop() - 20);
 
             Image battleImage = heroBattle.getBattleImage();
-            g.drawImage(battleImage,
+            int battleImageWidth = battleImage.getWidth(null);
+            int battleImageHeight = battleImage.getHeight(null);
+            int acctackFrame = heroBattle.getAcctackFrame();
+            // 站立
+            if (acctackFrame == 0) {
+                g.drawImage(battleImage,
                     heroBattle.getLeft() + 20, heroBattle.getTop() + 30,
-                    heroBattle.getLeft() + 20 + battleImage.getWidth(null),
-                    heroBattle.getTop()  + 30 + battleImage.getHeight(null)/12,
+                    heroBattle.getLeft() + 20 + battleImageWidth,
+                    heroBattle.getTop()  + 30 + battleImageHeight /12,
                     // 站立是第一帧
-                    0, 0*1,
-                    battleImage.getWidth(null), battleImage.getHeight(null)/12*1,
+                    0, 0,
+                        battleImageWidth, battleImageHeight /12,
                     null);
+            } else if (acctackFrame > 0 && acctackFrame < 12) { // 普攻移动
+                int frameNum = acctackFrame / 4 + 1;
+                g.drawImage(battleImage,
+                        heroBattle.getLeft() + 20, heroBattle.getTop() + 30,
+                        heroBattle.getLeft() + 20 + battleImageWidth,
+                        heroBattle.getTop()  + 30 + battleImageHeight /12,
+                        // 站立是第一帧
+                        0, frameNum * battleImageHeight/12,
+                        battleImageWidth, frameNum * battleImageHeight/12 + battleImageHeight /12,
+                        null);
+            }
         }
     }
 

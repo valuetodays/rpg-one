@@ -96,7 +96,4 @@ public abstract class FightableCharacter {
         return defendFrame;
     }
 
-    public void setDefendFrame(int defendFrame) {
-        this.defendFrame = defendFrame;
-    }
 }

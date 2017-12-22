@@ -74,7 +74,6 @@ public class MonsterSelectScreen extends BaseScreen {
         g.drawImage(battleImage, 0, 0, battleImage.getWidth(null), battleImage.getHeight(null), null);
 
         getBattleUIScreen().drawMonster(g);
-        getBattleUIScreen().drawMonster(g);
 
         Image gameArrowUp = GameFrame.getInstance().getGameContainer().getGameAboutItem().getGameArrowUp();
         MonsterBattle monsterBattleArrowTo = getBattleUIScreen().monsterBattleList.get(monsterIndex);

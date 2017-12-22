@@ -20,7 +20,7 @@ public class BattleCommonActionScreen extends BaseScreen {
     private FightableCharacter attacker;
     private FightableCharacter target;
     private int state = STATE_PRE;
-    private int attackFrame;
+    private int attackFrame; // 最多有12帧？？
     private CommonAttackListener commonAttackListener;
     private final int attackerPreTop;
     private final int attackerPreLeft;
@@ -47,7 +47,7 @@ public class BattleCommonActionScreen extends BaseScreen {
     @Override
     public void update(long delta) {
         if (state == STATE_PRE) {
-            if (attackFrame > 10) {
+            if (attackFrame > 12) {
                 state = STATE_ANI;
             } else {
                 int targetCenterX = target.getLeft() + target.getWidth()/2;
@@ -102,7 +102,6 @@ public class BattleCommonActionScreen extends BaseScreen {
             //LOG.debug("damage & pos: -" + dmg + " " + dmgLeft + " " + dmgTop);
             g.dispose();
             gameCanvas.drawBitmap(paint, 0, 0);
-
         }
     }
 

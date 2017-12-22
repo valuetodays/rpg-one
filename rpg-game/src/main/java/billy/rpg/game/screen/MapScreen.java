@@ -29,7 +29,11 @@ public class MapScreen extends BaseScreen {
 
     @Override
     public void update(long delta) {
-        CmdProcessor cmdProcessor = GameFrame.getInstance().getGameContainer().getActiveScriptItem().getCmdProcessor();
+        ScriptItem activeScriptItem = GameFrame.getInstance().getGameContainer().getActiveScriptItem();
+        if (activeScriptItem == null) {
+            throw new RuntimeException("没有ActiveScriptItem");
+        }
+        CmdProcessor cmdProcessor = activeScriptItem.getCmdProcessor();
         if (cmdProcessor != null) {
             cmdProcessor.update();
         }

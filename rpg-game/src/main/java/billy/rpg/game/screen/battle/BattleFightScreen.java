@@ -332,7 +332,6 @@ public class BattleFightScreen extends BaseScreen {
         LOG.debug(msgText);
         // TODO 先不显示战斗信息了
         // appendMsg(msgText);
-
     }
 
 
