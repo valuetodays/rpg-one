@@ -10,8 +10,8 @@ import org.junit.Test;
 public class MapTransferTest {
     @Test
     public void testTransfer() {
-        String ori = "z:/map/百草地.map";
-        String dst = "z:/map/百草地_out.map";
+        String ori = "C:/tmp/map/三清宫.map";
+        String dst = "C:/tmp/map/三清宫_out.map";
         MapTransfer.transfer(ori, dst);
 
     }

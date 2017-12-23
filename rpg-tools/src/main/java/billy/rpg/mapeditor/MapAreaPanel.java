@@ -1,6 +1,7 @@
 package billy.rpg.mapeditor;
 
 import billy.rpg.common.constant.MapEditorConstant;
+import billy.rpg.common.constant.ToolsConstant;
 import billy.rpg.common.util.ImageUtil;
 import org.apache.log4j.Logger;
 
@@ -57,7 +58,7 @@ public class MapAreaPanel extends JPanel {
         int[][] layer1 = new int[width][height]; // BG_LAYER
         int[][] layer2 = new int[width][height]; // NPC_LAYER
         int[][] layer3 = new int[width][height]; // FG_LAYER
-        int[][] layer4 = new int[width][height]; // WALK_LAYER
+        int[][] layer4 = new int[width][height]; // WALK_LAYER // -1 unwalkable
         int[][] layer5 = new int[width][height]; // EVENT_LAYER
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
@@ -235,7 +236,7 @@ public class MapAreaPanel extends JPanel {
 
     @Override
     public String toString() {
-        return "{" +
+        return "- " +
                 "tileXwidth=" + tileXwidth +
                 ", tileYheight=" + tileYheight +
                 ", currentLayer=" + currentLayer +
@@ -243,7 +244,7 @@ public class MapAreaPanel extends JPanel {
                 ", offsetY=" + offsetY +
                 ", rectX=" + rectX +
                 ", rectY=" + rectY +
-                "} ";
+                "";
     }
 
     @Override
@@ -283,8 +284,8 @@ public class MapAreaPanel extends JPanel {
                 for (int j = offsetY; j < offsetY + GAME_TILE_NUN_Y; j++) {
                     int s = layer[i][j];
                     if (s != -1) {
-                        int y = s % 100;
-                        int x = s / 100;
+                        int y = s / ToolsConstant.TILE_NUM_ONE_LINE;
+                        int x = s % ToolsConstant.TILE_NUM_ONE_LINE;
 
                         g2.drawImage(tileImage,
                                 (i-offsetX)*32, (j-offsetY)*32,

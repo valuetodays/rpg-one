@@ -82,7 +82,7 @@ public class TileAreaPanel extends JPanel {
                         + ", nx/ny=" + nx + "/" + ny
                 );
 
-                lastTileN = nx * TILE_NUM_ONE_LINE + ny;
+                lastTileN = ny * TILE_NUM_ONE_LINE + nx;
             }
             @Override
             public void mouseReleased(MouseEvent e) {
