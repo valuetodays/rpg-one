@@ -88,7 +88,7 @@ showText 1 1 '还是先去见师父再来玩吧。'
 return
 
 三清宫:
-loadmap 1 2 1 1 0 0
+loadmap 1 2 6 6 0 0
 return
 
 百草地西:

@@ -25,7 +25,7 @@ import java.awt.image.BufferedImage;
  */
 public class MapScreen extends BaseScreen {
     private static Logger LOG = Logger.getLogger(MapScreen.class);
-    private int offsetTileX = 10;
+    private int offsetTileX = 0;
     private int offsetTileY = 0;
 
     @Override
@@ -56,7 +56,6 @@ public class MapScreen extends BaseScreen {
         int posY = hero.getPosY();
         GameFrame.getInstance().setTitle("offset x/y="+ offsetTileX + "/" + offsetTileY + hero.toString());
 
-        final Image roleFull1 = GameFrame.getInstance().getGameContainer().getRoleItem().getRoleFull1();
         final Image bgImage1 = GameFrame.getInstance().getGameContainer().getBgImageItem().getBgImage1();
         g2.drawImage(bgImage1, 0, 0, bgImage1.getWidth(null), bgImage1.getHeight(null), null);  // draw bgImage
         
@@ -69,10 +68,11 @@ public class MapScreen extends BaseScreen {
             for (int j = offsetTileY; j < offsetTileY + GameConstant.Game_TILE_Y_NUM; j++) {
                 int tileNum = layer1[i][j];
                 if (tileNum != -1) {
-                    int y = tileNum % ToolsConstant.TILE_NUM_ONE_LINE;
-                    int x = tileNum / ToolsConstant.TILE_NUM_ONE_LINE;
+                    int y = tileNum / ToolsConstant.TILE_NUM_ONE_LINE;
+                    int x = tileNum % ToolsConstant.TILE_NUM_ONE_LINE;
                     //LOG.debug("bgLayer---------------");
-                    g2.drawImage(tileImg, (i - offsetTileX) * 32, (j - offsetTileY) * 32,
+                    g2.drawImage(tileImg,
+                            (i - offsetTileX) * 32, (j - offsetTileY) * 32,
                             (i - offsetTileX) * 32 + 32, (j - offsetTileY) * 32 + 32,
                             x * 32, y * 32,
                             x * 32 + 32, y * 32 + 32,
@@ -83,6 +83,7 @@ public class MapScreen extends BaseScreen {
         //////// draw bgLayer end
 
         //////// draw role & npc start
+        final Image roleFull1 = GameFrame.getInstance().getGameContainer().getRoleItem().getRoleFull1();
         g2.drawImage(roleFull1, (posX)*32, (posY)*32,
                 (posX)*32 + 32, (posY)*32 + 32,
                 hero.getCurFrame()*32, hero.getDirection()*32,
@@ -121,8 +122,8 @@ public class MapScreen extends BaseScreen {
             for (int j = offsetTileY; j < offsetTileY + GameConstant.Game_TILE_Y_NUM; j++) {
                 int tileNum = layer3[i][j];
                 if (tileNum != -1 && tileNum != layer1[i][j]) {
-                    int y = tileNum % 100;
-                    int x = tileNum / 100;
+                    int y = tileNum / ToolsConstant.TILE_NUM_ONE_LINE;
+                    int x = tileNum % ToolsConstant.TILE_NUM_ONE_LINE;
 //                    LOG.debug("fgLayer---------------");
                     g2.drawImage(tileImg, (i-offsetTileX)*32, (j-offsetTileY)*32,
                             (i-offsetTileX)*32+32, (j-offsetTileY)*32+32,

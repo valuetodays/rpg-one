@@ -1,5 +1,6 @@
 package billy.rpg.game.container;
 
+import billy.rpg.common.constant.MapEditorConstant;
 import billy.rpg.game.GameFrame;
 import billy.rpg.game.character.BoxCharacter;
 import billy.rpg.game.character.HeroCharacter;
@@ -149,6 +150,9 @@ public class GameContainer {
         monsterRoleMap = roleDataLoader.getMonsterList();
     }
 
+    /*
+     * 此处的pos的x/y皆是从0开始的
+     */
     public void startChapter(int m, int n, String pos) {
         LOG.debug("go to map" + m + "-" + m + " in " + pos);
         // TODO 添加过渡场景
@@ -226,7 +230,7 @@ public class GameContainer {
         int[][] npcLayer = getActiveMap().getNpcLayer();
         for (int i = 0; i < getActiveMap().getWidth(); i++) {
             for (int j = 0; j < getActiveMap().getHeight(); j++) {
-                if (npcLayer[i][j] != -1) {
+                if (npcLayer[i][j] != MapEditorConstant.NPC_NONE) {
                     NPCCharacter npc = new CommonNPCCharacter();
                     npc.initPos(i, j);
                     int npcTileNumAndId = npcLayer[i][j];

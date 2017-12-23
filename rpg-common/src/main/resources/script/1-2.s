@@ -8,17 +8,17 @@ return
 
 
 toWest:
-loadmap 1 1 19 8 10 1
+showtext 1 1 '终于可以下山了。'
 return
 
-toSouth:
-showtext 1 1 '终于可以下山了。'
+去百草地:
+loadmap 1 1 14 12 4 0
 return
 
 师傅:
 if 2 取剑
 if 1 见师傅
-showtext 3 1 "无机阁在三清宫的中心。"
+showtext 3 1 "无机阁在三清宫的北部。"
 return
 
 见师傅:
@@ -45,6 +45,6 @@ showtext 1 1 '据说`y`无机道人`/y`是道仙转世，今日一见，果然�
 return
 
 trigger 1 toWest
-trigger 2 toSouth
+trigger 2 去百草地
 trigger 11 师傅
 trigger 12 游人1

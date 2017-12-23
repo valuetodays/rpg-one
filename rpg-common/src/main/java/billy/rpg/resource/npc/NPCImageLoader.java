@@ -132,7 +132,7 @@ public class NPCImageLoader {
             }
         }
         if (inx == -1) {
-            throw new RuntimeException("npc little数据不对");
+            throw new RuntimeException("npc little数据不对: " + npcNum);
         }
         return (BufferedImage)npcMetaData.getFullImages().get(inx);
     }

@@ -16,4 +16,6 @@ public interface MapEditorConstant {
             "\n- npc层：shift+点击 --> 清理npc | 点击 --> 添加npc" +
             "\n- event层：254~255 --> 传送门 | 238-->宝箱(开) | 237 --> 宝箱(关)" +
             "\n- 行走层：点击右设置行走与不可行走 | shift+点击使所有行走层反转";
+
+    int NPC_NONE = -1;
 }

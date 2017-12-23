@@ -18,7 +18,10 @@ public class GamePanel extends JPanel {
     AffineTransformOp ato;
 
     public GamePanel() {
-        setPreferredSize(new Dimension(GameConstant.GAME_WIDTH, GameConstant.GAME_HEIGHT));
+        setPreferredSize(
+                new Dimension(
+                        GameConstant.GAME_WIDTH * GameConstant.SCALE,
+                        GameConstant.GAME_HEIGHT * GameConstant.SCALE));
         LOG.debug("new " + this.getClass().getSimpleName() + "()");
         transform.setToScale(GameConstant.SCALE, GameConstant.SCALE);
         ato = new AffineTransformOp(transform, null);
@@ -35,8 +38,9 @@ public class GamePanel extends JPanel {
         super.paint(g);
         if (background != null) {
             if (dest == null) {
-                dest = new BufferedImage(GameConstant.GAME_WIDTH,
-                        GameConstant.GAME_HEIGHT,
+                dest = new BufferedImage(
+                        GameConstant.GAME_WIDTH * GameConstant.SCALE,
+                        GameConstant.GAME_HEIGHT * GameConstant.SCALE,
                         BufferedImage.TYPE_4BYTE_ABGR);
             }
 
