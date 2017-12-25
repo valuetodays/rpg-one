@@ -207,7 +207,7 @@ public class GameContainer {
         }
         
         if (fi == null) {
-            throw new RuntimeException("error when loadmap.");
+            throw new RuntimeException("error when loadmap: " + m + "-" + n);
         }
 
         changeActiveMapItemTo(m, n);

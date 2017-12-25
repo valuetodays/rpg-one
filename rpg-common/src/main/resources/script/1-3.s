@@ -3,7 +3,7 @@ scenename '竹林山道'
 return
 
 后山浮桥:
-loadmap 1 2 17 7
+loadmap 1 5 14 9 12 0
 return
 
 百草地:

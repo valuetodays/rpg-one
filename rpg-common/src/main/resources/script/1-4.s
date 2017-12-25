@@ -9,4 +9,3 @@ return
 
 trigger 1 竹林山道
 
-
