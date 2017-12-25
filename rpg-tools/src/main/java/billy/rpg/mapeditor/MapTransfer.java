@@ -84,56 +84,44 @@ public class MapTransfer {
 
             // bg layer
             for (int x = 0; x < width; x++) {
-                for (int y = 0; y < 15; y++) {
-                    if (y < 13) {
-                        int temp = y * width + x;
-                        int tileIndexValue = mapData[temp * 2] & 0x7f;
-                        dos.writeInt(tileIndexValue);
-                    } else {
-                        dos.writeInt(1);
-                    }
+                for (int y = 0; y < height; y++) {
+                    int temp = y * width + x;
+                    int tileIndexValue = mapData[temp*2] & 0x7f;
+                    dos.writeInt(tileIndexValue);
                 }
             }
 
             // npc layer
             for (int w = 0; w < width; w++) {
-                for (int h = 0; h < 15; h++) {
+                for (int h = 0; h < height; h++) {
                     dos.writeInt(MapEditorConstant.NPC_NONE);
                 }
             }
 
             // fg layer
             for (int w = 0; w < width; w++) {
-                for (int h = 0; h < 15; h++) {
+                for (int h = 0; h < height; h++) {
                     dos.writeInt(-1);
                 }
             }
             // walk layer
             for (int x = 0; x < width; x++) {
-                for (int y = 0; y < 15; y++) {
-                    if (y < 13) {
-                        int temp = y * width + x;
-                        int walkable = mapData[temp * 2] & 0x80;
-                        if (walkable != 0) {
-                            dos.writeInt(1);
-                        } else {
-                            dos.writeInt(-1);
-                        }
-                    } else {
+                for (int y = 0; y < height; y++) {
+                    int temp = y * width + x;
+                    int walkable = mapData[temp*2] & 0x80;
+                    if (walkable != 0) {
                         dos.writeInt(1);
+                    } else {
+                        dos.writeInt(-1);
                     }
                 }
             }
             // event number
             for (int x = 0; x < width; x++) {
-                for (int y = 0; y < 15; y++) {
-                    if (y < 13) {
-                        int temp = y * width + x;
-                        int eventNum = mapData[temp * 2 + 1] & 0xFF;
-                        dos.writeInt(eventNum);
-                    } else {
-                        dos.writeInt(0);
-                    }
+                for (int y = 0; y < height; y++) {
+                    int temp = y * width + x;
+                    int eventNum = mapData[temp*2 + 1] & 0xFF;
+                    dos.writeInt(eventNum);
                 }
             }
 
