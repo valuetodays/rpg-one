@@ -8,7 +8,7 @@ showtext 1 1 '伏魔山道 - 未完成'
 return
 
 竹林山道:
-loadmap 1 3 5 1 0 0
+loadmap 1 3 5 4 0 0
 return
 
 trigger 1 竹林山道
