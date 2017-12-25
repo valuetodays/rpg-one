@@ -9,6 +9,10 @@ import billy.rpg.resource.map.MapMetaData;
 
 public class HeroCharacter extends BaseCharacter {
 
+    private int originalPosX = 6; // 移动前的x
+    private int originalPosY = 6; // 移动前的y
+    private int originalDirection = 0; // 移动前的方向
+
     @Override
     public void move(MapScreen mapScreen) {
         // controll by player
@@ -20,10 +24,38 @@ public class HeroCharacter extends BaseCharacter {
     }
 
     /**
+     * get next posX
+     * @return nextPosX
+     */
+    @Override
+    public int getNextPosX() {
+        int mapWidth = GameFrame.getInstance().getGameContainer().getActiveMap().getWidth();
+        return originalPosX + ((direction == DIRECTION_LEFT && originalPosX > 0) ? -1 :
+                ((originalDirection == DIRECTION_RIGHT && (originalPosX) < mapWidth - 1) ? 1 : 0)
+        );
+    }
+
+    /**
+     * get next posY
+     * @return nextPosY
+     */
+    @Override
+    public int getNextPosY() {
+        int mapHeight = GameFrame.getInstance().getGameContainer().getActiveMap().getHeight();
+        return originalPosY + ((direction == DIRECTION_UP && originalPosY > 0) ? -1 :
+                ((originalDirection == DIRECTION_DOWN && (originalPosY) < mapHeight - 1) ? 1 : 0 )
+        );
+    }
+
+
+    /**
      * move right
      * @param mapScreen mapScreen
      */
     public void increaseX(MapScreen mapScreen) {
+        originalPosX = posX;
+        originalPosY = posY;
+        originalDirection = direction;
         increaseCurFrame();
         int offsetTileX = mapScreen.getOffsetTileX();
         int offsetTileY = mapScreen.getOffsetTileY();
@@ -74,6 +106,9 @@ public class HeroCharacter extends BaseCharacter {
      * @param mapScreen mapScreen
      */
     public void decreaseX(MapScreen mapScreen) {
+        originalPosX = posX;
+        originalPosY = posY;
+        originalDirection = direction;
         increaseCurFrame();
         int offsetTileX = mapScreen.getOffsetTileX();
         int offsetTileY = mapScreen.getOffsetTileY();
@@ -129,6 +164,9 @@ public class HeroCharacter extends BaseCharacter {
      * @param mapScreen mapScreen
      */
     public void increaseY(MapScreen mapScreen) {
+        originalPosX = posX;
+        originalPosY = posY;
+        originalDirection = direction;
         increaseCurFrame();
         int offsetTileX = mapScreen.getOffsetTileX();
         int offsetTileY = mapScreen.getOffsetTileY();
@@ -180,6 +218,9 @@ public class HeroCharacter extends BaseCharacter {
      * @param mapScreen mapScreen
      */
     public void decreaseY(MapScreen mapScreen) {
+        originalPosX = posX;
+        originalPosY = posY;
+        originalDirection = direction;
         increaseCurFrame();
         int offsetTileX = mapScreen.getOffsetTileX();
         int offsetTileY = mapScreen.getOffsetTileY();
@@ -226,7 +267,6 @@ public class HeroCharacter extends BaseCharacter {
 
         direction = DIRECTION_UP;
     }
-
 
 
     @Override

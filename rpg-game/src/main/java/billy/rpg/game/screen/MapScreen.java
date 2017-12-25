@@ -164,6 +164,9 @@ public class MapScreen extends BaseScreen {
     @Override
     public void onKeyDown(int key) {
         ScriptItem active = GameFrame.getInstance().getGameContainer().getActiveScriptItem();
+        active.checkTrigger(); // 检查触发器
+        active.checkMonster();
+        active.toCheckTrigger(); // 设置下一步要检查触发器
         HeroCharacter hero = active.getHero();
         if (KeyUtil.isLeft(key)) {
             hero.decreaseX(this);
@@ -174,9 +177,6 @@ public class MapScreen extends BaseScreen {
         } else if (KeyUtil.isDown(key)) {
             hero.increaseY(this);
         }
-
-        active.checkTrigger(); // 检查触发器
-        active.toCheckTrigger(); // 设置下一步要检查触发器
     }
 
 

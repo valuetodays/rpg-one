@@ -186,14 +186,13 @@ public class ScriptItem {
         if (!checkTriggerFlag) {
             return ;
         }
-        GameData.addSteps();
-        checkMonster();
         checkTrigger0();
         checkTriggerFlag = false;
     }
 
 
-    private void checkMonster() {
+    public void checkMonster() {
+        GameData.addSteps();
         // 为空时不发生战斗
         if (CollectionUtils.isEmpty(predictedMonsterIds)) {
             return;
