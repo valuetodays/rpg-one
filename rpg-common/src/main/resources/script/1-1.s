@@ -1,12 +1,14 @@
 attr 1 1
-scenename '新手村'
+scenename '百草地'
 monsters
 
 @loadmap 1 2 24 2 10
 @createnpc 9001 8 5 14 1
 @createnpc 0 8 10 15 2
 
-if 1 找师傅
+set 1
+
+if 1 见师傅
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ showgut中可以使用`br`来换行
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -76,25 +78,27 @@ move 2 2
 move 2 2
 DELETENPC 2
 
-@设置事件，找师傅
+@设置事件，见师傅
 set 1
 return
 
-找师傅:
+见师傅:
 return
 
-先找师傅吧:
-showText 1 1 '还是先去见师父再来玩吧。'
-return
 
 三清宫:
 loadmap 1 2 6 6 0 0
 return
 
-百草地西:
-if 1 先找师傅吧
-showtext 1 1 "再往西就是"
+先见师傅吧:
+showText 1 1 '还是先去见师父再来玩吧。'
 return
+
+百草地西:
+@if 1 先见师傅吧
+loadmap 1 3 14 9 12 0
+return
+
 
 玉兰草:
 if 已得玉兰草 玉兰草ed
@@ -119,5 +123,3 @@ trigger 2 百草地西
 
 trigger 101 玉兰草
 trigger 102 钨龙剑
-
-
