@@ -2,9 +2,11 @@ attr 1 5
 scenename '后山浮桥'
 return
 
-
 伏魔山道:
-showtext 1 1 '伏魔山道 - 未完成'
+@@@ 注意，对话内容中不能出现(空格)' '
+@showtext 1 1 '伏魔山道-未完成'
+showtext 1 1 '终于可以下山了。'
+loadmap 1 6 2 0 12 7
 return
 
 竹林山道:

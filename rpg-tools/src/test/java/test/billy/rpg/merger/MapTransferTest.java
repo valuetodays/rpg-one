@@ -11,10 +11,10 @@ public class MapTransferTest {
 
     @Test
     public void testTransfer() {
-        String basePaht = ("Z:");
+        String basePath = ("Z:");
 
-        String ori = basePaht + "/后山浮桥.map";
-        String dst = basePaht + "/后山浮桥_out.map";
+        String ori = basePath + "/伏魔山道.map";
+        String dst = basePath + "/伏魔山道_out.map";
         MapTransfer.transfer(ori, dst);
     }
 }

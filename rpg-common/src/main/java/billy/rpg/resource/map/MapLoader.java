@@ -57,9 +57,15 @@ public class MapLoader {
 
             int height = dis.readInt();
             LOG.debug("height `"+height+"` read");
+            if (height < 15) {
+                throw new RuntimeException("error: ["+mapFilePath+"] map height less than 15.");
+            }
             mapMetaData.setHeight(height);
             int width = dis.readInt();
             LOG.debug("width `"+width+"` read");
+            if (width < 20) {
+                throw new RuntimeException("error: ["+mapFilePath+"] map width less than 15.");
+            }
             mapMetaData.setWidth(width);
             final int layersSize = dis.readInt();
 

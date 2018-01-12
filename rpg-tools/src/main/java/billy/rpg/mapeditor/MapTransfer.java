@@ -73,8 +73,9 @@ public class MapTransfer {
             dos.writeInt(mapNameBytes.length);
             dos.write(mapNameBytes);
             LOG.debug("mapName `"+nameGBK+"` written as " + CHARSET);
-            dos.writeInt(height);
-            LOG.debug("height `"+height+"` written");
+            int finalHeight = height < 15 ? 15 : height;
+            dos.writeInt(finalHeight);
+            LOG.debug("height `"+finalHeight+"` written");
             dos.writeInt(width);
             LOG.debug("width `"+width+"` written");
 
@@ -86,8 +87,17 @@ public class MapTransfer {
             for (int x = 0; x < width; x++) {
                 for (int y = 0; y < height; y++) {
                     int temp = y * width + x;
-                    int tileIndexValue = mapData[temp*2] & 0x7f;
+                    int tileIndexValue = mapData[temp * 2] & 0x7f;
                     dos.writeInt(tileIndexValue);
+                }
+                // 如下是处理地图高度不超过15的，如伏魔山道
+                if (height < 15) {
+                    // 填充剩余的bg layer
+                    //for (int xPadding = 0; xPadding < width; xPadding++) {
+                        for (int yPadding = height; yPadding < 15; yPadding++) {
+                            dos.writeInt(-1);
+                        }
+                    //}
                 }
             }
 
@@ -96,14 +106,32 @@ public class MapTransfer {
                 for (int h = 0; h < height; h++) {
                     dos.writeInt(MapEditorConstant.NPC_NONE);
                 }
+                if (height < 15) {
+                    // 填充剩余的npc layer
+                    //for (int xPadding = 0; xPadding < width; xPadding++) {
+                        for (int yPadding = height; yPadding < 15; yPadding++) {
+                            dos.writeInt(MapEditorConstant.NPC_NONE);
+                        }
+                    //}
+                }
             }
+
 
             // fg layer
             for (int w = 0; w < width; w++) {
                 for (int h = 0; h < height; h++) {
                     dos.writeInt(-1);
                 }
+                if (height < 15) {
+                    // 填充剩余的fg layer
+                    //for (int xPadding = 0; xPadding < width; xPadding++) {
+                        for (int yPadding = height; yPadding < 15; yPadding++) {
+                            dos.writeInt(-1);
+                        }
+                   // }
+                }
             }
+
             // walk layer
             for (int x = 0; x < width; x++) {
                 for (int y = 0; y < height; y++) {
@@ -115,7 +143,16 @@ public class MapTransfer {
                         dos.writeInt(-1);
                     }
                 }
+                if (height < 15) {
+                    // 填充剩余的walk layer
+                    //for (int xPadding = 0; xPadding < width; xPadding++) {
+                        for (int yPadding = height; yPadding < 15; yPadding++) {
+                            dos.writeInt(-1);
+                        }
+                   // }
+                }
             }
+
             // event number
             for (int x = 0; x < width; x++) {
                 for (int y = 0; y < height; y++) {
@@ -123,8 +160,15 @@ public class MapTransfer {
                     int eventNum = mapData[temp*2 + 1] & 0xFF;
                     dos.writeInt(eventNum);
                 }
+                if (height < 15) {
+                    // 填充剩余的event number
+                    //for (int xPadding = 0; xPadding < width; xPadding++) {
+                        for (int yPadding = height; yPadding < 15; yPadding++) {
+                            dos.writeInt(-1);
+                        }
+                    //}
+                }
             }
-
             IOUtils.closeQuietly(dos);
             IOUtils.closeQuietly(fos);
         } catch (IOException e) {
