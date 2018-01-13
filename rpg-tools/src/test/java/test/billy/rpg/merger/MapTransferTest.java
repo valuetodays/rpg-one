@@ -13,8 +13,8 @@ public class MapTransferTest {
     public void testTransfer() {
         String basePath = ("Z:");
 
-        String ori = basePath + "/伏魔山道.map";
-        String dst = basePath + "/伏魔山道_out.map";
+        String ori = basePath + "/伏魔洞.map";
+        String dst = basePath + "/伏魔洞_out.map";
         MapTransfer.transfer(ori, dst);
     }
 }
