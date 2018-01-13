@@ -101,4 +101,6 @@ ILoader
     set的参数中，全是数字就表示是全局变量，其它的全是局部变量，局部变量只在script内有效
     
     
+#### 2018-01-13 18:16
+    from https://www.cnblogs.com/mq0036/p/4026057.html
     
