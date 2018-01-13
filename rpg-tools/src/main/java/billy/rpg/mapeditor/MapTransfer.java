@@ -95,7 +95,7 @@ public class MapTransfer {
                     // 填充剩余的bg layer
                     //for (int xPadding = 0; xPadding < width; xPadding++) {
                         for (int yPadding = height; yPadding < 15; yPadding++) {
-                            dos.writeInt(-1);
+                            dos.writeInt(1);
                         }
                     //}
                 }

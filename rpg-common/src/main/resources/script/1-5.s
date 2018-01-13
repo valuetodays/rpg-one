@@ -6,7 +6,7 @@ return
 @@@ 注意，对话内容中不能出现(空格)' '
 @showtext 1 1 '伏魔山道-未完成'
 showtext 1 1 '终于可以下山了。'
-loadmap 1 6 2 0 12 7
+loadmap 1 6 11 7 2 0
 return
 
 竹林山道:
