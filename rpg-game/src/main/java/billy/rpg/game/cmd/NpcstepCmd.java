@@ -32,7 +32,7 @@ public class NpcstepCmd extends CmdBase {
             HeroCharacter hero = active.getHero();
             hero.setCurFrame(step);
             hero.setDirection(faceto);
-            LOG.debug("change face and step:" + faceto + "," + step);
+            logger.debug("change face and step:" + faceto + "," + step);
         } else {
             List<NPCCharacter> npcs = GameFrame.getInstance().getGameContainer().getActiveScriptItem().getNpcs();
             for (NPCCharacter npcCharacter : npcs) {

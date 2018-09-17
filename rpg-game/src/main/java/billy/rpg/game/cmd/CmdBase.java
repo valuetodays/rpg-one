@@ -9,7 +9,9 @@ import org.apache.log4j.Logger;
  * @since 2016-05-09 22:27
  */
 public abstract class CmdBase {
-    protected Logger LOG = Logger.getLogger(CmdBase.class);
+    public static final Logger logger = Logger.getLogger(CmdBase.class);
+    public static final String CHAR_SPACE = " ";
+
     private String name; // 命令名称
     private int lineNo;
 

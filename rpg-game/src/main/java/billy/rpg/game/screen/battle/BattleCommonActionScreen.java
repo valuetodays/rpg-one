@@ -99,7 +99,7 @@ public class BattleCommonActionScreen extends BaseScreen {
             g.setFont(GameConstant.FONT_DAMAGE);
             g.setColor(Color.YELLOW);
             g.drawString("-" + dmg, dmgLeft, dmgTop);
-            //LOG.debug("damage & pos: -" + dmg + " " + dmgLeft + " " + dmgTop);
+            //logger.debug("damage & pos: -" + dmg + " " + dmgLeft + " " + dmgTop);
             g.dispose();
             gameCanvas.drawBitmap(paint, 0, 0);
         }

@@ -7,6 +7,8 @@ package billy.rpg.common.util;
  * @since 2017-05-31 20:05
  */
 public class JavaVersionUtil {
+    private JavaVersionUtil() {}
+
     private static int getJavaVersion() {
         int version = 0;
 

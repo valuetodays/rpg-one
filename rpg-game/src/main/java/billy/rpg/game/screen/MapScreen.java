@@ -70,7 +70,7 @@ public class MapScreen extends BaseScreen {
                 if (tileNum != -1) {
                     int y = tileNum / ToolsConstant.TILE_NUM_ONE_LINE;
                     int x = tileNum % ToolsConstant.TILE_NUM_ONE_LINE;
-                    //LOG.debug("bgLayer---------------");
+                    //logger.debug("bgLayer---------------");
                     g2.drawImage(tileImg,
                             (i - offsetTileX) * 32, (j - offsetTileY) * 32,
                             (i - offsetTileX) * 32 + 32, (j - offsetTileY) * 32 + 32,
@@ -124,7 +124,7 @@ public class MapScreen extends BaseScreen {
                 if (tileNum != -1 && tileNum != layer1[i][j]) {
                     int y = tileNum / ToolsConstant.TILE_NUM_ONE_LINE;
                     int x = tileNum % ToolsConstant.TILE_NUM_ONE_LINE;
-//                    LOG.debug("fgLayer---------------");
+//                    logger.debug("fgLayer---------------");
                     g2.drawImage(tileImg, (i-offsetTileX)*32, (j-offsetTileY)*32,
                             (i-offsetTileX)*32+32, (j-offsetTileY)*32+32,
                             x*32, y*32,

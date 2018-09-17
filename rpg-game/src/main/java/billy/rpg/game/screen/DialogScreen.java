@@ -2,6 +2,7 @@ package billy.rpg.game.screen;
 
 import billy.rpg.game.GameCanvas;
 import billy.rpg.game.GameFrame;
+import billy.rpg.game.character.PositionEnum;
 import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.cmd.executor.CmdProcessor;
 import billy.rpg.game.util.KeyUtil;
@@ -23,7 +24,8 @@ public class DialogScreen extends BaseScreen {
     private List<MsgContent> msgList; // 处理后的对话的内容
     private Image headImg; // 说话者的头像
     private CmdProcessor cmdProcessor;
-    private int location; // headImg location
+    private PositionEnum position; // headImg location
+    private String name; // name
 
     /**
      * 对话框窗口
@@ -31,26 +33,24 @@ public class DialogScreen extends BaseScreen {
      * @param headImg 说话者头像编号
      * @param msg 对话内容
      */
-    public DialogScreen(CmdProcessor cmdProcessor, Image headImg, int location, String msg) {
+    public DialogScreen(CmdProcessor cmdProcessor, Image headImg, String name, PositionEnum position, String msg) {
         this.cmdProcessor = cmdProcessor;
         this.headImg = headImg;
-        if (location != 1 && location != 2) {
-            throw new RuntimeException("对话框角色图片位置有误");
-        }
-        this.location = location;
+        PositionEnum.assertLegal(position, "对话框角色图片位置有误");
+        this.position = position;
         if (StringUtils.isEmpty(msg)) {
             this.msg = "";
         } else {
             this.msg = msg;
         }
+        this.name = name;
         dealMsg();
         curLine = 1;
     }
 
     public static void main(String[] args) {
 		String msg = "我是`y`天大地大我最大张三`/y`，十分、一百分`r`、`/r`一千分、一万分、十万分、百万分郑重地命令你这小厮快去打`r`大龙`/r`！你快去啊，真是不听话，害我说那么多话，真可恶！什么？！你说`b`我废话多`/b`？你再说，再说一次试试？";
-//        String msg = "我是";
-        DialogScreen dialogScreen = new DialogScreen(null, null, 1, msg);
+        DialogScreen dialogScreen = new DialogScreen(null, null, "name", PositionEnum.LEFT, msg);
         List<MsgContent> msgListTemp = dialogScreen.msgList;
         msgListTemp.forEach(e -> {
             LOG.debug(e);
@@ -202,7 +202,7 @@ public class DialogScreen extends BaseScreen {
                 dlgBgLeft,
                 dlgBgTop,
                 null);
-        if (location == 1) {
+        if (position == PositionEnum.LEFT) {
             g.drawImage(gameDlgRoleName,
                     dlgBgLeft + 20,
                     dlgBgTop - gameDlgRoleName.getHeight(null),
@@ -212,8 +212,8 @@ public class DialogScreen extends BaseScreen {
                     dlgBgTop - gameDlgRoleName.getHeight(null) - headImg.getHeight(null) - 2,
                     null);
             g.setFont(GameConstant.FONT_ROLENAME_IN_DLG);
-            g.drawString("蔡文姬", // TODO name从脚本中读取
-                    dlgBgLeft + 30,
+            g.drawString(name,
+                    dlgBgLeft + 45,
                     dlgBgTop - gameDlgRoleName.getHeight(null)/3);
         } else {
             g.drawImage(gameDlgRoleName,
@@ -227,7 +227,7 @@ public class DialogScreen extends BaseScreen {
                     dlgBgTop - gameDlgRoleName.getHeight(null) - headImg.getHeight(null) - 2,
                     null);
             g.setFont(GameConstant.FONT_ROLENAME_IN_DLG);
-            g.drawString("蔡文姬", // TODO name从脚本中读取
+            g.drawString(name,
                     GameConstant.GAME_WIDTH/2 + gameDlgBg.getWidth(null)/2
                             - 30 - 60,
                     dlgBgTop - gameDlgRoleName.getHeight(null)/3);

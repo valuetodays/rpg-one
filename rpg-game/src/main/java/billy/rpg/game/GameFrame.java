@@ -149,7 +149,7 @@ public class GameFrame extends JFrame implements Runnable {
                 curTime = System.currentTimeMillis();
                 screenStack.peek().update(curTime - lastTime);
                 if (screenStack.size() > 1) {
-//                    LOG.error("screenStack.size=" + screenStack.size());
+//                    logger.error("screenStack.size=" + screenStack.size());
                 }
                 lastTime = curTime;
 

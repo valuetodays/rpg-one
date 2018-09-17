@@ -90,7 +90,7 @@ public class ScriptDataLoader {
             List<CmdBase> cmdList = new ArrayList<>();
             int lineNumber = 1;
             while (lineData != null) {
-                CmdBase tmp = CmdParser.parseLine(lineData);
+                CmdBase tmp = CmdParser.parseLine(script, lineNumber, lineData);
                 if (tmp != null) {
                     tmp.setLineNo(lineNumber);
                     cmdList.add(tmp);

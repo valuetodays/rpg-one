@@ -21,7 +21,7 @@ public class GameContainerTest {
         List<ScriptItem> scriptItemList = instance.getScriptItemList();
 //        List<CmdBase> cmdList = scriptItemList.get(0).cmdList;
 //        for (CmdBase cmdBase : cmdList) {
-//            LOG.debug(cmdBase);
+//            logger.debug(cmdBase);
 //        }
 
     }

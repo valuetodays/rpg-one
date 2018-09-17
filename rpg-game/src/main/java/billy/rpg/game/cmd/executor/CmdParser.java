@@ -15,6 +15,7 @@ import java.util.List;
  */
 public class CmdParser {
     private static final Logger LOG = Logger.getLogger(CmdParser.class);
+    private static final String CHAR_SPACE = CmdBase.CHAR_SPACE;
     private CmdParser() { }
 
 
@@ -30,9 +31,11 @@ public class CmdParser {
      *   rtn 无参数
      *   set
      *   *: 以冒号结尾 说明是标签
+     * @param script 标本名称
+     * @param lineNumber 行号
      * @param line 命令
      */
-    public static CmdBase parseLine(String line) {
+    public static CmdBase parseLine(String script, int lineNumber, String line) {
         if (line == null) {
             return null;
         }
@@ -52,21 +55,21 @@ public class CmdParser {
             return null;
         }
 
-        return parse(line);
+        return parse(script, lineNumber, line);
     }
 
     /**
      * 核心方法，解析一行数据到一个命令里
      * @param line command & its argument
      */
-    private static CmdBase parse(String line) {
-        int spaceInx = line.indexOf(" ");
+    private static CmdBase parse(String script, int lineNumber, String line) {
+        int spaceInx = line.indexOf(CHAR_SPACE);
         CmdBase cmdBase = null;
         // 注意monsters命令是一个例外，它可以出现的形式有 monsters; monsters 10;两种
         if (spaceInx < 0) { // 没有' '，说明是无参数命令（rtn, label）
-            cmdBase = parse0(line.toLowerCase());
+            cmdBase = parse0(script, lineNumber, line.toLowerCase());
         } else {
-            cmdBase = parseN(line.substring(0, spaceInx).toLowerCase(), line.substring(spaceInx+1));
+            cmdBase = parseN(script, lineNumber, line.substring(0, spaceInx).toLowerCase(), line.substring(spaceInx+1));
         }
 
         return cmdBase;
@@ -77,7 +80,7 @@ public class CmdParser {
      * 处理0个参数的命令 现有 rtn, label, 以及特殊情况下的monsters
      * @param cmdname command name
      */
-    private static CmdBase parse0(String cmdname) {
+    private static CmdBase parse0(String script, int lineNumber, String cmdname) {
         // TODO 可优化，尽量不要使用if语句
         if ("return".equals(cmdname)) {
             return new ReturnCmd(cmdname); // TODO 可优化，只要是这个命令就可以忽略cmdname了
@@ -96,9 +99,9 @@ public class CmdParser {
      * @param cmdname cmd name
      * @param cmdarg cmd arg
      */
-    private static CmdBase parseN(String cmdname, String cmdarg) {
+    private static CmdBase parseN(String script, int lineNumber, String cmdname, String cmdarg) {
         if ("if".equals(cmdname)) { // 两个参数
-            String[] cmdargs = cmdarg.split(" ");
+            String[] cmdargs = cmdarg.split(CHAR_SPACE);
             if (cmdargs.length != 2) {
                 LOG.debug("command "+cmdname+" needs "+2+" arguments, "
                         + "but "+cmdargs.length+" in fact.");
@@ -108,7 +111,7 @@ public class CmdParser {
         } else if ("scenename".equals(cmdname)) {
             return new ScenenameCmd(cmdarg.substring(1, cmdarg.length()-1));
         } else if ("attr".equals(cmdname)) {
-            String[] cmdargs = cmdarg.split(" ");
+            String[] cmdargs = cmdarg.split(CHAR_SPACE);
             if (cmdargs.length != 2) {
                 LOG.debug("command "+cmdname+" needs "+2+" arguments, "
                         + "but "+cmdargs.length+" in fact.");
@@ -116,16 +119,7 @@ public class CmdParser {
             }
             return new AttrCmd(Integer.parseInt(cmdargs[0]), Integer.parseInt(cmdargs[1]));
         } else if ("showtext".equals(cmdname)) {
-            String[] cmdargs = cmdarg.split(" ");
-            if (cmdargs.length != 3) {
-                LOG.debug("command "+cmdname+" needs "+3+" arguments, "
-                        + "but "+cmdargs.length+" in fact.");
-                return null;
-            }
-            final int headNumber = Integer.parseInt(cmdargs[0]);
-            final int location = Integer.parseInt(cmdargs[1]);
-            final String text = cmdargs[2].substring(1, cmdargs[2].length()-1);
-            return new ShowTextCmd(headNumber, location, text);
+            return ShowTextCmd.ofNew(script, lineNumber, cmdarg);
         } else if ("set".equals(cmdname)) {
             return new SetCmd(cmdarg);
         } else if ("loadmap".equals(cmdname)) {
