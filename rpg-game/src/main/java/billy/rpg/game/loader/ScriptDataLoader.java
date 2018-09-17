@@ -1,8 +1,10 @@
 package billy.rpg.game.loader;
 
 import billy.rpg.game.cmd.CmdBase;
+import billy.rpg.game.cmd.EmptyCmd;
 import billy.rpg.game.cmd.executor.CmdParser;
 import billy.rpg.game.resource.item.ScriptItem;
+import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 
 import java.io.*;
@@ -91,7 +93,10 @@ public class ScriptDataLoader {
             int lineNumber = 1;
             while (lineData != null) {
                 CmdBase tmp = CmdParser.parseLine(script, lineNumber, lineData);
-                if (tmp != null) {
+                if (tmp == null) {
+                    throw new RuntimeException("tmp should not be null");
+                }
+                if (!(tmp instanceof EmptyCmd)) {
                     tmp.setLineNo(lineNumber);
                     cmdList.add(tmp);
                 }
@@ -103,8 +108,8 @@ public class ScriptDataLoader {
             scriptItem.init(cmdList);
             scriptItemList.add(scriptItem);
 
-            br.close();
-            in.close();
+            IOUtils.closeQuietly(br);
+            IOUtils.closeQuietly(in);
         }
 
         return  scriptItemList;

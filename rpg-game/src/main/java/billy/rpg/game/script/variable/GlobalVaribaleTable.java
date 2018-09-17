@@ -7,7 +7,7 @@ public class GlobalVaribaleTable extends VariableTable {
     private Set<String> globalVariables = new HashSet<>();
 
     @Override
-    public boolean getVariable(String variable) {
+    public boolean existsVariable(String variable) {
         return globalVariables.contains(variable);
     }
 

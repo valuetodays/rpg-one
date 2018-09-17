@@ -25,7 +25,7 @@ public class IfCmd extends CmdBase {
 
     @Override
     public int execute(CmdProcessor cmdProcessor) {
-        if (VariableTableDeterminer.getInstance().getVariable(condition)) {
+        if (VariableTableDeterminer.getInstance().existsVariable(condition)) {
             ScriptItem activeScriptItem = GameFrame.getInstance().getGameContainer().getActiveScriptItem();
             LabelBean fun = activeScriptItem.getLabelByTitle(triggerName);
             if (fun == null) {

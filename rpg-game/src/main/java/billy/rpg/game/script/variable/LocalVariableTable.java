@@ -18,7 +18,7 @@ public class LocalVariableTable extends VariableTable {
     }
 
     @Override
-    public boolean getVariable(String var) {
+    public boolean existsVariable(String var) {
         ScriptItem activeScriptItem = GameContainer.getInstance().getActiveScriptItem();
         return activeScriptItem.getVariable(var);
     }

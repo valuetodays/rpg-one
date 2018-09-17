@@ -37,11 +37,11 @@ public class CmdParser {
      */
     public static CmdBase parseLine(String script, int lineNumber, String line) {
         if (line == null) {
-            return null;
+            return EmptyCmd.EMPTY_CMD;
         }
         line = line.trim();
         if (line.length() == 0) {
-            return null;
+            return EmptyCmd.EMPTY_CMD;
         }
 
         LOG.debug("data is `"+line+"`");
@@ -52,7 +52,7 @@ public class CmdParser {
         // 注释，忽略本行数据
         if (line.startsWith("@")) {
             //	StaticPrintUtils.p("ignoring ... ");
-            return null;
+            return EmptyCmd.EMPTY_CMD;
         }
 
         return parse(script, lineNumber, line);
@@ -90,7 +90,7 @@ public class CmdParser {
             return new MonstersCmd(null);
         }
 
-        return null;
+        return EmptyCmd.EMPTY_CMD;
     }
 
 
@@ -105,7 +105,7 @@ public class CmdParser {
             if (cmdargs.length != 2) {
                 LOG.debug("command "+cmdname+" needs "+2+" arguments, "
                         + "but "+cmdargs.length+" in fact.");
-                return null;
+                return EmptyCmd.EMPTY_CMD;
             }
             return new IfCmd(cmdargs[0], cmdargs[1]);
         } else if ("scenename".equals(cmdname)) {

@@ -27,19 +27,20 @@ public class VariableTableDeterminer extends VariableTable {
     }
 
     /**
-     * 全数字的变量就是全局变量
-     * @param var 变量
+     * 全数字的变量就是全局变量，这种约束不太好
+     *
+     * @param var 变量名
      */
     private boolean isGlobalVirtual(String var) {
         return StringUtils.isNumeric(var);
     }
 
     @Override
-    public boolean getVariable(String var) {
+    public boolean existsVariable(String var) {
         if (isGlobalVirtual(var)) {
-            return globalVirtualTable.getVariable(var);
+            return globalVirtualTable.existsVariable(var);
         } else {
-            return localVirtualTable.getVariable(var);
+            return localVirtualTable.existsVariable(var);
         }
     }
 

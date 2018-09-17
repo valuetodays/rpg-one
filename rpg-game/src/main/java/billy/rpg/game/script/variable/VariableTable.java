@@ -15,7 +15,7 @@ public abstract class VariableTable {
      * 是否存在指定变量
      * @param var 变量
      */
-    public abstract boolean getVariable(String var);
+    public abstract boolean existsVariable(String var);
 
     /**
      * 打印变量
