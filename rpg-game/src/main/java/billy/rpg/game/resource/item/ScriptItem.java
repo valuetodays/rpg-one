@@ -322,6 +322,10 @@ public class ScriptItem {
     public void addVariable(String var) {
         variables.add(var);
     }
+    public void delVariable(String var) {
+        variables.remove(var);
+    }
+
     public boolean getVariable(String var) {
         return variables.contains(var);
     }

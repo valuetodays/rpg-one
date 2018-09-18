@@ -12,8 +12,13 @@ public class GlobalVaribaleTable extends VariableTable {
     }
 
     @Override
-    public void putVariable(String variable) {
-        globalVariables.add(variable);
+    public void putVariable(String var) {
+        globalVariables.add(var);
+    }
+
+    @Override
+    public void delVariable(String var) {
+        globalVariables.remove(var);
     }
 
     @Override

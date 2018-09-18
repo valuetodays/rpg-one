@@ -26,6 +26,15 @@ public class VariableTableDeterminer extends VariableTable {
         }
     }
 
+    @Override
+    public void delVariable(String var) {
+        if (isGlobalVirtual(var)) {
+            globalVirtualTable.delVariable(var);
+        } else {
+            localVirtualTable.delVariable(var);
+        }
+    }
+
     /**
      * 全数字的变量就是全局变量，这种约束不太好
      *

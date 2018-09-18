@@ -18,6 +18,12 @@ public class LocalVariableTable extends VariableTable {
     }
 
     @Override
+    public void delVariable(String var) {
+        ScriptItem activeScriptItem = GameContainer.getInstance().getActiveScriptItem();
+        activeScriptItem.delVariable(var);
+    }
+
+    @Override
     public boolean existsVariable(String var) {
         ScriptItem activeScriptItem = GameContainer.getInstance().getActiveScriptItem();
         return activeScriptItem.getVariable(var);

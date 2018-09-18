@@ -4,6 +4,9 @@ import billy.rpg.game.cmd.executor.CmdProcessor;
 import billy.rpg.game.script.variable.VariableTableDeterminer;
 
 /**
+ * 设置一个变量，与{@link UnsetCmd}相反
+ *
+ * @see UnsetCmd
  * @author <a href="http://blog.sina.com.cn/valuetodays">liulei-home</a>
  * @since 2016-05-10 22:38
  */

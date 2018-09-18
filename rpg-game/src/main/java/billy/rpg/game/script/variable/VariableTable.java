@@ -12,6 +12,12 @@ public abstract class VariableTable {
     public abstract void putVariable(String var);
 
     /**
+     * 删除一个变量
+     * @param var 变量
+     */
+    public abstract void delVariable(String var);
+
+    /**
      * 是否存在指定变量
      * @param var 变量
      */

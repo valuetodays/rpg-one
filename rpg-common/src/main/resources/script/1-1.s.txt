@@ -42,9 +42,9 @@ npc1:
 if npc1ed npc1new
 showtext 1510 1 '啊！你怎么沦落至此地？'
 showtext 1510 1 '算了，这是100金币。给你吧。'
-inscreasemoney 100
+increasemoney 100
 showtext 1510 1 '不对，还是给你80金币吧。'
-descreasemoney 20
+decreasemoney 20
 showtext 1675 1 '十分感谢，定会相报。'
 set npc1ed
 return

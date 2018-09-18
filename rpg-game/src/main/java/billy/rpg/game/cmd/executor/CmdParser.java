@@ -100,6 +100,7 @@ public class CmdParser {
      * @param cmdarg cmd arg
      */
     private static CmdBase parseN(String script, int lineNumber, String cmdname, String cmdarg) {
+        cmdname = cmdname.trim();
         if ("if".equals(cmdname)) { // 两个参数
             String[] cmdargs = cmdarg.split(CHAR_SPACE);
             if (cmdargs.length != 2) {
@@ -122,6 +123,8 @@ public class CmdParser {
             return ShowTextCmd.ofNew(script, lineNumber, cmdarg);
         } else if ("set".equals(cmdname)) {
             return new SetCmd(cmdarg);
+        }  else if ("unset".equals(cmdname)) {
+            return new UnsetCmd(cmdarg);
         } else if ("loadmap".equals(cmdname)) {
             String[] cmdargs = cmdarg.split(" ");
             if (cmdargs.length != 6) {
@@ -193,13 +196,13 @@ public class CmdParser {
                 }
             }
             return new MonstersCmd(list);
-        } else if ("inscreasemoney".equals(cmdname)) {
+        } else if ("increasemoney".equals(cmdname)) {
             String moneyTxt = cmdarg;
             if (StringUtils.isEmpty(cmdarg)) {
                 moneyTxt = "0";
             }
             return new IncreaseMoneyCmd(Integer.valueOf(moneyTxt));
-        }  else if ("descreasemoney".equals(cmdname)) {
+        }  else if ("decreasemoney".equals(cmdname)) {
             String moneyTxt = cmdarg;
             if (StringUtils.isEmpty(cmdarg)) {
                 moneyTxt = "0";

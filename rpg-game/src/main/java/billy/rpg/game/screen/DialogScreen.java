@@ -109,7 +109,7 @@ public class DialogScreen extends BaseScreen {
                     String pre = mccontent.substring(0, SEP - cnt);
                     MsgContent mPre = new MsgContent(pre, mc.color);
                     msgList.add(mPre);
-                    appendSeperator(mc.color);
+                    appendSeparator(mc.color);
                     int n = pre.length();
 
                     MsgContent mPost = new MsgContent(mccontent.substring(n, mc.cnt), mc.color);
@@ -120,7 +120,7 @@ public class DialogScreen extends BaseScreen {
                 String pre = mccontent.substring(0, SEP - cnt);
                 MsgContent mPre = new MsgContent(pre, mc.color);
                 msgList.add(mPre);
-                appendSeperator(mc.color);
+                appendSeparator(mc.color);
 
                 int n = pre.length();
                 while (mccnt > SEP) {
@@ -130,7 +130,7 @@ public class DialogScreen extends BaseScreen {
                     msgList.add(m);
                     mccnt -= SEP;
                     n += SEP;
-                    appendSeperator(mc.color);
+                    appendSeparator(mc.color);
                 }
                 if (n < mc.cnt) {
                     MsgContent mPost = new MsgContent(mccontent.substring(n, mc.cnt), mc.color);
@@ -145,7 +145,7 @@ public class DialogScreen extends BaseScreen {
 
     private void initMsgList() {
         msgList = new ArrayList<>();
-        appendSeperator(Color.WHITE);
+        appendSeparator(Color.WHITE);
     }
 
     private void calculateTotalLine() {
@@ -153,7 +153,7 @@ public class DialogScreen extends BaseScreen {
         totalLine = totalLine / 2 + (totalLine % 2 > 0 ? 1 : 0);
     }
 
-    private void appendSeperator(Color color) {
+    private void appendSeparator(Color color) {
         MsgContent mNull = new MsgContent(null, color);
         msgList.add(mNull);
         totalLine++;

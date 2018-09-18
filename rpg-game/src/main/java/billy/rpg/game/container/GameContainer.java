@@ -343,7 +343,11 @@ public class GameContainer {
     }
 
     public Image getHeadImageItemOf(int number) {
-        return headImageItem.getHead(number);
+        Image head = headImageItem.getHead(number);
+        if (head == null) {
+            throw new RuntimeException("头像缺失: " + number);
+        }
+        return head;
     }
 
     public LevelMetaData getLevelMetaDataOf(int number) {
