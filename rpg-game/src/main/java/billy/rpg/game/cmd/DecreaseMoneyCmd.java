@@ -4,6 +4,8 @@ import billy.rpg.game.GameFrame;
 import billy.rpg.game.cmd.executor.CmdProcessor;
 import billy.rpg.game.screen.MessageBoxScreen;
 
+import java.util.List;
+
 /**
  * 减少金币
  *
@@ -13,13 +15,14 @@ import billy.rpg.game.screen.MessageBoxScreen;
 public class DecreaseMoneyCmd extends CmdBase {
     private int money;
 
-    public DecreaseMoneyCmd(int money) {
-        super("decreasemoney");
-        this.money = money;
-    }
-
     public int getMoney() {
         return money;
+    }
+
+    @Override
+    public void init() {
+        List<String> arguments = super.getArguments();
+        money = Integer.parseInt(arguments.get(0));
     }
 
     @Override
@@ -27,5 +30,15 @@ public class DecreaseMoneyCmd extends CmdBase {
         GameFrame.getInstance().getGameData().decreaseMoney(money);
         GameFrame.getInstance().pushScreen(new MessageBoxScreen("金币减少 " + money));
         return 0;
+    }
+
+    @Override
+    public String getUsage() {
+        return null;
+    }
+
+    @Override
+    public int getArgumentSize() {
+        return 1;
     }
 }

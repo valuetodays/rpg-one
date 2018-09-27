@@ -18,11 +18,13 @@ public class NpcstepCmd extends CmdBase {
     private int faceto;
     private int step;
 
-    public NpcstepCmd(int npcid, int faceto, int step) {
-        super("npcstep");
-        this.npcid = npcid;
-        this.faceto = faceto;
-        this.step = step;
+
+    @Override
+    public void init() {
+        List<String> arguments = super.getArguments();
+        npcid = Integer.parseInt(arguments.get(0));
+        faceto = Integer.parseInt(arguments.get(1));
+        step = Integer.parseInt(arguments.get(2));
     }
 
     @Override
@@ -43,6 +45,16 @@ public class NpcstepCmd extends CmdBase {
             }
         }
         return 0;
+    }
+
+    @Override
+    public String getUsage() {
+        return null;
+    }
+
+    @Override
+    public int getArgumentSize() {
+        return 3;
     }
 
 }

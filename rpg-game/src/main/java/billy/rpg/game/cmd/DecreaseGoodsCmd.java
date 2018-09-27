@@ -5,6 +5,8 @@ import billy.rpg.game.cmd.executor.CmdProcessor;
 import billy.rpg.game.screen.MessageBoxScreen;
 import billy.rpg.resource.goods.GoodsMetaData;
 
+import java.util.List;
+
 /**
  * 减少物品
  *
@@ -15,12 +17,6 @@ public class DecreaseGoodsCmd extends CmdBase {
     private int number;
     private int count;
 
-    public DecreaseGoodsCmd(int number, int count) {
-        super("decreasemoney");
-        this.number = number;
-        this.count = count;
-    }
-
     public int getNumber() {
         return number;
     }
@@ -30,11 +26,28 @@ public class DecreaseGoodsCmd extends CmdBase {
     }
 
     @Override
+    public void init() {
+        List<String> arguments = super.getArguments();
+        number = Integer.parseInt(arguments.get(0));
+        count = Integer.parseInt(arguments.get(1));
+    }
+
+    @Override
     public int execute(CmdProcessor cmdProcessor) {
         GameFrame.getInstance().getGameData().decreaseGoods(number, count);
         GoodsMetaData goodsMetaData = GameFrame.getInstance().getGameContainer().getGoodsMetaDataOf(number);
         GameFrame.getInstance().pushScreen(new MessageBoxScreen("物品减少 " + goodsMetaData.getName() + " * " +
                 count));
         return 0;
+    }
+
+    @Override
+    public String getUsage() {
+        return null;
+    }
+
+    @Override
+    public int getArgumentSize() {
+        return 2;
     }
 }

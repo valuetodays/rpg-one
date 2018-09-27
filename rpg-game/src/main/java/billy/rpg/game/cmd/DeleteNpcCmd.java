@@ -14,8 +14,10 @@ import java.util.List;
 public class DeleteNpcCmd extends CmdBase {
     private int npcid;
 
-    public DeleteNpcCmd(int npcid) {
-        this.npcid = npcid;
+    @Override
+    public void init() {
+        List<String> arguments = super.getArguments();
+        npcid = Integer.parseInt(arguments.get(0));
     }
 
     @Override
@@ -29,6 +31,16 @@ public class DeleteNpcCmd extends CmdBase {
         }
         npcs.remove(npcCharacter2Del);
         return 0;
+    }
+
+    @Override
+    public String getUsage() {
+        return null;
+    }
+
+    @Override
+    public int getArgumentSize() {
+        return 1;
     }
 
     public int getNpcid() {

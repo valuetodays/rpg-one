@@ -18,9 +18,16 @@ public class ChoiceCmd extends CmdBase {
     private List<String> choice = new ArrayList<>();
     private List<String> label = new ArrayList<>();
 
-    public ChoiceCmd(String title) {
-        super("choice");
-        this.title = title;
+    @Override
+    public void init() {
+        List<String> arguments = super.getArguments();
+        title = arguments.get(0);
+        arguments = arguments.subList(1, arguments.size());
+        for (int i = 1; i <= arguments.size()/2; i++) {
+            String choice1 = arguments.get(i); // 要把它的左右两个引号去掉
+            String label1 = arguments.get(arguments.size()/2 + i);
+            this.addItem(choice1.substring(1, choice1.length()-1), label1);
+        }
     }
 
     @Override
@@ -28,6 +35,18 @@ public class ChoiceCmd extends CmdBase {
         ChoiceScreen cs = new ChoiceScreen(cmdProcessor, title, choice, label);
         GameFrame.getInstance().pushScreen(cs);
         cmdProcessor.startPause();
+        return 0;
+    }
+
+    @Override
+    public String getUsage() {
+        // TODO
+        return null;
+    }
+
+    @Override
+    public int getArgumentSize() {
+        // TODO
         return 0;
     }
 

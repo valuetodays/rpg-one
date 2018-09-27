@@ -5,6 +5,8 @@ import billy.rpg.game.cmd.executor.CmdProcessor;
 import billy.rpg.game.screen.BaseScreen;
 import billy.rpg.game.screen.MessageBoxScreen;
 
+import java.util.List;
+
 /**
  * 命令 - messagebox
  * @author <a href="http://blog.sina.com.cn/valuetodays">liulei-home</a>
@@ -13,10 +15,10 @@ import billy.rpg.game.screen.MessageBoxScreen;
 public class MessageBoxCmd extends CmdBase {
     private String msg;
 
-
-    public MessageBoxCmd(String msg) {
-        super("messagebox");
-        this.msg = msg;
+    @Override
+    public void init() {
+        List<String> arguments = super.getArguments();
+        msg = arguments.get(0);
     }
 
     @Override
@@ -26,11 +28,18 @@ public class MessageBoxCmd extends CmdBase {
         return 0;
     }
 
+    @Override
+    public String getUsage() {
+        return null;
+    }
+
+    @Override
+    public int getArgumentSize() {
+        return 1;
+    }
+
     public String getMsg() {
         return msg;
-    }
-    public void setMsg(String msg) {
-        this.msg = msg;
     }
 
     @Override

@@ -7,7 +7,6 @@ import java.util.List;
 /**
  * 命令 - attr
  * @author <a href="http://blog.sina.com.cn/valuetodays">liulei-home</a>
- * @date 2016-05-10 12:31
  * @since 2016-05-10 12:31
  */
 public class AttrCmd extends CmdBase {

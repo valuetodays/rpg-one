@@ -5,6 +5,8 @@ import billy.rpg.game.cmd.executor.CmdProcessor;
 import billy.rpg.game.screen.MessageBoxScreen;
 import billy.rpg.resource.goods.GoodsMetaData;
 
+import java.util.List;
+
 /**
  * 增加物品
  *
@@ -14,9 +16,10 @@ import billy.rpg.resource.goods.GoodsMetaData;
 public class IncreaseGoodsCmd extends CmdBase {
     private int number;
 
-    public IncreaseGoodsCmd(int number) {
-        super("increasegoods");
-        this.number = number;
+    @Override
+    public void init() {
+        List<String> arguments = super.getArguments();
+        number = Integer.parseInt(arguments.get(0));
     }
 
     @Override
@@ -25,5 +28,15 @@ public class IncreaseGoodsCmd extends CmdBase {
         GoodsMetaData goodsMetaData = GameFrame.getInstance().getGameContainer().getGoodsMetaDataOf(number);
         GameFrame.getInstance().pushScreen(new MessageBoxScreen("物品增加 " + goodsMetaData.getName()));
         return 0;
+    }
+
+    @Override
+    public String getUsage() {
+        return null;
+    }
+
+    @Override
+    public int getArgumentSize() {
+        return 1;
     }
 }

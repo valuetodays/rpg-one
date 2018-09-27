@@ -6,6 +6,8 @@ import billy.rpg.game.resource.item.ScriptItem;
 import billy.rpg.game.script.LabelBean;
 import billy.rpg.game.script.variable.VariableTableDeterminer;
 
+import java.util.List;
+
 /**
  * 命令 - if
  * @author <a href="http://blog.sina.com.cn/valuetodays">liulei-home</a>
@@ -16,12 +18,12 @@ public class IfCmd extends CmdBase {
     private String triggerName;
 
 
-    public IfCmd(String condition, String triggerName) {
-        super("if");
-        this.condition = condition;
-        this.triggerName = triggerName;
+    @Override
+    public void init() {
+        List<String> arguments = super.getArguments();
+        condition = arguments.get(0);
+        triggerName = arguments.get(1);
     }
-
 
     @Override
     public int execute(CmdProcessor cmdProcessor) {
@@ -38,6 +40,16 @@ public class IfCmd extends CmdBase {
             return -2;
         }
         return 0;
+    }
+
+    @Override
+    public String getUsage() {
+        return null;
+    }
+
+    @Override
+    public int getArgumentSize() {
+        return 2;
     }
 
     @Override

@@ -4,6 +4,8 @@ import billy.rpg.game.GameFrame;
 import billy.rpg.game.cmd.executor.CmdProcessor;
 import billy.rpg.game.container.GameContainer;
 
+import java.util.List;
+
 /**
  * 命令 - 加载地图
  * @author <a href="http://blog.sina.com.cn/valuetodays">liulei-home</a>
@@ -17,62 +19,44 @@ public class LoadMapCmd extends CmdBase {
     private int offsetX;
     private int offsetY;
 
-    public LoadMapCmd(int m, int n, int x, int y, int offsetX, int offsetY) {
-        super("loadmap");
-        this.m = m;
-        this.n = n;
-        this.x = x;
-        this.y = y;
-        this.offsetX = offsetX;
-        this.offsetY = offsetY;
-    }
-
     public int getM() {
         return m;
-    }
-
-    public void setM(int m) {
-        this.m = m;
     }
 
     public int getN() {
         return n;
     }
 
-    public void setN(int n) {
-        this.n = n;
-    }
 
     public int getX() {
         return x;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
 
     public int getY() {
         return y;
     }
 
-    public void setY(int y) {
-        this.y = y;
-    }
 
     public int getOffsetX() {
         return offsetX;
     }
 
-    public void setOffsetX(int offsetX) {
-        this.offsetX = offsetX;
-    }
 
     public int getOffsetY() {
         return offsetY;
     }
 
-    public void setOffsetY(int offsetY) {
-        this.offsetY = offsetY;
+
+    @Override
+    public void init() {
+        List<String> arguments = super.getArguments();
+        m = Integer.parseInt(arguments.get(0));
+        n = Integer.parseInt(arguments.get(1));
+        x = Integer.parseInt(arguments.get(2));
+        y = Integer.parseInt(arguments.get(3));
+        offsetX = Integer.parseInt(arguments.get(4));
+        offsetY = Integer.parseInt(arguments.get(5));
     }
 
     @Override
@@ -81,6 +65,16 @@ public class LoadMapCmd extends CmdBase {
         GameFrame.getInstance().getGameContainer().getMapScreen().setOffset(offsetX, offsetY);
         GameContainer.getInstance().startChapter(getM(), getN(), getX() + "-" + getY());
         return 0;
+    }
+
+    @Override
+    public String getUsage() {
+        return null;
+    }
+
+    @Override
+    public int getArgumentSize() {
+        return 6;
     }
 
     @Override

@@ -3,11 +3,11 @@ package billy.rpg.game.cmd;
 import billy.rpg.game.cmd.executor.CmdProcessor;
 
 /**
- * 命令 - return返回
- * @author <a href="http://blog.sina.com.cn/valuetodays">liulei-home</a>
- * @since 2016-05-10 12:31
+ * @author liulei-home
+ * @since 2018-09-27 22:14
  */
-public class ReturnCmd extends CmdBase {
+public class PlayBGMCmd extends CmdBase {
+    // TODO to do all [0927]
 
     @Override
     public void init() {

@@ -7,6 +7,7 @@ import billy.rpg.game.container.GameContainer;
 import billy.rpg.game.screen.DialogScreen;
 
 import java.awt.*;
+import java.util.List;
 
 /**
  * 显示对话
@@ -14,53 +15,50 @@ import java.awt.*;
  * @since 2016-05-10 22:38
  */
 public class ShowTextCmd extends CmdBase {
-    private static final String CMD_NAME = "showtext";
     private int headNumber;
-    private String name;
+    private String rolename;
     private PositionEnum position;
     private String text;
 
-    public ShowTextCmd(int number, String name, PositionEnum position, String text) {
-        super(CMD_NAME);
-        headNumber = number;
-        this.name = name;
-        this.position = position;
-        this.text = text;
-    }
 
     public String getText() {
         return text;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public String getRolename() {
+        return rolename;
     }
 
     @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public void setName(String name) {
-        this.name = name;
+    public void init() {
+        List<String> arguments = super.getArguments();
+        headNumber = Integer.parseInt(arguments.get(0));
+        rolename = arguments.get(1);
+        position = PositionEnum.valueOf(arguments.get(2));
+        text = arguments.get(3);
     }
 
     public int getHeadNumber() {
         return headNumber;
     }
 
-    public void setHeadNumber(int headNumber) {
-        this.headNumber = headNumber;
-    }
-
     @Override
     public int execute(CmdProcessor cmdProcessor) {
         Image headImage = GameContainer.getInstance().getHeadImageItemOf(getHeadNumber());
-        DialogScreen ms = new DialogScreen(cmdProcessor, headImage, getName(), getPosition(), getText());
+        DialogScreen ms = new DialogScreen(cmdProcessor, headImage, getRolename(), getPosition(), getText());
         GameFrame.getInstance().pushScreen(ms);
         cmdProcessor.startPause();
         return 0;
+    }
+
+    @Override
+    public String getUsage() {
+        return null;
+    }
+
+    @Override
+    public int getArgumentSize() {
+        return 4;
     }
 
     @Override
@@ -76,10 +74,7 @@ public class ShowTextCmd extends CmdBase {
         return position;
     }
 
-    public void setPosition(PositionEnum position) {
-        this.position = position;
-    }
-
+/*
     public static CmdBase ofNew(String script, int lineNumber, String cmdarg) {
         try {
             cmdarg = cmdarg.trim();
@@ -105,5 +100,5 @@ public class ShowTextCmd extends CmdBase {
             logger.error("error in "+script+"[Line:"+lineNumber+", "+e.getMessage()+"]");
             return EmptyCmd.EMPTY_CMD;
         }
-    }
+    }*/
 }

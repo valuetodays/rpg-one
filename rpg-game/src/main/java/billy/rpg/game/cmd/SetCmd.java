@@ -3,6 +3,8 @@ package billy.rpg.game.cmd;
 import billy.rpg.game.cmd.executor.CmdProcessor;
 import billy.rpg.game.script.variable.VariableTableDeterminer;
 
+import java.util.List;
+
 /**
  * 设置一个变量，与{@link UnsetCmd}相反
  *
@@ -12,10 +14,11 @@ import billy.rpg.game.script.variable.VariableTableDeterminer;
  */
 public class SetCmd extends CmdBase {
     private String key;
-    
-    public SetCmd(String key) {
-        super("set");
-        this.key = key;
+
+    @Override
+    public void init() {
+        List<String> arguments = super.getArguments();
+        key = arguments.get(0);
     }
 
     @Override
@@ -24,12 +27,18 @@ public class SetCmd extends CmdBase {
         return 0;
     }
 
-    public String getKey() {
-        return key;
+    @Override
+    public String getUsage() {
+        return null;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    @Override
+    public int getArgumentSize() {
+        return 1;
+    }
+
+    public String getKey() {
+        return key;
     }
 
     @Override

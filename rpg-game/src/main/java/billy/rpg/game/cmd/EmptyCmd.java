@@ -13,7 +13,22 @@ public class EmptyCmd extends CmdBase {
     private EmptyCmd() {}
 
     @Override
+    public void init() {
+
+    }
+
+    @Override
     public int execute(CmdProcessor cmdProcessor) {
+        return 0;
+    }
+
+    @Override
+    public String getUsage() {
+        return null;
+    }
+
+    @Override
+    public int getArgumentSize() {
         return 0;
     }
 

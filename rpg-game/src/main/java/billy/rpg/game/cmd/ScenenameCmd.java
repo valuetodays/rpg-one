@@ -5,6 +5,8 @@ import billy.rpg.game.cmd.executor.CmdProcessor;
 import billy.rpg.game.screen.BaseScreen;
 import billy.rpg.game.screen.ScenenameScreen;
 
+import java.util.List;
+
 /**
  * 显示场景名称
  * @author <a href="http://blog.sina.com.cn/valuetodays">liulei-frx</a>
@@ -13,9 +15,10 @@ import billy.rpg.game.screen.ScenenameScreen;
 public class ScenenameCmd extends CmdBase {
     private String sname; // scene name
 
-    public ScenenameCmd(String sname) {
-        super("scenename");
-        this.sname = sname;
+    @Override
+    public void init() {
+        List<String> arguments = super.getArguments();
+        sname = arguments.get(0);
     }
 
     @Override
@@ -25,13 +28,20 @@ public class ScenenameCmd extends CmdBase {
         return 0;
     }
 
+    @Override
+    public String getUsage() {
+        return null;
+    }
+
+    @Override
+    public int getArgumentSize() {
+        return 1;
+    }
+
     public String getSname() {
         return sname;
     }
 
-    public void setSname(String sname) {
-        this.sname = sname;
-    }
 
     @Override
     public String toString() {

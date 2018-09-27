@@ -6,6 +6,8 @@ import billy.rpg.game.character.npc.CommonNPCCharacter;
 import billy.rpg.game.character.npc.NoWalkNPCCharacter;
 import billy.rpg.game.cmd.executor.CmdProcessor;
 
+import java.util.List;
+
 /**
  * 创建npc
  *
@@ -18,15 +20,6 @@ public class CreateNPCCmd extends CmdBase {
     private int y; // pos y
     private int npcNum; // which npc image to use
     private int type; // 1 no walk, 2 random move
-
-    public CreateNPCCmd(int npcId, int x, int y, int npcNum, int type) {
-        super("createnpc");
-        this.npcId = npcId;
-        this.x = x;
-        this.y = y;
-        this.npcNum = npcNum;
-        this.type = type;
-    }
 
     public int getNpcId() {
         return npcId;
@@ -51,6 +44,16 @@ public class CreateNPCCmd extends CmdBase {
     }
 
     @Override
+    public void init() {
+        List<String> arguments = super.getArguments();
+        npcId = Integer.parseInt(arguments.get(0));
+        x = Integer.parseInt(arguments.get(1));
+        y = Integer.parseInt(arguments.get(2));
+        npcNum = Integer.parseInt(arguments.get(3));
+        type = Integer.parseInt(arguments.get(4));
+    }
+
+    @Override
     public int execute(CmdProcessor cmdProcessor) {
         int x = getX();
         int y = getY();
@@ -67,6 +70,16 @@ public class CreateNPCCmd extends CmdBase {
         npc.setNumber(getNpcId());
         GameFrame.getInstance().getGameContainer().getActiveScriptItem().getNpcs().add(npc);
         return 0;
+    }
+
+    @Override
+    public String getUsage() {
+        return null; // TODO
+    }
+
+    @Override
+    public int getArgumentSize() {
+        return 5;
     }
 
     @Override

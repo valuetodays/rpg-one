@@ -5,6 +5,8 @@ import billy.rpg.game.cmd.executor.CmdProcessor;
 import billy.rpg.game.screen.AnimationScreen;
 import billy.rpg.game.screen.BaseScreen;
 
+import java.util.List;
+
 /**
  * 动画命令
  */
@@ -13,11 +15,12 @@ public class AnimationCmd extends CmdBase {
     private int x;
     private int y;
 
-    public AnimationCmd(int number, int x, int y) {
-        super("animation");
-        this.number = number;
-        this.x = x;
-        this.y = y;
+    @Override
+    public void init() {
+        List<String> arguments = super.getArguments();
+        number = Integer.parseInt(arguments.get(0));
+        x = Integer.parseInt(arguments.get(1));
+        y = Integer.parseInt(arguments.get(2));
     }
 
     @Override
@@ -25,6 +28,16 @@ public class AnimationCmd extends CmdBase {
         BaseScreen as = new AnimationScreen(number, x, y, GameFrame.getInstance().getGameContainer().getMapScreen());
         GameFrame.getInstance().pushScreen(as);
         return 0;
+    }
+
+    @Override
+    public String getUsage() {
+        return "animation number x y";
+    }
+
+    @Override
+    public int getArgumentSize() {
+        return 3;
     }
 
     @Override

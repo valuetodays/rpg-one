@@ -10,12 +10,22 @@ import billy.rpg.game.cmd.executor.CmdProcessor;
  */
 public class LabelCmd extends CmdBase {
 
-    public LabelCmd(String name) {
-        super(name);
+    @Override
+    public void init() {
     }
 
     @Override
     public int execute(CmdProcessor cmdProcessor) {
+        return 0;
+    }
+
+    @Override
+    public String getUsage() {
+        return "LABELNAME:";
+    }
+
+    @Override
+    public int getArgumentSize() {
         return 0;
     }
 }

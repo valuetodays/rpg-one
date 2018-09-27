@@ -14,10 +14,12 @@ public class MoveCmd extends CmdBase {
     private int npcid;
     private int faceto;
 
-    public MoveCmd(int npcid, int faceto) {
-        super("move");
-        this.npcid = npcid;
-        this.faceto = faceto;
+
+    @Override
+    public void init() {
+        List<String> arguments = super.getArguments();
+        npcid = Integer.parseInt(arguments.get(0));
+        faceto = Integer.parseInt(arguments.get(1));
     }
 
     @Override
@@ -33,6 +35,16 @@ public class MoveCmd extends CmdBase {
             }
         }
         return 0;
+    }
+
+    @Override
+    public String getUsage() {
+        return null;
+    }
+
+    @Override
+    public int getArgumentSize() {
+        return 2;
     }
 
     public int getNpcid() {

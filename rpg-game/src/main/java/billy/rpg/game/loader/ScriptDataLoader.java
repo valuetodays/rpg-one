@@ -2,7 +2,8 @@ package billy.rpg.game.loader;
 
 import billy.rpg.game.cmd.CmdBase;
 import billy.rpg.game.cmd.EmptyCmd;
-import billy.rpg.game.cmd.executor.NativeCmdParser;
+import billy.rpg.game.cmd.executor.CmdParser0;
+import billy.rpg.game.cmd.executor.JlineCmdParser;
 import billy.rpg.game.resource.item.ScriptItem;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
@@ -75,6 +76,7 @@ public class ScriptDataLoader {
             throw new RuntimeException("no scripts found.");
         }
 
+        CmdParser0 cmdParser = new JlineCmdParser();
         String lineData = null;
         List<ScriptItem> scriptItemList = new ArrayList<>();
         ScriptItem scriptItem = null;
@@ -92,12 +94,13 @@ public class ScriptDataLoader {
             List<CmdBase> cmdList = new ArrayList<>();
             int lineNumber = 1;
             while (lineData != null) {
-                CmdBase tmp = NativeCmdParser.parse(script, lineNumber, lineData);
+                CmdBase tmp = cmdParser.parse(script, lineNumber, lineData);
                 if (tmp == null) {
-                    throw new RuntimeException("tmp should not be null");
+                    throw new RuntimeException("tmp should not be null in ["+script+"("+lineNumber+")]");
                 }
                 if (!(tmp instanceof EmptyCmd)) {
-                    tmp.setLineNo(lineNumber);
+                    // TODO [0927]
+//                    tmp.setLineNo(lineNumber);
                     cmdList.add(tmp);
                 }
 
