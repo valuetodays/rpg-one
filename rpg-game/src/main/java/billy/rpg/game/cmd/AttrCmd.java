@@ -11,15 +11,8 @@ import java.util.List;
  * @since 2016-05-10 12:31
  */
 public class AttrCmd extends CmdBase {
-
     private int m;
     private int n;
-
-    public AttrCmd(int m, int n) {
-        super("attr");
-        this.m = m;
-        this.n = n;
-    }
 
     public int getM() {
         return m;
@@ -30,14 +23,26 @@ public class AttrCmd extends CmdBase {
     }
 
     @Override
-    public void init(List<String> arguments) {
-
+    public void init() {
+        List<String> arguments = super.getArguments();
+        m = Integer.parseInt(arguments.get(0));
+        n = Integer.parseInt(arguments.get(1));
     }
 
     @Override
     public int execute(CmdProcessor cmdProcessor) {
         // TODO nothing?
         return 0;
+    }
+
+    @Override
+    public String getUsage() {
+        return "attr m n";
+    }
+
+    @Override
+    public int getArgumentSize() {
+        return 2;
     }
 
     @Override

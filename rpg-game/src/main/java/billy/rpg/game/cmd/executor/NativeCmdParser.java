@@ -16,56 +16,19 @@ import java.util.List;
  * @author <a href="http://blog.sina.com.cn/valuetodays">liulei-frx</a>
  * @since 2016-05-10 13:00
  */
-public class CmdParser {
-    private static final Logger LOG = Logger.getLogger(CmdParser.class);
+public class NativeCmdParser {
+    private static final Logger LOG = Logger.getLogger(NativeCmdParser.class);
     private static final String CHAR_SPACE = CmdBase.CHAR_SPACE;
-    private CmdParser() { }
+    private NativeCmdParser() { }
 
 
 
-    /**
-     * 解析一行脚本 处理成命令
-     *
-     *  各命令可进一步解析（可根据参数个数与参数中是否允许出现' '联合判断）：
-     *   scenename 后只有一个参数
-     *   attr 后跟4个参数（纯数字）
-     *   showText 后只有一个参数
-     *   if 两个参数 (条件 触发器)
-     *   rtn 无参数
-     *   set
-     *   *: 以冒号结尾 说明是标签
-     * @param script 标本名称
-     * @param lineNumber 行号
-     * @param line 命令
-     */
-    public static CmdBase parseLine(String script, int lineNumber, String line) {
-        if (line == null) {
-            return EmptyCmd.EMPTY_CMD;
-        }
-        line = line.trim();
-        if (line.length() == 0) {
-            return EmptyCmd.EMPTY_CMD;
-        }
-
-        LOG.debug("data is `"+line+"`");
-        if (line.endsWith(";")) {
-            throw new RuntimeException("命令以;结尾了，是想要的吗？");
-        }
-
-        // 注释，忽略本行数据
-        if (line.startsWith("@")) {
-            //	StaticPrintUtils.p("ignoring ... ");
-            return EmptyCmd.EMPTY_CMD;
-        }
-
-        return parse(script, lineNumber, line);
-    }
 
     /**
      * 核心方法，解析一行数据到一个命令里
      * @param line command & its argument
      */
-    private static CmdBase parse(String script, int lineNumber, String line) {
+    public static CmdBase parse(String script, int lineNumber, String line) {
         int spaceInx = line.indexOf(CHAR_SPACE);
         CmdBase cmdBase = null;
         // 注意monsters命令是一个例外，它可以出现的形式有 monsters; monsters 10;两种
@@ -138,7 +101,7 @@ public class CmdParser {
                         + "but "+cmdargs.length+" in fact.");
                 return null;
             }
-            return new AttrCmd(Integer.parseInt(cmdargs[0]), Integer.parseInt(cmdargs[1]));
+            return new AttrCmd();
         } else if ("showtext".equals(cmdname)) {
             return ShowTextCmd.ofNew(script, lineNumber, cmdarg);
         } else if ("set".equals(cmdname)) {

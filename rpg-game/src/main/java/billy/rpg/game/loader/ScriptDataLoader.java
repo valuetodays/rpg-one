@@ -2,7 +2,7 @@ package billy.rpg.game.loader;
 
 import billy.rpg.game.cmd.CmdBase;
 import billy.rpg.game.cmd.EmptyCmd;
-import billy.rpg.game.cmd.executor.CmdParser;
+import billy.rpg.game.cmd.executor.NativeCmdParser;
 import billy.rpg.game.resource.item.ScriptItem;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
@@ -92,7 +92,7 @@ public class ScriptDataLoader {
             List<CmdBase> cmdList = new ArrayList<>();
             int lineNumber = 1;
             while (lineData != null) {
-                CmdBase tmp = CmdParser.parseLine(script, lineNumber, lineData);
+                CmdBase tmp = NativeCmdParser.parse(script, lineNumber, lineData);
                 if (tmp == null) {
                     throw new RuntimeException("tmp should not be null");
                 }

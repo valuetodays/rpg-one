@@ -18,40 +18,43 @@ public abstract class CmdBase {
     private String name; // 命令名称
     private List<String> arguments;
 
+    public void initCommand(int lineNo, String name, List<String> arguments) {
+        this.lineNo = lineNo;
+        this.name = name;
+        this.arguments = arguments;
+
+        this.checkArgumentSize();
+        init();
+    }
+
     public String getName() {
         return name;
-    }
-    public void setName(String name) {
-        this.name = name;
     }
     public int getLineNo() {
         return lineNo;
     }
-
-    public void setLineNo(int lineNo) {
-        this.lineNo = lineNo;
-    }
-    public CmdBase(String name) {
-        this.name = name;
-    }
-    public CmdBase() {
+    public List<String> getArguments() {
+        return arguments;
     }
 
-    public void init(List<String> arguments) {}
+    public abstract void init();
 
-    protected abstract int execute(CmdProcessor cmdProcessor);
-    protected String getSample() { return ""; }
-    protected int getArgumentSize() {return 0;}
-    protected void checkArgumentSize(int size) {
+    public abstract int execute(CmdProcessor cmdProcessor);
+    public abstract String getUsage();
+    public abstract int getArgumentSize();
+    private void checkArgumentSize() {
+        int size = getArgumentSize();
         if (arguments.size() != size) {
-            logger.debug("command "+name+" needs "+size+" arguments, but "+arguments.size()+" in fact.");
+            logger.debug("command "+name+" needs "+ size +" arguments, but "+arguments.size()+" in fact. usage: " + getUsage());
         }
     }
 
     @Override
     public String toString() {
-        return "CmdBase [name=" + name + ", lineNo=" + lineNo + "]";
+        return "CmdBase{" +
+                "lineNo=" + lineNo +
+                ", name='" + name + '\'' +
+                ", arguments=" + arguments +
+                '}';
     }
-    
-    
 }
