@@ -2,7 +2,7 @@ attr 1 2
 
 createnpc 11 8 3 2 1
 createnpc 12 12 5 2 1
-createnpc 13 13 5 2 1
+createnpc 13 13 9 2 1
 scenename '三清宫'
 return
 

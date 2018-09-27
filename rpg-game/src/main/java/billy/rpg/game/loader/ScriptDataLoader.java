@@ -105,6 +105,9 @@ public class ScriptDataLoader {
                 lineNumber++;
             }
 
+            if (cmdList.isEmpty()) {
+                throw new RuntimeException("no scripts.");
+            }
             scriptItem.init(cmdList);
             scriptItemList.add(scriptItem);
 

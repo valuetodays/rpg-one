@@ -3,6 +3,9 @@ package billy.rpg.game.cmd.executor;
 import billy.rpg.game.cmd.*;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.jline.reader.ParsedLine;
+import org.jline.reader.Parser;
+import org.jline.reader.impl.DefaultParser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,13 +69,30 @@ public class CmdParser {
         int spaceInx = line.indexOf(CHAR_SPACE);
         CmdBase cmdBase = null;
         // 注意monsters命令是一个例外，它可以出现的形式有 monsters; monsters 10;两种
+
+        Parser parser = new DefaultParser();
+        ParsedLine parse = parser.parse(line, 0);
+        System.out.println(parse.words());
+        List<String> words = parse.words();
+        if (words.size() == 1) {
+            cmdBase = parse0(script, lineNumber, line.toLowerCase());
+        } else {
+            cmdBase = parseNew(script, lineNumber, words.get(0), words.subList(1, words.size()));
+        }
+        /*
         if (spaceInx < 0) { // 没有' '，说明是无参数命令（rtn, label）
             cmdBase = parse0(script, lineNumber, line.toLowerCase());
         } else {
             cmdBase = parseN(script, lineNumber, line.substring(0, spaceInx).toLowerCase(), line.substring(spaceInx+1));
-        }
+        }*/
+        cmdBase = EmptyCmd.EMPTY_CMD;
 
         return cmdBase;
+    }
+
+    private static CmdBase parseNew(String script, int lineNumber, String s, List<String> arguments) {
+
+        return null;
     }
 
 

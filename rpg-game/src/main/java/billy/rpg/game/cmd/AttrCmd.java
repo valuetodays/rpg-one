@@ -2,6 +2,8 @@ package billy.rpg.game.cmd;
 
 import billy.rpg.game.cmd.executor.CmdProcessor;
 
+import java.util.List;
+
 /**
  * 命令 - attr
  * @author <a href="http://blog.sina.com.cn/valuetodays">liulei-home</a>
@@ -25,6 +27,11 @@ public class AttrCmd extends CmdBase {
 
     public int getN() {
         return n;
+    }
+
+    @Override
+    public void init(List<String> arguments) {
+
     }
 
     @Override
