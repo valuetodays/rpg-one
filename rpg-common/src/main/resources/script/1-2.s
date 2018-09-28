@@ -3,6 +3,7 @@ attr 1 2
 createnpc 11 8 3 2 1
 createnpc 12 12 5 2 1
 createnpc 13 13 9 2 1
+createnpc 14 19 19 2 1
 scenename '三清宫'
 return
 
@@ -60,8 +61,18 @@ say 1 '柳清风' LEFT "我怎么感觉不太对劲"
 unset wang100
 return
 
+
+药房孙师弟:
+@故意加个空格
+say 3 '孙师弟' LEFT '师兄，来点儿什么 药药药'
+buy 1 2 3 4 5 6
+return
+
+
 trigger 1 下山
 trigger 2 去百草地
 trigger 11 师傅
 trigger 12 游人1
 trigger 13 老王
+
+trigger 14 药房孙师弟

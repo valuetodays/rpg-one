@@ -23,7 +23,7 @@ public class GoodsDataLoader {
 
     public void load() {
         final String dir = "/goods/";
-        URL resource = RoleDataLoader.class.getResource(dir);
+        URL resource = GoodsDataLoader.class.getResource(dir);
 
         File file = new File(resource.getPath());
         // 只取一层文件夹

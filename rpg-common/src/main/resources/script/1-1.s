@@ -6,6 +6,8 @@ monsters
 @createnpc 9001 8 5 14 1
 @createnpc 0 8 10 15 2
 
+createnpc 14 8 10 15 1
+
 set 1
 
 if 1 见师傅
@@ -118,8 +120,15 @@ return
 钨龙剑ed:
 return
 
+testForAll:
+say 2 '师弟' LEFT '师兄，原来你在这啊，师父找不到你，正在无机阁大发雷霆呢，你快点到无机阁见师傅吧。'
+buy 1 2 3 4 5
+return
+
 trigger 1 三清宫
 trigger 2 百草地西
 
 trigger 101 玉兰草
 trigger 102 钨龙剑
+
+trigger 14 testForAll
