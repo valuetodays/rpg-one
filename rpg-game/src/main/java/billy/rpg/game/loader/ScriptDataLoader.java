@@ -94,13 +94,16 @@ public class ScriptDataLoader {
             List<CmdBase> cmdList = new ArrayList<>();
             int lineNumber = 1;
             while (lineData != null) {
+                // 以\结尾就说明该行未结束
+                while (lineData.endsWith("\\")) {
+                    lineData = lineData.substring(0, lineData.length()-1) + br.readLine();
+                    lineNumber++;
+                }
                 CmdBase tmp = cmdParser.parse(script, lineNumber, lineData);
                 if (tmp == null) {
                     throw new RuntimeException("tmp should not be null in ["+script+"("+lineNumber+")]");
                 }
                 if (!(tmp instanceof EmptyCmd)) {
-                    // TODO [0927]
-//                    tmp.setLineNo(lineNumber);
                     cmdList.add(tmp);
                 }
 

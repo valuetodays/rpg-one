@@ -1,0 +1,2 @@
+####
+NPCSTEP use LEFT/RIGHT/UP/DOWN not 1/2/3/4

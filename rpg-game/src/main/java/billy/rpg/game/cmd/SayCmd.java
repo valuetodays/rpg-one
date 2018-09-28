@@ -53,7 +53,7 @@ public class SayCmd extends CmdBase {
 
     @Override
     public String getUsage() {
-        return null;
+        return "say headImg-id name location[LEFT, RIGHT] text";
     }
 
     @Override
