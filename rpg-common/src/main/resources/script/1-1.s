@@ -8,9 +8,29 @@ monsters
 
 createnpc 14 8 10 15 1
 
+
+increasegoods 1
+increasegoods 2
+increasegoods 3
+increasegoods 4
+increasegoods 5
+increasegoods 6
+increasegoods 7
+increasegoods 8
+increasegoods 9
+increasegoods 10
+increasegoods 11
+increasegoods 12
+increasegoods 13
+increasegoods 14
+increasegoods 15
+increasegoods 16
+increasegoods 17
+
 set 1
 
 if 1 见师傅
+increasemoney 20000
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ showgut中可以使用`br`来换行
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -121,9 +141,9 @@ return
 return
 
 testForAll:
+increasegoods 1
+increasemoney 20000
 say 2 '师弟' LEFT '师兄，原来你在这啊，师父找不到你，正在无机阁大发雷霆呢，你快点到无机阁见师傅吧。'
-increasemoney 2000
-increasemoney 200
 buy 1 2 3 4 5
 return
 

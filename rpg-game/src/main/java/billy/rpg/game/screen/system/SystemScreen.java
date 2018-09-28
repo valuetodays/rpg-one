@@ -5,6 +5,10 @@ import billy.rpg.game.screen.BaseScreen;
 
 import java.util.Stack;
 
+/**
+ * 在地图上按ESC，显示系统界面
+ * 本界面是个占位界面，不显示任何内容，但是它是菜单、物品、技能系统
+ */
 public class SystemScreen extends BaseScreen {
     private Stack<BaseScreen> screenStack = new Stack<>();
 

@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.util.List;
 
 /**
+ * 商店 buy
  * @author lei.liu@datatist.com
  * @since 2018-09-28 12:38:35
  */

@@ -8,9 +8,13 @@ import billy.rpg.game.screen.BaseScreen;
 import billy.rpg.game.util.KeyUtil;
 import billy.rpg.resource.goods.GoodsMetaData;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 
-import java.awt.*;
+import java.util.List;
+import java.util.ArrayList;
 import java.awt.image.BufferedImage;
+import java.awt.*;
+import java.util.Collections;
 
 /**
  * @author liulei@bshf360.com
@@ -18,12 +22,8 @@ import java.awt.image.BufferedImage;
  */
 public class GoodsScreen extends BaseScreen {
     private SystemScreen systemScreen;
-    private int posY; // 一屏显示10条物品，左右各5条  0~9
-    private int posX; // 0在左侧，1在右侧    0~1
+    private int goodsIndex; // 一屏显示10条物品，0~9
     private static int MAX_SHOW = 10;
-
-    private int start = 0;
-    private int end = 0;
 
     public GoodsScreen(SystemScreen systemScreen) {
         this.systemScreen = systemScreen;
@@ -48,57 +48,57 @@ public class GoodsScreen extends BaseScreen {
 
         java.util.List<GoodsMetaData> goodsList = gameData.getGoodsList();
         if (CollectionUtils.isNotEmpty(goodsList)) {
-            end = Math.min(start+MAX_SHOW, goodsList.size());
-            for (int i = start; i < end; i++) {
+            int end = Math.min(MAX_SHOW, goodsList.size());
+            for (int i = 0; i < end; i++) {
                 GoodsMetaData goods = goodsList.get(i);
-                g.drawString(goods.getName() + " (" + goods.getCount() + ")" + posY + ","+start,
-                        180 + (((i-start) % 2 == 0) ? 0 : 200),
-                        70 + ((i-start)/2)*50);
-            }
-            if (start > 0) {
-                g.drawString("^", 200, 45);
-            }
-            if (start < goodsList.size()-MAX_SHOW) {
-                g.drawString("V", 200, 320);
+                g.drawString(goods.getName() + " (持有" + goods.getCount() + ")",
+                        180,70 + i * 25);
             }
 
-            g.drawRect(175 + posX *200, 50 + ((posY)/2) * 50, 150, 30); // 当前选中物品
-            //g.drawString(goodsList.get(posY+start).getDesc(), 175, 400);
+            g.drawRect(175, 50 + goodsIndex *25, 290, 25); // 当前选中物品
+            g.drawRect(470, 50, 120, 400);
+            List<String> formattedDesc = formatDesc(goodsList.get(goodsIndex).getDesc());
+            for (int i = 0; i < formattedDesc.size(); i++) {
+                String s = formattedDesc.get(i);
+                g.drawString(s, 473, 70 + i * 25);
+            }
         } else {
-            g.drawString("无物品", 175, 50);
+            g.drawString("暂无物品", 175, 50);
         }
 
         gameCanvas.drawBitmap(paint, 0, 0);
     }
+    private List<String> formatDesc(String desc) {
+        int LENGTH = 6;
+        if (StringUtils.isEmpty(desc)) {
+            return Collections.emptyList();
+        }
+        if (desc.length() <= LENGTH) {
+            return Collections.singletonList(desc);
+        }
+        List<String> target = new ArrayList<>();
+        while (true) {
+            if (desc.length() > LENGTH) {
+                target.add(desc.substring(0, 5));
+                desc = desc.substring(5);
+            } else {
+                target.add(desc);
+                break;
+            }
+        }
+        return target;
+    }
 
     @Override
     public void onKeyDown(int key) {
-        if (KeyUtil.isLeft(key)) {
-            if (posY > 0) {
-                posX = (posX+1) % 2;
-                posY--;
-            } else {
-                if (start > 1) {
-                    posX = (posX+1) % 2;
-                    start -= 2;
-                    posY++;
-                }
-            }
-            start = Math.max(start, 0);
-        } else if (KeyUtil.isRight(key)) {
+        if (KeyUtil.isUp(key) && goodsIndex > 0) {
+            goodsIndex--;
+        } else if (KeyUtil.isDown(key)) {
             GameData gameData = GameFrame.getInstance().getGameData();
             java.util.List<GoodsMetaData> goodsList = gameData.getGoodsList();
-            if (posY < MAX_SHOW-1 && ((posY + start) < goodsList.size()-1)) {
-                posX = (posX+1) % 2;
-                posY++;
-            } else {
-                if (start < goodsList.size()-MAX_SHOW) {
-                    posX = (posX+1) % 2;
-                    start += 2;
-                    posY--;
-                }
+            if (goodsIndex < goodsList.size() - 1) {
+                goodsIndex++;
             }
-            start = Math.min(start, goodsList.size()-MAX_SHOW+1);
         }
     }
 
