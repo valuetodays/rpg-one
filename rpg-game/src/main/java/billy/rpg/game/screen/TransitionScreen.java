@@ -31,8 +31,6 @@ public class TransitionScreen extends BaseScreen {
 
     @Override
     public void draw(GameCanvas gameCanvas) {
-        LOG.debug("draw transition.....");
-
         Image transition = GameFrame.getInstance().getGameContainer().getGameAboutItem().getGameTransition();
         BufferedImage paint = new BufferedImage(
                 GameConstant.GAME_WIDTH,

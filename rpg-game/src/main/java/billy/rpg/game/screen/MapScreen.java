@@ -10,12 +10,11 @@ import billy.rpg.game.character.TransferCharacter;
 import billy.rpg.game.cmd.executor.CmdProcessor;
 import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.resource.item.ScriptItem;
-import billy.rpg.game.util.KeyUtil;
 import billy.rpg.game.script.variable.VariableTableDeterminer;
+import billy.rpg.game.util.KeyUtil;
 import billy.rpg.resource.box.BoxImageLoader;
 import billy.rpg.resource.map.MapMetaData;
 import billy.rpg.resource.npc.NPCImageLoader;
-import org.apache.log4j.Logger;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -24,7 +23,6 @@ import java.awt.image.BufferedImage;
  * map
  */
 public class MapScreen extends BaseScreen {
-    private static Logger LOG = Logger.getLogger(MapScreen.class);
     private int offsetTileX = 0;
     private int offsetTileY = 0;
 

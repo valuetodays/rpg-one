@@ -8,24 +8,7 @@ monsters
 
 createnpc 14 8 10 15 1
 
-
-increasegoods 1
-increasegoods 2
-increasegoods 3
-increasegoods 4
-increasegoods 5
-increasegoods 6
-increasegoods 7
-increasegoods 8
-increasegoods 9
-increasegoods 10
-increasegoods 11
-increasegoods 12
-increasegoods 13
-increasegoods 14
-increasegoods 15
-increasegoods 16
-increasegoods 17
+createtransfer 14 5
 
 set 1
 

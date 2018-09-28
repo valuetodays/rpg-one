@@ -4,7 +4,7 @@ import billy.rpg.game.GameCanvas;
 import org.apache.log4j.Logger;
 
 public abstract class BaseScreen {
-    protected static final Logger LOG = Logger.getLogger(BaseScreen.class);
+    protected final Logger LOG = Logger.getLogger(getClass());
     
     public BaseScreen() {
         LOG.debug("new " + this.getClass().getSimpleName() + "()");

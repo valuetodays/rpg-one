@@ -33,7 +33,7 @@ public class BattleDefeatScreen extends BaseScreen {
         g.setColor(Color.black);
         g.fillRect(0, 0, paint.getWidth(), paint.getHeight());
         g.setColor(Color.WHITE);
-        g.drawString("众妖怪：菜鸡打不过我，哈哈！", 20, 50);
+        g.drawString("妖怪：菜鸡，打不过我，哈哈！", 20, 50);
 
         gameCanvas.drawBitmap(paint, 0, 0);
     }

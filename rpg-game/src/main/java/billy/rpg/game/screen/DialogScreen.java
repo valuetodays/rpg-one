@@ -48,15 +48,6 @@ public class DialogScreen extends BaseScreen {
         curLine = 1;
     }
 
-    public static void main(String[] args) {
-		String msg = "我是`y`天大地大我最大张三`/y`，十分、一百分`r`、`/r`一千分、一万分、十万分、百万分郑重地命令你这小厮快去打`r`大龙`/r`！你快去啊，真是不听话，害我说那么多话，真可恶！什么？！你说`b`我废话多`/b`？你再说，再说一次试试？";
-        DialogScreen dialogScreen = new DialogScreen(null, null, "name", PositionEnum.LEFT, msg);
-        List<MsgContent> msgListTemp = dialogScreen.msgList;
-        msgListTemp.forEach(e -> {
-            LOG.debug(e);
-        });
-    }
-
     private List<MsgContent> dealTag() {
         List<MsgContent> msgListTemp = new ArrayList<>();
 

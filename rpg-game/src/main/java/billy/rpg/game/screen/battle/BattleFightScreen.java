@@ -349,7 +349,6 @@ public class BattleFightScreen extends BaseScreen {
             }
         }
         if (heroAllDieFlag) {
-            LOG.debug("defeat -_-||| show defeat ui");
             BattleDefeatScreen defeat = new BattleDefeatScreen();
             getBattleUIScreen().getParentScreen().push(defeat);
             return;
@@ -363,7 +362,6 @@ public class BattleFightScreen extends BaseScreen {
         }
 
         if (monsterDieAllFlag) {
-            LOG.debug("victory!!! show victory ui");
             BattleSuccessScreen success = new BattleSuccessScreen(
                     getBattleUIScreen().getParentScreen(),
                     getBattleUIScreen().money,
