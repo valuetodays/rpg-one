@@ -16,7 +16,7 @@ public class SystemScreen extends BaseScreen {
     @Override
     public void update(long delta) {
         int n = 0;
-        for (n = screenStack.size()-1; n >= 0 ;n--) {
+        for (n = screenStack.size()-1; n >= 0; n--) {
             BaseScreen baseScreen = screenStack.get(n);
             if (!baseScreen.isPopup()) {
                 break;

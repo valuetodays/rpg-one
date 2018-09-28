@@ -16,6 +16,7 @@ import java.util.List;
  */
 public class ShopScreen extends BaseScreen {
     private List<Integer> goodsIdList;
+    private int goodsIndex;
 
     public ShopScreen(List<Integer> goodsIdList) {
         this.goodsIdList = goodsIdList;
@@ -49,6 +50,7 @@ public class ShopScreen extends BaseScreen {
             GoodsMetaData goodsMetaData = GameFrame.getInstance().getGameContainer().getGoodsMetaDataOf(goodsId);
             g.drawString(goodsMetaData.getName(), 200, 90 + i * 20);
         }
+        g.drawString("->", 180, 90 + goodsIndex*20);
         gameCanvas.drawBitmap(paint, 0, 0);
     }
 
@@ -61,6 +63,22 @@ public class ShopScreen extends BaseScreen {
     public void onKeyUp(int key) {
         if (KeyUtil.isEsc(key)) {
             GameFrame.getInstance().popScreen();
+        }
+        if (KeyUtil.isUp(key) && goodsIndex > 0) {
+            goodsIndex--;
+        } else if (KeyUtil.isDown(key) && goodsIndex < goodsIdList.size()-1) {
+            goodsIndex++;
+        } else if (KeyUtil.isEnter(key)) {
+            Integer goodsId = goodsIdList.get(goodsIndex);
+            GoodsMetaData goodsMetaData = GameFrame.getInstance().getGameContainer().getGoodsMetaDataOf(goodsId);
+            int buy = goodsMetaData.getBuy();
+            int money = GameFrame.getInstance().getGameData().getMoney();
+            if (money < buy) {
+                GameFrame.getInstance().pushScreen(new MessageBoxScreen("你的金钱不足以购买 【"+goodsMetaData.getName()+"】"));
+            } else {
+                GameFrame.getInstance().getGameData().decreaseMoney(buy);
+                GameFrame.getInstance().getGameData().increaseGoods(goodsMetaData.getNumber());
+            }
         }
     }
 }
