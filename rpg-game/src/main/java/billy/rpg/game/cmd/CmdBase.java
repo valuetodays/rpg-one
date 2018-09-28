@@ -12,7 +12,9 @@ import java.util.List;
  */
 public abstract class CmdBase {
     public final Logger logger = Logger.getLogger(getClass());
-    public static final String CHAR_SPACE = " ";
+    protected int ARGUMENT_COUNT_GE_ZERO = -1000; // >= 0
+    protected int ARGUMENT_COUNT_EVEN = -1000; // 0, 2, 4
+    protected int ARGUMENT_COUNT_ODD = -1000; // 1, 3, 5
 
     private int lineNo;
     private String name; // 命令名称
@@ -44,9 +46,22 @@ public abstract class CmdBase {
     public abstract int getArgumentSize();
     private void checkArgumentSize() {
         int size = getArgumentSize();
+        if (size == ARGUMENT_COUNT_GE_ZERO) {
+            return;
+        } else if (size == ARGUMENT_COUNT_ODD && !isOdd(size)) {
+            logger.debug("command "+name+" needs even(1,3,5) arguments, but "+arguments.size()+" in fact. usage: " + getUsage());
+        }
+
         if (arguments.size() != size) {
             logger.debug("command "+name+" needs "+ size +" arguments, but "+arguments.size()+" in fact. usage: " + getUsage());
         }
+    }
+
+    /**
+     * whether a number is odd, such like 1,3,5...
+     */
+    private static boolean isOdd(int n) {
+        return (n & 1) != 0;
     }
 
     @Override

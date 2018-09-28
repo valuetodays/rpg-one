@@ -39,6 +39,6 @@ public class MonstersCmd extends CmdBase {
 
     @Override
     public int getArgumentSize() {
-        return -1; // TODO
+        return ARGUMENT_COUNT_GE_ZERO;
     }
 }

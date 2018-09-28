@@ -30,7 +30,6 @@ public abstract class CmdParser0 {
             return EmptyCmd.EMPTY_CMD;
         }
 
-        logger.debug("data is `"+lineData+"`");
         if (lineData.endsWith(";")) {
             throw new RuntimeException("命令以;结尾了，是想要的吗？");
         }

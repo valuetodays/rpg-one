@@ -34,6 +34,6 @@ public class UnsetCmd extends CmdBase {
 
     @Override
     public int getArgumentSize() {
-        return 0;
+        return 1;
     }
 }

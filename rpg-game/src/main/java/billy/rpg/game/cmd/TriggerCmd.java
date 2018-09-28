@@ -42,7 +42,7 @@ public class TriggerCmd extends CmdBase {
 
     @Override
     public int getArgumentSize() {
-        return 0;
+        return 2;
     }
 
     @Override

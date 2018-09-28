@@ -47,7 +47,7 @@ public class ChoiceCmd extends CmdBase {
     @Override
     public int getArgumentSize() {
         // TODO
-        return 0;
+        return ARGUMENT_COUNT_ODD;
     }
 
     /**
