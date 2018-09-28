@@ -15,6 +15,8 @@ public abstract class CmdBase {
     protected int ARGUMENT_COUNT_GE_ZERO = -1000; // >= 0
     protected int ARGUMENT_COUNT_EVEN = -1000; // 0, 2, 4
     protected int ARGUMENT_COUNT_ODD = -1000; // 1, 3, 5
+    protected int ARGUMENT_MAX_COUNT = 512;
+
 
     private int lineNo;
     private String name; // 命令名称
@@ -45,15 +47,21 @@ public abstract class CmdBase {
     public abstract String getUsage();
     public abstract int getArgumentSize();
     private void checkArgumentSize() {
-        int size = getArgumentSize();
-        if (size == ARGUMENT_COUNT_GE_ZERO) {
+        int expectArgumentSize = getArgumentSize();
+        int realArgumentSize   = arguments.size();
+        if (expectArgumentSize == ARGUMENT_COUNT_GE_ZERO) {
             return;
-        } else if (size == ARGUMENT_COUNT_ODD && !isOdd(size)) {
-            logger.debug("command "+name+" needs even(1,3,5) arguments, but "+arguments.size()+" in fact. usage: " + getUsage());
+        } else if (expectArgumentSize == ARGUMENT_COUNT_ODD) {
+            if (isGtZero(realArgumentSize) || !isOdd(realArgumentSize)) {
+                logger.debug("command "+name+" needs even(1,3,5) arguments, but "+ realArgumentSize +" in fact. usage: " + getUsage());
+            }
         }
 
-        if (arguments.size() != size) {
-            logger.debug("command "+name+" needs "+ size +" arguments, but "+arguments.size()+" in fact. usage: " + getUsage());
+        if (expectArgumentSize > ARGUMENT_MAX_COUNT) {
+            logger.debug("command can only have "+ARGUMENT_MAX_COUNT+" arguments, but "+ realArgumentSize +" in fact. usage: " + getUsage());
+        }
+        if (realArgumentSize != expectArgumentSize) {
+            logger.debug("command "+name+" needs "+ expectArgumentSize +" arguments, but "+ realArgumentSize +" in fact. usage: " + getUsage());
         }
     }
 
@@ -62,6 +70,13 @@ public abstract class CmdBase {
      */
     private static boolean isOdd(int n) {
         return (n & 1) != 0;
+    }
+
+    /**
+     * whether a number is greater than 0
+     */
+    private static boolean isGtZero(int n) {
+        return n > 0;
     }
 
     @Override
