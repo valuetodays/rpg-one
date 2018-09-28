@@ -3,29 +3,32 @@ package billy.rpg.game.screen;
 import billy.rpg.game.GameCanvas;
 import billy.rpg.game.GameFrame;
 import billy.rpg.game.character.PositionEnum;
-import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.cmd.executor.CmdProcessor;
+import billy.rpg.game.constants.GameConstant;
+import billy.rpg.game.formatter.ColorDialogTextFormatter;
+import billy.rpg.game.formatter.DialogFormattedResult;
+import billy.rpg.game.formatter.DialogTextFormatter;
 import billy.rpg.game.util.KeyUtil;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * intend to show dialog in game
  */
 public class DialogScreen extends BaseScreen {
-    private static final int SEP = GameConstant.WORDS_NUM_PER_LINE;
     private int totalLine; // 对话总共会显示多少行
     private int curLine; // 对话显示到哪一行了
-    private final String msg; // 对话的内容，含有格式
-    private List<MsgContent> msgList; // 处理后的对话的内容
+    private List<DialogFormattedResult.DialogFormattedText> msgList; // 处理后的对话的内容
     private Image headImg; // 说话者的头像
     private CmdProcessor cmdProcessor;
     private PositionEnum position; // headImg location
     private String name; // name
+
+    private DialogTextFormatter dialogTextFormatter = new ColorDialogTextFormatter();
 
     /**
      * 对话框窗口
@@ -38,129 +41,17 @@ public class DialogScreen extends BaseScreen {
         this.headImg = headImg;
         PositionEnum.assertLegal(position, "对话框角色图片位置有误");
         this.position = position;
-        if (StringUtils.isEmpty(msg)) {
-            this.msg = "";
-        } else {
-            this.msg = msg;
-        }
         this.name = name;
-        dealMsg();
-        curLine = 1;
-    }
-
-    private List<MsgContent> dealTag() {
-        List<MsgContent> msgListTemp = new ArrayList<>();
-
-        String msgTemp = msg;
-        while (true) {
-            int colorTagPos = msgTemp.indexOf('`');
-            if (colorTagPos == -1) {
-                break;
-            }
-            String tagBegin = msgTemp.substring(colorTagPos, colorTagPos + 3);
-            int indexOf = msgTemp.indexOf(tagBegin);
-            if (indexOf > -1) {
-                String bef = msgTemp.substring(0, indexOf);
-                msgListTemp.add(new MsgContent(bef, Color.WHITE));
-                String tagEnd = tagBegin.substring(0, 1) + "/" + tagBegin.substring(1);
-                int indexOf2 = msgTemp.indexOf(tagEnd, indexOf);
-                String coloredMsg = msgTemp.substring(indexOf + tagBegin.length(), indexOf2);
-                Color color = getColor(tagBegin);
-                msgListTemp.add(new MsgContent(coloredMsg, color));
-                msgTemp = msgTemp.substring(indexOf2 + tagEnd.length());
-            }
-        }
-
-        msgListTemp.add(new MsgContent(msgTemp, Color.WHITE));
-
-        return msgListTemp;
-    }
-
-    /**
-     * 处理对话内容，将颜色值提取出来
-     */
-    private void dealMsg() {
-        List<MsgContent> msgListTemp = dealTag();
-
-        int cnt = 0;
-        initMsgList();
-        for (int i = 0; i < msgListTemp.size(); i++) {
-            MsgContent mc = msgListTemp.get(i);
-            int mccnt = mc.cnt;
-            String mccontent = mc.content;
-            if (mccnt < SEP) {
-                if (mccnt < SEP - cnt) {
-                    msgList.add(mc);
-                    cnt += mc.cnt;
-                    if (i == msgListTemp.size() - 1) {
-                        totalLine++;
-//                        System.out.println("one");
-                    }
-                } else {
-                    String pre = mccontent.substring(0, SEP - cnt);
-                    MsgContent mPre = new MsgContent(pre, mc.color);
-                    msgList.add(mPre);
-                    appendSeparator(mc.color);
-                    int n = pre.length();
-
-                    MsgContent mPost = new MsgContent(mccontent.substring(n, mc.cnt), mc.color);
-                    msgList.add(mPost);
-                    cnt = mPost.cnt;
-                }
-            } else {
-                String pre = mccontent.substring(0, SEP - cnt);
-                MsgContent mPre = new MsgContent(pre, mc.color);
-                msgList.add(mPre);
-                appendSeparator(mc.color);
-
-                int n = pre.length();
-                while (mccnt > SEP) {
-                    MsgContent m = new MsgContent(
-                            mccontent.substring(n, Math.min(n + SEP, mc.cnt)),
-                            mc.color);
-                    msgList.add(m);
-                    mccnt -= SEP;
-                    n += SEP;
-                    appendSeparator(mc.color);
-                }
-                if (n < mc.cnt) {
-                    MsgContent mPost = new MsgContent(mccontent.substring(n, mc.cnt), mc.color);
-                    msgList.add(mPost);
-                    cnt = mPost.cnt;
-                }
-            }
-        }
-
+        DialogFormattedResult dialogFormattedResult = dialogTextFormatter.format(StringUtils.isEmpty(msg) ? "" : msg);
+        msgList = dialogFormattedResult.getTextList();
+        totalLine = dialogFormattedResult.getTotalLine();
         calculateTotalLine();
-    }
-
-    private void initMsgList() {
-        msgList = new ArrayList<>();
-        appendSeparator(Color.WHITE);
+        curLine = 1;
     }
 
     private void calculateTotalLine() {
         totalLine--; // remove first
         totalLine = totalLine / 2 + (totalLine % 2 > 0 ? 1 : 0);
-    }
-
-    private void appendSeparator(Color color) {
-        MsgContent mNull = new MsgContent(null, color);
-        msgList.add(mNull);
-        totalLine++;
-    }
-
-    private static List<String> TAGS_COLOR = new ArrayList<>();
-
-    static {
-        TAGS_COLOR.add("`r`");
-        TAGS_COLOR.add("`g`");
-        TAGS_COLOR.add("`b`");
-        TAGS_COLOR.add("`y`");
-        TAGS_COLOR.add("`/r`");
-        TAGS_COLOR.add("`/g`");
-        TAGS_COLOR.add("`/b`");
-        TAGS_COLOR.add("`/y`");
     }
 
     @Override
@@ -176,7 +67,7 @@ public class DialogScreen extends BaseScreen {
 
     @Override
     public void draw(GameCanvas gameCanvas) {
-        if (StringUtils.isEmpty(msg)) {
+        if (CollectionUtils.isEmpty(msgList)) {
             return;
         }
         BufferedImage paint = new BufferedImage(
@@ -238,7 +129,7 @@ public class DialogScreen extends BaseScreen {
         int startIndexInMsgList = 0;
         int lineNum = 0;
         for (int n = 0; n < msgList.size(); n++) {
-            MsgContent msgContent = msgList.get(n);
+            DialogFormattedResult.DialogFormattedText msgContent = msgList.get(n);
 
             if (lineNum == start) {
                 startIndexInMsgList = n;
@@ -253,7 +144,7 @@ public class DialogScreen extends BaseScreen {
         boolean newline = false;
         String msgShown = "";
         for (int n = startIndexInMsgList; n < msgList.size() && lineNum > 0; n++) {
-            MsgContent msgContent = msgList.get(n);
+            DialogFormattedResult.DialogFormattedText msgContent = msgList.get(n);
             if (msgContent.cnt == -1) {
                 lineNum--;
                 if (lineNum == 0) {
@@ -291,42 +182,6 @@ public class DialogScreen extends BaseScreen {
                 || KeyUtil.isRight(key)
                 ) {
             curLine += 1;
-        }
-    }
-
-    private Color getColor(String tagName) {
-        char flagName = tagName.charAt(1);
-        if ('r' == flagName || 'R' == flagName) {
-            return Color.red;
-        }
-        if ('b' == flagName || 'B' == flagName) {
-            return Color.blue;
-        }
-        if ('g' == flagName || 'G' == flagName) {
-            return Color.green;
-        }
-        if ('y' == flagName || 'Y' == flagName) {
-            return Color.yellow;
-        } else {
-            return Color.BLACK;
-        }
-    }
-
-
-    private class MsgContent {
-        String content;
-        Color color;
-        int cnt;
-
-        public MsgContent(String content, Color color) {
-            this.content = content;
-            this.color = color;
-            cnt = (content == null ? -1 : content.length());
-        }
-
-        @Override
-        public String toString() {
-            return content + "@(" + color.getRed() + "," + color.getGreen() + "," + color.getBlue() + ")";
         }
     }
 
