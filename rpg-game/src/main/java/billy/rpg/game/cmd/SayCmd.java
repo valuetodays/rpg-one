@@ -14,7 +14,7 @@ import java.util.List;
  * @author <a href="http://blog.sina.com.cn/valuetodays">liulei-home</a>
  * @since 2016-05-10 22:38
  */
-public class ShowTextCmd extends CmdBase {
+public class SayCmd extends CmdBase {
     private int headNumber;
     private String rolename;
     private PositionEnum position;
@@ -63,7 +63,7 @@ public class ShowTextCmd extends CmdBase {
 
     @Override
     public String toString() {
-        return "ShowTextCmd{" +
+        return "SayCmd{" +
                 "headNumber=" + headNumber +
                 ", position=" + position +
                 ", text='" + text + '\'' +
@@ -95,7 +95,7 @@ public class ShowTextCmd extends CmdBase {
             text = text.substring(2, text.length() - 1);
             logger.debug(text);
 
-            return new ShowTextCmd(headNumber, name, positionEnum, text);
+            return new SayCmd(headNumber, name, positionEnum, text);
         } catch (Exception e) {
             logger.error("error in "+script+"[Line:"+lineNumber+", "+e.getMessage()+"]");
             return EmptyCmd.EMPTY_CMD;

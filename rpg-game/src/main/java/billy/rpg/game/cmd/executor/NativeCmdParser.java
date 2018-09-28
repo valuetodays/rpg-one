@@ -83,7 +83,7 @@
 //            }
 //            return new AttrCmd();
 //        } else if ("showtext".equals(cmdname)) {
-//            return ShowTextCmd.ofNew(script, lineNumber, cmdarg);
+//            return SayCmd.ofNew(script, lineNumber, cmdarg);
 //        } else if ("set".equals(cmdname)) {
 //            return new SetCmd(cmdarg);
 //        }  else if ("unset".equals(cmdname)) {

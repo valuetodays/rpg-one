@@ -17,23 +17,23 @@ if 1 见师傅
 @`江湖中有耳朵的人，绝无一人没有听见过“无机道长”这人的名字，江湖中有眼睛的人，也绝无一人不想瞧瞧“无机道长”绝世风采和他的绝代神功。只因为任何人都知道，世上绝没有一个少女能抵挡“无机道长”的微微一笑，也绝没有一个英雄能抵挡“无机道长”的轻轻一剑！`br`任何人都相信，“无机道长”的剑非但能在百万军中取主帅之首级，也能将一根头发分成两根，而他的笑，却可令少女的心碎。`br`三月廿八晚，无机和当时危害人间的大魔头——赤血天魔依约在三清山的伏魔洞前进行生死决斗。决斗后，无机负伤而归，赤血天魔不知所终。决斗结果无人知晓。`br`二十年后……'
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@
-@ showText headImg-id name location[LEFT, RIGHT] text
+@ say headImg-id name location[LEFT, RIGHT] text
 @@@@@@@@@@@@@@@@@@@@@@@@@@
 
 playbgm
-showText 1 '柳清风' LEFT '小蝴蝶，不要跑……'
+say 1 '柳清风' LEFT '小蝴蝶，不要跑……'
 @@@@@@@@@@@@@@@@@@@@@
 @ NPCSTEP id faceto step
 @@@@@@@@@@@@@@@@@@@@@
 npcstep 0 3 1
 @animation 3 50 100
-showText 1 '柳清风' RIGHT '小蝴蝶，不要跑……'
+say 1 '柳清风' RIGHT '小蝴蝶，不要跑……'
 npcstep 0 1 1
-showtext 1 '柳清风' LEFT '小蝴蝶，快出来……'
+say 1 '柳清风' LEFT '小蝴蝶，快出来……'
 npcstep 0 2 1
-showtext 1 '柳清风' LEFT '小蝴蝶，不要跑……'
+say 1 '柳清风' LEFT '小蝴蝶，不要跑……'
 npcstep 0 0 1
-showtext 1 '柳清风' LEFT '小蝴蝶……，哪去了？？'
+say 1 '柳清风' LEFT '小蝴蝶……，哪去了？？'
 npcstep 0 3 1
 
 createnpc 2 29 8 2 1
@@ -58,8 +58,8 @@ move 2 3
 npcstep 2 2 1
 npcstep 0 1 1
 
-showtext 2 '师弟' LEFT '师兄，原来你在这啊，师父找不到你，正在无机阁大发雷霆呢，你快点到无机阁见师傅吧。'
-showtext 1 '柳清风' RIGHT '好，你先走，我就去。'
+say 2 '师弟' LEFT '师兄，原来你在这啊，师父找不到你，正在无机阁大发雷霆呢，你快点到无机阁见师傅吧。'
+say 1 '柳清风' RIGHT '好，你先走，我就去。'
 move 2 0
 move 2 0
 move 2 1
@@ -91,7 +91,7 @@ loadmap 1 2 6 6 0 0
 return
 
 先见师傅吧:
-showText 1 '柳清风' LEFT '还是先去见师父再来玩吧。'
+say 1 '柳清风' LEFT '还是先去见师父再来玩吧。'
 return
 
 百草地西:
