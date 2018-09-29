@@ -101,3 +101,19 @@ ILoader
 #### 2018-01-13 18:16
     from https://www.cnblogs.com/mq0036/p/4026057.html
     
+    
+#### 2018-09-27
+    use jline to parse command,  not if-elseif-elseif-... but File#listFiles()
+    
+#### 2018-09-28
+    ShowText -> SayCmd
+    脚本内容过长时（如say/showgut）以\来接续下一行
+    extract dialogTextFormatter
+    add createtransferCmd
+    show goods list
+    show shop ui and buy goods
+
+
+#### 2018-09-29
+    IncreaseGoodsCmd -> AddGoodsCmd;  DecreaseGoodsCmd -> UseGoodsCmd
+    IncreaseMoneyCmd -> AddMoneyCmd;DecreaseMoneyCmd -> UseMoneyCmd
