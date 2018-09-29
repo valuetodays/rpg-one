@@ -13,16 +13,12 @@ import java.util.List;
  * @author liulei@bshf360.com
  * @since 2017-09-05 10:53
  */
-public class DecreaseGoodsCmd extends CmdBase {
+public class UseGoodsCmd extends CmdBase {
     private int number;
     private int count;
 
     public int getNumber() {
         return number;
-    }
-
-    public int getCount() {
-        return count;
     }
 
     @Override
@@ -34,7 +30,7 @@ public class DecreaseGoodsCmd extends CmdBase {
 
     @Override
     public int execute(CmdProcessor cmdProcessor) {
-        GameFrame.getInstance().getGameData().decreaseGoods(number, count);
+        GameFrame.getInstance().getGameData().useGoods(number, count);
         GoodsMetaData goodsMetaData = GameFrame.getInstance().getGameContainer().getGoodsMetaDataOf(number);
         GameFrame.getInstance().pushScreen(new MessageBoxScreen("物品减少 " + goodsMetaData.getName() + " * " +
                 count));

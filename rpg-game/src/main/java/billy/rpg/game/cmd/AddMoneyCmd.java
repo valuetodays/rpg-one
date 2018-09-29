@@ -3,30 +3,28 @@ package billy.rpg.game.cmd;
 import billy.rpg.game.GameFrame;
 import billy.rpg.game.cmd.executor.CmdProcessor;
 import billy.rpg.game.screen.MessageBoxScreen;
-import billy.rpg.resource.goods.GoodsMetaData;
 
 import java.util.List;
 
 /**
- * 增加物品
+ * 增加金币
  *
  * @author liulei@bshf360.com
  * @since 2017-09-05 10:53
  */
-public class IncreaseGoodsCmd extends CmdBase {
-    private int number;
+public class AddMoneyCmd extends CmdBase {
+    private int money;
 
     @Override
     public void init() {
         List<String> arguments = super.getArguments();
-        number = Integer.parseInt(arguments.get(0));
+        money = Integer.parseInt(arguments.get(0));
     }
 
     @Override
     public int execute(CmdProcessor cmdProcessor) {
-        GameFrame.getInstance().getGameData().increaseGoods(number);
-        GoodsMetaData goodsMetaData = GameFrame.getInstance().getGameContainer().getGoodsMetaDataOf(number);
-        GameFrame.getInstance().pushScreen(new MessageBoxScreen("物品增加 " + goodsMetaData.getName()));
+        GameFrame.getInstance().getGameData().addMoney(money);
+        GameFrame.getInstance().pushScreen(new MessageBoxScreen("金币增加 " + money));
         return 0;
     }
 

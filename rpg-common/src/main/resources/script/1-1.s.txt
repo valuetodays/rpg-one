@@ -18,23 +18,23 @@ return
 npc1new:
 say 1510 '哈' LEFT '好巧，又见到你了。'
 say 1510 '哈' LEFT '这些送给你吧。'
-increasegoods 1
-increasegoods 2
-increasegoods 3
-increasegoods 4
-increasegoods 5
-increasegoods 6
-increasegoods 7
-increasegoods 8
-increasegoods 9
-increasegoods 10
-increasegoods 11
-increasegoods 12
-increasegoods 13
-increasegoods 14
-increasegoods 15
-increasegoods 16
-increasegoods 17
+addgoods 1
+addgoods 2
+addgoods 3
+addgoods 4
+addgoods 5
+addgoods 6
+addgoods 7
+addgoods 8
+addgoods 9
+addgoods 10
+addgoods 11
+addgoods 12
+addgoods 13
+addgoods 14
+addgoods 15
+addgoods 16
+addgoods 17
 return
 
 npc1:

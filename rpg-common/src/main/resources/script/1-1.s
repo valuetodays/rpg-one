@@ -119,7 +119,7 @@ return
 return
 
 testForAll:
-increasegoods 1
+addgoods 1
 addmoney 20000
 say 2 '师弟' NONE '师兄，原来你在这啊，师父找不到你，正在无机阁大发雷霆呢，你快点到无机阁见师傅吧。'
 buy 1 2 3 4 5

@@ -111,7 +111,7 @@ public class GameData {
      * add goods
      * @param number number
      */
-    public void increaseGoods(int number) {
+    public void addGoods(int number) {
         List<GoodsMetaData> gdsList = goodsList.stream().filter(e ->
                 e.getNumber() == number
         ).collect(Collectors.toList());
@@ -136,7 +136,7 @@ public class GameData {
      *
      * @param number number
      */
-    public void decreaseGoods(int number, int count) {
+    public void useGoods(int number, int count) {
         List<GoodsMetaData> gdsList = goodsList.stream().filter(e ->
                 e.getNumber() == number
         ).collect(Collectors.toList());
