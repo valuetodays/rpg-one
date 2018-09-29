@@ -9,16 +9,31 @@ return
 
 下山:
 say 1 '柳清风' RIGHT '终于可以下山了。'
+messagebox '游戏结束，恭喜通关~'
+animation 3 100 100
+animation 12 200 10
 return
 
 去百草地:
+if 31 要下山
 loadmap 1 1 14 12 4 0
 return
 
+要下山:
+say 1 '柳清风' RIGHT '还是下山除妖要紧。'
+return
+
 师傅:
-if 2 取剑
+if 31 回去收拾下山吧
+if 30 取回伏魔剑
+if 2 去取剑
 if 1 见师傅
 say 3 '无机道人' LEFT "无机阁在三清宫的北部。"
+return
+
+回去收拾下山吧:
+say 3 '无机道人' LEFT "你回去收拾，下山去吧。记住，除魔卫道，是你的本分，要以天下苍生为念。"
+say 1 '柳清风' RIGHT "是，师父。"
 return
 
 见师傅:
@@ -35,7 +50,24 @@ say 1 '柳清风' LEFT "是，师父。"
 set 2
 return
 
-取剑:
+取回伏魔剑:
+say 1 '柳清风' RIGHT "师父，弟子已取回宝剑。"
+say 3 '无机道人' LEFT "呵呵，取到了是在我预料之中的！怎么样，没事吧。"
+say 1 '柳清风' RIGHT "我拔出宝剑时地动山摇的，好象出了大事了，出山洞时还被石头砸伤了手。"
+say 3 '无机道人' LEFT "哦，快去包扎一下吧。把剑放在我这里吧。"
+@usegoods 14 12 没剑
+messagebox "伏魔剑交给了无机子"
+say 3 '无机道人' LEFT "你回去收拾，下山去吧。记住，除魔卫道，是你的本分，要以天下苍生为念。"
+say 1 '柳清风' RIGHT "是，师父。"
+@事件：下山除蛇妖
+set 31
+return
+
+没剑:
+messagebox "没有宝剑"
+return
+
+去取剑:
 say 3 '无机道人' LEFT "去吧，取了剑回来见我。"
 say 1 '柳清风' LEFT "是，师父。"
 return

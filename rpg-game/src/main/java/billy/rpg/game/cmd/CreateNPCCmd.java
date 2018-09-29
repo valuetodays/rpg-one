@@ -56,6 +56,14 @@ public class CreateNPCCmd extends CmdBase {
 
     @Override
     public int execute(CmdProcessor cmdProcessor) {
+
+
+        List<NPCCharacter> npcs = GameFrame.getInstance().getGameContainer().getActiveScriptItem().getNpcs();
+        long count = npcs.stream().filter(e -> e.getNumber() == getNpcId()).count();
+        if (count > 0) {
+            return -1;
+        }
+
         int x = getX();
         int y = getY();
         int npcNum = getNpcNum();
@@ -70,6 +78,8 @@ public class CreateNPCCmd extends CmdBase {
         npc.setTileNum(npcNum);
         npc.setNumber(getNpcId());
         npc.setDirection(CharacterConstant.PositionEnum.DOWN);
+
+
         GameFrame.getInstance().getGameContainer().getActiveScriptItem().getNpcs().add(npc);
         return 0;
     }

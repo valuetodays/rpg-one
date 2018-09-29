@@ -6,7 +6,12 @@ createnpc 14 8 10 15 1
 
 createtransfer 14 5
 
+set 30
 set 1
+set 2
+
+@ 测试，直接去打护剑神
+@ loadmap 1 8 7 11 9 17
 
 if 1 见师傅
 addmoney 20000

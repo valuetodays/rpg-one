@@ -119,3 +119,4 @@ ILoader
     IncreaseMoneyCmd -> AddMoneyCmd;DecreaseMoneyCmd -> UseMoneyCmd
     NPCSTEP/move use LEFT/RIGHT/UP/DOWN not 1/2/3/4
     add parser/processor package 
+    [TODO] existnpc npcId
