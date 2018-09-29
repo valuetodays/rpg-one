@@ -2,13 +2,14 @@ attr 1 1
 scenename '百草地'
 monsters
 
-createnpc 14 8 10 15 1
-
-createtransfer 14 5
-
-set 30
-set 1
-set 2
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@  用于测试
+@createnpc 14 8 10 15 1
+@createtransfer 14 5
+@set 30
+@set 1
+@set 2
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 @ 测试，直接去打护剑神
 @ loadmap 1 8 7 11 9 17

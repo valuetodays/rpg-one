@@ -1,7 +1,7 @@
 ## rpg-game
 
 #### desc
-
+`rpg-game` 是一个使用纯Java语言编写的一个游戏，辅以apache工具包。请运行billy.rpg.game.GameFrame查看效果。
 `rpg-game` is a game with pure java & some utils of apache. It contains many as follows:
 - image (png) read and show
 - map editor, role editor, animation editor
