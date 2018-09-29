@@ -75,11 +75,12 @@ public class GameData {
     public int getMoney() {
         return money;
     }
-    public void increaseMoney(int money) {
+    public void addMoney(int money) {
         this.money += money;
     }
-    public void decreaseMoney(int money) {
+    public void useMoney(int money) {
         this.money -= money;
+        // TODO 不应该减
         this.money = Math.max(0, this.money);
     }
 

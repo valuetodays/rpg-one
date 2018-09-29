@@ -77,7 +77,7 @@ public class ShopScreen extends BaseScreen {
             if (money < buy) {
                 GameFrame.getInstance().pushScreen(new MessageBoxScreen("你的金钱不足以购买 【"+goodsMetaData.getName()+"】"));
             } else {
-                GameFrame.getInstance().getGameData().decreaseMoney(buy);
+                GameFrame.getInstance().getGameData().useMoney(buy);
                 GameFrame.getInstance().getGameData().increaseGoods(goodsMetaData.getNumber());
             }
         }

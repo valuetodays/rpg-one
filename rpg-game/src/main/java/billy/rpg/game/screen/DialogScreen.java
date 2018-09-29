@@ -2,7 +2,7 @@ package billy.rpg.game.screen;
 
 import billy.rpg.game.GameCanvas;
 import billy.rpg.game.GameFrame;
-import billy.rpg.game.character.PositionEnum;
+import billy.rpg.game.cmd.SayCmd;
 import billy.rpg.game.cmd.executor.CmdProcessor;
 import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.formatter.ColorDialogTextFormatter;
@@ -25,8 +25,8 @@ public class DialogScreen extends BaseScreen {
     private List<DialogFormattedResult.DialogFormattedText> msgList; // 处理后的对话的内容
     private Image headImg; // 说话者的头像
     private CmdProcessor cmdProcessor;
-    private PositionEnum position; // headImg location
-    private String name; // name
+    private SayCmd.PositionEnum position; // headImg location
+    private String talker; // talker
 
     private DialogTextFormatter dialogTextFormatter = new ColorDialogTextFormatter();
 
@@ -36,12 +36,12 @@ public class DialogScreen extends BaseScreen {
      * @param headImg 说话者头像编号
      * @param msg 对话内容
      */
-    public DialogScreen(CmdProcessor cmdProcessor, Image headImg, String name, PositionEnum position, String msg) {
+    public DialogScreen(CmdProcessor cmdProcessor, Image headImg, String name, SayCmd.PositionEnum position, String msg) {
         this.cmdProcessor = cmdProcessor;
         this.headImg = headImg;
-        PositionEnum.assertLegal(position, "对话框角色图片位置有误");
+        SayCmd.PositionEnum.assertLegal(position, "对话框角色图片位置有误");
         this.position = position;
-        this.name = name;
+        this.talker = name;
         DialogFormattedResult dialogFormattedResult = dialogTextFormatter.format(StringUtils.isEmpty(msg) ? "" : msg);
         msgList = dialogFormattedResult.getTextList();
         totalLine = dialogFormattedResult.getTotalLine();
@@ -84,7 +84,7 @@ public class DialogScreen extends BaseScreen {
                 dlgBgLeft,
                 dlgBgTop,
                 null);
-        if (position == PositionEnum.LEFT) {
+        if (position == SayCmd.PositionEnum.LEFT) {
             g.drawImage(gameDlgRoleName,
                     dlgBgLeft + 20,
                     dlgBgTop - gameDlgRoleName.getHeight(null),
@@ -94,10 +94,10 @@ public class DialogScreen extends BaseScreen {
                     dlgBgTop - gameDlgRoleName.getHeight(null) - headImg.getHeight(null) - 2,
                     null);
             g.setFont(GameConstant.FONT_ROLENAME_IN_DLG);
-            g.drawString(name,
+            g.drawString(talker,
                     dlgBgLeft + 45,
                     dlgBgTop - gameDlgRoleName.getHeight(null)/3);
-        } else {
+        } else if (position == SayCmd.PositionEnum.RIGHT) {
             g.drawImage(gameDlgRoleName,
                     GameConstant.GAME_WIDTH/2 + gameDlgBg.getWidth(null)/2
                             - gameDlgRoleName.getWidth(null) - 20,
@@ -109,9 +109,14 @@ public class DialogScreen extends BaseScreen {
                     dlgBgTop - gameDlgRoleName.getHeight(null) - headImg.getHeight(null) - 2,
                     null);
             g.setFont(GameConstant.FONT_ROLENAME_IN_DLG);
-            g.drawString(name,
+            g.drawString(talker,
                     GameConstant.GAME_WIDTH/2 + gameDlgBg.getWidth(null)/2
                             - 30 - 60,
+                    dlgBgTop - gameDlgRoleName.getHeight(null)/3);
+        } else if (position == SayCmd.PositionEnum.NONE) {
+            g.setFont(GameConstant.FONT_ROLENAME_IN_DLG);
+            g.drawString(talker,
+                    dlgBgLeft + 45,
                     dlgBgTop - gameDlgRoleName.getHeight(null)/3);
         }
 

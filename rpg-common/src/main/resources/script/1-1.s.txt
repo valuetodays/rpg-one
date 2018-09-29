@@ -41,9 +41,9 @@ npc1:
 if npc1ed npc1new
 say 1510 '哈' LEFT '啊！你怎么沦落至此地？'
 say 1510 '哈' LEFT '算了，这是100金币。给你吧。'
-increasemoney 100
+addmoney 100
 say 1510 '哈' LEFT '不对，还是给你80金币吧。'
-decreasemoney 20
+usemoney 20
 say 1675 '哈' LEFT '十分感谢，定会相报。'
 set npc1ed
 return

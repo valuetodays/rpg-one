@@ -6,10 +6,10 @@ createnpc 14 8 10 15 1
 
 createtransfer 14 5
 
-@set 1
+set 1
 
 if 1 见师傅
-increasemoney 20000
+addmoney 20000
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ showgut中可以使用`br`来换行
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -120,8 +120,8 @@ return
 
 testForAll:
 increasegoods 1
-increasemoney 20000
-say 2 '师弟' LEFT '师兄，原来你在这啊，师父找不到你，正在无机阁大发雷霆呢，你快点到无机阁见师傅吧。'
+addmoney 20000
+say 2 '师弟' NONE '师兄，原来你在这啊，师父找不到你，正在无机阁大发雷霆呢，你快点到无机阁见师傅吧。'
 buy 1 2 3 4 5
 return
 

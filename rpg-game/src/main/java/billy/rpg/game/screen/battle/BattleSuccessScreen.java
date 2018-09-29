@@ -130,7 +130,7 @@ public class BattleSuccessScreen extends BaseScreen {
     @Override
     public void onKeyUp(int key) {
         // 增加金币
-        GameFrame.getInstance().getGameData().increaseMoney(money);
+        GameFrame.getInstance().getGameData().addMoney(money);
 
         for (int i = 0; i < newHeroBatleList.size(); i++) {
             HeroBattle newHeroBattle = newHeroBatleList.get(i);

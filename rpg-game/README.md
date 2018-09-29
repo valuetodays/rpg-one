@@ -52,15 +52,14 @@ ILoader
     造成伤害时要显示血量减少
     [普通攻击时，攻击者应移动至目标处，再进行攻击，应有动画]
     对话要能有先后
-    [TODO add command]指定发生战斗的命令
-    可供选择的选择框
+    指定发生战斗的命令
+    可供选择的选择框 choicecmd
     
 #### 2017-07-24 11:30
-    [TODO] virtualtable要分情况
-    - 全局有效 or 本script文件有效
-    - 布尔型变量 or 整数型变量 （布尔型变量用于事件判断，整数可用于ifcmpt/decrease/increase等）
+    virtualtable要分情况 全局有效 or 本script文件有效
+    [TODO]布尔型变量 or 整数型变量 （布尔型变量用于事件判断，整数可用于ifcmpt/decrease/increase等）
     [TODO] set/unset, use boolean[1024] not map in virtualtable，但是只能使用数字不能使用字符串了，得重新考虑
-    [TODO] showtext 要提供选择头像在左/右/无
+    showtext/say 要提供选择头像在左/右/无
     
 #### 2017-08-22 17:17
     完成滚屏，且处理当地图宽20高15时hero去不了右，下，右下这三个区域的问题
@@ -94,9 +93,7 @@ ILoader
     curFrame;  // 步数 0右，1停止，2左
     direction; // 方向 0下，1左，2右，3上
     add command: move, npcstep, deletenpc
-    
-    [todo] clear / set
-    
+   
 ### 2017-12-21 13:50
     set的参数中，全是数字就表示是全局变量，其它的全是局部变量，局部变量只在script内有效
     

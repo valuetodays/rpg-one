@@ -55,7 +55,7 @@ return
 
 老王感谢:
 say 3 '老王' LEFT '谢谢你啊，我找了好久没找到，这是100文钱。'
-increasemoney 100
+addmoney 100
 say 3 '老王' LEFT '（小声嘀咕：钱袋价值百两白银呢，只花了100文钱就找到了，哈哈哈……）'
 say 1 '柳清风' LEFT "我怎么感觉不太对劲"
 unset wang100

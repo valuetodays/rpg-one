@@ -7,12 +7,12 @@ import billy.rpg.game.screen.MessageBoxScreen;
 import java.util.List;
 
 /**
- * 增加金币
+ * 减少金币
  *
  * @author liulei@bshf360.com
  * @since 2017-09-05 10:53
  */
-public class IncreaseMoneyCmd extends CmdBase {
+public class UseMoneyCmd extends CmdBase {
     private int money;
 
     public int getMoney() {
@@ -27,8 +27,8 @@ public class IncreaseMoneyCmd extends CmdBase {
 
     @Override
     public int execute(CmdProcessor cmdProcessor) {
-        GameFrame.getInstance().getGameData().increaseMoney(money);
-        GameFrame.getInstance().pushScreen(new MessageBoxScreen("金币增加 " + money));
+        GameFrame.getInstance().getGameData().useMoney(money);
+        GameFrame.getInstance().pushScreen(new MessageBoxScreen("金币减少 " + money));
         return 0;
     }
 
