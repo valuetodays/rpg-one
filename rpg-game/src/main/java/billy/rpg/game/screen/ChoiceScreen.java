@@ -2,7 +2,8 @@ package billy.rpg.game.screen;
 
 import billy.rpg.game.GameCanvas;
 import billy.rpg.game.GameFrame;
-import billy.rpg.game.cmd.executor.CmdProcessor;
+import billy.rpg.game.cmd.processor.CmdProcessor;
+import billy.rpg.game.cmd.processor.DefaultCmdProcessor;
 import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.container.GameContainer;
 import billy.rpg.game.script.LabelBean;
@@ -77,7 +78,7 @@ public class ChoiceScreen extends BaseScreen {
                     (selectedLabelTitle);
             LOG.debug("selectInx/selectedLabelTitle=" + selectedInx + "/"+ selectedLabelTitle);
             GameFrame.getInstance().popScreen();
-            CmdProcessor cmdProcessor = new CmdProcessor(selectedLabel.getCmds());
+            CmdProcessor cmdProcessor = new DefaultCmdProcessor(selectedLabel.getCmds());
             GameFrame.getInstance().getGameContainer().getActiveScriptItem().setCmdProcessor(cmdProcessor);
         }
         if (KeyUtil.isUp(key)) {

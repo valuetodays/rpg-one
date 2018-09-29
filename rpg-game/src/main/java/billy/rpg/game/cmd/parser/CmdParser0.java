@@ -1,4 +1,4 @@
-package billy.rpg.game.cmd.executor;
+package billy.rpg.game.cmd.parser;
 
 import billy.rpg.game.cmd.CmdBase;
 import billy.rpg.game.cmd.EmptyCmd;

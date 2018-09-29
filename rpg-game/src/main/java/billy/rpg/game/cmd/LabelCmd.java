@@ -1,7 +1,7 @@
 package billy.rpg.game.cmd;
 
 
-import billy.rpg.game.cmd.executor.CmdProcessor;
+import billy.rpg.game.cmd.processor.CmdProcessor;
 
 /**
  * 命令 - 标签 （其下会有很多其它基础命令）

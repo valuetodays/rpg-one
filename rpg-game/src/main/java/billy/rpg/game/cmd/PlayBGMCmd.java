@@ -1,6 +1,7 @@
 package billy.rpg.game.cmd;
 
-import billy.rpg.game.cmd.executor.CmdProcessor;
+
+import billy.rpg.game.cmd.processor.CmdProcessor;
 
 /**
  * @author liulei-home

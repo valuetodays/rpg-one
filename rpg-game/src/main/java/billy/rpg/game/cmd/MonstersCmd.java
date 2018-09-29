@@ -1,7 +1,7 @@
 package billy.rpg.game.cmd;
 
 import billy.rpg.game.GameFrame;
-import billy.rpg.game.cmd.executor.CmdProcessor;
+import billy.rpg.game.cmd.processor.CmdProcessor;
 
 import java.util.List;
 import java.util.stream.Collectors;

@@ -7,7 +7,8 @@ import billy.rpg.game.character.HeroCharacter;
 import billy.rpg.game.character.NPCCharacter;
 import billy.rpg.game.character.TransferCharacter;
 import billy.rpg.game.cmd.*;
-import billy.rpg.game.cmd.executor.CmdProcessor;
+import billy.rpg.game.cmd.processor.CmdProcessor;
+import billy.rpg.game.cmd.processor.DefaultCmdProcessor;
 import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.container.GameContainer;
 import billy.rpg.game.screen.MapScreen;
@@ -173,7 +174,7 @@ public class ScriptItem {
         }
 
         if (label != null) {
-            cmdProcessor = new CmdProcessor(label.getCmds());
+            cmdProcessor = new DefaultCmdProcessor(label.getCmds());
         }
     }
 
@@ -283,7 +284,7 @@ public class ScriptItem {
             return;
         }
         List<CmdBase> primarySection = getPrimarySection();
-        cmdProcessor = new CmdProcessor(primarySection);
+        cmdProcessor = new DefaultCmdProcessor(primarySection);
         flagExecutePrimarySection = true;
     }
 

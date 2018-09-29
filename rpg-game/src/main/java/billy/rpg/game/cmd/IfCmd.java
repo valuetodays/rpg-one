@@ -1,7 +1,8 @@
 package billy.rpg.game.cmd;
 
 import billy.rpg.game.GameFrame;
-import billy.rpg.game.cmd.executor.CmdProcessor;
+import billy.rpg.game.cmd.processor.CmdProcessor;
+import billy.rpg.game.cmd.processor.DefaultCmdProcessor;
 import billy.rpg.game.resource.item.ScriptItem;
 import billy.rpg.game.script.LabelBean;
 import billy.rpg.game.script.variable.VariableTableDeterminer;
@@ -35,7 +36,7 @@ public class IfCmd extends CmdBase {
                         .getScriptId());
             }
             //LabelBean fun = GlobalVirtualTables.getLabel(triggerName);
-            cmdProcessor.setInnerCmdProcessor(new CmdProcessor(fun.getCmds()));
+            cmdProcessor.setInnerCmdProcessor(new DefaultCmdProcessor(fun.getCmds()));
         } else {    // global variable does not exist
             return -2;
         }

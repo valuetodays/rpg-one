@@ -4,7 +4,7 @@ import billy.rpg.game.GameFrame;
 import billy.rpg.game.character.NPCCharacter;
 import billy.rpg.game.character.npc.CommonNPCCharacter;
 import billy.rpg.game.character.npc.NoWalkNPCCharacter;
-import billy.rpg.game.cmd.executor.CmdProcessor;
+import billy.rpg.game.cmd.processor.CmdProcessor;
 import billy.rpg.game.constants.CharacterConstant;
 
 import java.util.List;

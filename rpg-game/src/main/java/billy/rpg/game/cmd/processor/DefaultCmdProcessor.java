@@ -1,32 +1,29 @@
-package billy.rpg.game.cmd.executor;
+package billy.rpg.game.cmd.processor;
 
 import billy.rpg.game.cmd.CmdBase;
 import org.apache.log4j.Logger;
 
 import java.util.List;
 
-
 /**
- * 命令处理器
- *
- * @author liulei@bshf360.com
- * @since 2017-07-21 14:03
+ * @author lei.liu@datatist.com
+ * @since 2018-09-29 11:05:10
  */
-public class CmdProcessor {
+public class DefaultCmdProcessor extends CmdProcessor {
     private static Logger LOG = Logger.getLogger(CmdProcessor.class);
-    private boolean pausing; // 当对话开始时，该值为true，命令暂时不再往下执行
     private List<CmdBase> cmdList;
     private int cmdSize;
     private int cmdIndex;
     // 遇到了return命令就说明执行完毕了，典型是的if语句的子语句，它的每个分支都有return，任何一个分支走完都算结束了
     private boolean metReturnCmd;
-    private CmdProcessor innerCmdProcessor;
 
+
+    @Override
     public void update() {
         if (innerCmdProcessor != null) {
             innerCmdProcessor.update();
         } else {
-            if (!pausing) {
+            if (!super.pausing) {
                 if (endExecute()) {
                     return;
                 }
@@ -59,26 +56,9 @@ public class CmdProcessor {
     }
 
 
-    public CmdProcessor(List<CmdBase> cmdList) {
+    public DefaultCmdProcessor(List<CmdBase> cmdList) {
         this.cmdList = cmdList;
         cmdSize = cmdList.size();
     }
 
-    /**
-     * 挂起脚本执行 - 开始
-     */
-    public void startPause() {
-        pausing = true;
-    }
-
-    /**
-     * 挂起脚本执行 - 结束
-     */
-    public void endPause() {
-        pausing = false;
-    }
-
-    public void setInnerCmdProcessor(CmdProcessor innerCmdProcessor) {
-        this.innerCmdProcessor = innerCmdProcessor;
-    }
 }
