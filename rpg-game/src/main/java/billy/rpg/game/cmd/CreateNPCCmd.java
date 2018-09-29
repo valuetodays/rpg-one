@@ -5,6 +5,7 @@ import billy.rpg.game.character.NPCCharacter;
 import billy.rpg.game.character.npc.CommonNPCCharacter;
 import billy.rpg.game.character.npc.NoWalkNPCCharacter;
 import billy.rpg.game.cmd.executor.CmdProcessor;
+import billy.rpg.game.constants.CharacterConstant;
 
 import java.util.List;
 
@@ -68,6 +69,7 @@ public class CreateNPCCmd extends CmdBase {
         npc.initPos(x, y);
         npc.setTileNum(npcNum);
         npc.setNumber(getNpcId());
+        npc.setDirection(CharacterConstant.PositionEnum.DOWN);
         GameFrame.getInstance().getGameContainer().getActiveScriptItem().getNpcs().add(npc);
         return 0;
     }

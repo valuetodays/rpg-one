@@ -25,57 +25,57 @@ showgut '引：`br`    天地玄黄，宇宙洪荒  自古道魔不两立，世�
 
 playbgm
 say 1 '柳清风' LEFT '小蝴蝶，不要跑……'
-npcstep 0 3 1
+npcstep 0 UP 1
 @animation 3 50 100
 say 1 '柳清风' RIGHT '小蝴蝶，不要跑……'
-npcstep 0 1 1
+npcstep 0 LEFT 1
 say 1 '柳清风' LEFT '小蝴蝶，快出来……'
-npcstep 0 2 1
+npcstep 0 RIGHT 1
 say 1 '柳清风' LEFT '小蝴蝶，不要跑……'
-npcstep 0 0 1
+npcstep 0 DOWN 1
 say 1 '柳清风' LEFT '小蝴蝶……，哪去了？？'
-npcstep 0 3 1
+npcstep 0 UP 1
 
 createnpc 2 29 8 2 1
 messagebox '师弟出现'
-move 2 1
-move 2 1
-move 2 1
-move 2 1
-move 2 1
-move 2 1
-move 2 1
-move 2 1
-move 2 3
-move 2 3
-move 2 3
-move 2 3
-move 2 2
-move 2 2
-move 2 3
-move 2 3
+move 2 LEFT
+move 2 LEFT
+move 2 LEFT
+move 2 LEFT
+move 2 LEFT
+move 2 LEFT
+move 2 LEFT
+move 2 LEFT
+move 2 UP
+move 2 UP
+move 2 UP
+move 2 UP
+move 2 RIGHT
+move 2 RIGHT
+move 2 UP
+move 2 UP
 
-npcstep 2 2 1
-npcstep 0 1 1
+npcstep 2 RIGHT 1
+npcstep 0 LEFT 1
 
 say 2 '师弟' LEFT '师兄，原来你在这啊，师父找不到你，正在无机阁大发雷霆呢，你快点到无机阁见师傅吧。'
 say 1 '柳清风' RIGHT '好，你先走，我就去。'
-move 2 0
-move 2 0
-move 2 1
-move 2 1
-move 2 0
-move 2 0
-move 2 0
-move 2 0
-move 2 2
-move 2 2
-move 2 2
-move 2 2
-move 2 2
-move 2 2
-move 2 2
-move 2 2
+move 2 DOWN
+move 2 DOWN
+move 2 LEFT
+move 2 LEFT
+move 2 DOWN
+move 2 DOWN
+move 2 DOWN
+move 2 DOWN
+move 2 RIGHT
+move 2 RIGHT
+move 2 RIGHT
+move 2 RIGHT
+move 2 RIGHT
+move 2 RIGHT
+move 2 RIGHT
+move 2 RIGHT
 DELETENPC 2
 
 @设置事件，见师傅

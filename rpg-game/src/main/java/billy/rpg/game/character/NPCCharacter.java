@@ -11,11 +11,11 @@ public abstract class NPCCharacter extends BaseCharacter {
 
 
     public boolean isX() {
-        return (getDirection() == DIRECTION_LEFT || getDirection() == DIRECTION_RIGHT);
+        return PositionEnum.isX(getDirection());
     }
 
     public boolean isY() {
-        return (getDirection() == DIRECTION_UP || getDirection() == DIRECTION_DOWN);
+        return PositionEnum.isY(getDirection());
     }
 
     public int getTileNum() {

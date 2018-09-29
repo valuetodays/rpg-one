@@ -213,7 +213,7 @@ public class GameContainer {
         changeActiveMapItemTo(m, n);
 
         // 第一次加载时没有主角的方向
-        int oldDirection = CharacterConstant.DIRECTION_DOWN;
+        CharacterConstant.PositionEnum oldDirection = CharacterConstant.PositionEnum.DOWN;
         if (activeScriptItem != null) {
             HeroCharacter hero = activeScriptItem.getHero();
             if (hero != null) {
@@ -236,6 +236,7 @@ public class GameContainer {
                     int npcTileNumAndId = npcLayer[i][j];
                     npc.setTileNum(npcTileNumAndId & 0xffff);
                     npc.setNumber((npcTileNumAndId & 0xffff0000) >> 16);
+                    npc.setDirection(CharacterConstant.PositionEnum.DOWN);
                     activeScriptItem.getNpcs().add(npc);
                 }
             }

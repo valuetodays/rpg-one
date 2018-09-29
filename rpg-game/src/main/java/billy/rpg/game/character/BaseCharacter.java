@@ -14,7 +14,7 @@ public abstract class BaseCharacter implements CharacterConstant {
     protected int posX = 6; // 当前x
     protected int posY = 6; // 当前y
     protected int curFrame;  // 步数 0右，1停止，2左
-    protected int direction; // 方向 0下，1左，2右，3上
+    protected CharacterConstant.PositionEnum direction; // 方向 0下，1左，2右，3上
 
     /**
      * init position
@@ -67,11 +67,11 @@ public abstract class BaseCharacter implements CharacterConstant {
         this.curFrame = curFrame;
     }
 
-    public int getDirection() {
+    public CharacterConstant.PositionEnum getDirection() {
         return direction;
     }
 
-    public void setDirection(int direction) {
+    public void setDirection(CharacterConstant.PositionEnum direction) {
         this.direction = direction;
     }
 
@@ -84,8 +84,8 @@ public abstract class BaseCharacter implements CharacterConstant {
         MapScreen mapScreen = GameFrame.getInstance().getGameContainer().getMapScreen();
         int offsetTileX = mapScreen.getOffsetTileX();
         int offsetTileY = mapScreen.getOffsetTileY();
-        return posX + ((direction == DIRECTION_LEFT && posX > 0) ? -1 :
-                ((direction == DIRECTION_RIGHT && (posX) < mapWidth - 1) ? 1 : 0)
+        return posX + ((direction == PositionEnum.LEFT && posX > 0) ? -1 :
+                ((direction == PositionEnum.RIGHT && (posX) < mapWidth - 1) ? 1 : 0)
         );
     }
 
@@ -98,8 +98,8 @@ public abstract class BaseCharacter implements CharacterConstant {
         MapScreen mapScreen = GameFrame.getInstance().getGameContainer().getMapScreen();
         int offsetTileX = mapScreen.getOffsetTileX();
         int offsetTileY = mapScreen.getOffsetTileY();
-        return posY + ((direction == DIRECTION_UP && posY > 0) ? -1 :
-                ((direction == DIRECTION_DOWN && (posY) < mapHeight - 1) ? 1 : 0 )
+        return posY + ((direction == PositionEnum.UP && posY > 0) ? -1 :
+                ((direction == PositionEnum.DOWN && (posY) < mapHeight - 1) ? 1 : 0 )
         );
     }
 

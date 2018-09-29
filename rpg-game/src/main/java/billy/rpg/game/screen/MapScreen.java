@@ -84,8 +84,8 @@ public class MapScreen extends BaseScreen {
         final Image roleFull1 = GameFrame.getInstance().getGameContainer().getRoleItem().getRoleFull1();
         g2.drawImage(roleFull1, (posX)*32, (posY)*32,
                 (posX)*32 + 32, (posY)*32 + 32,
-                hero.getCurFrame()*32, hero.getDirection()*32,
-                hero.getCurFrame()*32 + 32, hero.getDirection()*32 + 32, null);
+                hero.getCurFrame()*32, hero.getDirection().getValue()*32,
+                hero.getCurFrame()*32 + 32, hero.getDirection().getValue()*32 + 32, null);
 
         NPCImageLoader npcImageLoader = GameFrame.getInstance().getGameContainer().getNpcImageLoader();
         ScriptItem active = GameFrame.getInstance().getGameContainer().getActiveScriptItem();
@@ -95,7 +95,7 @@ public class MapScreen extends BaseScreen {
             int posX1 = npc.getPosX();
             int posY1 = npc.getPosY();
             int curFrame = npc.getCurFrame();
-            int direction = npc.getDirection();
+            int direction = npc.getDirection().getValue();
             BufferedImage fullImageOf = npcImageLoader.getFullImageOf(npc.getTileNum());
             g2.drawImage(fullImageOf, (posX1-offsetTileX)*32, (posY1-offsetTileY)*32,
                     (posX1-offsetTileX)*32 + 32, (posY1-offsetTileY)*32 + 32,

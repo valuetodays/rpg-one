@@ -11,7 +11,7 @@ public class HeroCharacter extends BaseCharacter {
 
     private int originalPosX = 6; // 移动前的x
     private int originalPosY = 6; // 移动前的y
-    private int originalDirection = 0; // 移动前的方向
+    private PositionEnum originalDirection = PositionEnum.DOWN; // 移动前的方向
 
     @Override
     public void move(MapScreen mapScreen) {
@@ -30,8 +30,8 @@ public class HeroCharacter extends BaseCharacter {
     @Override
     public int getNextPosX() {
         int mapWidth = GameFrame.getInstance().getGameContainer().getActiveMap().getWidth();
-        return originalPosX + ((direction == DIRECTION_LEFT && originalPosX > 0) ? -1 :
-                ((originalDirection == DIRECTION_RIGHT && (originalPosX) < mapWidth - 1) ? 1 : 0)
+        return originalPosX + ((direction == PositionEnum.LEFT && originalPosX > 0) ? -1 :
+                ((originalDirection == PositionEnum.RIGHT && (originalPosX) < mapWidth - 1) ? 1 : 0)
         );
     }
 
@@ -42,8 +42,8 @@ public class HeroCharacter extends BaseCharacter {
     @Override
     public int getNextPosY() {
         int mapHeight = GameFrame.getInstance().getGameContainer().getActiveMap().getHeight();
-        return originalPosY + ((direction == DIRECTION_UP && originalPosY > 0) ? -1 :
-                ((originalDirection == DIRECTION_DOWN && (originalPosY) < mapHeight - 1) ? 1 : 0 )
+        return originalPosY + ((direction == PositionEnum.UP && originalPosY > 0) ? -1 :
+                ((originalDirection == PositionEnum.DOWN && (originalPosY) < mapHeight - 1) ? 1 : 0 )
         );
     }
 
@@ -98,7 +98,7 @@ public class HeroCharacter extends BaseCharacter {
             }
         }
 
-        direction = DIRECTION_RIGHT;
+        direction = PositionEnum.RIGHT;
     }
 
     /**
@@ -156,7 +156,7 @@ public class HeroCharacter extends BaseCharacter {
             }
         }
 
-        direction = DIRECTION_LEFT;
+        direction = PositionEnum.LEFT;
     }
 
     /**
@@ -210,7 +210,7 @@ public class HeroCharacter extends BaseCharacter {
             }
         }
 
-        direction = DIRECTION_DOWN;
+        direction = PositionEnum.DOWN;
     }
 
     /**
@@ -265,7 +265,7 @@ public class HeroCharacter extends BaseCharacter {
             }
         }
 
-        direction = DIRECTION_UP;
+        direction = PositionEnum.UP;
     }
 
 
