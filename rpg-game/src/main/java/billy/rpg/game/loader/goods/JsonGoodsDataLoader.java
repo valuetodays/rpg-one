@@ -23,7 +23,7 @@ public class JsonGoodsDataLoader extends GoodsDataLoader {
     }
 
     public void load() throws IOException {
-        final String dir = "/goods/";
+        final String dir = "/goods/json/";
         URL resource = BinaryGoodsDataLoader.class.getResource(dir);
 
         File file = new File(resource.getPath());
