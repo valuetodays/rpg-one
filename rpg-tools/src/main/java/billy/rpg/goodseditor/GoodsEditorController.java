@@ -1,7 +1,7 @@
 package billy.rpg.goodseditor;
 
 import billy.rpg.resource.goods.GoodsMetaData;
-import billy.rpg.resource.goods.GoodsSaverLoader;
+import billy.rpg.resource.goods.BinaryGoodsSaverLoader;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -84,7 +84,7 @@ public class GoodsEditorController implements Initializable {
     public void onLoad(ActionEvent e) {
         File file = loadFileChooser.showOpenDialog(null);
         if (file != null) {
-            GoodsMetaData loadedGoods = GoodsSaverLoader.load(file.getPath());
+            GoodsMetaData loadedGoods = new BinaryGoodsSaverLoader().load(file.getPath());
             tfNumber.setText("" + loadedGoods.getNumber());
             cbType.getSelectionModel().select(cbType.getSelectionModel().getSelectedIndex());
             tfName.setText(loadedGoods.getName());
@@ -190,7 +190,8 @@ public class GoodsEditorController implements Initializable {
             gmd.setAttack(Integer.parseInt(tfAttack.getText()));
             gmd.setDefend(Integer.parseInt(tfDefend.getText()));
             gmd.setDesc(desc);
-            GoodsSaverLoader.save(file.getPath(), gmd);
+            // TODO 应该作为成员变量使用
+            new BinaryGoodsSaverLoader().save(file.getPath(), gmd);
             LOG.debug("save to " + file.getPath());
         }
     }

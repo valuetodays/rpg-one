@@ -24,7 +24,7 @@ public class GameCoverScreen extends BaseScreen {
         map.put(3, 380);
         String audioPath = CoreUtil.getAudioPath("audio/game_cover.mp3");
         player = new AsyncAudioPlayer(audioPath, true);
-        player.playAsync();
+//        player.playAsync();
     }
     
     @Override

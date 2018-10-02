@@ -10,6 +10,8 @@ import billy.rpg.game.character.npc.CommonNPCCharacter;
 import billy.rpg.game.constants.CharacterConstant;
 import billy.rpg.game.item.*;
 import billy.rpg.game.loader.*;
+import billy.rpg.game.loader.goods.GoodsDataLoader;
+import billy.rpg.game.loader.goods.JsonGoodsDataLoader;
 import billy.rpg.game.resource.item.ScriptItem;
 import billy.rpg.game.screen.BaseScreen;
 import billy.rpg.game.screen.MapScreen;
@@ -24,6 +26,7 @@ import billy.rpg.resource.skill.SkillMetaData;
 import org.apache.log4j.Logger;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -125,8 +128,8 @@ public class GameContainer {
         
         loaded = true;
     }
-    private void loadGoodsData() {
-        GoodsDataLoader gdl = new GoodsDataLoader();
+    private void loadGoodsData() throws IOException {
+        GoodsDataLoader gdl = new JsonGoodsDataLoader();
         gdl.load();
         goodsMetaDataMap = gdl.getGoodsMap();
     }

@@ -10,8 +10,8 @@ import java.io.*;
  * @author liulei@bshf360.com
  * @since 2017-09-04 17:54
  */
-public class GoodsSaverLoader {
-    private static final Logger LOG = Logger.getLogger(GoodsSaverLoader.class);
+public class BinaryGoodsSaverLoader implements GoodsSaverLoader0 {
+    private static final Logger LOG = Logger.getLogger(BinaryGoodsSaverLoader.class);
     private static final String GDS_MAGIC = ToolsConstant.MAGIC_GDS;
     private static final String CHARSET = ToolsConstant.CHARSET;
 
@@ -20,7 +20,8 @@ public class GoodsSaverLoader {
      * @param filepath filepath
      * @param goodsMetaData data
      */
-    public static void save(String filepath, GoodsMetaData goodsMetaData) {
+    @Override
+    public void save(String filepath, GoodsMetaData goodsMetaData) {
         File file = new File(filepath);
         FileOutputStream fos = null;
         DataOutputStream dos = null;
@@ -88,7 +89,8 @@ public class GoodsSaverLoader {
      * @param filepath filepath
      * @return MetaData
      */
-    public static GoodsMetaData load(String filepath) {
+    @Override
+    public GoodsMetaData load(String filepath) {
         GoodsMetaData gmd = new GoodsMetaData();
         File file = new File(filepath);
         FileInputStream fis = null;

@@ -4,11 +4,11 @@ monsters
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @  用于测试
-@createnpc 14 8 10 15 1
+createnpc 14 8 10 15 1
 @createtransfer 14 5
-@set 30
-@set 1
-@set 2
+set 30
+set 1
+set 2
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 @ 测试，直接去打护剑神

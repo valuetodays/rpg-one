@@ -1,5 +1,7 @@
 package billy.rpg.game.constants;
 
+import billy.rpg.common.constant.ToolsConstant;
+
 import java.awt.*;
 import java.util.Random;
 
@@ -9,6 +11,8 @@ public interface GameConstant {
      * 游戏标题
      */
     String GAME_TITLE = "伏魔记";
+
+    String CHARSET = ToolsConstant.CHARSET;
 
     /**
      * 游戏tile宽度（像素）

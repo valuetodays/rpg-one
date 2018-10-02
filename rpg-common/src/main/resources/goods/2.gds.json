@@ -1,0 +1,16 @@
+{
+	"animationId":1,
+	"attack":10,
+	"buy":150,
+	"count":0,
+	"defend":10,
+	"desc":"止血草V2.0。hp200",
+	"event":1,
+	"hp":200,
+	"imageId":1,
+	"mp":100,
+	"name":"止血草V2.0",
+	"number":2,
+	"sell":120,
+	"type":0
+}

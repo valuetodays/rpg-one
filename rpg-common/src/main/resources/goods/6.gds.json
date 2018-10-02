@@ -1,0 +1,16 @@
+{
+	"animationId":1,
+	"attack":10,
+	"buy":600,
+	"count":0,
+	"defend":10,
+	"desc":"test6, hp100。",
+	"event":1,
+	"hp":100,
+	"imageId":1,
+	"mp":100,
+	"name":"test6",
+	"number":6,
+	"sell":480,
+	"type":0
+}

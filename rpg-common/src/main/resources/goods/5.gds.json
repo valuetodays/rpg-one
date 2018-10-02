@@ -1,0 +1,16 @@
+{
+	"animationId":1,
+	"attack":10,
+	"buy":600,
+	"count":0,
+	"defend":10,
+	"desc":"金疮药，金疮药，可回复hp600。",
+	"event":1,
+	"hp":300,
+	"imageId":1,
+	"mp":100,
+	"name":"金疮药",
+	"number":5,
+	"sell":480,
+	"type":0
+}

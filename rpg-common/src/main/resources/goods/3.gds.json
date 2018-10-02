@@ -1,0 +1,16 @@
+{
+	"animationId":1,
+	"attack":10,
+	"buy":300,
+	"count":0,
+	"defend":10,
+	"desc":"百花露，产自齐郡，恢复300。",
+	"event":1,
+	"hp":300,
+	"imageId":1,
+	"mp":100,
+	"name":"百花露",
+	"number":3,
+	"sell":220,
+	"type":0
+}

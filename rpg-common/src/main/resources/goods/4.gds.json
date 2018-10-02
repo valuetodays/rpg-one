@@ -1,0 +1,16 @@
+{
+	"animationId":1,
+	"attack":10,
+	"buy":400,
+	"count":0,
+	"defend":10,
+	"desc":"人参，产自北方雪峰，可回复400hp。",
+	"event":1,
+	"hp":400,
+	"imageId":1,
+	"mp":100,
+	"name":"人参",
+	"number":4,
+	"sell":320,
+	"type":0
+}

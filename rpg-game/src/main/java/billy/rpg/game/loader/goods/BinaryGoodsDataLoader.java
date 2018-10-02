@@ -1,15 +1,14 @@
-package billy.rpg.game.loader;
+package billy.rpg.game.loader.goods;
 
 import billy.rpg.resource.goods.GoodsMetaData;
-import billy.rpg.resource.goods.GoodsSaverLoader;
+import billy.rpg.resource.goods.BinaryGoodsSaverLoader;
+import billy.rpg.resource.goods.GoodsSaverLoader0;
 import org.apache.commons.lang.ArrayUtils;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.io.IOException;
 import java.net.URL;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * to load goods, such as sword, accessory
@@ -18,12 +17,16 @@ import java.util.Map;
  * 
  * @since 2016-12-02 09:15:16
  */
-public class GoodsDataLoader {
-    private Map<Integer, GoodsMetaData> goodsMap = new HashMap<>();
+public class BinaryGoodsDataLoader extends GoodsDataLoader {
 
-    public void load() {
+    @Override
+    public GoodsSaverLoader0 getSaverLoader() {
+        return new BinaryGoodsSaverLoader();
+    }
+
+    public void load() throws IOException {
         final String dir = "/goods/";
-        URL resource = GoodsDataLoader.class.getResource(dir);
+        URL resource = BinaryGoodsDataLoader.class.getResource(dir);
 
         File file = new File(resource.getPath());
         // 只取一层文件夹
@@ -38,15 +41,17 @@ public class GoodsDataLoader {
         }
 
         for (File f : files) {
-            GoodsMetaData gmd = GoodsSaverLoader.load(f.getPath());
+            GoodsMetaData gmd = getSaverLoader().load(f.getPath());
+//            try {
+//            File jsonFile = new File(f.getAbsolutePath() + ".json");
+//            FileUtils.write(jsonFile, JSON.toJSONString(gmd, SerializerFeature.PrettyFormat), "utf-8", false);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
             int number = gmd.getNumber();
             goodsMap.put(number, gmd);
         }
     }
 
-
-    public Map<Integer, GoodsMetaData> getGoodsMap() {
-        return Collections.unmodifiableMap(goodsMap);
-    }
 
 }

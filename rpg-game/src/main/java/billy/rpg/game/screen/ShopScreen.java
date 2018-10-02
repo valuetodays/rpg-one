@@ -30,8 +30,6 @@ public class ShopScreen extends BaseScreen {
 
     @Override
     public void draw(GameCanvas gameCanvas) {
-        String s = goodsIdList.toString();
-
         // 创建一个缓冲区
         BufferedImage paint = new BufferedImage(
                 GameConstant.GAME_WIDTH,
@@ -44,8 +42,7 @@ public class ShopScreen extends BaseScreen {
         g.fillRoundRect(80, 60, 480, 360, 14, 14);
         g.setFont(new Font("黑体", Font.BOLD, 14));
         g.setColor(Color.YELLOW);
-        g.drawString("您要买什么", 240, 70);
-        g.drawString(s, 240, 90);
+        g.drawString("您要买什么？【银两："+GameFrame.getInstance().getGameData().getMoney() +"】", 240, 70);
         for (int i = 0; i < goodsIdList.size(); i++) {
             Integer goodsId = goodsIdList.get(i);
             GoodsMetaData goodsMetaData = GameFrame.getInstance().getGameContainer().getGoodsMetaDataOf(goodsId);
