@@ -1,16 +1,16 @@
 {
 	"animationId":1,
 	"attack":10,
-	"buy":600,
+	"buy":2000,
 	"count":0,
 	"defend":10,
-	"desc":"test7, hp100。",
+	"desc":"借助大地母性的力量来疗伤。全体hp+300。",
 	"event":1,
-	"hp":100,
+	"hp":300,
 	"imageId":1,
-	"mp":100,
-	"name":"test7",
+	"mp":0,
+	"name":"地补符",
 	"number":7,
-	"sell":480,
+	"sell":1000,
 	"type":0
 }

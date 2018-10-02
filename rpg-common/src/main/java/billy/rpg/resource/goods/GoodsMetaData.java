@@ -1,6 +1,8 @@
 package billy.rpg.resource.goods;
 
 /**
+ * TODO 药品类物品添加是否全体效果？
+ *
  * @author liulei@bshf360.com
  * @since 2017-09-04 17:36
  */

@@ -1,16 +1,16 @@
 {
 	"animationId":1,
 	"attack":10,
-	"buy":600,
+	"buy":750,
 	"count":0,
 	"defend":10,
-	"desc":"test11 hp100。",
+	"desc":"周身青黑色，极其难看的一种甲虫，但可增加真气。Mp+250。",
 	"event":1,
 	"hp":100,
 	"imageId":1,
-	"mp":100,
-	"name":"test11",
+	"mp":250,
+	"name":"魔王甲",
 	"number":11,
-	"sell":480,
+	"sell":325,
 	"type":0
 }

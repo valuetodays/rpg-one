@@ -1,16 +1,16 @@
 {
 	"animationId":1,
 	"attack":10,
-	"buy":600,
+	"buy":200,
 	"count":0,
 	"defend":10,
-	"desc":"test9, hp100。",
+	"desc":"提神醒脑、养脑养神的药丸。Mp+50。",
 	"event":1,
-	"hp":100,
+	"hp":0,
 	"imageId":1,
-	"mp":100,
-	"name":"test9",
+	"mp":50,
+	"name":"回神丹",
 	"number":9,
-	"sell":480,
+	"sell":100,
 	"type":0
 }

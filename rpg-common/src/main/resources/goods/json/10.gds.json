@@ -1,16 +1,16 @@
 {
 	"animationId":1,
 	"attack":10,
-	"buy":600,
+	"buy":480,
 	"count":0,
 	"defend":10,
-	"desc":"test10, hp100。",
+	"desc":"撒点菊花在酒中，保存十年而成。Mp+110。",
 	"event":1,
-	"hp":100,
+	"hp":0,
 	"imageId":1,
-	"mp":100,
-	"name":"test10",
+	"mp":110,
+	"name":"菊花酒",
 	"number":10,
-	"sell":480,
+	"sell":240,
 	"type":0
 }

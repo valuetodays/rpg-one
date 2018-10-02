@@ -1,16 +1,16 @@
 {
 	"animationId":1,
 	"attack":10,
-	"buy":600,
+	"buy":1000,
 	"count":0,
 	"defend":10,
-	"desc":"金疮药，金疮药，可回复hp600。",
+	"desc":"南海观音在紫竹林书写的灵符、带有紫竹之灵气。hp+700。",
 	"event":1,
-	"hp":300,
+	"hp":700,
 	"imageId":1,
-	"mp":100,
-	"name":"金疮药",
+	"mp":0,
+	"name":"紫竹符",
 	"number":5,
-	"sell":480,
+	"sell":500,
 	"type":0
 }

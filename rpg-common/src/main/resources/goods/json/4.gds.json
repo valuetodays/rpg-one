@@ -1,16 +1,16 @@
 {
 	"animationId":1,
 	"attack":10,
-	"buy":400,
+	"buy":780,
 	"count":0,
 	"defend":10,
-	"desc":"人参，产自北方雪峰，可回复400hp。",
+	"desc":"颜色赤黄透明如玉、可治疗骨头损伤的一种药。Hp+450。",
 	"event":1,
-	"hp":400,
+	"hp":450,
 	"imageId":1,
-	"mp":100,
-	"name":"人参",
+	"mp":0,
+	"name":"赤玉断续膏",
 	"number":4,
-	"sell":320,
+	"sell":360,
 	"type":0
 }

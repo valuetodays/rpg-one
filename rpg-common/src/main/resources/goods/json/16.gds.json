@@ -1,16 +1,16 @@
 {
 	"animationId":1,
 	"attack":10,
-	"buy":600,
+	"buy":35,
 	"count":0,
 	"defend":10,
-	"desc":"test16   hp100。",
+	"desc":"不知道是谁发明的煮鸡蛋的方法所煮的鸡蛋，挺好吃的。HpMp+10。",
 	"event":1,
-	"hp":100,
+	"hp":10,
 	"imageId":1,
-	"mp":100,
-	"name":"test16",
+	"mp":10,
+	"name":"茶叶蛋",
 	"number":16,
-	"sell":480,
+	"sell":15,
 	"type":0
 }

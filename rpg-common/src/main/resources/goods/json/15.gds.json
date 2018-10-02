@@ -1,16 +1,16 @@
 {
 	"animationId":1,
 	"attack":10,
-	"buy":600,
+	"buy":3600,
 	"count":0,
 	"defend":10,
-	"desc":"test15 hp100。",
+	"desc":"人为饲养的一种小甲虫，非常有灵气。全体Mp+240。",
 	"event":1,
-	"hp":100,
+	"hp":0,
 	"imageId":1,
-	"mp":100,
-	"name":"test15",
+	"mp":240,
+	"name":"黑狐甲",
 	"number":15,
-	"sell":480,
+	"sell":1800,
 	"type":0
 }

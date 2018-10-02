@@ -1,16 +1,16 @@
 {
 	"animationId":1,
 	"attack":10,
-	"buy":600,
+	"buy":220,
 	"count":0,
 	"defend":10,
-	"desc":"test8, hp100。",
+	"desc":"产于塞外的一中野果，可以清火解毒。Mp+36。",
 	"event":1,
-	"hp":100,
+	"hp":0,
 	"imageId":1,
-	"mp":100,
-	"name":"test8",
+	"mp":36,
+	"name":"青仙果",
 	"number":8,
-	"sell":480,
+	"sell":110,
 	"type":0
 }

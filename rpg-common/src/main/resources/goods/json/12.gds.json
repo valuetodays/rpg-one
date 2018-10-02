@@ -1,16 +1,16 @@
 {
 	"animationId":1,
 	"attack":10,
-	"buy":600,
+	"buy":120,
 	"count":0,
 	"defend":10,
-	"desc":"test12 hp100。",
+	"desc":"花果山的遗种，后流落蓬莱岛，种出来的果子。Mp+450。",
 	"event":1,
-	"hp":100,
+	"hp":0,
 	"imageId":1,
-	"mp":100,
-	"name":"test12",
+	"mp":450,
+	"name":"飘仙果",
 	"number":12,
-	"sell":480,
+	"sell":60,
 	"type":0
 }

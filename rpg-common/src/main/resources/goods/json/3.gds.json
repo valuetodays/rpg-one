@@ -1,16 +1,16 @@
 {
 	"animationId":1,
 	"attack":10,
-	"buy":300,
+	"buy":333,
 	"count":0,
 	"defend":10,
-	"desc":"百花露，产自齐郡，恢复300。",
+	"desc":"生长于沙漠之中、极为罕见的一种植物，可治疗刀伤、剑伤、砸伤等多种外伤。hp+280。",
 	"event":1,
-	"hp":300,
+	"hp":280,
 	"imageId":1,
-	"mp":100,
-	"name":"百花露",
+	"mp":0,
+	"name":"玉蓝草",
 	"number":3,
-	"sell":220,
+	"sell":222,
 	"type":0
 }

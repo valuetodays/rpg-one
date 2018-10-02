@@ -1,16 +1,16 @@
 {
 	"animationId":1,
 	"attack":10,
-	"buy":600,
+	"buy":1500,
 	"count":0,
 	"defend":10,
-	"desc":"test6, hp100。",
+	"desc":"练隔空取物大法时，为了打通全身经脉所特制的一种黑色药丸。Hp+1000。",
 	"event":1,
-	"hp":100,
+	"hp":1000,
 	"imageId":1,
-	"mp":100,
-	"name":"test6",
+	"mp":0,
+	"name":"九正墨玉丹",
 	"number":6,
-	"sell":480,
+	"sell":850,
 	"type":0
 }

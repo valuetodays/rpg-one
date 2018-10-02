@@ -1,16 +1,16 @@
 {
 	"animationId":1,
 	"attack":10,
-	"buy":600,
+	"buy":3200,
 	"count":0,
 	"defend":10,
-	"desc":"test14 hp100。",
+	"desc":"塞北药王‘笑天下’的独门秘药，治疗精神病有奇效。真气补满。",
 	"event":1,
-	"hp":100,
+	"hp":0,
 	"imageId":1,
-	"mp":100,
-	"name":"test14",
+	"mp":1000,
+	"name":"紫荦杉",
 	"number":14,
-	"sell":480,
+	"sell":1800,
 	"type":0
 }

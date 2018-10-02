@@ -1,16 +1,16 @@
 {
 	"animationId":1,
 	"attack":10,
-	"buy":600,
+	"buy":2600,
 	"count":0,
 	"defend":10,
-	"desc":"test13 hp100。",
+	"desc":"产于西藏的一种糯米。Mp+800。",
 	"event":1,
-	"hp":100,
+	"hp":0,
 	"imageId":1,
-	"mp":100,
-	"name":"test13",
+	"mp":800,
+	"name":"西域奇糯",
 	"number":13,
-	"sell":480,
+	"sell":1300,
 	"type":0
 }

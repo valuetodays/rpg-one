@@ -1,16 +1,16 @@
 {
 	"animationId":1,
 	"attack":10,
-	"buy":600,
+	"buy":220,
 	"count":0,
 	"defend":10,
-	"desc":"test17   hp100。",
+	"desc":"以松木木碳火熏烤的上等鹿肉，可恢复体力。HpMp+45。",
 	"event":1,
-	"hp":100,
+	"hp":45,
 	"imageId":1,
-	"mp":100,
-	"name":"test17",
+	"mp":45,
+	"name":"烤鹿肉",
 	"number":17,
-	"sell":480,
+	"sell":120,
 	"type":0
 }
