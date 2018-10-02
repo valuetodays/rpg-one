@@ -120,3 +120,6 @@ ILoader
     NPCSTEP/move use LEFT/RIGHT/UP/DOWN not 1/2/3/4
     add parser/processor package 
     [TODO] existnpc npcId
+
+#### 2019-10-03
+    骨骼系统，栩栩如生：角色图像运用Spine 2D骨骼技巧呈现，随风飘逸的发丝、栩栩如生的动态彷佛角色跃然于屏幕之上，活灵活现
