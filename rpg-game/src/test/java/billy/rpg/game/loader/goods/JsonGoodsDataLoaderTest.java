@@ -18,6 +18,9 @@ public class JsonGoodsDataLoaderTest {
         goodsDataLoader.load();
         Map<Integer, GoodsMetaData> goodsMap = goodsDataLoader.getGoodsMap();
         Assert.assertTrue(MapUtils.isNotEmpty(goodsMap));
+        goodsMap.values().forEach(e -> {
+            System.out.println(e.getName() + " | " + e.getDesc() + "#["+e.getBuy()+","+e.getSell()+"]");
+        });
     }
 
 }
