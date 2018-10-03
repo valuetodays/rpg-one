@@ -1,6 +1,8 @@
-package billy.rpg.game.character;
+package billy.rpg.game.character.ex.walkable.npc;
 
-public abstract class NPCCharacter extends BaseCharacter {
+import billy.rpg.game.character.ex.walkable.WalkableCharacter;
+
+public abstract class NPCWalkableCharacter extends WalkableCharacter {
     private int tileNum; // for npc
 
     @Override

@@ -2,7 +2,7 @@ package billy.rpg.game.screen.battle;
 
 import billy.rpg.game.GameCanvas;
 import billy.rpg.game.GameFrame;
-import billy.rpg.game.character.battle.HeroBattle;
+import billy.rpg.game.character.ex.fightable.HeroFightable;
 import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.screen.BaseScreen;
 import billy.rpg.game.screen.MessageBoxScreen;
@@ -105,7 +105,7 @@ public class BattleOptionScreen extends BaseScreen {
                     }
                     break;
                     case OPTION_SKILL: {  // 技能
-                        HeroBattle activeHero = getBattleUIScreen().getActiveHero();
+                        HeroFightable activeHero = getBattleUIScreen().getActiveHero();
                         int mp = activeHero.getRoleMetaData().getMp();
                         if (mp == 0) {
                             final BaseScreen bs = new MessageBoxScreen("mp为0，不能施放技能");

@@ -1,9 +1,9 @@
 package billy.rpg.game.cmd;
 
 import billy.rpg.game.GameFrame;
-import billy.rpg.game.character.NPCCharacter;
+import billy.rpg.game.character.ex.walkable.npc.NPCWalkableCharacter;
 import billy.rpg.game.cmd.processor.CmdProcessor;
-import billy.rpg.game.constants.CharacterConstant;
+import billy.rpg.game.constants.WalkableConstant;
 
 import java.util.List;
 
@@ -12,19 +12,19 @@ import java.util.List;
  */
 public class MoveCmd extends CmdBase {
     private int npcId;
-    private CharacterConstant.PositionEnum faceTo;
+    private WalkableConstant.PositionEnum faceTo;
 
     @Override
     public void init() {
         List<String> arguments = super.getArguments();
         npcId = Integer.parseInt(arguments.get(0));
-        faceTo = CharacterConstant.PositionEnum.valueOf(arguments.get(1));
+        faceTo = WalkableConstant.PositionEnum.valueOf(arguments.get(1));
     }
 
     @Override
     public int execute(CmdProcessor cmdProcessor) {
-        List<NPCCharacter> npcs = GameFrame.getInstance().getGameContainer().getActiveScriptItem().getNpcs();
-        for (NPCCharacter npcCharacter : npcs) {
+        List<NPCWalkableCharacter> npcs = GameFrame.getInstance().getGameContainer().getActiveScriptItem().getNpcs();
+        for (NPCWalkableCharacter npcCharacter : npcs) {
             if (npcId == npcCharacter.getNumber()) {
                 npcCharacter.setDirection(faceTo);
                 int nextPosX = npcCharacter.getNextPosX();

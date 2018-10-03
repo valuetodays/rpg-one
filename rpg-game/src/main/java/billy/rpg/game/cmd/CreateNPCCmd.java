@@ -1,11 +1,11 @@
 package billy.rpg.game.cmd;
 
 import billy.rpg.game.GameFrame;
-import billy.rpg.game.character.NPCCharacter;
-import billy.rpg.game.character.npc.CommonNPCCharacter;
-import billy.rpg.game.character.npc.NoWalkNPCCharacter;
+import billy.rpg.game.character.ex.walkable.npc.NPCWalkableCharacter;
+import billy.rpg.game.character.ex.walkable.npc.CommonNPCWalkableCharacter;
+import billy.rpg.game.character.ex.walkable.npc.FixedNPCWalkableCharacter;
 import billy.rpg.game.cmd.processor.CmdProcessor;
-import billy.rpg.game.constants.CharacterConstant;
+import billy.rpg.game.constants.WalkableConstant;
 
 import java.util.List;
 
@@ -58,7 +58,7 @@ public class CreateNPCCmd extends CmdBase {
     public int execute(CmdProcessor cmdProcessor) {
 
 
-        List<NPCCharacter> npcs = GameFrame.getInstance().getGameContainer().getActiveScriptItem().getNpcs();
+        List<NPCWalkableCharacter> npcs = GameFrame.getInstance().getGameContainer().getActiveScriptItem().getNpcs();
         long count = npcs.stream().filter(e -> e.getNumber() == getNpcId()).count();
         if (count > 0) {
             return -1;
@@ -68,16 +68,16 @@ public class CreateNPCCmd extends CmdBase {
         int y = getY();
         int npcNum = getNpcNum();
         int type = getType();
-        NPCCharacter npc = null;
+        NPCWalkableCharacter npc = null;
         if (type == 1) {
-            npc = new NoWalkNPCCharacter();
+            npc = new FixedNPCWalkableCharacter();
         } else {
-            npc = new CommonNPCCharacter();
+            npc = new CommonNPCWalkableCharacter();
         }
         npc.initPos(x, y);
         npc.setTileNum(npcNum);
         npc.setNumber(getNpcId());
-        npc.setDirection(CharacterConstant.PositionEnum.DOWN);
+        npc.setDirection(WalkableConstant.PositionEnum.DOWN);
 
 
         GameFrame.getInstance().getGameContainer().getActiveScriptItem().getNpcs().add(npc);

@@ -1,6 +1,5 @@
-package billy.rpg.game.character.npc;
+package billy.rpg.game.character.ex.walkable.npc;
 
-import billy.rpg.game.character.NPCCharacter;
 import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.screen.MapScreen;
 import billy.rpg.game.util.WalkUtil;
@@ -8,7 +7,7 @@ import billy.rpg.game.util.WalkUtil;
 /**
  * 普通npc
  */
-public class CommonNPCCharacter extends NPCCharacter {
+public class CommonNPCWalkableCharacter extends NPCWalkableCharacter {
     private long lastTime = System.currentTimeMillis();
     private long delay = 2000;
 

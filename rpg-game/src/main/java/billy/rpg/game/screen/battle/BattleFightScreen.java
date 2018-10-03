@@ -2,9 +2,9 @@ package billy.rpg.game.screen.battle;
 
 import billy.rpg.game.GameCanvas;
 import billy.rpg.game.GameFrame;
-import billy.rpg.game.character.battle.FightableCharacter;
-import billy.rpg.game.character.battle.HeroBattle;
-import billy.rpg.game.character.battle.MonsterBattle;
+import billy.rpg.game.character.ex.fightable.HeroFightable;
+import billy.rpg.game.character.ex.fightable.MonsterFightable;
+import billy.rpg.game.character.ex.fightable.Fightable;
 import billy.rpg.game.screen.AnimationScreen;
 import billy.rpg.game.screen.BaseScreen;
 import billy.rpg.resource.skill.SkillMetaData;
@@ -114,7 +114,7 @@ public class BattleFightScreen extends BaseScreen {
             case BattleAction.ACTION_SKILL: { // 技能攻击
                 // 技能攻击时，攻击者不应向目标行动
                 LOG.debug("使用技能攻击");
-                FightableCharacter targetFightableCharacter = getBattleUIScreen().heroBattleList.get(targetIndex);
+                Fightable targetFightableCharacter = getBattleUIScreen().heroBattleList.get(targetIndex);
                 AnimationScreen bs = new AnimationScreen(2,
                         targetFightableCharacter.getLeft() - targetFightableCharacter.getWidth() / 2,
                         targetFightableCharacter.getTop(), getBattleUIScreen().getParentScreen());
@@ -216,7 +216,7 @@ public class BattleFightScreen extends BaseScreen {
             break;
             case BattleAction.ACTION_SKILL: { // 技能
                 LOG.debug("使用技能攻击妖怪");
-                FightableCharacter chosenMonsterBattle = getBattleUIScreen().monsterBattleList.get(targetIndex);
+                Fightable chosenMonsterBattle = getBattleUIScreen().monsterBattleList.get(targetIndex);
                 final SkillMetaData smd = GameFrame.getInstance().getGameContainer().getSkillMetaDataOf(high);
                 AnimationScreen bs = new AnimationScreen(smd.getAnimationId(),
                         chosenMonsterBattle.getLeft() - chosenMonsterBattle.getWidth() / 2,
@@ -277,8 +277,8 @@ public class BattleFightScreen extends BaseScreen {
     }
 
     private int getCommonAttackDamage(boolean fromHero, int attackerId, int targetIndex) {
-        FightableCharacter attacker = null;
-        FightableCharacter target = null;
+        Fightable attacker = null;
+        Fightable target = null;
 
         if (fromHero) {
             attacker = getBattleUIScreen().heroBattleList.get(attackerId);
@@ -304,7 +304,7 @@ public class BattleFightScreen extends BaseScreen {
      * @param targetIndex 被攻击者索引
      */
     private void doCauseDamage(boolean fromHero, int attackerId, int targetIndex, int dmg) {
-        FightableCharacter target = null;
+        Fightable target = null;
         String attackerName = null;
         String targetName = null;
         if (fromHero) {
@@ -343,7 +343,7 @@ public class BattleFightScreen extends BaseScreen {
      */
     private void checkWinOrLose() {
         boolean heroAllDieFlag = true;
-        for (HeroBattle heroBattle : getBattleUIScreen().heroBattleList) {
+        for (HeroFightable heroBattle : getBattleUIScreen().heroBattleList) {
             if (!heroBattle.isDied()) {
                 heroAllDieFlag = false;
             }
@@ -355,7 +355,7 @@ public class BattleFightScreen extends BaseScreen {
         }
 
         boolean monsterDieAllFlag = true;
-        for (MonsterBattle monsterBattle : getBattleUIScreen().monsterBattleList) {
+        for (MonsterFightable monsterBattle : getBattleUIScreen().monsterBattleList) {
             if (!monsterBattle.isDied()) {
                 monsterDieAllFlag = false;
             }

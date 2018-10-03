@@ -1,14 +1,16 @@
 package billy.rpg.game;
 
-import billy.rpg.game.character.battle.HeroBattle;
+import billy.rpg.game.character.ex.character.HeroCharacter;
+import billy.rpg.game.character.ex.equipable.Equipable;
+import billy.rpg.game.character.ex.fightable.HeroFightable;
+import billy.rpg.game.character.ex.walkable.HeroWalkableCharacter;
+import billy.rpg.game.equip.weapon.WeaponEquip;
 import billy.rpg.resource.goods.GoodsMetaData;
+import billy.rpg.resource.goods.GoodsType;
 import billy.rpg.resource.role.RoleMetaData;
 import org.apache.commons.collections.CollectionUtils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -18,8 +20,9 @@ import java.util.stream.Collectors;
 public class GameData {
     /** 金币数 */
     private int money;
-    /** 角色战斗列表 */
-    private List<HeroBattle> heroBattleList;
+    /** 角色列表 */
+    private List<HeroCharacter> heroList;
+    private List<HeroFightable> heroBattleList;
     /** 角色列表 */
     private List<Integer> heroIds = Arrays.asList(1);
 //    private List<Integer> heroIds = Arrays.asList(1, 3);
@@ -162,15 +165,64 @@ public class GameData {
         return Collections.unmodifiableList(goodsList);
     }
 
+    public void equipWeapon(int roleId, int index) {
+        checkHeroList();
+        Optional<HeroCharacter> first = heroList.stream().filter(e -> e.getWalkable().getNumber() == roleId).findFirst();
+        if (!first.isPresent()) {
+            throw  new RuntimeException("数据异常");
+        }
+        HeroCharacter heroCharacter = first.get();
+        List<Equipable> equipableList = heroCharacter.getEquipableList();
+        GoodsMetaData weapon = GameFrame.getInstance().getGameContainer().getGoodsMetaDataOf(index);
+        Optional<Equipable> first1 = equipableList.stream().filter(e -> e.getEquip() instanceof WeaponEquip).findFirst();
+        if (!first1.isPresent()) {
+            throw  new RuntimeException("数据异常");
+        }
+        Equipable equipable = first1.get();
 
-    public List<HeroBattle> getHeroBattleList() {
+        GoodsType.TYPE_WEAPON.checkLegal(equipable.getEquip().getGoods());
+        equipable.setEquip(new WeaponEquip(weapon));
+    }
+
+    private void checkHeroList() {
+        if (heroList == null) {
+            heroList = new ArrayList<>();
+            for (int i = 0; i < heroIds.size(); i++) {
+
+                Integer heroId = heroIds.get(i);
+                RoleMetaData heroRole = GameFrame.getInstance().getGameContainer().getHeroRoleOf(heroId);
+
+                HeroFightable e = new HeroFightable();
+                e.setLeft(200 + i * 150 + 10);
+                e.setTop(10 * 32);
+                e.setWidth(heroRole.getImage().getWidth());
+                e.setHeight(heroRole.getImage().getHeight());
+                e.setRoleMetaData(heroRole);
+                e.setBattleImage(GameFrame.getInstance().getGameContainer().getRoleItem().getRoleBattleOf(heroId));
+
+                HeroCharacter heroCharacter = new HeroCharacter();
+                heroCharacter.setFightable(e);
+                HeroWalkableCharacter walkable = new HeroWalkableCharacter();
+                walkable.setNumber(heroId);
+                heroCharacter.setWalkable(walkable);
+
+                heroList.add(heroCharacter);
+            }
+        }
+    }
+
+    public List<HeroCharacter> getHeroList() {
+        return heroList;
+    }
+
+    public List<HeroFightable> getHeroBattleList() {
         if (heroBattleList == null) {
             heroBattleList = new ArrayList<>();
             for (int i = 0; i < heroIds.size(); i++) {
                 Integer heroId = heroIds.get(i);
                 RoleMetaData heroRole = GameFrame.getInstance().getGameContainer().getHeroRoleOf(heroId);
 
-                HeroBattle e = new HeroBattle();
+                HeroFightable e = new HeroFightable();
                 e.setLeft(200 + i * 150 + 10);
                 e.setTop(10 * 32);
                 e.setWidth(heroRole.getImage().getWidth());

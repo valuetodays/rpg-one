@@ -1,6 +1,6 @@
 package billy.rpg.game.cmd;
 
-import billy.rpg.game.character.TransferCharacter;
+import billy.rpg.game.character.ex.walkable.TransferWalkableCharacter;
 import billy.rpg.game.cmd.processor.CmdProcessor;
 import billy.rpg.game.container.GameContainer;
 import billy.rpg.game.resource.item.ScriptItem;
@@ -26,7 +26,7 @@ public class CreateTransferCmd extends CmdBase {
 
     @Override
     public int execute(CmdProcessor cmdProcessor) {
-        TransferCharacter transfer = new TransferCharacter();
+        TransferWalkableCharacter transfer = new TransferWalkableCharacter();
         transfer.initPos(x, y);
         ScriptItem activeScriptItem = GameContainer.getInstance().getActiveScriptItem();
         activeScriptItem.getTransfers().add(transfer);

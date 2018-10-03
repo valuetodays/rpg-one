@@ -3,8 +3,11 @@ package billy.rpg.game.screen.system;
 import billy.rpg.game.GameCanvas;
 import billy.rpg.game.GameData;
 import billy.rpg.game.GameFrame;
-import billy.rpg.game.character.battle.HeroBattle;
+import billy.rpg.game.character.ex.character.HeroCharacter;
+import billy.rpg.game.character.ex.equipable.Equipable;
+import billy.rpg.game.character.ex.fightable.Fightable;
 import billy.rpg.game.constants.GameConstant;
+import billy.rpg.game.equip.weapon.WeaponEquip;
 import billy.rpg.game.screen.BaseScreen;
 import billy.rpg.game.util.KeyUtil;
 import billy.rpg.resource.role.RoleMetaData;
@@ -40,14 +43,21 @@ public class AttributeScreen extends BaseScreen {
         g.setFont(new Font("楷体", Font.BOLD, 18));
         g.setColor(Color.YELLOW);
 
-        java.util.List<HeroBattle> heroBattleList = gameData.getHeroBattleList();
-        for (int i = 0; i < heroBattleList.size(); i++) {
-            HeroBattle heroBattle = heroBattleList.get(i);
-            RoleMetaData roleMetaData = heroBattle.getRoleMetaData();
+        java.util.List<HeroCharacter> heroList = gameData.getHeroList();
+        for (int i = 0; i < heroList.size(); i++) {
+            HeroCharacter heroCharacter = heroList.get(i);
+            Fightable fightable = heroCharacter.getFightable();
+            java.util.List<Equipable> equipableList = heroCharacter.getEquipableList();
+            Integer attackValueInEquip = equipableList.stream()
+                    .filter(e -> e.getEquip() instanceof WeaponEquip).findFirst()
+                    .map(weapon -> ((WeaponEquip) weapon.getEquip()).getAttack()).orElse(0);
+
+            RoleMetaData roleMetaData = fightable.getRoleMetaData();
             g.drawString(roleMetaData.getName() + " Lv " + roleMetaData.getLevel(), 210, 70 + i*100);
             g.drawString("hp: " + roleMetaData.getHp() + "/" + roleMetaData.getMaxHp(), 180, 90 + i*100);
             g.drawString("mp: " + roleMetaData.getMp() + "/" + roleMetaData.getMaxMp(), 180, 110 + i*100);
-            g.drawString("attack: " + roleMetaData.getAttack(), 180, 130 + i*100);
+            // TODO show equip's attack
+            g.drawString("attack: " + roleMetaData.getAttack() + "(+"+attackValueInEquip+")", 180, 130 + i*100);
             g.drawString("defend: " + roleMetaData.getDefend(), 180, 150 + i*100);
             g.drawImage(roleMetaData.getImage(), 320, 70 + i*100, null);
 

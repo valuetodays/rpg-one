@@ -1,7 +1,7 @@
 package billy.rpg.game.cmd;
 
 import billy.rpg.game.GameFrame;
-import billy.rpg.game.character.NPCCharacter;
+import billy.rpg.game.character.ex.walkable.npc.NPCWalkableCharacter;
 import billy.rpg.game.cmd.processor.CmdProcessor;
 
 import java.util.List;
@@ -22,9 +22,9 @@ public class DeleteNpcCmd extends CmdBase {
 
     @Override
     public int execute(CmdProcessor cmdProcessor) {
-        List<NPCCharacter> npcs = GameFrame.getInstance().getGameContainer().getActiveScriptItem().getNpcs();
-        NPCCharacter npcCharacter2Del = null;
-        for (NPCCharacter npcCharacter : npcs) {
+        List<NPCWalkableCharacter> npcs = GameFrame.getInstance().getGameContainer().getActiveScriptItem().getNpcs();
+        NPCWalkableCharacter npcCharacter2Del = null;
+        for (NPCWalkableCharacter npcCharacter : npcs) {
             if (npcid == npcCharacter.getNumber()) {
                 npcCharacter2Del = npcCharacter;
             }

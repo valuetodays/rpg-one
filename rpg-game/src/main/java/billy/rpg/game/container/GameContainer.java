@@ -2,12 +2,12 @@ package billy.rpg.game.container;
 
 import billy.rpg.common.constant.MapEditorConstant;
 import billy.rpg.game.GameFrame;
-import billy.rpg.game.character.BoxCharacter;
-import billy.rpg.game.character.HeroCharacter;
-import billy.rpg.game.character.NPCCharacter;
-import billy.rpg.game.character.TransferCharacter;
-import billy.rpg.game.character.npc.CommonNPCCharacter;
-import billy.rpg.game.constants.CharacterConstant;
+import billy.rpg.game.character.ex.walkable.BoxWalkableCharacter;
+import billy.rpg.game.character.ex.walkable.HeroWalkableCharacter;
+import billy.rpg.game.character.ex.walkable.npc.NPCWalkableCharacter;
+import billy.rpg.game.character.ex.walkable.TransferWalkableCharacter;
+import billy.rpg.game.character.ex.walkable.npc.CommonNPCWalkableCharacter;
+import billy.rpg.game.constants.WalkableConstant;
 import billy.rpg.game.item.*;
 import billy.rpg.game.loader.*;
 import billy.rpg.game.loader.goods.GoodsDataLoader;
@@ -114,13 +114,13 @@ public class GameContainer {
             battleImageItem.load();
             headImageItem.load();
 
+            loadGoodsData();
             loadMapData();
             loadScriptData();
             loadAnimationData();
             loadRoleData();
             loadLevelData();
             loadSkillData();
-            loadGoodsData();
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("exception occurs: " + e.getMessage());
@@ -216,9 +216,9 @@ public class GameContainer {
         changeActiveMapItemTo(m, n);
 
         // 第一次加载时没有主角的方向
-        CharacterConstant.PositionEnum oldDirection = CharacterConstant.PositionEnum.DOWN;
+        WalkableConstant.PositionEnum oldDirection = WalkableConstant.PositionEnum.DOWN;
         if (activeScriptItem != null) {
-            HeroCharacter hero = activeScriptItem.getHero();
+            HeroWalkableCharacter hero = activeScriptItem.getHero();
             if (hero != null) {
                 oldDirection = hero.getDirection();
             }
@@ -234,12 +234,12 @@ public class GameContainer {
         for (int i = 0; i < getActiveMap().getWidth(); i++) {
             for (int j = 0; j < getActiveMap().getHeight(); j++) {
                 if (npcLayer[i][j] != MapEditorConstant.NPC_NONE) {
-                    NPCCharacter npc = new CommonNPCCharacter();
+                    NPCWalkableCharacter npc = new CommonNPCWalkableCharacter();
                     npc.initPos(i, j);
                     int npcTileNumAndId = npcLayer[i][j];
                     npc.setTileNum(npcTileNumAndId & 0xffff);
                     npc.setNumber((npcTileNumAndId & 0xffff0000) >> 16);
-                    npc.setDirection(CharacterConstant.PositionEnum.DOWN);
+                    npc.setDirection(WalkableConstant.PositionEnum.DOWN);
                     activeScriptItem.getNpcs().add(npc);
                 }
             }
@@ -254,11 +254,11 @@ public class GameContainer {
             for (int j = 0; j < getActiveMap().getHeight(); j++) {
                 int tileNum = eventLayer[i][j];
                 if (tileNum <= 0xff && tileNum >= 0xef) { // transfer
-                    TransferCharacter transfer = new TransferCharacter();
+                    TransferWalkableCharacter transfer = new TransferWalkableCharacter();
                     transfer.initPos(i, j);
                     activeScriptItem.getTransfers().add(transfer);
                 } else if (tileNum == 0xee || tileNum == 0xed) { // open-box & closed-box
-                    BoxCharacter box = new BoxCharacter(tileNum);
+                    BoxWalkableCharacter box = new BoxWalkableCharacter(tileNum);
                     box.initPos(i, j);
                     activeScriptItem.getBoxes().add(box);
                 }
@@ -374,9 +374,10 @@ public class GameContainer {
     }
 
     public GoodsMetaData getGoodsMetaDataOf(int goodsId) {
-        if (goodsId <= 0) {
+        if (goodsId < 0) {
             throw new RuntimeException("illegal goodsId: " + goodsId);
         }
+
         GoodsMetaData md = goodsMetaDataMap.get(goodsId);
         if (null == md) {
             throw new RuntimeException("illegal goodsId: " + goodsId);

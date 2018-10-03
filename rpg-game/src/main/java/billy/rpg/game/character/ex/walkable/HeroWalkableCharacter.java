@@ -1,4 +1,4 @@
-package billy.rpg.game.character;
+package billy.rpg.game.character.ex.walkable;
 
 import billy.rpg.game.GameFrame;
 import billy.rpg.game.constants.GameConstant;
@@ -7,11 +7,12 @@ import billy.rpg.game.util.WalkUtil;
 import billy.rpg.resource.map.MapMetaData;
 
 
-public class HeroCharacter extends BaseCharacter {
+public class HeroWalkableCharacter extends WalkableCharacter {
 
     private int originalPosX = 6; // 移动前的x
     private int originalPosY = 6; // 移动前的y
     private PositionEnum originalDirection = PositionEnum.DOWN; // 移动前的方向
+
 
     @Override
     public void move(MapScreen mapScreen) {
@@ -25,6 +26,7 @@ public class HeroCharacter extends BaseCharacter {
 
     /**
      * get next posX
+     *
      * @return nextPosX
      */
     @Override
@@ -37,19 +39,21 @@ public class HeroCharacter extends BaseCharacter {
 
     /**
      * get next posY
+     *
      * @return nextPosY
      */
     @Override
     public int getNextPosY() {
         int mapHeight = GameFrame.getInstance().getGameContainer().getActiveMap().getHeight();
         return originalPosY + ((direction == PositionEnum.UP && originalPosY > 0) ? -1 :
-                ((originalDirection == PositionEnum.DOWN && (originalPosY) < mapHeight - 1) ? 1 : 0 )
+                ((originalDirection == PositionEnum.DOWN && (originalPosY) < mapHeight - 1) ? 1 : 0)
         );
     }
 
 
     /**
      * move right
+     *
      * @param mapScreen mapScreen
      */
     public void increaseX(MapScreen mapScreen) {
@@ -103,6 +107,7 @@ public class HeroCharacter extends BaseCharacter {
 
     /**
      * move left
+     *
      * @param mapScreen mapScreen
      */
     public void decreaseX(MapScreen mapScreen) {
@@ -161,6 +166,7 @@ public class HeroCharacter extends BaseCharacter {
 
     /**
      * move down
+     *
      * @param mapScreen mapScreen
      */
     public void increaseY(MapScreen mapScreen) {
@@ -215,6 +221,7 @@ public class HeroCharacter extends BaseCharacter {
 
     /**
      * move up
+     *
      * @param mapScreen mapScreen
      */
     public void decreaseY(MapScreen mapScreen) {
@@ -251,7 +258,7 @@ public class HeroCharacter extends BaseCharacter {
                 }
             } else if (offsetTileY <= 0) {
                 // 当从三清宫回到百草地时，不加后面的+1导致不能从百草地的下半地图走至上半地图
-                if (posY <= GameConstant.Game_TILE_Y_NUM / 2+1) {
+                if (posY <= GameConstant.Game_TILE_Y_NUM / 2 + 1) {
                     int nextPosY = posY - 1;
                     if (WalkUtil.isWalkable(offsetTileX + posX, offsetTileY + nextPosY)) {
                         posY = nextPosY;

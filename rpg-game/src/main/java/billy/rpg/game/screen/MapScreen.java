@@ -3,10 +3,10 @@ package billy.rpg.game.screen;
 import billy.rpg.common.constant.ToolsConstant;
 import billy.rpg.game.GameCanvas;
 import billy.rpg.game.GameFrame;
-import billy.rpg.game.character.BoxCharacter;
-import billy.rpg.game.character.HeroCharacter;
-import billy.rpg.game.character.NPCCharacter;
-import billy.rpg.game.character.TransferCharacter;
+import billy.rpg.game.character.ex.walkable.BoxWalkableCharacter;
+import billy.rpg.game.character.ex.walkable.HeroWalkableCharacter;
+import billy.rpg.game.character.ex.walkable.npc.NPCWalkableCharacter;
+import billy.rpg.game.character.ex.walkable.TransferWalkableCharacter;
 import billy.rpg.game.cmd.processor.CmdProcessor;
 import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.resource.item.ScriptItem;
@@ -49,7 +49,7 @@ public class MapScreen extends BaseScreen {
                 BufferedImage.TYPE_4BYTE_ABGR);
         Graphics g2 = paint.getGraphics();
         
-        HeroCharacter hero = GameFrame.getInstance().getGameContainer().getActiveScriptItem().getHero();
+        HeroWalkableCharacter hero = GameFrame.getInstance().getGameContainer().getActiveScriptItem().getHero();
         int posX = hero.getPosX();
         int posY = hero.getPosY();
         GameFrame.getInstance().setTitle("offset x/y="+ offsetTileX + "/" + offsetTileY + hero.toString());
@@ -89,8 +89,8 @@ public class MapScreen extends BaseScreen {
 
         NPCImageLoader npcImageLoader = GameFrame.getInstance().getGameContainer().getNpcImageLoader();
         ScriptItem active = GameFrame.getInstance().getGameContainer().getActiveScriptItem();
-        java.util.List<NPCCharacter> npcs = active.getNpcs();
-        for (NPCCharacter npc : npcs) {
+        java.util.List<NPCWalkableCharacter> npcs = active.getNpcs();
+        for (NPCWalkableCharacter npc : npcs) {
             npc.move(this);
             int posX1 = npc.getPosX();
             int posY1 = npc.getPosY();
@@ -103,8 +103,8 @@ public class MapScreen extends BaseScreen {
                     curFrame*32 + 32, direction*32 + 32, null);
         }
         BoxImageLoader boxImageLoader = GameFrame.getInstance().getGameContainer().getBoxImageLoader();
-        java.util.List<BoxCharacter> boxes = active.getBoxes();
-        for (BoxCharacter box : boxes) {
+        java.util.List<BoxWalkableCharacter> boxes = active.getBoxes();
+        for (BoxWalkableCharacter box : boxes) {
             box.move(this); // TODO box需要move?
             int posX1 = box.getPosX();
             int posY1 = box.getPosY();
@@ -136,8 +136,8 @@ public class MapScreen extends BaseScreen {
 
         //////// draw event start
         final Image transferImage = GameFrame.getInstance().getGameContainer().getGameAboutItem().getGameTransfer();
-        java.util.List<TransferCharacter> transfers = active.getTransfers();
-        for (TransferCharacter transfer : transfers) {
+        java.util.List<TransferWalkableCharacter> transfers = active.getTransfers();
+        for (TransferWalkableCharacter transfer : transfers) {
             transfer.move(this);
             int curFrame = transfer.getCurFrame();
             int posX1 = transfer.getPosX();
@@ -165,7 +165,7 @@ public class MapScreen extends BaseScreen {
         active.checkTrigger(); // 检查触发器
         active.checkMonster();
         active.toCheckTrigger(); // 设置下一步要检查触发器
-        HeroCharacter hero = active.getHero();
+        HeroWalkableCharacter hero = active.getHero();
         if (KeyUtil.isLeft(key)) {
             hero.decreaseX(this);
         } else if (KeyUtil.isRight(key)) {
@@ -185,14 +185,14 @@ public class MapScreen extends BaseScreen {
             return;
         } else if (KeyUtil.isHome(key)) {
             ScriptItem active = GameFrame.getInstance().getGameContainer().getActiveScriptItem();
-            HeroCharacter hero = active.getHero();
+            HeroWalkableCharacter hero = active.getHero();
 
             BaseScreen bs = new AnimationScreen(12, hero.getPosX()*32, hero.getPosY()*32, new MapScreen());
             GameFrame.getInstance().pushScreen(bs);
             return;
         } else if (KeyUtil.isLeft(key) || KeyUtil.isRight(key) || KeyUtil.isUp(key) || KeyUtil.isDown(key)) {
             ScriptItem active = GameFrame.getInstance().getGameContainer().getActiveScriptItem();
-            HeroCharacter hero = active.getHero();
+            HeroWalkableCharacter hero = active.getHero();
             hero.resetFrame();
         } else if (KeyUtil.isG(key)) {
             VariableTableDeterminer.getInstance().printVariables();

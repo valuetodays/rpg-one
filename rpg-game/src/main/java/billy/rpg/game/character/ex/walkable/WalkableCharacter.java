@@ -1,7 +1,7 @@
-package billy.rpg.game.character;
+package billy.rpg.game.character.ex.walkable;
 
 import billy.rpg.game.GameFrame;
-import billy.rpg.game.constants.CharacterConstant;
+import billy.rpg.game.constants.WalkableConstant;
 import billy.rpg.game.screen.MapScreen;
 
 /**
@@ -9,12 +9,12 @@ import billy.rpg.game.screen.MapScreen;
  * @author liulei
  * @since 2017-05-18 14:04
  */
-public abstract class BaseCharacter implements CharacterConstant {
+public abstract class WalkableCharacter implements WalkableConstant {
     protected int number; // 编号
     protected int posX = 6; // 当前x
     protected int posY = 6; // 当前y
     protected int curFrame;  // 步数 0右，1停止，2左
-    protected CharacterConstant.PositionEnum direction; // 方向 0下，1左，2右，3上
+    protected WalkableConstant.PositionEnum direction; // 方向 0下，1左，2右，3上
 
     /**
      * init position
@@ -67,11 +67,11 @@ public abstract class BaseCharacter implements CharacterConstant {
         this.curFrame = curFrame;
     }
 
-    public CharacterConstant.PositionEnum getDirection() {
+    public WalkableConstant.PositionEnum getDirection() {
         return direction;
     }
 
-    public void setDirection(CharacterConstant.PositionEnum direction) {
+    public void setDirection(WalkableConstant.PositionEnum direction) {
         this.direction = direction;
     }
 

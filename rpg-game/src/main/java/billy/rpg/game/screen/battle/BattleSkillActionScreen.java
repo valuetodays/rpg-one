@@ -1,7 +1,7 @@
 package billy.rpg.game.screen.battle;
 
 import billy.rpg.game.GameCanvas;
-import billy.rpg.game.character.battle.FightableCharacter;
+import billy.rpg.game.character.ex.fightable.Fightable;
 import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.screen.AnimationScreen;
 import billy.rpg.game.screen.BaseScreen;
@@ -18,8 +18,8 @@ public class BattleSkillActionScreen extends BaseScreen {
     private static final int STATE_AFT = 3; // 伤害动画
     private static final int STATE_FIN = 4; // 结束
 
-    private FightableCharacter attacker;
-    private FightableCharacter target;
+    private Fightable attacker;
+    private Fightable target;
     private AnimationScreen animationScreen;
     private int state = STATE_PRE;
     private CommonAttackListener commonAttackListener;
@@ -36,7 +36,7 @@ public class BattleSkillActionScreen extends BaseScreen {
      * @param target 被攻击者
      * @param animationScreen 技能动画
      */
-    public BattleSkillActionScreen(FightableCharacter attacker, FightableCharacter target, AnimationScreen animationScreen,
+    public BattleSkillActionScreen(Fightable attacker, Fightable target, AnimationScreen animationScreen,
                                    CommonAttackListener commonAttackListener) {
         this.attacker = attacker;
         this.target = target;

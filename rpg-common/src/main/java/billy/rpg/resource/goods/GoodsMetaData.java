@@ -7,6 +7,8 @@ package billy.rpg.resource.goods;
  * @since 2017-09-04 17:36
  */
 public class GoodsMetaData {
+    public static final int EMPTY_GOODS_INDEX = 0;
+
     private int number;
     private int type;
     private String name;

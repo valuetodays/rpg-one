@@ -38,6 +38,7 @@ public class JsonGoodsDataLoader extends GoodsDataLoader {
             int number = gmd.getNumber();
             goodsMap.put(number, gmd);
         }
+
     }
 
 }

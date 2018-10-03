@@ -2,8 +2,8 @@ package billy.rpg.game.util;
 
 
 import billy.rpg.game.GameFrame;
-import billy.rpg.game.character.HeroCharacter;
-import billy.rpg.game.character.NPCCharacter;
+import billy.rpg.game.character.ex.walkable.HeroWalkableCharacter;
+import billy.rpg.game.character.ex.walkable.npc.NPCWalkableCharacter;
 import billy.rpg.game.resource.item.ScriptItem;
 import billy.rpg.game.screen.MapScreen;
 import billy.rpg.resource.map.MapMetaData;
@@ -56,8 +56,8 @@ public class WalkUtil {
         // case 4
         {
             ScriptItem activeFileItem = GameFrame.getInstance().getGameContainer().getActiveScriptItem();
-            List<NPCCharacter> npcs = activeFileItem.getNpcs();
-            for (NPCCharacter npc : npcs) {
+            List<NPCWalkableCharacter> npcs = activeFileItem.getNpcs();
+            for (NPCWalkableCharacter npc : npcs) {
                 int posX = npc.getPosX();
                 int posY = npc.getPosY();
                 if (x == posX && y == posY) {
@@ -69,7 +69,7 @@ public class WalkUtil {
         // case 5
         {
             MapScreen mapScreen = GameFrame.getInstance().getGameContainer().getMapScreen();
-            HeroCharacter hero = GameFrame.getInstance().getGameContainer().getActiveScriptItem().getHero();
+            HeroWalkableCharacter hero = GameFrame.getInstance().getGameContainer().getActiveScriptItem().getHero();
             int offsetTileX = mapScreen.getOffsetTileX();
             int offsetTileY = mapScreen.getOffsetTileY();
             int posX = hero.getPosX();

@@ -2,7 +2,7 @@ package billy.rpg.game.screen.battle;
 
 import billy.rpg.game.GameCanvas;
 import billy.rpg.game.GameFrame;
-import billy.rpg.game.character.battle.HeroBattle;
+import billy.rpg.game.character.ex.fightable.HeroFightable;
 import billy.rpg.game.screen.BaseScreen;
 
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.Stack;
  */
 public class BattleScreen extends BaseScreen {
     private Stack<BaseScreen> screenStack = new Stack<>();
-    private java.util.List<HeroBattle> heroBattleList = GameFrame.getInstance().getGameData().getHeroBattleList();
+    private java.util.List<HeroFightable> heroBattleList = GameFrame.getInstance().getGameData().getHeroBattleList();
 
     public BattleScreen(final int[] metMonsterIds) {
         BattleUIScreen battleUIScreen = new BattleUIScreen(metMonsterIds, this, heroBattleList);
@@ -87,7 +87,7 @@ public class BattleScreen extends BaseScreen {
         screenStack.peek().onKeyUp(key);
     }
 
-    public List<HeroBattle> getHeroBattleList() {
+    public List<HeroFightable> getHeroBattleList() {
         return heroBattleList;
     }
 }

@@ -1,7 +1,6 @@
-package billy.rpg.game.character.npc;
+package billy.rpg.game.character.ex.walkable.npc;
 
 
-import billy.rpg.game.character.NPCCharacter;
 import billy.rpg.game.screen.MapScreen;
 
 /**
@@ -10,7 +9,7 @@ import billy.rpg.game.screen.MapScreen;
  * @author liulei
  * @since 2017-05-18 14:10
  */
-public class NoWalkNPCCharacter extends NPCCharacter {
+public class FixedNPCWalkableCharacter extends NPCWalkableCharacter {
 
     @Override
     public void move(MapScreen mapScreen) {

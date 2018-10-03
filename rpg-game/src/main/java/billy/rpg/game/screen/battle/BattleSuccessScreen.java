@@ -2,7 +2,7 @@ package billy.rpg.game.screen.battle;
 
 import billy.rpg.game.GameCanvas;
 import billy.rpg.game.GameFrame;
-import billy.rpg.game.character.battle.HeroBattle;
+import billy.rpg.game.character.ex.fightable.HeroFightable;
 import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.screen.BaseScreen;
 import billy.rpg.resource.level.LevelData;
@@ -27,15 +27,15 @@ public class BattleSuccessScreen extends BaseScreen {
     private int money;
     private int exp;
     private BattleScreen battleScreen;
-    private List<HeroBattle> newHeroBatleList = new ArrayList<>();
+    private List<HeroFightable> newHeroBatleList = new ArrayList<>();
 
     public BattleSuccessScreen(BattleScreen battleScreen, int money, int exp) {
         this.battleScreen = battleScreen;
         this.money = money;
         this.exp = exp;
-        List<HeroBattle> heroBattleList = battleScreen.getHeroBattleList();
-        for (HeroBattle heroBattle : heroBattleList) {
-            HeroBattle newHeroBattle = new HeroBattle();
+        List<HeroFightable> heroBattleList = battleScreen.getHeroBattleList();
+        for (HeroFightable heroBattle : heroBattleList) {
+            HeroFightable newHeroBattle = new HeroFightable();
             newHeroBattle.setDied(heroBattle.isDied());
             newHeroBattle.setHeight(heroBattle.getHeight());
             newHeroBattle.setWidth(heroBattle.getWidth());
@@ -49,7 +49,7 @@ public class BattleSuccessScreen extends BaseScreen {
         // 在这里处理战斗前后的数据，并处理是否升级
         // 然后draw()方法只是显示，onKeyUp()方法负责做角色属性的修改
         for (int i = 0; i < newHeroBatleList.size(); i++) {
-            HeroBattle heroBattle = newHeroBatleList.get(i);
+            HeroFightable heroBattle = newHeroBatleList.get(i);
             int oriExp = heroBattle.getRoleMetaData().getExp();
             int newExp = oriExp + exp;
             int level = heroBattle.getRoleMetaData().getLevel();
@@ -102,7 +102,7 @@ public class BattleSuccessScreen extends BaseScreen {
         g.drawString("get money " + money, 120, 70);
         g.drawString("get exp " + exp, 120, 90);
         // 这里只【显示】升级所得经验及金币
-        List<HeroBattle> heroBattleList = battleScreen.getHeroBattleList();
+        List<HeroFightable> heroBattleList = battleScreen.getHeroBattleList();
         for (int i = 0; i < heroBattleList.size(); i++) {
             RoleMetaData oldRoleMetaData = heroBattleList.get(i).getRoleMetaData();
             RoleMetaData newRoleMetaData = newHeroBatleList.get(i).getRoleMetaData();
@@ -133,8 +133,8 @@ public class BattleSuccessScreen extends BaseScreen {
         GameFrame.getInstance().getGameData().addMoney(money);
 
         for (int i = 0; i < newHeroBatleList.size(); i++) {
-            HeroBattle newHeroBattle = newHeroBatleList.get(i);
-            HeroBattle heroBattle = battleScreen.getHeroBattleList().get(i);
+            HeroFightable newHeroBattle = newHeroBatleList.get(i);
+            HeroFightable heroBattle = battleScreen.getHeroBattleList().get(i);
             heroBattle.setRoleMetaData(newHeroBattle.getRoleMetaData().clone());
         }
 

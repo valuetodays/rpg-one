@@ -1,0 +1,16 @@
+{
+  "animationId":1,
+  "attack":2,
+  "buy":40,
+  "count":0,
+  "defend":0,
+  "desc":"用木材雕刻的剑，小孩玩具。攻击+2。",
+  "event":1,
+  "hp":0,
+  "imageId":1,
+  "mp":0,
+  "name":"木剑",
+  "number":2001,
+  "sell":30,
+  "type":2
+}

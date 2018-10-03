@@ -2,7 +2,7 @@ package billy.rpg.game.screen.battle;
 
 import billy.rpg.game.GameCanvas;
 import billy.rpg.game.GameFrame;
-import billy.rpg.game.character.battle.HeroBattle;
+import billy.rpg.game.character.ex.fightable.HeroFightable;
 import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.screen.BaseScreen;
 import billy.rpg.game.util.KeyUtil;
@@ -20,8 +20,8 @@ public class ChooseHeroScreen extends BaseScreen {
     private int heroIndex; // TODO 貌似早期的fc封神榜、吞食天地不支持玩家选择已方人员乱序行动吧？
 
     private BattleScreen parentScreen;
-    protected java.util.List<HeroBattle> heroBattleList;
-    public ChooseHeroScreen(BattleScreen battleScreen, List<HeroBattle> heroBattleList) {
+    protected java.util.List<HeroFightable> heroBattleList;
+    public ChooseHeroScreen(BattleScreen battleScreen, List<HeroFightable> heroBattleList) {
         parentScreen = battleScreen;
         this.heroBattleList = heroBattleList;
     }
@@ -43,7 +43,7 @@ public class ChooseHeroScreen extends BaseScreen {
         // 选择哪个hero要进行行动
         if (1 == 1) {
             Image gameArrowDown = GameFrame.getInstance().getGameContainer().getGameAboutItem().getGameArrowDown();
-            HeroBattle heroBattle = heroBattleList.get(heroIndex);
+            HeroFightable heroBattle = heroBattleList.get(heroIndex);
             g.drawImage(gameArrowDown,
                     heroBattle.getLeft() + heroBattle.getWidth() / 2,
                     heroBattle.getTop(), null);

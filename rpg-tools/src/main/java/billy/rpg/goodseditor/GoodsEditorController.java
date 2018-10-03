@@ -1,7 +1,8 @@
 package billy.rpg.goodseditor;
 
-import billy.rpg.resource.goods.GoodsMetaData;
 import billy.rpg.resource.goods.BinaryGoodsSaverLoader;
+import billy.rpg.resource.goods.GoodsMetaData;
+import billy.rpg.resource.goods.GoodsType;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -15,9 +16,9 @@ import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 /**
  * @author liulei@bshf360.com
@@ -70,13 +71,7 @@ public class GoodsEditorController implements Initializable {
         loadFileChooser.getExtensionFilters().add(gdsFileExt);
         saveFileChooser = new FileChooser();
         saveFileChooser.getExtensionFilters().add(gdsFileExt);
-        List<Item> cbTypeItems = new ArrayList<>();
-        cbTypeItems.add(new Item(0, "药物类"));
-        cbTypeItems.add(new Item(1, "仙药类"));
-        cbTypeItems.add(new Item(2, "武器类"));
-        cbTypeItems.add(new Item(3, "披风类"));
-        cbTypeItems.add(new Item(4, "鞋子类"));
-        cbType.setItems(FXCollections.observableArrayList(cbTypeItems));
+        cbType.setItems(FXCollections.observableArrayList(Arrays.stream(GoodsType.values()).map(e -> new Item(e.getValue(), e.getDesc())).collect(Collectors.toList())));
         cbType.getSelectionModel().select(0);
     }
 

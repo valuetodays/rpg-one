@@ -1,7 +1,7 @@
 package billy.rpg.game.screen.battle;
 
 import billy.rpg.game.GameCanvas;
-import billy.rpg.game.character.battle.FightableCharacter;
+import billy.rpg.game.character.ex.fightable.Fightable;
 import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.screen.BaseScreen;
 
@@ -17,8 +17,8 @@ public class BattleCommonActionScreen extends BaseScreen {
     private static final int STATE_AFT = 3; // 伤害动画
     private static final int STATE_FIN = 4; // 结束
 
-    private FightableCharacter attacker;
-    private FightableCharacter target;
+    private Fightable attacker;
+    private Fightable target;
     private int state = STATE_PRE;
     private int attackFrame; // 最多有12帧？？
     private CommonAttackListener commonAttackListener;
@@ -34,7 +34,7 @@ public class BattleCommonActionScreen extends BaseScreen {
      * @param attacker 攻击者
      * @param target 被攻击者
      */
-    public BattleCommonActionScreen(FightableCharacter attacker, FightableCharacter target,
+    public BattleCommonActionScreen(Fightable attacker, Fightable target,
                                     CommonAttackListener al) {
         this.attacker = attacker;
         this.target = target;

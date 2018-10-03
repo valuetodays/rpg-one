@@ -1,11 +1,11 @@
-package billy.rpg.game.character;
+package billy.rpg.game.character.ex.walkable;
 
 import billy.rpg.game.screen.MapScreen;
 
-public class BoxCharacter extends BaseCharacter {
+public class BoxWalkableCharacter extends WalkableCharacter {
     private int tileNum;
 
-    public BoxCharacter(int tileNum) {
+    public BoxWalkableCharacter(int tileNum) {
         this.tileNum = tileNum;
     }
 

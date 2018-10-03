@@ -7,7 +7,7 @@ import java.util.Arrays;
  * @author liulei
  * @since 2017-05-15 15:41
  */
-public interface CharacterConstant {
+public interface WalkableConstant {
     int DIRECTION_DOWN = PositionEnum.DOWN.getValue();
     int DIRECTION_LEFT = PositionEnum.LEFT.getValue();
     int DIRECTION_RIGHT = PositionEnum.RIGHT.getValue();

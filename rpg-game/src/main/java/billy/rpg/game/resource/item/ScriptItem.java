@@ -2,10 +2,10 @@ package billy.rpg.game.resource.item;
 
 import billy.rpg.game.GameData;
 import billy.rpg.game.GameFrame;
-import billy.rpg.game.character.BoxCharacter;
-import billy.rpg.game.character.HeroCharacter;
-import billy.rpg.game.character.NPCCharacter;
-import billy.rpg.game.character.TransferCharacter;
+import billy.rpg.game.character.ex.walkable.BoxWalkableCharacter;
+import billy.rpg.game.character.ex.walkable.HeroWalkableCharacter;
+import billy.rpg.game.character.ex.walkable.npc.NPCWalkableCharacter;
+import billy.rpg.game.character.ex.walkable.TransferWalkableCharacter;
 import billy.rpg.game.cmd.*;
 import billy.rpg.game.cmd.processor.CmdProcessor;
 import billy.rpg.game.cmd.processor.DefaultCmdProcessor;
@@ -43,13 +43,13 @@ public class ScriptItem {
     /** 脚本中的触发器列表 */
     private Map<Integer, TriggerBean> triggerMap;
     /** 玩家角色 */
-    private HeroCharacter hero = new HeroCharacter();
+    private HeroWalkableCharacter hero = new HeroWalkableCharacter();
     /** npc角色 */
-    private List<NPCCharacter> npcs = new ArrayList<>();
+    private List<NPCWalkableCharacter> npcs = new ArrayList<>();
     /** 传送门角色 */
-    private List<TransferCharacter> transfers = new ArrayList<>();
+    private List<TransferWalkableCharacter> transfers = new ArrayList<>();
     /** 宝箱角色 */
-    private List<BoxCharacter> boxes = new ArrayList<>();
+    private List<BoxWalkableCharacter> boxes = new ArrayList<>();
     /** 本地图中可遇到的妖怪ids */
     private List<Integer> predictedMonsterIds;
     /** bgm播放器 */
@@ -73,11 +73,11 @@ public class ScriptItem {
         this.primarySection = primarySection;
     }
 
-    public HeroCharacter getHero() {
+    public HeroWalkableCharacter getHero() {
         return hero;
     }
 
-    public void setHero(HeroCharacter hero) {
+    public void setHero(HeroWalkableCharacter hero) {
         this.hero = hero;
     }
 
@@ -223,15 +223,15 @@ public class ScriptItem {
      */
     private void checkTrigger0() {
         MapScreen mapScreen = GameFrame.getInstance().getGameContainer().getMapScreen();
-        HeroCharacter mm = GameContainer.getInstance().getActiveScriptItem().getHero();
+        HeroWalkableCharacter mm = GameContainer.getInstance().getActiveScriptItem().getHero();
         int heroNextPosXInFullMap = mm.getNextPosX() + mapScreen.getOffsetTileX();
         int heroNextPosYInFullMap = mm.getNextPosY() + mapScreen.getOffsetTileY();
         if (heroNextPosXInFullMap == -1 && heroNextPosYInFullMap == -1) { // a new map, not check talk
             return;
         }
         TriggerBean triggerBean = null;
-        List<NPCCharacter> npcs = GameFrame.getInstance().getGameContainer().getActiveScriptItem().getNpcs();
-        for (NPCCharacter npc : npcs) {
+        List<NPCWalkableCharacter> npcs = GameFrame.getInstance().getGameContainer().getActiveScriptItem().getNpcs();
+        for (NPCWalkableCharacter npc : npcs) {
             int npcPosX = npc.getPosX();
             int npcPosY = npc.getPosY();
             if (heroNextPosXInFullMap == npcPosX && heroNextPosYInFullMap == npcPosY) {
@@ -288,15 +288,15 @@ public class ScriptItem {
         flagExecutePrimarySection = true;
     }
 
-    public List<NPCCharacter> getNpcs() {
+    public List<NPCWalkableCharacter> getNpcs() {
         return npcs;
     }
 
-    public List<TransferCharacter> getTransfers() {
+    public List<TransferWalkableCharacter> getTransfers() {
         return transfers;
     }
 
-    public List<BoxCharacter> getBoxes() {
+    public List<BoxWalkableCharacter> getBoxes() {
         return boxes;
     }
 

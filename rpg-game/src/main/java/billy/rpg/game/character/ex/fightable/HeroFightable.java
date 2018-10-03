@@ -1,4 +1,4 @@
-package billy.rpg.game.character.battle;
+package billy.rpg.game.character.ex.fightable;
 
 import billy.rpg.resource.role.RoleMetaData;
 
@@ -6,7 +6,7 @@ import billy.rpg.resource.role.RoleMetaData;
  * @author liulei@bshf360.com
  * @since 2017-07-12 16:37
  */
-public class HeroBattle extends FightableCharacter {
+public class HeroFightable extends Fightable {
 
     @Override
     public void setRoleMetaData(RoleMetaData roleMetaData) {
