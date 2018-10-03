@@ -3,7 +3,6 @@ package billy.rpg.game.screen;
 import billy.rpg.game.GameCanvas;
 import billy.rpg.game.GameFrame;
 import billy.rpg.game.constants.GameConstant;
-import com.rupeng.game.AsyncAudioPlayer;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -12,8 +11,6 @@ import java.awt.image.BufferedImage;
  * 制作人信息
  */
 public class ProducerScreen extends BaseScreen {
-    private AsyncAudioPlayer player;
-
 
     @Override
     public void update(long delta) {

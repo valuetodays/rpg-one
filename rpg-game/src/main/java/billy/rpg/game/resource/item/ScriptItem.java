@@ -15,7 +15,7 @@ import billy.rpg.game.screen.MapScreen;
 import billy.rpg.game.screen.battle.BattleScreen;
 import billy.rpg.game.script.LabelBean;
 import billy.rpg.game.script.TriggerBean;
-import com.rupeng.game.AsyncAudioPlayer;
+import billy.rpg.game.util.MP3Player;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
 
@@ -53,7 +53,7 @@ public class ScriptItem {
     /** 本地图中可遇到的妖怪ids */
     private List<Integer> predictedMonsterIds;
     /** bgm播放器 */
-    private AsyncAudioPlayer bgmPlayer;
+    private MP3Player bgmPlayer;
     /** 本脚本中的所有变量 */
     private Set<String> variables = new HashSet<>();
 

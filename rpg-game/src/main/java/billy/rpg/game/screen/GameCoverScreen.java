@@ -5,7 +5,7 @@ import billy.rpg.game.GameFrame;
 import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.util.CoreUtil;
 import billy.rpg.game.util.KeyUtil;
-import com.rupeng.game.AsyncAudioPlayer;
+import billy.rpg.game.util.MP3Player;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -16,14 +16,14 @@ public class GameCoverScreen extends BaseScreen {
     private int arrowX = 160;
     private int f = 1; // 1:new game;  2:continue;   3: producer
     private Map<Integer, Integer> map = new HashMap<>(); 
-    private AsyncAudioPlayer player;
+    private MP3Player player = new MP3Player();
 
     public GameCoverScreen() {
         map.put(1, 320); 
         map.put(2, 350);
         map.put(3, 380);
         String audioPath = CoreUtil.getAudioPath("audio/game_cover.mp3");
-        player = new AsyncAudioPlayer(audioPath, true);
+        player.play(audioPath);
 //        player.playAsync();
     }
     
@@ -66,7 +66,7 @@ public class GameCoverScreen extends BaseScreen {
     @Override
     public void onKeyUp(int key) {
         if (KeyUtil.isEnter(key)) {
-            player.close();
+            player.stopAll();
             switch (f) {
                 case 1: {
                     LOG.debug("you choose `开始游戏`");

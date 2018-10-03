@@ -1,6 +1,6 @@
 package billy.rpg.game;
 
-import com.rupeng.game.AsyncAudioPlayer;
+import billy.rpg.game.util.MP3Player;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -23,7 +23,6 @@ public class AudioPlayerTest {
     public void testAsyncAudioPlayer() {
         URL resource = Thread.currentThread().getContextClassLoader().getResource("audio/game_cover.mp3");
         Assert.assertTrue("mp3路径不正确", resource != null);
-        AsyncAudioPlayer player = new AsyncAudioPlayer(resource.getPath(), true);
-        player.playAsync();
+        MP3Player.play(resource.getPath());
     }
 }

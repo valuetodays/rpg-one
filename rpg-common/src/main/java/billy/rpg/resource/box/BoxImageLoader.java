@@ -64,7 +64,7 @@ public class BoxImageLoader {
         return "box_open.png";
     }
     public String getClosedImageName() {
-        return "box_open.png";
+        return "box_closed.png";
     }
 
     public BoxMetaData getBoxMetaData() {

@@ -1,6 +1,5 @@
 package billy.rpg.game.item;
 
-import com.rupeng.game.GameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.ArrayUtils;
 
@@ -28,7 +27,6 @@ public class TileImageItem {
         if (loaded) {
             return ;
         }
-        String imgPath = GameUtils.mapPath("tiles") + "/";
         // TODO 此时在java开发环境是能取到rpg-common目录下的tiles的目录，
         // 但是，当rpg-common被处理成jar的话运行就不一定能正常了。
         URL resource = this.getClass().getResource("/tiles/");
