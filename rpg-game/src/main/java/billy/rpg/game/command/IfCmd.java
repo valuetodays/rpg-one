@@ -2,7 +2,7 @@ package billy.rpg.game.command;
 
 import billy.rpg.game.GameFrame;
 import billy.rpg.game.command.processor.CmdProcessor;
-import billy.rpg.game.command.processor.DefaultCmdProcessor;
+import billy.rpg.game.command.processor.support.DefaultCmdProcessor;
 import billy.rpg.game.resource.item.ScriptItem;
 import billy.rpg.game.script.LabelBean;
 import billy.rpg.game.script.variable.VariableTableDeterminer;

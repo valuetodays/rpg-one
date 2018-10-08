@@ -1,6 +1,7 @@
-package billy.rpg.game.command.processor;
+package billy.rpg.game.command.processor.support;
 
 import billy.rpg.game.command.CmdBase;
+import billy.rpg.game.command.processor.CmdProcessor;
 import org.apache.log4j.Logger;
 
 import java.util.List;
