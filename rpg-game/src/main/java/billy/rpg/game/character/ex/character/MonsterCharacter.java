@@ -2,7 +2,7 @@ package billy.rpg.game.character.ex.character;
 
 import billy.rpg.game.character.ex.equipable.Equipables;
 import billy.rpg.game.character.ex.fightable.Fightable;
-import billy.rpg.game.character.ex.fightable.MonsterFightable;
+import billy.rpg.resource.role.RoleMetaData;
 
 /**
  * @author lei.liu@datatist.com
@@ -28,5 +28,11 @@ public class MonsterCharacter {
         this.equipables = equipables;
     }
 
+    public static class MonsterFightable extends Fightable {
+        @Override
+        public void setRoleMetaData(RoleMetaData roleMetaData) {
+            this.roleMetaData = roleMetaData.clone();
+        }
+    }
 
 }

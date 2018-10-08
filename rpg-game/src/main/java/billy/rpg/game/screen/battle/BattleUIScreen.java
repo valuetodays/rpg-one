@@ -3,7 +3,7 @@ package billy.rpg.game.screen.battle;
 import billy.rpg.game.GameCanvas;
 import billy.rpg.game.GameFrame;
 import billy.rpg.game.character.ex.character.HeroCharacter;
-import billy.rpg.game.character.ex.fightable.MonsterFightable;
+import billy.rpg.game.character.ex.character.MonsterCharacter;
 import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.screen.BaseScreen;
 import billy.rpg.resource.role.RoleMetaData;
@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class BattleUIScreen extends BaseScreen {
     private BattleScreen parentScreen; // the basescreen contains this
-    protected java.util.List<MonsterFightable> monsterBattleList;
+    protected java.util.List<MonsterCharacter.MonsterFightable> monsterBattleList;
     protected java.util.List<HeroCharacter> heroBattleList;
     private java.util.List<Image> monsterImages;
     protected int heroIndex; // 活动玩家
@@ -51,7 +51,7 @@ public class BattleUIScreen extends BaseScreen {
         for (int i = 0; i < metMonsterIds.length; i++) {
             RoleMetaData roleMetaData = GameFrame.getInstance().getGameContainer().getMonsterRoleOf(metMonsterIds[i]);
             Image image = roleMetaData.getImage();
-            MonsterFightable mb = new MonsterFightable();
+            MonsterCharacter.MonsterFightable mb = new MonsterCharacter.MonsterFightable();
             mb.setLeft(getLeftInWindow(i));
             mb.setTop(100);
             mb.setWidth(image.getWidth(null));
@@ -167,7 +167,7 @@ public class BattleUIScreen extends BaseScreen {
         // TODO 先画出黑色背景，因为战斗背景图不是640*480的 (640*320)
         g.drawImage(battleImage, 0, 0, battleImage.getWidth(null), battleImage.getHeight(null), null);
 
-        for (MonsterFightable monsterBattle : monsterBattleList) {
+        for (MonsterCharacter.MonsterFightable monsterBattle : monsterBattleList) {
             Image image = monsterBattle.getRoleMetaData().getImage();
             int left = monsterBattle.getLeft();
             int top = monsterBattle.getTop();

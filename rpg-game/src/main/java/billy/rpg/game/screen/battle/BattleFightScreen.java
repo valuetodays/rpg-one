@@ -3,8 +3,8 @@ package billy.rpg.game.screen.battle;
 import billy.rpg.game.GameCanvas;
 import billy.rpg.game.GameFrame;
 import billy.rpg.game.character.ex.character.HeroCharacter;
+import billy.rpg.game.character.ex.character.MonsterCharacter;
 import billy.rpg.game.character.ex.fightable.Fightable;
-import billy.rpg.game.character.ex.fightable.MonsterFightable;
 import billy.rpg.game.equip.clothes.ClothesEquip;
 import billy.rpg.game.equip.weapon.WeaponEquip;
 import billy.rpg.game.screen.AnimationScreen;
@@ -286,10 +286,10 @@ public class BattleFightScreen extends BaseScreen {
             Fightable attacker = heroCharacter.getFightable();
             // 把装备的攻击力也计算进去
             attack = attacker.getRoleMetaData().getAttack() + ((WeaponEquip)(heroCharacter.getEquipables().getWeapon().getEquip())).getAttack();
-            MonsterFightable target = getBattleUIScreen().monsterBattleList.get(targetIndex);
+            MonsterCharacter.MonsterFightable target = getBattleUIScreen().monsterBattleList.get(targetIndex);
             defend = target.getRoleMetaData().getDefend();
         } else {
-            MonsterFightable attacker = getBattleUIScreen().monsterBattleList.get(attackerId);
+            MonsterCharacter.MonsterFightable attacker = getBattleUIScreen().monsterBattleList.get(attackerId);
             attack = attacker.getRoleMetaData().getAttack();
 
             HeroCharacter heroCharacter = getBattleUIScreen().heroBattleList.get(targetIndex);
@@ -363,7 +363,7 @@ public class BattleFightScreen extends BaseScreen {
         }
 
         boolean monsterDieAllFlag = true;
-        for (MonsterFightable monsterBattle : getBattleUIScreen().monsterBattleList) {
+        for (MonsterCharacter.MonsterFightable monsterBattle : getBattleUIScreen().monsterBattleList) {
             if (!monsterBattle.isDied()) {
                 monsterDieAllFlag = false;
             }

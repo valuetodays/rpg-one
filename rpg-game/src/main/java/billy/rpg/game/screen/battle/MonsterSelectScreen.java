@@ -2,7 +2,7 @@ package billy.rpg.game.screen.battle;
 
 import billy.rpg.game.GameCanvas;
 import billy.rpg.game.GameFrame;
-import billy.rpg.game.character.ex.fightable.MonsterFightable;
+import billy.rpg.game.character.ex.character.MonsterCharacter;
 import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.screen.BaseScreen;
 import billy.rpg.game.util.KeyUtil;
@@ -35,9 +35,9 @@ public class MonsterSelectScreen extends BaseScreen {
         this.battleUIScreen = battleUIScreen;
         this.battleOptionScreen = battleOptionScreen;
         this.skillId = skillId;
-        java.util.List<MonsterFightable> monsterBattleList = getBattleUIScreen().monsterBattleList;
+        java.util.List<MonsterCharacter.MonsterFightable> monsterBattleList = getBattleUIScreen().monsterBattleList;
         for (int i = 0; i < monsterBattleList.size(); i++) {
-            MonsterFightable monsterBattle = monsterBattleList.get(i);
+            MonsterCharacter.MonsterFightable monsterBattle = monsterBattleList.get(i);
             if (!monsterBattle.isDied()) {
                 monsterIndex = i;
                 break;
@@ -76,7 +76,7 @@ public class MonsterSelectScreen extends BaseScreen {
         getBattleUIScreen().drawMonster(g);
 
         Image gameArrowUp = GameFrame.getInstance().getGameContainer().getGameAboutItem().getGameArrowUp();
-        MonsterFightable monsterBattleArrowTo = getBattleUIScreen().monsterBattleList.get(monsterIndex);
+        MonsterCharacter.MonsterFightable monsterBattleArrowTo = getBattleUIScreen().monsterBattleList.get(monsterIndex);
         if (!monsterBattleArrowTo.isDied()) {
             g.drawImage(gameArrowUp,
                     monsterBattleArrowTo.getLeft() + monsterBattleArrowTo.getWidth() / 2 - gameArrowUp.getWidth(null) / 2,
