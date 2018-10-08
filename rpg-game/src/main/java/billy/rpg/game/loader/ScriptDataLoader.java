@@ -3,7 +3,7 @@ package billy.rpg.game.loader;
 import billy.rpg.game.command.CmdBase;
 import billy.rpg.game.command.EmptyCmd;
 import billy.rpg.game.command.parser.CommandParser;
-import billy.rpg.game.command.parser.JlineCommandParser;
+import billy.rpg.game.command.parser.support.JlineCommandParser;
 import billy.rpg.game.resource.item.ScriptItem;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;

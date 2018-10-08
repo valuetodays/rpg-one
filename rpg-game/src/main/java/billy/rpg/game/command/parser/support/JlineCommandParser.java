@@ -1,7 +1,8 @@
-package billy.rpg.game.command.parser;
+package billy.rpg.game.command.parser.support;
 
 import billy.rpg.game.command.CmdBase;
 import billy.rpg.game.command.LabelCmd;
+import billy.rpg.game.command.parser.CommandParser;
 import org.apache.commons.lang.StringUtils;
 import org.jline.reader.ParsedLine;
 import org.jline.reader.Parser;
@@ -41,7 +42,7 @@ public class JlineCommandParser extends CommandParser {
 
     public static String getCommandPackage() {
 //        String pkg = "billy.rpg.game.command."; hard-code style
-        String jlineCommandParserParentPath = JlineCommandParser.class.getPackage().getName();
+        String jlineCommandParserParentPath = CommandParser.class.getPackage().getName();
         ArrayList<String> packageNameArr = new ArrayList<>(Arrays.asList(jlineCommandParserParentPath.split("\\.")));
         List<String> packageNameList = packageNameArr.subList(0, packageNameArr.size() - 1);
         return StringUtils.join(packageNameList, ".") + ".";
@@ -60,7 +61,7 @@ public class JlineCommandParser extends CommandParser {
         if (commandName.endsWith(":")) {
             aClass = cmdClassMap.get(LabelCmd.class.getSimpleName().toUpperCase());
         } else {
-            String commandClassName = commandName + "command";
+            String commandClassName = commandName + CmdBase.class.getSimpleName().replace("Base", "");
             aClass = cmdClassMap.get(commandClassName.toUpperCase());
             if (aClass == null) {
                 throw new RuntimeException("command not support: " + commandName);
