@@ -3,7 +3,6 @@ package billy.rpg.game.screen.battle;
 import billy.rpg.game.GameCanvas;
 import billy.rpg.game.GameFrame;
 import billy.rpg.game.character.ex.character.HeroCharacter;
-import billy.rpg.game.character.ex.fightable.HeroFightable;
 import billy.rpg.game.character.ex.fightable.MonsterFightable;
 import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.screen.BaseScreen;
@@ -118,7 +117,7 @@ public class BattleUIScreen extends BaseScreen {
     private void drawHero(Graphics g) {
         // 将当前活动玩家高亮出来
         for (int i = 0; i < heroBattleList.size(); i++) {
-            HeroFightable heroBattle = (HeroFightable)heroBattleList.get(i).getFightable();
+            HeroCharacter.HeroFightable heroBattle = (HeroCharacter.HeroFightable)heroBattleList.get(i).getFightable();
             if (i == heroIndex) {
                 RoleMetaData roleMetaData = heroBattle.getRoleMetaData();
                 g.setColor(Color.yellow);

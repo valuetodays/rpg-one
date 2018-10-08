@@ -2,7 +2,6 @@ package billy.rpg.game;
 
 import billy.rpg.game.character.ex.character.HeroCharacter;
 import billy.rpg.game.character.ex.equipable.Equipables;
-import billy.rpg.game.character.ex.fightable.HeroFightable;
 import billy.rpg.game.character.ex.walkable.HeroWalkableCharacter;
 import billy.rpg.resource.goods.GoodsMetaData;
 import billy.rpg.resource.role.RoleMetaData;
@@ -20,7 +19,7 @@ public class GameData {
     private int money;
     /** 角色列表 */
     private List<HeroCharacter> heroList;
-    private List<HeroFightable> heroBattleList;
+    private List<HeroCharacter.HeroFightable> heroBattleList;
     /** 角色列表 */
     private List<Integer> heroIds = Arrays.asList(1);
 //    private List<Integer> heroIds = Arrays.asList(1, 3);
@@ -182,7 +181,7 @@ public class GameData {
                 Integer heroId = heroIds.get(i);
                 RoleMetaData heroRole = GameFrame.getInstance().getGameContainer().getHeroRoleOf(heroId);
 
-                HeroFightable e = new HeroFightable();
+                HeroCharacter.HeroFightable e = new HeroCharacter.HeroFightable();
                 e.setLeft(200 + i * 150 + 10);
                 e.setTop(10 * 32);
                 e.setWidth(heroRole.getImage().getWidth());

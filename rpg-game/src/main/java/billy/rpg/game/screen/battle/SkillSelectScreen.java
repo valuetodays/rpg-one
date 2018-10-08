@@ -2,7 +2,7 @@ package billy.rpg.game.screen.battle;
 
 import billy.rpg.game.GameCanvas;
 import billy.rpg.game.GameFrame;
-import billy.rpg.game.character.ex.fightable.HeroFightable;
+import billy.rpg.game.character.ex.character.HeroCharacter;
 import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.screen.BaseScreen;
 import billy.rpg.game.screen.MessageBoxScreen;
@@ -30,7 +30,7 @@ public class SkillSelectScreen extends BaseScreen {
         this.battleOptionScreen = battleOptionScreen;
 
         // 技能列表
-        HeroFightable activeHero = (HeroFightable)getBattleUIScreen().getActiveHero().getFightable();
+        HeroCharacter.HeroFightable activeHero = (HeroCharacter.HeroFightable)getBattleUIScreen().getActiveHero().getFightable();
         java.util.List<SkillMetaData> skillList = new ArrayList<>();
         String skillIds = activeHero.getRoleMetaData().getSkillIds();
         if (StringUtils.isNotEmpty(skillIds)) { // 如果有技能

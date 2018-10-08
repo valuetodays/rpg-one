@@ -2,8 +2,8 @@ package billy.rpg.game.character.ex.character;
 
 import billy.rpg.game.character.ex.equipable.Equipables;
 import billy.rpg.game.character.ex.fightable.Fightable;
-import billy.rpg.game.character.ex.fightable.HeroFightable;
 import billy.rpg.game.character.ex.walkable.WalkableCharacter;
+import billy.rpg.resource.role.RoleMetaData;
 
 /**
  * @author liulei-home
@@ -36,5 +36,12 @@ public class HeroCharacter {
 
     public void setEquipables(Equipables equipables) {
         this.equipables = equipables;
+    }
+
+    public static class HeroFightable extends Fightable {
+        @Override
+        public void setRoleMetaData(RoleMetaData roleMetaData) {
+            this.roleMetaData = roleMetaData;
+        }
     }
 }
