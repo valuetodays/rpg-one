@@ -7,7 +7,7 @@ import billy.rpg.game.character.walkable.BoxWalkableCharacter;
 import billy.rpg.game.character.walkable.HeroWalkableCharacter;
 import billy.rpg.game.character.walkable.npc.NPCWalkableCharacter;
 import billy.rpg.game.character.walkable.TransferWalkableCharacter;
-import billy.rpg.game.cmd.processor.CmdProcessor;
+import billy.rpg.game.command.processor.CmdProcessor;
 import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.resource.item.ScriptItem;
 import billy.rpg.game.script.variable.VariableTableDeterminer;

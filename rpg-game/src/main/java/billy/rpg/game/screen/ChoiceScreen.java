@@ -2,8 +2,8 @@ package billy.rpg.game.screen;
 
 import billy.rpg.game.GameCanvas;
 import billy.rpg.game.GameFrame;
-import billy.rpg.game.cmd.processor.CmdProcessor;
-import billy.rpg.game.cmd.processor.DefaultCmdProcessor;
+import billy.rpg.game.command.processor.CmdProcessor;
+import billy.rpg.game.command.processor.DefaultCmdProcessor;
 import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.container.GameContainer;
 import billy.rpg.game.script.LabelBean;

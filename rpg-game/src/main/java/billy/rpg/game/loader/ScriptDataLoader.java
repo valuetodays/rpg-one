@@ -1,9 +1,9 @@
 package billy.rpg.game.loader;
 
-import billy.rpg.game.cmd.CmdBase;
-import billy.rpg.game.cmd.EmptyCmd;
-import billy.rpg.game.cmd.parser.CmdParser0;
-import billy.rpg.game.cmd.parser.JlineCmdParser;
+import billy.rpg.game.command.CmdBase;
+import billy.rpg.game.command.EmptyCmd;
+import billy.rpg.game.command.parser.CmdParser0;
+import billy.rpg.game.command.parser.JlineCmdParser;
 import billy.rpg.game.resource.item.ScriptItem;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;

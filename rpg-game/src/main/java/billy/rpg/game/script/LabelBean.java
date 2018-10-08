@@ -1,6 +1,6 @@
 package billy.rpg.game.script;
 
-import billy.rpg.game.cmd.CmdBase;
+import billy.rpg.game.command.CmdBase;
 
 import java.util.List;
 
