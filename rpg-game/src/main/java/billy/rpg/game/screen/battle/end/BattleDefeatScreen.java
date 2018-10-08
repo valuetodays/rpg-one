@@ -1,4 +1,4 @@
-package billy.rpg.game.screen.battle;
+package billy.rpg.game.screen.battle.end;
 
 import billy.rpg.game.GameCanvas;
 import billy.rpg.game.GameFrame;

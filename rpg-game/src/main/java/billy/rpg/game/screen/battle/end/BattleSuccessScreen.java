@@ -1,10 +1,11 @@
-package billy.rpg.game.screen.battle;
+package billy.rpg.game.screen.battle.end;
 
 import billy.rpg.game.GameCanvas;
 import billy.rpg.game.GameFrame;
 import billy.rpg.game.character.HeroCharacter;
 import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.screen.BaseScreen;
+import billy.rpg.game.screen.battle.BattleScreen;
 import billy.rpg.resource.level.LevelData;
 import billy.rpg.resource.level.LevelMetaData;
 import billy.rpg.resource.role.RoleMetaData;

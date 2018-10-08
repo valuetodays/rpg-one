@@ -4,6 +4,7 @@ import billy.rpg.game.GameCanvas;
 import billy.rpg.game.GameFrame;
 import billy.rpg.game.character.HeroCharacter;
 import billy.rpg.game.screen.BaseScreen;
+import billy.rpg.game.screen.battle.end.BattleSuccessScreen;
 
 import java.util.List;
 import java.util.Stack;

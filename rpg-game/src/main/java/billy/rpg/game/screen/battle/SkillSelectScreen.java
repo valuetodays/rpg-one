@@ -45,11 +45,9 @@ public class SkillSelectScreen extends BaseScreen {
         this.skillList = Collections.unmodifiableList(skillList);
     }
 
-
     public BattleUIScreen getBattleUIScreen() {
         return battleUIScreen;
     }
-
 
     @Override
     public void update(long delta) {

@@ -9,6 +9,8 @@ import billy.rpg.game.equip.clothes.ClothesEquip;
 import billy.rpg.game.equip.weapon.WeaponEquip;
 import billy.rpg.game.screen.AnimationScreen;
 import billy.rpg.game.screen.BaseScreen;
+import billy.rpg.game.screen.battle.end.BattleDefeatScreen;
+import billy.rpg.game.screen.battle.end.BattleSuccessScreen;
 import billy.rpg.resource.skill.SkillMetaData;
 
 import java.util.List;
