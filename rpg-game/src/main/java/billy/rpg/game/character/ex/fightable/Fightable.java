@@ -22,6 +22,8 @@ public abstract class Fightable {
     // 格挡普通攻击时的防御动作，此时可格档50%的伤害（暂只有一帧）
     private int defendFrame;
     // TODO 被（普通？）攻击时的帧画面
+    // 永不死亡的设置
+    private boolean canDie; // false -> not die
 
     /**
      * 设置角色元数据，独立出本方法是因为妖怪的属性是不变的，而玩家的属性是成长的

@@ -2,6 +2,7 @@ package billy.rpg.game.screen.battle;
 
 import billy.rpg.game.GameCanvas;
 import billy.rpg.game.GameFrame;
+import billy.rpg.game.character.ex.character.HeroCharacter;
 import billy.rpg.game.character.ex.fightable.HeroFightable;
 import billy.rpg.game.character.ex.fightable.MonsterFightable;
 import billy.rpg.game.constants.GameConstant;
@@ -22,7 +23,7 @@ import java.util.List;
 public class BattleUIScreen extends BaseScreen {
     private BattleScreen parentScreen; // the basescreen contains this
     protected java.util.List<MonsterFightable> monsterBattleList;
-    protected java.util.List<HeroFightable> heroBattleList;
+    protected java.util.List<HeroCharacter> heroBattleList;
     private java.util.List<Image> monsterImages;
     protected int heroIndex; // 活动玩家
     protected final int exp;
@@ -34,7 +35,7 @@ public class BattleUIScreen extends BaseScreen {
         return parentScreen;
     }
 
-    public BattleUIScreen(final int[] metMonsterIds, BattleScreen battleScreen, List<HeroFightable> heroBattleList) {
+    public BattleUIScreen(final int[] metMonsterIds, BattleScreen battleScreen, List<HeroCharacter> heroBattleList) {
         LOG.debug("met " + metMonsterIds.length + " monsters with["+ ArrayUtils.toString(metMonsterIds)+"]");
         parentScreen = battleScreen;
         this.heroBattleList = heroBattleList;
@@ -63,8 +64,6 @@ public class BattleUIScreen extends BaseScreen {
         }
         this.exp = tempExp;
         this.money = tempMoney;
-
-
     }
 
     /**
@@ -87,9 +86,8 @@ public class BattleUIScreen extends BaseScreen {
 
     /**
      * get current active hero
-     * @return
      */
-    public HeroFightable getActiveHero() {
+    public HeroCharacter getActiveHero() {
         return heroBattleList.get(heroIndex);
     }
 
@@ -120,7 +118,7 @@ public class BattleUIScreen extends BaseScreen {
     private void drawHero(Graphics g) {
         // 将当前活动玩家高亮出来
         for (int i = 0; i < heroBattleList.size(); i++) {
-            HeroFightable heroBattle = heroBattleList.get(i);
+            HeroFightable heroBattle = (HeroFightable)heroBattleList.get(i).getFightable();
             if (i == heroIndex) {
                 RoleMetaData roleMetaData = heroBattle.getRoleMetaData();
                 g.setColor(Color.yellow);

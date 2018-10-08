@@ -105,13 +105,14 @@ public class BattleOptionScreen extends BaseScreen {
                     }
                     break;
                     case OPTION_SKILL: {  // 技能
-                        HeroFightable activeHero = getBattleUIScreen().getActiveHero();
+                        HeroFightable activeHero = (HeroFightable)getBattleUIScreen().getActiveHero().getFightable();
                         int mp = activeHero.getRoleMetaData().getMp();
                         if (mp == 0) {
                             final BaseScreen bs = new MessageBoxScreen("mp为0，不能施放技能");
                             getBattleUIScreen().getParentScreen().push(bs);
                             break;
                         }
+                        // TODO mp不足时？
 
                         String skillIds = activeHero.getRoleMetaData().getSkillIds();
                         if (StringUtils.isEmpty(skillIds)) {
@@ -119,6 +120,7 @@ public class BattleOptionScreen extends BaseScreen {
                             getBattleUIScreen().getParentScreen().push(bs);
                             break;
                         }
+
 
                         final BaseScreen bs = new SkillSelectScreen(battleUIScreen, this);
                         getBattleUIScreen().getParentScreen().push(bs);

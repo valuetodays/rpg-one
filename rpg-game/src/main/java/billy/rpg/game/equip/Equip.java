@@ -1,5 +1,6 @@
 package billy.rpg.game.equip;
 
+import billy.rpg.game.GameFrame;
 import billy.rpg.resource.goods.GoodsMetaData;
 
 /**
@@ -9,8 +10,8 @@ import billy.rpg.resource.goods.GoodsMetaData;
 public abstract class Equip {
     protected final GoodsMetaData goods;
 
-    public Equip(GoodsMetaData goods) {
-        this.goods = goods;
+    public Equip(int index) {
+        this.goods = GameFrame.getInstance().getGameContainer().getGoodsMetaDataOf(index);
     }
 
     public GoodsMetaData getGoods() {

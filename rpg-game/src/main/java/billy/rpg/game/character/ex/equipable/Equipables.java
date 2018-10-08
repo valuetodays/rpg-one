@@ -1,10 +1,9 @@
 package billy.rpg.game.character.ex.equipable;
 
-import billy.rpg.game.container.GameContainer;
+import billy.rpg.game.GameFrame;
 import billy.rpg.game.equip.clothes.ClothesEquip;
 import billy.rpg.game.equip.shoe.ShoeEquip;
 import billy.rpg.game.equip.weapon.WeaponEquip;
-import billy.rpg.game.loader.goods.GoodsDataLoader;
 import billy.rpg.resource.goods.GoodsMetaData;
 
 /**
@@ -48,20 +47,40 @@ public class Equipables {
 
     private void init() {
         {
-            GoodsMetaData goods = GameContainer.getInstance().getGoodsMetaDataOf(GoodsDataLoader.EMPTY_GOODS_INDEX);
             weapon = new Equipable();
-            weapon.setEquip(new WeaponEquip(goods));
+            weapon.setEquip(new WeaponEquip(GoodsMetaData.EMPTY_GOODS_INDEX));
         }
         {
-            GoodsMetaData goods = GameContainer.getInstance().getGoodsMetaDataOf(GoodsDataLoader.EMPTY_GOODS_INDEX);
             shoe = new Equipable();
-            shoe.setEquip(new ShoeEquip(goods));
+            shoe.setEquip(new ShoeEquip(GoodsMetaData.EMPTY_GOODS_INDEX));
         }
         {
-            GoodsMetaData goods = GameContainer.getInstance().getGoodsMetaDataOf(GoodsDataLoader.EMPTY_GOODS_INDEX);
             clothes = new Equipable();
-            clothes.setEquip(new ClothesEquip(goods));
+            clothes.setEquip(new ClothesEquip(GoodsMetaData.EMPTY_GOODS_INDEX));
         }
     }
 
+    /**
+     * 装备武器
+     * @param index index
+     */
+    public void equipWeapon(int index) {
+        upequipWeapon();
+
+        Equipable weaponEquip = getWeapon();
+        weaponEquip.setEquip(new WeaponEquip(index));
+    }
+
+    /**
+     * 卸下 武器
+     */
+    public void upequipWeapon() {
+        Equipable weaponEquipable = getWeapon();
+        GoodsMetaData goods = weaponEquipable.getEquip().getGoods();
+        if (!goods.isEmptyGoods()) {
+            weaponEquipable.setEquip(new WeaponEquip(GoodsMetaData.EMPTY_GOODS_INDEX));
+            // 卸下的物品要放到物品栏里
+            GameFrame.getInstance().getGameData().addGoods(1);
+        }
+    }
 }

@@ -137,4 +137,10 @@ public class GoodsMetaData {
     public void setCount(int count) {
         this.count = count;
     }
+
+    /**
+     * 是否是一个空物品（占位物品）     */
+    public boolean isEmptyGoods() {
+        return number == GoodsMetaData.EMPTY_GOODS_INDEX;
+    }
 }

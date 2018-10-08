@@ -1,7 +1,8 @@
 package billy.rpg.game.equip.clothes;
 
 import billy.rpg.game.equip.Equip;
-import billy.rpg.resource.goods.GoodsMetaData;
+import billy.rpg.game.loader.goods.GoodsDataLoader;
+import billy.rpg.resource.goods.GoodsType;
 
 /**
  *  暂时只加防御
@@ -11,8 +12,12 @@ import billy.rpg.resource.goods.GoodsMetaData;
  */
 public class ClothesEquip extends Equip {
 
-    public ClothesEquip(GoodsMetaData goods) {
-        super(goods);
+    public ClothesEquip(int index) {
+        super(index);
+
+        if (goods.getNumber() != GoodsDataLoader.EMPTY_GOODS_INDEX && goods.getType() != GoodsType.TYPE_CLOTHES.getValue()) {
+            throw new RuntimeException("非衣服");
+        }
     }
 
     public int getDefend() {

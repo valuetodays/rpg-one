@@ -1,7 +1,8 @@
 package billy.rpg.game.equip.shoe;
 
 import billy.rpg.game.equip.Equip;
-import billy.rpg.resource.goods.GoodsMetaData;
+import billy.rpg.game.loader.goods.GoodsDataLoader;
+import billy.rpg.resource.goods.GoodsType;
 
 /**
  * // 暂时只加速度
@@ -11,8 +12,12 @@ import billy.rpg.resource.goods.GoodsMetaData;
  */
 public class ShoeEquip extends Equip {
 
-    public ShoeEquip(GoodsMetaData goods) {
-        super(goods);
+    public ShoeEquip(int index) {
+        super(index);
+
+        if (goods.getNumber() != GoodsDataLoader.EMPTY_GOODS_INDEX && goods.getType() != GoodsType.TYPE_SHOE.getValue()) {
+            throw new RuntimeException("非鞋子");
+        }
     }
 
     public int getSpeed() {

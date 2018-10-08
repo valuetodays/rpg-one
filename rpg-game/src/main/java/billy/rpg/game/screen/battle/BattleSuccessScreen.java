@@ -2,6 +2,7 @@ package billy.rpg.game.screen.battle;
 
 import billy.rpg.game.GameCanvas;
 import billy.rpg.game.GameFrame;
+import billy.rpg.game.character.ex.character.HeroCharacter;
 import billy.rpg.game.character.ex.fightable.HeroFightable;
 import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.screen.BaseScreen;
@@ -33,8 +34,9 @@ public class BattleSuccessScreen extends BaseScreen {
         this.battleScreen = battleScreen;
         this.money = money;
         this.exp = exp;
-        List<HeroFightable> heroBattleList = battleScreen.getHeroBattleList();
-        for (HeroFightable heroBattle : heroBattleList) {
+        List<HeroCharacter> heroBattleList = battleScreen.getHeroBattleList();
+        for (int i = 0; i < heroBattleList.size(); i++) {
+            HeroFightable heroBattle = (HeroFightable)heroBattleList.get(i).getFightable();
             HeroFightable newHeroBattle = new HeroFightable();
             newHeroBattle.setDied(heroBattle.isDied());
             newHeroBattle.setHeight(heroBattle.getHeight());
@@ -102,9 +104,9 @@ public class BattleSuccessScreen extends BaseScreen {
         g.drawString("get money " + money, 120, 70);
         g.drawString("get exp " + exp, 120, 90);
         // 这里只【显示】升级所得经验及金币
-        List<HeroFightable> heroBattleList = battleScreen.getHeroBattleList();
+        List<HeroCharacter> heroBattleList = battleScreen.getHeroBattleList();
         for (int i = 0; i < heroBattleList.size(); i++) {
-            RoleMetaData oldRoleMetaData = heroBattleList.get(i).getRoleMetaData();
+            RoleMetaData oldRoleMetaData = heroBattleList.get(i).getFightable().getRoleMetaData();
             RoleMetaData newRoleMetaData = newHeroBatleList.get(i).getRoleMetaData();
             g.drawString("等级 " + oldRoleMetaData.getLevel() + " --> " + newRoleMetaData.getLevel(),
                     200 + 100*i, 80);
@@ -134,7 +136,7 @@ public class BattleSuccessScreen extends BaseScreen {
 
         for (int i = 0; i < newHeroBatleList.size(); i++) {
             HeroFightable newHeroBattle = newHeroBatleList.get(i);
-            HeroFightable heroBattle = battleScreen.getHeroBattleList().get(i);
+            HeroFightable heroBattle = (HeroFightable)battleScreen.getHeroBattleList().get(i).getFightable();
             heroBattle.setRoleMetaData(newHeroBattle.getRoleMetaData().clone());
         }
 

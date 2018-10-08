@@ -1,10 +1,9 @@
 package billy.rpg.game;
 
 import billy.rpg.game.character.ex.character.HeroCharacter;
-import billy.rpg.game.character.ex.equipable.Equipable;
+import billy.rpg.game.character.ex.equipable.Equipables;
 import billy.rpg.game.character.ex.fightable.HeroFightable;
 import billy.rpg.game.character.ex.walkable.HeroWalkableCharacter;
-import billy.rpg.game.equip.weapon.WeaponEquip;
 import billy.rpg.resource.goods.GoodsMetaData;
 import billy.rpg.resource.role.RoleMetaData;
 import org.apache.commons.collections.CollectionUtils;
@@ -171,10 +170,8 @@ public class GameData {
             throw new RuntimeException("数据异常");
         }
         HeroCharacter heroCharacter = first.get();
-        Equipable weaponEquip = heroCharacter.getEquipables().getWeapon();
-        GoodsMetaData weaponGoods = GameFrame.getInstance().getGameContainer().getGoodsMetaDataOf(index);
-
-        weaponEquip.setEquip(new WeaponEquip(weaponGoods));
+        Equipables equipables = heroCharacter.getEquipables();
+        equipables.equipWeapon(index);
     }
 
     private void checkHeroList() {
@@ -205,29 +202,8 @@ public class GameData {
     }
 
     public List<HeroCharacter> getHeroList() {
+        checkHeroList();
         return heroList;
     }
-
-    public List<HeroFightable> getHeroBattleList() {
-        if (heroBattleList == null) {
-            heroBattleList = new ArrayList<>();
-            for (int i = 0; i < heroIds.size(); i++) {
-                Integer heroId = heroIds.get(i);
-                RoleMetaData heroRole = GameFrame.getInstance().getGameContainer().getHeroRoleOf(heroId);
-
-                HeroFightable e = new HeroFightable();
-                e.setLeft(200 + i * 150 + 10);
-                e.setTop(10 * 32);
-                e.setWidth(heroRole.getImage().getWidth());
-                e.setHeight(heroRole.getImage().getHeight());
-                e.setRoleMetaData(heroRole);
-                e.setBattleImage(GameFrame.getInstance().getGameContainer().getRoleItem().getRoleBattleOf(heroId));
-
-                heroBattleList.add(e);
-            }
-        }
-        return heroBattleList;
-    }
-
 
 }
