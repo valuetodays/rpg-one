@@ -47,16 +47,14 @@ public class AttributeScreen extends BaseScreen {
         for (int i = 0; i < heroList.size(); i++) {
             HeroCharacter heroCharacter = heroList.get(i);
             Fightable fightable = heroCharacter.getFightable();
-            java.util.List<Equipable> equipableList = heroCharacter.getEquipableList();
-            Integer attackValueInEquip = equipableList.stream()
-                    .filter(e -> e.getEquip() instanceof WeaponEquip).findFirst()
-                    .map(weapon -> ((WeaponEquip) weapon.getEquip()).getAttack()).orElse(0);
+            Equipable weapon = heroCharacter.getEquipables().getWeapon();
+            WeaponEquip weaponEquip = (WeaponEquip) weapon.getEquip();
+            int attackValueInEquip = weaponEquip.getAttack();
 
             RoleMetaData roleMetaData = fightable.getRoleMetaData();
             g.drawString(roleMetaData.getName() + " Lv " + roleMetaData.getLevel(), 210, 70 + i*100);
             g.drawString("hp: " + roleMetaData.getHp() + "/" + roleMetaData.getMaxHp(), 180, 90 + i*100);
             g.drawString("mp: " + roleMetaData.getMp() + "/" + roleMetaData.getMaxMp(), 180, 110 + i*100);
-            // TODO show equip's attack
             g.drawString("attack: " + roleMetaData.getAttack() + "(+"+attackValueInEquip+")", 180, 130 + i*100);
             g.drawString("defend: " + roleMetaData.getDefend(), 180, 150 + i*100);
             g.drawImage(roleMetaData.getImage(), 320, 70 + i*100, null);

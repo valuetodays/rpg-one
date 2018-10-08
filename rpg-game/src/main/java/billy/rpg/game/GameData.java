@@ -6,7 +6,6 @@ import billy.rpg.game.character.ex.fightable.HeroFightable;
 import billy.rpg.game.character.ex.walkable.HeroWalkableCharacter;
 import billy.rpg.game.equip.weapon.WeaponEquip;
 import billy.rpg.resource.goods.GoodsMetaData;
-import billy.rpg.resource.goods.GoodsType;
 import billy.rpg.resource.role.RoleMetaData;
 import org.apache.commons.collections.CollectionUtils;
 
@@ -169,19 +168,13 @@ public class GameData {
         checkHeroList();
         Optional<HeroCharacter> first = heroList.stream().filter(e -> e.getWalkable().getNumber() == roleId).findFirst();
         if (!first.isPresent()) {
-            throw  new RuntimeException("数据异常");
+            throw new RuntimeException("数据异常");
         }
         HeroCharacter heroCharacter = first.get();
-        List<Equipable> equipableList = heroCharacter.getEquipableList();
-        GoodsMetaData weapon = GameFrame.getInstance().getGameContainer().getGoodsMetaDataOf(index);
-        Optional<Equipable> first1 = equipableList.stream().filter(e -> e.getEquip() instanceof WeaponEquip).findFirst();
-        if (!first1.isPresent()) {
-            throw  new RuntimeException("数据异常");
-        }
-        Equipable equipable = first1.get();
+        Equipable weaponEquip = heroCharacter.getEquipables().getWeapon();
+        GoodsMetaData weaponGoods = GameFrame.getInstance().getGameContainer().getGoodsMetaDataOf(index);
 
-        GoodsType.TYPE_WEAPON.checkLegal(equipable.getEquip().getGoods());
-        equipable.setEquip(new WeaponEquip(weapon));
+        weaponEquip.setEquip(new WeaponEquip(weaponGoods));
     }
 
     private void checkHeroList() {
