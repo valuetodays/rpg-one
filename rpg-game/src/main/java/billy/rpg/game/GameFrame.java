@@ -8,7 +8,7 @@ import billy.rpg.game.screen.GameCoverScreen;
 import billy.rpg.game.screen.ProducerScreen;
 import billy.rpg.game.screen.TransitionScreen;
 import billy.rpg.game.screen.battle.BattleScreen;
-import billy.rpg.game.screen.system.SystemScreen;
+import billy.rpg.game.screen.system.SystemUIScreen;
 import billy.rpg.game.util.CoreUtil;
 import billy.rpg.game.util.FPSUtil;
 import org.apache.log4j.Logger;
@@ -117,7 +117,7 @@ public class GameFrame extends JFrame implements Runnable {
             tmp = getGameContainer().getMapScreen();
             break;
         case 2:
-            tmp = new SystemScreen();
+            tmp = new SystemUIScreen();
             break;
         case 3:
             tmp = new ProducerScreen();

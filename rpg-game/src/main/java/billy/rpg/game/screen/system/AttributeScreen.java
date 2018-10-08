@@ -16,13 +16,15 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**
+ * 属性
+ *
  * @author liulei@bshf360.com
  * @since 2017-09-04 10:53
  */
 public class AttributeScreen extends BaseScreen {
-    private final SystemScreen systemScreen;
+    private final SystemUIScreen systemScreen;
 
-    public AttributeScreen(SystemScreen systemScreen) {
+    public AttributeScreen(SystemUIScreen systemScreen) {
         this.systemScreen = systemScreen;
     }
 

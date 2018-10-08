@@ -2,18 +2,14 @@ package billy.rpg.game.screen.battle;
 
 import billy.rpg.game.GameCanvas;
 import billy.rpg.game.GameFrame;
-import billy.rpg.game.character.HeroCharacter;
 import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.screen.BaseScreen;
 import billy.rpg.game.screen.MessageBoxScreen;
 import billy.rpg.game.util.KeyUtil;
 import billy.rpg.resource.skill.SkillMetaData;
-import org.apache.commons.lang.StringUtils;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * 战斗中选择技界面
@@ -30,19 +26,8 @@ public class SkillSelectScreen extends BaseScreen {
         this.battleOptionScreen = battleOptionScreen;
 
         // 技能列表
-        HeroCharacter.HeroFightable activeHero = (HeroCharacter.HeroFightable)getBattleUIScreen().getActiveHero().getFightable();
-        java.util.List<SkillMetaData> skillList = new ArrayList<>();
-        String skillIds = activeHero.getRoleMetaData().getSkillIds();
-        if (StringUtils.isNotEmpty(skillIds)) { // 如果有技能
-            String[] skillIdArr = skillIds.split(",");
-            for (String skillId : skillIdArr) {
-                int si = Integer.parseInt(skillId);
-                SkillMetaData skillMetaData = GameFrame.getInstance().getGameContainer().getSkillMetaDataOf(si);
-                skillList.add(skillMetaData);
-            }
-        }
-
-        this.skillList = Collections.unmodifiableList(skillList);
+        int index = getBattleUIScreen().getActiveHeroIndex();
+        this.skillList = GameFrame.getInstance().getGameData().getSkillsOf(index);
     }
 
     public BattleUIScreen getBattleUIScreen() {

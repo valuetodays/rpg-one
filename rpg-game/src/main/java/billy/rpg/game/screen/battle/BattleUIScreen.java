@@ -91,7 +91,10 @@ public class BattleUIScreen extends BaseScreen {
      * get current active hero
      */
     public HeroCharacter getActiveHero() {
-        return heroBattleList.get(heroIndex);
+        return heroBattleList.get(getActiveHeroIndex());
+    }
+    public int getActiveHeroIndex() {
+        return heroIndex;
     }
 
     @Override

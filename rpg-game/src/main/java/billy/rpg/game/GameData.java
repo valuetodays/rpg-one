@@ -5,7 +5,9 @@ import billy.rpg.game.character.equipable.Equipables;
 import billy.rpg.game.character.walkable.HeroWalkableCharacter;
 import billy.rpg.resource.goods.GoodsMetaData;
 import billy.rpg.resource.role.RoleMetaData;
+import billy.rpg.resource.skill.SkillMetaData;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -203,6 +205,23 @@ public class GameData {
     public List<HeroCharacter> getHeroList() {
         checkHeroList();
         return heroList;
+    }
+
+    public List<SkillMetaData> getSkillsOf(int roleId) {
+        HeroCharacter heroCharacter = getHeroList().get(roleId);
+        HeroCharacter.HeroFightable fightable = (HeroCharacter.HeroFightable)heroCharacter.getFightable();
+        java.util.List<SkillMetaData> skillList = new ArrayList<>();
+        String skillIds = fightable.getRoleMetaData().getSkillIds();
+        if (StringUtils.isNotEmpty(skillIds)) { // 如果有技能
+            String[] skillIdArr = skillIds.split(",");
+            for (String skillId : skillIdArr) {
+                int si = Integer.parseInt(skillId);
+                SkillMetaData skillMetaData = GameFrame.getInstance().getGameContainer().getSkillMetaDataOf(si);
+                skillList.add(skillMetaData);
+            }
+        }
+
+        return Collections.unmodifiableList(skillList);
     }
 
 }

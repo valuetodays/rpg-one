@@ -10,14 +10,15 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**
+ * 菜单
  * @author liulei@bshf360.com
  * @since 2017-09-04 11:04
  */
 public class MenuScreen extends BaseScreen {
-    private final SystemScreen systemScreen;
+    private final SystemUIScreen systemScreen;
     private int menuPos = 1; // 1,2,3,4
 
-    public MenuScreen(SystemScreen systemScreen) {
+    public MenuScreen(SystemUIScreen systemScreen) {
         this.systemScreen = systemScreen;
     }
 
@@ -81,6 +82,7 @@ public class MenuScreen extends BaseScreen {
                     systemScreen.push(new GoodsScreen(systemScreen));
                     break;
                 case 3:
+                    systemScreen.push(new SkillsScreen(systemScreen));
                     break;
                 case 4:
                     break;
