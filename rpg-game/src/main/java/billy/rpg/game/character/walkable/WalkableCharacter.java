@@ -1,4 +1,4 @@
-package billy.rpg.game.character.ex.walkable;
+package billy.rpg.game.character.walkable;
 
 import billy.rpg.game.GameFrame;
 import billy.rpg.game.constants.WalkableConstant;

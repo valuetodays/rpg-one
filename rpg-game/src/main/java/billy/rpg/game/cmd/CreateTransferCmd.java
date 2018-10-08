@@ -1,6 +1,6 @@
 package billy.rpg.game.cmd;
 
-import billy.rpg.game.character.ex.walkable.TransferWalkableCharacter;
+import billy.rpg.game.character.walkable.TransferWalkableCharacter;
 import billy.rpg.game.cmd.processor.CmdProcessor;
 import billy.rpg.game.container.GameContainer;
 import billy.rpg.game.resource.item.ScriptItem;

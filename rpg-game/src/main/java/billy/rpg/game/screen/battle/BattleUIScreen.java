@@ -2,9 +2,9 @@ package billy.rpg.game.screen.battle;
 
 import billy.rpg.game.GameCanvas;
 import billy.rpg.game.GameFrame;
-import billy.rpg.game.character.ex.character.HeroCharacter;
-import billy.rpg.game.character.ex.character.MonsterCharacter;
-import billy.rpg.game.character.ex.fightable.Fightable;
+import billy.rpg.game.character.HeroCharacter;
+import billy.rpg.game.character.MonsterCharacter;
+import billy.rpg.game.character.fightable.Fightable;
 import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.screen.BaseScreen;
 import billy.rpg.resource.role.RoleMetaData;

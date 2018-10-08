@@ -1,8 +1,8 @@
-package billy.rpg.game.character.ex.character;
+package billy.rpg.game.character;
 
-import billy.rpg.game.character.ex.equipable.Equipables;
-import billy.rpg.game.character.ex.fightable.Fightable;
-import billy.rpg.game.character.ex.walkable.WalkableCharacter;
+import billy.rpg.game.character.equipable.Equipables;
+import billy.rpg.game.character.fightable.Fightable;
+import billy.rpg.game.character.walkable.WalkableCharacter;
 import billy.rpg.resource.role.RoleMetaData;
 
 /**

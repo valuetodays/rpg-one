@@ -1,7 +1,7 @@
 package billy.rpg.game.screen.battle;
 
 import billy.rpg.game.GameCanvas;
-import billy.rpg.game.character.ex.fightable.Fightable;
+import billy.rpg.game.character.fightable.Fightable;
 import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.screen.AnimationScreen;
 import billy.rpg.game.screen.BaseScreen;

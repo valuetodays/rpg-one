@@ -1,4 +1,4 @@
-package billy.rpg.game.character.ex.equipable;
+package billy.rpg.game.character.equipable;
 
 import billy.rpg.game.GameFrame;
 import billy.rpg.game.equip.clothes.ClothesEquip;

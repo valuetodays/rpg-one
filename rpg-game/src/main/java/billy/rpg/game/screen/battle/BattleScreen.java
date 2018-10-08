@@ -2,7 +2,7 @@ package billy.rpg.game.screen.battle;
 
 import billy.rpg.game.GameCanvas;
 import billy.rpg.game.GameFrame;
-import billy.rpg.game.character.ex.character.HeroCharacter;
+import billy.rpg.game.character.HeroCharacter;
 import billy.rpg.game.screen.BaseScreen;
 
 import java.util.List;

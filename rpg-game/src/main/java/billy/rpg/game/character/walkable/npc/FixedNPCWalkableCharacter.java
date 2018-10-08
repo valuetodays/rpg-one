@@ -1,4 +1,4 @@
-package billy.rpg.game.character.ex.walkable.npc;
+package billy.rpg.game.character.walkable.npc;
 
 
 import billy.rpg.game.screen.MapScreen;

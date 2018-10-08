@@ -1,6 +1,6 @@
-package billy.rpg.game.character.ex.character;
+package billy.rpg.game.character;
 
-import billy.rpg.game.character.ex.walkable.WalkableCharacter;
+import billy.rpg.game.character.walkable.WalkableCharacter;
 
 /**
  * @author liulei-home

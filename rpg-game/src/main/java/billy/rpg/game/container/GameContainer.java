@@ -2,11 +2,11 @@ package billy.rpg.game.container;
 
 import billy.rpg.common.constant.MapEditorConstant;
 import billy.rpg.game.GameFrame;
-import billy.rpg.game.character.ex.walkable.BoxWalkableCharacter;
-import billy.rpg.game.character.ex.walkable.HeroWalkableCharacter;
-import billy.rpg.game.character.ex.walkable.npc.NPCWalkableCharacter;
-import billy.rpg.game.character.ex.walkable.TransferWalkableCharacter;
-import billy.rpg.game.character.ex.walkable.npc.CommonNPCWalkableCharacter;
+import billy.rpg.game.character.walkable.BoxWalkableCharacter;
+import billy.rpg.game.character.walkable.HeroWalkableCharacter;
+import billy.rpg.game.character.walkable.npc.NPCWalkableCharacter;
+import billy.rpg.game.character.walkable.TransferWalkableCharacter;
+import billy.rpg.game.character.walkable.npc.CommonNPCWalkableCharacter;
 import billy.rpg.game.constants.WalkableConstant;
 import billy.rpg.game.item.*;
 import billy.rpg.game.loader.*;

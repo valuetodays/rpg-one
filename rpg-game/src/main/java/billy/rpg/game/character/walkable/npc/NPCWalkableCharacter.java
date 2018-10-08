@@ -1,6 +1,6 @@
-package billy.rpg.game.character.ex.walkable.npc;
+package billy.rpg.game.character.walkable.npc;
 
-import billy.rpg.game.character.ex.walkable.WalkableCharacter;
+import billy.rpg.game.character.walkable.WalkableCharacter;
 
 public abstract class NPCWalkableCharacter extends WalkableCharacter {
     private int tileNum; // for npc

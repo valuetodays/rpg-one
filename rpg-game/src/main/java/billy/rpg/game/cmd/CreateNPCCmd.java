@@ -1,9 +1,9 @@
 package billy.rpg.game.cmd;
 
 import billy.rpg.game.GameFrame;
-import billy.rpg.game.character.ex.walkable.npc.NPCWalkableCharacter;
-import billy.rpg.game.character.ex.walkable.npc.CommonNPCWalkableCharacter;
-import billy.rpg.game.character.ex.walkable.npc.FixedNPCWalkableCharacter;
+import billy.rpg.game.character.walkable.npc.NPCWalkableCharacter;
+import billy.rpg.game.character.walkable.npc.CommonNPCWalkableCharacter;
+import billy.rpg.game.character.walkable.npc.FixedNPCWalkableCharacter;
 import billy.rpg.game.cmd.processor.CmdProcessor;
 import billy.rpg.game.constants.WalkableConstant;
 

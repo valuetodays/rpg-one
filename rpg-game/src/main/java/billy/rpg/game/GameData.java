@@ -1,8 +1,8 @@
 package billy.rpg.game;
 
-import billy.rpg.game.character.ex.character.HeroCharacter;
-import billy.rpg.game.character.ex.equipable.Equipables;
-import billy.rpg.game.character.ex.walkable.HeroWalkableCharacter;
+import billy.rpg.game.character.HeroCharacter;
+import billy.rpg.game.character.equipable.Equipables;
+import billy.rpg.game.character.walkable.HeroWalkableCharacter;
 import billy.rpg.resource.goods.GoodsMetaData;
 import billy.rpg.resource.role.RoleMetaData;
 import org.apache.commons.collections.CollectionUtils;

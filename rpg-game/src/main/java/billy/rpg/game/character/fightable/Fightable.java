@@ -1,4 +1,4 @@
-package billy.rpg.game.character.ex.fightable;
+package billy.rpg.game.character.fightable;
 
 import billy.rpg.resource.role.RoleMetaData;
 

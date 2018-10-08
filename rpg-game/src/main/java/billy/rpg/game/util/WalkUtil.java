@@ -2,8 +2,8 @@ package billy.rpg.game.util;
 
 
 import billy.rpg.game.GameFrame;
-import billy.rpg.game.character.ex.walkable.HeroWalkableCharacter;
-import billy.rpg.game.character.ex.walkable.npc.NPCWalkableCharacter;
+import billy.rpg.game.character.walkable.HeroWalkableCharacter;
+import billy.rpg.game.character.walkable.npc.NPCWalkableCharacter;
 import billy.rpg.game.resource.item.ScriptItem;
 import billy.rpg.game.screen.MapScreen;
 import billy.rpg.resource.map.MapMetaData;

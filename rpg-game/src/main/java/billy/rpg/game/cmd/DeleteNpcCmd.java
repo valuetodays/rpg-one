@@ -1,7 +1,7 @@
 package billy.rpg.game.cmd;
 
 import billy.rpg.game.GameFrame;
-import billy.rpg.game.character.ex.walkable.npc.NPCWalkableCharacter;
+import billy.rpg.game.character.walkable.npc.NPCWalkableCharacter;
 import billy.rpg.game.cmd.processor.CmdProcessor;
 
 import java.util.List;

@@ -2,10 +2,10 @@ package billy.rpg.game.resource.item;
 
 import billy.rpg.game.GameData;
 import billy.rpg.game.GameFrame;
-import billy.rpg.game.character.ex.walkable.BoxWalkableCharacter;
-import billy.rpg.game.character.ex.walkable.HeroWalkableCharacter;
-import billy.rpg.game.character.ex.walkable.npc.NPCWalkableCharacter;
-import billy.rpg.game.character.ex.walkable.TransferWalkableCharacter;
+import billy.rpg.game.character.walkable.BoxWalkableCharacter;
+import billy.rpg.game.character.walkable.HeroWalkableCharacter;
+import billy.rpg.game.character.walkable.npc.NPCWalkableCharacter;
+import billy.rpg.game.character.walkable.TransferWalkableCharacter;
 import billy.rpg.game.cmd.*;
 import billy.rpg.game.cmd.processor.CmdProcessor;
 import billy.rpg.game.cmd.processor.DefaultCmdProcessor;
