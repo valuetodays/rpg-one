@@ -2,26 +2,25 @@ package billy.rpg.game.command.parser;
 
 import billy.rpg.game.command.CmdBase;
 import billy.rpg.game.command.LabelCmd;
+import org.apache.commons.lang.StringUtils;
 import org.jline.reader.ParsedLine;
 import org.jline.reader.Parser;
 import org.jline.reader.impl.DefaultParser;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
  * @author lei.liu@datatist.com
  * @since 2018-09-27 19:10:36
  */
-public class JlineCmdParser extends CmdParser0 {
+public class JlineCommandParser extends CommandParser {
     private final Parser parser = new DefaultParser();
 
     private static Map<String, ? extends Class<CmdBase>> traceAllCmdClass() {
-        String pkg = "billy.rpg.game.command.";
+        String pkg = getCommandPackage();
+
         String pkgPath = pkg.replace(".", "/");
         String path = Thread.currentThread().getContextClassLoader().getResource(pkgPath).getPath();
         File directory = new File(path);
@@ -36,11 +35,16 @@ public class JlineCmdParser extends CmdParser0 {
                 throw new RuntimeException(e1.getMessage());
             }
         }).filter(Objects::nonNull).collect(Collectors.toList());
-//        cmdClassList.forEach(e -> {
-//            System.out.println(e.getSimpleName());
-//        });
-        Map<String, ? extends Class<CmdBase>> cmdClassMap = cmdClassList.stream().collect(Collectors.toMap(e -> e.getSimpleName().toUpperCase(), e -> e));
-        return cmdClassMap;
+
+        return cmdClassList.stream().collect(Collectors.toMap(e -> e.getSimpleName().toUpperCase(), e -> e));
+    }
+
+    public static String getCommandPackage() {
+//        String pkg = "billy.rpg.game.command."; hard-code style
+        String jlineCommandParserParentPath = JlineCommandParser.class.getPackage().getName();
+        ArrayList<String> packageNameArr = new ArrayList<>(Arrays.asList(jlineCommandParserParentPath.split("\\.")));
+        List<String> packageNameList = packageNameArr.subList(0, packageNameArr.size() - 1);
+        return StringUtils.join(packageNameList, ".") + ".";
     }
 
     @Override

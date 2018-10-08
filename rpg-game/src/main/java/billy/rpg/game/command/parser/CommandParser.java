@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
  * @author lei.liu@datatist.com
  * @since 2018-09-27 19:10:45
  */
-public abstract class CmdParser0 {
+public abstract class CommandParser {
     protected final Logger logger = Logger.getLogger(getClass());
 
     public CmdBase parse(String scriptFileName, int lineNumber, String lineData) {
