@@ -12,7 +12,7 @@ import java.util.List;
  * @author lei.liu@datatist.com
  * @since 2018-10-16 17:31:57
  */
-public class BinaryMapSaverLoader implements MapSaverLoader0 {
+public class BinaryMapSaverLoader implements MapSaverLoader {
     private static final Logger LOG = Logger.getLogger(BinaryMapSaverLoader.class);
     private static final String MAP_HEADER = ToolsConstant.MAGIC_MAP;
     private static final String CHARSET = ToolsConstant.CHARSET;

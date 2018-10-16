@@ -12,7 +12,7 @@ import billy.rpg.game.item.*;
 import billy.rpg.game.loader.*;
 import billy.rpg.game.loader.goods.GoodsDataLoader;
 import billy.rpg.game.loader.goods.JsonGoodsDataLoader;
-import billy.rpg.game.loader.map.BinaryMapDataLoader;
+import billy.rpg.game.loader.map.JsonMapDataLoader;
 import billy.rpg.game.loader.map.MapDataLoader;
 import billy.rpg.game.resource.item.ScriptItem;
 import billy.rpg.game.screen.BaseScreen;
@@ -177,7 +177,7 @@ public class GameContainer {
 
 
     private void loadMapData() throws Exception {
-        MapDataLoader ml = new BinaryMapDataLoader();
+        MapDataLoader ml = new JsonMapDataLoader();
         ml.load();
         mapCollections = ml.getMapCollections();
     }

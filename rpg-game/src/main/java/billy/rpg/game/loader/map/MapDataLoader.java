@@ -1,7 +1,7 @@
 package billy.rpg.game.loader.map;
 
 import billy.rpg.resource.map.MapMetaData;
-import billy.rpg.resource.map.MapSaverLoader0;
+import billy.rpg.resource.map.MapSaverLoader;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
 
@@ -28,7 +28,7 @@ public abstract class MapDataLoader {
 
     public abstract String getFileDir();
     public abstract String getFileExt();
-    public abstract MapSaverLoader0 getSaverLoader();
+    public abstract MapSaverLoader getSaverLoader();
 
     public void load() throws IOException {
         final String dir = getFileDir();

@@ -26,7 +26,7 @@ public class MapEditorFrame extends JFrame {
     private EventNumDialog eventNumDialog;
     private NPCDialog npcDialog;
     private MapEditorFrame instance;
-    private MapSaverLoader0 mapSaverLoader = new BinaryMapSaverLoader();
+    private MapSaverLoader mapSaverLoader = new BinaryMapSaverLoader();
 
     public static void main(String[] args) {
         new MapEditorFrame();

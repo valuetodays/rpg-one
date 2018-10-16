@@ -11,7 +11,7 @@ import java.io.IOException;
  * @author lei.liu@datatist.com
  * @since 2018-10-16 17:47:20
  */
-public class JsonMapSaverLoader implements MapSaverLoader0 {
+public class JsonMapSaverLoader implements MapSaverLoader {
     @Override
     public void save(String filepath, MapMetaData mapMetaData) throws IOException {
         // TODO

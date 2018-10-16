@@ -1,7 +1,7 @@
 package billy.rpg.game.loader.map;
 
 import billy.rpg.resource.map.BinaryMapSaverLoader;
-import billy.rpg.resource.map.MapSaverLoader0;
+import billy.rpg.resource.map.MapSaverLoader;
 
 
 /**
@@ -24,7 +24,7 @@ public class BinaryMapDataLoader extends MapDataLoader {
     }
 
     @Override
-    public MapSaverLoader0 getSaverLoader() {
+    public MapSaverLoader getSaverLoader() {
         return new BinaryMapSaverLoader();
     }
 

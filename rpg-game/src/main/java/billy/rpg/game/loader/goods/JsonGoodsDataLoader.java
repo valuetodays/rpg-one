@@ -1,6 +1,6 @@
 package billy.rpg.game.loader.goods;
 
-import billy.rpg.resource.goods.GoodsSaverLoader0;
+import billy.rpg.resource.goods.GoodsSaverLoader;
 import billy.rpg.resource.goods.JsonGoodsSaverLoader;
 
 /**
@@ -22,7 +22,7 @@ public class JsonGoodsDataLoader extends GoodsDataLoader {
     }
 
     @Override
-    public GoodsSaverLoader0 getSaverLoader() {
+    public GoodsSaverLoader getSaverLoader() {
         return new JsonGoodsSaverLoader();
     }
 

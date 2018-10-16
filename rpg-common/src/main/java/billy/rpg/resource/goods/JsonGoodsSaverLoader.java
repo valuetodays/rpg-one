@@ -11,7 +11,7 @@ import java.io.IOException;
  * @author liulei-home
  * @since 2018-10-03 00:45
  */
-public class JsonGoodsSaverLoader implements GoodsSaverLoader0 {
+public class JsonGoodsSaverLoader implements GoodsSaverLoader {
 
     /**
      * save goods to file

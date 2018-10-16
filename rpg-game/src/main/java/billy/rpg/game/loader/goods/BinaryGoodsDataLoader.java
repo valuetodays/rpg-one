@@ -1,7 +1,7 @@
 package billy.rpg.game.loader.goods;
 
 import billy.rpg.resource.goods.BinaryGoodsSaverLoader;
-import billy.rpg.resource.goods.GoodsSaverLoader0;
+import billy.rpg.resource.goods.GoodsSaverLoader;
 
 /**
  * to load goods, such as sword, accessory
@@ -23,7 +23,7 @@ public class BinaryGoodsDataLoader extends GoodsDataLoader {
     }
 
     @Override
-    public GoodsSaverLoader0 getSaverLoader() {
+    public GoodsSaverLoader getSaverLoader() {
         return new BinaryGoodsSaverLoader();
     }
 

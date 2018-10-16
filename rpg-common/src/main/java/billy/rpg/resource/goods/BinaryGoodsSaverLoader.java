@@ -10,7 +10,7 @@ import java.io.*;
  * @author liulei@bshf360.com
  * @since 2017-09-04 17:54
  */
-public class BinaryGoodsSaverLoader implements GoodsSaverLoader0 {
+public class BinaryGoodsSaverLoader implements GoodsSaverLoader {
     private static final Logger LOG = Logger.getLogger(BinaryGoodsSaverLoader.class);
     private static final String GDS_MAGIC = ToolsConstant.MAGIC_GDS;
     private static final String CHARSET = ToolsConstant.CHARSET;

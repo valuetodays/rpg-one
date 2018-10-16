@@ -6,7 +6,7 @@ import java.io.IOException;
  * @author liulei-home
  * @since 2018-10-03 00:46
  */
-public interface GoodsSaverLoader0 {
+public interface GoodsSaverLoader {
     /**
      * save goods to file
      * @param filepath filepath

@@ -1,7 +1,7 @@
 package billy.rpg.game.loader.goods;
 
 import billy.rpg.resource.goods.GoodsMetaData;
-import billy.rpg.resource.goods.GoodsSaverLoader0;
+import billy.rpg.resource.goods.GoodsSaverLoader;
 import org.apache.commons.lang.ArrayUtils;
 
 import java.io.File;
@@ -21,7 +21,7 @@ public abstract class GoodsDataLoader {
 
     public abstract String getFileDir();
     public abstract String getFileExt();
-    public abstract GoodsSaverLoader0 getSaverLoader();
+    public abstract GoodsSaverLoader getSaverLoader();
 
     public void load() throws IOException {
         final String dir = getFileDir();

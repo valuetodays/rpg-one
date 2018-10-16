@@ -1,7 +1,7 @@
 package billy.rpg.game.loader.map;
 
 import billy.rpg.resource.map.JsonMapSaverLoader;
-import billy.rpg.resource.map.MapSaverLoader0;
+import billy.rpg.resource.map.MapSaverLoader;
 
 /**
  * @author lei.liu@datatist.com
@@ -19,7 +19,7 @@ public class JsonMapDataLoader extends MapDataLoader {
     }
 
     @Override
-    public MapSaverLoader0 getSaverLoader() {
+    public MapSaverLoader getSaverLoader() {
         return new JsonMapSaverLoader();
     }
 
