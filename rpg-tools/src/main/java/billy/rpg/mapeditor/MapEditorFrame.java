@@ -1,9 +1,7 @@
 package billy.rpg.mapeditor;
 
 import billy.rpg.common.constant.MapEditorConstant;
-import billy.rpg.resource.map.MapLoader;
-import billy.rpg.resource.map.MapMetaData;
-import billy.rpg.resource.map.MapSaverContext;
+import billy.rpg.resource.map.*;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
@@ -11,6 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 
@@ -27,6 +26,7 @@ public class MapEditorFrame extends JFrame {
     private EventNumDialog eventNumDialog;
     private NPCDialog npcDialog;
     private MapEditorFrame instance;
+    private MapSaverLoader0 mapSaverLoader = new BinaryMapSaverLoader();
 
     public static void main(String[] args) {
         new MapEditorFrame();
@@ -99,7 +99,12 @@ public class MapEditorFrame extends JFrame {
                 int result = chooser.showOpenDialog(null);
                 if (result == JFileChooser.APPROVE_OPTION){
                     String name = chooser.getSelectedFile().getPath();
-                    mapMetaData = MapLoader.load(name);
+                    try {
+                        mapMetaData = mapSaverLoader.load(name);
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                        throw new RuntimeException(e1);
+                    }
                     getMapEditorPanel().getTileArea().setTileId(mapMetaData.getTileId());
                     getMapEditorPanel().setMapName(mapMetaData.getName());
                     getMapEditorPanel().setMapWidth(mapMetaData.getWidth());
@@ -125,8 +130,12 @@ public class MapEditorFrame extends JFrame {
                         name += ".map";
                     }
                     MapMetaData mapMetaData = gatherMapData();
-                    MapSaverContext.getInstance().getDefultMapSaver().save(chooser.getCurrentDirectory() + File.separator + name,
-                            mapMetaData);
+                    try {
+                        new BinaryMapSaverLoader().save(chooser.getCurrentDirectory() + File.separator + name,
+                                mapMetaData);
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
                 }
             }
         });

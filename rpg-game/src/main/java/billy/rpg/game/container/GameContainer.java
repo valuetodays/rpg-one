@@ -4,14 +4,16 @@ import billy.rpg.common.constant.MapEditorConstant;
 import billy.rpg.game.GameFrame;
 import billy.rpg.game.character.walkable.BoxWalkableCharacter;
 import billy.rpg.game.character.walkable.HeroWalkableCharacter;
-import billy.rpg.game.character.walkable.npc.NPCWalkableCharacter;
 import billy.rpg.game.character.walkable.TransferWalkableCharacter;
 import billy.rpg.game.character.walkable.npc.CommonNPCWalkableCharacter;
+import billy.rpg.game.character.walkable.npc.NPCWalkableCharacter;
 import billy.rpg.game.constants.WalkableConstant;
 import billy.rpg.game.item.*;
 import billy.rpg.game.loader.*;
 import billy.rpg.game.loader.goods.GoodsDataLoader;
 import billy.rpg.game.loader.goods.JsonGoodsDataLoader;
+import billy.rpg.game.loader.map.BinaryMapDataLoader;
+import billy.rpg.game.loader.map.MapDataLoader;
 import billy.rpg.game.resource.item.ScriptItem;
 import billy.rpg.game.screen.BaseScreen;
 import billy.rpg.game.screen.MapScreen;
@@ -175,7 +177,7 @@ public class GameContainer {
 
 
     private void loadMapData() throws Exception {
-        MapDataLoader ml = new MapDataLoader();
+        MapDataLoader ml = new BinaryMapDataLoader();
         ml.load();
         mapCollections = ml.getMapCollections();
     }

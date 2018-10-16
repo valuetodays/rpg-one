@@ -121,7 +121,11 @@ ILoader
     add parser/processor package 
     [TODO] existnpc npcId
 
-#### 2019-10-03
+#### 2018-10-03
     骨骼系统，栩栩如生：角色图像运用Spine 2D骨骼技巧呈现，随风飘逸的发丝、栩栩如生的动态彷佛角色跃然于屏幕之上，活灵活现
     [TODO] command : equip xx[roleId] yy[goodsId]
     已可装备武器， TODO 计算伤害时，将武器的效果附带上
+    
+#### 2018-10-16
+    将*.map的二进制文件转换成json文件，方便使用
+    [TODO] 使用Tiled来创建地图

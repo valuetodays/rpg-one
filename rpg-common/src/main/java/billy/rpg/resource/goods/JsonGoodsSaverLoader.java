@@ -21,6 +21,7 @@ public class JsonGoodsSaverLoader implements GoodsSaverLoader0 {
     @Override
     public void save(String filepath, GoodsMetaData goodsMetaData) {
         // TODO
+        throw new RuntimeException("未完成");
     }
 
     /**
