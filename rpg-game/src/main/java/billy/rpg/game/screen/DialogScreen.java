@@ -5,9 +5,9 @@ import billy.rpg.game.GameFrame;
 import billy.rpg.game.command.SayCmd;
 import billy.rpg.game.command.processor.CmdProcessor;
 import billy.rpg.game.constants.GameConstant;
-import billy.rpg.game.formatter.ColorDialogTextFormatter;
-import billy.rpg.game.formatter.DialogFormattedResult;
-import billy.rpg.game.formatter.DialogTextFormatter;
+import billy.rpg.common.formatter.ColorDialogTextFormatter;
+import billy.rpg.common.formatter.DialogFormattedResult;
+import billy.rpg.common.formatter.DialogTextFormatter;
 import billy.rpg.game.util.KeyUtil;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -28,7 +28,7 @@ public class DialogScreen extends BaseScreen {
     private SayCmd.PositionEnum position; // headImg location
     private String talker; // talker
 
-    private DialogTextFormatter dialogTextFormatter = new ColorDialogTextFormatter();
+
 
     /**
      * 对话框窗口
@@ -42,6 +42,7 @@ public class DialogScreen extends BaseScreen {
         SayCmd.PositionEnum.assertLegal(position, "对话框角色图片位置有误");
         this.position = position;
         this.talker = name;
+        DialogTextFormatter dialogTextFormatter = new ColorDialogTextFormatter(GameConstant.WORDS_NUM_PER_LINE);
         DialogFormattedResult dialogFormattedResult = dialogTextFormatter.format(StringUtils.isEmpty(msg) ? "" : msg);
         msgList = dialogFormattedResult.getTextList();
         totalLine = dialogFormattedResult.getTotalLine();

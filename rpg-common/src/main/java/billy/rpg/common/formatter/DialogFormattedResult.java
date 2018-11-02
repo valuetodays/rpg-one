@@ -1,4 +1,4 @@
-package billy.rpg.game.formatter;
+package billy.rpg.common.formatter;
 
 import java.awt.*;
 import java.util.List;

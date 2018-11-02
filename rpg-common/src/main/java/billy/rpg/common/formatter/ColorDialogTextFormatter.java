@@ -1,6 +1,4 @@
-package billy.rpg.game.formatter;
-
-import billy.rpg.game.constants.GameConstant;
+package billy.rpg.common.formatter;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -11,10 +9,14 @@ import java.util.List;
  * @since 2018-09-28 16:52:57
  */
 public class ColorDialogTextFormatter implements DialogTextFormatter {
-    private static final int SEP = GameConstant.WORDS_NUM_PER_LINE;
+    private final int WORDS_NUM_PER_LINE;
 
     private List<DialogFormattedResult.DialogFormattedText> msgList; // 处理后的对话的内容
     private int totalLine; // 对话总共会显示多少行
+
+    public ColorDialogTextFormatter(int wordsNumPerLine) {
+        this.WORDS_NUM_PER_LINE = wordsNumPerLine;
+    }
 
     private void initMsgList() {
         msgList = new ArrayList<>();
@@ -38,8 +40,8 @@ public class ColorDialogTextFormatter implements DialogTextFormatter {
             DialogFormattedResult.DialogFormattedText mc = msgListTemp.get(i);
             int mccnt = mc.cnt;
             String mccontent = mc.content;
-            if (mccnt < SEP) {
-                if (mccnt < SEP - cnt) {
+            if (mccnt < WORDS_NUM_PER_LINE) {
+                if (mccnt < WORDS_NUM_PER_LINE - cnt) {
                     msgList.add(mc);
                     cnt += mc.cnt;
                     if (i == msgListTemp.size() - 1) {
@@ -47,7 +49,7 @@ public class ColorDialogTextFormatter implements DialogTextFormatter {
 //                        System.out.println("one");
                     }
                 } else {
-                    String pre = mccontent.substring(0, SEP - cnt);
+                    String pre = mccontent.substring(0, WORDS_NUM_PER_LINE - cnt);
                     DialogFormattedResult.DialogFormattedText mPre = new DialogFormattedResult.DialogFormattedText(pre, mc.color);
                     msgList.add(mPre);
                     appendSeparator(mc.color);
@@ -58,19 +60,19 @@ public class ColorDialogTextFormatter implements DialogTextFormatter {
                     cnt = mPost.cnt;
                 }
             } else {
-                String pre = mccontent.substring(0, SEP - cnt);
+                String pre = mccontent.substring(0, WORDS_NUM_PER_LINE - cnt);
                 DialogFormattedResult.DialogFormattedText mPre = new DialogFormattedResult.DialogFormattedText(pre, mc.color);
                 msgList.add(mPre);
                 appendSeparator(mc.color);
 
                 int n = pre.length();
-                while (mccnt > SEP) {
+                while (mccnt > WORDS_NUM_PER_LINE) {
                     DialogFormattedResult.DialogFormattedText m = new DialogFormattedResult.DialogFormattedText(
-                            mccontent.substring(n, Math.min(n + SEP, mc.cnt)),
+                            mccontent.substring(n, Math.min(n + WORDS_NUM_PER_LINE, mc.cnt)),
                             mc.color);
                     msgList.add(m);
-                    mccnt -= SEP;
-                    n += SEP;
+                    mccnt -= WORDS_NUM_PER_LINE;
+                    n += WORDS_NUM_PER_LINE;
                     appendSeparator(mc.color);
                 }
                 if (n < mc.cnt) {

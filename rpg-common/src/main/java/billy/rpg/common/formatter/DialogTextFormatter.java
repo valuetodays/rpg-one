@@ -1,4 +1,4 @@
-package billy.rpg.game.formatter;
+package billy.rpg.common.formatter;
 
 /**
  * @author lei.liu@datatist.com
