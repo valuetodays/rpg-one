@@ -62,7 +62,7 @@ ILoader
     showtext/say 要提供选择头像在左/右/无
     
 #### 2017-08-22 17:17
-    完成滚屏，且处理当地图宽20高15时hero去不了右，下，右下这三个区域的问题
+    完成滚屏，且处理当地图宽20高15时hero去不了右，下，右下这三个象限的问题
     add npcId argument to the command `createnpc`, and 0 means no event to this npc
     [TODO] 对同一地图中多个宝箱的操作
     BaseCharacter中的height与width已删除
