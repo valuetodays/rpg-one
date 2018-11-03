@@ -1,0 +1,16 @@
+{
+  "animationId":1,
+  "attack":0,
+  "buy":100,
+  "count":0,
+  "defend":3,
+  "desc":"粗布缝制的交领长袖白衣。防御+3。",
+  "event":1,
+  "hp":0,
+  "imageId":1,
+  "mp":0,
+  "name":"白衣",
+  "number":3001,
+  "sell":50,
+  "type":3
+}

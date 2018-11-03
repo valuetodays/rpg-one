@@ -61,6 +61,27 @@ public class Equipables {
     }
 
     /**
+     * 装备衣服
+     * @param index index
+     */
+    public void equipClothes(int index) {
+        upequipClothes();
+
+        Equipable clothesEquip = getClothes();
+        clothesEquip.setEquip(new ClothesEquip(index));
+    }
+
+    private void upequipClothes() {
+        Equipable clothesEquipable = getClothes();
+        GoodsMetaData goods = clothesEquipable.getEquip().getGoods();
+        if (!goods.isEmptyGoods()) {
+            clothesEquipable.setEquip(new WeaponEquip(GoodsMetaData.EMPTY_GOODS_INDEX));
+            // 卸下的物品要放到物品栏里
+            GameFrame.getInstance().getGameData().addGoods(goods.getNumber());
+        }
+    }
+
+    /**
      * 装备武器
      * @param index index
      */
@@ -80,7 +101,7 @@ public class Equipables {
         if (!goods.isEmptyGoods()) {
             weaponEquipable.setEquip(new WeaponEquip(GoodsMetaData.EMPTY_GOODS_INDEX));
             // 卸下的物品要放到物品栏里
-            GameFrame.getInstance().getGameData().addGoods(1);
+            GameFrame.getInstance().getGameData().addGoods(goods.getNumber());
         }
     }
 }

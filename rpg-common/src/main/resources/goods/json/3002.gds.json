@@ -1,0 +1,16 @@
+{
+  "animationId":1,
+  "attack":0,
+  "buy":400,
+  "count":0,
+  "defend":7,
+  "desc":"用水牛皮制做的护甲。防御+7。",
+  "event":1,
+  "hp":0,
+  "imageId":1,
+  "mp":0,
+  "name":"皮甲",
+  "number":3002,
+  "sell":200,
+  "type":3
+}

@@ -82,6 +82,7 @@ public class GameFrame extends JFrame implements Runnable {
         pack();
         LOG.info("game starts");
         gameData.equipWeapon(1, 2002);
+        gameData.equipClothes(1, 3001);
     }
     
     public static GameFrame getInstance() {

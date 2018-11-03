@@ -111,22 +111,22 @@ public class GameData {
 
     /**
      * add goods
-     * @param number number
+     * @param id number
      */
-    public void addGoods(int number) {
+    public void addGoods(int id) {
         List<GoodsMetaData> gdsList = goodsList.stream().filter(e ->
-                e.getNumber() == number
+                e.getNumber() == id
         ).collect(Collectors.toList());
 
         if (CollectionUtils.isEmpty(gdsList)) {
-            GoodsMetaData gmd = GameFrame.getInstance().getGameContainer().getGoodsMetaDataOf(number);
+            GoodsMetaData gmd = GameFrame.getInstance().getGameContainer().getGoodsMetaDataOf(id);
             gmd.setCount(1);
             goodsList.add(gmd);
             return;
         }
 
         if (gdsList.size() > 1) {
-            throw new RuntimeException("物品" + number + "的数据异常");
+            throw new RuntimeException("物品" + id + "的数据异常");
         }
 
         gdsList.get(0).setCount(gdsList.get(0).getCount() + 1);
@@ -166,14 +166,26 @@ public class GameData {
 
     public void equipWeapon(int roleId, int index) {
         checkHeroList();
-        Optional<HeroCharacter> first = heroList.stream().filter(e -> e.getWalkable().getNumber() == roleId).findFirst();
-        if (!first.isPresent()) {
-            throw new RuntimeException("数据异常");
-        }
-        HeroCharacter heroCharacter = first.get();
+        HeroCharacter heroCharacter = getHeroCharacterOf(roleId);
         Equipables equipables = heroCharacter.getEquipables();
         equipables.equipWeapon(index);
     }
+
+    public void equipClothes(int roleId, int index) {
+        checkHeroList();
+        HeroCharacter heroCharacter = getHeroCharacterOf(roleId);
+        Equipables equipables = heroCharacter.getEquipables();
+        equipables.equipClothes(index);
+    }
+
+    private HeroCharacter getHeroCharacterOf(int roleId) {
+        Optional<HeroCharacter> first = heroList.stream().filter(e -> e.getWalkable().getNumber() == roleId).findFirst();
+            if (!first.isPresent()) {
+            throw new RuntimeException("数据异常");
+        }
+        return first.get();
+    }
+
 
     private void checkHeroList() {
         if (heroList == null) {

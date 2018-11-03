@@ -4,9 +4,9 @@ import billy.rpg.game.GameCanvas;
 import billy.rpg.game.GameData;
 import billy.rpg.game.GameFrame;
 import billy.rpg.game.character.HeroCharacter;
-import billy.rpg.game.character.equipable.Equipable;
 import billy.rpg.game.character.fightable.Fightable;
 import billy.rpg.game.constants.GameConstant;
+import billy.rpg.game.equip.clothes.ClothesEquip;
 import billy.rpg.game.equip.weapon.WeaponEquip;
 import billy.rpg.game.screen.BaseScreen;
 import billy.rpg.game.util.KeyUtil;
@@ -49,18 +49,30 @@ public class AttributeScreen extends BaseScreen {
         for (int i = 0; i < heroList.size(); i++) {
             HeroCharacter heroCharacter = heroList.get(i);
             Fightable fightable = heroCharacter.getFightable();
-            Equipable weapon = heroCharacter.getEquipables().getWeapon();
-            WeaponEquip weaponEquip = (WeaponEquip) weapon.getEquip();
+            WeaponEquip weaponEquip = (WeaponEquip)heroCharacter.getEquipables().getWeapon().getEquip();
             int attackValueInEquip = weaponEquip.getAttack();
+            ClothesEquip clothes = (ClothesEquip)heroCharacter.getEquipables().getClothes().getEquip();
+            int defendValueInEquip = clothes.getDefend();
 
             RoleMetaData roleMetaData = fightable.getRoleMetaData();
             g.drawString(roleMetaData.getName() + " Lv " + roleMetaData.getLevel(), 210, 70 + i*100);
             g.drawString("hp: " + roleMetaData.getHp() + "/" + roleMetaData.getMaxHp(), 180, 90 + i*100);
             g.drawString("mp: " + roleMetaData.getMp() + "/" + roleMetaData.getMaxMp(), 180, 110 + i*100);
-            g.drawString("attack: " + roleMetaData.getAttack() + "(+"+attackValueInEquip+")", 180, 130 + i*100);
-            g.drawString("defend: " + roleMetaData.getDefend(), 180, 150 + i*100);
+            String attackStr = "attack: " + roleMetaData.getAttack();
+            if (attackValueInEquip > 0) {
+                attackStr += "(+" + attackValueInEquip + ")";
+            }
+            g.drawString(attackStr, 180, 130 + i*100);
+            String defendStr = "defend: " + roleMetaData.getDefend();
+            if (defendValueInEquip > 0) {
+                defendStr += "(+"+defendValueInEquip+")";
+            }
+            g.drawString(defendStr, 180, 150 + i*100);
             g.drawImage(roleMetaData.getImage(), 320, 70 + i*100, null);
 
+            g.drawString("weapon:" + weaponEquip.getGoods().getName(), 180, 300);
+            g.drawString("clothes:" + clothes.getGoods().getName(), 180, 320);
+            g.drawString("shoe:" + "xx", 180, 340);
         }
 
         gameCanvas.drawBitmap(paint, 0, 0);
