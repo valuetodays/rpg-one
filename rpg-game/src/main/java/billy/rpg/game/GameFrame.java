@@ -46,7 +46,9 @@ public class GameFrame extends JFrame implements Runnable {
     public static void main(String[] args) {
         JavaVersionUtil.validateJava();
 
-        SwingUtilities.invokeLater(GameFrame::new);
+        GameFrame game = new GameFrame();
+
+        SwingUtilities.invokeLater(() -> game.createAndShowGUI());
     }
 
 
@@ -55,7 +57,6 @@ public class GameFrame extends JFrame implements Runnable {
         long curTime = System.currentTimeMillis();
         long lastTime = curTime;
         int i = 0;
-
 
         while ( running ) {
 //            synchronized (screenStack) {
@@ -93,8 +94,7 @@ public class GameFrame extends JFrame implements Runnable {
 
     }
 
-    public GameFrame() {
-
+    public void createAndShowGUI() {
         running = true;
         gamePanel = new GamePanel();
         this.add(gamePanel);
