@@ -32,7 +32,7 @@ public class GameCanvas extends Canvas {
         Graphics g = background.getGraphics();
         g.setColor(Color.yellow);
         g.setFont(GameConstant.FONT_FPS);
-        g.drawString(frameRate, 30, 30);
+        g.drawString(frameRate, 530, 30);
         GameFrame.getInstance().getGamePanel().setBackground(background);
     }
 }

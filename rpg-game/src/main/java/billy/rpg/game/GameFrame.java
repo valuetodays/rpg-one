@@ -17,6 +17,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferStrategy;
 import java.util.Stack;
 
 
@@ -36,6 +37,7 @@ public class GameFrame extends JFrame implements Runnable {
     private static GameFrame instance;
     private Stack<BaseScreen> screenStack;
     private GameCanvas gameCanvas;
+    private BufferStrategy bufferStrategy;
     private boolean running;
     private GamePanel gamePanel;
     private GameData gameData;
@@ -44,14 +46,55 @@ public class GameFrame extends JFrame implements Runnable {
     public static void main(String[] args) {
         JavaVersionUtil.validateJava();
 
-        GameFrame m = new GameFrame();
-        
-        new Thread(m, "fmj").start();
+        SwingUtilities.invokeLater(GameFrame::new);
+    }
+
+
+    @Override
+    public void run() {
+        long curTime = System.currentTimeMillis();
+        long lastTime = curTime;
+        int i = 0;
+
+
+        while ( running ) {
+//            synchronized (screenStack) {
+            curTime = System.currentTimeMillis();
+            screenStack.peek().update(curTime - lastTime);
+            if (screenStack.size() > 1) {
+//                    logger.error("screenStack.size=" + screenStack.size());
+            }
+            lastTime = curTime;
+
+            for (i = screenStack.size()-1; i >= 0; i--) {
+                BaseScreen baseScreen = screenStack.get(i);
+                if (!baseScreen.isPopup()) {
+                    break;
+                }
+            }
+
+            GameCanvas gameCanvasTemp = gameCanvas;
+            if (gameCanvasTemp != null) {
+                if (i < 0) {
+                    i = 0;
+                }
+                for (int j = i; j < screenStack.size(); j++) {
+                    BaseScreen baseScreen = screenStack.get(j);
+                    baseScreen.draw(gameCanvasTemp);
+                }
+            }
+                fpsUtil.calculate();
+                gameCanvas.drawFPS(fpsUtil.getFrameRate());
+                gamePanel.repaint();
+            //            } // end of synchronized
+
+            CoreUtil.sleep(GameConstant.TIME_GAMELOOP);
+        }
+
     }
 
     public GameFrame() {
-        fpsUtil.init();
-        gameCanvas = new GameCanvas();
+
         running = true;
         gamePanel = new GamePanel();
         this.add(gamePanel);
@@ -60,7 +103,6 @@ public class GameFrame extends JFrame implements Runnable {
         setTitle(GameConstant.GAME_TITLE);
         setLocation(GameConstant.GAME_WINDOW_LEFT, GameConstant.GAME_WINDOW_TOP);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setVisible(true);
         String path = this.getClass().getClassLoader().getResource("").getPath() + "/Game.png";
         Image iconImage = Toolkit.getDefaultToolkit().getImage(path);
         setIconImage(iconImage);
@@ -80,11 +122,19 @@ public class GameFrame extends JFrame implements Runnable {
 ///        screenStack.push(new AnimationScreen(0)); // show animation
 
         pack();
+        fpsUtil.init();
+        setVisible(true);
+        gameCanvas = new GameCanvas();
+//        gameCanvas.createBufferStrategy(2);
+//        bufferStrategy = gameCanvas.getBufferStrategy();
+
+        new Thread(this, "fmj").start();
         LOG.info("game starts");
+
         gameData.equipWeapon(1, 2002);
         gameData.equipClothes(1, 3001);
     }
-    
+
     public static GameFrame getInstance() {
         return instance;
     }
@@ -139,48 +189,7 @@ public class GameFrame extends JFrame implements Runnable {
             }
         }
     }
-    
-    @Override
-    public void run() {
-        long curTime = System.currentTimeMillis();
-        long lastTime = curTime;
-        int i = 0;
-        
-        while ( running ) {
-//            synchronized (screenStack) {
-                curTime = System.currentTimeMillis();
-                screenStack.peek().update(curTime - lastTime);
-                if (screenStack.size() > 1) {
-//                    logger.error("screenStack.size=" + screenStack.size());
-                }
-                lastTime = curTime;
 
-                for (i = screenStack.size()-1; i >= 0 ;i--) {
-                    BaseScreen baseScreen = screenStack.get(i);
-                    if (!baseScreen.isPopup()) {
-                        break;
-                    }
-                }
-
-                GameCanvas gameCanvasTemp = gameCanvas;
-                if (gameCanvasTemp != null) {
-                    if (i < 0) {
-                        i = 0;
-                    }
-                    for (int j = i; j < screenStack.size(); j++) {
-                        BaseScreen baseScreen = screenStack.get(j);
-                        baseScreen.draw(gameCanvasTemp);
-                    }
-                    fpsUtil.calculate();
-                    gameCanvas.drawFPS(fpsUtil.getFrameRate());
-                    gamePanel.repaint();
-                }
-            //            } // end of synchronized
-
-                CoreUtil.sleep(GameConstant.TIME_GAMELOOP);
-        }
-
-    }
     
     
     private void addListener() {
