@@ -10,7 +10,7 @@ public class GameCanvas extends Canvas {
     private static final long serialVersionUID = 1L;
 
     private BufferedImage background;
-    
+
     public GameCanvas() {
         background = new BufferedImage(
                 GameConstant.GAME_WIDTH,
@@ -18,9 +18,8 @@ public class GameCanvas extends Canvas {
                 BufferedImage.TYPE_4BYTE_ABGR);
     }
     
-    public void drawBitmap( BufferedImage bitmap, int left, int top) {
+    public void drawBitmap(BufferedImage bitmap, int left, int top) {
         Graphics g = background.getGraphics();
-        
         g.setColor(Color.BLACK);
         
 //        g.fillRect(left, top, bitmap.getWidth(), bitmap.getHeight());

@@ -17,6 +17,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
 import java.util.Stack;
 
@@ -32,7 +34,6 @@ public class GameFrame extends JFrame implements Runnable {
     private static final long serialVersionUID = 1L;
     private static final Logger LOG = Logger.getLogger(GameFrame.class);
 
-    private FPSUtil fpsUtil = new FPSUtil();
 
     private static GameFrame instance;
     private Stack<BaseScreen> screenStack;
@@ -42,18 +43,41 @@ public class GameFrame extends JFrame implements Runnable {
     private GamePanel gamePanel;
     private GameData gameData;
     private GameContainer gameContainer;
+    private Thread gameThread;
+    private FPSUtil fpsUtil;
+    private boolean showFPS = true;
 
     public static void main(String[] args) {
         JavaVersionUtil.validateJava();
 
         GameFrame game = new GameFrame();
+        game.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                game.onWindowClosing();
+            }
+        });
 
         SwingUtilities.invokeLater(() -> game.createAndShowGUI());
+    }
+
+    private void onWindowClosing() {
+        running = false;
+        try {
+            gameThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.exit(0);
     }
 
 
     @Override
     public void run() {
+        if (showFPS) {
+            fpsUtil = new FPSUtil();
+            fpsUtil.init();
+        }
         long curTime = System.currentTimeMillis();
         long lastTime = curTime;
         int i = 0;
@@ -84,28 +108,26 @@ public class GameFrame extends JFrame implements Runnable {
                     baseScreen.draw(gameCanvasTemp);
                 }
             }
+            if (fpsUtil != null) {
                 fpsUtil.calculate();
                 gameCanvas.drawFPS(fpsUtil.getFrameRate());
-                gamePanel.repaint();
+            }
+            gamePanel.repaint();
             //            } // end of synchronized
 
             CoreUtil.sleep(GameConstant.TIME_GAMELOOP);
         }
-
     }
 
     public void createAndShowGUI() {
-        running = true;
         gamePanel = new GamePanel();
         this.add(gamePanel);
         gameData = new GameData();
 
         setTitle(GameConstant.GAME_TITLE);
         setLocation(GameConstant.GAME_WINDOW_LEFT, GameConstant.GAME_WINDOW_TOP);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        String path = this.getClass().getClassLoader().getResource("").getPath() + "/Game.png";
-        Image iconImage = Toolkit.getDefaultToolkit().getImage(path);
-        setIconImage(iconImage);
+        String gameIconPath = this.getClass().getClassLoader().getResource("").getPath() + "/Game.png";
+        setIconImage(Toolkit.getDefaultToolkit().getImage(gameIconPath));
         setResizable(false);
 //        setAlwaysOnTop(true);
         addListener();//键盘监听
@@ -122,13 +144,12 @@ public class GameFrame extends JFrame implements Runnable {
 ///        screenStack.push(new AnimationScreen(0)); // show animation
 
         pack();
-        fpsUtil.init();
         setVisible(true);
-        gameCanvas = new GameCanvas();
-//        gameCanvas.createBufferStrategy(2);
-//        bufferStrategy = gameCanvas.getBufferStrategy();
 
-        new Thread(this, "fmj").start();
+        running = true;
+        gameCanvas = new GameCanvas();
+        gameThread = new Thread(this, "fmj");
+        gameThread.start();
         LOG.info("game starts");
 
         gameData.equipWeapon(1, 2002);
