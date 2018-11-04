@@ -7,28 +7,60 @@ import billy.rpg.game.util.CoreUtil;
 import billy.rpg.game.util.KeyUtil;
 import billy.rpg.game.util.MP3Player;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
 public class GameCoverScreen extends BaseScreen {
     private int arrowX = 160;
     private int f = 1; // 1:new game;  2:continue;   3: producer
-    private Map<Integer, Integer> map = new HashMap<>(); 
-    private MP3Player player = new MP3Player();
+    private Map<Integer, Integer> map = new HashMap<>();
+    private Image cloudMain;
+    private Image cloud1;
+    private Image cloud2;
+    private Image cloud3;
+    private int left1 = 100;
+    private int left2 = 230;
+    private int left3 = 280;
 
     public GameCoverScreen() {
         map.put(1, 320); 
         map.put(2, 350);
         map.put(3, 380);
         String audioPath = CoreUtil.getAudioPath("audio/game_cover.mp3");
-        player.play(audioPath);
+        try {
+            URL classpath = getClass().getResource("/");
+            System.out.println(classpath.getPath());
+            cloudMain = ImageIO.read(new File(classpath.getPath() + "/image/effect/cloudmain.png"));
+            cloud1 = ImageIO.read(new File(classpath.getPath() + "/image/effect/cloud1.png"));
+            cloud2 = ImageIO.read(new File(classpath.getPath() + "/image/effect/cloud2.png"));
+            cloud3 = ImageIO.read(new File(classpath.getPath() + "/image/effect/cloud3.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        MP3Player.play(audioPath);
 //        player.playAsync();
     }
     
     @Override
     public void update(long delta) {
+        left1 += 1;
+        if (left1 >= GameConstant.GAME_WIDTH) {
+            left1 = 0;
+        }
+        left2 += 1;
+        if (left2 >= GameConstant.GAME_WIDTH) {
+            left2 = 200;
+        }
+        left3 -= 1;
+        if (left3 <= -cloud3.getWidth(null)) {
+            left3 = 500;
+        }
 
     }
 
@@ -54,7 +86,11 @@ public class GameCoverScreen extends BaseScreen {
         g2.drawImage(gameBalloon, 220, 130, 220+32, 130+32,
         		1*32, 0, 1*32+32, 0*32+32,  
         		null);
-//        g2.dispose();
+        g2.drawImage(cloudMain, 0, 80, null);
+        g2.drawImage(cloud1, left1, 30, null);
+        g2.drawImage(cloud2, left2, 180, null);
+        g2.drawImage(cloud3, left3, 330, null);
+        g2.dispose();
         gameCanvas.drawBitmap(paint, 0, 0);
     }
 
@@ -66,7 +102,7 @@ public class GameCoverScreen extends BaseScreen {
     @Override
     public void onKeyUp(int key) {
         if (KeyUtil.isEnter(key)) {
-            player.stopAll();
+            MP3Player.stopAll();
             switch (f) {
                 case 1: {
                     LOG.debug("you choose `开始游戏`");
