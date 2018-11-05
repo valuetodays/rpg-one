@@ -14,6 +14,8 @@ import java.util.Stack;
  * @since 2017-12-15 09:54
  */
 public class RB2Frame extends JFrame implements Runnable {
+    private static final long serialVersionUID = 1L;
+
     private static final Logger LOG = Logger.getLogger(RB2Frame.class);
 
     private Stack<BaseDraw> stacks = new Stack<>();

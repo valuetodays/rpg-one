@@ -8,6 +8,8 @@ import java.awt.image.BufferedImage;
  * @since 2017-12-18 15:40
  */
 public class RB2Cavas extends Canvas {
+    private static final long serialVersionUID = 1L;
+    
     private BufferedImage background;
     private RB2Frame frame;
 

@@ -17,6 +17,8 @@ import java.io.IOException;
  * @since 2018-01-13 18:07
  */
 public class ImageTransformFrame3 extends JFrame {
+    private static final long serialVersionUID = 1L;
+    
     private BufferedImage imageOrig;
     private BufferedImage imageTarget;
     private String imagePath = "D:/code-git/rpg-one/rpg-game/src/test/resources/10.png";

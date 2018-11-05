@@ -114,8 +114,7 @@ public class MP3Player {
 	// test client
 	public static void main(String[] args) {
 		String filename = "resources/music/wzg.mp3";
-		MP3Player mp3 = new MP3Player();
-		mp3.play(filename);
+		MP3Player.play(filename);
 
 		// do whatever computation you like, while music plays
 		int N = 4000;
@@ -128,10 +127,10 @@ public class MP3Player {
 		System.out.println(sum);
 
 		// when the computation is done, stop playing it
-		mp3.stopAll();
+		MP3Player.stopAll();
 
 		// play from the beginning
-		mp3.play(filename);
+		MP3Player.play(filename);
 
 	}
 

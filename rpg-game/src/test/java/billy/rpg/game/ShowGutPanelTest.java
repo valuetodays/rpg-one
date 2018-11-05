@@ -12,6 +12,8 @@ import java.awt.event.KeyEvent;
  * @since 2017-11-27 19:26
  */
 public class ShowGutPanelTest extends JFrame implements Runnable {
+    private static final long serialVersionUID = 1L;
+
     public static void main(String[] args) {
         ShowGutPanelTest showGutPanelTest = new ShowGutPanelTest();
         new Thread(showGutPanelTest).start();
@@ -105,7 +107,6 @@ public class ShowGutPanelTest extends JFrame implements Runnable {
     public void paint(Graphics g) {
         super.paint(g);
         g.setFont(new Font("宋体", Font.BOLD, 24));
-        System.out.println(System.currentTimeMillis());
         for (int i = currentLine; i < Math.min(poemArr.length, currentLine + 5); i++) {
             g.drawString(poemArr[i], 60, 150 + (i-currentLine) * (g.getFontMetrics().getHeight() + 4));
         }
