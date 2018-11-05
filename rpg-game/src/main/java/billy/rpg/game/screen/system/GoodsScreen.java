@@ -3,6 +3,7 @@ package billy.rpg.game.screen.system;
 import billy.rpg.game.GameCanvas;
 import billy.rpg.game.GameData;
 import billy.rpg.game.GameFrame;
+import billy.rpg.game.callback.ConfirmCallback;
 import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.screen.BaseScreen;
 import billy.rpg.game.screen.ConfirmScreen;
@@ -106,8 +107,16 @@ public class GoodsScreen extends BaseScreen {
             GameData gameData = GameFrame.getInstance().getGameData();
             java.util.List<GoodsMetaData> goodsList = gameData.getGoodsList();
             GoodsMetaData goodsMetaData = goodsList.get(goodsIndex);
-            final BaseScreen bs = new ConfirmScreen("确定要服用"+goodsMetaData.getName()+"吗？",
-                    systemUIScreen);
+            final BaseScreen bs = new ConfirmScreen("确定要服用" + goodsMetaData.getName() + "吗？",
+                    systemUIScreen, new ConfirmCallback() {
+                @Override
+                public void onOK() {
+                    GameFrame.getInstance().getGameData().useGoods(goodsMetaData.getNumber(), 1);
+                }
+
+                @Override
+                public void onCancel() {}
+            });
             systemUIScreen.push(bs);
         }
     }

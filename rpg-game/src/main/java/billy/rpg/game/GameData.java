@@ -3,6 +3,8 @@ package billy.rpg.game;
 import billy.rpg.game.character.HeroCharacter;
 import billy.rpg.game.character.equipable.Equipables;
 import billy.rpg.game.character.walkable.HeroWalkableCharacter;
+import billy.rpg.game.listener.GoodsUseListener;
+import billy.rpg.game.listener.support.DefaultGoodsUseListener;
 import billy.rpg.resource.goods.GoodsMetaData;
 import billy.rpg.resource.role.RoleMetaData;
 import billy.rpg.resource.skill.SkillMetaData;
@@ -31,6 +33,9 @@ public class GameData {
     private static final int STEP_MEET_MONSTER = 15;
     /** 当前地图下的移动步数，当达到STEP_MEET_MONSTER时会遇到怪物进行战斗 */
     private static int steps;
+
+    private GoodsUseListener goodsUseListener = new DefaultGoodsUseListener();
+    private int heroIndex = 0; // 吃药时或更新装备时的玩家索引
 
     /**
      * 是否发生随机战斗
@@ -81,8 +86,8 @@ public class GameData {
         this.money += money;
     }
     public void useMoney(int money) {
-        this.money -= money;
         // TODO 不应该减
+        this.money -= money;
         this.money = Math.max(0, this.money);
     }
 
@@ -151,10 +156,11 @@ public class GameData {
             throw new RuntimeException("物品" + number + "的数据异常");
         }
 
-        int oldCount = gdsList.get(0).getCount();
+        GoodsMetaData goodsMetaData = gdsList.get(0);
+        int oldCount = goodsMetaData.getCount();
         oldCount -= count;
-        int newCount = Math.max(oldCount, 0);
-        gdsList.get(0).setCount(newCount);
+        goodsMetaData.setCount(Math.max(oldCount, 0));
+        goodsUseListener.onUse(goodsMetaData);
     }
 
     /**
@@ -236,4 +242,7 @@ public class GameData {
         return Collections.unmodifiableList(skillList);
     }
 
+    public int getHeroIndex() {
+        return heroIndex;
+    }
 }
