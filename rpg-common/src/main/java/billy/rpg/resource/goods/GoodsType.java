@@ -22,7 +22,7 @@ public enum GoodsType {
     private final int value;
     private final String desc;
 
-    private GoodsType(int value, String desc) {
+    GoodsType(int value, String desc) {
         this.value = value;
         this.desc = desc;
     }

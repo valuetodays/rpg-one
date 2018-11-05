@@ -58,12 +58,12 @@ public class ConfirmScreen extends BaseScreen {
         //g.fillRoundRect(30, 50, 200, 45, 20, 20);
         g.setFont(new Font("黑体", Font.BOLD, 14));
         g.setColor(Color.WHITE);
-        g.drawString(msg, 200, 180);
+        g.drawString(msg, 200, 160);
 
-        g.drawString("是", 200, 200);
-        g.drawString("否", 400, 200);
+        g.drawString("是", 200, 180);
+        g.drawString("否", 300, 180);
         Image gameArrow = GameFrame.getInstance().getGameContainer().getGameAboutItem().getGameArrowRight();
-        g.drawImage(gameArrow, 180, 200, null);
+        g.drawImage(gameArrow, isYes ? 180 : 280, 170, null);
         g.dispose();
 
         gameCanvas.drawBitmap(paint, 0, 0);
@@ -90,6 +90,8 @@ public class ConfirmScreen extends BaseScreen {
 
         } else if (KeyUtil.isLeft(key) || KeyUtil.isRight(key)) {
             isYes = !isYes;
+        } else if (KeyUtil.isEsc(key)) {
+            popScreen();
         }
     }
 
@@ -97,7 +99,7 @@ public class ConfirmScreen extends BaseScreen {
         if (ownerScreen instanceof SystemUIScreen) {
             ((SystemUIScreen)ownerScreen).pop();
         } else {
-            System.out.println("unknow ownerScreen:" + ownerScreen.getClass().getName());
+            System.out.println("unknown ownerScreen:" + ownerScreen.getClass().getName());
         }
     }
 }

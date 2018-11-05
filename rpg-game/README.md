@@ -132,7 +132,8 @@ ILoader
     
 #### 2018-11-03
     设置 -> 系统 -> 显示装备
-    行走图中吃药？
     use  SwingUtilities.invokeLater to start game
     user GameFrame.createAndShowGUI()
+#### 2018-11-05
+    可在行走图中吃药
     战斗中使用药物?

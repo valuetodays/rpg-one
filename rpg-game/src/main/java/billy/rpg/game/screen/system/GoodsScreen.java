@@ -95,30 +95,7 @@ public class GoodsScreen extends BaseScreen {
 
     @Override
     public void onKeyDown(int key) {
-        if (KeyUtil.isUp(key) && goodsIndex > 0) {
-            goodsIndex--;
-        } else if (KeyUtil.isDown(key)) {
-            GameData gameData = GameFrame.getInstance().getGameData();
-            java.util.List<GoodsMetaData> goodsList = gameData.getGoodsList();
-            if (goodsIndex < goodsList.size() - 1) {
-                goodsIndex++;
-            }
-        } else if (KeyUtil.isEnter(key)) {
-            GameData gameData = GameFrame.getInstance().getGameData();
-            java.util.List<GoodsMetaData> goodsList = gameData.getGoodsList();
-            GoodsMetaData goodsMetaData = goodsList.get(goodsIndex);
-            final BaseScreen bs = new ConfirmScreen("确定要服用" + goodsMetaData.getName() + "吗？",
-                    systemUIScreen, new ConfirmCallback() {
-                @Override
-                public void onOK() {
-                    GameFrame.getInstance().getGameData().useGoods(goodsMetaData.getNumber(), 1);
-                }
 
-                @Override
-                public void onCancel() {}
-            });
-            systemUIScreen.push(bs);
-        }
     }
 
     @Override
@@ -130,6 +107,33 @@ public class GoodsScreen extends BaseScreen {
     public void onKeyUp(int key) {
         if (KeyUtil.isEsc(key)) {
             systemUIScreen.pop();
+        } else if (KeyUtil.isUp(key) && goodsIndex > 0) {
+            goodsIndex--;
+        } else if (KeyUtil.isDown(key)) {
+            GameData gameData = GameFrame.getInstance().getGameData();
+            java.util.List<GoodsMetaData> goodsList = gameData.getGoodsList();
+            if (goodsIndex < goodsList.size() - 1) {
+                goodsIndex++;
+            }
+        } else if (KeyUtil.isEnter(key)) {
+            GameData gameData = GameFrame.getInstance().getGameData();
+            java.util.List<GoodsMetaData> goodsList = gameData.getGoodsList();
+            if (CollectionUtils.isNotEmpty(goodsList)) {
+                GoodsMetaData goodsMetaData = goodsList.get(goodsIndex);
+                final BaseScreen bs = new ConfirmScreen("确定要服用【" + goodsMetaData.getName() + "】吗？",
+                        systemUIScreen, new ConfirmCallback() {
+                    @Override
+                    public void onOK() {
+                        GameFrame.getInstance().getGameData().useGoods(goodsMetaData.getNumber(), 1);
+                    }
+
+                    @Override
+                    public void onCancel() {
+
+                    }
+                });
+                systemUIScreen.push(bs);
+            }
         }
     }
 }

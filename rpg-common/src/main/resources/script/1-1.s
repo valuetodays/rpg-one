@@ -1,6 +1,6 @@
 attr 1 1
 scenename '百草地'
-monsters 51
+@ monsters 51
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @  用于测试

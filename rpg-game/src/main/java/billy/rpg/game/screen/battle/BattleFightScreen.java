@@ -266,7 +266,7 @@ public class BattleFightScreen extends BaseScreen {
             }
             break;
             default:
-                logger.debug("cannot be here.");
+                logger.debug("cannot be here: " + actionType);
                 break;
         }
     }

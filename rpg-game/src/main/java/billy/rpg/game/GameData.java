@@ -167,6 +167,7 @@ public class GameData {
      * get goods list
      */
     public List<GoodsMetaData> getGoodsList() {
+        goodsList = goodsList.stream().filter(e -> e.getCount() > 0).collect(Collectors.toList());
         return Collections.unmodifiableList(goodsList);
     }
 
