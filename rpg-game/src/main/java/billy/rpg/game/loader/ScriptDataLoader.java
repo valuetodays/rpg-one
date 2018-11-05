@@ -112,6 +112,8 @@ public class ScriptDataLoader {
             }
 
             if (cmdList.isEmpty()) {
+                IOUtils.closeQuietly(br);
+                IOUtils.closeQuietly(in);
                 throw new RuntimeException("no scripts.");
             }
             scriptItem.init(cmdList);
