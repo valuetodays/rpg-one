@@ -64,7 +64,7 @@ public class BattleSuccessScreen extends BaseScreen {
                 final int expInLevel = levelData.getExp();
                 if (newExp > expInLevel) {
                     // TODO 升级
-                    LOG.debug("level up!!");
+                    logger.debug("level up!!");
                     heroBattle.getRoleMetaData().setExp(newExp - expInLevel);
                     heroBattle.getRoleMetaData().setLevel(level + 1);
                     heroBattle.getRoleMetaData().setMaxHp(levelData.getMaxHp()); // TODO 暂不考虑吃加生命上限的药和装备加生命的情况

@@ -19,7 +19,7 @@ import java.io.*;
  */
 public class ImageFrameTest extends JFrame {
     private static final long serialVersionUID = 1L;
-    
+
     private BufferedImage src;
     private BufferedImage dst;
 

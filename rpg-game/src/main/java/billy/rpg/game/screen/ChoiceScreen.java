@@ -76,7 +76,7 @@ public class ChoiceScreen extends BaseScreen {
             String selectedLabelTitle = label.get(selectedInx);
             LabelBean selectedLabel = GameFrame.getInstance().getGameContainer().getActiveScriptItem().getLabelByTitle
                     (selectedLabelTitle);
-            LOG.debug("selectInx/selectedLabelTitle=" + selectedInx + "/"+ selectedLabelTitle);
+            logger.debug("selectInx/selectedLabelTitle=" + selectedInx + "/"+ selectedLabelTitle);
             GameFrame.getInstance().popScreen();
             CmdProcessor cmdProcessor = new DefaultCmdProcessor(selectedLabel.getCmds());
             GameFrame.getInstance().getGameContainer().getActiveScriptItem().setCmdProcessor(cmdProcessor);

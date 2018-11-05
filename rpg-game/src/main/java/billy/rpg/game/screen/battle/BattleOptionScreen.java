@@ -22,11 +22,31 @@ import java.awt.image.BufferedImage;
  * @since 2017-07-17 18:22
  */
 public class BattleOptionScreen extends BaseScreen {
-    public static final int OPTION_COMMON = 1;
-    public static final int OPTION_SKILL = 2;
 
+    public enum BattleOption {
+        COMMON(0, "普攻"),
+        SKILL(1, "技能"),
+        GOODS(2, "物品"),
+        ESCAPE(3, "逃跑");
 
+        private int orderNum;
+        private String desc;
 
+        BattleOption(int orderNum, String desc) {
+            this.orderNum = orderNum;
+            this.desc = desc;
+        }
+
+        public String getDesc() {
+            return desc;
+        }
+
+        public int getOrderNum() {
+            return orderNum;
+        }
+    }
+
+    int heroActionChoice = BattleOption.COMMON.getOrderNum();
     private BattleUIScreen battleUIScreen;
 
     public BattleOptionScreen(BattleUIScreen battleUIScreen) {
@@ -57,14 +77,13 @@ public class BattleOptionScreen extends BaseScreen {
         g.drawRoundRect(3, 323, 194, 154, 4, 4);
         g.setFont(GameConstant.FONT_BATTLE);
         g.setColor(Color.YELLOW);
-        g.drawString("普攻", 50, 350);
-        g.drawString("技能", 50, 375);
-        g.drawString("物品", 50, 400);
-        g.drawString("逃跑", 50, 425);
+        for (BattleOption battleOption : BattleOption.values()) {
+            g.drawString(battleOption.getDesc(), 50, 350 + battleOption.getOrderNum() * 25);
+        }
 
         // 显示用户选项
         Image gameArrowRight = GameFrame.getInstance().getGameContainer().getGameAboutItem().getGameArrowRight();
-        g.drawImage(gameArrowRight, 30, (heroActionChoice -1) * 25 + 333, null);
+        g.drawImage(gameArrowRight, 30, (heroActionChoice) * 25 + 333, null);
 
         gameCanvas.drawBitmap(paint, 0, 0);
     }
@@ -74,7 +93,6 @@ public class BattleOptionScreen extends BaseScreen {
 
     }
 
-    protected int heroActionChoice = 1;
 
     @Override
     public void onKeyUp(int key) {
@@ -88,48 +106,42 @@ public class BattleOptionScreen extends BaseScreen {
             }
         } else if (KeyUtil.isUp(key)) {
             heroActionChoice--;
-            if (heroActionChoice < 1) {
-                heroActionChoice = 4;
+            if (heroActionChoice < 0) {
+                heroActionChoice = 3;
             }
         } else if (KeyUtil.isDown(key)) {
             heroActionChoice++;
-            if (heroActionChoice > 4) {
-                heroActionChoice = 1;
+            if (heroActionChoice > 3) {
+                heroActionChoice = 0;
             }
         } else if (KeyUtil.isEnter(key)) {
-            if (getBattleUIScreen().heroIndex < getBattleUIScreen().heroBattleList.size()) {
-                switch (heroActionChoice) {
-                    case OPTION_COMMON: {  // 普攻
-                        MonsterSelectScreen chooseMonsterScreen = new MonsterSelectScreen(battleUIScreen, this, -1);
-                        getBattleUIScreen().getParentScreen().push(chooseMonsterScreen);
-                    }
-                    break;
-                    case OPTION_SKILL: {  // 技能
-                        HeroCharacter.HeroFightable activeHero = (HeroCharacter.HeroFightable)getBattleUIScreen().getActiveHero().getFightable();
-                        int mp = activeHero.getRoleMetaData().getMp();
-                        if (mp == 0) {
-                            final BaseScreen bs = new MessageBoxScreen("mp为0，不能施放技能");
-                            getBattleUIScreen().getParentScreen().push(bs);
-                            break;
-                        }
-                        // TODO mp不足时？
-
-                        String skillIds = activeHero.getRoleMetaData().getSkillIds();
-                        if (StringUtils.isEmpty(skillIds)) {
-                            final BaseScreen bs = new MessageBoxScreen("未习得技能，不能施放技能");
-                            getBattleUIScreen().getParentScreen().push(bs);
-                            break;
-                        }
-
-
-                        final BaseScreen bs = new SkillSelectScreen(battleUIScreen, this);
-                        getBattleUIScreen().getParentScreen().push(bs);
-
-                    }
-                    break;
+            if (getBattleUIScreen().heroIndex >= getBattleUIScreen().heroBattleList.size()) {
+                return;
+            }
+            logger.info("heroActionChoice: " + heroActionChoice);
+            if (heroActionChoice == BattleOption.COMMON.getOrderNum()) {  // 普攻
+                MonsterSelectScreen chooseMonsterScreen = new MonsterSelectScreen(battleUIScreen, this, -1);
+                getBattleUIScreen().getParentScreen().push(chooseMonsterScreen);
+            } else if (heroActionChoice == BattleOption.SKILL.getOrderNum()) {  // 技能
+                HeroCharacter.HeroFightable activeHero = (HeroCharacter.HeroFightable)getBattleUIScreen().getActiveHero().getFightable();
+                String skillIds = activeHero.getRoleMetaData().getSkillIds();
+                if (StringUtils.isEmpty(skillIds)) {
+                    final BaseScreen bs = new MessageBoxScreen("未习得任何技能，不能施放技能");
+                    getBattleUIScreen().getParentScreen().push(bs);
+                    return;
+                }
+                int mp = activeHero.getRoleMetaData().getMp();
+                if (mp <= 0) {
+                    final BaseScreen bs = new MessageBoxScreen("mp为0，不能施放技能");
+                    getBattleUIScreen().getParentScreen().push(bs);
+                    return;
                 }
 
+                // TODO mp不足时？
+                final BaseScreen bs = new SkillSelectScreen(battleUIScreen, this);
+                getBattleUIScreen().getParentScreen().push(bs);
             }
+
         }
     }
 

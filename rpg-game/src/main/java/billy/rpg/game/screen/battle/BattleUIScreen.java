@@ -36,7 +36,7 @@ public class BattleUIScreen extends BaseScreen {
     }
 
     public BattleUIScreen(final int[] metMonsterIds, BattleScreen battleScreen, List<HeroCharacter> heroBattleList) {
-        LOG.debug("met " + metMonsterIds.length + " monsters with["+ ArrayUtils.toString(metMonsterIds)+"]");
+        logger.debug("met " + metMonsterIds.length + " monsters with["+ ArrayUtils.toString(metMonsterIds)+"]");
         parentScreen = battleScreen;
         this.heroBattleList = heroBattleList;
 

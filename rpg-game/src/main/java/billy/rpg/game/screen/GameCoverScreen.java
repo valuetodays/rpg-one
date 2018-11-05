@@ -105,18 +105,18 @@ public class GameCoverScreen extends BaseScreen {
             MP3Player.stopAll();
             switch (f) {
                 case 1: {
-                    LOG.debug("you choose `开始游戏`");
+                    logger.debug("you choose `开始游戏`");
 
                     GameFrame.getInstance().getGameContainer().startChapter(1, 1, "4-4");
                     GameFrame.getInstance().changeScreen(1);
                 }
                 break;
                 case 2: {
-                    LOG.debug("you choose `继续游戏`，可是我还没有完成的啊。。。。sorry");
+                    logger.debug("you choose `继续游戏`，可是我还没有完成的啊。。。。sorry");
                 }
                 break;
                 case 3: {
-                    LOG.debug("show producerInfo ");
+                    logger.debug("show producerInfo ");
                     GameFrame.getInstance().changeScreen(3);
                 }
                 break;

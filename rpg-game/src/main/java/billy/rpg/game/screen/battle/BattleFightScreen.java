@@ -41,13 +41,13 @@ public class BattleFightScreen extends BaseScreen {
     @Override
     public void update(long delta) {
         if (battleActionPreIndex != battleActionCurIndex) {
-            LOG.debug("doAttack..," +battleActionPreIndex + "," + battleActionCurIndex);
+            logger.debug("doAttack..," +battleActionPreIndex + "," + battleActionCurIndex);
             battleActionPreIndex = battleActionCurIndex;
-            LOG.debug("doAttack at " + battleActionPreIndex + "," + battleActionCurIndex);
+            logger.debug("doAttack at " + battleActionPreIndex + "," + battleActionCurIndex);
             if (battleActionCurIndex < actionList.size()) {
                 update0();
             } else {
-                LOG.debug("一回合终于打完了");
+                logger.debug("一回合终于打完了");
                 getBattleUIScreen().fighting = false;
                 getBattleUIScreen().getParentScreen().pop();
                 getBattleUIScreen().heroIndex = 0; // TODO 提取成方法？ 将当前活动的heroIndex置为首个
@@ -117,7 +117,7 @@ public class BattleFightScreen extends BaseScreen {
             break;
             case BattleAction.ACTION_SKILL: { // 技能攻击
                 // 技能攻击时，攻击者不应向目标行动
-                LOG.debug("使用技能攻击");
+                logger.debug("使用技能攻击");
                 Fightable targetFightableCharacter = getBattleUIScreen().heroBattleList.get(targetIndex).getFightable();
                 AnimationScreen bs = new AnimationScreen(2,
                         targetFightableCharacter.getLeft() - targetFightableCharacter.getWidth() / 2,
@@ -153,16 +153,16 @@ public class BattleFightScreen extends BaseScreen {
             break;
             case BattleAction.ACTION_GOODS: {
                 // TODO
-                LOG.debug("妖怪不会使用物品");
+                logger.debug("妖怪不会使用物品");
             }
             break;
             case BattleAction.ACTION_FLEE: {
                 // TODO
-                LOG.debug("非特殊妖怪不会逃跑");
+                logger.debug("非特殊妖怪不会逃跑");
             }
             break;
             default:
-                LOG.debug("cannot be here.");
+                logger.debug("cannot be here.");
                 break;
         }
     }
@@ -219,7 +219,7 @@ public class BattleFightScreen extends BaseScreen {
             }
             break;
             case BattleAction.ACTION_SKILL: { // 技能
-                LOG.debug("使用技能攻击妖怪");
+                logger.debug("使用技能攻击妖怪");
                 Fightable chosenMonsterBattle = getBattleUIScreen().monsterBattleList.get(targetIndex).getFightable();
                 final SkillMetaData smd = GameFrame.getInstance().getGameContainer().getSkillMetaDataOf(high);
                 AnimationScreen bs = new AnimationScreen(smd.getAnimationId(),
@@ -255,18 +255,18 @@ public class BattleFightScreen extends BaseScreen {
             }
             break;
             case BattleAction.ACTION_GOODS: {
-                LOG.debug("暂没有物品");
+                logger.debug("暂没有物品");
             }
             break;
             case BattleAction.ACTION_FLEE: {
-                LOG.debug("众妖怪：菜鸡别跑！");
+                logger.debug("众妖怪：菜鸡别跑！");
                 // TODO 金币减少100*妖怪数量。
                 // TODO 此时要是逃跑成功，应该跳到地图界面
                 GameFrame.getInstance().changeScreen(1);
             }
             break;
             default:
-                LOG.debug("cannot be here.");
+                logger.debug("cannot be here.");
                 break;
         }
     }
@@ -328,7 +328,7 @@ public class BattleFightScreen extends BaseScreen {
             targetName = "玩家";
         }
 
-        LOG.debug(attackerName + attackerId + " --> " + targetName + targetIndex);
+        logger.debug(attackerName + attackerId + " --> " + targetName + targetIndex);
         int hp = target.getRoleMetaData().getHp();
         hp -= dmg;
         target.getRoleMetaData().setHp(hp);
@@ -340,7 +340,7 @@ public class BattleFightScreen extends BaseScreen {
         }
 
         msgText += "。";
-        LOG.debug(msgText);
+        logger.debug(msgText);
         // TODO 先不显示战斗信息了
         // appendMsg(msgText);
     }

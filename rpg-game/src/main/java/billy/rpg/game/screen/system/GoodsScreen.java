@@ -5,16 +5,17 @@ import billy.rpg.game.GameData;
 import billy.rpg.game.GameFrame;
 import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.screen.BaseScreen;
+import billy.rpg.game.screen.ConfirmScreen;
 import billy.rpg.game.util.KeyUtil;
 import billy.rpg.resource.goods.GoodsMetaData;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.awt.image.BufferedImage;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * 物品
@@ -23,12 +24,12 @@ import java.util.Collections;
  * @since 2017-09-05 11:29
  */
 public class GoodsScreen extends BaseScreen {
-    private SystemUIScreen systemScreen;
+    private SystemUIScreen systemUIScreen;
     private int goodsIndex; // 一屏显示10条物品，0~9
     private static int MAX_SHOW = 10;
 
     public GoodsScreen(SystemUIScreen systemScreen) {
-        this.systemScreen = systemScreen;
+        this.systemUIScreen = systemScreen;
     }
 
     @Override
@@ -101,6 +102,13 @@ public class GoodsScreen extends BaseScreen {
             if (goodsIndex < goodsList.size() - 1) {
                 goodsIndex++;
             }
+        } else if (KeyUtil.isEnter(key)) {
+            GameData gameData = GameFrame.getInstance().getGameData();
+            java.util.List<GoodsMetaData> goodsList = gameData.getGoodsList();
+            GoodsMetaData goodsMetaData = goodsList.get(goodsIndex);
+            final BaseScreen bs = new ConfirmScreen("确定要服用"+goodsMetaData.getName()+"吗？",
+                    systemUIScreen);
+            systemUIScreen.push(bs);
         }
     }
 
@@ -112,7 +120,7 @@ public class GoodsScreen extends BaseScreen {
     @Override
     public void onKeyUp(int key) {
         if (KeyUtil.isEsc(key)) {
-            systemScreen.pop();
+            systemUIScreen.pop();
         }
     }
 }
