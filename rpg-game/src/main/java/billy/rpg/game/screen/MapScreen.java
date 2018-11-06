@@ -1,12 +1,13 @@
 package billy.rpg.game.screen;
 
 import billy.rpg.common.constant.ToolsConstant;
+import billy.rpg.common.util.ImageUtil;
 import billy.rpg.game.GameCanvas;
 import billy.rpg.game.GameFrame;
 import billy.rpg.game.character.walkable.BoxWalkableCharacter;
 import billy.rpg.game.character.walkable.HeroWalkableCharacter;
-import billy.rpg.game.character.walkable.npc.NPCWalkableCharacter;
 import billy.rpg.game.character.walkable.TransferWalkableCharacter;
+import billy.rpg.game.character.walkable.npc.NPCWalkableCharacter;
 import billy.rpg.game.command.processor.CmdProcessor;
 import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.resource.item.ScriptItem;
@@ -155,7 +156,8 @@ public class MapScreen extends BaseScreen {
         g2.drawString(mapName, 300, 20);
 
         g2.dispose();
-        gameCanvas.drawBitmap(paint, 0, 0);
+
+        gameCanvas.drawBitmap(ImageUtil.reverseImage(paint), 0, 0);
     }
 
 

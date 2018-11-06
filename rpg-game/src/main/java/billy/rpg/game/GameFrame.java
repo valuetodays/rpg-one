@@ -89,7 +89,6 @@ public class GameFrame extends JFrame implements Runnable {
             if (screenStack.size() > 1) {
 //                    logger.error("screenStack.size=" + screenStack.size());
             }
-            lastTime = curTime;
 
             for (i = screenStack.size()-1; i >= 0; i--) {
                 BaseScreen baseScreen = screenStack.get(i);
@@ -116,6 +115,7 @@ public class GameFrame extends JFrame implements Runnable {
             //            } // end of synchronized
 
             CoreUtil.sleep(GameConstant.TIME_GAMELOOP);
+            lastTime = curTime;
         }
     }
 

@@ -1,5 +1,7 @@
 package billy.rpg.game.imagetransform;
 
+import billy.rpg.common.util.ImageUtil;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -9,7 +11,6 @@ import java.io.IOException;
 
 /**
  * 底片效果(反色)
- * 原理: GetPixel方法获得每一点像素的值, 然后再使用SetPixel方法将取反后的颜色值设置到对应的点.
  *
  * @author liulei@bshf360.com
  * @since 2018-01-13 16:57
@@ -52,22 +53,7 @@ public class ImageTransformFrame1 extends JFrame {
     }
 
     private void transForm() {
-        int width = imageOrig.getWidth(null);
-        int height = imageOrig.getHeight(null);
-        imageTarget = new BufferedImage(
-                width, height,
-                BufferedImage.TYPE_4BYTE_ABGR);
-        for (int x = 1; x < width; x++) {
-            for (int y = 1; y < height; y++) {
-                int pixel = imageOrig.getRGB(x, y);
-                int a = (pixel & 0xff000000) >> 24;
-                int r = 255 - ((pixel & 0xff0000) >> 16);
-                int g = 255 - ((pixel & 0xff00) >> 8);
-                int b = 255 - (pixel & 0xff);
-
-                imageTarget.setRGB(x, y, ColorUtil.color2int(r, g, b, a));
-            }
-        }
+        imageTarget = ImageUtil.reverseImage(imageOrig);
         repaint();
     }
 

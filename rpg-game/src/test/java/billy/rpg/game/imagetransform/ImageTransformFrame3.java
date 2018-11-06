@@ -1,6 +1,6 @@
 package billy.rpg.game.imagetransform;
 
-import billy.rpg.game.constants.GameConstant;
+import billy.rpg.common.util.ImageUtil;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -54,30 +54,7 @@ public class ImageTransformFrame3 extends JFrame {
     }
 
     private void transForm() {
-        int width = imageOrig.getWidth(null);
-        int height = imageOrig.getHeight(null);
-        imageTarget = new BufferedImage(
-                width, height,
-                BufferedImage.TYPE_4BYTE_ABGR);
-        for (int x = 1; x < width; x++) {
-            for (int y = 1; y < height; y++) {
-                int k = GameConstant.random.nextInt(123456);
-                //像素块大小
-                int dx = x + k % 19;
-                int dy = y + k % 19;
-                if (dx >= width)
-                    dx = width - 1;
-                if (dy >= height)
-                    dy = height - 1;
-                int pixel = imageOrig.getRGB(dx, dy);
-                int a = (pixel & 0xff000000) >> 24;
-                int r = ((pixel & 0xff0000) >> 16);
-                int g = ((pixel & 0xff00) >> 8);
-                int b = (pixel & 0xff);
-
-                imageTarget.setRGB(x, y, ColorUtil.color2int(r, g, b, a));
-            }
-        }
+        imageTarget = ImageUtil.fogImage(imageOrig);
         repaint();
     }
 
