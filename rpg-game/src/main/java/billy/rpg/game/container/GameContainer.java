@@ -9,7 +9,12 @@ import billy.rpg.game.character.walkable.npc.CommonNPCWalkableCharacter;
 import billy.rpg.game.character.walkable.npc.NPCWalkableCharacter;
 import billy.rpg.game.constants.WalkableConstant;
 import billy.rpg.game.item.*;
-import billy.rpg.game.loader.*;
+import billy.rpg.game.loader.LevelDataLoader;
+import billy.rpg.game.loader.RoleDataLoader;
+import billy.rpg.game.loader.ScriptDataLoader;
+import billy.rpg.game.loader.SkillDataLoader;
+import billy.rpg.game.loader.animation.AnimationDataLoader;
+import billy.rpg.game.loader.animation.JsonAnimationDataLoader;
 import billy.rpg.game.loader.goods.GoodsDataLoader;
 import billy.rpg.game.loader.goods.JsonGoodsDataLoader;
 import billy.rpg.game.loader.map.JsonMapDataLoader;
@@ -183,7 +188,7 @@ public class GameContainer {
     }
 
     private void loadAnimationData() throws Exception {
-        AnimationDataLoader adl = new AnimationDataLoader();
+        AnimationDataLoader adl = new JsonAnimationDataLoader();
         adl.load();
         animationMap = adl.getAnimationMap();
     }
