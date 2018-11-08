@@ -1,8 +1,7 @@
 package billy.rpg.animationeditor;
 
-import billy.rpg.resource.animation.AnimationLoader;
 import billy.rpg.resource.animation.AnimationMetaData;
-import billy.rpg.resource.animation.AnimationSaver;
+import billy.rpg.resource.animation.BinaryAnimationSaverLoader;
 import billy.rpg.resource.animation.FrameData;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -477,7 +476,13 @@ public class AnimationEditorPanel extends JPanel {
         int result = aniLoadFileChooser.showSaveDialog(null);
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = aniLoadFileChooser.getSelectedFile();
-            AnimationMetaData loadedAmd = AnimationLoader.load(selectedFile.getPath());
+            AnimationMetaData loadedAmd = null;
+            try {
+                loadedAmd = new BinaryAnimationSaverLoader().load(selectedFile.getPath());
+            } catch (IOException e) {
+                e.printStackTrace();
+                throw new RuntimeException(e.getMessage(), e);
+            }
             tfNumber.setText("" + loadedAmd.getNumber());
             tfFrameCount.setText("" + loadedAmd.getFrameCount());
             setListFrames(loadedAmd.getFrameCount());
@@ -537,7 +542,7 @@ public class AnimationEditorPanel extends JPanel {
             amd.setImages(picImageList);
             amd.setFrameCount(frameDataArr.length);
             amd.setFrameData(frameDataArr);
-            AnimationSaver.save(aniSaveFileChooser.getCurrentDirectory() + File.separator + name, amd);
+            new BinaryAnimationSaverLoader().save(aniSaveFileChooser.getCurrentDirectory() + File.separator + name, amd);
             System.out.println("save ani to file end");
         }
 
@@ -553,6 +558,7 @@ public class AnimationEditorPanel extends JPanel {
         tfFrameShow.setText("" + frameDataArr[frameIndex].show);
         tfFrameNshow.setText("" + frameDataArr[frameIndex].nShow);
         tfFramePicNumber.setText("" + frameDataArr[frameIndex].picNumber);
+        repaint();
     }
 
     private void setListFrames(int frameNumber) {
@@ -575,6 +581,9 @@ public class AnimationEditorPanel extends JPanel {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
+        int offsetX = 400;
+        g.drawRect(400, 0, 200, 200);
+
         if (!mShowList.isEmpty()) {
             ListIterator<Key> iter = mShowList.listIterator();
             while (iter.hasNext()) {
@@ -584,16 +593,26 @@ public class AnimationEditorPanel extends JPanel {
                 BufferedImage bufferedImage = picImageList.get(picIndex);
                 int x = frameDataArr[frameIndex].x;
                 int y = frameDataArr[frameIndex].y;
-                g.drawImage(bufferedImage, 400+x, y, null);
+                g.drawImage(bufferedImage, offsetX+x, y, null);
             }
+        } else {
+            int frameIndex = jlistFrames.getSelectedIndex();
+            if (-1 == frameIndex) {
+                return;
+            }
+            int n = frameDataArr[frameIndex].picNumber;
+            BufferedImage picImage = picImageList.get(n);
+            g.drawImage(picImage, offsetX + frameDataArr[frameIndex].x, frameDataArr[frameIndex].y, null);
         }
 
-        int selectedIndex = jlistPics.getSelectedIndex();
-        if (-1 == selectedIndex) {
-            return;
+        {
+            int selectedIndex = jlistPics.getSelectedIndex();
+            if (-1 == selectedIndex) {
+                return;
+            }
+            Image image = picImageList.get(selectedIndex);
+            g.drawImage(image, offsetX + 200, 0, null);
         }
-        Image image = picImageList.get(selectedIndex);
-        g.drawImage(image, 135, 200, null);
     }
 
 

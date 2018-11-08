@@ -12,23 +12,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * load from *.ani file
+ * save ani into file
  *
  * @author liulei
- * @since 2017-07-10 09:41
+ * @since 2017-07-09 15:13
  */
-public class AnimationLoader {
-    private static final Logger LOG = Logger.getLogger(AnimationLoader.class);
+public class BinaryAnimationSaverLoader implements AnimationSaverLoader {
+    private static final Logger LOG = Logger.getLogger(BinaryAnimationSaverLoader.class);
     private static final String ANI_MAGIC = ToolsConstant.MAGIC_ANI;
     private static final String CHARSET = ToolsConstant.CHARSET;
 
-    /**
-     * load from specified file
-     *
-     *
-     * @param aniFilePath ani filepath
-     */
-    public static AnimationMetaData load(String aniFilePath) {
+
+    @Override
+    public AnimationMetaData load(String aniFilePath) throws IOException {
         File file = new File(aniFilePath);
         FileInputStream fis = null;
         DataInputStream dis = null;
@@ -83,8 +79,60 @@ public class AnimationLoader {
         return animationMetaData;
     }
 
-    public static void main(String[] args) {
-        AnimationMetaData load = load("z:/2.ani");
-        System.out.println(load);
+    /**
+     * save ani to specified file
+     *
+     *
+     * @param aniFilePath ani filepath
+     * @param animationMetaData data to save
+     */
+    public void save(String aniFilePath, AnimationMetaData animationMetaData) {
+        FrameData[] frameData = animationMetaData.getFrameData();
+        List<BufferedImage> images = animationMetaData.getImages();
+        int number = animationMetaData.getNumber();
+        int frameCount = animationMetaData.getFrameCount();
+
+
+        File file = new File(aniFilePath);
+        FileOutputStream fos = null;
+        DataOutputStream dos = null;
+        try {
+            fos = new FileOutputStream(file);
+            dos = new DataOutputStream(fos);
+            dos.write(ANI_MAGIC.getBytes(CHARSET));
+            LOG.debug("ANI_MAGIC `" + ANI_MAGIC + "` written as " + CHARSET);
+            dos.writeInt(number);
+            LOG.debug("number written with " + number);
+            dos.writeInt(images.size());
+            LOG.debug("image's count written with " + images.size());
+            for (int i = 0; i < images.size(); i++) {
+                BufferedImage bi  = images.get(i);
+                ByteArrayOutputStream out = new ByteArrayOutputStream();
+                ImageIO.write(bi, "PNG", out);
+                byte[] bytesOfImage = out.toByteArray();
+                IOUtils.closeQuietly(out);
+                dos.writeInt(bytesOfImage.length);
+                byte[] br = ImageUtil.reverseBytes(bytesOfImage);
+                dos.write(br);
+                LOG.debug("image ["+i+"] written with " + bytesOfImage.length+ " bytes.");
+            }
+            dos.writeInt(frameCount);
+            LOG.debug("frameCount written with " + frameCount);
+            for (int i = 0; i < frameCount; i++) {
+                FrameData frameDataI = frameData[i];
+                dos.writeInt(frameDataI.x);
+                dos.writeInt(frameDataI.y);
+                dos.writeInt(frameDataI.show);
+                dos.writeInt(frameDataI.nShow);
+                dos.writeInt(frameDataI.picNumber);
+            }
+        } catch (IOException e) {
+            LOG.debug("IO exception:" + e.getMessage(), e);
+            e.printStackTrace();
+        } finally {
+            IOUtils.closeQuietly(dos);
+            IOUtils.closeQuietly(fos);
+        }
+        LOG.debug("saved file `{"+aniFilePath+"}`.");
     }
 }

@@ -16,9 +16,9 @@ import java.util.Map;
  * @author lei.liu@datatist.com
  * @since 2018-10-16 18:20:24
  */
-public class BinaryMapToJsonMap {
+public class MapTransfer {
     @Test
-    public void test() throws IOException {
+    public void testBinaryToJson() throws IOException {
         MapDataLoader binaryMapDataLoader  = new BinaryMapDataLoader();
         binaryMapDataLoader.load();
         Map<String, MapMetaData> mapCollections = binaryMapDataLoader.getMapCollections();

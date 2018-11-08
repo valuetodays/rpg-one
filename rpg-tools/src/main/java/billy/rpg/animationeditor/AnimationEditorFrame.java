@@ -4,9 +4,8 @@
 
 package billy.rpg.animationeditor;
 
-import billy.rpg.resource.animation.AnimationLoader;
 import billy.rpg.resource.animation.AnimationMetaData;
-import billy.rpg.resource.animation.AnimationSaver;
+import billy.rpg.resource.animation.BinaryAnimationSaverLoader;
 import billy.rpg.resource.animation.FrameData;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -229,7 +228,7 @@ public class AnimationEditorFrame extends JFrame {
             amd.setImages(picImageList);
             amd.setFrameCount(frameDataArr.length);
             amd.setFrameData(frameDataArr);
-            AnimationSaver.save(aniSaveFileChooser.getCurrentDirectory() + File.separator + name, amd);
+            new BinaryAnimationSaverLoader().save(aniSaveFileChooser.getCurrentDirectory() + File.separator + name, amd);
             System.out.println("save ani to file end");
         }
 
@@ -245,7 +244,13 @@ public class AnimationEditorFrame extends JFrame {
         int result = aniLoadFileChooser.showSaveDialog(null);
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = aniLoadFileChooser.getSelectedFile();
-            AnimationMetaData loadedAmd = AnimationLoader.load(selectedFile.getPath());
+            AnimationMetaData loadedAmd = null;
+            try {
+                loadedAmd = new BinaryAnimationSaverLoader().load(selectedFile.getPath());
+            } catch (IOException e) {
+                e.printStackTrace();
+                throw new RuntimeException(e.getMessage(), e);
+            }
             tfNumber.setText("" + loadedAmd.getNumber());
             tfFrameCount.setText("" + loadedAmd.getFrameCount());
             setFrameList(loadedAmd.getFrameCount());
