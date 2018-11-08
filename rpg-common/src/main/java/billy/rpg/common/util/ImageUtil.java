@@ -43,6 +43,8 @@ public class ImageUtil {
     /**
      *  雾化效果
      * 原理: 在图像中引入一定的随机值, 打乱图像中的像素值
+     *
+     * https://www.cnblogs.com/gc2013/p/3678212.html
      * @param imageOrig 原图像
      */
     public static BufferedImage fogImage(BufferedImage imageOrig) {
@@ -181,4 +183,44 @@ public class ImageUtil {
         return newByte;
     }
 
+    public static BufferedImage scaleUpImage(BufferedImage imageOrig, float rate, Object hintValue) {
+        if (rate < 1.0) {
+            throw new RuntimeException("");
+        }
+        BufferedImage image = new BufferedImage(
+                (int) (imageOrig.getWidth() * rate),
+                (int) (imageOrig.getHeight() * rate), BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = image.createGraphics();
+        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, hintValue);
+        g2d.drawImage(imageOrig, 0, 0, image.getWidth(), image.getHeight(), null);
+        g2d.dispose();
+        return image;
+    }
+
+    public static BufferedImage scaleDownImage(BufferedImage imageOrig, int rate, Object hintValue) {
+            BufferedImage ret = imageOrig;
+            int targetWidth = imageOrig.getWidth() / rate;
+            int targetHeight = imageOrig.getHeight() / rate;
+            int w = imageOrig.getWidth();
+            int h = imageOrig.getHeight();
+            do {
+                w = w / 2;
+                if (w < targetWidth) {
+                    w = targetWidth;
+                }
+                h = h / 2;
+                if (h < targetHeight) {
+                    h = targetHeight;
+                }
+                BufferedImage tmp = new BufferedImage(w, h,
+                        BufferedImage.TYPE_INT_ARGB);
+                Graphics2D g2d = tmp.createGraphics();
+                g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, hintValue);
+                g2d.drawImage(ret, 0, 0, w, h, null);
+                g2d.dispose();
+                ret = tmp;
+            } while (w != targetWidth || h != targetHeight);
+            return ret;
+
+    }
 }
