@@ -6,6 +6,7 @@ import billy.rpg.game.character.walkable.HeroWalkableCharacter;
 import billy.rpg.game.listener.GoodsUseListener;
 import billy.rpg.game.listener.support.DefaultGoodsUseListener;
 import billy.rpg.resource.goods.GoodsMetaData;
+import billy.rpg.resource.goods.GoodsType;
 import billy.rpg.resource.role.RoleMetaData;
 import billy.rpg.resource.skill.SkillMetaData;
 import org.apache.commons.collections.CollectionUtils;
@@ -171,18 +172,45 @@ public class GameData {
         return Collections.unmodifiableList(goodsList);
     }
 
-    public void equipWeapon(int roleId, int index) {
+    /**
+     * 装备物品
+     */
+    public void equip(int roleId, int goodsNumber) {
+        int countOfGoods = getCountOfGoods(goodsNumber);
+        if (countOfGoods == 0) {
+            throw new RuntimeException("还未拥有物品: " + goodsNumber);
+        }
+        GoodsMetaData goodsMetaData = GameFrame.getInstance().getGameContainer().getGoodsMetaDataOf(goodsNumber);
+        int type = goodsMetaData.getType();
+        if (type == GoodsType.TYPE_WEAPON.getValue()) {
+            equipWeapon(roleId, goodsNumber);
+        } else if (type == GoodsType.TYPE_CLOTHES.getValue()) {
+            equipClothes(roleId, goodsNumber);
+        } else if (type == GoodsType.TYPE_SHOE.getValue()) {
+            equipShoe(roleId, goodsNumber);
+        } else {
+            throw new RuntimeException("无效的物品类型：" + type);
+        }
+
+    }
+    private void equipWeapon(int roleId, int goodsNumber) {
         checkHeroList();
         HeroCharacter heroCharacter = getHeroCharacterOf(roleId);
         Equipables equipables = heroCharacter.getEquipables();
-        equipables.equipWeapon(index);
+        equipables.equipWeapon(goodsNumber);
     }
 
-    public void equipClothes(int roleId, int index) {
+    private void equipClothes(int roleId, int goodsNumber) {
         checkHeroList();
         HeroCharacter heroCharacter = getHeroCharacterOf(roleId);
         Equipables equipables = heroCharacter.getEquipables();
-        equipables.equipClothes(index);
+        equipables.equipClothes(goodsNumber);
+    }
+    private void equipShoe(int roleId, int goodsNumber) {
+        checkHeroList();
+        HeroCharacter heroCharacter = getHeroCharacterOf(roleId);
+        Equipables equipables = heroCharacter.getEquipables();
+        equipables.equipShoe(goodsNumber);
     }
 
     private HeroCharacter getHeroCharacterOf(int roleId) {

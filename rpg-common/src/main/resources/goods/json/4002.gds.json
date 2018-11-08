@@ -1,0 +1,17 @@
+{
+  "animationId":1,
+  "attack":0,
+  "buy":60,
+  "count":0,
+  "defend":0,
+  "speed":2,
+  "desc":"粗布缝制的长统靴。身法+2。",
+  "event":1,
+  "hp":0,
+  "imageId":1,
+  "mp":0,
+  "name":"布鞋",
+  "number":4002,
+  "sell":30,
+  "type":4
+}

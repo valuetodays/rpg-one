@@ -1,7 +1,6 @@
 package billy.rpg.game.screen;
 
 import billy.rpg.common.constant.ToolsConstant;
-import billy.rpg.common.util.ImageUtil;
 import billy.rpg.game.GameCanvas;
 import billy.rpg.game.GameFrame;
 import billy.rpg.game.character.walkable.BoxWalkableCharacter;
@@ -157,7 +156,7 @@ public class MapScreen extends BaseScreen {
 
         g2.dispose();
 
-        gameCanvas.drawBitmap(ImageUtil.reverseImage(paint), 0, 0);
+        gameCanvas.drawBitmap(paint, 0, 0);
     }
 
 

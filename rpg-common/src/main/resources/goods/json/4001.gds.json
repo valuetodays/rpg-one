@@ -1,0 +1,17 @@
+{
+  "animationId":1,
+  "attack":0,
+  "buy":30,
+  "count":0,
+  "defend":0,
+  "speed":1,
+  "desc":"以蔺草编织而成，十分便宜，穿起来很轻便，适宜行走。身法+1。",
+  "event":1,
+  "hp":0,
+  "imageId":1,
+  "mp":0,
+  "name":"草鞋",
+  "number":4001,
+  "sell":15,
+  "type":4
+}

@@ -16,7 +16,7 @@ public class WeaponEquip extends Equip {
         super(index);
 
         if (goods.getNumber() != GoodsDataLoader.EMPTY_GOODS_INDEX && goods.getType() != GoodsType.TYPE_WEAPON.getValue()) {
-            throw new RuntimeException("非武器");
+            throw new RuntimeException("非武器:" + index);
         }
     }
 

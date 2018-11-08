@@ -7,6 +7,7 @@ import billy.rpg.game.character.HeroCharacter;
 import billy.rpg.game.character.fightable.Fightable;
 import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.equip.clothes.ClothesEquip;
+import billy.rpg.game.equip.shoe.ShoeEquip;
 import billy.rpg.game.equip.weapon.WeaponEquip;
 import billy.rpg.game.screen.BaseScreen;
 import billy.rpg.game.util.KeyUtil;
@@ -53,6 +54,8 @@ public class AttributeScreen extends BaseScreen {
             int attackValueInEquip = weaponEquip.getAttack();
             ClothesEquip clothes = (ClothesEquip)heroCharacter.getEquipables().getClothes().getEquip();
             int defendValueInEquip = clothes.getDefend();
+            ShoeEquip shoe = (ShoeEquip)heroCharacter.getEquipables().getShoe().getEquip();
+            int speedValueInEquip = shoe.getSpeed();
 
             RoleMetaData roleMetaData = fightable.getRoleMetaData();
             g.drawString(roleMetaData.getName() + " Lv " + roleMetaData.getLevel(), 210, 70 + i*100);
@@ -68,11 +71,16 @@ public class AttributeScreen extends BaseScreen {
                 defendStr += "(+"+defendValueInEquip+")";
             }
             g.drawString(defendStr, 180, 150 + i*100);
+            String speedStr = "speed: " + roleMetaData.getSpeed();
+            if (speedValueInEquip > 0) {
+                speedStr += "(+"+speedValueInEquip+")";
+            }
+            g.drawString(speedStr, 180, 170 + i*100);
             g.drawImage(roleMetaData.getImage(), 320, 70 + i*100, null);
 
             g.drawString("weapon:" + weaponEquip.getGoods().getName(), 180, 300);
             g.drawString("clothes:" + clothes.getGoods().getName(), 180, 320);
-            g.drawString("shoe:" + "xx", 180, 340);
+            g.drawString("shoe:" + shoe.getGoods().getName(), 180, 340);
         }
 
         gameCanvas.drawBitmap(paint, 0, 0);

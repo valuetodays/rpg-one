@@ -152,8 +152,12 @@ public class GameFrame extends JFrame implements Runnable {
         gameThread.start();
         LOG.info("game starts");
 
-        gameData.equipWeapon(1, 2002); // 装备武器
-        gameData.equipClothes(1, 3001); // 装备衣服
+        gameData.addGoods(2002);
+        gameData.equip(1, 2002); // 装备武器
+        gameData.addGoods(3001);
+        gameData.equip(1, 3001); // 装备衣服
+        gameData.addGoods(4001);
+        gameData.equip(1, 4001); // 装备鞋子
     }
 
     public static GameFrame getInstance() {
