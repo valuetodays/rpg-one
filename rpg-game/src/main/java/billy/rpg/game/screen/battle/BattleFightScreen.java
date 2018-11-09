@@ -7,6 +7,7 @@ import billy.rpg.game.character.MonsterCharacter;
 import billy.rpg.game.character.fightable.Fightable;
 import billy.rpg.game.equip.clothes.ClothesEquip;
 import billy.rpg.game.equip.weapon.WeaponEquip;
+import billy.rpg.game.listener.CommonAttackListener;
 import billy.rpg.game.screen.AnimationScreen;
 import billy.rpg.game.screen.BaseScreen;
 import billy.rpg.game.screen.battle.end.BattleDefeatScreen;

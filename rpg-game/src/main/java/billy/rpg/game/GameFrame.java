@@ -36,7 +36,7 @@ public class GameFrame extends JFrame implements Runnable {
 
 
     private static GameFrame instance;
-    private Stack<BaseScreen> screenStack;
+    private final Stack<BaseScreen> screenStack = new Stack<>();
     private GameCanvas gameCanvas;
     private BufferStrategy bufferStrategy;
     private boolean running;
@@ -135,7 +135,6 @@ public class GameFrame extends JFrame implements Runnable {
         gameContainer = GameContainer.getInstance();
         gameContainer.load();
 
-        screenStack = new Stack<>();
         screenStack.push(new GameCoverScreen()); // 进入封面
 //        int[] monsterIds = new int[]{51, 51};
 //        screenStack.push(new BattleScreen(monsterIds)); // 进入战斗界面

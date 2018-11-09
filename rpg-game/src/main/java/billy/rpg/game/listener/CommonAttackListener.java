@@ -1,4 +1,4 @@
-package billy.rpg.game.screen.battle;
+package billy.rpg.game.listener;
 
 /**
  *
