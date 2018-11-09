@@ -69,7 +69,7 @@ public class ImageUtil {
                 int g = ((pixel & 0xff00) >> 8);
                 int b = (pixel & 0xff);
 
-                imageTarget.setRGB(x, y, rgba2int(r, g, b, a));
+                imageTarget.setRGB(x, y, ColorUtil.INSTANCE.rgba2int(r, g, b, a));
             }
         }
 
@@ -115,7 +115,7 @@ public class ImageUtil {
                         result = ((int)(0.7 * r) + (int)(0.2 * g) + (int)(0.1 * b));
                         break;
                 }
-                imageTarget.setRGB(x, y, ImageUtil.rgba2int(result, result, result, a));
+                imageTarget.setRGB(x, y, ColorUtil.INSTANCE.rgba2int(result, result, result, a));
             }
         }
 
@@ -140,27 +140,13 @@ public class ImageUtil {
                 int g = 255 - ((pixel & 0xff00) >> 8);
                 int b = 255 - (pixel & 0xff);
 
-                imageTarget.setRGB(x, y, ImageUtil.rgba2int(r, g, b, a));
+                imageTarget.setRGB(x, y, ColorUtil.INSTANCE.rgba2int(r, g, b, a));
             }
         }
 
         return imageTarget;
     }
 
-
-    /**
-     * rgb to intValue
-     * @param red r
-     * @param green g
-     * @param blue b
-     * @param alpha a
-     */
-    public static int rgba2int(int red, int green, int blue, int alpha) {
-        return  ((alpha & 0xFF) << 24) |
-                ((red & 0xFF) << 16) |
-                ((green & 0xFF) << 8)  |
-                ((blue & 0xFF) << 0);
-    }
 
     /**
      * bit-reverse operation of a byte array

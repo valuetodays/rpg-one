@@ -123,7 +123,7 @@ ILoader
 
 #### 2018-10-03
     骨骼系统，栩栩如生：角色图像运用Spine 2D骨骼技巧呈现，随风飘逸的发丝、栩栩如生的动态彷佛角色跃然于屏幕之上，活灵活现
-    [TODO] command : equip xx[roleId] yy[goodsId]
+    command : equip xx[roleId] yy[goodsId]
     已可装备武器，计算伤害时，将武器的效果附带上
     
 #### 2018-10-16
@@ -136,8 +136,10 @@ ILoader
     user GameFrame.createAndShowGUI()
 #### 2018-11-05
     可在行走图中吃药
-    战斗中使用药物?
+    [TODO]战斗中使用药物?
 #### 2018-11-08
     装备鞋子功能添加
     图像放大与缩小
     TODO图像旋转
+    文本工具类，用于显示“攻击力：100(+23)”的中+23是彩色的情况，用于个人属性查看
+    https://www.java.com/en/java_in_action/alice.jsp
