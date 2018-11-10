@@ -14,6 +14,8 @@ import billy.rpg.game.screen.BaseScreen;
 import billy.rpg.game.util.KeyUtil;
 import billy.rpg.resource.role.RoleMetaData;
 
+import java.util.List;
+import java.util.ArrayList;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -62,19 +64,28 @@ public class AttributeScreen extends BaseScreen {
             g.drawString("mp: " + roleMetaData.getMp() + "/" + roleMetaData.getMaxMp(), 180, 110 + i * 100);
             String attackStr = "attack: " + roleMetaData.getAttack();
             if (attackValueInEquip > 0) {
-                attackStr += "(+" + attackValueInEquip + ")";
+                String attackSuffix = "(+" + attackValueInEquip + ")";
+                drawColorStringHorizontal(g, 180, 130 + i*100, attackStr, g.getColor(), attackSuffix, Color.ORANGE);
+            } else {
+                drawColorStringHorizontal(g, 180, 130 + i*100, attackStr, g.getColor(), null, null);
             }
-            g.drawString(attackStr, 180, 130 + i * 100);
+
             String defendStr = "defend: " + roleMetaData.getDefend();
             if (defendValueInEquip > 0) {
-                defendStr += "(+" + defendValueInEquip + ")";
+                String defendSuffix = "(+" + defendValueInEquip + ")";
+                drawColorStringHorizontal(g, 180, 150 + i * 100, defendStr, g.getColor(), defendSuffix, Color.ORANGE);
+            } else {
+                drawColorStringHorizontal(g, 180, 150 + i * 100, defendStr, g.getColor(), null, null);
             }
-            g.drawString(defendStr, 180, 150 + i * 100);
+
             String speedStr = "speed: " + roleMetaData.getSpeed();
             if (speedValueInEquip > 0) {
-                speedStr += "(+" + speedValueInEquip + ")";
+                String speedSuffix = "(+" + speedValueInEquip + ")";
+                drawColorStringHorizontal(g, 180, 170 + i * 100, speedStr, g.getColor(), speedSuffix, Color.ORANGE);
+            } else {
+                drawColorStringHorizontal(g, 180, 170 + i * 100, speedStr, g.getColor(), null, null);
             }
-            g.drawString(speedStr, 180, 170 + i * 100);
+
             g.drawImage(roleMetaData.getImage(), 320, 70 + i * 100, null);
 
             g.drawString("weapon:" + weaponEquip.getGoods().getName(), 180, 300);
@@ -85,9 +96,18 @@ public class AttributeScreen extends BaseScreen {
         gameCanvas.drawBitmap(paint, 0, 0);
     }
 
-    private void drawColorStringHorizontal(int x, int y, String prefixText, Color prefixColor, String suffixText, Color suffix) {
-        TextUtil.drawStringWithColor();
+    private void drawColorStringHorizontal(Graphics g, int x, int y, String prefixText, Color prefixColor, String suffixText, Color suffixColor) {
+        List<String> texts = new ArrayList<>();
+        texts.add(prefixText);
+        List<Color> colors = new ArrayList<>();
+        colors.add(prefixColor);
 
+        if (suffixText != null && suffixColor != null) {
+            texts.add(suffixText);
+            colors.add(suffixColor);
+        }
+
+        TextUtil.drawColorStringHorizontal(g, texts, colors, x, y);
     }
 
     @Override

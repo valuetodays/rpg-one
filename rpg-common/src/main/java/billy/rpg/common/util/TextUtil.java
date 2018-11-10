@@ -1,5 +1,6 @@
 package billy.rpg.common.util;
 
+import java.util.List;
 import java.awt.*;
 
 /**
@@ -73,11 +74,30 @@ public class TextUtil {
     }
 
     public static Point drawString(Graphics g, String text, int x, int y) {
+        return drawString(g, text, null, x, y);
+    }
+
+    public static Point drawString(Graphics g, String text, Color color, int x, int y) {
         FontMetrics fm = g.getFontMetrics();
+        Color oldColor = g.getColor();
+        if (color != null) {
+            g.setColor(color);
+        }
         g.drawString(text, x, y + fm.getAscent());
         int width = fm.stringWidth(text);
         int height = fm.getAscent() + fm.getDescent() + fm.getLeading();
-
+        g.setColor(oldColor);
         return new Point(x + width, y + height);
+    }
+
+    public static Point drawColorStringHorizontal(Graphics g, List<String> texts, List<Color> colors, int x, int y) {
+        Point point = new Point(x, y);
+        for (int i = 0; i < texts.size(); i++) {
+            String text = texts.get(i);
+            Color color = colors.get(i);
+            // 水平写字，y不变
+            point = drawString(g, text, color, point.x, y);
+        }
+        return point;
     }
 }

@@ -22,7 +22,6 @@ public class JsonAnimationSaverLoader implements AnimationSaverLoader {
         List<BufferedImage> images = IntStream.range(0, metaData.getImageCount()).mapToObj(e -> {
             try {
                 String path = resource.getPath() + "/" + e + ".png";
-                System.out.println(path);
                 return ImageIO.read(new File(path));
             } catch (IOException e1) {
                 e1.printStackTrace();

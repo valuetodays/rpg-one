@@ -21,7 +21,7 @@ public class ShoeEquip extends Equip {
     }
 
     public int getSpeed() {
-        return goods.getAttack(); // TODO 暂无speed属性
+        return goods.getSpeed();
     }
 
 

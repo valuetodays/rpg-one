@@ -21,6 +21,7 @@ public class GoodsMetaData {
     private int mp;
     private int attack;
     private int defend;
+    private int speed;
     private String desc;
 
     // 如下字段不在物品编辑器中使用
@@ -138,9 +139,19 @@ public class GoodsMetaData {
         this.count = count;
     }
 
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
     /**
-     * 是否是一个空物品（占位物品）     */
+     * 是否是一个空物品（占位物品）
+     */
     public boolean isEmptyGoods() {
         return number == GoodsMetaData.EMPTY_GOODS_INDEX;
     }
+
 }
