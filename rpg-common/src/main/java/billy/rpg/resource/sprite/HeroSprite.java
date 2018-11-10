@@ -1,4 +1,6 @@
-package billy.rpg.game.sprite;
+package billy.rpg.resource.sprite;
+
+import org.apache.commons.collections.CollectionUtils;
 
 import java.awt.image.BufferedImage;
 import java.util.List;
@@ -39,6 +41,21 @@ public class HeroSprite {
             return this.nShow;
         }
 
+    }
+
+    private int currentFrame;
+    public void update(long delta) {
+        if (CollectionUtils.isEmpty(getKeyList())) {
+            return;
+        }
+        currentFrame++;
+        if (currentFrame >= getKeyList().size()) {
+            currentFrame = 0;
+        }
+    }
+
+    public Key getCurrentFrame() {
+        return getKeyList().get(currentFrame);
     }
 
     private List<Key> keyList;

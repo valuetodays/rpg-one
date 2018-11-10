@@ -1,16 +1,11 @@
 package billy.rpg.game.sprite;
 
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import billy.rpg.resource.role.RoleMetaData;
+import billy.rpg.resource.sprite.HeroSprite;
 
-import javax.imageio.ImageIO;
-import javax.swing.JFrame;
-import javax.swing.WindowConstants;
+import javax.swing.*;
+import java.awt.*;
+import java.io.Serializable;
 
 public class HeroSpriteFrameTest extends JFrame implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -29,41 +24,18 @@ public class HeroSpriteFrameTest extends JFrame implements Serializable {
     }
 
     private void initData() {
-        heroSprite = new HeroSprite();
-        List<HeroSprite.Key> keyList = new ArrayList<>();
-        int x = 100;
-        int y = 100;
-        BufferedImage image;
-        try {
-            image = ImageIO.read(getClass().getResourceAsStream("/Heal5.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e.getMessage(), e);
-        }
-        int show = 10;
-        int nShow = 5;
-        for (int i = 0; i < 13; i++) {
-            int ix = i % 5;
-            int iy = i / 5;
-            BufferedImage iimage = image.getSubimage(ix * 192, iy * 192, 192, 192);
-            HeroSprite.Key key = new HeroSprite.Key(x, y, iimage, show, nShow);
-            keyList.add(key);
-        }
-        heroSprite.setKeyList(keyList);
+        RoleMetaData roleMetaData = new RoleMetaData();
+        heroSprite = roleMetaData.getSprite();
 
         // TODO 使用锁，使用heroSprite的keyList有值进才往下走
         thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 while (true) {
-                    currentFrame++;
-                    System.out.println(currentFrame);
-                    if (currentFrame >= heroSprite.getKeyList().size()) {
-                        currentFrame = 0;
-                    }
+                    heroSprite.update(0);
                     repaint();
                     try {
-                        Thread.sleep(30);
+                        Thread.sleep(100);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -74,7 +46,6 @@ public class HeroSpriteFrameTest extends JFrame implements Serializable {
     }
 
     private Thread thread;
-    private int currentFrame = 0;
 
     @Override
     public void paint(Graphics g) {
@@ -83,7 +54,7 @@ public class HeroSpriteFrameTest extends JFrame implements Serializable {
         g.drawString(getTitle(), 100, 0);
         int offsetX = 100;
         int offsetY = 30;
-        HeroSprite.Key key = heroSprite.getKeyList().get(currentFrame);
+        HeroSprite.Key key = heroSprite.getCurrentFrame();
         g.drawImage(key.getImage(), offsetX + key.getX(), offsetY + key.getY(), null);
     }
 

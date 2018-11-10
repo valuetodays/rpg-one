@@ -1,7 +1,13 @@
 package billy.rpg.resource.role;
 
-import java.awt.image.BufferedImage;
 import billy.rpg.common.constant.ToolsConstant;
+import billy.rpg.resource.sprite.HeroSprite;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <ol>
@@ -48,6 +54,32 @@ public class RoleMetaData implements Cloneable { // TODO 添加级别
     private int money;
     private String skillIds;
     private int levelChain = 1; // TODO 先固定成1
+    private HeroSprite sprite;
+
+
+    public RoleMetaData() {
+        sprite = new HeroSprite();
+        List<HeroSprite.Key> keyList = new ArrayList<>();
+        int x = 0;
+        int y = 0;
+        BufferedImage image;
+        try {
+            image = ImageIO.read(getClass().getResourceAsStream("/sprite/Heal5.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
+        }
+        int show = 10;
+        int nShow = 5;
+        for (int i = 0; i < 13; i++) {
+            int ix = i % 5;
+            int iy = i / 5;
+            BufferedImage iimage = image.getSubimage(ix * 192, iy * 192, 192, 192);
+            HeroSprite.Key key = new HeroSprite.Key(x, y, iimage, show, nShow);
+            keyList.add(key);
+        }
+        sprite.setKeyList(keyList);
+    }
 
     public BufferedImage getImage() {
         return image;
@@ -175,6 +207,14 @@ public class RoleMetaData implements Cloneable { // TODO 添加级别
 
     public void setSkillIds(String skillIds) {
         this.skillIds = skillIds;
+    }
+
+    public HeroSprite getSprite() {
+        return sprite;
+    }
+
+    public void setSprite(HeroSprite sprite) {
+        this.sprite = sprite;
     }
 
     @Override

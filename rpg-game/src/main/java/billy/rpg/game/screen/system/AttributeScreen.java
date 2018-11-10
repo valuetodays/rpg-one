@@ -13,11 +13,12 @@ import billy.rpg.game.equip.weapon.WeaponEquip;
 import billy.rpg.game.screen.BaseScreen;
 import billy.rpg.game.util.KeyUtil;
 import billy.rpg.resource.role.RoleMetaData;
+import billy.rpg.resource.sprite.HeroSprite;
 
-import java.util.List;
-import java.util.ArrayList;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 属性
@@ -28,13 +29,21 @@ import java.awt.image.BufferedImage;
 public class AttributeScreen extends BaseScreen {
     private final SystemUIScreen systemScreen;
 
+    private java.util.List<HeroCharacter> heroList;
+
     public AttributeScreen(SystemUIScreen systemScreen) {
         this.systemScreen = systemScreen;
+        GameData gameData = GameFrame.getInstance().getGameData();
+        heroList = gameData.getHeroList();
     }
 
     @Override
     public void update(long delta) {
-
+        for (HeroCharacter heroCharacter : heroList) {
+            Fightable fightable = heroCharacter.getFightable();
+            RoleMetaData roleMetaData = fightable.getRoleMetaData();
+            roleMetaData.getSprite().update(delta);
+        }
     }
 
     @Override
@@ -43,11 +52,9 @@ public class AttributeScreen extends BaseScreen {
                 BufferedImage.TYPE_4BYTE_ABGR);
         Graphics g = paint.getGraphics();
 
-        GameData gameData = GameFrame.getInstance().getGameData();
         g.setFont(new Font("楷体", Font.BOLD, 18));
         g.setColor(Color.YELLOW);
 
-        java.util.List<HeroCharacter> heroList = gameData.getHeroList();
         for (int i = 0; i < heroList.size(); i++) {
             HeroCharacter heroCharacter = heroList.get(i);
             Fightable fightable = heroCharacter.getFightable();
@@ -87,6 +94,8 @@ public class AttributeScreen extends BaseScreen {
             }
 
             g.drawImage(roleMetaData.getImage(), 320, 70 + i * 100, null);
+            HeroSprite.Key currentFrame = roleMetaData.getSprite().getCurrentFrame();
+            g.drawImage(currentFrame.getImage(), 320 + currentFrame.getX(), 70 + i * 100 + currentFrame.getY(), null);
 
             g.drawString("weapon:" + weaponEquip.getGoods().getName(), 180, 300);
             g.drawString("clothes:" + clothes.getGoods().getName(), 180, 320);
