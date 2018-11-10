@@ -188,7 +188,7 @@ public class MapScreen extends BaseScreen {
             ScriptItem active = GameFrame.getInstance().getGameContainer().getActiveScriptItem();
             HeroWalkableCharacter hero = active.getHero();
 
-            BaseScreen bs = new AnimationScreen(12, hero.getPosX()*32, hero.getPosY()*32, new MapScreen());
+            BaseScreen bs = new AnimationScreen(10001, hero.getPosX()*32, hero.getPosY()*32, new MapScreen());
             GameFrame.getInstance().pushScreen(bs);
             return;
         } else if (KeyUtil.isLeft(key) || KeyUtil.isRight(key) || KeyUtil.isUp(key) || KeyUtil.isDown(key)) {

@@ -12,3 +12,5 @@
 
 
 100.ani 场景切换
+
+10001 sword4 from rmvx
