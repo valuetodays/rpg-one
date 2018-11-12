@@ -1,8 +1,6 @@
 package billy.rpg.animationeditor;
 
-import billy.rpg.resource.animation.AnimationMetaData;
-import billy.rpg.resource.animation.BinaryAnimationSaverLoader;
-import billy.rpg.resource.animation.FrameData;
+import billy.rpg.resource.animation.*;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
@@ -52,6 +50,8 @@ public class AnimationEditorPanel extends JPanel {
 
     // 播放
     private java.util.List<Key> mShowList = new LinkedList<>();
+
+    private AnimationSaverLoader animationSaverLoader = new JsonAnimationSaverLoader();
 
 
     private class Key {
@@ -105,13 +105,13 @@ public class AnimationEditorPanel extends JPanel {
         picsFileChooser.setFileFilter(filterPng);
         aniSaveFileChooser = new JFileChooser();
         aniSaveFileChooser.setCurrentDirectory(new File("."));
-        final FileFilter filterAni = new FileNameExtensionFilter( "ani file", "ani");
-        aniSaveFileChooser.setFileFilter(filterAni);
+        final FileFilter filterAniJson = new FileNameExtensionFilter( "ani.json file", "ani.json");
+        aniSaveFileChooser.setFileFilter(filterAniJson);
 
 
         aniLoadFileChooser = new JFileChooser();
         aniLoadFileChooser.setCurrentDirectory(new File("."));
-        aniLoadFileChooser.setFileFilter(filterAni);
+        aniLoadFileChooser.setFileFilter(filterAniJson);
     }
 
     private void initComponents() throws Exception {
@@ -222,7 +222,7 @@ public class AnimationEditorPanel extends JPanel {
             if (!e.getValueIsAdjusting()) {
                 int selectedIndex = jlistFrames.getSelectedIndex();
                 Object selectedValue = jlistFrames.getSelectedValue();
-                System.out.println("selected index = " + selectedIndex + ", selected value = " + selectedValue);
+                LOG.info("selected index = " + selectedIndex + ", selected value = " + selectedValue);
                 updateXYShowNshow();
             }
         });
@@ -413,8 +413,7 @@ public class AnimationEditorPanel extends JPanel {
         if (StringUtils.EMPTY.equals(numberText)) {
             numberText = "0";
         }
-        int number = Integer.parseInt(numberText);
-        return number;
+        return Integer.parseInt(numberText);
     }
 
     private Timer timer = new Timer(30, new ActionListener() {
@@ -478,7 +477,7 @@ public class AnimationEditorPanel extends JPanel {
             File selectedFile = aniLoadFileChooser.getSelectedFile();
             AnimationMetaData loadedAmd = null;
             try {
-                loadedAmd = new BinaryAnimationSaverLoader().load(selectedFile.getPath());
+                loadedAmd = animationSaverLoader.load(selectedFile.getPath());
             } catch (IOException e) {
                 e.printStackTrace();
                 throw new RuntimeException(e.getMessage(), e);
@@ -533,8 +532,8 @@ public class AnimationEditorPanel extends JPanel {
         if (result == JFileChooser.APPROVE_OPTION){
             File selectedFile = aniSaveFileChooser.getSelectedFile();
             String name = aniSaveFileChooser.getName(selectedFile);
-            if (!name.endsWith(".ani")) {
-                name += ".ani";
+            if (!name.endsWith(".ani.json")) {
+                name += ".ani.json";
             }
             AnimationMetaData amd = new AnimationMetaData();
             amd.setNumber(number);
@@ -542,8 +541,8 @@ public class AnimationEditorPanel extends JPanel {
             amd.setImages(picImageList);
             amd.setFrameCount(frameDataArr.length);
             amd.setFrameData(frameDataArr);
-            new BinaryAnimationSaverLoader().save(aniSaveFileChooser.getCurrentDirectory() + File.separator + name, amd);
-            System.out.println("save ani to file end");
+            animationSaverLoader.save(aniSaveFileChooser.getCurrentDirectory() + File.separator + name, amd);
+            LOG.info("save *.ani.json to file end");
         }
 
     }
