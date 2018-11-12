@@ -24,7 +24,7 @@ public class GameData {
     private int money;
     /** 角色列表 */
     private List<HeroCharacter> heroList;
-    private List<HeroCharacter.HeroFightable> heroBattleList;
+    private List<HeroCharacter> heroBattleList;
     /** 角色列表 */
     private List<Integer> heroIds = Arrays.asList(1);
 //    private List<Integer> heroIds = Arrays.asList(1, 3);
@@ -230,7 +230,7 @@ public class GameData {
                 Integer heroId = heroIds.get(i);
                 RoleMetaData heroRole = GameFrame.getInstance().getGameContainer().getHeroRoleOf(heroId);
 
-                HeroCharacter.HeroFightable e = new HeroCharacter.HeroFightable();
+                HeroCharacter e = new HeroCharacter();
                 e.setLeft(200 + i * 150 + 10);
                 e.setTop(10 * 32);
                 e.setWidth(heroRole.getImage().getWidth());
@@ -238,13 +238,11 @@ public class GameData {
                 e.setRoleMetaData(heroRole);
                 e.setBattleImage(GameFrame.getInstance().getGameContainer().getRoleItem().getRoleBattleOf(heroId));
 
-                HeroCharacter heroCharacter = new HeroCharacter();
-                heroCharacter.setFightable(e);
                 HeroWalkableCharacter walkable = new HeroWalkableCharacter();
                 walkable.setNumber(heroId);
-                heroCharacter.setWalkable(walkable);
+                e.setWalkable(walkable);
 
-                heroList.add(heroCharacter);
+                heroList.add(e);
             }
         }
     }
@@ -256,9 +254,8 @@ public class GameData {
 
     public List<SkillMetaData> getSkillsOf(int roleId) {
         HeroCharacter heroCharacter = getHeroList().get(roleId);
-        HeroCharacter.HeroFightable fightable = (HeroCharacter.HeroFightable)heroCharacter.getFightable();
         java.util.List<SkillMetaData> skillList = new ArrayList<>();
-        String skillIds = fightable.getRoleMetaData().getSkillIds();
+        String skillIds = heroCharacter.getRoleMetaData().getSkillIds();
         if (StringUtils.isNotEmpty(skillIds)) { // 如果有技能
             String[] skillIdArr = skillIds.split(",");
             for (String skillId : skillIdArr) {

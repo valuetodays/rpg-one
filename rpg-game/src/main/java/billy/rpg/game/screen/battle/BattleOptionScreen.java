@@ -123,7 +123,7 @@ public class BattleOptionScreen extends BaseScreen {
                 MonsterSelectScreen chooseMonsterScreen = new MonsterSelectScreen(battleUIScreen, this, -1);
                 getBattleUIScreen().getParentScreen().push(chooseMonsterScreen);
             } else if (heroActionChoice == BattleOption.SKILL.getOrderNum()) {  // 技能
-                HeroCharacter.HeroFightable activeHero = (HeroCharacter.HeroFightable)getBattleUIScreen().getActiveHero().getFightable();
+                HeroCharacter activeHero = getBattleUIScreen().getActiveHero();
                 String skillIds = activeHero.getRoleMetaData().getSkillIds();
                 if (StringUtils.isEmpty(skillIds)) {
                     final BaseScreen bs = new MessageBoxScreen("未习得任何技能，不能施放技能");

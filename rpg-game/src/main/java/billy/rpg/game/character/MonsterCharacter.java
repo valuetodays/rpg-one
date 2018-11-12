@@ -8,17 +8,8 @@ import billy.rpg.resource.role.RoleMetaData;
  * @author lei.liu@datatist.com
  * @since 2018-10-08 14:50:56
  */
-public class MonsterCharacter {
-    private Fightable fightable = new MonsterFightable();
+public class MonsterCharacter extends Fightable {
     private Equipables equipables = new Equipables();
-
-    public Fightable getFightable() {
-        return fightable;
-    }
-
-    public void setFightable(Fightable fightable) {
-        this.fightable = fightable;
-    }
 
     public Equipables getEquipables() {
         return equipables;
@@ -28,11 +19,9 @@ public class MonsterCharacter {
         this.equipables = equipables;
     }
 
-    public static class MonsterFightable extends Fightable {
-        @Override
-        public void setRoleMetaData(RoleMetaData roleMetaData) {
-            this.roleMetaData = roleMetaData.clone();
-        }
+    @Override
+    public void setRoleMetaData(RoleMetaData roleMetaData) {
+        this.roleMetaData = roleMetaData.clone();
     }
 
 }

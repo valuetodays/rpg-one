@@ -20,8 +20,9 @@ public class ChooseHeroScreen extends BaseScreen {
     private int heroIndex; // TODO 貌似早期的fc封神榜、吞食天地不支持玩家选择已方人员乱序行动吧？
 
     private BattleScreen parentScreen;
-    protected java.util.List<HeroCharacter.HeroFightable> heroBattleList;
-    public ChooseHeroScreen(BattleScreen battleScreen, List<HeroCharacter.HeroFightable> heroBattleList) {
+    protected java.util.List<HeroCharacter> heroBattleList;
+
+    public ChooseHeroScreen(BattleScreen battleScreen, List<HeroCharacter> heroBattleList) {
         parentScreen = battleScreen;
         this.heroBattleList = heroBattleList;
     }
@@ -41,12 +42,11 @@ public class ChooseHeroScreen extends BaseScreen {
         Graphics g = paint.getGraphics();
 
         // 选择哪个hero要进行行动
-        if (1 == 1) {
+        if (1 == heroIndex) {
             Image gameArrowDown = GameFrame.getInstance().getGameContainer().getGameAboutItem().getGameArrowDown();
-            HeroCharacter.HeroFightable heroBattle = heroBattleList.get(heroIndex);
+            HeroCharacter heroBattle = heroBattleList.get(heroIndex);
             g.drawImage(gameArrowDown,
-                    heroBattle.getLeft() + heroBattle.getWidth() / 2,
-                    heroBattle.getTop(), null);
+                    heroBattle.getLeft() + heroBattle.getWidth() / 2, heroBattle.getTop(), null);
         }
         gameCanvas.drawBitmap(paint, 0, 0);
     }

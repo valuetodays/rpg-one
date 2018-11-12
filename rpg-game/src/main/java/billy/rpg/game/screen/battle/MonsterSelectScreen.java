@@ -38,7 +38,7 @@ public class MonsterSelectScreen extends BaseScreen {
         this.skillId = skillId;
         java.util.List<MonsterCharacter> monsterBattleList = getBattleUIScreen().monsterBattleList;
         for (int i = 0; i < monsterBattleList.size(); i++) {
-            Fightable fightable = monsterBattleList.get(i).getFightable();
+            Fightable fightable = monsterBattleList.get(i);
             if (!fightable.isDied()) {
                 monsterIndex = i;
                 break;
@@ -77,8 +77,7 @@ public class MonsterSelectScreen extends BaseScreen {
         getBattleUIScreen().drawMonster(g);
 
         Image gameArrowUp = GameFrame.getInstance().getGameContainer().getGameAboutItem().getGameArrowUp();
-        MonsterCharacter monsterCharacter = getBattleUIScreen().monsterBattleList.get(monsterIndex);
-        Fightable monsterBattleArrowTo = monsterCharacter.getFightable();
+        MonsterCharacter monsterBattleArrowTo = getBattleUIScreen().monsterBattleList.get(monsterIndex);
         if (!monsterBattleArrowTo.isDied()) {
             g.drawImage(gameArrowUp,
                     monsterBattleArrowTo.getLeft() + monsterBattleArrowTo.getWidth() / 2 - gameArrowUp.getWidth(null) / 2,
@@ -136,13 +135,13 @@ public class MonsterSelectScreen extends BaseScreen {
         } else if (KeyUtil.isLeft(key)) {
             int nextMonsterIndex = monsterIndex - 1;
             if (nextMonsterIndex >= 0
-                    && !getBattleUIScreen().monsterBattleList.get(nextMonsterIndex).getFightable().isDied()) {
+                    && !getBattleUIScreen().monsterBattleList.get(nextMonsterIndex).isDied()) {
                 monsterIndex = nextMonsterIndex;
             }
         } else if (KeyUtil.isRight(key)) {
             int nextMonsterIndex = monsterIndex + 1;
             if (nextMonsterIndex < getBattleUIScreen().monsterBattleList.size()
-                && !getBattleUIScreen().monsterBattleList.get(nextMonsterIndex).getFightable().isDied()) {
+                && !getBattleUIScreen().monsterBattleList.get(nextMonsterIndex).isDied()) {
                 monsterIndex = nextMonsterIndex;
             }
         }

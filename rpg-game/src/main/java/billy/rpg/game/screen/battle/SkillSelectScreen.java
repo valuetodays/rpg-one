@@ -78,7 +78,7 @@ public class SkillSelectScreen extends BaseScreen {
         } else if (KeyUtil.isEnter(key)) {
             int skillId = skillList.get(skillIndex).getNumber();
             SkillMetaData skillMetaData = GameFrame.getInstance().getGameContainer().getSkillMetaDataOf(skillId);
-            final int mp = getBattleUIScreen().getActiveHero().getFightable().getRoleMetaData().getMp();
+            final int mp = getBattleUIScreen().getActiveHero().getRoleMetaData().getMp();
             final int consume = skillMetaData.getConsume();
             if (mp < consume) {
                 final BaseScreen bs = new MessageBoxScreen("mp不足"+consume+"，不能施放技能" + skillMetaData.getName(),

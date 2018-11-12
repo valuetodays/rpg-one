@@ -5,7 +5,6 @@ import billy.rpg.game.GameCanvas;
 import billy.rpg.game.GameData;
 import billy.rpg.game.GameFrame;
 import billy.rpg.game.character.HeroCharacter;
-import billy.rpg.game.character.fightable.Fightable;
 import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.equip.clothes.ClothesEquip;
 import billy.rpg.game.equip.shoe.ShoeEquip;
@@ -40,8 +39,7 @@ public class AttributeScreen extends BaseScreen {
     @Override
     public void update(long delta) {
         for (HeroCharacter heroCharacter : heroList) {
-            Fightable fightable = heroCharacter.getFightable();
-            RoleMetaData roleMetaData = fightable.getRoleMetaData();
+            RoleMetaData roleMetaData = heroCharacter.getRoleMetaData();
             roleMetaData.getSprite().update(delta);
         }
     }
@@ -57,7 +55,6 @@ public class AttributeScreen extends BaseScreen {
 
         for (int i = 0; i < heroList.size(); i++) {
             HeroCharacter heroCharacter = heroList.get(i);
-            Fightable fightable = heroCharacter.getFightable();
             WeaponEquip weaponEquip = (WeaponEquip) heroCharacter.getEquipables().getWeapon().getEquip();
             int attackValueInEquip = weaponEquip.getAttack();
             ClothesEquip clothes = (ClothesEquip) heroCharacter.getEquipables().getClothes().getEquip();
@@ -65,7 +62,7 @@ public class AttributeScreen extends BaseScreen {
             ShoeEquip shoe = (ShoeEquip) heroCharacter.getEquipables().getShoe().getEquip();
             int speedValueInEquip = shoe.getSpeed();
 
-            RoleMetaData roleMetaData = fightable.getRoleMetaData();
+            RoleMetaData roleMetaData = heroCharacter.getRoleMetaData();
             // TODO 如下三个属性使用矩形画出来，并使用渐变色哦
             g.drawString(roleMetaData.getName() + " Lv " + roleMetaData.getLevel(), 210, 70 + i * 100);
             g.drawString("hp: " + roleMetaData.getHp() + "/" + roleMetaData.getMaxHp(), 180, 90 + i * 100);

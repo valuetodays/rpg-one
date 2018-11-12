@@ -21,10 +21,10 @@ public class DefaultGoodsUseListener implements GoodsUseListener {
             int heroIndex = GameFrame.getInstance().getGameData().getHeroIndex();
             HeroCharacter heroCharacter = GameFrame.getInstance().getGameData().getHeroList().get(heroIndex);
             // TODO 药物暂只能加hp
-            int hp = heroCharacter.getFightable().getRoleMetaData().getHp();
+            int hp = heroCharacter.getRoleMetaData().getHp();
             int hpToAdd = goods.getHp();
-            int hpNotExceedMaxHp = Math.min(hp + hpToAdd, heroCharacter.getFightable().getRoleMetaData().getMaxHp());
-            heroCharacter.getFightable().getRoleMetaData().setHp(hpNotExceedMaxHp);
+            int hpNotExceedMaxHp = Math.min(hp + hpToAdd, heroCharacter.getRoleMetaData().getMaxHp());
+            heroCharacter.getRoleMetaData().setHp(hpNotExceedMaxHp);
         } else {
             throw new RuntimeException("goods can not be to use: " + goods.getType());
         }
