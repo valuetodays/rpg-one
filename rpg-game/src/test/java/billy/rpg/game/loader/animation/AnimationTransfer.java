@@ -1,9 +1,8 @@
 package billy.rpg.game.loader.animation;
 
 import billy.rpg.common.constant.ToolsConstant;
+import billy.rpg.common.util.JsonUtil;
 import billy.rpg.resource.animation.AnimationMetaData;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.serializer.SerializerFeature;
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 
@@ -23,7 +22,7 @@ public class AnimationTransfer {
             String s = "f:/tmp/aaaa/json/" + e.getNumber() + new JsonAnimationDataLoader().getFileExt();
             try {
                 FileUtils.write(new File(s),
-                        JSON.toJSONString(e, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect),
+                        JsonUtil.toPrettyJsonString(e),
                         Charset.forName(ToolsConstant.CHARSET));
             } catch (IOException e1) {
                 e1.printStackTrace();

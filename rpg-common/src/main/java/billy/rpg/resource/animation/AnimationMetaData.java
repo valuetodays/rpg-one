@@ -23,7 +23,7 @@ import java.util.List;
  * @author liulei
  * @since 2017-07-07 09:54
  */
-    @JSONType(ignores = {"images"})
+@JSONType(ignores = {"images"})
 public class AnimationMetaData {
     private int number; // 编号
     private int frameCount; // 帧数

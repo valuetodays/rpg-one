@@ -1,7 +1,7 @@
 package billy.rpg.resource.animation;
 
 import billy.rpg.common.constant.ToolsConstant;
-import billy.rpg.common.exception.UnimplementationException;
+import billy.rpg.common.util.JsonUtil;
 import com.alibaba.fastjson.JSON;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -38,7 +39,9 @@ public class JsonAnimationSaverLoader implements AnimationSaverLoader {
     }
 
     @Override
-    public void save(String aniFilePath, AnimationMetaData animationMetaData) {
-        throw new UnimplementationException();
+    public void save(String aniFilePath, AnimationMetaData animationMetaData) throws IOException {
+        FileUtils.write(new File(aniFilePath),
+                JsonUtil.toPrettyJsonString(animationMetaData),
+                Charset.forName(ToolsConstant.CHARSET));
     }
 }

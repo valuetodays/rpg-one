@@ -124,7 +124,11 @@ public class AnimationEditorPanel extends JPanel {
         btnSave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                save2AniFile();
+                try {
+                    save2AniFile();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
             }
         });
         JButton btnLoad = new JButton("load");
@@ -496,7 +500,7 @@ public class AnimationEditorPanel extends JPanel {
     /**
      * save data to *.ani
      */
-    private void save2AniFile() {
+    private void save2AniFile() throws IOException {
         System.out.println("save ani to file start");
         String tfNumberText = tfNumber.getText();
         if (StringUtils.isEmpty(tfNumberText)) {
@@ -584,9 +588,7 @@ public class AnimationEditorPanel extends JPanel {
         g.drawRect(400, 0, 200, 200);
 
         if (!mShowList.isEmpty()) {
-            ListIterator<Key> iter = mShowList.listIterator();
-            while (iter.hasNext()) {
-                Key key = iter.next();
+            for (Key key : mShowList) {
                 int frameIndex = key.index;
                 int picIndex = frameDataArr[frameIndex].picNumber;
                 BufferedImage bufferedImage = picImageList.get(picIndex);
