@@ -66,6 +66,7 @@ public class AttributeScreen extends BaseScreen {
             int speedValueInEquip = shoe.getSpeed();
 
             RoleMetaData roleMetaData = fightable.getRoleMetaData();
+            // TODO 如下三个属性使用矩形画出来，并使用渐变色哦
             g.drawString(roleMetaData.getName() + " Lv " + roleMetaData.getLevel(), 210, 70 + i * 100);
             g.drawString("hp: " + roleMetaData.getHp() + "/" + roleMetaData.getMaxHp(), 180, 90 + i * 100);
             g.drawString("mp: " + roleMetaData.getMp() + "/" + roleMetaData.getMaxMp(), 180, 110 + i * 100);

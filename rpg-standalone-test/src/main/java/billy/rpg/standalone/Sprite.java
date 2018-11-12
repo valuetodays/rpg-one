@@ -11,7 +11,6 @@ public class Sprite {
     Image image; // 图像
 
     public void draw(Graphics g) {
-        System.out.println("draw sprite..");
         g.drawImage(image, drawPos.x, drawPos.y, null);
     }
 
