@@ -20,11 +20,12 @@ public class JsonAnimationSaverLoader implements AnimationSaverLoader {
         AnimationMetaData metaData = JSON.parseObject(s, AnimationMetaData.class);
         URL resource = getClass().getResource("/animation/" + metaData.getNumber());
         List<BufferedImage> images = IntStream.range(0, metaData.getImageCount()).mapToObj(e -> {
+            String path = null;
             try {
-                String path = resource.getPath() + "/" + e + ".png";
+                path = resource.getPath() + "/" + e + ".png";
                 return ImageIO.read(new File(path));
             } catch (IOException e1) {
-                e1.printStackTrace();
+                System.err.println("exception when read file: " + path);
             }
             return null;
         }).collect(Collectors.toList());
