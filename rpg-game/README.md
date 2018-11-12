@@ -140,7 +140,7 @@ ILoader
 #### 2018-11-08
     装备鞋子功能添加
     图像放大与缩小
-    TODO图像旋转
+    TODO 图像旋转
     文本工具类，用于显示“攻击力：100(+23)”的中+23是彩色的情况，用于个人属性查看
     https://www.java.com/en/java_in_action/alice.jsp
 
