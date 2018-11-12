@@ -1,18 +1,13 @@
 {
-	"frameCount":1,
+	"frameCount":7,
 	"frameData":[
-		 {"nShow":2, "picNumber":7, "show":4, "x":0, "y":0}
-		,{"nShow":1, "picNumber":8, "show":4, "x":0, "y":0}
-		,{"nShow":1, "picNumber":9, "show":6, "x":0, "y":0}
-		,{"nShow":1, "picNumber":11, "show":3, "x":0, "y":0}
-		,{"nShow":1, "picNumber":10, "show":3, "x":0, "y":0}
-		,{"nShow":1, "picNumber":12, "show":10, "x":-30, "y":0}
-		,{"nShow":1, "picNumber":12, "show":9, "x":-20, "y":0}
-		,{"nShow":1, "picNumber":12, "show":8, "x":-10, "y":0}
-		,{"nShow":6, "picNumber":12, "show":7, "x":0, "y":0}
-		,{"nShow":1, "picNumber":9, "show":3, "x":0, "y":0}
-		,{"nShow":1, "picNumber":8, "show":3, "x":0, "y":0}
-		,{"nShow":1, "picNumber":7, "show":3, "x":0, "y":0}
+		 {"nShow":2, "picNumber":7, "show":3, "x":0, "y":0}
+		,{"nShow":2, "picNumber":8, "show":5, "x":0, "y":0}
+		,{"nShow":3, "picNumber":9, "show":14, "x":0, "y":0}
+		,{"nShow":2, "picNumber":11, "show":5, "x":0, "y":0}
+		,{"nShow":2, "picNumber":10, "show":5, "x":0, "y":0}
+		,{"nShow":2, "picNumber":12, "show":5, "x":-30, "y":0}
+		,{"nShow":2, "picNumber":13, "show":5, "x":-20, "y":0}
 	],
 	"imageCount":14,
 	"number":10001
