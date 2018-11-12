@@ -105,7 +105,7 @@ public class AnimationEditorPanel extends JPanel {
         picsFileChooser.setFileFilter(filterPng);
         aniSaveFileChooser = new JFileChooser();
         aniSaveFileChooser.setCurrentDirectory(new File("."));
-        final FileFilter filterAniJson = new FileNameExtensionFilter( "ani.json file", "ani.json");
+        final FileFilter filterAniJson = new FileNameExtensionFilter( ".jani file", "jani");
         aniSaveFileChooser.setFileFilter(filterAniJson);
 
 
@@ -536,8 +536,8 @@ public class AnimationEditorPanel extends JPanel {
         if (result == JFileChooser.APPROVE_OPTION){
             File selectedFile = aniSaveFileChooser.getSelectedFile();
             String name = aniSaveFileChooser.getName(selectedFile);
-            if (!name.endsWith(".ani.json")) {
-                name += ".ani.json";
+            if (!name.endsWith(".jani")) {
+                name += ".jani";
             }
             AnimationMetaData amd = new AnimationMetaData();
             amd.setNumber(number);
