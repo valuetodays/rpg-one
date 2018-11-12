@@ -1,0 +1,14 @@
+{
+	"frameCount":7,
+	"frameData":[
+		 {"nShow":2, "picNumber":6, "show":3, "x":0, "y":0}
+		,{"nShow":2, "picNumber":7, "show":5, "x":0, "y":0}
+		,{"nShow":3, "picNumber":8, "show":14, "x":0, "y":0}
+		,{"nShow":2, "picNumber":10, "show":5, "x":0, "y":0}
+		,{"nShow":2, "picNumber":9, "show":5, "x":0, "y":0}
+		,{"nShow":2, "picNumber":11, "show":5, "x":-30, "y":0}
+		,{"nShow":2, "picNumber":12, "show":5, "x":-20, "y":0}
+	],
+	"imageCount":14,
+	"number":10001
+}

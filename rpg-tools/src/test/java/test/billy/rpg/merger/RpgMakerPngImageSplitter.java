@@ -22,9 +22,9 @@ public class RpgMakerPngImageSplitter {
         int xNumber = image.getWidth() / SPLIT_WIDTH; // 横方向的图片
         int yNumber = image.getHeight() / SPLIT_HEIGHT; // 纵方向的图片数
 
-        for (int i = 1; i <= xNumber*yNumber; i++) {
-            int offsetX = (i-1) % xNumber;
-            int offsetY = (i-1) / xNumber;
+        for (int i = 0; i < xNumber*yNumber; i++) {
+            int offsetX = (i) % xNumber;
+            int offsetY = (i) / xNumber;
             BufferedImage subimage = image.getSubimage(offsetX * SPLIT_WIDTH, offsetY * SPLIT_HEIGHT, SPLIT_WIDTH, SPLIT_HEIGHT);
             ImageIO.write(subimage, "PNG", new File(targetDirectory + "/subimage/" + i + ".png"));
         }

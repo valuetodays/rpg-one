@@ -11,7 +11,7 @@ public class JsonAnimationDataLoader extends AnimationDataLoader {
 
     @Override
     public String getFileExt() {
-        return ".ani.json";
+        return ".jani";
     }
 
     @Override
