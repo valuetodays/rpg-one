@@ -1,6 +1,7 @@
 package billy.rpg.resource.map;
 
 import billy.rpg.common.constant.ToolsConstant;
+import billy.rpg.common.exception.UnimplementationException;
 import com.alibaba.fastjson.JSON;
 import org.apache.commons.io.FileUtils;
 
@@ -14,8 +15,7 @@ import java.io.IOException;
 public class JsonMapSaverLoader implements MapSaverLoader {
     @Override
     public void save(String filepath, MapMetaData mapMetaData) throws IOException {
-        // TODO
-        throw new RuntimeException("未完成");
+        throw new UnimplementationException();
     }
 
     @Override

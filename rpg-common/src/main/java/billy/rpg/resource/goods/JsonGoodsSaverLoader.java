@@ -1,6 +1,7 @@
 package billy.rpg.resource.goods;
 
 import billy.rpg.common.constant.ToolsConstant;
+import billy.rpg.common.exception.UnimplementationException;
 import com.alibaba.fastjson.JSON;
 import org.apache.commons.io.FileUtils;
 
@@ -20,8 +21,7 @@ public class JsonGoodsSaverLoader implements GoodsSaverLoader {
      */
     @Override
     public void save(String filepath, GoodsMetaData goodsMetaData) {
-        // TODO
-        throw new RuntimeException("未完成");
+        throw new UnimplementationException();
     }
 
     /**

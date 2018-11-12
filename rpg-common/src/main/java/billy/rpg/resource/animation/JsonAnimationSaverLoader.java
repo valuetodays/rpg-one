@@ -1,8 +1,10 @@
 package billy.rpg.resource.animation;
 
 import billy.rpg.common.constant.ToolsConstant;
+import billy.rpg.common.exception.UnimplementationException;
 import com.alibaba.fastjson.JSON;
 import org.apache.commons.io.FileUtils;
+import org.apache.log4j.Logger;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -14,6 +16,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class JsonAnimationSaverLoader implements AnimationSaverLoader {
+    private final Logger logger = Logger.getLogger(getClass());
+
     @Override
     public AnimationMetaData load(String aniFilePath) throws IOException {
         String s = FileUtils.readFileToString(new File(aniFilePath), ToolsConstant.CHARSET);
@@ -25,7 +29,7 @@ public class JsonAnimationSaverLoader implements AnimationSaverLoader {
                 path = resource.getPath() + "/" + e + ".png";
                 return ImageIO.read(new File(path));
             } catch (IOException e1) {
-                System.err.println("exception when read file: " + path);
+                logger.error("exception when read file: " + path, e1);
             }
             return null;
         }).collect(Collectors.toList());
@@ -35,6 +39,6 @@ public class JsonAnimationSaverLoader implements AnimationSaverLoader {
 
     @Override
     public void save(String aniFilePath, AnimationMetaData animationMetaData) {
-        throw new RuntimeException("未完成");
+        throw new UnimplementationException();
     }
 }
