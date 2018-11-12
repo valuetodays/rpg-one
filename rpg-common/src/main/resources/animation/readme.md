@@ -1,5 +1,7 @@
 ﻿#### readme of animation
 
+图号以0开始；
+先使用json格式的动画文件，方便修改；
 
 1.ani 桃花飘飘
 2.ani rm 爆炸
