@@ -30,19 +30,24 @@ public class RelativeProgressFrame extends JFrame {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        g.setFont(new Font("宋体", Font.BOLD, 24));
-        g.drawString(getTitle(), 100, 50);
+        Graphics2D g2d = (Graphics2D)g;
+        g2d.setFont(new Font("宋体", Font.BOLD, 24));
+        g2d.drawString(getTitle(), 100, 50);
 
-        g.drawRect(100, 100, 500, 300);
+        g2d.drawRect(100, 100, 500, 300);
         int[] gray = new int[]{100, 100, 87, 75, 62, 50};
         int[] active = new int[]{100, 87, 75, 62, 50, 37};
         Color[] colors = new Color[]{Color.BLUE, Color.cyan, Color.GREEN, Color.RED, Color.ORANGE, Color.MAGENTA};
         for (int i = 0; i < gray.length; i++) {
-            g.setColor(Color.GRAY);
-            g.fillRect(100, 100 + i*30, gray[i] * 5, 20);
-            g.setColor(colors[i]);
-            g.fillRect(100, 100 + i*30, active[i] * 5, 20);
+            g2d.setColor(Color.GRAY);
+            g2d.fillRect(100, 100 + i*30, gray[i] * 5, 20);
+            g2d.setColor(colors[i]);
+            g2d.fillRect(100, 100 + i*30, active[i] * 5, 20);
         }
+        // 附加一个渐变矩形
+        GradientPaint gradientPaint = new GradientPaint(100, 180, Color.RED, 190, 200, Color.YELLOW);
+        g2d.setPaint(gradientPaint);
+        g2d.fillRect(100, 100 + gray.length*30, 90, 20);
     }
 
 }

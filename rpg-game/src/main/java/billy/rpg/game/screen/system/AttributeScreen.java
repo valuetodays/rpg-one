@@ -65,7 +65,16 @@ public class AttributeScreen extends BaseScreen {
             RoleMetaData roleMetaData = heroCharacter.getRoleMetaData();
             // TODO 如下三个属性使用矩形画出来，并使用渐变色哦
             g.drawString(roleMetaData.getName() + " Lv " + roleMetaData.getLevel(), 210, 70 + i * 100);
+            // 画矩形渐变血条 开始
             g.drawString("hp: " + roleMetaData.getHp() + "/" + roleMetaData.getMaxHp(), 180, 90 + i * 100);
+            g.setColor(Color.GRAY);
+            roleMetaData.setHp(roleMetaData.getMaxHp()/2);
+            g.fillRect(180, 90 + i*100, 300, 20); // 300是最大矩形的宽度
+            GradientPaint gradientPaint = new GradientPaint(180, 90 + i * 100, Color.YELLOW, 480, 90 + i * 100 + 20, Color.magenta);
+            ((Graphics2D)g).setPaint(gradientPaint);
+            g.fillRect(180, 90 + i* 100, (int)(roleMetaData.getHp()*1.0/roleMetaData.getMaxHp() * 300), 20);
+            // 画矩形渐变血条 结束
+
             g.drawString("mp: " + roleMetaData.getMp() + "/" + roleMetaData.getMaxMp(), 180, 110 + i * 100);
             String attackStr = "attack: " + roleMetaData.getAttack();
             if (attackValueInEquip > 0) {
