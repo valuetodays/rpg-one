@@ -10,7 +10,6 @@
     <packaging>jar</packaging>
     <artifactId>rpg-common</artifactId>
 
-
     <dependencies>
         <dependency>
             <groupId>commons-io</groupId>
