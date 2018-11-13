@@ -17,8 +17,8 @@ import billy.rpg.game.loader.animation.AnimationDataLoader;
 import billy.rpg.game.loader.animation.JsonAnimationDataLoader;
 import billy.rpg.game.loader.goods.GoodsDataLoader;
 import billy.rpg.game.loader.goods.JsonGoodsDataLoader;
-import billy.rpg.game.loader.map.JsonMapDataLoader;
 import billy.rpg.game.loader.map.MapDataLoader;
+import billy.rpg.game.loader.map.TmxMapDataLoader;
 import billy.rpg.game.resource.item.ScriptItem;
 import billy.rpg.game.screen.BaseScreen;
 import billy.rpg.game.screen.MapScreen;
@@ -182,7 +182,7 @@ public class GameContainer {
 
 
     private void loadMapData() throws Exception {
-        MapDataLoader ml = new JsonMapDataLoader();
+        MapDataLoader ml = new TmxMapDataLoader();
         ml.load();
         mapCollections = ml.getMapCollections();
     }

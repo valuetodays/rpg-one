@@ -152,6 +152,6 @@ ILoader
 #### 2018-11-12
     使用程序分割rmvx的图片
     json格式的动画文件的扩展名为.jani
-    TODO 使用渐变矩形画hp/mp/exp属性
+    [TODO] 使用渐变矩形画hp/mp/exp属性
     神龙护体特效的背景色有问题
     HeroCharacter和MonsterCharacter【是一个】Fighable！
