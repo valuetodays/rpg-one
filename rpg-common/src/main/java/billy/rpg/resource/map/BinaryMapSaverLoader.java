@@ -113,7 +113,7 @@ public class BinaryMapSaverLoader implements MapSaverLoader {
             int width = dis.readInt();
             LOG.debug("width `"+width+"` read");
             if (width < 20) {
-                throw new RuntimeException("error: ["+mapFilePath+"] map width less than 15.");
+                throw new RuntimeException("error: ["+mapFilePath+"] map width less than 20.");
             }
             mapMetaData.setWidth(width);
             final int layersSize = dis.readInt();

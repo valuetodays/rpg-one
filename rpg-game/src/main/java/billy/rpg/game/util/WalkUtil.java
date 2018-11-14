@@ -14,7 +14,7 @@ import java.util.List;
  * 判断下一步是否可行走
  */
 public class WalkUtil {
-    private static final int WALK_YES = 1;
+    private static final int WALK_YES = 2;
     public static final int WALK_NO = 0;
     
     /**

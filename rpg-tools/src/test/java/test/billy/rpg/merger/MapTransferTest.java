@@ -10,6 +10,7 @@ import freemarker.template.TemplateExceptionHandler;
 import org.junit.Test;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
@@ -24,13 +25,19 @@ public class MapTransferTest {
     @Test
     public void testTransfer() throws IOException, TemplateException {
         String basePath = ("D:\\tmp\\fmj\\map");
-
-        String ori = basePath + "/无机阁1.map";
-        String dst = basePath + "/无机阁1.jmap";
-        MapTransfer.transferAsMapFile(ori, dst);
-        String dstTmx = basePath + "/";
-        MapMetaData mapMetaData = new BinaryMapSaverLoader().load(dst);
-        writeAsTmxFile(mapMetaData, dstTmx);
+        File[] files = new File(basePath).listFiles(pathname -> pathname.getName().endsWith(".map"));
+        for (File file : files) {
+            String ori = basePath + "/" + file.getName();
+            String dst = basePath + "/" + file.getName() + "j";
+            MapTransfer.transferAsMapFile(ori, dst);
+            String dstTmx = basePath + "/";
+            try {
+                MapMetaData mapMetaData = new BinaryMapSaverLoader().load(dst);
+                writeAsTmxFile(mapMetaData, dstTmx);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
 
     }
     private void writeAsTmxFile(MapMetaData mapMetaData, String dstTmxDirectory) throws IOException, TemplateException {
@@ -38,7 +45,7 @@ public class MapTransferTest {
         cfg.setClassForTemplateLoading(getClass(), "/freemarkertemplates");
         cfg.setDefaultEncoding("UTF-8");
         cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
-        FileWriter fileWriter = new FileWriter(dstTmxDirectory + mapMetaData.getMapId().replace(".jmap", ".tmx"));
+        FileWriter fileWriter = new FileWriter(dstTmxDirectory + mapMetaData.getMapId().replace(".mapj", ".tmx"));
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
         Map<String, Object> context = new HashMap<>();
         context.put("map", mapMetaData);
@@ -80,9 +87,9 @@ public class MapTransferTest {
                     val = 0; // 不可行走
                 }
                 if ( y == width -1 && xk == height-1) {
-                    walkLayerStr += (val + 1);
+                    walkLayerStr += (val);
                 } else {
-                    walkLayerStr += (val + 1 + ", ");
+                    walkLayerStr += (val + ", ");
                 }
             }
             walkLayerStr += "\n";
