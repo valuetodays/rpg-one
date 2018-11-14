@@ -40,7 +40,9 @@ public abstract class MapDataLoader {
             throw new RuntimeException("cannot find " + getFileExt() + " in " + dir);
         }
 
-        logger.debug(files);
+        for (File tmp : files) {
+            logger.debug(tmp);
+        }
 
         for (File mapFile : files) {
             MapMetaData mapMetaData = getSaverLoader().load(mapFile.getPath());

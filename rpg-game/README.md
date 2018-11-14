@@ -128,7 +128,7 @@ ILoader
     
 #### 2018-10-16
     将*.map的二进制文件转换成json文件，方便使用
-    [TODO] 使用Tiled来创建地图
+    使用Tiled来创建地图 （见2018-11-14）
     
 #### 2018-11-03
     设置 -> 系统 -> 显示装备
@@ -155,3 +155,7 @@ ILoader
     [TODO] 使用渐变矩形画hp/mp/exp属性
     神龙护体特效的背景色有问题
     HeroCharacter和MonsterCharacter【是一个】Fighable！
+#### 2018-11-14
+    https://github.com/bjorn/tiled/tree/master/util/java/libtiled-java的bug：地图文件在/map目录下，图块在/tile目录下，tsx文件也在/tile目录下，一个map文件关联到../tile/1.tsx，但这个map在读取tsx关联和png文件里，却是从/map目录取而非tsx的相对目录。
+    使用Tiled来创建地图，但是地图层只保留两层：bgLayer和walkLayer；同时原有的MapEditor已无效了。^\_^|||
+    使用Freemarker转换bbk a rpg地图数据 -> 原地图数据 -> TMX

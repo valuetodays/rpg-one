@@ -1,12 +1,7 @@
 package billy.rpg.game.container;
 
-import billy.rpg.common.constant.MapEditorConstant;
 import billy.rpg.game.GameFrame;
-import billy.rpg.game.character.walkable.BoxWalkableCharacter;
 import billy.rpg.game.character.walkable.HeroWalkableCharacter;
-import billy.rpg.game.character.walkable.TransferWalkableCharacter;
-import billy.rpg.game.character.walkable.npc.CommonNPCWalkableCharacter;
-import billy.rpg.game.character.walkable.npc.NPCWalkableCharacter;
 import billy.rpg.game.constants.WalkableConstant;
 import billy.rpg.game.item.*;
 import billy.rpg.game.loader.LevelDataLoader;
@@ -237,6 +232,7 @@ public class GameContainer {
         activeScriptItem.getHero().setDirection(oldDirection);
         activeScriptItem.initNpcs();
         // 添加 npc start
+        /*
         int[][] npcLayer = getActiveMap().getNpcLayer();
         for (int i = 0; i < getActiveMap().getWidth(); i++) {
             for (int j = 0; j < getActiveMap().getHeight(); j++) {
@@ -250,29 +246,8 @@ public class GameContainer {
                     activeScriptItem.getNpcs().add(npc);
                 }
             }
-        }
+        }*/
         // 添加 npc end
-
-        // 添加 transfer/box start
-        activeScriptItem.initTransfers();
-        activeScriptItem.initBoxes();
-        int[][] eventLayer = getActiveMap().getEvent();
-        for (int i = 0; i < getActiveMap().getWidth(); i++) {
-            for (int j = 0; j < getActiveMap().getHeight(); j++) {
-                int tileNum = eventLayer[i][j];
-                if (tileNum <= 0xff && tileNum >= 0xef) { // transfer
-                    TransferWalkableCharacter transfer = new TransferWalkableCharacter();
-                    transfer.initPos(i, j);
-                    activeScriptItem.getTransfers().add(transfer);
-                } else if (tileNum == 0xee || tileNum == 0xed) { // open-box & closed-box
-                    BoxWalkableCharacter box = new BoxWalkableCharacter(tileNum);
-                    box.initPos(i, j);
-                    activeScriptItem.getBoxes().add(box);
-                }
-
-            }
-        }
-        // 添加 transfer/box end
 
 //        executePrimary();
     }
@@ -287,6 +262,9 @@ public class GameContainer {
     
     public void changeActiveMapItemTo(int m, int n) {
         activeMap = mapCollections.get(m + "-" + n);
+        if (activeMap == null) {
+            throw new NullPointerException("map not found: " + m + "-" + n);
+        }
    }
     
     

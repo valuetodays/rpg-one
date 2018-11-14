@@ -1,6 +1,5 @@
 package billy.rpg.mapeditor;
 
-import billy.rpg.common.constant.MapEditorConstant;
 import billy.rpg.common.constant.ToolsConstant;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
@@ -79,7 +78,7 @@ public class MapTransfer {
             dos.writeInt(width);
             LOG.debug("width `"+width+"` written");
 
-            int layersSize = 5;
+            int layersSize = 2;
             dos.writeInt(layersSize);
             LOG.debug("layer'size `"+ layersSize +"` written");
 
@@ -100,7 +99,7 @@ public class MapTransfer {
                     //}
                 }
             }
-
+/*
             // npc layer
             for (int w = 0; w < width; w++) {
                 for (int h = 0; h < height; h++) {
@@ -114,9 +113,9 @@ public class MapTransfer {
                         }
                     //}
                 }
-            }
+            }*/
 
-
+/*
             // fg layer
             for (int w = 0; w < width; w++) {
                 for (int h = 0; h < height; h++) {
@@ -130,7 +129,7 @@ public class MapTransfer {
                         }
                    // }
                 }
-            }
+            }*/
 
             // walk layer
             for (int x = 0; x < width; x++) {
@@ -152,7 +151,7 @@ public class MapTransfer {
                    // }
                 }
             }
-
+/*
             // event number
             for (int x = 0; x < width; x++) {
                 for (int y = 0; y < height; y++) {
@@ -168,7 +167,7 @@ public class MapTransfer {
                         }
                     //}
                 }
-            }
+            }*/
             IOUtils.closeQuietly(dos);
             IOUtils.closeQuietly(fos);
         } catch (IOException e) {
@@ -180,4 +179,6 @@ public class MapTransfer {
 
         LOG.debug("ends");
     }
+
+
 }

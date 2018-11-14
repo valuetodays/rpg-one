@@ -83,23 +83,12 @@ public class MapMetaData {
         this.mapId = mapId;
     }
 
-
-    public int[][] getEvent() {
-        return layers.get(4);
-    }
-
-    public int[][] getNpcLayer() {
-        return layers.get(1);
-    }
-
     public int[][] getBgLayer() {
         return layers.get(0);
     }
-    public int[][] getFgLayer() {
-        return layers.get(2);
-    }
+
     public int[][] getWalk() {
-        return layers.get(3);
+        return layers.get(1);
     }
 
 }

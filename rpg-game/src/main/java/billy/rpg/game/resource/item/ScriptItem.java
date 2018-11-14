@@ -250,18 +250,7 @@ public class ScriptItem {
             return;
         }
 
-        int[][] event = GameContainer.getInstance().getActiveMap().getEvent();
-        int eventNum = event[heroNextPosXInFullMap][heroNextPosYInFullMap];
-        if (eventNum == -1) {
-            return;
-        }
-        triggerBean = getTriggerByNum(eventNum);
-        if (triggerBean != null) {
-            executeTrigger(triggerBean);
-            return;
-        }
     }
-
 
     public void init(List<CmdBase> cmdList) {
         this.cmdList = cmdList;

@@ -1,20 +1,16 @@
 package billy.rpg.game.screen;
 
 import billy.rpg.common.constant.ToolsConstant;
+import billy.rpg.common.util.DrawUtil;
 import billy.rpg.game.GameCanvas;
 import billy.rpg.game.GameFrame;
-import billy.rpg.game.character.walkable.BoxWalkableCharacter;
 import billy.rpg.game.character.walkable.HeroWalkableCharacter;
-import billy.rpg.game.character.walkable.TransferWalkableCharacter;
-import billy.rpg.game.character.walkable.npc.NPCWalkableCharacter;
 import billy.rpg.game.command.processor.CmdProcessor;
 import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.resource.item.ScriptItem;
 import billy.rpg.game.script.variable.VariableTableDeterminer;
 import billy.rpg.game.util.KeyUtil;
-import billy.rpg.resource.box.BoxImageLoader;
 import billy.rpg.resource.map.MapMetaData;
-import billy.rpg.resource.npc.NPCImageLoader;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -69,12 +65,10 @@ public class MapScreen extends BaseScreen {
                     int y = tileNum / ToolsConstant.TILE_NUM_ONE_LINE;
                     int x = tileNum % ToolsConstant.TILE_NUM_ONE_LINE;
                     //logger.debug("bgLayer---------------");
-                    g2.drawImage(tileImg,
+                    DrawUtil.drawSubImage(g2, tileImg,
                             (i - offsetTileX) * 32, (j - offsetTileY) * 32,
-                            (i - offsetTileX) * 32 + 32, (j - offsetTileY) * 32 + 32,
-                            x * 32, y * 32,
-                            x * 32 + 32, y * 32 + 32,
-                            null);
+                            x * 32, y*32,
+                            GameConstant.GAME_TILE_WIDTH, GameConstant.GAME_TILE_HEIGHT);
                 }
             }
         } // end of for
@@ -82,12 +76,12 @@ public class MapScreen extends BaseScreen {
 
         //////// draw role & npc start
         final Image roleFull1 = GameFrame.getInstance().getGameContainer().getRoleItem().getRoleFull1();
-        g2.drawImage(roleFull1, (posX)*32, (posY)*32,
-                (posX)*32 + 32, (posY)*32 + 32,
+        DrawUtil.drawSubImage(g2, roleFull1,
+                (posX)*32, (posY)*32,
                 hero.getCurFrame()*32, hero.getDirection().getValue()*32,
-                hero.getCurFrame()*32 + 32, hero.getDirection().getValue()*32 + 32, null);
+                GameConstant.GAME_TILE_WIDTH, GameConstant.GAME_TILE_HEIGHT);
 
-        NPCImageLoader npcImageLoader = GameFrame.getInstance().getGameContainer().getNpcImageLoader();
+        /*NPCImageLoader npcImageLoader = GameFrame.getInstance().getGameContainer().getNpcImageLoader();
         ScriptItem active = GameFrame.getInstance().getGameContainer().getActiveScriptItem();
         java.util.List<NPCWalkableCharacter> npcs = active.getNpcs();
         for (NPCWalkableCharacter npc : npcs) {
@@ -101,8 +95,8 @@ public class MapScreen extends BaseScreen {
                     (posX1-offsetTileX)*32 + 32, (posY1-offsetTileY)*32 + 32,
                     curFrame*32, direction*32,
                     curFrame*32 + 32, direction*32 + 32, null);
-        }
-        BoxImageLoader boxImageLoader = GameFrame.getInstance().getGameContainer().getBoxImageLoader();
+        }*/
+        /*BoxImageLoader boxImageLoader = GameFrame.getInstance().getGameContainer().getBoxImageLoader();
         java.util.List<BoxWalkableCharacter> boxes = active.getBoxes();
         for (BoxWalkableCharacter box : boxes) {
             box.move(this); // TODO box需要move?
@@ -111,11 +105,11 @@ public class MapScreen extends BaseScreen {
             int tileNum = box.getTileNum();
             BufferedImage boxImage = boxImageLoader.getImageOf(tileNum);
             g2.drawImage(boxImage, (posX1-offsetTileX)*32, (posY1-offsetTileY)*32, null);
-        }
+        }*/
         //////// draw role & npc end
 
         //////// draw fgLayer start
-        final int[][] layer3 = activeMap.getFgLayer();
+        /*final int[][] layer3 = activeMap.getFgLayer();
         for (int i = offsetTileX; i < offsetTileX + GameConstant.Game_TILE_X_NUM; i++) {
             for (int j = offsetTileY; j < offsetTileY + GameConstant.Game_TILE_Y_NUM; j++) {
                 int tileNum = layer3[i][j];
@@ -130,12 +124,12 @@ public class MapScreen extends BaseScreen {
                             null);
                 }
             }
-        } // end of for
+        } */ // end of for
         //////// draw fgLayer end
 
 
         //////// draw event start
-        final Image transferImage = GameFrame.getInstance().getGameContainer().getGameAboutItem().getGameTransfer();
+       /* final Image transferImage = GameFrame.getInstance().getGameContainer().getGameAboutItem().getGameTransfer();
         java.util.List<TransferWalkableCharacter> transfers = active.getTransfers();
         for (TransferWalkableCharacter transfer : transfers) {
             transfer.move(this);
@@ -146,7 +140,7 @@ public class MapScreen extends BaseScreen {
                     (posX1-offsetTileX)*32 + 32, (posY1-offsetTileY)*32 + 32,
                     0, curFrame*32,
                     32, curFrame*32 + 32, null);
-        }
+        }*/
         //////// draw event end
 
         String mapName = GameFrame.getInstance().getGameContainer().getActiveMap().getName();
