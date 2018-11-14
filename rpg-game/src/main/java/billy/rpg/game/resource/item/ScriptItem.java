@@ -218,7 +218,7 @@ public class ScriptItem {
      * 检测地图上的对话，顺序为
      * <ol>
      *     <li>若地图上有npc，就执行npc事件</li>
-     *     <li>若地图上有事件，就执行事件</li>
+     *     <li>若地图上有传送门，就执行传送门事件</li>
      * </ol>
      */
     private void checkTrigger0() {
@@ -230,12 +230,32 @@ public class ScriptItem {
             return;
         }
         TriggerBean triggerBean = null;
-        List<NPCWalkableCharacter> npcs = GameFrame.getInstance().getGameContainer().getActiveScriptItem().getNpcs();
+        ScriptItem activeScriptItem = GameFrame.getInstance().getGameContainer().getActiveScriptItem();
+        List<NPCWalkableCharacter> npcs = activeScriptItem.getNpcs();
         for (NPCWalkableCharacter npc : npcs) {
             int npcPosX = npc.getPosX();
             int npcPosY = npc.getPosY();
             if (heroNextPosXInFullMap == npcPosX && heroNextPosYInFullMap == npcPosY) {
                 int number = npc.getNumber();
+                if (0 != number) {
+                    TriggerBean talkByNum = getTriggerByNum(number);
+                    if (talkByNum != null) {
+                        triggerBean = talkByNum;
+                        break;
+                    }
+                }
+            }
+        }
+        if (triggerBean != null) {
+            executeTrigger(triggerBean);
+            return;
+        }
+        List<TransferWalkableCharacter> transfers = activeScriptItem.getTransfers();
+        for (TransferWalkableCharacter transfer : transfers) {
+            int npcPosX = transfer.getPosX();
+            int npcPosY = transfer.getPosY();
+            if (heroNextPosXInFullMap == npcPosX && heroNextPosYInFullMap == npcPosY) {
+                int number = transfer.getNumber();
                 if (0 != number) {
                     TriggerBean talkByNum = getTriggerByNum(number);
                     if (talkByNum != null) {

@@ -26,8 +26,8 @@ public class MapTransferTest {
         String basePath = ("D:\\tmp\\fmj\\map");
 
         String ori = basePath + "/百草地.map";
-        String dst = basePath + "/百草地_out.map";
-        MapTransfer.transfer(ori, dst);
+        String dst = basePath + "/百草地.jmap";
+        MapTransfer.transferAsMapFile(ori, dst);
         String dstTmx = basePath + "/";
         MapMetaData mapMetaData = new BinaryMapSaverLoader().load(dst);
         writeAsTmxFile(mapMetaData, dstTmx);
@@ -38,7 +38,7 @@ public class MapTransferTest {
         cfg.setClassForTemplateLoading(getClass(), "/freemarkertemplates");
         cfg.setDefaultEncoding("UTF-8");
         cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
-        FileWriter fileWriter = new FileWriter(dstTmxDirectory + mapMetaData.getMapId() + ".tmx");
+        FileWriter fileWriter = new FileWriter(dstTmxDirectory + mapMetaData.getMapId().replace(".jmap", ".tmx"));
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
         Map<String, Object> context = new HashMap<>();
         context.put("map", mapMetaData);

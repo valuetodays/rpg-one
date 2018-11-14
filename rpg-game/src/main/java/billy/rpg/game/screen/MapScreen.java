@@ -5,12 +5,14 @@ import billy.rpg.common.util.DrawUtil;
 import billy.rpg.game.GameCanvas;
 import billy.rpg.game.GameFrame;
 import billy.rpg.game.character.walkable.HeroWalkableCharacter;
+import billy.rpg.game.character.walkable.TransferWalkableCharacter;
 import billy.rpg.game.command.processor.CmdProcessor;
 import billy.rpg.game.constants.GameConstant;
 import billy.rpg.game.resource.item.ScriptItem;
 import billy.rpg.game.script.variable.VariableTableDeterminer;
 import billy.rpg.game.util.KeyUtil;
 import billy.rpg.resource.map.MapMetaData;
+import billy.rpg.resource.npc.NPCImageLoader;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -81,9 +83,9 @@ public class MapScreen extends BaseScreen {
                 hero.getCurFrame()*32, hero.getDirection().getValue()*32,
                 GameConstant.GAME_TILE_WIDTH, GameConstant.GAME_TILE_HEIGHT);
 
-        /*NPCImageLoader npcImageLoader = GameFrame.getInstance().getGameContainer().getNpcImageLoader();
+        NPCImageLoader npcImageLoader = GameFrame.getInstance().getGameContainer().getNpcImageLoader();
         ScriptItem active = GameFrame.getInstance().getGameContainer().getActiveScriptItem();
-        java.util.List<NPCWalkableCharacter> npcs = active.getNpcs();
+        /*java.util.List<NPCWalkableCharacter> npcs = active.getNpcs();
         for (NPCWalkableCharacter npc : npcs) {
             npc.move(this);
             int posX1 = npc.getPosX();
@@ -129,18 +131,19 @@ public class MapScreen extends BaseScreen {
 
 
         //////// draw event start
-       /* final Image transferImage = GameFrame.getInstance().getGameContainer().getGameAboutItem().getGameTransfer();
+       final Image transferImage = GameFrame.getInstance().getGameContainer().getGameAboutItem().getGameTransfer();
         java.util.List<TransferWalkableCharacter> transfers = active.getTransfers();
         for (TransferWalkableCharacter transfer : transfers) {
             transfer.move(this);
             int curFrame = transfer.getCurFrame();
             int posX1 = transfer.getPosX();
             int posY1 = transfer.getPosY();
+            // TODO use DrawUtil
             g2.drawImage(transferImage, (posX1-offsetTileX)*32, (posY1-offsetTileY)*32,
                     (posX1-offsetTileX)*32 + 32, (posY1-offsetTileY)*32 + 32,
                     0, curFrame*32,
                     32, curFrame*32 + 32, null);
-        }*/
+        }
         //////// draw event end
 
         String mapName = GameFrame.getInstance().getGameContainer().getActiveMap().getName();

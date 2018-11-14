@@ -5,7 +5,7 @@ scenename '百草地'
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @  用于测试
 createnpc 14 8 10 15 1
-@createtransfer 14 5
+createtransfer 201 2 4
 set 30
 set 1
 set 2
@@ -102,7 +102,8 @@ return
 
 百草地西:
 @if 1 先见师傅吧
-loadmap 1 3 14 9 12 0
+say 1 'sss' LEFT '测试能否显示'
+@loadmap 1 3 14 9 12 0
 return
 
 
@@ -138,3 +139,5 @@ trigger 101 玉兰草
 trigger 102 钨龙剑
 
 trigger 14 testForAll
+
+trigger 201 百草地西

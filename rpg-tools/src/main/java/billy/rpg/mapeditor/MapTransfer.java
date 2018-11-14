@@ -18,7 +18,7 @@ public class MapTransfer {
     private static final String MAP_HEADER = ToolsConstant.MAGIC_MAP;
     private static final String CHARSET = ToolsConstant.CHARSET;
 
-    public static void transfer(String ori, String dst) {
+    public static void transferAsMapFile(String ori, String dst) {
         LOG.debug("starts");
 
         File oriFile = new File(ori);

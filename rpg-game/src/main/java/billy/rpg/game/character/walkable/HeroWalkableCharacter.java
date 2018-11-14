@@ -32,8 +32,8 @@ public class HeroWalkableCharacter extends WalkableCharacter {
     @Override
     public int getNextPosX() {
         int mapWidth = GameFrame.getInstance().getGameContainer().getActiveMap().getWidth();
-        return originalPosX + ((direction == PositionEnum.LEFT && originalPosX > 0) ? -1 :
-                ((originalDirection == PositionEnum.RIGHT && (originalPosX) < mapWidth - 1) ? 1 : 0)
+        return getPosX() + ((direction == PositionEnum.LEFT && getPosX() > 0) ? -1 :
+                ((direction == PositionEnum.RIGHT && (getPosX()) < mapWidth - 1) ? 1 : 0)
         );
     }
 
@@ -45,8 +45,8 @@ public class HeroWalkableCharacter extends WalkableCharacter {
     @Override
     public int getNextPosY() {
         int mapHeight = GameFrame.getInstance().getGameContainer().getActiveMap().getHeight();
-        return originalPosY + ((direction == PositionEnum.UP && originalPosY > 0) ? -1 :
-                ((originalDirection == PositionEnum.DOWN && (originalPosY) < mapHeight - 1) ? 1 : 0)
+        return getPosY() + ((direction == PositionEnum.UP && getPosY() > 0) ? -1 :
+                ((direction == PositionEnum.DOWN && (getPosY()) < mapHeight - 1) ? 1 : 0)
         );
     }
 
@@ -279,7 +279,7 @@ public class HeroWalkableCharacter extends WalkableCharacter {
     @Override
     public String toString() {
         return "[posX=" + getPosX() + ", posY=" + getPosY() + ", nextPosX="
-                + getNextPosX() + ", nextPosY=" + getNextPosY() + ",dir=" + getDirection() + "]";
+                + getNextPosX() + ", nextPosY=" + getNextPosY() + ",dir=" + getDirection() + ",preDir="+originalDirection+"]";
     }
 
 }

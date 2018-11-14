@@ -14,19 +14,22 @@ import java.util.List;
  * @since 2018-09-28 16:44:42
  */
 public class CreateTransferCmd extends CmdBase {
+    private int objId;
     private int x;
     private int y;
 
     @Override
     public void init() {
         List<String> arguments = super.getArguments();
-        x = Integer.parseInt(arguments.get(0));
-        y = Integer.parseInt(arguments.get(1));
+        objId = Integer.parseInt(arguments.get(0));
+        x = Integer.parseInt(arguments.get(1));
+        y = Integer.parseInt(arguments.get(2));
     }
 
     @Override
     public int execute(CmdProcessor cmdProcessor) {
         TransferWalkableCharacter transfer = new TransferWalkableCharacter();
+        transfer.setNumber(objId);
         transfer.initPos(x, y);
         ScriptItem activeScriptItem = GameContainer.getInstance().getActiveScriptItem();
         activeScriptItem.getTransfers().add(transfer);
@@ -35,11 +38,11 @@ public class CreateTransferCmd extends CmdBase {
 
     @Override
     public String getUsage() {
-        return "createtransfer x y";
+        return "createtransfer objId x y";
     }
 
     @Override
     public int getArgumentSize() {
-        return 2;
+        return 3;
     }
 }
