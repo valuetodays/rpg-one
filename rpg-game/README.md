@@ -160,3 +160,5 @@ ILoader
     使用Tiled来创建地图，但是地图层只保留两层：bgLayer和walkLayer；同时原有的MapEditor已无效了。^\_^|||
     使用Freemarker转换bbk a rpg地图数据 -> 原地图数据 -> TMX
     地图只用于显示地图和行走层，不用于控制传送门和npc和宝箱，因为使用了TMX
+    TODO TAB切换大地图上的玩家人设
+    TODO 离开地图后要清空传送门
