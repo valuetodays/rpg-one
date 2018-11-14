@@ -2,10 +2,20 @@ attr 1 1
 scenename '百草地'
 @ monsters 51
 
+@ 地图上的trigger共有如下几种：
+@  传送门
+@  npc
+@  透明宝箱
+@  宝箱
+
+createtransfer 201 0 4
+createtransfer 201 0 3
+createtransfer 202 23 11
+createtransfer 202 23 12
+
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @  用于测试
 createnpc 14 8 10 15 1
-createtransfer 201 2 4
 set 30
 set 1
 set 2
@@ -93,7 +103,7 @@ return
 
 
 三清宫:
-loadmap 1 2 6 6 0 0
+loadmap 1 2 1 6 0 0
 return
 
 先见师傅吧:
@@ -132,12 +142,10 @@ say 2 '师弟' NONE '师兄，原来你在这啊，师父找不到你，正在�
 buy 1 2 3 4 5
 return
 
-trigger 1 三清宫
-trigger 2 百草地西
-
 trigger 101 玉兰草
 trigger 102 钨龙剑
 
 trigger 14 testForAll
 
 trigger 201 百草地西
+trigger 202 三清宫

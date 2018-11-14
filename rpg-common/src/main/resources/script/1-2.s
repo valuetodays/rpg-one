@@ -1,5 +1,8 @@
 attr 1 2
 
+createtransfer 201 0 6
+createtransfer 202 22 8
+
 createnpc 11 8 3 2 1
 createnpc 12 12 5 2 1
 createnpc 13 13 9 2 1
@@ -16,7 +19,7 @@ return
 
 去百草地:
 if 31 要下山
-loadmap 1 1 14 12 4 0
+loadmap 1 1 18 12 4 0
 return
 
 要下山:
@@ -100,11 +103,18 @@ say 3 '孙师弟' LEFT '师兄，来点儿什么 药药药'
 buy 1 2 3 4 5 6
 return
 
+无机阁:
+loadmap 1 100 10 13 4 9
+return
+
+trigger 201 去百草地
+trigger 202 无机阁
 
 trigger 1 下山
-trigger 2 去百草地
 trigger 11 师傅
 trigger 12 游人1
 trigger 13 老王
+
+
 
 trigger 14 药房孙师弟

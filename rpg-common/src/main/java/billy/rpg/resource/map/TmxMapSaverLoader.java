@@ -44,7 +44,8 @@ public class TmxMapSaverLoader implements MapSaverLoader {
             mapMetaData.setHeight(height);
             mapMetaData.setWidth(width);
             mapMetaData.setLayers(layers);
-            mapMetaData.setTileId(mapTmx.getTileSets().get(0).getName() + ".png" );
+            String tilebmpFile = mapTmx.getTileSets().get(0).getTilebmpFile();
+            mapMetaData.setTileId(new File(tilebmpFile).getName());
             mapMetaData.setMapId(file.getName().replace(".tmx", ""));
             return mapMetaData;
         } catch (Exception e) {

@@ -8,6 +8,7 @@ import billy.rpg.game.character.walkable.HeroWalkableCharacter;
 import billy.rpg.game.character.walkable.TransferWalkableCharacter;
 import billy.rpg.game.command.processor.CmdProcessor;
 import billy.rpg.game.constants.GameConstant;
+import billy.rpg.game.constants.WalkableConstant;
 import billy.rpg.game.resource.item.ScriptItem;
 import billy.rpg.game.script.variable.VariableTableDeterminer;
 import billy.rpg.game.util.KeyUtil;
@@ -52,9 +53,12 @@ public class MapScreen extends BaseScreen {
         int posY = hero.getPosY();
         GameFrame.getInstance().setTitle("offset x/y="+ offsetTileX + "/" + offsetTileY + hero.toString());
 
-        final Image bgImage1 = GameFrame.getInstance().getGameContainer().getBgImageItem().getBgImage1();
-        g2.drawImage(bgImage1, 0, 0, bgImage1.getWidth(null), bgImage1.getHeight(null), null);  // draw bgImage
-        
+        {
+            final Image bgImage1 = GameFrame.getInstance().getGameContainer().getBgImageItem().getBgImage1();
+            g2.drawImage(bgImage1, 0, 0, bgImage1.getWidth(null), bgImage1.getHeight(null), null);  // draw bgImage
+        }
+
+
         final MapMetaData activeMap = GameFrame.getInstance().getGameContainer().getActiveMap();
         
         //////// draw bgLayer start
@@ -160,18 +164,29 @@ public class MapScreen extends BaseScreen {
     @Override
     public void onKeyDown(int key) {
         ScriptItem active = GameFrame.getInstance().getGameContainer().getActiveScriptItem();
-        active.checkTrigger(); // 检查触发器
         active.checkMonster();
-        active.toCheckTrigger(); // 设置下一步要检查触发器
         HeroWalkableCharacter hero = active.getHero();
         if (KeyUtil.isLeft(key)) {
-            hero.decreaseX(this);
+            hero.setDirection(WalkableConstant.PositionEnum.LEFT);
         } else if (KeyUtil.isRight(key)) {
-            hero.increaseX(this);
+            hero.setDirection(WalkableConstant.PositionEnum.RIGHT);
         } else if (KeyUtil.isUp(key)) {
-            hero.decreaseY(this);
+            hero.setDirection(WalkableConstant.PositionEnum.UP);
         } else if (KeyUtil.isDown(key)) {
-            hero.increaseY(this);
+            hero.setDirection(WalkableConstant.PositionEnum.DOWN);
+        }
+        // TODO 在大地图上显示say命令后，窗口会一闪而过，可试着把checkTrigger()移到onKeyUp()中
+        if (!active.checkTrigger()) { // 检查触发器
+            active.toCheckTrigger(); // 设置下一步要检查触发器
+            if (KeyUtil.isLeft(key)) {
+                hero.decreaseX(this);
+            } else if (KeyUtil.isRight(key)) {
+                hero.increaseX(this);
+            } else if (KeyUtil.isUp(key)) {
+                hero.decreaseY(this);
+            } else if (KeyUtil.isDown(key)) {
+                hero.increaseY(this);
+            }
         }
     }
 

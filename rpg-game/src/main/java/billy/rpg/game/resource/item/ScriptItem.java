@@ -183,12 +183,13 @@ public class ScriptItem {
         checkTriggerFlag = true;
     }
 
-    public void checkTrigger() {
-        if (!checkTriggerFlag) {
-            return ;
-        }
-        checkTrigger0();
-        checkTriggerFlag = false;
+    public boolean checkTrigger() {
+//        if (!checkTriggerFlag) {
+//            return false;
+//        }
+        boolean flag = checkTrigger0();
+//        checkTriggerFlag = false;
+        return flag;
     }
 
 
@@ -219,18 +220,21 @@ public class ScriptItem {
      * <ol>
      *     <li>若地图上有npc，就执行npc事件</li>
      *     <li>若地图上有传送门，就执行传送门事件</li>
+     *     <li>若地图上有宝箱，就执行宝箱事件</li>
      * </ol>
+     * 返回true说明有事件，主角就不变动了
      */
-    private void checkTrigger0() {
+    private boolean checkTrigger0() {
         MapScreen mapScreen = GameFrame.getInstance().getGameContainer().getMapScreen();
         HeroWalkableCharacter mm = GameContainer.getInstance().getActiveScriptItem().getHero();
         int heroNextPosXInFullMap = mm.getNextPosX() + mapScreen.getOffsetTileX();
         int heroNextPosYInFullMap = mm.getNextPosY() + mapScreen.getOffsetTileY();
         if (heroNextPosXInFullMap == -1 && heroNextPosYInFullMap == -1) { // a new map, not check talk
-            return;
+            return true;
         }
         TriggerBean triggerBean = null;
         ScriptItem activeScriptItem = GameFrame.getInstance().getGameContainer().getActiveScriptItem();
+        // npc事件
         List<NPCWalkableCharacter> npcs = activeScriptItem.getNpcs();
         for (NPCWalkableCharacter npc : npcs) {
             int npcPosX = npc.getPosX();
@@ -248,8 +252,9 @@ public class ScriptItem {
         }
         if (triggerBean != null) {
             executeTrigger(triggerBean);
-            return;
+            return true;
         }
+        // 传送门事件
         List<TransferWalkableCharacter> transfers = activeScriptItem.getTransfers();
         for (TransferWalkableCharacter transfer : transfers) {
             int npcPosX = transfer.getPosX();
@@ -267,9 +272,9 @@ public class ScriptItem {
         }
         if (triggerBean != null) {
             executeTrigger(triggerBean);
-            return;
+            return true;
         }
-
+        return false;
     }
 
     public void init(List<CmdBase> cmdList) {

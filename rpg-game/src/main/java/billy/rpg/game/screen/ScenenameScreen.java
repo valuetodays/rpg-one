@@ -21,7 +21,7 @@ public class ScenenameScreen extends BaseScreen {
     /**
      * the last time of this Scenename
      */
-    private int delay = 2000;
+    private int delay = 1000;
     private int cnt = 0;
     
     public ScenenameScreen(String name) {

@@ -25,8 +25,8 @@ public class MapTransferTest {
     public void testTransfer() throws IOException, TemplateException {
         String basePath = ("D:\\tmp\\fmj\\map");
 
-        String ori = basePath + "/百草地.map";
-        String dst = basePath + "/百草地.jmap";
+        String ori = basePath + "/无机阁1.map";
+        String dst = basePath + "/无机阁1.jmap";
         MapTransfer.transferAsMapFile(ori, dst);
         String dstTmx = basePath + "/";
         MapMetaData mapMetaData = new BinaryMapSaverLoader().load(dst);

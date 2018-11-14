@@ -159,3 +159,4 @@ ILoader
     https://github.com/bjorn/tiled/tree/master/util/java/libtiled-java的bug：地图文件在/map目录下，图块在/tile目录下，tsx文件也在/tile目录下，一个map文件关联到../tile/1.tsx，但这个map在读取tsx关联和png文件里，却是从/map目录取而非tsx的相对目录。
     使用Tiled来创建地图，但是地图层只保留两层：bgLayer和walkLayer；同时原有的MapEditor已无效了。^\_^|||
     使用Freemarker转换bbk a rpg地图数据 -> 原地图数据 -> TMX
+    地图只用于显示地图和行走层，不用于控制传送门和npc和宝箱，因为使用了TMX
