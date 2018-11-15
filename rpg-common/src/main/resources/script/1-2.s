@@ -3,6 +3,8 @@ attr 1 2
 createtransfer 201 0 6
 createtransfer 202 22 8
 createtransfer 203 30 25
+createtransfer 204 9 13
+createtransfer 204 10 13
 
 createnpc 11 8 3 2 1
 createnpc 12 12 5 2 1
@@ -112,10 +114,14 @@ return
 loadmap 1 101 5 7 0 2
 return
 
+三清宫药房:
+loadmap 1 102 10 13 0 0
+return
 
 trigger 201 去百草地
 trigger 202 无机阁
 trigger 203 三清宫厨房
+trigger 204 三清宫药房
 
 trigger 1 下山
 trigger 11 师傅
