@@ -2,13 +2,18 @@ attr 1 2
 
 createtransfer 201 0 6
 createtransfer 202 22 8
-createtransfer 203 30 25
+
 createtransfer 204 9 13
 createtransfer 204 10 13
 createtransfer 205 35 13
 createtransfer 205 36 13
-
 createtransfer 206 15 25
+createtransfer 207 15 28
+createtransfer 208 15 31
+createtransfer 209 30 25
+createtransfer 210 30 28
+createtransfer 211 30 31
+
 
 createnpc 11 8 3 2 1
 createnpc 12 12 5 2 1
@@ -114,10 +119,6 @@ return
 loadmap 1 100 10 13 4 9
 return
 
-三清宫厨房:
-loadmap 1 101 5 7 0 2
-return
-
 三清宫药房:
 loadmap 1 102 10 13 0 0
 return
@@ -130,12 +131,36 @@ return
 loadmap 1 104 14 7 2 3
 return
 
+大师兄居:
+loadmap 1 105 14 7 2 3
+return
+
+清风居:
+loadmap 1 106 14 7 2 3
+return
+
+三清宫厨房:
+loadmap 1 101 5 7 0 2
+return
+
+普通弟子居1:
+loadmap 1 107 5 7 0 2
+return
+
+普通弟子居2:
+loadmap 1 108 5 7 0 2
+return
+
 trigger 201 去百草地
 trigger 202 无机阁
-trigger 203 三清宫厨房
 trigger 204 三清宫药房
 trigger 205 三清宫丹房
 trigger 206 师傅居
+trigger 207 大师兄居
+trigger 208 清风居
+trigger 209 三清宫厨房
+trigger 210 普通弟子居1
+trigger 211 普通弟子居2
 
 trigger 1 下山
 trigger 11 师傅
