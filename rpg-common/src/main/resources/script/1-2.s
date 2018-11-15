@@ -144,11 +144,11 @@ loadmap 1 101 5 7 0 2
 return
 
 普通弟子居1:
-loadmap 1 107 5 7 0 2
+loadmap 1 107 4 7 0 1
 return
 
 普通弟子居2:
-loadmap 1 108 5 7 0 2
+loadmap 1 108 4 7 0 1
 return
 
 trigger 201 去百草地
