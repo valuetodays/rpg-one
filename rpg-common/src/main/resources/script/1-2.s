@@ -109,7 +109,7 @@ loadmap 1 100 10 13 4 9
 return
 
 三清宫厨房:
-loadmap 1 101 5 9 0 0
+loadmap 1 101 5 7 0 2
 return
 
 
