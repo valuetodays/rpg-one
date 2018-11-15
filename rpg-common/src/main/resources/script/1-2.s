@@ -2,6 +2,7 @@ attr 1 2
 
 createtransfer 201 0 6
 createtransfer 202 22 8
+createtransfer 202 23 8
 
 createtransfer 204 9 13
 createtransfer 204 10 13
@@ -13,6 +14,8 @@ createtransfer 208 15 31
 createtransfer 209 30 25
 createtransfer 210 30 28
 createtransfer 211 30 31
+createtransfer 212 22 45
+createtransfer 212 23 45
 
 
 createnpc 11 8 3 2 1
@@ -23,10 +26,15 @@ scenename '三清宫'
 return
 
 下山:
+@if 1 见师傅
 say 1 '柳清风' RIGHT '终于可以下山了。'
 messagebox '游戏结束，恭喜通关~'
 animation 3 100 100
 animation 12 200 10
+return
+
+见师傅:
+say 1 '柳清风' RIGHT '还是先去见师傅吧。'
 return
 
 去百草地:
@@ -161,8 +169,8 @@ trigger 208 清风居
 trigger 209 三清宫厨房
 trigger 210 普通弟子居1
 trigger 211 普通弟子居2
+trigger 212 下山
 
-trigger 1 下山
 trigger 11 师傅
 trigger 12 游人1
 trigger 13 老王
