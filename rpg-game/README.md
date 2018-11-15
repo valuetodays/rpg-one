@@ -162,3 +162,5 @@ ILoader
     地图只用于显示地图和行走层，不用于控制传送门和npc和宝箱，因为使用了TMX
     TODO TAB切换大地图上的玩家人设
     TODO 离开地图后要清空传送门
+#### 2018-11-15
+    测试acp命令 git add . && git commit -m $1 && git push
