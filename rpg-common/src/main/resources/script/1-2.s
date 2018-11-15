@@ -8,6 +8,8 @@ createtransfer 204 10 13
 createtransfer 205 35 13
 createtransfer 205 36 13
 
+createtransfer 206 15 25
+
 createnpc 11 8 3 2 1
 createnpc 12 12 5 2 1
 createnpc 13 13 9 2 1
@@ -124,11 +126,16 @@ return
 loadmap 1 103 10 11 0 5
 return
 
+师傅居:
+loadmap 1 104 14 7 2 3
+return
+
 trigger 201 去百草地
 trigger 202 无机阁
 trigger 203 三清宫厨房
 trigger 204 三清宫药房
 trigger 205 三清宫丹房
+trigger 206 师傅居
 
 trigger 1 下山
 trigger 11 师傅
