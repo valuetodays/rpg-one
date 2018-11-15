@@ -68,6 +68,12 @@ public class KeyUtil {
         }
         return false;
     }
-    
 
+
+    public static boolean isQ(int key) {
+        if (key == KeyEvent.VK_Q) {
+            return true;
+        }
+        return false;
+    }
 }

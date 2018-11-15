@@ -82,7 +82,8 @@ public class MapScreen extends BaseScreen {
         //////// draw bgLayer end
 
         //////// draw role & npc start
-        final Image roleFull1 = GameFrame.getInstance().getGameContainer().getRoleItem().getRoleFull1();
+        int controlId = GameFrame.getInstance().getGameData().getControlId();
+        final Image roleFull1 = GameFrame.getInstance().getGameContainer().getRoleItem().getRoleFullImageOf(controlId);
         DrawUtil.drawSubImage(g2, roleFull1,
                 (posX)*32, (posY)*32,
                 hero.getCurFrame()*32, hero.getDirection().getValue()*32,
@@ -209,6 +210,8 @@ public class MapScreen extends BaseScreen {
             hero.resetFrame();
         } else if (KeyUtil.isG(key)) {
             VariableTableDeterminer.getInstance().printVariables();
+        } else if (KeyUtil.isQ(key)) {
+            GameFrame.getInstance().getGameData().exChangeControlId();
         }
     }
 

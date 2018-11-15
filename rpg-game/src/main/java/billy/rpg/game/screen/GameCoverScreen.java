@@ -107,6 +107,16 @@ public class GameCoverScreen extends BaseScreen {
                 case 1: {
                     logger.debug("you choose `开始游戏`");
 
+                    GameFrame.getInstance().getGameData().addHeroId(1);
+                    GameFrame.getInstance().getGameData().addHeroId(3);
+                    GameFrame.getInstance().getGameData().setControlId(1);
+                    GameFrame.getInstance().getGameData().addGoods(2002);
+                    GameFrame.getInstance().getGameData().equip(1, 2002); // 装备武器
+                    GameFrame.getInstance().getGameData().addGoods(3001);
+                    GameFrame.getInstance().getGameData().equip(1, 3001); // 装备衣服
+                    GameFrame.getInstance().getGameData().addGoods(4001);
+                    GameFrame.getInstance().getGameData().equip(1, 4001); // 装备鞋子
+
                     GameFrame.getInstance().getGameContainer().startChapter(1, 1, "4-4");
                     GameFrame.getInstance().changeScreen(1);
                 }

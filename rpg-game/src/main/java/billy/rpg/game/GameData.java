@@ -26,7 +26,7 @@ public class GameData {
     private List<HeroCharacter> heroList;
     private List<HeroCharacter> heroBattleList;
     /** 角色列表 */
-    private List<Integer> heroIds = Arrays.asList(1);
+    private List<Integer> heroIds = new LinkedList<>();
 //    private List<Integer> heroIds = Arrays.asList(1, 3);
     /** 角色列表 */
     private List<GoodsMetaData> goodsList = new ArrayList<>();
@@ -58,6 +58,9 @@ public class GameData {
      * @param heroId heroId
      */
     public void removeHeroId(int heroId) {
+        if (!heroIds.contains(heroId)) {
+            throw new IllegalArgumentException("无控制角色："+heroId);
+        }
         heroIds.remove((Object)heroId);
     }
 
@@ -66,6 +69,9 @@ public class GameData {
      * @param heroId heroId
      */
     public void addHeroId(int heroId) {
+        if (heroIds.contains(heroId)) {
+            throw new IllegalArgumentException("已有可控制角色："+heroId);
+        }
         heroIds.add(heroId);
     }
 
@@ -73,11 +79,28 @@ public class GameData {
      * 指定heroId为队长
      * @param heroId heroId
      */
-    public void setControllId(int heroId) {
-        heroIds.remove((Object)heroId);
+    public void setControlId(int heroId) {
+        removeHeroId(heroId);
         heroIds.add(0, heroId);
     }
+    public int getControlId() {
+        if (heroIds.size() <= 0) {
+            throw new RuntimeException("无可控制的角色");
+        }
+        return heroIds.get(0);
+    }
 
+    /**
+     * 切换脸谱角色即是指将第一个角色移到角色列表的最后
+     */
+    public void exChangeControlId() {
+        if (heroIds.size() == 1) {
+            return;
+        }
+        int controlId = getControlId();
+        removeHeroId(controlId);
+        addHeroId(controlId);
+    }
 
     // money 操作
     public int getMoney() {
@@ -271,4 +294,5 @@ public class GameData {
     public int getHeroIndex() {
         return heroIndex;
     }
+
 }
