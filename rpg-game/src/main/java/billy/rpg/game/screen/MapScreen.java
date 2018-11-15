@@ -67,6 +67,9 @@ public class MapScreen extends BaseScreen {
         final int[][] layer1 = activeMap.getBgLayer();
         for (int i = offsetTileX; i < offsetTileX + GameConstant.Game_TILE_X_NUM; i++) {
             for (int j = offsetTileY; j < offsetTileY + GameConstant.Game_TILE_Y_NUM; j++) {
+                if ((activeMap.getMapId().equals("1-103")) && (i == 20 || j == 20)) {
+                    System.out.println("dfdf");
+                }
                 int tileNum = layer1[i][j];
                 if (tileNum != -1) {
                     int y = tileNum / ToolsConstant.TILE_NUM_ONE_LINE;
