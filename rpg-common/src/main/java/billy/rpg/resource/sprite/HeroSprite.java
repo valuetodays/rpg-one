@@ -1,6 +1,7 @@
 package billy.rpg.resource.sprite;
 
-import org.apache.commons.collections.CollectionUtils;
+
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.awt.image.BufferedImage;
 import java.util.List;

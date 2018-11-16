@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    compile project(':rpg-common')
-
-    compile "org.freemarker:freemarker:2.3.21"
+    implementation project(':rpg-common')
+    testImplementation "junit:junit:4.12"
+    implementation "org.freemarker:freemarker:2.3.21"
 }
