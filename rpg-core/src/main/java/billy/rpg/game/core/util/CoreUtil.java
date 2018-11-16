@@ -28,7 +28,7 @@ public class CoreUtil {
         }
         URL resource = Thread.currentThread().getContextClassLoader().getResource(resourcePath);
         if (resource == null) {
-            throw new RuntimeException("no audio: " + resourcePath);
+            throw new RuntimeException("no resource: " + resourcePath);
         }
         return resource.getPath();
     }

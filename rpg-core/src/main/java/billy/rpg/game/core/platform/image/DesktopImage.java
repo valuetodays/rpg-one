@@ -1,6 +1,6 @@
-package billy.rpg.game;
+package billy.rpg.game.core.platform.image;
 
-import java.awt.Image;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -10,10 +10,12 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageOutputStream;
 
-import billy.rpg.game.core.IGameImage;
+import billy.rpg.game.core.platform.graphics.DesktopGraphics;
+import billy.rpg.game.core.platform.graphics.IGameGraphics;
 
 public class DesktopImage implements IGameImage {
     private BufferedImage image;
+
 
     @Override
     public void setImageData(Object o) {
@@ -37,4 +39,29 @@ public class DesktopImage implements IGameImage {
 
         return null;
     }
+
+    @Override
+    public Object getRealImageObject() {
+        return image;
+    }
+
+    @Override
+    public int getWidth() {
+        return image.getWidth();
+    }
+
+    @Override
+    public int getHeight() {
+        return image.getHeight();
+    }
+
+    @Override
+    public IGameGraphics getGraphics() {
+        Graphics graphics = image.getGraphics();
+        IGameGraphics gameGraphics = new DesktopGraphics();
+        gameGraphics.setGraphics(graphics);
+        return gameGraphics;
+    }
+
+
 }

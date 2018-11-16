@@ -1,8 +1,6 @@
 package billy.rpg.game.core;
 
-import billy.rpg.game.core.IGameCanvas;
-import billy.rpg.game.core.IGameFrame;
-import billy.rpg.game.core.IGameImage;
+import billy.rpg.game.core.platform.image.IGameImage;
 import billy.rpg.game.core.constants.GameConstant;
 
 import java.awt.*;
@@ -35,27 +33,15 @@ public class DesktopCanvas extends Canvas implements IGameCanvas {
 
     @Override
     public void drawBitmap(IGameFrame gameFrame, IGameImage image, int left, int top) {
-        InputStream is = image.getImage();
-        BufferedImage bufferedImage = null;
-        try {
-            bufferedImage = ImageIO.read(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if (bufferedImage != null) {
-            Graphics g = background.getGraphics();
-            g.setColor(Color.BLACK);
-//        g.fillRect(left, top, bitmap.getWidth(), bitmap.getHeight());
-            g.drawImage(bufferedImage, left, top, null);
-            gameFrame.getGamePanel().setBackground(background);
-        }
+        BufferedImage bufferedImage = (BufferedImage)image.getRealImageObject();
+
+        drawBitmap(gameFrame, bufferedImage, left, top);
     }
 
     public void drawBitmap(IGameFrame gameFrame, BufferedImage image, int left, int top) {
         if (image != null) {
             Graphics g = background.getGraphics();
             g.setColor(Color.BLACK);
-//        g.fillRect(left, top, bitmap.getWidth(), bitmap.getHeight());
             g.drawImage(image, left, top, null);
             gameFrame.getGamePanel().setBackground(background);
         }

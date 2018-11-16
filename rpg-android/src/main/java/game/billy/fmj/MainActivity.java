@@ -14,8 +14,10 @@ import billy.rpg.game.core.IGameCanvas;
 import billy.rpg.game.core.IGameFrame;
 import billy.rpg.game.core.constants.GameConstant;
 import billy.rpg.game.core.container.GameContainer;
+import billy.rpg.game.core.platform.Platform;
 import billy.rpg.game.core.screen.BaseScreen;
 import billy.rpg.game.core.screen.GameCoverScreen;
+import billy.rpg.game.core.screen.GameCoverScreenNew;
 import billy.rpg.game.core.screen.battle.BattleScreen;
 import billy.rpg.game.core.util.CoreUtil;
 import billy.rpg.game.core.util.FPSUtil;
@@ -36,18 +38,21 @@ public class MainActivity extends Activity implements IGameFrame, Runnable {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Platform.setType(Platform.Type.ANDROID);
+
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         int widthPixels = displayMetrics.widthPixels;
         int heightPixels = displayMetrics.heightPixels;
         Log.i(TAG, "width/height=" + widthPixels + "/" + heightPixels);
         gameContainer = new GameContainer(this);
         gameContainer.load();
-        screenStack.push(new GameCoverScreen()); // 进入封面
+        screenStack.push(new GameCoverScreenNew()); // 进入封面
 
 
         running = true;
 
-        andriodCanvas = new AndroidCanvas();
+       /* andriodCanvas = new AndroidCanvas();*/
         gameThread = new Thread(this, "fmj");
         gameThread.start();
         Log.i(TAG, "starts");
@@ -104,6 +109,9 @@ public class MainActivity extends Activity implements IGameFrame, Runnable {
         int i = 0;
 
         while ( running ) {
+            Log.i(TAG, "" + System.currentTimeMillis() + ", " + running);
+            View view = findViewById(R.id.activity_main);
+            /*
 //            synchronized (screenStack) {
             curTime = System.currentTimeMillis();
             screenStack.peek().update(gameContainer, curTime - lastTime);
@@ -117,8 +125,6 @@ public class MainActivity extends Activity implements IGameFrame, Runnable {
                     break;
                 }
             }
-            View view = findViewById(R.id.activity_main);
-            view.draw(new Canvas());
             IGameCanvas gameCanvasTemp = andriodCanvas;
             if (gameCanvasTemp != null) {
                 if (i < 0) {
@@ -138,6 +144,7 @@ public class MainActivity extends Activity implements IGameFrame, Runnable {
 
             CoreUtil.sleep(GameConstant.TIME_GAMELOOP);
             lastTime = curTime;
+        */
         }
     }
 }

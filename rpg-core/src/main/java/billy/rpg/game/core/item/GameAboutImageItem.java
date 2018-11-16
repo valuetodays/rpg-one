@@ -6,6 +6,9 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.InputStream;
 
+import billy.rpg.game.core.platform.image.IGameImage;
+import billy.rpg.game.core.platform.image.IGameImageFactory;
+
 public class GameAboutImageItem {
     private Image gameCover;
     private Image gameOver;
@@ -100,12 +103,15 @@ public class GameAboutImageItem {
             InputStream is = this.getClass().getResourceAsStream("/Images/arrowLeft.png");
             gameArrowLeft = ImageIO.read(is);
             IOUtils.closeQuietly(is);
+
             is = this.getClass().getResourceAsStream("/Images/arrowRight.png");
-            gameArrowRight = ImageIO.read(is);
+            gameArrowUp = ImageIO.read(is);
             IOUtils.closeQuietly(is);
+            
             is = this.getClass().getResourceAsStream("/Images/arrowUp.png");
             gameArrowUp = ImageIO.read(is);
             IOUtils.closeQuietly(is);
+
             is = this.getClass().getResourceAsStream("/Images/arrowDown.png");
             gameArrowDown = ImageIO.read(is);
             IOUtils.closeQuietly(is);
@@ -125,18 +131,11 @@ public class GameAboutImageItem {
     }
 
     private void loadGameCover() {
-        try {
-            InputStream is = this.getClass().getResourceAsStream("/Images/gamecover.png");
-            gameCover = ImageIO.read(is);
-            IOUtils.closeQuietly(is);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
     }
 
-    public Image getGameCover() {
-        return gameCover;
+    public IGameImage getGameCover() {
+        return IGameImageFactory.getImage("/Images/gamecover.png");
     }
 
     public Image getGameOver() {
@@ -149,6 +148,9 @@ public class GameAboutImageItem {
 
     public Image getGameArrowRight() {
         return gameArrowRight;
+    }
+    public IGameImage getGameArrowRightNew() {
+        return IGameImageFactory.getImage("/Images/arrowRight.png");
     }
 
     public Image getGameArrowUp() {

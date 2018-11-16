@@ -1,6 +1,7 @@
 package billy.rpg.game;
 
-import billy.rpg.game.core.IGameImage;
+import billy.rpg.game.core.platform.image.DesktopImage;
+import billy.rpg.game.core.platform.image.IGameImage;
 
 public class DesktopImageFactory {
     private DesktopImageFactory(){}

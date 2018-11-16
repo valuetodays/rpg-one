@@ -4,7 +4,7 @@ import android.graphics.Canvas;
 
 import billy.rpg.game.core.IGameCanvas;
 import billy.rpg.game.core.IGameFrame;
-import billy.rpg.game.core.IGameImage;
+import billy.rpg.game.core.platform.image.IGameImage;
 
 
 public class AndroidCanvas extends Canvas implements IGameCanvas {

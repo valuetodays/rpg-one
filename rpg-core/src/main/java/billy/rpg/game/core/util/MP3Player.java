@@ -19,6 +19,8 @@ package billy.rpg.game.core.util;
  *
  *************************************************************************/
 
+import org.apache.commons.lang.StringUtils;
+
 import javazoom.jl.player.Player;
 
 import java.io.BufferedInputStream;
@@ -50,6 +52,9 @@ public class MP3Player {
 
 	// play the MP3 file to the sound card
 	public static void play(String filename) {
+		if (StringUtils.isEmpty(filename)) {
+			return;
+		}
 		try {
 			BufferedInputStream bis = new BufferedInputStream(new FileInputStream(filename));
 
