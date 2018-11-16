@@ -1,6 +1,6 @@
 package billy.rpg.game.core.screen;
 
-import billy.rpg.game.core.GameCanvas;
+import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.constants.GameConstant;
 import billy.rpg.game.core.container.GameContainer;
 
@@ -38,7 +38,7 @@ public class ScenenameScreen extends BaseScreen {
     }
 
     @Override
-    public void draw(GameContainer gameContainer, GameCanvas gameCanvas) {
+    public void draw(GameContainer gameContainer, DesktopCanvas desktopCanvas) {
         if (StringUtils.isEmpty(name)) {
             return ;
         }
@@ -57,7 +57,7 @@ public class ScenenameScreen extends BaseScreen {
         g.setColor(Color.YELLOW);
         g.drawString(name, 240, 160);
         
-        gameCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
+        desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
     }
 
     @Override

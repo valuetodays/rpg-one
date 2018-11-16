@@ -1,6 +1,6 @@
 package billy.rpg.game.core.screen.battle;
 
-import billy.rpg.game.core.GameCanvas;
+import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.character.HeroCharacter;
 import billy.rpg.game.core.container.GameContainer;
 import billy.rpg.game.core.screen.BaseScreen;
@@ -48,7 +48,7 @@ public class BattleScreen extends BaseScreen {
     }
 
     @Override
-    public void draw(GameContainer gameContainer, GameCanvas gameCanvas) {
+    public void draw(GameContainer gameContainer, DesktopCanvas desktopCanvas) {
         int n = 0;
         for (n = screenStack.size()-1; n >= 0 ;n--) {
             BaseScreen baseScreen = screenStack.get(n);
@@ -62,7 +62,7 @@ public class BattleScreen extends BaseScreen {
         }
         for (int j = n; j < screenStack.size(); j++) {
             BaseScreen baseScreen = screenStack.get(j);
-            baseScreen.draw(gameContainer, gameCanvas);
+            baseScreen.draw(gameContainer, desktopCanvas);
         }
     }
 

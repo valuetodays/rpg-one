@@ -1,6 +1,6 @@
 package billy.rpg.game.core.screen;
 
-import billy.rpg.game.core.GameCanvas;
+import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.constants.GameConstant;
 import billy.rpg.game.core.container.GameContainer;
 import billy.rpg.game.core.util.CoreUtil;
@@ -12,7 +12,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,8 +33,6 @@ public class GameCoverScreen extends BaseScreen {
         map.put(3, 380);
         String audioPath = CoreUtil.getResourcePath("audio/game_cover.mp3");
         try {
-            URL classpath = getClass().getResource("/");
-            System.out.println(classpath.getPath());
             cloudMain = ImageIO.read(new File(CoreUtil.getResourcePath("/image/effect/cloudmain.png")));
             cloud1 = ImageIO.read(new File(CoreUtil.getResourcePath("/image/effect/cloud1.png")));
             cloud2 = ImageIO.read(new File(CoreUtil.getResourcePath("/image/effect/cloud2.png")));
@@ -65,7 +62,7 @@ public class GameCoverScreen extends BaseScreen {
     }
 
     @Override
-    public void draw(GameContainer gameContainer, GameCanvas gameCanvas) {
+    public void draw(GameContainer gameContainer, DesktopCanvas desktopCanvas) {
         BufferedImage paint = new BufferedImage(
                 GameConstant.GAME_WIDTH, 
                 GameConstant.GAME_HEIGHT, 
@@ -91,7 +88,7 @@ public class GameCoverScreen extends BaseScreen {
         g2.drawImage(cloud2, left2, 180, null);
         g2.drawImage(cloud3, left3, 330, null);
         g2.dispose();
-        gameCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
+        desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
     }
 
     @Override

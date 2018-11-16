@@ -1,6 +1,6 @@
 package billy.rpg.game.core.screen.battle;
 
-import billy.rpg.game.core.GameCanvas;
+import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.character.HeroCharacter;
 import billy.rpg.game.core.character.MonsterCharacter;
 import billy.rpg.game.core.constants.GameConstant;
@@ -100,7 +100,7 @@ public class BattleUIScreen extends BaseScreen {
     }
 
     @Override
-    public void draw(GameContainer gameContainer, GameCanvas gameCanvas) {
+    public void draw(GameContainer gameContainer, DesktopCanvas desktopCanvas) {
         BufferedImage paint = new BufferedImage(
                 GameConstant.GAME_WIDTH,
                 GameConstant.GAME_HEIGHT,
@@ -115,7 +115,7 @@ public class BattleUIScreen extends BaseScreen {
         drawHero(g);
 
         g.dispose();
-        gameCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
+        desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
     }
 
     private void drawHero(Graphics g) {

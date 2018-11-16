@@ -1,7 +1,7 @@
 package billy.rpg.game.core.screen.system;
 
 import billy.rpg.common.util.TextUtil;
-import billy.rpg.game.core.GameCanvas;
+import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.GameData;
 import billy.rpg.game.core.character.HeroCharacter;
 import billy.rpg.game.core.constants.GameConstant;
@@ -45,7 +45,7 @@ public class AttributeScreen extends BaseScreen {
     }
 
     @Override
-    public void draw(GameContainer gameContainer, GameCanvas gameCanvas) {
+    public void draw(GameContainer gameContainer, DesktopCanvas desktopCanvas) {
         BufferedImage paint = new BufferedImage(GameConstant.GAME_WIDTH, GameConstant.GAME_HEIGHT,
                 BufferedImage.TYPE_4BYTE_ABGR);
         Graphics g = paint.getGraphics();
@@ -108,7 +108,7 @@ public class AttributeScreen extends BaseScreen {
             g.drawString("shoe:" + shoe.getGoods().getName(), 180, 340);
         }
 
-        gameCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
+        desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
     }
 
     private void drawColorStringHorizontal(Graphics g, int x, int y, String prefixText, Color prefixColor, String suffixText, Color suffixColor) {

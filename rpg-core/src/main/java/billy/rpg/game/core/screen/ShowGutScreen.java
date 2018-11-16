@@ -1,6 +1,6 @@
 package billy.rpg.game.core.screen;
 
-import billy.rpg.game.core.GameCanvas;
+import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.constants.GameConstant;
 import billy.rpg.game.core.container.GameContainer;
 import billy.rpg.game.core.util.KeyUtil;
@@ -83,7 +83,7 @@ public class ShowGutScreen extends BaseScreen {
     }
 
     @Override
-    public void draw(GameContainer gameContainer, GameCanvas gameCanvas) {
+    public void draw(GameContainer gameContainer, DesktopCanvas desktopCanvas) {
         BufferedImage paint = new BufferedImage(
                 GameConstant.GAME_WIDTH,
                 GameConstant.GAME_HEIGHT,
@@ -99,7 +99,7 @@ public class ShowGutScreen extends BaseScreen {
             g.drawString(contentArr[i], 60, 150 + (i-currentLine) * (g.getFontMetrics().getHeight() + 4));
         }
         g.dispose();
-        gameCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
+        desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package billy.rpg.game.core.screen;
 
-import billy.rpg.game.core.GameCanvas;
+import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.command.processor.CmdProcessor;
 import billy.rpg.game.core.command.processor.support.DefaultCmdProcessor;
 import billy.rpg.game.core.constants.GameConstant;
@@ -36,7 +36,7 @@ public class ChoiceScreen extends BaseScreen {
     }
 
     @Override
-    public void draw(GameContainer gameContainer, GameCanvas gameCanvas) {
+    public void draw(GameContainer gameContainer, DesktopCanvas desktopCanvas) {
         BufferedImage paint = new BufferedImage(
                 GameConstant.GAME_WIDTH,
                 GameConstant.GAME_HEIGHT,
@@ -52,7 +52,7 @@ public class ChoiceScreen extends BaseScreen {
         Image gameArrowRight = gameContainer.getGameAboutItem().getGameArrowRight();
         g.drawImage(gameArrowRight, 80, 100 + selectedInx * 30 - 15, null);
 
-        gameCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
+        desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
     }
 
     @Override

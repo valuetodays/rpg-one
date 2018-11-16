@@ -1,6 +1,6 @@
 package billy.rpg.game.core.screen;
 
-import billy.rpg.game.core.GameCanvas;
+import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.constants.GameConstant;
 import billy.rpg.game.core.container.GameContainer;
 
@@ -30,7 +30,7 @@ public class TransitionScreen extends BaseScreen {
     }
 
     @Override
-    public void draw(GameContainer gameContainer, GameCanvas gameCanvas) {
+    public void draw(GameContainer gameContainer, DesktopCanvas desktopCanvas) {
         Image transition = gameContainer.getGameAboutItem().getGameTransition();
         BufferedImage paint = new BufferedImage(
                 GameConstant.GAME_WIDTH,
@@ -40,7 +40,7 @@ public class TransitionScreen extends BaseScreen {
         Graphics g = paint.getGraphics();
         g.drawImage(transition, 0, 0, null);
         g.dispose();
-        gameCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
+        desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
     }
 
     @Override

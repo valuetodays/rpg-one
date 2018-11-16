@@ -1,6 +1,6 @@
 package billy.rpg.game.core.screen;
 
-import billy.rpg.game.core.GameCanvas;
+import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.constants.GameConstant;
 import billy.rpg.game.core.container.GameContainer;
 import billy.rpg.game.core.screen.battle.BattleScreen;
@@ -47,7 +47,7 @@ public class MessageBoxScreen extends BaseScreen {
 
 
     @Override
-    public void draw(GameContainer gameContainer, GameCanvas gameCanvas) {
+    public void draw(GameContainer gameContainer, DesktopCanvas desktopCanvas) {
         if (StringUtils.isEmpty(msg)) {
             return ;
         }
@@ -69,7 +69,7 @@ public class MessageBoxScreen extends BaseScreen {
         g.drawString(msg, 200, 180);
 
         g.dispose();
-        gameCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
+        desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
     }
 
     @Override

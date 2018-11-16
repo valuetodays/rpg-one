@@ -1,6 +1,6 @@
 package billy.rpg.game.core.screen;
 
-import billy.rpg.game.core.GameCanvas;
+import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.constants.GameConstant;
 import billy.rpg.game.core.container.GameContainer;
 import billy.rpg.game.core.screen.battle.BattleScreen;
@@ -94,7 +94,7 @@ public class AnimationScreen extends BaseScreen {
 
 
     @Override
-    public void draw(GameContainer gameContainer, GameCanvas gameCanvas) {
+    public void draw(GameContainer gameContainer, DesktopCanvas desktopCanvas) {
         BufferedImage paint = new BufferedImage(
                 GameConstant.GAME_WIDTH,
                 GameConstant.GAME_HEIGHT,
@@ -115,7 +115,7 @@ public class AnimationScreen extends BaseScreen {
         } else {
            // mShowList.add(new Key(0));
         }
-        gameCanvas.drawBitmap(gameContainer.getGameFrame(), paint, posX-70, posY-30);
+        desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, posX-70, posY-30);
     }
 
     @Override

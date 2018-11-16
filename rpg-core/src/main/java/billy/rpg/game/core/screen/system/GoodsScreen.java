@@ -1,6 +1,6 @@
 package billy.rpg.game.core.screen.system;
 
-import billy.rpg.game.core.GameCanvas;
+import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.GameData;
 import billy.rpg.game.core.callback.ConfirmCallback;
 import billy.rpg.game.core.constants.GameConstant;
@@ -40,7 +40,7 @@ public class GoodsScreen extends BaseScreen {
     }
 
     @Override
-    public void draw(GameContainer gameContainer, GameCanvas gameCanvas) {
+    public void draw(GameContainer gameContainer, DesktopCanvas desktopCanvas) {
         BufferedImage paint = new BufferedImage(
                 GameConstant.GAME_WIDTH,
                 GameConstant.GAME_HEIGHT,
@@ -71,7 +71,7 @@ public class GoodsScreen extends BaseScreen {
             g.drawString("暂无物品", 175, 50);
         }
 
-        gameCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
+        desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
     }
     private List<String> formatDesc(String desc) {
         int LENGTH = 6;

@@ -1,6 +1,6 @@
 package billy.rpg.game.core.screen.battle;
 
-import billy.rpg.game.core.GameCanvas;
+import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.character.HeroCharacter;
 import billy.rpg.game.core.constants.GameConstant;
 import billy.rpg.game.core.container.GameContainer;
@@ -34,7 +34,7 @@ public class ChooseHeroScreen extends BaseScreen {
     }
 
     @Override
-    public void draw(GameContainer gameContainer, GameCanvas gameCanvas) {
+    public void draw(GameContainer gameContainer, DesktopCanvas desktopCanvas) {
         BufferedImage paint = new BufferedImage(
                 GameConstant.GAME_WIDTH,
                 GameConstant.GAME_HEIGHT,
@@ -48,7 +48,7 @@ public class ChooseHeroScreen extends BaseScreen {
             g.drawImage(gameArrowDown,
                     heroBattle.getLeft() + heroBattle.getWidth() / 2, heroBattle.getTop(), null);
         }
-        gameCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
+        desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
     }
 
     @Override

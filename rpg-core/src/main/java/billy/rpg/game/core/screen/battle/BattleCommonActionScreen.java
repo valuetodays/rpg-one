@@ -1,6 +1,6 @@
 package billy.rpg.game.core.screen.battle;
 
-import billy.rpg.game.core.GameCanvas;
+import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.character.fightable.Fightable;
 import billy.rpg.game.core.constants.GameConstant;
 import billy.rpg.game.core.container.GameContainer;
@@ -87,7 +87,7 @@ public class BattleCommonActionScreen extends BaseScreen {
     }
 
     @Override
-    public void draw(GameContainer gameContainer, GameCanvas gameCanvas) {
+    public void draw(GameContainer gameContainer, DesktopCanvas desktopCanvas) {
         if (state == STATE_PRE) {
 
         } else if (state == STATE_ANI) {
@@ -103,7 +103,7 @@ public class BattleCommonActionScreen extends BaseScreen {
             g.drawString("-" + dmg, dmgLeft, dmgTop);
             //logger.debug("damage & pos: -" + dmg + " " + dmgLeft + " " + dmgTop);
             g.dispose();
-            gameCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
+            desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
         }
     }
 

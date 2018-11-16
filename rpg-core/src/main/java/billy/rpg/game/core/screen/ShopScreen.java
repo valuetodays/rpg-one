@@ -1,6 +1,6 @@
 package billy.rpg.game.core.screen;
 
-import billy.rpg.game.core.GameCanvas;
+import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.constants.GameConstant;
 import billy.rpg.game.core.container.GameContainer;
 import billy.rpg.game.core.util.KeyUtil;
@@ -29,7 +29,7 @@ public class ShopScreen extends BaseScreen {
     }
 
     @Override
-    public void draw(GameContainer gameContainer, GameCanvas gameCanvas) {
+    public void draw(GameContainer gameContainer, DesktopCanvas desktopCanvas) {
         // 创建一个缓冲区
         BufferedImage paint = new BufferedImage(
                 GameConstant.GAME_WIDTH,
@@ -49,7 +49,7 @@ public class ShopScreen extends BaseScreen {
             g.drawString(goodsMetaData.getName(), 200, 90 + i * 20);
         }
         g.drawString("->", 180, 90 + goodsIndex*20);
-        gameCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
+        desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package billy.rpg.game;
 
 import billy.rpg.common.util.JavaVersionUtil;
-import billy.rpg.game.core.GameCanvas;
+import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.GameData;
 import billy.rpg.game.core.GamePanel;
 import billy.rpg.game.core.IGameFrame;
@@ -41,11 +41,10 @@ public class GameFrame extends JFrame implements IGameFrame, Runnable {
 
     private static GameFrame instance;
     private final Stack<BaseScreen> screenStack = new Stack<>();
-    private GameCanvas gameCanvas;
+    private DesktopCanvas desktopCanvas;
     private BufferStrategy bufferStrategy;
     private boolean running;
     private GamePanel gamePanel;
-    private GameData gameData;
     private GameContainer gameContainer;
     private Thread gameThread;
     private FPSUtil fpsUtil;
@@ -101,19 +100,19 @@ public class GameFrame extends JFrame implements IGameFrame, Runnable {
                 }
             }
 
-            GameCanvas gameCanvasTemp = gameCanvas;
-            if (gameCanvasTemp != null) {
+            DesktopCanvas desktopCanvasTemp = desktopCanvas;
+            if (desktopCanvasTemp != null) {
                 if (i < 0) {
                     i = 0;
                 }
                 for (int j = i; j < screenStack.size(); j++) {
                     BaseScreen baseScreen = screenStack.get(j);
-                    baseScreen.draw(gameContainer, gameCanvasTemp);
+                    baseScreen.draw(gameContainer, desktopCanvasTemp);
                 }
             }
             if (fpsUtil != null) {
                 fpsUtil.calculate();
-                gameCanvas.drawFPS(this, fpsUtil.getFrameRate());
+                desktopCanvas.drawFPS(this, fpsUtil.getFrameRate());
             }
             gamePanel.repaint();
             //            } // end of synchronized
@@ -126,11 +125,10 @@ public class GameFrame extends JFrame implements IGameFrame, Runnable {
     public void createAndShowGUI() {
         gamePanel = new GamePanel(this);
         this.add(gamePanel);
-        gameData = new GameData();
 
         setTitle(GameConstant.GAME_TITLE);
         setLocation(GameConstant.GAME_WINDOW_LEFT, GameConstant.GAME_WINDOW_TOP);
-        String gameIconPath = this.getClass().getClassLoader().getResource("").getPath() + "/Game.png";
+        String gameIconPath = CoreUtil.getResourcePath("/Game.png");
         setIconImage(Toolkit.getDefaultToolkit().getImage(gameIconPath));
         setResizable(false);
 //        setAlwaysOnTop(true);
@@ -138,6 +136,7 @@ public class GameFrame extends JFrame implements IGameFrame, Runnable {
         instance = this;
         gameContainer = new GameContainer(this);
         gameContainer.load();
+        gameContainer.setGameData(new GameData());
 
         screenStack.push(new GameCoverScreen()); // 进入封面
 //        int[] monsterIds = new int[]{51, 51};
@@ -150,7 +149,7 @@ public class GameFrame extends JFrame implements IGameFrame, Runnable {
         setVisible(true);
 
         running = true;
-        gameCanvas = new GameCanvas();
+        desktopCanvas = new DesktopCanvas();
         gameThread = new Thread(this, "fmj");
         gameThread.start();
         LOG.info("game starts");
@@ -167,8 +166,8 @@ public class GameFrame extends JFrame implements IGameFrame, Runnable {
         return gameContainer;
     }
 
-    public GameCanvas getGameCanvas() {
-        return gameCanvas;
+    public DesktopCanvas getDesktopCanvas() {
+        return desktopCanvas;
     }
 
     @Override
@@ -271,7 +270,4 @@ public class GameFrame extends JFrame implements IGameFrame, Runnable {
         }
     }
 
-    public GameData getGameData() {
-        return gameData;
-    }
 }

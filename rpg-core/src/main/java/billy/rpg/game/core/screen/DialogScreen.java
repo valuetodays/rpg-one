@@ -1,6 +1,6 @@
 package billy.rpg.game.core.screen;
 
-import billy.rpg.game.core.GameCanvas;
+import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.command.SayCmd;
 import billy.rpg.game.core.command.processor.CmdProcessor;
 import billy.rpg.game.core.constants.GameConstant;
@@ -67,7 +67,7 @@ public class DialogScreen extends BaseScreen {
 
 
     @Override
-    public void draw(GameContainer gameContainer, GameCanvas gameCanvas) {
+    public void draw(GameContainer gameContainer, DesktopCanvas desktopCanvas) {
         if (CollectionUtils.isEmpty(msgList)) {
             return;
         }
@@ -171,7 +171,7 @@ public class DialogScreen extends BaseScreen {
         }
 
         g.setColor(oldColor);
-        gameCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
+        desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
     }
 
 

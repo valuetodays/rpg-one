@@ -1,6 +1,6 @@
 package billy.rpg.game.core.screen.battle;
 
-import billy.rpg.game.core.GameCanvas;
+import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.character.HeroCharacter;
 import billy.rpg.game.core.character.MonsterCharacter;
 import billy.rpg.game.core.character.fightable.Fightable;
@@ -380,7 +380,7 @@ public class BattleFightScreen extends BaseScreen {
     }
 
     @Override
-    public void draw(GameContainer gameContainer, GameCanvas gameCanvas) {
+    public void draw(GameContainer gameContainer, DesktopCanvas desktopCanvas) {
 
     }
 

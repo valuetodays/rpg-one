@@ -1,6 +1,6 @@
 package billy.rpg.game.core.screen.battle;
 
-import billy.rpg.game.core.GameCanvas;
+import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.character.HeroCharacter;
 import billy.rpg.game.core.constants.GameConstant;
 import billy.rpg.game.core.container.GameContainer;
@@ -63,7 +63,7 @@ public class BattleOptionScreen extends BaseScreen {
     }
 
     @Override
-    public void draw(GameContainer gameContainer, GameCanvas gameCanvas) {
+    public void draw(GameContainer gameContainer, DesktopCanvas desktopCanvas) {
         if (getBattleUIScreen().fighting) {
             return;
         }
@@ -85,7 +85,7 @@ public class BattleOptionScreen extends BaseScreen {
         Image gameArrowRight = gameContainer.getGameAboutItem().getGameArrowRight();
         g.drawImage(gameArrowRight, 30, (heroActionChoice) * 25 + 333, null);
 
-        gameCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
+        desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
     }
 
     @Override

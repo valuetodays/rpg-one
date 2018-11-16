@@ -2,7 +2,7 @@ package billy.rpg.game.core.screen;
 
 import billy.rpg.common.constant.ToolsConstant;
 import billy.rpg.common.util.DrawUtil;
-import billy.rpg.game.core.GameCanvas;
+import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.character.walkable.HeroWalkableCharacter;
 import billy.rpg.game.core.character.walkable.TransferWalkableCharacter;
 import billy.rpg.game.core.character.walkable.npc.NPCWalkableCharacter;
@@ -39,10 +39,10 @@ public class MapScreen extends BaseScreen {
     }
 
     /**
-     * @param gameCanvas gameCanvas
+     * @param desktopCanvas desktopCanvas
      */
     @Override
-    public void draw(GameContainer gameContainer, GameCanvas gameCanvas) {
+    public void draw(GameContainer gameContainer, DesktopCanvas desktopCanvas) {
         BufferedImage paint = new BufferedImage(
                 GameConstant.GAME_WIDTH, 
                 GameConstant.GAME_HEIGHT, 
@@ -158,7 +158,7 @@ public class MapScreen extends BaseScreen {
 
         g2.dispose();
 
-        gameCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
+        desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
     }
 
 

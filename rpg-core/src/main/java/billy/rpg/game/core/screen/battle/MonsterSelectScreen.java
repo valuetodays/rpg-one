@@ -2,7 +2,7 @@ package billy.rpg.game.core.screen.battle;
 
 import org.apache.commons.collections4.CollectionUtils;
 
-import billy.rpg.game.core.GameCanvas;
+import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.character.MonsterCharacter;
 import billy.rpg.game.core.character.fightable.Fightable;
 import billy.rpg.game.core.constants.GameConstant;
@@ -59,7 +59,7 @@ public class MonsterSelectScreen extends BaseScreen {
     }
 
     @Override
-    public void draw(GameContainer gameContainer, GameCanvas gameCanvas) {
+    public void draw(GameContainer gameContainer, DesktopCanvas desktopCanvas) {
         if (getBattleUIScreen().fighting) {
             return;
         }
@@ -104,7 +104,7 @@ public class MonsterSelectScreen extends BaseScreen {
             }
         }
 
-        gameCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
+        desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package billy.rpg.game.core.screen;
 
-import billy.rpg.game.core.GameCanvas;
+import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.constants.GameConstant;
 import billy.rpg.game.core.container.GameContainer;
 
@@ -18,7 +18,7 @@ public class ProducerScreen extends BaseScreen {
     }
 
     @Override
-    public void draw(GameContainer gameContainer, GameCanvas gameCanvas) {
+    public void draw(GameContainer gameContainer, DesktopCanvas desktopCanvas) {
         BufferedImage paint = new BufferedImage(
                 GameConstant.GAME_WIDTH, 
                 GameConstant.GAME_HEIGHT, 
@@ -32,7 +32,7 @@ public class ProducerScreen extends BaseScreen {
         g2.drawString("制作人信息", 190, 140);
         g2.drawString("程序设计：Billy", 100, 200);
         g2.drawString("美    工：rpg maker XP/VX, Internet", 100, 240);
-        gameCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
+        desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
         g2.dispose();
     }
 

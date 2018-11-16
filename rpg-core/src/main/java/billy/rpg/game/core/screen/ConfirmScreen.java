@@ -1,6 +1,6 @@
 package billy.rpg.game.core.screen;
 
-import billy.rpg.game.core.GameCanvas;
+import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.callback.ConfirmCallback;
 import billy.rpg.game.core.constants.GameConstant;
 import billy.rpg.game.core.container.GameContainer;
@@ -42,7 +42,7 @@ public class ConfirmScreen extends BaseScreen {
     }
 
     @Override
-    public void draw(GameContainer gameContainer, GameCanvas gameCanvas) {
+    public void draw(GameContainer gameContainer, DesktopCanvas desktopCanvas) {
         // 创建一个缓冲区
         BufferedImage paint = new BufferedImage(
                 GameConstant.GAME_WIDTH,
@@ -65,7 +65,7 @@ public class ConfirmScreen extends BaseScreen {
         g.drawImage(gameArrow, isYes ? 180 : 280, 170, null);
         g.dispose();
 
-        gameCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
+        desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
     }
 
     @Override
