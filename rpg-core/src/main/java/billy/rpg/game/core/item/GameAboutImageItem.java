@@ -100,19 +100,19 @@ public class GameAboutImageItem {
 
     private void loadGameArrows() {
         try {
-            InputStream is = this.getClass().getResourceAsStream("/Images/arrowLeft.png");
+            InputStream is = this.getClass().getResourceAsStream("/Images/ArrowLeft.png");
             gameArrowLeft = ImageIO.read(is);
             IOUtils.closeQuietly(is);
 
-            is = this.getClass().getResourceAsStream("/Images/arrowRight.png");
-            gameArrowUp = ImageIO.read(is);
-            IOUtils.closeQuietly(is);
-            
-            is = this.getClass().getResourceAsStream("/Images/arrowUp.png");
+            is = this.getClass().getResourceAsStream("/Images/ArrowRight.png");
             gameArrowUp = ImageIO.read(is);
             IOUtils.closeQuietly(is);
 
-            is = this.getClass().getResourceAsStream("/Images/arrowDown.png");
+            is = this.getClass().getResourceAsStream("/Images/ArrowUp.png");
+            gameArrowUp = ImageIO.read(is);
+            IOUtils.closeQuietly(is);
+
+            is = this.getClass().getResourceAsStream("/Images/ArrowDown.png");
             gameArrowDown = ImageIO.read(is);
             IOUtils.closeQuietly(is);
         } catch (Exception e) {
@@ -150,7 +150,7 @@ public class GameAboutImageItem {
         return gameArrowRight;
     }
     public IGameImage getGameArrowRightNew() {
-        return IGameImageFactory.getImage("/Images/arrowRight.png");
+        return IGameImageFactory.getImage("/Images/ArrowRight.png");
     }
 
     public Image getGameArrowUp() {

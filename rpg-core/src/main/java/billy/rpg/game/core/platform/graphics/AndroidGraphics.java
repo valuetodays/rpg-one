@@ -1,50 +1,53 @@
 package billy.rpg.game.core.platform.graphics;
 
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+
 
 import billy.rpg.game.core.platform.image.IGameImage;
 
-public class DesktopGraphics implements IGameGraphics {
-    private Graphics graphics;
+public class AndroidGraphics implements IGameGraphics {
+    private Canvas graphics;
+    private Paint paint = new Paint();
 
     @Override
     public void setGraphics(Object object) {
-        if (!(object instanceof Graphics)) {
+        if (!(object instanceof Canvas)) {
             throw new RuntimeException("illegal graphics format");
         }
-        this.graphics = (Graphics) object;
+        this.graphics = (Canvas) object;
     }
 
 
     @Override
     public void drawRect(int x, int y, int width, int height) {
-        graphics.drawRect(x, y, width, height);
+
+        graphics.drawRect(1.0f * x, 1.0f * y, 1.0f * width, 1.0f *height, paint);
     }
 
     @Override
     public void drawString(String text, int x, int y) {
-        graphics.drawString(text, x, y);
+        graphics.drawText(text, 1.0f * x, 1.0f * y, paint);
     }
 
     @Override
     public void drawImage(IGameImage gameImage, int x, int y) {
-        graphics.drawImage((BufferedImage)gameImage.getRealImageObject(), x, y, null);
+        graphics.drawBitmap((Bitmap)gameImage.getRealImageObject(), 1.0f * x, 1.0f * y, paint);
     }
 
     @Override
     public void dispose() {
-        graphics.dispose();
+//        graphics.
     }
 
     @Override
     public void setFont(String fontFamily, int fontStyle, int fontSize) {
-        graphics.setFont(new Font(fontFamily, fontStyle, fontSize));
+//        graphics.(new Font(fontFamily, fontStyle, fontSize));
     }
 
     @Override
     public void link(IGameImage gameImage) {
-        // do nothing
+        gameImage.setImageData(graphics);
     }
 }

@@ -1,11 +1,11 @@
 package billy.rpg.game.core.screen;
 
-import java.awt.Image;
+import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
 
-import billy.rpg.game.core.DesktopCanvas;
+import billy.rpg.game.core.IGameCanvas;
 import billy.rpg.game.core.platform.graphics.IGameGraphics;
 import billy.rpg.game.core.platform.image.IGameImage;
 import billy.rpg.game.core.platform.image.IGameImageFactory;
@@ -59,7 +59,7 @@ public class GameCoverScreenNew extends BaseScreen {
     }
 
     @Override
-    public void draw(GameContainer gameContainer, DesktopCanvas desktopCanvas) {
+    public void draw2(GameContainer gameContainer, IGameCanvas gameCanvas) {
         IGameImage paint = IGameImageFactory.createImage(
                 GameConstant.GAME_WIDTH,
                 GameConstant.GAME_HEIGHT,
@@ -72,20 +72,18 @@ public class GameCoverScreenNew extends BaseScreen {
 
         g2.drawImage(gameCover, 0, 0);
         g2.drawRect(150, 315, 160, 90);
-//        g2.setFont(new Font("黑体", Font.BOLD, 24));
+        g2.setFont("黑体", Font.BOLD, 24);
         g2.drawString("开始游戏", 190, 340);
         g2.drawString("继续游戏", 190, 370);
         g2.drawString("关于我们", 190, 400);
         g2.drawImage(gameArrow, arrowX, map.get(f));
-//        g2.drawImage(gameBalloon, 220, 130, 220+32, 130+32,
-//        		1*32, 0, 1*32+32, 0*32+32,
-//        		null);
         g2.drawImage(cloudMain, 0, 80);
         g2.drawImage(cloud1, left1, 30);
         g2.drawImage(cloud2, left2, 180);
         g2.drawImage(cloud3, left3, 330);
         g2.dispose();
-        desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
+        g2.link(paint);
+        gameCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
     }
 
     @Override

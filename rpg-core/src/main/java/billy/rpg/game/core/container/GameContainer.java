@@ -50,7 +50,7 @@ public class GameContainer {
     private TileImageItem tileItem;  // tile
     private NpcImageItem npcItem;  // npc
     private RoleImageItem roleItem; // role
-    private GameAboutImageItem gameAboutItem;
+    private GameAboutImageItem gameAboutItem = new GameAboutImageItem();
     private List<ScriptItem> scriptItemList; // scripts
     private ScriptItem activeScriptItem; // active script
     private Map<String, MapMetaData> mapCollections; // maps

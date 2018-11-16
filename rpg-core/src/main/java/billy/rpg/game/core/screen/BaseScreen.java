@@ -1,6 +1,7 @@
 package billy.rpg.game.core.screen;
 
 import billy.rpg.game.core.DesktopCanvas;
+import billy.rpg.game.core.IGameCanvas;
 import billy.rpg.game.core.container.GameContainer;
 
 import org.apache.log4j.Logger;
@@ -14,7 +15,8 @@ public abstract class BaseScreen {
     
 
     public abstract void update(GameContainer gameContainer, long delta);
-    public abstract void draw(GameContainer gameContainer, DesktopCanvas desktopCanvas);
+    public void draw(GameContainer gameContainer, DesktopCanvas desktopCanvas){};
+    public void draw2(GameContainer gameContainer, IGameCanvas gameCanvas){};
     public abstract void onKeyDown(GameContainer gameContainer, int key);
     public abstract void onKeyUp(GameContainer gameContainer, int key);
 

@@ -108,7 +108,7 @@ public class GameFrame extends JFrame implements IGameFrame, Runnable {
                 }
                 for (int j = i; j < screenStack.size(); j++) {
                     BaseScreen baseScreen = screenStack.get(j);
-                    baseScreen.draw(gameContainer, desktopCanvasTemp);
+                    baseScreen.draw2(gameContainer, desktopCanvasTemp);
                 }
             }
             if (fpsUtil != null) {

@@ -1,7 +1,5 @@
 package billy.rpg.game.core.platform.graphics;
 
-import java.awt.Font;
-
 import billy.rpg.game.core.platform.image.IGameImage;
 
 public interface IGameGraphics {
@@ -15,5 +13,7 @@ public interface IGameGraphics {
 
     void dispose();
 
-    void setFont(Font font);
+    void setFont(String fontFamily, int fontStyle, int FontSize);
+
+    void link(IGameImage gameImage);
 }

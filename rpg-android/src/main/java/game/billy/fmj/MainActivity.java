@@ -15,6 +15,7 @@ import billy.rpg.game.core.IGameFrame;
 import billy.rpg.game.core.constants.GameConstant;
 import billy.rpg.game.core.container.GameContainer;
 import billy.rpg.game.core.platform.Platform;
+import billy.rpg.game.core.platform.graphics.AndroidGraphics;
 import billy.rpg.game.core.screen.BaseScreen;
 import billy.rpg.game.core.screen.GameCoverScreen;
 import billy.rpg.game.core.screen.GameCoverScreenNew;
@@ -32,27 +33,33 @@ public class MainActivity extends Activity implements IGameFrame, Runnable {
     private Thread gameThread;
     private boolean showFPS = false;
     private FPSUtil fpsUtil;
-    private IGameCanvas andriodCanvas;
+    protected AndroidCanvas andriodCanvas;
+    protected AndroidGraphics androidGraphics;
+    private View myView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+//        setContentView(R.layout.activity_main);
+        myView = new MyView(this);
+        setContentView(myView);
 
         Platform.setType(Platform.Type.ANDROID);
+        Platform.setContext(this);
 
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         int widthPixels = displayMetrics.widthPixels;
         int heightPixels = displayMetrics.heightPixels;
         Log.i(TAG, "width/height=" + widthPixels + "/" + heightPixels);
         gameContainer = new GameContainer(this);
-        gameContainer.load();
+//        gameContainer.load();
         screenStack.push(new GameCoverScreenNew()); // 进入封面
 
 
         running = true;
 
-       /* andriodCanvas = new AndroidCanvas();*/
+        andriodCanvas = new AndroidCanvas();
+        androidGraphics = new AndroidGraphics();
         gameThread = new Thread(this, "fmj");
         gameThread.start();
         Log.i(TAG, "starts");
@@ -109,13 +116,15 @@ public class MainActivity extends Activity implements IGameFrame, Runnable {
         int i = 0;
 
         while ( running ) {
-            Log.i(TAG, "" + System.currentTimeMillis() + ", " + running);
-            View view = findViewById(R.id.activity_main);
-            /*
 //            synchronized (screenStack) {
             curTime = System.currentTimeMillis();
             screenStack.peek().update(gameContainer, curTime - lastTime);
-            if (screenStack.size() > 1) {
+
+            screenStack.get(0).draw2(gameContainer, andriodCanvas);
+            myView.draw(andriodCanvas.getCanvas());
+            myView.invalidate();
+
+           /* if (screenStack.size() > 1) {
 //                    logger.error("screenStack.size=" + screenStack.size());
             }
 
@@ -130,10 +139,10 @@ public class MainActivity extends Activity implements IGameFrame, Runnable {
                 if (i < 0) {
                     i = 0;
                 }
-//                for (int j = i; j < screenStack.size(); j++) {
-//                    BaseScreen baseScreen = screenStack.get(j);
-//                    baseScreen.draw(gameContainer, gameCanvasTemp);
-//                }
+                for (int j = i; j < screenStack.size(); j++) {
+                    BaseScreen baseScreen = screenStack.get(j);
+                    baseScreen.draw2(gameContainer, gameCanvasTemp);
+                }
             }
             if (fpsUtil != null) {
                 fpsUtil.calculate();
@@ -141,10 +150,12 @@ public class MainActivity extends Activity implements IGameFrame, Runnable {
             }
 //            gamePanel.repaint();
             //            } // end of synchronized
-
+*/
             CoreUtil.sleep(GameConstant.TIME_GAMELOOP);
             lastTime = curTime;
-        */
+
         }
     }
+
+
 }

@@ -5,10 +5,6 @@ import billy.rpg.game.core.constants.GameConstant;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
-
-import javax.imageio.ImageIO;
 
 
 public class DesktopCanvas extends Canvas implements IGameCanvas {
