@@ -1,16 +1,20 @@
 package billy.rpg.game;
 
 import billy.rpg.common.util.JavaVersionUtil;
-import billy.rpg.game.constants.GameConstant;
-import billy.rpg.game.container.GameContainer;
-import billy.rpg.game.screen.BaseScreen;
-import billy.rpg.game.screen.GameCoverScreen;
-import billy.rpg.game.screen.ProducerScreen;
-import billy.rpg.game.screen.TransitionScreen;
-import billy.rpg.game.screen.battle.BattleScreen;
-import billy.rpg.game.screen.system.SystemUIScreen;
-import billy.rpg.game.util.CoreUtil;
-import billy.rpg.game.util.FPSUtil;
+import billy.rpg.game.core.GameCanvas;
+import billy.rpg.game.core.GameData;
+import billy.rpg.game.core.GamePanel;
+import billy.rpg.game.core.IGameFrame;
+import billy.rpg.game.core.constants.GameConstant;
+import billy.rpg.game.core.container.GameContainer;
+import billy.rpg.game.core.screen.BaseScreen;
+import billy.rpg.game.core.screen.GameCoverScreen;
+import billy.rpg.game.core.screen.ProducerScreen;
+import billy.rpg.game.core.screen.TransitionScreen;
+import billy.rpg.game.core.screen.battle.BattleScreen;
+import billy.rpg.game.core.screen.system.SystemUIScreen;
+import billy.rpg.game.core.util.CoreUtil;
+import billy.rpg.game.core.util.FPSUtil;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
@@ -30,7 +34,7 @@ import java.util.Stack;
  * 
  * @since 2016-12-07 10:26:29
  */
-public class GameFrame extends JFrame implements Runnable {
+public class GameFrame extends JFrame implements IGameFrame, Runnable {
     private static final long serialVersionUID = 1L;
     private static final Logger LOG = Logger.getLogger(GameFrame.class);
 
@@ -85,7 +89,7 @@ public class GameFrame extends JFrame implements Runnable {
         while ( running ) {
 //            synchronized (screenStack) {
             curTime = System.currentTimeMillis();
-            screenStack.peek().update(curTime - lastTime);
+            screenStack.peek().update(gameContainer, curTime - lastTime);
             if (screenStack.size() > 1) {
 //                    logger.error("screenStack.size=" + screenStack.size());
             }
@@ -104,12 +108,12 @@ public class GameFrame extends JFrame implements Runnable {
                 }
                 for (int j = i; j < screenStack.size(); j++) {
                     BaseScreen baseScreen = screenStack.get(j);
-                    baseScreen.draw(gameCanvasTemp);
+                    baseScreen.draw(gameContainer, gameCanvasTemp);
                 }
             }
             if (fpsUtil != null) {
                 fpsUtil.calculate();
-                gameCanvas.drawFPS(fpsUtil.getFrameRate());
+                gameCanvas.drawFPS(this, fpsUtil.getFrameRate());
             }
             gamePanel.repaint();
             //            } // end of synchronized
@@ -120,7 +124,7 @@ public class GameFrame extends JFrame implements Runnable {
     }
 
     public void createAndShowGUI() {
-        gamePanel = new GamePanel();
+        gamePanel = new GamePanel(this);
         this.add(gamePanel);
         gameData = new GameData();
 
@@ -132,7 +136,7 @@ public class GameFrame extends JFrame implements Runnable {
 //        setAlwaysOnTop(true);
         addListener();//键盘监听
         instance = this;
-        gameContainer = GameContainer.getInstance();
+        gameContainer = new GameContainer(this);
         gameContainer.load();
 
         screenStack.push(new GameCoverScreen()); // 进入封面
@@ -158,28 +162,38 @@ public class GameFrame extends JFrame implements Runnable {
         return instance;
     }
     
+    @Override
     public GameContainer getGameContainer() {
         return gameContainer;
     }
-    
+
     public GameCanvas getGameCanvas() {
         return gameCanvas;
     }
 
+    @Override
     public void pushScreen(final BaseScreen screen) {
 //        if (getCurScreen().isEnd()) {
             screenStack.push(screen);
 //        }
     }
-    
+
+    @Override
     public void popScreen() {
         screenStack.pop();
     }
 
+    @Override
     public BaseScreen getCurScreen() {
         return screenStack.peek();
     }
 
+    @Override
+    public GamePanel getGamePanel() {
+        return gamePanel;
+    }
+
+    @Override
     public void changeScreen(int screenCode) {
         BaseScreen tmp = null;
         switch (screenCode) {
@@ -222,7 +236,7 @@ public class GameFrame extends JFrame implements Runnable {
                 int key = c(e.getKeyCode());
 //                synchronized (screenStack) {
                 if (null != screenStack && screenStack.peek() != null) {
-                    screenStack.peek().onKeyUp(key);
+                    screenStack.peek().onKeyUp(gameContainer, key);
                 }
 //                }
             }
@@ -233,7 +247,7 @@ public class GameFrame extends JFrame implements Runnable {
                 }
                 int key = c(e.getKeyCode());
 //                synchronized (screenStack) {
-                    screenStack.peek().onKeyDown(key);
+                    screenStack.peek().onKeyDown(gameContainer, key);
 //                }
             }
             
@@ -244,15 +258,12 @@ public class GameFrame extends JFrame implements Runnable {
     }
 
 
-    public GamePanel getGamePanel() {
-        return gamePanel;
-    }
-
     /**
      * switch to battle screen
      *
      * @param battleScreen battle screen
      */
+    @Override
     public void change2BattleScreen(BattleScreen battleScreen) {
         synchronized (screenStack) {
             screenStack.clear();

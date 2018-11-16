@@ -162,5 +162,10 @@ ILoader
     地图只用于显示地图和行走层，不用于控制传送门和npc和宝箱，因为使用了TMX
     TODO 离开地图后要清空传送门
 #### 2018-11-15
-    测试acp命令   git add . && git commit -m $1 && git push 
+    测试acp命令   git add . && git commit -m $1 && git push
     Q键切换大地图上的玩家人设， 接收不了Tab按键消息
+
+#### 2018-11-16
+    提取出rpg-core，供rpg-android和rpg-game使用
+    整理rpg-core的依赖，N行代码被改动！！！（看来刚开始的设计不是很好）
+

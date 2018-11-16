@@ -5,5 +5,8 @@ plugins {
 dependencies {
     implementation project(':rpg-common')
     testImplementation "junit:junit:4.12"
+    implementation "log4j:log4j:1.2.17"
+    implementation "commons-lang:commons-lang:2.6"
+
     implementation "org.freemarker:freemarker:2.3.21"
 }

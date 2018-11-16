@@ -3,7 +3,5 @@ plugins {
 }
 
 dependencies {
-    implementation project(':rpg-common')
-    implementation 'javazoom:jlayer:1.0.1'
-    implementation 'org.jline:jline:3.6.2'
+    implementation project(':rpg-core')
 }

@@ -1,6 +1,7 @@
 package billy.rpg.animationeditor;
 
 import billy.rpg.resource.animation.*;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
