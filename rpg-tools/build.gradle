@@ -1,0 +1,9 @@
+plugins {
+    id 'java'        
+}
+
+dependencies {
+    compile project(':rpg-common')
+
+    compile "org.freemarker:freemarker:2.3.21"
+}

@@ -3,8 +3,8 @@
 buildscript {
     
     repositories {
-        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
         mavenLocal()
+        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
         mavenCentral()
         jcenter()
         google()
@@ -16,14 +16,26 @@ buildscript {
 
 allprojects {
     repositories {
-        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
         mavenLocal()
+        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
         mavenCentral()
         google()
         jcenter()
     }
+
+    tasks.withType(JavaCompile) {
+        options.encoding = "UTF-8"
+    }
+
 }
+
+// compileJava.options.encoding = 'UTF-8'
+// compileTestJava.options.encoding = 'UTF-8'
+
+// sourceCompatibility = 1.8
+// targetCompatibility = 1.8
 
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
