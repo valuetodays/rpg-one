@@ -20,7 +20,7 @@ public class DesktopImage implements IGameImage {
     @Override
     public void setImageData(Object o) {
         if (!(o instanceof BufferedImage)) {
-            throw new RuntimeException("illegal image format");
+            throw new RuntimeException("illegal image format: " + o.getClass().getName());
         }
         this.image = (BufferedImage) o;
     }

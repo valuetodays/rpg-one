@@ -39,7 +39,8 @@ public class DesktopCanvas extends Canvas implements IGameCanvas {
             Graphics g = background.getGraphics();
             g.setColor(Color.BLACK);
             g.drawImage(image, left, top, null);
-            gameFrame.getGamePanel().setBackground(background);
+            g.dispose();
+            gameFrame.getGamePanel().setBackground(background); // TODO 应该移出去
         }
     }
 }

@@ -15,7 +15,7 @@ public class AndroidImage implements IGameImage {
     @Override
     public void setImageData(Object o) {
         if (!(o instanceof Bitmap)) {
-            throw new RuntimeException("illegal image format");
+            throw new RuntimeException("illegal image format:" + o.getClass().getName());
         }
         this.image = (Bitmap) o;
     }
@@ -42,7 +42,7 @@ public class AndroidImage implements IGameImage {
 
     @Override
     public IGameGraphics getGraphics() {
-        Canvas canvas = new Canvas();
+        Canvas canvas = new Canvas(image);
 
         IGameGraphics gameGraphics = new AndroidGraphics();
         gameGraphics.setGraphics(canvas);
