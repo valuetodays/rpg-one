@@ -82,7 +82,7 @@ public class GameCoverScreenNew extends BaseScreen {
         g2.drawImage(cloud2, left2, 180);
         g2.drawImage(cloud3, left3, 330);
         g2.dispose();
-        g2.link(paint);
+
         gameCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
     }
 

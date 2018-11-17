@@ -44,7 +44,11 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
 
     @Override
     public void run() {
+        long curTime = System.currentTimeMillis();
+        long lastTime = curTime;
         while (running) {
+            curTime = System.currentTimeMillis();
+            screenStack.get(0).update(gameContainer, curTime - lastTime);
             screenStack.get(0).draw2(gameContainer, gameCanvas);
             draw(gameCanvas);
             try {
@@ -52,6 +56,8 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
             } catch (InterruptedException e) {
                 //
             }
+
+            lastTime = curTime;
         }
 
     }
@@ -61,9 +67,9 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
         try {
             canvas = sfh.lockCanvas();
             if (canvas != null) {
-                canvas.drawText("game,,,", 100, 300, paint);
-                Log.i("s", gameCanvas.getBitmap().hashCode() + "");
+                canvas.drawColor(Color.WHITE);
                 canvas.drawBitmap(gameCanvas.getBitmap(), 0f, 0f, paint);
+                canvas.drawText("game,,,", 100, 300, paint);
             }
         } catch (Exception e) {
             //
