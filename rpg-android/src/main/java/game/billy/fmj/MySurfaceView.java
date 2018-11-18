@@ -69,7 +69,6 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
             if (canvas != null) {
                 canvas.drawColor(Color.WHITE);
                 canvas.drawBitmap(gameCanvas.getBitmap(), 0f, 0f, paint);
-                canvas.drawText("game,,,", 100, 300, paint);
             }
         } catch (Exception e) {
             //
