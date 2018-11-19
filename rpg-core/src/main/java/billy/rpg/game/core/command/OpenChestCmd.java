@@ -25,7 +25,7 @@ public class OpenChestCmd extends CmdBase {
             throw new RuntimeException("宝箱不存在");
         }
         BoxWalkableCharacter box = first.get();
-        box.setTileNum(BoxImageLoader.getClosedImageNum());
+        box.setTileNum(BoxImageLoader.getOpenImageNum());
 
         gameContainer.getActiveScriptItem().getBoxes().add(box);
         return 0;

@@ -171,5 +171,6 @@ ILoader
 
 #### 2018-11-19
    离开地图后应清空传送门\npc\宝箱
+   添加创建宝箱命令CreateChestCmd、打开宝箱命令OpenChestCmd
    添加BuiltinScriptItem、builtin.s、部分重复标签以便复用；
 

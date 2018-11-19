@@ -148,7 +148,9 @@ return
 
 测试宝箱:
 if 11001 已打开宝箱
-messagebox '【测试宝箱】得到钨龙剑*1'
+@ 得到铁剑
+addgoods 2002
+openchest 301
 set 11001
 return
 

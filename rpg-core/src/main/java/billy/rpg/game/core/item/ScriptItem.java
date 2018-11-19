@@ -274,6 +274,23 @@ public class ScriptItem {
             executeTrigger(triggerBean);
             return true;
         }
+
+        List<BoxWalkableCharacter> boxes = activeScriptItem.getBoxes();
+        for (BoxWalkableCharacter box : boxes) {
+            int posX = box.getPosX();
+            int posY = box.getPosY();
+            if (heroNextPosXInFullMap == posX && heroNextPosYInFullMap == posY) {
+                int number = box.getNumber();
+                TriggerBean boxTrigger = getTriggerByNum(number);
+                if (boxTrigger != null) {
+                    triggerBean = boxTrigger;
+                }
+            }
+        }
+        if (triggerBean != null) {
+            executeTrigger(triggerBean);
+            return true;
+        }
         return false;
     }
 

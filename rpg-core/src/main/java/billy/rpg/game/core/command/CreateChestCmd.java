@@ -35,7 +35,7 @@ public class CreateChestCmd extends CmdBase {
         box.setNumber(id);
         box.initPos(x, y);
         box.setVisible(visible);
-        box.setTileNum(BoxImageLoader.getOpenImageNum());
+        box.setTileNum(BoxImageLoader.getClosedImageNum());
 
         gameContainer.getActiveScriptItem().getBoxes().add(box);
         return 0;

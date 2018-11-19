@@ -1,6 +1,7 @@
 package billy.rpg.game.core.util;
 
 
+import billy.rpg.game.core.character.walkable.BoxWalkableCharacter;
 import billy.rpg.game.core.character.walkable.HeroWalkableCharacter;
 import billy.rpg.game.core.character.walkable.npc.NPCWalkableCharacter;
 import billy.rpg.game.core.container.GameContainer;
@@ -22,6 +23,7 @@ public class WalkUtil {
      * <ul>
      *     <li>传入的x,y不合法，不可行走</li>
      *     <li>case 1. 行走层位置不可行走，不可行走</li>
+     *     <li>case 2. 该位置有宝箱，不可行走</li>
      *     <li>case 4. 该位置有npc，不可行走 [这个判断是防止hero踩到npc或是npc踩到npc]</li>
      *     <li>case 5. 该位置有hero，不可行走 [这个判断是防止npc踩到hero]</li>
      * </ul>
@@ -39,10 +41,19 @@ public class WalkUtil {
         if (flag[x][y] == WALK_NO) {
             return false;  // case 1
         }
-
-        // case 4
         {
+            // case 2
             ScriptItem activeFileItem = gameContainer.getActiveScriptItem();
+            List<BoxWalkableCharacter> boxes = activeFileItem.getBoxes();
+            for (BoxWalkableCharacter box : boxes) {
+                int posX = box.getPosX();
+                int posY = box.getPosY();
+                if (x == posX && y == posY) {
+                    return false;
+                }
+            }
+
+            // case 4
             List<NPCWalkableCharacter> npcs = activeFileItem.getNpcs();
             for (NPCWalkableCharacter npc : npcs) {
                 int posX = npc.getPosX();
