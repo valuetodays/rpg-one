@@ -20,4 +20,11 @@ public class DrawUtil {
                 sourceX + width, sourceY + height,
                 null);
     }
+
+    public static void drawImage(Graphics g, Image image, int x, int y) {
+        g.drawImage(image, x, y, image.getWidth(null), image.getHeight(null), null);
+    }
+    public static void drawImage(Graphics g, Image image) {
+        drawImage(g, image, 0, 0);
+    }
 }

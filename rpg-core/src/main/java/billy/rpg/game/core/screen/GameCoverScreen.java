@@ -1,5 +1,6 @@
 package billy.rpg.game.core.screen;
 
+import billy.rpg.common.util.DrawUtil;
 import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.constants.GameConstant;
 import billy.rpg.game.core.container.GameContainer;
@@ -58,7 +59,6 @@ public class GameCoverScreen extends BaseScreen {
         if (left3 <= -cloud3.getWidth(null)) {
             left3 = 500;
         }
-
     }
 
     @Override
@@ -72,21 +72,20 @@ public class GameCoverScreen extends BaseScreen {
         Image gameCover = gameContainer.getGameAboutItem().getGameCover();
         Image gameArrow = gameContainer.getGameAboutItem().getGameArrowRight();
         Image gameBalloon = gameContainer.getGameAboutItem().getGameBalloon();
-        g2.drawImage(gameCover, 0, 0, gameCover.getWidth(null), gameCover.getHeight(null), null);
+        DrawUtil.drawImage(g2, gameCover);
         g2.drawRect(150, 315, 160, 90);
         g2.setFont(new Font("黑体", Font.BOLD, 24));
         g2.drawString("开始游戏", 190, 340);
         g2.drawString("继续游戏", 190, 370);
         g2.drawString("关于我们", 190, 400);
-        g2.drawImage(gameArrow, arrowX, map.get(f), gameArrow.getWidth(null), gameArrow.getHeight(null), null);
-//        g2.drawImage(gameArrow, arrowX, arrowY+28, gameArrow.getWidth(null), gameArrow.getHeight(null), null);
+        DrawUtil.drawImage(g2, gameArrow, arrowX, map.get(f));
         g2.drawImage(gameBalloon, 220, 130, 220+32, 130+32,
         		1*32, 0, 1*32+32, 0*32+32,  
         		null);
-        g2.drawImage(cloudMain, 0, 80, null);
-        g2.drawImage(cloud1, left1, 30, null);
-        g2.drawImage(cloud2, left2, 180, null);
-        g2.drawImage(cloud3, left3, 330, null);
+        DrawUtil.drawImage(g2, cloudMain, 0, 80);
+        DrawUtil.drawImage(g2, cloud1, left1, 30);
+        DrawUtil.drawImage(g2, cloud2, left2, 180);
+        DrawUtil.drawImage(g2, cloud3, left3, 330);
         g2.dispose();
         desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
     }

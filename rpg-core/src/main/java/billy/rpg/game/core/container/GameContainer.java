@@ -170,11 +170,21 @@ public class GameContainer {
         // TODO 添加过渡场景
         gameFrame.changeScreen(8);
 
+        doBeforeChangeActiveScript(m, n, pos);
         // initialize the entry script-item
         changeActiveScriptItemTo(m, n, pos);
     }
-    
-    
+
+    private void doBeforeChangeActiveScript(int m, int n, String pos) {
+        ScriptItem activeScriptItem = getActiveScriptItem();
+        if (activeScriptItem != null) { // 首次进入游戏时没有该变量
+            activeScriptItem.getTransfers().clear();
+            activeScriptItem.getNpcs().clear();
+            activeScriptItem.getBoxes().clear();
+        }
+    }
+
+
     private void loadScriptData() throws Exception {
         ScriptDataLoader sl = new ScriptDataLoader();
         List<ScriptItem> slLoad = sl.load();
