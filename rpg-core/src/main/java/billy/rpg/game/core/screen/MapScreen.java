@@ -56,7 +56,7 @@ public class MapScreen extends BaseScreen {
         HeroWalkableCharacter hero = gameContainer.getActiveScriptItem().getHero();
         int posX = hero.getPosX();
         int posY = hero.getPosY();
-        gameContainer.getGameFrame().setTitle("offset x/y="+ offsetTileX + "/" + offsetTileY + hero.toString());
+        gameContainer.getGameFrame().setTitle("offset x/y="+ offsetTileX + "/" + offsetTileY + hero.toString(gameContainer));
 
         {
             final Image bgImage1 = gameContainer.getBgImageItem().getBgImage1();

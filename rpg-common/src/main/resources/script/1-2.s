@@ -22,7 +22,9 @@ createnpc 12 12 5 2 2
 createnpc 13 13 9 2 1
 createnpc 14 19 19 2 1
 
-createsceneObject 401 1 1 "san_qing_gong_left.png"
+createsceneObject 401 19 39 "san_qing_gong_left.png"
+createsceneObject 402 21 39 "san_qing_gong_middle.png"
+createsceneObject 402 25 39 "san_qing_gong_right.png"
 
 scenename '三清宫'
 return

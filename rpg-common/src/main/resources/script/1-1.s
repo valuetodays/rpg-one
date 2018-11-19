@@ -122,8 +122,7 @@ return
 
 百草地西:
 @if 1 先见师傅吧
-say 1 'sss' LEFT '测试能否显示'
-@loadmap 1 3 14 9 12 0
+loadmap 1 3 18 10 12 0
 return
 
 
