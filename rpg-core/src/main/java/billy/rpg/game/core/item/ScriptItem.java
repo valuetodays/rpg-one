@@ -2,6 +2,7 @@ package billy.rpg.game.core.item;
 
 import billy.rpg.game.core.GameData;
 import billy.rpg.game.core.character.walkable.BoxWalkableCharacter;
+import billy.rpg.game.core.character.walkable.FlickerObjectWalkableCharacter;
 import billy.rpg.game.core.character.walkable.HeroWalkableCharacter;
 import billy.rpg.game.core.character.walkable.TransferWalkableCharacter;
 import billy.rpg.game.core.character.walkable.npc.NPCWalkableCharacter;
@@ -56,6 +57,8 @@ public class ScriptItem {
     private MP3Player bgmPlayer;
     /** 本脚本中的所有变量 */
     private Set<String> variables = new HashSet<>();
+    /** 场景 */
+    private List<FlickerObjectWalkableCharacter> sceneObjects = new ArrayList<>();
 
     public String getScriptId() {
         return scriptId;
@@ -222,7 +225,7 @@ public class ScriptItem {
      *     <li>若地图上有传送门，就执行传送门事件</li>
      *     <li>若地图上有宝箱，就执行宝箱事件</li>
      * </ol>
-     * 返回true说明有事件，主角就不变动了
+     * 返回true说明有事件，主角就不走动了
      */
     private boolean checkTrigger0(GameContainer gameContainer) {
         MapScreen mapScreen = gameContainer.getMapScreen();
@@ -232,29 +235,46 @@ public class ScriptItem {
         if (heroNextPosXInFullMap == -1 && heroNextPosYInFullMap == -1) { // a new map, not check talk
             return true;
         }
-        TriggerBean triggerBean = null;
         ScriptItem activeScriptItem = gameContainer.getActiveScriptItem();
         // npc事件
-        List<NPCWalkableCharacter> npcs = activeScriptItem.getNpcs();
-        for (NPCWalkableCharacter npc : npcs) {
-            int npcPosX = npc.getPosX();
-            int npcPosY = npc.getPosY();
-            if (heroNextPosXInFullMap == npcPosX && heroNextPosYInFullMap == npcPosY) {
-                int number = npc.getNumber();
-                if (0 != number) {
-                    TriggerBean talkByNum = getTriggerByNum(number);
-                    if (talkByNum != null) {
-                        triggerBean = talkByNum;
-                        break;
-                    }
-                }
-            }
-        }
-        if (triggerBean != null) {
-            executeTrigger(triggerBean);
+        TriggerBean npcTrigger = getNpcTrigger(activeScriptItem, heroNextPosXInFullMap, heroNextPosYInFullMap);
+        if (npcTrigger != null) {
+            executeTrigger(npcTrigger);
             return true;
         }
         // 传送门事件
+        TriggerBean transferTrigger = getTransferTrigger(activeScriptItem, heroNextPosXInFullMap, heroNextPosYInFullMap);
+        if (transferTrigger != null) {
+            executeTrigger(transferTrigger);
+            return true;
+        }
+        // 宝箱事件
+        TriggerBean boxTrigger = getBoxTrigger(activeScriptItem, heroNextPosXInFullMap, heroNextPosYInFullMap);
+        if (boxTrigger != null) {
+            executeTrigger(boxTrigger);
+            return true;
+        }
+        return false;
+    }
+
+    private TriggerBean getBoxTrigger(ScriptItem activeScriptItem, int heroNextPosXInFullMap, int heroNextPosYInFullMap) {
+        List<BoxWalkableCharacter> boxes = activeScriptItem.getBoxes();
+        for (BoxWalkableCharacter box : boxes) {
+            int posX = box.getPosX();
+            int posY = box.getPosY();
+            if (heroNextPosXInFullMap == posX && heroNextPosYInFullMap == posY) {
+                int number = box.getNumber();
+                TriggerBean boxTrigger = getTriggerByNum(number);
+                if (boxTrigger != null) {
+                    return boxTrigger;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    private TriggerBean getTransferTrigger(ScriptItem activeScriptItem, int heroNextPosXInFullMap, int heroNextPosYInFullMap) {
         List<TransferWalkableCharacter> transfers = activeScriptItem.getTransfers();
         for (TransferWalkableCharacter transfer : transfers) {
             int npcPosX = transfer.getPosX();
@@ -264,34 +284,32 @@ public class ScriptItem {
                 if (0 != number) {
                     TriggerBean talkByNum = getTriggerByNum(number);
                     if (talkByNum != null) {
-                        triggerBean = talkByNum;
-                        break;
+                        return talkByNum;
                     }
                 }
             }
         }
-        if (triggerBean != null) {
-            executeTrigger(triggerBean);
-            return true;
-        }
 
-        List<BoxWalkableCharacter> boxes = activeScriptItem.getBoxes();
-        for (BoxWalkableCharacter box : boxes) {
-            int posX = box.getPosX();
-            int posY = box.getPosY();
-            if (heroNextPosXInFullMap == posX && heroNextPosYInFullMap == posY) {
-                int number = box.getNumber();
-                TriggerBean boxTrigger = getTriggerByNum(number);
-                if (boxTrigger != null) {
-                    triggerBean = boxTrigger;
+        return null;
+    }
+
+    private TriggerBean getNpcTrigger(ScriptItem activeScriptItem, int heroNextPosXInFullMap, int heroNextPosYInFullMap) {
+        List<NPCWalkableCharacter> npcs = activeScriptItem.getNpcs();
+        for (NPCWalkableCharacter npc : npcs) {
+            int npcPosX = npc.getPosX();
+            int npcPosY = npc.getPosY();
+            if (heroNextPosXInFullMap == npcPosX && heroNextPosYInFullMap == npcPosY) {
+                int number = npc.getNumber();
+                if (0 != number) {
+                    TriggerBean talkByNum = getTriggerByNum(number);
+                    if (talkByNum != null) {
+                        return talkByNum;
+                    }
                 }
             }
         }
-        if (triggerBean != null) {
-            executeTrigger(triggerBean);
-            return true;
-        }
-        return false;
+
+        return null;
     }
 
     public void init(List<CmdBase> cmdList) {
@@ -360,6 +378,14 @@ public class ScriptItem {
 
     public boolean getVariable(String var) {
         return variables.contains(var);
+    }
+
+    public List<FlickerObjectWalkableCharacter> getSceneObjects() {
+        return sceneObjects;
+    }
+
+    public void setSceneObjects(List<FlickerObjectWalkableCharacter> sceneObjects) {
+        this.sceneObjects = sceneObjects;
     }
 
     /**

@@ -22,6 +22,8 @@ createnpc 12 12 5 2 2
 createnpc 13 13 9 2 1
 createnpc 14 19 19 2 1
 
+createsceneObject 401 1 1 "san_qing_gong_left.png"
+
 scenename '三清宫'
 return
 

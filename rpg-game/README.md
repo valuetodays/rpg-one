@@ -160,7 +160,6 @@ ILoader
     使用Tiled来创建地图，但是地图层只保留两层：bgLayer和walkLayer；同时原有的MapEditor已无效了。^\_^|||
     使用Freemarker转换bbk a rpg地图数据 -> 原地图数据 -> TMX
     地图只用于显示地图和行走层，不用于控制传送门和npc和宝箱，因为使用了TMX
-    TODO 离开地图后要清空传送门
 #### 2018-11-15
     测试acp命令   git add . && git commit -m $1 && git push
     Q键切换大地图上的玩家人设， 接收不了Tab按键消息
@@ -170,7 +169,10 @@ ILoader
     整理rpg-core的依赖，N行代码被改动！！！（看来刚开始的设计不是很好）
 
 #### 2018-11-19
-   离开地图后应清空传送门\npc\宝箱
+   离开地图后应清空传送门、npc、宝箱
    添加创建宝箱命令CreateChestCmd、打开宝箱命令OpenChestCmd
-   添加BuiltinScriptItem、builtin.s、部分重复标签以便复用；
+   添加BuiltinScriptItem、builtin.s、部分重复标签以便复用
+   [TODO]显示场景物品如三清宫
+   [TODO]切换场景再回来后发现宝箱还是关闭着的，但是已经不能再打开了
+
 

@@ -4,6 +4,7 @@ import billy.rpg.common.constant.ToolsConstant;
 import billy.rpg.common.util.DrawUtil;
 import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.character.walkable.BoxWalkableCharacter;
+import billy.rpg.game.core.character.walkable.FlickerObjectWalkableCharacter;
 import billy.rpg.game.core.character.walkable.HeroWalkableCharacter;
 import billy.rpg.game.core.character.walkable.TransferWalkableCharacter;
 import billy.rpg.game.core.character.walkable.npc.NPCWalkableCharacter;
@@ -20,6 +21,7 @@ import billy.rpg.resource.npc.NPCImageLoader;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.List;
 
 /**
  * map
@@ -140,7 +142,7 @@ public class MapScreen extends BaseScreen {
 
 
         //////// draw event start
-       final Image transferImage = gameContainer.getGameAboutItem().getGameTransfer();
+        final Image transferImage = gameContainer.getGameAboutItem().getGameTransfer();
         java.util.List<TransferWalkableCharacter> transfers = active.getTransfers();
         for (TransferWalkableCharacter transfer : transfers) {
             transfer.move(gameContainer, this);
@@ -153,6 +155,17 @@ public class MapScreen extends BaseScreen {
                     GameConstant.GAME_TILE_WIDTH, GameConstant.GAME_TILE_HEIGHT);
         }
         //////// draw event end
+
+        // draw scene-object begin
+        List<FlickerObjectWalkableCharacter> sceneObjects = active.getSceneObjects();
+        for (FlickerObjectWalkableCharacter sceneObject : sceneObjects) {
+            BufferedImage image = sceneObject.getImage();
+            int posX1 = sceneObject.getPosX();
+            int posY1 = sceneObject.getPosY();
+            DrawUtil.drawImage(g2, image, (posX1-offsetTileX)*32, (posY1-offsetTileY) *32);
+        }
+        // draw scene-object end
+
 
         String mapName = gameContainer.getActiveMap().getName();
         g2.setFont(GameConstant.FONT_SIZE_MAP_NAME);

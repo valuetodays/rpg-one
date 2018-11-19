@@ -3,14 +3,17 @@ package billy.rpg.game.core.character.walkable;
 import billy.rpg.game.core.container.GameContainer;
 import billy.rpg.game.core.screen.MapScreen;
 
+import java.awt.image.BufferedImage;
+
 /**
- * 传送门
+ * 闪烁的火焰、灯洞
  */
-public class TransferWalkableCharacter extends WalkableCharacter {
+public class FlickerObjectWalkableCharacter extends WalkableCharacter {
     private long lastTime = System.currentTimeMillis();
+    private BufferedImage image;
 
     /**
-     * 传送门的自动切换
+     * 闪烁物品的自动切换
      */
     @Override
     public void move(GameContainer gameContainer, MapScreen mapScreen) {
@@ -24,5 +27,20 @@ public class TransferWalkableCharacter extends WalkableCharacter {
         }
     }
 
-}
+    @Override
+    public void increaseCurFrame() {
+        curFrame++;
+        if (curFrame == 3) {
+            curFrame = 0;
+        }
+    }
 
+
+    public BufferedImage getImage() {
+        return image;
+    }
+
+    public void setImage(BufferedImage image) {
+        this.image = image;
+    }
+}
