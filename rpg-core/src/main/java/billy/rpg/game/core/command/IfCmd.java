@@ -29,14 +29,8 @@ public class IfCmd extends CmdBase {
     @Override
     public int execute(GameContainer gameContainer, CmdProcessor cmdProcessor) {
         if (VariableTableDeterminer.getInstance().existsVariable(gameContainer, condition)) {
-            ScriptItem activeScriptItem = gameContainer.getActiveScriptItem();
-            LabelBean fun = activeScriptItem.getLabelByTitle(triggerName);
-            if (fun == null) {
-                throw new RuntimeException("cannot find label '"+triggerName+"' in script " + activeScriptItem
-                        .getScriptId());
-            }
-            //LabelBean fun = GlobalVirtualTables.getLabel(triggerName);
-            cmdProcessor.setInnerCmdProcessor(new DefaultCmdProcessor(fun.getCmds()));
+            LabelBean label = gameContainer.getLabelByTitle(triggerName);
+            cmdProcessor.setInnerCmdProcessor(new DefaultCmdProcessor(label.getCmds()));
         } else {    // global variable does not exist
             return -2;
         }

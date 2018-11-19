@@ -5,6 +5,7 @@ import billy.rpg.game.core.command.EmptyCmd;
 import billy.rpg.game.core.command.parser.CommandParser;
 import billy.rpg.game.core.command.parser.support.JlineCommandParser;
 import billy.rpg.game.core.item.ScriptItem;
+import billy.rpg.game.core.util.CoreUtil;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 
@@ -22,28 +23,20 @@ import java.util.List;
 public class ScriptDataLoader {
     private static final Logger LOG = Logger.getLogger(ScriptDataLoader.class);
 
-    private List<String> loadScripts0() throws IOException {
-        Enumeration<URL> urls = null;
+    private List<String> loadScripts0() {
         List<String> list = new ArrayList<>();
-        urls = Thread.currentThread().getContextClassLoader().getResources("");
-        while (urls.hasMoreElements()) {
-            URL url = urls.nextElement();
-            String protocol = url.getProtocol();
-            if ("file".equals(protocol)) {
-                String filepath = url.getPath();
-                String packagename = filepath + "script/";
-                File file = new File(packagename);
-                if (!file.exists()) {
-                    continue;
-                }
-                File[] listFiles = file.listFiles(filterScripts());
+        String scriptPath = CoreUtil.getResourcePath("/script");
 
-                for (File f : listFiles) {
-                    String tmp = f.getPath();
-                    LOG.debug("scripts loaded:" + f.getPath());
-                    list.add(tmp);
-                }
-            }
+        File file = new File(scriptPath);
+        if (!file.exists()) {
+            throw new RuntimeException("no scripts");
+        }
+        File[] listFiles = file.listFiles(filterScripts());
+
+        for (File f : listFiles) {
+            String tmp = f.getPath();
+            LOG.debug("scripts loaded:" + f.getPath());
+            list.add(tmp);
         }
 
         if (list.isEmpty()) {
@@ -56,18 +49,11 @@ public class ScriptDataLoader {
      * 过滤指定的脚本文件
      */
     private static FileFilter filterScripts() {
-        return new FileFilter() {
-            @Override
-            public boolean accept(File pathname) {
-                //  we want the file whose extension is 's'.  [1: file, 2: '.s' ]
-                if (pathname.isFile() && pathname.getPath().endsWith(".s")) {
-                    return true;
-                }
-                return false;
-            }
+        return pathname -> {
+            //  we want the file whose extension is 's'.  [1: file, 2: '.s' ]
+            return pathname.isFile() && pathname.getPath().endsWith(".s");
         };
     }
-
 
     public List<ScriptItem> load() throws Exception {
         List<String> scripts = loadScripts0();
@@ -123,7 +109,7 @@ public class ScriptDataLoader {
             IOUtils.closeQuietly(in);
         }
 
-        return  scriptItemList;
+        return scriptItemList;
     }
     
     

@@ -53,10 +53,10 @@ public class BoxImageLoader {
         throw new RuntimeException("box编号错误");
     }
 
-    private int getOpenImageNum() {
+    public static int getOpenImageNum() {
         return 0xee; // 238
     }
-    private int getClosedImageNum() {
+    public static int getClosedImageNum() {
         return 0xed; // 237
     }
 

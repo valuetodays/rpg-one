@@ -18,6 +18,7 @@ import billy.rpg.game.core.loader.map.TmxMapDataLoader;
 import billy.rpg.game.core.item.ScriptItem;
 import billy.rpg.game.core.screen.BaseScreen;
 import billy.rpg.game.core.screen.MapScreen;
+import billy.rpg.game.core.script.LabelBean;
 import billy.rpg.resource.animation.AnimationMetaData;
 import billy.rpg.resource.box.BoxImageLoader;
 import billy.rpg.resource.goods.GoodsMetaData;
@@ -26,6 +27,7 @@ import billy.rpg.resource.map.MapMetaData;
 import billy.rpg.resource.npc.NPCImageLoader;
 import billy.rpg.resource.role.RoleMetaData;
 import billy.rpg.resource.skill.SkillMetaData;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import java.awt.*;
@@ -33,6 +35,7 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Game Container
@@ -52,6 +55,7 @@ public class GameContainer {
     private RoleImageItem roleItem; // role
     private GameAboutImageItem gameAboutItem = new GameAboutImageItem();
     private List<ScriptItem> scriptItemList; // scripts
+    private ScriptItem builtinScriptItem; // built-in script
     private ScriptItem activeScriptItem; // active script
     private Map<String, MapMetaData> mapCollections; // maps
     private MapMetaData activeMap; // active map
@@ -188,7 +192,15 @@ public class GameContainer {
     private void loadScriptData() throws Exception {
         ScriptDataLoader sl = new ScriptDataLoader();
         List<ScriptItem> slLoad = sl.load();
-
+        {
+            // 处理内置脚本
+            Optional<ScriptItem> builtinScriptOptional = slLoad.stream().filter(e -> StringUtils.equals("0-0", e.getScriptId())).findFirst();
+            if (!builtinScriptOptional.isPresent()) {
+                throw new RuntimeException("谁把内置脚本给删了？");
+            }
+            builtinScriptItem = builtinScriptOptional.get();
+            slLoad.remove(builtinScriptItem);
+        }
         this.scriptItemList = Collections.unmodifiableList(slLoad);
     }
 
@@ -391,5 +403,25 @@ public class GameContainer {
 
     public void setGameData(GameData gameData) {
         this.gameData = gameData;
+    }
+
+    public ScriptItem getBuiltinScriptItem() {
+        return builtinScriptItem;
+    }
+
+    public LabelBean getLabelByTitle(String title) {
+        ScriptItem builtinScriptItem = getBuiltinScriptItem();
+        LabelBean builtinLabel = builtinScriptItem.getLabelByTitle(title);
+        if (builtinLabel != null) {
+            return builtinLabel;
+        }
+
+        ScriptItem activeScriptItem = getActiveScriptItem();
+        LabelBean scriptLabel = activeScriptItem.getLabelByTitle(title);
+        if (scriptLabel != null) {
+            return scriptLabel;
+        }
+
+        throw new RuntimeException("cannot find label '"+title+"' in builtin script and script " + activeScriptItem.getScriptId());
     }
 }

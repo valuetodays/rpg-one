@@ -3,6 +3,7 @@ package billy.rpg.game.core.screen;
 import billy.rpg.common.constant.ToolsConstant;
 import billy.rpg.common.util.DrawUtil;
 import billy.rpg.game.core.DesktopCanvas;
+import billy.rpg.game.core.character.walkable.BoxWalkableCharacter;
 import billy.rpg.game.core.character.walkable.HeroWalkableCharacter;
 import billy.rpg.game.core.character.walkable.TransferWalkableCharacter;
 import billy.rpg.game.core.character.walkable.npc.NPCWalkableCharacter;
@@ -13,6 +14,7 @@ import billy.rpg.game.core.container.GameContainer;
 import billy.rpg.game.core.item.ScriptItem;
 import billy.rpg.game.core.script.variable.VariableTableDeterminer;
 import billy.rpg.game.core.util.KeyUtil;
+import billy.rpg.resource.box.BoxImageLoader;
 import billy.rpg.resource.map.MapMetaData;
 import billy.rpg.resource.npc.NPCImageLoader;
 
@@ -104,16 +106,17 @@ public class MapScreen extends BaseScreen {
                     curFrame*32, direction*32,
                     GameConstant.GAME_TILE_WIDTH, GameConstant.GAME_TILE_HEIGHT);
         }
-        /*BoxImageLoader boxImageLoader = GameFrame.getInstance().getGameContainer().getBoxImageLoader();
+        BoxImageLoader boxImageLoader = gameContainer.getBoxImageLoader();
         java.util.List<BoxWalkableCharacter> boxes = active.getBoxes();
         for (BoxWalkableCharacter box : boxes) {
-            box.move(this); // TODO box需要move?
-            int posX1 = box.getPosX();
-            int posY1 = box.getPosY();
-            int tileNum = box.getTileNum();
-            BufferedImage boxImage = boxImageLoader.getImageOf(tileNum);
-            g2.drawImage(boxImage, (posX1-offsetTileX)*32, (posY1-offsetTileY)*32, null);
-        }*/
+            box.move(gameContainer, this);
+            if (box.isVisible()) {
+                int posX1 = box.getPosX();
+                int posY1 = box.getPosY();
+                BufferedImage boxImage = boxImageLoader.getImageOf(box.getTileNum());
+                g2.drawImage(boxImage, (posX1 - offsetTileX) * 32, (posY1 - offsetTileY) * 32, null);
+            }
+        }
         //////// draw role & npc end
 
         //////// draw fgLayer start
