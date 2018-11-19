@@ -15,7 +15,7 @@ public abstract class BaseScreen {
     
 
     public abstract void update(GameContainer gameContainer, long delta);
-    public void draw(GameContainer gameContainer, DesktopCanvas desktopCanvas){};
+    public abstract void draw(GameContainer gameContainer, DesktopCanvas desktopCanvas);
     public void draw2(GameContainer gameContainer, IGameCanvas gameCanvas){};
     public abstract void onKeyDown(GameContainer gameContainer, int key);
     public abstract void onKeyUp(GameContainer gameContainer, int key);

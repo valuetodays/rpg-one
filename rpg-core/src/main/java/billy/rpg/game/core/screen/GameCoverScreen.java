@@ -69,10 +69,10 @@ public class GameCoverScreen extends BaseScreen {
                 BufferedImage.TYPE_4BYTE_ABGR);
         Graphics g2 = paint.getGraphics();
 
-//        Image gameCover = gameContainer.getGameAboutItem().getGameCover();
+        Image gameCover = gameContainer.getGameAboutItem().getGameCover();
         Image gameArrow = gameContainer.getGameAboutItem().getGameArrowRight();
         Image gameBalloon = gameContainer.getGameAboutItem().getGameBalloon();
-//        g2.drawImage(gameCover, 0, 0, gameCover.getWidth(null), gameCover.getHeight(null), null);
+        g2.drawImage(gameCover, 0, 0, gameCover.getWidth(null), gameCover.getHeight(null), null);
         g2.drawRect(150, 315, 160, 90);
         g2.setFont(new Font("黑体", Font.BOLD, 24));
         g2.drawString("开始游戏", 190, 340);

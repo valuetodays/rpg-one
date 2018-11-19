@@ -1,19 +1,23 @@
 package billy.rpg.game.core.screen;
 
-import java.awt.Font;
+import billy.rpg.game.core.DesktopCanvas;
+import billy.rpg.game.core.IGameCanvas;
+import billy.rpg.game.core.constants.GameConstant;
+import billy.rpg.game.core.container.GameContainer;
+import billy.rpg.game.core.platform.graphics.IGameGraphics;
+import billy.rpg.game.core.platform.image.IGameImage;
+import billy.rpg.game.core.platform.image.IGameImageFactory;
+import billy.rpg.game.core.util.KeyUtil;
+import billy.rpg.game.core.util.MP3Player;
+
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
 
-import billy.rpg.game.core.IGameCanvas;
-import billy.rpg.game.core.platform.graphics.IGameGraphics;
-import billy.rpg.game.core.platform.image.IGameImage;
-import billy.rpg.game.core.platform.image.IGameImageFactory;
-import billy.rpg.game.core.constants.GameConstant;
-import billy.rpg.game.core.container.GameContainer;
-import billy.rpg.game.core.util.KeyUtil;
-import billy.rpg.game.core.util.MP3Player;
-
+/**
+ * a cross-platform screen sample
+ */
 public class GameCoverScreenNew extends BaseScreen {
     private int arrowX = 160;
     private int f = 1; // 1:new game;  2:continue;   3: producer
@@ -59,6 +63,11 @@ public class GameCoverScreenNew extends BaseScreen {
     }
 
     @Override
+    public void draw(GameContainer gameContainer, DesktopCanvas desktopCanvas) {
+
+    }
+
+    @Override
     public void draw2(GameContainer gameContainer, IGameCanvas gameCanvas) {
         IGameImage paint = IGameImageFactory.createImage(
                 GameConstant.GAME_WIDTH,
@@ -67,7 +76,7 @@ public class GameCoverScreenNew extends BaseScreen {
 
         IGameGraphics g2 = paint.getGraphics();
 
-        IGameImage gameCover = gameContainer.getGameAboutItem().getGameCover();
+        IGameImage gameCover = gameContainer.getGameAboutItem().getGameCoverNew();
         IGameImage gameArrow = gameContainer.getGameAboutItem().getGameArrowRightNew();
 
         g2.drawImage(gameCover, 0, 0);

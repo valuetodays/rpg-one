@@ -105,7 +105,7 @@ public class GameAboutImageItem {
             IOUtils.closeQuietly(is);
 
             is = this.getClass().getResourceAsStream("/Images/ArrowRight.png");
-            gameArrowUp = ImageIO.read(is);
+            gameArrowRight = ImageIO.read(is);
             IOUtils.closeQuietly(is);
 
             is = this.getClass().getResourceAsStream("/Images/ArrowUp.png");
@@ -131,10 +131,19 @@ public class GameAboutImageItem {
     }
 
     private void loadGameCover() {
-
+        try {
+            InputStream is = this.getClass().getResourceAsStream("/Images/gamecover.png");
+            gameCover = ImageIO.read(is);
+            IOUtils.closeQuietly(is);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public IGameImage getGameCover() {
+    public Image getGameCover() {
+        return gameCover;
+    }
+    public IGameImage getGameCoverNew() {
         return IGameImageFactory.getImage("/Images/gamecover.png");
     }
 

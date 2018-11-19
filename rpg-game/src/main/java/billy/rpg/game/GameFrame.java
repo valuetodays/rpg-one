@@ -9,7 +9,6 @@ import billy.rpg.game.core.constants.GameConstant;
 import billy.rpg.game.core.container.GameContainer;
 import billy.rpg.game.core.screen.BaseScreen;
 import billy.rpg.game.core.screen.GameCoverScreen;
-import billy.rpg.game.core.screen.GameCoverScreenNew;
 import billy.rpg.game.core.screen.ProducerScreen;
 import billy.rpg.game.core.screen.TransitionScreen;
 import billy.rpg.game.core.screen.battle.BattleScreen;
@@ -108,7 +107,7 @@ public class GameFrame extends JFrame implements IGameFrame, Runnable {
                 }
                 for (int j = i; j < screenStack.size(); j++) {
                     BaseScreen baseScreen = screenStack.get(j);
-                    baseScreen.draw2(gameContainer, desktopCanvasTemp);
+                    baseScreen.draw(gameContainer, desktopCanvasTemp);
                 }
             }
             if (fpsUtil != null) {
@@ -139,7 +138,7 @@ public class GameFrame extends JFrame implements IGameFrame, Runnable {
         gameContainer.load();
         gameContainer.setGameData(new GameData());
 
-        screenStack.push(new GameCoverScreenNew()); // 进入封面
+        screenStack.push(new GameCoverScreen()); // 进入封面
 //        int[] monsterIds = new int[]{51, 51};
 //        screenStack.push(new BattleScreen(monsterIds)); // 进入战斗界面
 
