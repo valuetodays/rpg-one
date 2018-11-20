@@ -134,7 +134,7 @@ public class ScriptItem {
         while (!(caa instanceof ReturnCmd)) {
             if (caa instanceof AttrCmd) {
                 AttrCmd ac = (AttrCmd) caa;
-                this.scriptId = ac.getM() + "-" + ac.getN();
+                setScriptId(ac.getM() + "-" + ac.getN());
 
             } else if (caa instanceof BattleImageCmd) {
                 BattleImageCmd bic = (BattleImageCmd) caa;
@@ -147,7 +147,7 @@ public class ScriptItem {
 
         caa = cmdList.get(i);
         primarySection.add(caa);
-        this.primarySection = Collections.unmodifiableList(primarySection);
+        setPrimarySection(Collections.unmodifiableList(primarySection));
     }
 
     private void initTriggers(List<CmdBase> cmdList) {
@@ -379,9 +379,11 @@ public class ScriptItem {
     public void delVariable(String var) {
         variables.remove(var);
     }
-
     public boolean getVariable(String var) {
         return variables.contains(var);
+    }
+    public void clearVariable() {
+        variables.clear();
     }
 
     public List<FlickerObjectWalkableCharacter> getSceneObjects() {

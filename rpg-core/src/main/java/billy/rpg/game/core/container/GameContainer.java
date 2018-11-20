@@ -182,9 +182,11 @@ public class GameContainer {
     private void doBeforeChangeActiveScript(int m, int n, String pos) {
         ScriptItem activeScriptItem = getActiveScriptItem();
         if (activeScriptItem != null) { // 首次进入游戏时没有该变量
-            activeScriptItem.getTransfers().clear();
-            activeScriptItem.getNpcs().clear();
-            activeScriptItem.getBoxes().clear();
+            activeScriptItem.getTransfers().clear(); // 清空传送门
+            activeScriptItem.getNpcs().clear(); // 清空npc
+            activeScriptItem.getBoxes().clear(); // 清空宝箱
+
+            activeScriptItem.clearVariable(); // 清空脚本变量
         }
     }
 
