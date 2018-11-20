@@ -193,7 +193,7 @@ public class MapScreen extends BaseScreen {
         } else if (KeyUtil.isDown(key)) {
             hero.setDirection(WalkableConstant.PositionEnum.DOWN);
         }
-        // TODO 在大地图上显示say命令后，窗口会一闪而过，可试着把checkTrigger()移到onKeyUp()中
+
         if (!active.checkTrigger(gameContainer)) { // 检查触发器
             active.toCheckTrigger(); // 设置下一步要检查触发器
             if (KeyUtil.isLeft(key)) {
