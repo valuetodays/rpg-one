@@ -52,13 +52,7 @@ public class MessageBoxScreen extends BaseScreen {
             return ;
         }
         
-        // 创建一个缓冲区
-        BufferedImage paint = new BufferedImage(
-                GameConstant.GAME_WIDTH, 
-                GameConstant.GAME_HEIGHT, 
-                BufferedImage.TYPE_4BYTE_ABGR);
-
-        // 得到缓冲区的画笔
+        BufferedImage paint = new BufferedImage(GameConstant.GAME_WIDTH, GameConstant.GAME_HEIGHT, BufferedImage.TYPE_4BYTE_ABGR);
         Graphics g = paint.getGraphics();
         Image gameMessageBoxBg = gameContainer.getGameAboutItem().getGameMessageBoxBg();
         g.drawImage(gameMessageBoxBg, 160, 140, null);
@@ -74,11 +68,11 @@ public class MessageBoxScreen extends BaseScreen {
 
     @Override
     public void onKeyDown(GameContainer gameContainer, int key) {
+        popScreen(gameContainer);
     }
 
     @Override
     public void onKeyUp(GameContainer gameContainer, int key) {
-        popScreen(gameContainer);
     }
 
     private void popScreen(GameContainer gameContainer) {

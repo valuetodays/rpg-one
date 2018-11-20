@@ -48,10 +48,10 @@ public abstract class CmdBase {
     }
 
     public abstract void init();
-
     public abstract int execute(GameContainer gameContainer, CmdProcessor cmdProcessor);
     public abstract String getUsage();
     public abstract int getArgumentSize();
+
     private void checkArgumentSize() {
         int expectArgumentSize = getArgumentSize();
         int realArgumentSize   = arguments.size();

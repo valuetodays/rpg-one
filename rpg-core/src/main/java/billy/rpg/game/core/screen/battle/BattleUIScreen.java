@@ -171,7 +171,6 @@ public class BattleUIScreen extends BaseScreen {
         if (battleImage == null) {
             battleImage = gameContainer.getBattleImageItem().getBattleImage(BattleImageItem.DEFAULT_BATTLE);
         }
-        // 先画出黑色背景，因为战斗背景图不是640*480的 (640*320)
         g.drawImage(battleImage, 0, 0, null);
 
         for (MonsterCharacter monsterBattle : monsterBattleList) {

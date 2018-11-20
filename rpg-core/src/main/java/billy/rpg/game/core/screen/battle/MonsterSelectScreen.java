@@ -1,14 +1,14 @@
 package billy.rpg.game.core.screen.battle;
 
-import org.apache.commons.collections4.CollectionUtils;
-
 import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.character.MonsterCharacter;
 import billy.rpg.game.core.character.fightable.Fightable;
 import billy.rpg.game.core.constants.GameConstant;
 import billy.rpg.game.core.container.GameContainer;
+import billy.rpg.game.core.item.BattleImageItem;
 import billy.rpg.game.core.screen.BaseScreen;
 import billy.rpg.game.core.util.KeyUtil;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -70,10 +70,12 @@ public class MonsterSelectScreen extends BaseScreen {
                 BufferedImage.TYPE_4BYTE_ABGR);
         Graphics g = paint.getGraphics();
 
-        Image battleImage = gameContainer.getBattleImageItem().getBattleImage("001-Grassland01.jpg");
-        // TODO 战斗背景图应从*.map或*.s中加载
-        // TODO 先画出黑色背景，因为战斗背景图不是640*480的 (640*320)
-        g.drawImage(battleImage, 0, 0, battleImage.getWidth(null), battleImage.getHeight(null), null);
+        String battleImagePath = gameContainer.getActiveScriptItem().getBattleImagePath();
+        Image battleImage = gameContainer.getBattleImageItem().getBattleImage(battleImagePath);
+        if (battleImage == null) {
+            battleImage = gameContainer.getBattleImageItem().getBattleImage(BattleImageItem.DEFAULT_BATTLE);
+        }
+        g.drawImage(battleImage, 0, 0, null);
 
         getBattleUIScreen().drawMonster(gameContainer, g);
 

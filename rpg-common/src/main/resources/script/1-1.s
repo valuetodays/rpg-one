@@ -118,11 +118,13 @@ loadmap 1 2 1 6 0 0
 return
 
 先见师傅吧:
-say 1 '柳清风' LEFT '还是先去见师父再来玩吧。'
+@say 1 '柳清风' LEFT '还是先去见师父再来玩吧。'
+messagebox '得到玉兰草'
+@addgoods 1
 return
 
 百草地西:
-@if 1 先见师傅吧
+if 1 先见师傅吧
 loadmap 1 3 18 10 12 0
 return
 

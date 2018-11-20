@@ -3,6 +3,7 @@ package billy.rpg.game.core.command.parser.support;
 import billy.rpg.game.core.command.CmdBase;
 import billy.rpg.game.core.command.LabelCmd;
 import billy.rpg.game.core.command.parser.CommandParser;
+import billy.rpg.game.core.util.CoreUtil;
 import org.apache.commons.lang.StringUtils;
 import org.jline.reader.ParsedLine;
 import org.jline.reader.Parser;
@@ -22,8 +23,8 @@ public class JlineCommandParser extends CommandParser {
     private static Map<String, ? extends Class<CmdBase>> traceAllCmdClass() {
         String pkg = getCommandPackage();
 
-        String pkgPath = pkg.replace(".", "/");
-        String path = Thread.currentThread().getContextClassLoader().getResource(pkgPath).getPath();
+        String pkgPath = StringUtils.replace(pkg,".", "/");
+        String path = CoreUtil.getResourcePath(pkgPath);
         File directory = new File(path);
         List<? extends Class<CmdBase>> cmdClassList = Arrays.stream(directory.listFiles()).filter(File::isFile).map(e -> pkg + e.getName().replace(".class", "")).map(e -> {
             try {
@@ -40,10 +41,10 @@ public class JlineCommandParser extends CommandParser {
         return cmdClassList.stream().collect(Collectors.toMap(e -> e.getSimpleName().toUpperCase(), e -> e));
     }
 
-    public static String getCommandPackage() {
+    private static String getCommandPackage() {
 //        String pkg = "billy.rpg.game.core.command."; hard-code style
         String jlineCommandParserParentPath = CommandParser.class.getPackage().getName();
-        ArrayList<String> packageNameArr = new ArrayList<>(Arrays.asList(jlineCommandParserParentPath.split("\\.")));
+        ArrayList<String> packageNameArr = new ArrayList<>(Arrays.asList(StringUtils.split(jlineCommandParserParentPath, ".")));
         List<String> packageNameList = packageNameArr.subList(0, packageNameArr.size() - 1);
         return StringUtils.join(packageNameList, ".") + ".";
     }
@@ -52,13 +53,12 @@ public class JlineCommandParser extends CommandParser {
     public CmdBase doParse(String scriptFileName, int lineNumber, String lineData) {
         ParsedLine parse = parser.parse(lineData, 0);
         List<String> words = parse.words();
-        logger.debug(words);
 
-        Class<CmdBase> aClass = null;
         Map<String, ? extends Class<CmdBase>> cmdClassMap = traceAllCmdClass();
 
+        Class<CmdBase> aClass = null;
         String commandName = words.get(0);
-        if (commandName.endsWith(":")) {
+        if (commandName.endsWith(":")) { // 是一个Label
             aClass = cmdClassMap.get(LabelCmd.class.getSimpleName().toUpperCase());
         } else {
             String commandClassName = commandName + CmdBase.class.getSimpleName().replace("Base", "");
