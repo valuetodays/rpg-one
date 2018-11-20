@@ -179,6 +179,7 @@ ILoader
     使用ScreenCodeEnum
     完善并删除部分TODO
     add BattleImageCmd [从/battle/目录下取资源，默认为deafult_battle.jpg]
-    解决了一个很早就就出现但久未解决的bug：在大地图上显示say命令后，窗口会一闪而过，试着把MessageBoxScreen#onKeyUp()的内容移到了MessageBoxScreen.onKeyDown()中，问题解决了。感觉框架上缺少一个消费按键消息的功能。
+    解决了一个很早就就出现但久未解决的bug：在大地图上显示say/messagebox命令后，窗口会一闪而过，试着把MessageBoxScreen#onKeyUp()的内容移到了MessageBoxScreen.onKeyDown()中，问题解决了。感觉框架上缺少一个消费按键消息的功能。
+    资源文件的定时扫描加载：
 
 

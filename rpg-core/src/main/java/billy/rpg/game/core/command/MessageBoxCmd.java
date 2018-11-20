@@ -30,7 +30,7 @@ public class MessageBoxCmd extends CmdBase {
 
     @Override
     public String getUsage() {
-        return null;
+        return "messagebox \"hello, world!\"";
     }
 
     @Override

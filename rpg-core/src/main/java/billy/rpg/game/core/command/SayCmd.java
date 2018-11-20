@@ -19,7 +19,6 @@ public class SayCmd extends CmdBase {
     private PositionEnum position;
     private String text;
 
-
     public String getText() {
         return text;
     }

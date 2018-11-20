@@ -177,11 +177,6 @@ public class DialogScreen extends BaseScreen {
 
     @Override
     public void onKeyDown(GameContainer gameContainer, int key) {
-
-    }
-
-    @Override
-    public void onKeyUp(GameContainer gameContainer, int key) {
         if (KeyUtil.isDown(key)
                 || KeyUtil.isUp(key)
                 || KeyUtil.isLeft(key)
@@ -189,6 +184,10 @@ public class DialogScreen extends BaseScreen {
                 ) {
             curLine += 1;
         }
+    }
+
+    @Override
+    public void onKeyUp(GameContainer gameContainer, int key) {
     }
 
 }
