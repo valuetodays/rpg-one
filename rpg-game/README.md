@@ -176,6 +176,8 @@ ILoader
    [TODO]切换场景再回来后发现宝箱还是关闭着的，但是已经不能再打开了
 #### 2018-11-20
     the f**king gradle: work differently with the same version idea-community(v2018.2.5), the same gradle version(v4.10.2), and the same OS(Windows7), contine to use maven instead.
-
+    使用ScreenCodeEnum
+    完善并删除部分TODO
+    add BattleImageCmd [从/battle/目录下取资源，默认为deafult_battle.jpg]
 
 

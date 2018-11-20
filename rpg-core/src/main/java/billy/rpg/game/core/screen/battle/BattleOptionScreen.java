@@ -137,7 +137,6 @@ public class BattleOptionScreen extends BaseScreen {
                     return;
                 }
 
-                // TODO mp不足时？
                 final BaseScreen bs = new SkillSelectScreen(gameContainer, battleUIScreen, this);
                 getBattleUIScreen().getParentScreen().push(bs);
             }

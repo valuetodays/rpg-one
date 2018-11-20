@@ -5,9 +5,8 @@ import billy.rpg.game.core.container.GameContainer;
 import billy.rpg.game.core.screen.BaseScreen;
 import billy.rpg.game.core.screen.ShopScreen;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author lei.liu@datatist.com
@@ -19,12 +18,7 @@ public class BuyCmd extends CmdBase {
     @Override
     public void init() {
         List<String> arguments = super.getArguments();
-        List<Integer> list = new ArrayList<>();
-        for (String argument : arguments) {
-            list.add(Integer.valueOf(argument));
-        }
-        goodsList = Collections.unmodifiableList(list);
-//        goodsList = arguments.stream().map(e -> Integer.parseInt(e)).collect(Collectors.toList());
+        goodsList = arguments.stream().map(Integer::parseInt).collect(Collectors.toList());
     }
 
     @Override

@@ -1,6 +1,7 @@
 attr 1 1
 scenename '百草地'
 @ monsters 51
+battleImage "001-Grassland01.jpg"
 
 @ 地图上的trigger共有如下几种：
 @  传送门

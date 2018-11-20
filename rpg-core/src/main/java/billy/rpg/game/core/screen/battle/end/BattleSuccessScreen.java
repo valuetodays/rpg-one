@@ -6,6 +6,7 @@ import billy.rpg.game.core.constants.GameConstant;
 import billy.rpg.game.core.constants.ScreenCodeEnum;
 import billy.rpg.game.core.container.GameContainer;
 import billy.rpg.game.core.screen.BaseScreen;
+import billy.rpg.game.core.screen.MessageBoxScreen;
 import billy.rpg.game.core.screen.battle.BattleScreen;
 import billy.rpg.resource.level.LevelData;
 import billy.rpg.resource.level.LevelMetaData;
@@ -59,12 +60,15 @@ public class BattleSuccessScreen extends BaseScreen {
             int levelChain = heroBattle.getRoleMetaData().getLevelChain();
             LevelMetaData levelMetaData = gameContainer.getLevelMetaDataOf(levelChain);
             if (level >= levelMetaData.getMaxLevel()) {
-                // TODO 满级了，不要经验了
+                // 满级
+                String msg = "满级";
+                final BaseScreen bs = new MessageBoxScreen(msg);
+                gameContainer.getGameFrame().pushScreen(bs);
             } else {
                 LevelData levelData = levelMetaData.getLevelDataList().get(level - 1);
                 final int expInLevel = levelData.getExp();
                 if (newExp > expInLevel) {
-                    // TODO 升级
+                    // 升级
                     logger.debug("level up!!");
                     heroBattle.getRoleMetaData().setExp(newExp - expInLevel);
                     heroBattle.getRoleMetaData().setLevel(level + 1);
@@ -76,7 +80,7 @@ public class BattleSuccessScreen extends BaseScreen {
                     heroBattle.getRoleMetaData().setDefend(levelData.getDefend());
                     // heroBattle.getRoleMetaData().setSpeed(); // TODO 升级链里怎么没有速度？
                 } else {
-                    // TODO 没升级
+                    // 没升级
                     heroBattle.getRoleMetaData().setExp(newExp);
                 }
             }

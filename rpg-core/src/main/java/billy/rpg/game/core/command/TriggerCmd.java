@@ -33,6 +33,8 @@ public class TriggerCmd extends CmdBase {
     }
 
     /**
+     * @see BattleImageCmd
+     * @see AttrCmd
      * @see ScriptItem#init(java.util.List)
      */
     @Override

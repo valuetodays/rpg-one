@@ -52,7 +52,7 @@ public class BattleFightScreen extends BaseScreen {
                 logger.debug("一回合终于打完了");
                 getBattleUIScreen().fighting = false;
                 getBattleUIScreen().getParentScreen().pop();
-                getBattleUIScreen().heroIndex = 0; // TODO 提取成方法？ 将当前活动的heroIndex置为首个
+                getBattleUIScreen().heroIndex = 0; // 将当前活动的heroIndex置为首个
                 getBattleUIScreen().actionList.clear(); // 清空播放动画
             }
         }

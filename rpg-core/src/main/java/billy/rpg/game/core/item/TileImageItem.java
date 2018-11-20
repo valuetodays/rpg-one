@@ -1,5 +1,6 @@
 package billy.rpg.game.core.item;
 
+import billy.rpg.game.core.util.CoreUtil;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.ArrayUtils;
 
@@ -16,25 +17,25 @@ public class TileImageItem {
     private Map<String, Image> tiles;
 
     public void load() throws Exception {
-        loadTile(); // TODO change to loadImage(); ??
+        loadTileImage();
     }
     
     private boolean loaded = false;
     /**
      * load tile-images of map
      */
-    private void loadTile() {
+    private void loadTileImage() {
         if (loaded) {
             return ;
         }
         String baseDirectory = "/map/tmx/";
         // TODO 此时在java开发环境是能取到rpg-common目录下的tiles的目录，
         // 但是，当rpg-common被处理成jar的话运行就不一定能正常了。
-        URL resource = this.getClass().getResource(baseDirectory);
+        String resourcePath = CoreUtil.getResourcePath(baseDirectory);
 
         try {
             Map<String, Image> tileMap = new HashMap<>();
-            File file = new File(resource.getPath());
+            File file = new File(resourcePath);
             File[] list = file.listFiles(pathname -> pathname.getName().endsWith(".png"));
             if (ArrayUtils.isEmpty(list)) {
                 throw new RuntimeException("没有找到tile数据");
@@ -57,7 +58,7 @@ public class TileImageItem {
     public Image getTile(String tileId) {
         Image tileImage = tiles.get(tileId);
         if (tileImage == null) {
-            throw new RuntimeException("error tileId; " + tileId);
+            throw new RuntimeException("error tileId: " + tileId);
         }
 
         return tileImage;

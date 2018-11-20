@@ -30,6 +30,8 @@ public class ScriptItem {
 
     /** 脚本id */
     private String scriptId;
+    /** 战斗背景图片 */
+    private String battleImagePath;
     /** 所有命令列表 */
     private List<CmdBase> cmdList;
     /**
@@ -132,9 +134,11 @@ public class ScriptItem {
         while (!(caa instanceof ReturnCmd)) {
             if (caa instanceof AttrCmd) {
                 AttrCmd ac = (AttrCmd) caa;
-                LOG.debug(ac);
                 this.scriptId = ac.getM() + "-" + ac.getN();
 
+            } else if (caa instanceof BattleImageCmd) {
+                BattleImageCmd bic = (BattleImageCmd) caa;
+                this.battleImagePath = bic.getImagePathe();
             }
             primarySection.add(caa);
             i++;
@@ -282,9 +286,9 @@ public class ScriptItem {
             if (heroNextPosXInFullMap == npcPosX && heroNextPosYInFullMap == npcPosY) {
                 int number = transfer.getNumber();
                 if (0 != number) {
-                    TriggerBean talkByNum = getTriggerByNum(number);
-                    if (talkByNum != null) {
-                        return talkByNum;
+                    TriggerBean transferTrigger = getTriggerByNum(number);
+                    if (transferTrigger != null) {
+                        return transferTrigger;
                     }
                 }
             }
@@ -301,9 +305,9 @@ public class ScriptItem {
             if (heroNextPosXInFullMap == npcPosX && heroNextPosYInFullMap == npcPosY) {
                 int number = npc.getNumber();
                 if (0 != number) {
-                    TriggerBean talkByNum = getTriggerByNum(number);
-                    if (talkByNum != null) {
-                        return talkByNum;
+                    TriggerBean npcTrigger = getTriggerByNum(number);
+                    if (npcTrigger != null) {
+                        return npcTrigger;
                     }
                 }
             }
@@ -386,6 +390,10 @@ public class ScriptItem {
 
     public void setSceneObjects(List<FlickerObjectWalkableCharacter> sceneObjects) {
         this.sceneObjects = sceneObjects;
+    }
+
+    public String getBattleImagePath() {
+        return battleImagePath;
     }
 
     /**

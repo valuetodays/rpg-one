@@ -81,7 +81,7 @@ public class SkillSelectScreen extends BaseScreen {
             final int mp = getBattleUIScreen().getActiveHero().getRoleMetaData().getMp();
             final int consume = skillMetaData.getConsume();
             if (mp < consume) {
-                final BaseScreen bs = new MessageBoxScreen("mp不足"+consume+"，不能施放技能" + skillMetaData.getName(),
+                final BaseScreen bs = new MessageBoxScreen("mp不足，不能施放技能" + skillMetaData.getName(),
                         getBattleUIScreen().getParentScreen());
                 getBattleUIScreen().getParentScreen().push(bs);
                 return;
