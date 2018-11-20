@@ -1,9 +1,8 @@
 package billy.rpg.leveditor;
 
+import billy.rpg.resource.level.JsonLevelSaverLoader;
 import billy.rpg.resource.level.LevelData;
-import billy.rpg.resource.level.LevelLoader;
 import billy.rpg.resource.level.LevelMetaData;
-import billy.rpg.resource.level.LevelSaver;
 import billy.rpg.roleeditor.AlertBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,6 +23,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.ArrayList;
@@ -56,16 +56,16 @@ public class LevelEditorController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         tvTable.setEditable(true);
-        String[] columns = new String[]{"level", "maxHp", "maxMp", "attack", "defend", "exp"};
+        String[] columns = new String[]{"level", "maxHp", "maxMp", "attack", "defend", "speed", "exp"};
         TableColumn<LevelData, Integer> levelCol = new TableColumn<>(columns[0]);
-        levelCol.setMinWidth(100);
+        levelCol.setMinWidth(90);
         levelCol.setCellValueFactory(
                 new PropertyValueFactory<>("level"));
         tvTable.getColumns().add(levelCol);
         for (int i = 1; i < columns.length; i++) {
             String columnName = columns[i];
             TableColumn<LevelData, Integer> col = new TableColumn<>(columnName);
-            col.setMinWidth(100);
+            col.setMinWidth(90);
             col.setEditable(true);
             col.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
             col.setOnEditCommit(
@@ -127,7 +127,7 @@ public class LevelEditorController implements Initializable {
      */
     @FXML
     public void onNewAction(ActionEvent event) {
-        new LevelDataController(this).display();
+        new LevelNewController(this).display();
     }
 
     /**
@@ -172,7 +172,11 @@ public class LevelEditorController implements Initializable {
             if (!name.endsWith(".lvl")) {
                 name += ".lvl";
             }
-            LevelSaver.save(parentPath + File.separator + name, lmd);
+            try {
+                new JsonLevelSaverLoader().save(parentPath + File.separator + name, lmd);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
     }
@@ -182,11 +186,11 @@ public class LevelEditorController implements Initializable {
      * @param event event
      */
     @FXML
-    public void onLoadAction(ActionEvent event) {
+    public void onLoadAction(ActionEvent event) throws IOException {
         File fileLoad = fileLoadChooser.showOpenDialog(getWindow(event));
 
         if (fileLoad != null) {
-            LevelMetaData loadedLmd = LevelLoader.load(fileLoad.getPath());
+            LevelMetaData loadedLmd = new JsonLevelSaverLoader().load(fileLoad.getPath());
             tfNumber.setText("" + loadedLmd.getNumber());
             tfMaxLevel.setText("" + loadedLmd.getMaxLevel());
             List<LevelData> levelDataList = loadedLmd.getLevelDataList();
@@ -198,6 +202,5 @@ public class LevelEditorController implements Initializable {
     public void onAboutAction(ActionEvent event) {
         AlertBox.alert("帮助：\r\n1. aaaa\r\n2. bbbb\r\n3. cccc");
     }
-
 
 }

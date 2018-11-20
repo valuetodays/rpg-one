@@ -7,7 +7,7 @@ import java.util.List;
  * @since 2017-07-26 09:22
  */
 public class LevelMetaData {
-    private int number;
+    private int number; // 玩家id
     private int maxLevel;
     private List<LevelData> levelDataList;
 

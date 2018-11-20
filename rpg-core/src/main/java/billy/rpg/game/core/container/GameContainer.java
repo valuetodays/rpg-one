@@ -1,12 +1,11 @@
 package billy.rpg.game.core.container;
 
-import billy.rpg.game.core.IGameFrame;
 import billy.rpg.game.core.GameData;
+import billy.rpg.game.core.IGameFrame;
 import billy.rpg.game.core.character.walkable.HeroWalkableCharacter;
 import billy.rpg.game.core.constants.ScreenCodeEnum;
 import billy.rpg.game.core.constants.WalkableConstant;
 import billy.rpg.game.core.item.*;
-import billy.rpg.game.core.loader.LevelDataLoader;
 import billy.rpg.game.core.loader.RoleDataLoader;
 import billy.rpg.game.core.loader.ScriptDataLoader;
 import billy.rpg.game.core.loader.SkillDataLoader;
@@ -14,9 +13,10 @@ import billy.rpg.game.core.loader.animation.AnimationDataLoader;
 import billy.rpg.game.core.loader.animation.JsonAnimationDataLoader;
 import billy.rpg.game.core.loader.goods.GoodsDataLoader;
 import billy.rpg.game.core.loader.goods.JsonGoodsDataLoader;
+import billy.rpg.game.core.loader.level.JsonLevelDataLoader;
+import billy.rpg.game.core.loader.level.Level2DataLoader;
 import billy.rpg.game.core.loader.map.MapDataLoader;
 import billy.rpg.game.core.loader.map.TmxMapDataLoader;
-import billy.rpg.game.core.item.ScriptItem;
 import billy.rpg.game.core.screen.BaseScreen;
 import billy.rpg.game.core.screen.MapScreen;
 import billy.rpg.game.core.script.LabelBean;
@@ -154,10 +154,10 @@ public class GameContainer {
         skillMetaDataMap = sdl.getSkillMap();
     }
 
-    private void loadLevelData() {
-        LevelDataLoader ldl = new LevelDataLoader();
+    private void loadLevelData() throws IOException {
+        Level2DataLoader ldl = new JsonLevelDataLoader();
         ldl.load();
-        levelMetaDataMap = ldl.getLevleMap();
+        levelMetaDataMap = ldl.getLevelMap();
     }
 
     private void loadRoleData() {

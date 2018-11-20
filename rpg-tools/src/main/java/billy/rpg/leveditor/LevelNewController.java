@@ -17,8 +17,8 @@ import java.io.IOException;
  * @author liulei@bshf360.com
  * @since 2017-07-25 15:24
  */
-public class LevelDataController extends Pane {
-    private static final Logger LOG = Logger.getLogger(LevelDataController.class);
+public class LevelNewController extends Pane {
+    private static final Logger LOG = Logger.getLogger(LevelNewController.class);
     private LevelEditorController levelEditorController;
     private Stage maxLevelStage;
     @FXML
@@ -26,9 +26,9 @@ public class LevelDataController extends Pane {
     @FXML
     private TextField tfNumber; // 编号
 
-    public LevelDataController(LevelEditorController levelEditorController) {
+    public LevelNewController(LevelEditorController levelEditorController) {
         this.levelEditorController = levelEditorController;
-        FXMLLoader fXMLLoader = new FXMLLoader(LevelDataController.class.getResource("/level-info.fxml"));
+        FXMLLoader fXMLLoader = new FXMLLoader(LevelNewController.class.getResource("/level-new.fxml"));
         fXMLLoader.setRoot(this);
         fXMLLoader.setController(this);
         try {

@@ -8,7 +8,8 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
  * @since 2018-11-12 18:14:39
  */
 public class JsonUtil {
-    private JsonUtil(){};
+    private JsonUtil(){}
+
     public static String toPrettyJsonString(Object object) {
         return JSON.toJSONString(object, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect);
     }

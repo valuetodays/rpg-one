@@ -10,7 +10,11 @@ public class LevelData {
     private Integer maxMp;
     private Integer attack;
     private Integer defend;
+    private Integer speed;
     private Integer exp;
+
+    public LevelData() {
+    }
 
     public LevelData(Integer level) {
         this.level = level;
@@ -64,6 +68,14 @@ public class LevelData {
         this.exp = exp;
     }
 
+    public Integer getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(Integer speed) {
+        this.speed = speed;
+    }
+
     @Override
     public String toString() {
         return "LevelData{" +
@@ -77,6 +89,6 @@ public class LevelData {
     }
 
     public boolean isValid() {
-        return level != null && maxHp != null && maxMp != null && attack != null && defend != null && exp != null;
+        return level != null && maxHp != null && maxMp != null && attack != null && defend != null && speed != null && exp != null;
     }
 }
