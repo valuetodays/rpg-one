@@ -3,6 +3,7 @@ package billy.rpg.game.core.screen;
 import billy.rpg.common.util.DrawUtil;
 import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.constants.GameConstant;
+import billy.rpg.game.core.constants.ScreenCodeEnum;
 import billy.rpg.game.core.container.GameContainer;
 import billy.rpg.game.core.util.CoreUtil;
 import billy.rpg.game.core.util.KeyUtil;
@@ -114,7 +115,7 @@ public class GameCoverScreen extends BaseScreen {
                     gameContainer.getGameData().equip(gameContainer, 1, 4001); // 装备鞋子
 
                     gameContainer.startChapter(1, 1, "4-4");
-                    gameContainer.getGameFrame().changeScreen(1);
+                    gameContainer.getGameFrame().changeScreen(ScreenCodeEnum.SCREEN_CODE_MAP_SCREEN);
                 }
                 break;
                 case 2: {
@@ -122,8 +123,7 @@ public class GameCoverScreen extends BaseScreen {
                 }
                 break;
                 case 3: {
-                    logger.debug("show producerInfo ");
-                    gameContainer.getGameFrame().changeScreen(3);
+                    gameContainer.getGameFrame().changeScreen(ScreenCodeEnum.SCREEN_CODE_PRODUCER_SCREEN);
                 }
                 break;
             }

@@ -2,6 +2,7 @@ package billy.rpg.game.core.screen.battle.end;
 
 import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.constants.GameConstant;
+import billy.rpg.game.core.constants.ScreenCodeEnum;
 import billy.rpg.game.core.container.GameContainer;
 import billy.rpg.game.core.screen.BaseScreen;
 
@@ -45,6 +46,6 @@ public class BattleDefeatScreen extends BaseScreen {
 
     @Override
     public void onKeyUp(GameContainer gameContainer, int key) {
-        gameContainer.getGameFrame().changeScreen(9);
+        gameContainer.getGameFrame().changeScreen(ScreenCodeEnum.SCREEN_CODE_GAME_COVER_SCREEN);
     }
 }

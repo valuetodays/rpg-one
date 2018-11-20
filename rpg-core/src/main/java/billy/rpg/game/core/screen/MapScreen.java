@@ -10,6 +10,7 @@ import billy.rpg.game.core.character.walkable.TransferWalkableCharacter;
 import billy.rpg.game.core.character.walkable.npc.NPCWalkableCharacter;
 import billy.rpg.game.core.command.processor.CmdProcessor;
 import billy.rpg.game.core.constants.GameConstant;
+import billy.rpg.game.core.constants.ScreenCodeEnum;
 import billy.rpg.game.core.constants.WalkableConstant;
 import billy.rpg.game.core.container.GameContainer;
 import billy.rpg.game.core.item.ScriptItem;
@@ -211,7 +212,7 @@ public class MapScreen extends BaseScreen {
     @Override
     public void onKeyUp(GameContainer gameContainer, int key) {
         if (KeyUtil.isEsc(key)) {
-            gameContainer.getGameFrame().changeScreen(2);
+            gameContainer.getGameFrame().changeScreen(ScreenCodeEnum.SCREEN_CODE_SYSTEM_UI_SCREEN);
             return;
         } else if (KeyUtil.isHome(key)) {
             ScriptItem active = gameContainer.getActiveScriptItem();

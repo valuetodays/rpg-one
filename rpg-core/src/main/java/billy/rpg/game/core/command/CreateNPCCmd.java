@@ -19,7 +19,7 @@ public class CreateNPCCmd extends CmdBase {
     private int npcId; // npcId in a script, 0 means no talk
     private int x; // pos x
     private int y; // pos y
-    private int npcNum; // which npc image to use
+    private int imageNum; // which npc image to use
     private int type; // 1 no walk, 2 random move
 
     public int getNpcId() {
@@ -36,8 +36,8 @@ public class CreateNPCCmd extends CmdBase {
     }
 
 
-    public int getNpcNum() {
-        return npcNum;
+    public int getImageNum() {
+        return imageNum;
     }
 
     public int getType() {
@@ -50,7 +50,7 @@ public class CreateNPCCmd extends CmdBase {
         npcId = Integer.parseInt(arguments.get(0));
         x = Integer.parseInt(arguments.get(1));
         y = Integer.parseInt(arguments.get(2));
-        npcNum = Integer.parseInt(arguments.get(3));
+        imageNum = Integer.parseInt(arguments.get(3));
         type = Integer.parseInt(arguments.get(4));
     }
 
@@ -70,7 +70,7 @@ public class CreateNPCCmd extends CmdBase {
 
         int x = getX();
         int y = getY();
-        int npcNum = getNpcNum();
+        int imageNum = getImageNum();
         int type = getType();
         NPCWalkableCharacter npc = null;
         if (type == 1) {
@@ -79,7 +79,7 @@ public class CreateNPCCmd extends CmdBase {
             npc = new CommonNPCWalkableCharacter();
         }
         npc.initPos(x, y);
-        npc.setTileNum(npcNum);
+        npc.setTileNum(imageNum);
         npc.setNumber(getNpcId());
         npc.setDirection(WalkableConstant.PositionEnum.DOWN);
 
@@ -90,7 +90,7 @@ public class CreateNPCCmd extends CmdBase {
 
     @Override
     public String getUsage() {
-        return null; // TODO
+        return "createnpc id x y imageNum type";
     }
 
     @Override
@@ -104,7 +104,7 @@ public class CreateNPCCmd extends CmdBase {
                 "npcId=" + npcId +
                 ", x=" + x +
                 ", y=" + y +
-                ", npcNum=" + npcNum +
+                ", imageNum=" + imageNum +
                 ", type=" + type +
                 "} " + super.toString();
     }

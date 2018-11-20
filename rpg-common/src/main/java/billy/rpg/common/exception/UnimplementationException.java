@@ -1,7 +1,6 @@
 package billy.rpg.common.exception;
 
 /**
- * TODO UnimplementationException
  *
  * @author lei.liu@datatist.com
  * @since 2018-11-12 18:03:42

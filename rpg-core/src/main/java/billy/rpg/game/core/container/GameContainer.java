@@ -3,6 +3,7 @@ package billy.rpg.game.core.container;
 import billy.rpg.game.core.IGameFrame;
 import billy.rpg.game.core.GameData;
 import billy.rpg.game.core.character.walkable.HeroWalkableCharacter;
+import billy.rpg.game.core.constants.ScreenCodeEnum;
 import billy.rpg.game.core.constants.WalkableConstant;
 import billy.rpg.game.core.item.*;
 import billy.rpg.game.core.loader.LevelDataLoader;
@@ -171,8 +172,7 @@ public class GameContainer {
      */
     public void startChapter(int m, int n, String pos) {
         LOG.debug("go to map" + m + "-" + m + " in " + pos);
-        // TODO 添加过渡场景
-        gameFrame.changeScreen(8);
+        gameFrame.changeScreen(ScreenCodeEnum.SCREEN_CODE_TRANSITION_SCREEN);
 
         doBeforeChangeActiveScript(m, n, pos);
         // initialize the entry script-item

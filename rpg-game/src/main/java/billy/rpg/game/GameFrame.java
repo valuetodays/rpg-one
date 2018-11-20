@@ -6,6 +6,7 @@ import billy.rpg.game.core.GameData;
 import billy.rpg.game.core.GamePanel;
 import billy.rpg.game.core.IGameFrame;
 import billy.rpg.game.core.constants.GameConstant;
+import billy.rpg.game.core.constants.ScreenCodeEnum;
 import billy.rpg.game.core.container.GameContainer;
 import billy.rpg.game.core.screen.BaseScreen;
 import billy.rpg.game.core.screen.GameCoverScreen;
@@ -193,22 +194,23 @@ public class GameFrame extends JFrame implements IGameFrame, Runnable {
     }
 
     @Override
-    public void changeScreen(int screenCode) {
+    public void changeScreen(ScreenCodeEnum screenCode) {
         BaseScreen tmp = null;
-        switch (screenCode) {
-        case 1:
+        ScreenCodeEnum screenCodeEnum= ScreenCodeEnum.SCREEN_CODE_MAP_SCREEN;
+        switch (screenCodeEnum) {
+        case SCREEN_CODE_MAP_SCREEN:
             tmp = getGameContainer().getMapScreen();
             break;
-        case 2:
+        case SCREEN_CODE_SYSTEM_UI_SCREEN:
             tmp = new SystemUIScreen();
             break;
-        case 3:
+        case SCREEN_CODE_PRODUCER_SCREEN:
             tmp = new ProducerScreen();
             break;
-        case 8:
+        case SCREEN_CODE_TRANSITION_SCREEN:
             tmp = new TransitionScreen();
             break;
-        case 9:
+        case SCREEN_CODE_GAME_OVER_SCREEN:
             // TODO 当玩家被小怪打死后来到该处时，会导致玩家的hp是负数的。
             // 解决办法是在此处 重新从文件中加载玩家和其它数据
             tmp = new GameCoverScreen();

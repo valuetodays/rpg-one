@@ -14,15 +14,19 @@ import java.util.List;
  */
 public abstract class CmdBase {
     public final Logger logger = Logger.getLogger(getClass());
+    // 参数个数>=0 (greater or equal)
     protected int ARGUMENT_COUNT_GE_ZERO = -1000; // >= 0
-    protected int ARGUMENT_COUNT_EVEN = -1000; // 0, 2, 4
-    protected int ARGUMENT_COUNT_ODD = -1000; // 1, 3, 5
+    // 偶数个数的参数
+    protected int ARGUMENT_COUNT_EVEN = -1001; // 0, 2, 4
+    // 奇数个数的参数
+    protected int ARGUMENT_COUNT_ODD = -1002; // 1, 3, 5
+    // 最大参数数量
     protected int ARGUMENT_MAX_COUNT = 512;
 
 
-    private int lineNo;
+    private int lineNo; // 命令行号
     private String name; // 命令名称
-    private List<String> arguments;
+    private List<String> arguments; // 参数列表
 
     public void initCommand(int lineNo, String name, List<String> arguments) {
         this.lineNo = lineNo;

@@ -40,13 +40,11 @@ public class ChoiceCmd extends CmdBase {
 
     @Override
     public String getUsage() {
-        // TODO
-        return null;
+        return "choice text1 text2 text... label1 label2 label...";
     }
 
     @Override
     public int getArgumentSize() {
-        // TODO
         return ARGUMENT_COUNT_ODD;
     }
 

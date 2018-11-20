@@ -4,6 +4,7 @@ import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.character.HeroCharacter;
 import billy.rpg.game.core.character.MonsterCharacter;
 import billy.rpg.game.core.character.fightable.Fightable;
+import billy.rpg.game.core.constants.ScreenCodeEnum;
 import billy.rpg.game.core.container.GameContainer;
 import billy.rpg.game.core.equip.clothes.ClothesEquip;
 import billy.rpg.game.core.equip.weapon.WeaponEquip;
@@ -261,7 +262,7 @@ public class BattleFightScreen extends BaseScreen {
                 logger.debug("众妖怪：菜鸡别跑！");
                 // TODO 金币减少100*妖怪数量。
                 // TODO 此时要是逃跑成功，应该跳到地图界面
-                gameContainer.getGameFrame().changeScreen(1);
+                gameContainer.getGameFrame().changeScreen(ScreenCodeEnum.SCREEN_CODE_MAP_SCREEN);
             }
             break;
             default:

@@ -3,6 +3,7 @@ package billy.rpg.game.core.command;
 
 import billy.rpg.game.core.command.processor.CmdProcessor;
 import billy.rpg.game.core.container.GameContainer;
+import billy.rpg.game.core.item.ScriptItem;
 
 import java.util.List;
 
@@ -31,9 +32,12 @@ public class TriggerCmd extends CmdBase {
         triggerName = arguments.get(1);
     }
 
+    /**
+     * @see ScriptItem#init(java.util.List)
+     */
     @Override
     public int execute(GameContainer gameContainer, CmdProcessor cmdProcessor) {
-        // TODO
+        System.out.println(">>> " + getClass().getName() + " is used in billy.rpg.game.core.item.ScriptItem.init()");
         return 0;
     }
 

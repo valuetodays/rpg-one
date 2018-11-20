@@ -2,6 +2,7 @@ package billy.rpg.game.core.screen.system;
 
 import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.constants.GameConstant;
+import billy.rpg.game.core.constants.ScreenCodeEnum;
 import billy.rpg.game.core.container.GameContainer;
 import billy.rpg.game.core.screen.BaseScreen;
 import billy.rpg.game.core.util.KeyUtil;
@@ -72,7 +73,7 @@ public class MenuScreen extends BaseScreen {
     @Override
     public void onKeyUp(GameContainer gameContainer, int key) {
         if (KeyUtil.isEsc(key)) {
-            gameContainer.getGameFrame().changeScreen(1);
+            gameContainer.getGameFrame().changeScreen(ScreenCodeEnum.SCREEN_CODE_MAP_SCREEN);
         } else if (KeyUtil.isEnter(key)) {
             switch (menuPos) {
                 case 1: //

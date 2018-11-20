@@ -2,6 +2,7 @@ package billy.rpg.game.core.screen;
 
 import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.constants.GameConstant;
+import billy.rpg.game.core.constants.ScreenCodeEnum;
 import billy.rpg.game.core.container.GameContainer;
 
 import java.awt.*;
@@ -50,7 +51,7 @@ public class TransitionScreen extends BaseScreen {
 
     @Override
     public void onKeyUp(GameContainer gameContainer, int key) {
-        gameContainer.getGameFrame().changeScreen(1);
+        gameContainer.getGameFrame().changeScreen(ScreenCodeEnum.SCREEN_CODE_MAP_SCREEN);
     }
 
 }
