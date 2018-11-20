@@ -172,7 +172,10 @@ ILoader
    离开地图后应清空传送门、npc、宝箱
    添加创建宝箱命令CreateChestCmd、打开宝箱命令OpenChestCmd
    添加BuiltinScriptItem、builtin.s、部分重复标签以便复用
-   [TODO]显示场景物品如三清宫
+   显示场景物品如三清宫
    [TODO]切换场景再回来后发现宝箱还是关闭着的，但是已经不能再打开了
+#### 2018-11-20
+    the f**king gradle: work differently with the same version idea-community(v2018.2.5), the same gradle version(v4.10.2), and the same OS(Windows7), contine to use maven instead.
+
 
 

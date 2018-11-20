@@ -1,8 +1,0 @@
-rootProject.name = 'rpg-one'
-include ':rpg-common'
-include ':rpg-core'
-include ':rpg-tools'
-include ':rpg-standalone-test'
-include ':rpg-rb2demo'
-include ':rpg-game'
-// include ':rpg-android'

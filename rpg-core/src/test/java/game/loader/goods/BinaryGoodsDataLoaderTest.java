@@ -1,12 +1,13 @@
 package game.loader.goods;
 
-import org.apache.commons.collections.MapUtils;
+import billy.rpg.game.core.loader.goods.BinaryGoodsDataLoader;
+import billy.rpg.game.core.loader.goods.GoodsDataLoader;
+import billy.rpg.resource.goods.GoodsMetaData;
+import org.apache.commons.collections4.MapUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Map;
-
-import billy.rpg.resource.goods.GoodsMetaData;
 
 /**
  * @author liulei-home

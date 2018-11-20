@@ -1,8 +1,12 @@
 package game.loader.map;
 
+import billy.rpg.common.constant.ToolsConstant;
+import billy.rpg.game.core.loader.map.BinaryMapDataLoader;
+import billy.rpg.game.core.loader.map.JsonMapDataLoader;
+import billy.rpg.game.core.loader.map.MapDataLoader;
+import billy.rpg.resource.map.MapMetaData;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 
@@ -10,9 +14,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Map;
-
-import billy.rpg.common.constant.ToolsConstant;
-import billy.rpg.resource.map.MapMetaData;
 
 /**
  * @author lei.liu@datatist.com

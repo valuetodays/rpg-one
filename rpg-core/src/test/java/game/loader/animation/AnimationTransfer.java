@@ -1,5 +1,11 @@
 package game.loader.animation;
 
+import billy.rpg.common.constant.ToolsConstant;
+import billy.rpg.common.util.JsonUtil;
+import billy.rpg.game.core.loader.animation.AnimationDataLoader;
+import billy.rpg.game.core.loader.animation.BinaryAnimationDataLoader;
+import billy.rpg.game.core.loader.animation.JsonAnimationDataLoader;
+import billy.rpg.resource.animation.AnimationMetaData;
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 
@@ -7,10 +13,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Map;
-
-import billy.rpg.common.constant.ToolsConstant;
-import billy.rpg.common.util.JsonUtil;
-import billy.rpg.resource.animation.AnimationMetaData;
 
 public class AnimationTransfer {
     @Test
