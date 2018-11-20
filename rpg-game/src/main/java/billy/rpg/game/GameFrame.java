@@ -140,8 +140,6 @@ public class GameFrame extends JFrame implements IGameFrame, Runnable {
         gameContainer.setGameData(new GameData());
 
         screenStack.push(new GameCoverScreen()); // 进入封面
-//        int[] monsterIds = new int[]{51, 51};
-//        screenStack.push(new BattleScreen(monsterIds)); // 进入战斗界面
 
 //        screenStack.push(new MapScreen());
 ///        screenStack.push(new AnimationScreen(0)); // show animation

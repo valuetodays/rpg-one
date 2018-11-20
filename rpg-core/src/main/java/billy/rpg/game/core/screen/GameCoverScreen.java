@@ -5,6 +5,7 @@ import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.constants.GameConstant;
 import billy.rpg.game.core.constants.ScreenCodeEnum;
 import billy.rpg.game.core.container.GameContainer;
+import billy.rpg.game.core.screen.battle.BattleScreen;
 import billy.rpg.game.core.util.CoreUtil;
 import billy.rpg.game.core.util.KeyUtil;
 import billy.rpg.game.core.util.MP3Player;
@@ -105,7 +106,7 @@ public class GameCoverScreen extends BaseScreen {
                     logger.debug("you choose `开始游戏`");
 
                     gameContainer.getGameData().addHeroId(1);
-                    gameContainer.getGameData().addHeroId(3);
+//                    gameContainer.getGameData().addHeroId(3);
                     gameContainer.getGameData().setControlId(1);
                     gameContainer.getGameData().addGoods(gameContainer, 2002);
                     gameContainer.getGameData().equip(gameContainer, 1, 2002); // 装备武器
@@ -116,6 +117,8 @@ public class GameCoverScreen extends BaseScreen {
 
                     gameContainer.startChapter(1, 1, "4-4");
                     gameContainer.getGameFrame().changeScreen(ScreenCodeEnum.SCREEN_CODE_MAP_SCREEN);
+                    int[] monsterIds = new int[]{51, 51};
+                    gameContainer.getGameFrame().pushScreen(new BattleScreen(gameContainer, monsterIds)); // 进入战斗界面
                 }
                 break;
                 case 2: {

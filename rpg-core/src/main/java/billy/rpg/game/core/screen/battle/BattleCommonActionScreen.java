@@ -52,9 +52,10 @@ public class BattleCommonActionScreen extends BaseScreen {
             if (attackFrame > 12) {
                 state = STATE_ANI;
             } else {
-                int targetCenterX = target.getLeft() + target.getWidth()/2;
-                int targetY       = target.getTop();
-                attacker.setLeft(attacker.getLeft() + (targetCenterX - attackerPreLeft)/10);
+                // 取攻击者和目标的矩形的中心，攻击即是让两个中心重合
+                int targetX = target.getLeft() - (attacker.getWidth()/2 - target.getWidth()/2);
+                int targetY = target.getTop() + (attacker.getHeight()/2 - target.getHeight()/2);
+                attacker.setLeft(attacker.getLeft() + (targetX - attackerPreLeft)/10);
                 attacker.setTop(attacker.getTop() + (targetY - attackerPreTop)/10);
                 attacker.setAcctackFrame(attackFrame++);
             }
@@ -75,11 +76,13 @@ public class BattleCommonActionScreen extends BaseScreen {
 
         } else if (state == STATE_FIN) {
             if (attackFrame == 0) {
+                attacker.setLeft(attackerPreLeft);
+                attacker.setTop(attackerPreTop);
                 commonAttackListener.onFinished();
             } else {
-                int targetCenterX = target.getLeft() + target.getWidth()/2;
-                int targetY       = target.getTop();
-                attacker.setLeft(attacker.getLeft() - (targetCenterX - attackerPreLeft)/10);
+                int targetX = target.getLeft() - (attacker.getWidth()/2 - target.getWidth()/2);
+                int targetY = target.getTop() + (attacker.getHeight()/2 - target.getHeight()/2);
+                attacker.setLeft(attacker.getLeft() - (targetX - attackerPreLeft)/10);
                 attacker.setTop(attacker.getTop() - (targetY - attackerPreTop)/10);
                 attacker.setAcctackFrame(attackFrame--);
             }
@@ -101,7 +104,6 @@ public class BattleCommonActionScreen extends BaseScreen {
             g.setFont(GameConstant.FONT_DAMAGE);
             g.setColor(Color.YELLOW);
             g.drawString("-" + dmg, dmgLeft, dmgTop);
-            //logger.debug("damage & pos: -" + dmg + " " + dmgLeft + " " + dmgTop);
             g.dispose();
             desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
         }

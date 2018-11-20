@@ -19,11 +19,11 @@ public class BattleScreen extends BaseScreen {
     private java.util.List<HeroCharacter> heroBattleList;
 
     public BattleScreen(GameContainer gameContainer, final int[] metMonsterIds) {
+        heroBattleList = gameContainer.getGameData().getHeroList(gameContainer);
         BattleUIScreen battleUIScreen = new BattleUIScreen(gameContainer, metMonsterIds, this, heroBattleList);
         screenStack.push(battleUIScreen);
         BattleOptionScreen battleOptionScreen = new BattleOptionScreen(battleUIScreen);
         screenStack.push(battleOptionScreen);
-        heroBattleList = gameContainer.getGameData().getHeroList(gameContainer);
         gameContainer.getGameFrame().change2BattleScreen(this);
     }
 

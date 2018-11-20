@@ -61,6 +61,7 @@ public class BattleFightScreen extends BaseScreen {
     private void update0(GameContainer gameContainer) {
         BattleAction battleAction = actionList.get(battleActionCurIndex);
         boolean fromHero = battleAction.fromHero;
+        getBattleUIScreen().markHeroAsAttacker(fromHero);
         if (!fromHero) {
             monsterAction(gameContainer, battleAction);
         } else {
@@ -91,80 +92,70 @@ public class BattleFightScreen extends BaseScreen {
         int high = battleAction.high;
         int low = battleAction.low;
 
-        switch (actionType) {
-            case BattleAction.ACTION_ATTACK: { // 普攻
-                final int finalTargetIndex = targetIndex;
-                getBattleUIScreen().getParentScreen().push(
-                    new BattleCommonActionScreen(
-                            getBattleUIScreen().monsterBattleList.get(attackerId),
-                            getBattleUIScreen().heroBattleList.get(finalTargetIndex),
-                            new CommonAttackListener() {
-                                @Override
-                                public int doGetAttackDamage() {
-                                    return getCommonAttackDamage(BattleAction.FROM_MONSTER, attackerId,
-                                            finalTargetIndex);
-                                }
-                                @Override
-                                public void doAttack(int dmg) {
-                                    doCauseDamage(BattleAction.FROM_MONSTER, attackerId, finalTargetIndex, dmg);
-                                }
-                                @Override
-                                public void onFinished() {
-                                    getBattleUIScreen().getParentScreen().pop();
-                                    nextAction();
-                                    checkWinOrLose(gameContainer);
-                                }
-                            }));
-            }
-            break;
-            case BattleAction.ACTION_SKILL: { // 技能攻击
-                // 技能攻击时，攻击者不应向目标行动
-                logger.debug("使用技能攻击");
-                Fightable targetFightableCharacter = getBattleUIScreen().heroBattleList.get(targetIndex);
-                AnimationScreen bs = new AnimationScreen(gameContainer, 2,
-                        targetFightableCharacter.getLeft() - targetFightableCharacter.getWidth() / 2,
-                        targetFightableCharacter.getTop(), getBattleUIScreen().getParentScreen());
-                final int finalTargetIndex = targetIndex;
-                getBattleUIScreen().getParentScreen().push(
-                    new BattleSkillActionScreen(
-                        getBattleUIScreen().monsterBattleList.get(attackerId),
-                        getBattleUIScreen().heroBattleList.get(finalTargetIndex),
-                        bs,
-                        new CommonAttackListener() {
-                            @Override
-                            public int doGetAttackDamage() {
-                                return getSkillAttackDamage(gameContainer, high);
-                            }
-                            @Override
-                            public void doAttack(int dmg) {
-                                doCauseDamage(BattleAction.FROM_MONSTER, attackerId, finalTargetIndex, dmg);
-                            }
-                            @Override
-                            public void onFinished() {
-                                int consume = gameContainer.getSkillMetaDataOf(high).getConsume();
-                                int mp = getBattleUIScreen().monsterBattleList.get(attackerId).getRoleMetaData().getMp();
-                                mp-=consume;
-                                getBattleUIScreen().monsterBattleList.get(attackerId).getRoleMetaData().setMp(mp);
-                                getBattleUIScreen().getParentScreen().pop();
-                                nextAction();
-                                checkWinOrLose(gameContainer);
-                            }
-                        }));
-            }
-            break;
-            case BattleAction.ACTION_GOODS: {
-                // TODO
-                logger.debug("妖怪不会使用物品");
-            }
-            break;
-            case BattleAction.ACTION_FLEE: {
-                // TODO
-                logger.debug("非特殊妖怪不会逃跑");
-            }
-            break;
-            default:
-                logger.debug("cannot be here.");
-                break;
+        if (actionType == BattleAction.BattleOption.COMMON.getOrderNum()) { // 普攻
+            final int finalTargetIndex = targetIndex;
+            getBattleUIScreen().getParentScreen().push(
+                new BattleCommonActionScreen(
+                    getBattleUIScreen().monsterBattleList.get(attackerId),
+                    getBattleUIScreen().heroBattleList.get(finalTargetIndex),
+                    new CommonAttackListener() {
+                        @Override
+                        public int doGetAttackDamage() {
+                            return getCommonAttackDamage(BattleAction.FROM_MONSTER, attackerId,
+                                    finalTargetIndex);
+                        }
+                        @Override
+                        public void doAttack(int dmg) {
+                            doCauseDamage(BattleAction.FROM_MONSTER, attackerId, finalTargetIndex, dmg);
+                        }
+                        @Override
+                        public void onFinished() {
+                            getBattleUIScreen().getParentScreen().pop();
+                            nextAction();
+                            checkWinOrLose(gameContainer);
+                        }
+                    }));
+        } else if (actionType == BattleAction.BattleOption.SKILL.getOrderNum()) { // 技能
+            // 技能攻击时，攻击者不应向目标行动
+            logger.debug("使用技能攻击");
+            Fightable targetFightableCharacter = getBattleUIScreen().heroBattleList.get(targetIndex);
+            AnimationScreen bs = new AnimationScreen(gameContainer, 2,
+                    targetFightableCharacter.getLeft() - targetFightableCharacter.getWidth() / 2,
+                    targetFightableCharacter.getTop(), getBattleUIScreen().getParentScreen());
+            final int finalTargetIndex = targetIndex;
+            getBattleUIScreen().getParentScreen().push(
+                new BattleSkillActionScreen(
+                    getBattleUIScreen().monsterBattleList.get(attackerId),
+                    getBattleUIScreen().heroBattleList.get(finalTargetIndex),
+                    bs,
+                    new CommonAttackListener() {
+                        @Override
+                        public int doGetAttackDamage() {
+                            return getSkillAttackDamage(gameContainer, high);
+                        }
+                        @Override
+                        public void doAttack(int dmg) {
+                            doCauseDamage(BattleAction.FROM_MONSTER, attackerId, finalTargetIndex, dmg);
+                        }
+                        @Override
+                        public void onFinished() {
+                            int consume = gameContainer.getSkillMetaDataOf(high).getConsume();
+                            int mp = getBattleUIScreen().monsterBattleList.get(attackerId).getRoleMetaData().getMp();
+                            mp-=consume;
+                            getBattleUIScreen().monsterBattleList.get(attackerId).getRoleMetaData().setMp(mp);
+                            getBattleUIScreen().getParentScreen().pop();
+                            nextAction();
+                            checkWinOrLose(gameContainer);
+                        }
+                    }));
+        } else if (actionType == BattleAction.BattleOption.GOODS.getOrderNum()) {
+            // TODO
+            logger.debug("妖怪不会使用物品");
+        } else if (actionType == BattleAction.BattleOption.ESCAPE.getOrderNum()) {
+            // TODO
+            logger.debug("非特殊妖怪不会逃跑");
+        } else {
+            logger.debug("cannot be here.");
         }
     }
 
@@ -194,80 +185,70 @@ public class BattleFightScreen extends BaseScreen {
         int high = battleAction.high;
         int low = battleAction.low;
 
-        switch (actionType) {
-            case BattleAction.ACTION_ATTACK: { // 普攻
-                final int finalTargetIndex = targetIndex;
-                getBattleUIScreen().getParentScreen().push(
-                    new BattleCommonActionScreen(
-                        getBattleUIScreen().heroBattleList.get(attackerId),
-                        getBattleUIScreen().monsterBattleList.get(finalTargetIndex),
-                        new CommonAttackListener() {
-                            @Override
-                            public int doGetAttackDamage() {
-                                return getCommonAttackDamage(BattleAction.FROM_HERO, attackerId, finalTargetIndex);
-                            }
-                            @Override
-                            public void doAttack(int dmg) {
-                                doCauseDamage(BattleAction.FROM_HERO, attackerId, finalTargetIndex, dmg);
-                            }
-                            @Override
-                            public void onFinished() {
-                                getBattleUIScreen().getParentScreen().pop();
-                                nextAction();
-                                checkWinOrLose(gameContainer);
-                            }
-                        }));
-            }
-            break;
-            case BattleAction.ACTION_SKILL: { // 技能
-                logger.debug("使用技能攻击妖怪");
-                Fightable chosenMonsterBattle = getBattleUIScreen().monsterBattleList.get(targetIndex);
-                final SkillMetaData smd = gameContainer.getSkillMetaDataOf(high);
-                AnimationScreen bs = new AnimationScreen(gameContainer, smd.getAnimationId(),
-                        chosenMonsterBattle.getLeft() - chosenMonsterBattle.getWidth() / 2,
-                        chosenMonsterBattle.getTop(), getBattleUIScreen().getParentScreen());
-                final int finalTargetIndex = targetIndex;
-                getBattleUIScreen().getParentScreen().push(
-                        new BattleSkillActionScreen(
-                                getBattleUIScreen().heroBattleList.get(attackerId),
-                                getBattleUIScreen().monsterBattleList.get(finalTargetIndex),
-                                bs,
-                                new CommonAttackListener() {
-                                    @Override
-                                    public int doGetAttackDamage() {
-                                        return getSkillAttackDamage(gameContainer, high);
-                                    }
-                                    @Override
-                                    public void doAttack(int dmg) {
-                                        doCauseDamage(BattleAction.FROM_HERO, attackerId, finalTargetIndex, dmg);
-                                    }
-                                    @Override
-                                    public void onFinished() {
-                                        int consume = gameContainer.getSkillMetaDataOf(high).getConsume();
-                                        int mp = getBattleUIScreen().heroBattleList.get(attackerId).getRoleMetaData().getMp();
-                                        mp-=consume;
-                                        getBattleUIScreen().heroBattleList.get(attackerId).getRoleMetaData().setMp(mp);
-                                        getBattleUIScreen().getParentScreen().pop();
-                                        nextAction();
-                                        checkWinOrLose(gameContainer);
-                                    }
-                                }));
-            }
-            break;
-            case BattleAction.ACTION_GOODS: {
-                logger.debug("暂没有物品");
-            }
-            break;
-            case BattleAction.ACTION_FLEE: {
-                logger.debug("众妖怪：菜鸡别跑！");
-                // TODO 金币减少100*妖怪数量。
-                // TODO 此时要是逃跑成功，应该跳到地图界面
-                gameContainer.getGameFrame().changeScreen(ScreenCodeEnum.SCREEN_CODE_MAP_SCREEN);
-            }
-            break;
-            default:
-                logger.debug("cannot be here: " + actionType);
-                break;
+        if (actionType == BattleAction.BattleOption.COMMON.getOrderNum()) { // 普攻
+            final int finalTargetIndex = targetIndex;
+            getBattleUIScreen().getParentScreen().push(
+                new BattleCommonActionScreen(
+                    getBattleUIScreen().heroBattleList.get(attackerId),
+                    getBattleUIScreen().monsterBattleList.get(finalTargetIndex),
+                    new CommonAttackListener() {
+                        @Override
+                        public int doGetAttackDamage() {
+                            return getCommonAttackDamage(BattleAction.FROM_HERO, attackerId, finalTargetIndex);
+                        }
+                        @Override
+                        public void doAttack(int dmg) {
+                            doCauseDamage(BattleAction.FROM_HERO, attackerId, finalTargetIndex, dmg);
+                        }
+                        @Override
+                        public void onFinished() {
+                            getBattleUIScreen().getParentScreen().pop();
+                            nextAction();
+                            checkWinOrLose(gameContainer);
+                        }
+                    }));
+        } else if (actionType == BattleAction.BattleOption.SKILL.getOrderNum()) { // 技能
+            logger.debug("使用技能攻击妖怪");
+            Fightable chosenMonsterBattle = getBattleUIScreen().monsterBattleList.get(targetIndex);
+            final SkillMetaData smd = gameContainer.getSkillMetaDataOf(high);
+            AnimationScreen bs = new AnimationScreen(gameContainer, smd.getAnimationId(),
+                    chosenMonsterBattle.getLeft() - chosenMonsterBattle.getWidth() / 2,
+                    chosenMonsterBattle.getTop(), getBattleUIScreen().getParentScreen());
+            final int finalTargetIndex = targetIndex;
+            getBattleUIScreen().getParentScreen().push(
+                    new BattleSkillActionScreen(
+                            getBattleUIScreen().heroBattleList.get(attackerId),
+                            getBattleUIScreen().monsterBattleList.get(finalTargetIndex),
+                            bs,
+                            new CommonAttackListener() {
+                                @Override
+                                public int doGetAttackDamage() {
+                                    return getSkillAttackDamage(gameContainer, high);
+                                }
+                                @Override
+                                public void doAttack(int dmg) {
+                                    doCauseDamage(BattleAction.FROM_HERO, attackerId, finalTargetIndex, dmg);
+                                }
+                                @Override
+                                public void onFinished() {
+                                    int consume = gameContainer.getSkillMetaDataOf(high).getConsume();
+                                    int mp = getBattleUIScreen().heroBattleList.get(attackerId).getRoleMetaData().getMp();
+                                    mp-=consume;
+                                    getBattleUIScreen().heroBattleList.get(attackerId).getRoleMetaData().setMp(mp);
+                                    getBattleUIScreen().getParentScreen().pop();
+                                    nextAction();
+                                    checkWinOrLose(gameContainer);
+                                }
+                            }));
+        } else if (actionType == BattleAction.BattleOption.GOODS.getOrderNum()) {
+            logger.debug("暂没有物品");
+        } else if (actionType == BattleAction.BattleOption.ESCAPE.getOrderNum()) {
+            logger.debug("众妖怪：菜鸡别跑！");
+            // TODO 金币减少100*妖怪数量。
+            // TODO 此时要是逃跑成功，应该跳到地图界面
+            gameContainer.getGameFrame().changeScreen(ScreenCodeEnum.SCREEN_CODE_MAP_SCREEN);
+        } else {
+            logger.debug("cannot be here: " + actionType);
         }
     }
 
@@ -326,12 +307,11 @@ public class BattleFightScreen extends BaseScreen {
             targetName = "玩家";
         }
 
-        logger.debug(attackerName + attackerId + " --> " + targetName + targetIndex);
         int hp = target.getRoleMetaData().getHp();
         hp -= dmg;
         target.getRoleMetaData().setHp(hp);
 
-        String msgText = attackerName + attackerId + "对"+targetName+targetIndex+"造成了"+dmg + "伤害，";
+        String msgText = attackerName + attackerId + " 对 "+targetName+targetIndex+"造成了"+dmg + "伤害，";
         if (hp <= 0) {
             msgText += targetName + targetIndex + "的小身板扛不住就挂了";
             target.setDied(true);

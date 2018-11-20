@@ -64,7 +64,7 @@ ILoader
 #### 2017-08-22 17:17
     完成滚屏，且处理当地图宽20高15时hero去不了右，下，右下这三个象限的问题
     add npcId argument to the command `createnpc`, and 0 means no event to this npc
-    [TODO] 对同一地图中多个宝箱的操作
+    对同一地图中多个宝箱的操作
     BaseCharacter中的height与width已删除
     将talk命令与trigger命令合并成trigger命令，map的坐标事件改由事件触发
     处理地图编辑器中添加npc时的npcId问题，npc层的一个整数的前16位代表npcId,后16位代表tileNum.
@@ -169,17 +169,22 @@ ILoader
     整理rpg-core的依赖，N行代码被改动！！！（看来刚开始的设计不是很好）
 
 #### 2018-11-19
-   离开地图后应清空传送门、npc、宝箱
-   添加创建宝箱命令CreateChestCmd、打开宝箱命令OpenChestCmd
-   添加BuiltinScriptItem、builtin.s、部分重复标签以便复用
-   显示场景物品如三清宫
-   [TODO]切换场景再回来后发现宝箱还是关闭着的，但是已经不能再打开了
+    离开地图后应清空传送门、npc、宝箱
+    添加创建宝箱命令CreateChestCmd、打开宝箱命令OpenChestCmd
+    添加BuiltinScriptItem、builtin.s、部分重复标签以便复用
+    显示场景物品如三清宫
+    [TODO] 切换场景再回来后发现宝箱还是关闭着的，但是已经不能再打开了
+   
 #### 2018-11-20
     the f**king gradle: work differently with the same version idea-community(v2018.2.5), the same gradle version(v4.10.2), and the same OS(Windows7), contine to use maven instead.
     使用ScreenCodeEnum
     完善并删除部分TODO
     add BattleImageCmd [从/battle/目录下取资源，默认为deafult_battle.jpg]
     解决了一个很早就就出现但久未解决的bug：在大地图上显示say/messagebox命令后，窗口会一闪而过，试着把MessageBoxScreen#onKeyUp()的内容移到了MessageBoxScreen.onKeyDown()中，问题解决了。感觉框架上缺少一个消费按键消息的功能。
-    资源文件的定时扫描加载：
+    [TODO]资源文件的定时扫描加载?
+    普通攻击时取攻击者和目标的矩形的中心，攻击即是让两个中心重合
+    人物战斗图只有一帧，攻击时该帧向目标发起攻击 [TODO 玩家或怪物被攻击时，有格挡帧]
+    修正：怪物攻击玩家时，怪物的贴图应该在玩家上面
+
 
 

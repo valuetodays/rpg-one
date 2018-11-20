@@ -16,7 +16,7 @@ public abstract class Fightable {
     private int width;
     private int height;
     private boolean died;
-    private Image battleImage;
+    private Image battleImage; // 一帧
     // 普通攻击的第几帧
     private int acctackFrame;
     // 格挡普通攻击时的防御动作，此时可格档50%的伤害（暂只有一帧）

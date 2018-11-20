@@ -5,10 +5,30 @@ package billy.rpg.game.core.screen.battle;
  * @since 2017-07-19 11:35
  */
 public class BattleAction {
-    public static final int ACTION_ATTACK = 1;
-    public static final int ACTION_SKILL = 2;
-    public static final int ACTION_GOODS = 3;
-    public static final int ACTION_FLEE = 4;
+
+    public enum BattleOption {
+        COMMON(0, "普攻"),
+        SKILL(1, "技能"),
+        GOODS(2, "物品"),
+        ESCAPE(3, "逃跑");
+
+        private int orderNum;
+        private String desc;
+
+        BattleOption(int orderNum, String desc) {
+            this.orderNum = orderNum;
+            this.desc = desc;
+        }
+
+        public String getDesc() {
+            return desc;
+        }
+
+        public int getOrderNum() {
+            return orderNum;
+        }
+    }
+
     public static final boolean FROM_HERO = true;
     public static final boolean FROM_MONSTER = !FROM_HERO;
 

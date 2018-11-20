@@ -30,19 +30,20 @@ public class BattleUIScreen extends BaseScreen {
     protected final int money;
     protected List<BattleAction> actionList = new ArrayList<>();
     protected boolean fighting;
+    private boolean fromHero;
 
     public BattleScreen getParentScreen() {
         return parentScreen;
     }
 
     public BattleUIScreen(GameContainer gameContainer, final int[] metMonsterIds, BattleScreen battleScreen, List<HeroCharacter> heroBattleList) {
-        logger.debug("met " + metMonsterIds.length + " monsters with["+ ArrayUtils.toString(metMonsterIds)+"]");
+        logger.debug("met monsters with["+ ArrayUtils.toString(metMonsterIds)+"]");
         parentScreen = battleScreen;
         this.heroBattleList = heroBattleList;
 
         monsterImages = new ArrayList<>();
-        for (int i = 0; i < metMonsterIds.length; i++) {
-            Image image = gameContainer.getMonsterRoleOf(metMonsterIds[i]).getImage();
+        for (int metMonsterId : metMonsterIds) {
+            Image image = gameContainer.getMonsterRoleOf(metMonsterId).getImage();
             monsterImages.add(image);
         }
 
@@ -108,25 +109,36 @@ public class BattleUIScreen extends BaseScreen {
                 BufferedImage.TYPE_4BYTE_ABGR);
         Graphics g = paint.getGraphics();
         g.setColor(Color.black);
-//        g.setColor(new Color(0, 0, 0, 0));
         g.fillRect(0, 0, paint.getWidth(), paint.getHeight());
 
-        drawMonster(gameContainer, g);
+        String battleImagePath = gameContainer.getActiveScriptItem().getBattleImagePath();
+        Image battleImage = gameContainer.getBattleImageItem().getBattleImage(battleImagePath);
+        if (battleImage == null) {
+            battleImage = gameContainer.getBattleImageItem().getBattleImage(BattleImageItem.DEFAULT_BATTLE);
+        }
+        g.drawImage(battleImage, 0, 0, null);
 
-        drawHero(g);
+        if (fromHero) {
+            drawMonster(gameContainer, g);
+            drawHero(g);
+        } else {
+            drawHero(g);
+            drawMonster(gameContainer, g);
+        }
+
 
         g.dispose();
         desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
     }
 
     private void drawHero(Graphics g) {
-        // 将当前活动玩家高亮出来
         for (int i = 0; i < heroBattleList.size(); i++) {
             HeroCharacter heroBattle = heroBattleList.get(i);
+            // 将当前活动玩家高亮出来
             if (i == heroIndex) {
                 RoleMetaData roleMetaData = heroBattle.getRoleMetaData();
                 g.setColor(Color.yellow);
-                g.fillRect(heroBattle.getLeft()-5, heroBattle.getTop(), roleMetaData.getImage().getWidth() + 10,
+                g.fillRect(heroBattle.getLeft(), heroBattle.getTop(), roleMetaData.getImage().getWidth(),
                         roleMetaData.getImage().getHeight());
             }
             g.setColor(Color.green);
@@ -138,41 +150,11 @@ public class BattleUIScreen extends BaseScreen {
                     heroBattle.getTop() - 20);
 
             Image battleImage = heroBattle.getBattleImage();
-            int battleImageWidth = battleImage.getWidth(null);
-            int battleImageHeight = battleImage.getHeight(null);
-            int acctackFrame = heroBattle.getAcctackFrame();
-            // 站立
-            if (acctackFrame == 0) {
-                g.drawImage(battleImage,
-                    heroBattle.getLeft() + 20, heroBattle.getTop() + 30,
-                    heroBattle.getLeft() + 20 + battleImageWidth,
-                    heroBattle.getTop()  + 30 + battleImageHeight /12,
-                    // 站立是第一帧
-                    0, 0,
-                        battleImageWidth, battleImageHeight /12,
-                    null);
-            } else if (acctackFrame > 0 && acctackFrame < 12) { // 普攻移动
-                int frameNum = acctackFrame / 4 + 1;
-                g.drawImage(battleImage,
-                        heroBattle.getLeft() + 20, heroBattle.getTop() + 30,
-                        heroBattle.getLeft() + 20 + battleImageWidth,
-                        heroBattle.getTop()  + 30 + battleImageHeight /12,
-                        // 站立是第一帧
-                        0, frameNum * battleImageHeight/12,
-                        battleImageWidth, frameNum * battleImageHeight/12 + battleImageHeight /12,
-                        null);
-            }
+            g.drawImage(battleImage, heroBattle.getLeft(), heroBattle.getTop(), null);
         }
     }
 
     public void drawMonster(GameContainer gameContainer, Graphics g) {
-        String battleImagePath = gameContainer.getActiveScriptItem().getBattleImagePath();
-        Image battleImage = gameContainer.getBattleImageItem().getBattleImage(battleImagePath);
-        if (battleImage == null) {
-            battleImage = gameContainer.getBattleImageItem().getBattleImage(BattleImageItem.DEFAULT_BATTLE);
-        }
-        g.drawImage(battleImage, 0, 0, null);
-
         for (MonsterCharacter monsterBattle : monsterBattleList) {
             Image image = monsterBattle.getRoleMetaData().getImage();
             int left = monsterBattle.getLeft();
@@ -205,6 +187,7 @@ public class BattleUIScreen extends BaseScreen {
     }
 
 
-
-
+    public void markHeroAsAttacker(boolean fromHero) {
+        this.fromHero = fromHero;
+    }
 }

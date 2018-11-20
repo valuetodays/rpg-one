@@ -127,7 +127,7 @@ public class MonsterSelectScreen extends BaseScreen {
             }
             getBattleUIScreen().getParentScreen().pop(); // TODO 清除什么？
             getBattleUIScreen().heroIndex++;
-            battleOptionScreen.heroActionChoice = BattleAction.ACTION_ATTACK; // 重置成普攻
+            battleOptionScreen.heroActionChoice = BattleAction.BattleOption.COMMON.getOrderNum(); // 重置成普攻
             if (getBattleUIScreen().heroIndex < getBattleUIScreen().heroBattleList.size()) {
 
             } else {
@@ -159,7 +159,7 @@ public class MonsterSelectScreen extends BaseScreen {
             // TODO 暂先随机使用普攻和技能
             int actionAttack = GameConstant.random.nextInt(2);
             int skillId = 0;
-            if (BattleAction.ACTION_SKILL == (actionAttack+1)) {
+            if (BattleAction.BattleOption.SKILL.getOrderNum() == (actionAttack+1)) {
                 skillId = 2;
             }
 
@@ -167,7 +167,7 @@ public class MonsterSelectScreen extends BaseScreen {
                     i,
                     GameConstant.random.nextInt(getBattleUIScreen().heroBattleList.size()) ,
                     // TODO 暂先随机使用普攻和技能
-                    1, skillId, 0);
+                    BattleAction.BattleOption.COMMON.getOrderNum(), skillId, 0);
             getBattleUIScreen().actionList.add(battleAction);
         }
     }

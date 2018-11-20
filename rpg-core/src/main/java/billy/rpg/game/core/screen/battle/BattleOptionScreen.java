@@ -23,30 +23,8 @@ import java.awt.image.BufferedImage;
  */
 public class BattleOptionScreen extends BaseScreen {
 
-    public enum BattleOption {
-        COMMON(0, "普攻"),
-        SKILL(1, "技能"),
-        GOODS(2, "物品"),
-        ESCAPE(3, "逃跑");
 
-        private int orderNum;
-        private String desc;
-
-        BattleOption(int orderNum, String desc) {
-            this.orderNum = orderNum;
-            this.desc = desc;
-        }
-
-        public String getDesc() {
-            return desc;
-        }
-
-        public int getOrderNum() {
-            return orderNum;
-        }
-    }
-
-    int heroActionChoice = BattleOption.COMMON.getOrderNum();
+    int heroActionChoice = BattleAction.BattleOption.COMMON.getOrderNum();
     private BattleUIScreen battleUIScreen;
 
     public BattleOptionScreen(BattleUIScreen battleUIScreen) {
@@ -77,7 +55,7 @@ public class BattleOptionScreen extends BaseScreen {
         g.drawRoundRect(3, 323, 194, 154, 4, 4);
         g.setFont(GameConstant.FONT_BATTLE);
         g.setColor(Color.YELLOW);
-        for (BattleOption battleOption : BattleOption.values()) {
+        for (BattleAction.BattleOption battleOption : BattleAction.BattleOption.values()) {
             g.drawString(battleOption.getDesc(), 50, 350 + battleOption.getOrderNum() * 25);
         }
 
@@ -119,10 +97,10 @@ public class BattleOptionScreen extends BaseScreen {
                 return;
             }
             logger.info("heroActionChoice: " + heroActionChoice);
-            if (heroActionChoice == BattleOption.COMMON.getOrderNum()) {  // 普攻
+            if (heroActionChoice == BattleAction.BattleOption.COMMON.getOrderNum()) {  // 普攻
                 MonsterSelectScreen chooseMonsterScreen = new MonsterSelectScreen(battleUIScreen, this, -1);
                 getBattleUIScreen().getParentScreen().push(chooseMonsterScreen);
-            } else if (heroActionChoice == BattleOption.SKILL.getOrderNum()) {  // 技能
+            } else if (heroActionChoice == BattleAction.BattleOption.SKILL.getOrderNum()) {  // 技能
                 HeroCharacter activeHero = getBattleUIScreen().getActiveHero();
                 String skillIds = activeHero.getRoleMetaData().getSkillIds();
                 if (StringUtils.isEmpty(skillIds)) {

@@ -15,11 +15,6 @@ import java.util.stream.Collectors;
 public class MonstersCmd extends CmdBase {
     private List<Integer> monsterIds;
 
-
-    public List<Integer> getMonsterIds() {
-        return monsterIds;
-    }
-
     @Override
     public void init() {
         List<String> arguments = super.getArguments();
@@ -34,7 +29,7 @@ public class MonstersCmd extends CmdBase {
 
     @Override
     public String getUsage() {
-        return null;
+        return "monsters MONSTER_ID1 MONSTER_ID2 MONSTER_ID3";
     }
 
     @Override

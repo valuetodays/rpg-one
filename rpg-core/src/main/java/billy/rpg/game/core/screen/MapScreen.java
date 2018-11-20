@@ -167,7 +167,6 @@ public class MapScreen extends BaseScreen {
         }
         // draw scene-object end
 
-
         String mapName = gameContainer.getActiveMap().getName();
         g2.setFont(GameConstant.FONT_SIZE_MAP_NAME);
         g2.setColor(GameConstant.FONT_COLOR_MAP_NAME);
