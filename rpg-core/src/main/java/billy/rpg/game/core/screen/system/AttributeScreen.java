@@ -11,6 +11,7 @@ import billy.rpg.game.core.equip.shoe.ShoeEquip;
 import billy.rpg.game.core.equip.weapon.WeaponEquip;
 import billy.rpg.game.core.screen.BaseScreen;
 import billy.rpg.game.core.util.KeyUtil;
+import billy.rpg.resource.level.LevelData;
 import billy.rpg.resource.role.RoleMetaData;
 import billy.rpg.resource.sprite.HeroSprite;
 
@@ -98,8 +99,9 @@ public class AttributeScreen extends BaseScreen {
             } else {
                 drawColorStringHorizontal(g, 180, 170 + i * 100, speedStr, g.getColor(), null, null);
             }
-
-            drawColorStringHorizontal(g, 180, 190 + i * 100, "exp: " + roleMetaData.getExp(), g.getColor(), null, null);
+            LevelData levelData = gameContainer.getLevelMetaDataOf(roleMetaData.getLevelChain()).getLevelDataList().get(roleMetaData.getLevel());
+            int exp = levelData.getExp();
+            drawColorStringHorizontal(g, 180, 190 + i * 100, "exp: " + roleMetaData.getExp() + " / " + exp, g.getColor(), null, null);
 
             g.drawImage(roleMetaData.getImage(), 320, 70 + i * 100, null);
             HeroSprite.Key currentFrame = roleMetaData.getSprite().getCurrentFrame();

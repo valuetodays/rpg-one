@@ -367,7 +367,9 @@ public class GameData {
         if (level == 0 || heroMetaData.getExp() > levelData.getExp()) {
             logger.debug("level up to " + (level+1));
             if ( level > 0) {
-                heroMetaData.setExp(heroMetaData.getExp() - levelData.getExp());
+
+                LevelData preLevelData = levelMetaData.getLevelDataList().get(level);
+                heroMetaData.setExp(heroMetaData.getExp() - preLevelData.getExp());
             }
             heroMetaData.setMaxMp(heroMetaData.getMaxMp() + levelData.getMaxMp() - levelMetaData.getLevelDataList().get(level).getMaxMp());
             heroMetaData.setMp(heroMetaData.getMaxMp()); // 当前mp加到最大

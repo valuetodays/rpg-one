@@ -9,7 +9,7 @@ import java.util.List;
 public class LevelMetaData {
     private int number; // 玩家id
     private int maxLevel;
-    private List<LevelData> levelDataList;
+    private List<LevelData> levelDataList; // 该属性的最后一个等级属性是用不到的；解释为每个LevelData中有一个属性叫exp，表示获取到指定经验就可以升到下一级
 
     public int getNumber() {
         return number;
