@@ -23,10 +23,11 @@ import org.apache.log4j.Logger;
 import java.util.*;
 
 /**
- * 对应一个script文件
+ * 映射一个script文件为本类
  */
 public class ScriptItem {
-    private static final Logger LOG = Logger.getLogger(ScriptItem.class);
+    private final Logger logger = Logger.getLogger(getClass());
+    private static final String LABEL_SUFFIX = ":";
 
     /** 脚本id */
     private String scriptId;
@@ -177,7 +178,7 @@ public class ScriptItem {
 
         TriggerBean triggerBean = triggerMap.get(trigger.getNum());
         if (triggerBean != null) {
-            label = getLabelByTitle(trigger.getLabelTitle());
+            label = getLabelByName(trigger.getLabelTitle());
         }
 
         if (label != null) {
@@ -323,9 +324,8 @@ public class ScriptItem {
         initTriggers(cmdList); // 初始化触发器
     }
 
-    public LabelBean getLabelByTitle(String labelTitle) {
-        // magic string?
-        return labelMap.get(labelTitle + ":");
+    public LabelBean getLabelByName(String labelTitle) {
+        return labelMap.get(labelTitle + LABEL_SUFFIX);
     }
 
     public void reenter() {

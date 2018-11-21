@@ -73,7 +73,7 @@ public class ChoiceScreen extends BaseScreen {
         }
         if (KeyUtil.isEnter(key)) {
             String selectedLabelTitle = label.get(selectedInx);
-            LabelBean selectedLabel = gameContainer.getActiveScriptItem().getLabelByTitle
+            LabelBean selectedLabel = gameContainer.getActiveScriptItem().getLabelByName
                     (selectedLabelTitle);
             logger.debug("selectInx/selectedLabelTitle=" + selectedInx + "/"+ selectedLabelTitle);
             gameContainer.getGameFrame().popScreen();

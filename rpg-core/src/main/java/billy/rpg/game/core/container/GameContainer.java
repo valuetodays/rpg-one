@@ -413,13 +413,13 @@ public class GameContainer {
 
     public LabelBean getLabelByTitle(String title) {
         ScriptItem builtinScriptItem = getBuiltinScriptItem();
-        LabelBean builtinLabel = builtinScriptItem.getLabelByTitle(title);
+        LabelBean builtinLabel = builtinScriptItem.getLabelByName(title);
         if (builtinLabel != null) {
             return builtinLabel;
         }
 
         ScriptItem activeScriptItem = getActiveScriptItem();
-        LabelBean scriptLabel = activeScriptItem.getLabelByTitle(title);
+        LabelBean scriptLabel = activeScriptItem.getLabelByName(title);
         if (scriptLabel != null) {
             return scriptLabel;
         }

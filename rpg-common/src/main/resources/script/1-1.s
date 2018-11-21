@@ -142,10 +142,15 @@ set 已得钨龙剑
 return
 
 testForAll:
+hasMoney 3000 没有三千铜钱
 addgoods 1
 addmoney 20000
 say 2 '师弟' NONE '师兄，原来你在这啊，师父找不到你，正在无机阁大发雷霆呢，你快点到无机阁见师傅吧。'
 buy 1 2 3 4 5
+return
+
+没有三千铜钱:
+say 2 '师弟' NONE '师兄，你这太寒酸了吧，连3000铜钱都没有。'
 return
 
 测试宝箱:

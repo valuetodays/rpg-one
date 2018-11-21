@@ -3,40 +3,42 @@ package billy.rpg.game.core.command;
 import billy.rpg.game.core.command.processor.CmdProcessor;
 import billy.rpg.game.core.command.processor.support.DefaultCmdProcessor;
 import billy.rpg.game.core.container.GameContainer;
-import billy.rpg.game.core.item.ScriptItem;
 import billy.rpg.game.core.script.LabelBean;
 
 import java.util.List;
 
 /**
  * @author lei.liu@datatist.com
- * @since 2018-09-29 14:51:22
+ * @since 2018-11-21 15:24:53
  */
-public class GotoCmd extends CmdBase {
-    private String labelName;
+public class HasMoneyCmd extends CmdBase {
+    private int predictedMoney;
+    private String labelGoto;
 
     @Override
     public void init() {
         List<String> arguments = super.getArguments();
-        labelName = arguments.get(0);
+        predictedMoney = Integer.parseInt(arguments.get(0));
+        labelGoto = arguments.get(1);
     }
 
     @Override
     public int execute(GameContainer gameContainer, CmdProcessor cmdProcessor) {
-        ScriptItem activeScriptItem = gameContainer.getActiveScriptItem();
-        LabelBean label = activeScriptItem.getLabelByName(labelName);
-        CmdProcessor cmdProcessor0 = new DefaultCmdProcessor(label.getCmds());
-        gameContainer.getActiveScriptItem().setCmdProcessor(cmdProcessor0);
+        int money = gameContainer.getGameData().getMoney();
+        if (money < predictedMoney) {
+            LabelBean label = gameContainer.getLabelByTitle(labelGoto);
+            cmdProcessor.setInnerCmdProcessor(new DefaultCmdProcessor(label.getCmds()));
+        }
         return 0;
     }
 
     @Override
     public String getUsage() {
-        return "goto xxx";
+        return null;
     }
 
     @Override
     public int getArgumentSize() {
-        return 1;
+        return 0;
     }
 }
