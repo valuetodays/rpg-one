@@ -17,7 +17,7 @@ import java.util.List;
  */
 @Deprecated
 public class ChooseHeroScreen extends BaseScreen {
-    private int heroIndex; // TODO 貌似早期的fc封神榜、吞食天地不支持玩家选择已方人员乱序行动吧？
+    private int heroIndex; // TODO 貌似早期的fc封神榜、吞食天地支持玩家选择已方人员乱序行动吧？
 
     private BattleScreen parentScreen;
     protected java.util.List<HeroCharacter> heroBattleList;

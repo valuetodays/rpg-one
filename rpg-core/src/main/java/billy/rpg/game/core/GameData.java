@@ -380,7 +380,7 @@ public class GameData {
                 heroMetaData.setExp(heroMetaData.getExp() - levelData.getExp());
                 heroMetaData.setMaxMp(heroMetaData.getMaxMp() + levelData.getMaxMp() - levelMetaData.getLevelDataList().get(level - 1).getMaxMp());
                 heroMetaData.setMp(heroMetaData.getMaxMp()); // 当前mp加到最大
-                heroMetaData.setMaxHp(levelData.getMaxHp()); //
+                heroMetaData.setMaxHp(heroMetaData.getMaxHp() + levelData.getMaxHp() - levelMetaData.getLevelDataList().get(level - 1).getMaxHp());
                 heroMetaData.setHp(heroMetaData.getMaxHp()); // 当前hp加到最大
                 heroMetaData.setAttack(heroMetaData.getAttack() + levelData.getAttack() - levelMetaData.getLevelDataList().get(level - 1).getAttack());
                 heroMetaData.setDefend(heroMetaData.getDefend() + levelData.getDefend() - levelMetaData.getLevelDataList().get(level - 1).getDefend());

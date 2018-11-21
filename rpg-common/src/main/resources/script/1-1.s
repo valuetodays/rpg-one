@@ -149,6 +149,7 @@ buy 1 2 3 4 5
 return
 
 测试宝箱:
+fight "battle_image.png" 51 51
 if 11001 已打开宝箱
 @ 得到铁剑
 addgoods 2002

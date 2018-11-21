@@ -72,7 +72,6 @@ public class BattleSuccessScreen extends BaseScreen {
                 BufferedImage.TYPE_4BYTE_ABGR);
         Graphics g = paint.getGraphics();
 
-        // TODO 应该加载一个背景图
         g.setColor(Color.black);
         g.fillRect(0, 0, paint.getWidth(), paint.getHeight());
         g.setColor(Color.WHITE);
@@ -87,10 +86,10 @@ public class BattleSuccessScreen extends BaseScreen {
             g.drawString("等级 " + oldRoleMetaData.getLevel() + " --> " + newRoleMetaData.getLevel(),
                     200 + 100*i, 80);
             g.drawString("体力 " + oldRoleMetaData.getHp() + "/" + oldRoleMetaData.getMaxHp()
-                    + " --> " + newRoleMetaData.getHp() + "/" + newRoleMetaData.getMaxHp(),
+                    + " --> " + newRoleMetaData.getMaxHp() + "/" + newRoleMetaData.getMaxHp(),
                     200 + 100*i, 100);
             g.drawString("法力 " + oldRoleMetaData.getMp() + "/" + oldRoleMetaData.getMaxMp() + " --> " +
-                    newRoleMetaData.getMp() + "/" + newRoleMetaData.getMaxMp(),
+                    newRoleMetaData.getMaxMp() + "/" + newRoleMetaData.getMaxMp(),
                     200 + 100*i, 120);
             g.drawString("攻击 " + oldRoleMetaData.getAttack() + " --> " + newRoleMetaData.getAttack(),
                     200 + 100*i, 140);

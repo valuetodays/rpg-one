@@ -194,8 +194,7 @@ public class GameFrame extends JFrame implements IGameFrame, Runnable {
     @Override
     public void changeScreen(ScreenCodeEnum screenCode) {
         BaseScreen tmp = null;
-        ScreenCodeEnum screenCodeEnum= ScreenCodeEnum.SCREEN_CODE_MAP_SCREEN;
-        switch (screenCodeEnum) {
+        switch (screenCode) {
         case SCREEN_CODE_MAP_SCREEN:
             tmp = getGameContainer().getMapScreen();
             break;

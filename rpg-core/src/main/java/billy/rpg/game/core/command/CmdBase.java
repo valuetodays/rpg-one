@@ -16,10 +16,12 @@ public abstract class CmdBase {
     public final Logger logger = Logger.getLogger(getClass());
     // 参数个数>=0 (greater or equal)
     protected int ARGUMENT_COUNT_GE_ZERO = -1000; // >= 0
+    // 参数个数>0 (greater than)
+    protected int ARGUMENT_COUNT_GT_ZERO = -1001; // >= 0
     // 偶数个数的参数
-    protected int ARGUMENT_COUNT_EVEN = -1001; // 0, 2, 4
+    protected int ARGUMENT_COUNT_EVEN = -1002; // 0, 2, 4
     // 奇数个数的参数
-    protected int ARGUMENT_COUNT_ODD = -1002; // 1, 3, 5
+    protected int ARGUMENT_COUNT_ODD = -1003; // 1, 3, 5
     // 最大参数数量
     protected int ARGUMENT_MAX_COUNT = 512;
 
@@ -55,7 +57,11 @@ public abstract class CmdBase {
     private void checkArgumentSize() {
         int expectArgumentSize = getArgumentSize();
         int realArgumentSize   = arguments.size();
-        if (expectArgumentSize == ARGUMENT_COUNT_GE_ZERO) {
+        if (expectArgumentSize == ARGUMENT_COUNT_GT_ZERO) {
+            if (!isGtZero(realArgumentSize)) {
+                logger.debug("command " + name + " 's arguments size illegal");
+            }
+        } else if (expectArgumentSize == ARGUMENT_COUNT_GE_ZERO) {
             return;
         } else if (expectArgumentSize == ARGUMENT_COUNT_ODD) {
             if (isGtZero(realArgumentSize) || !isOdd(realArgumentSize)) {

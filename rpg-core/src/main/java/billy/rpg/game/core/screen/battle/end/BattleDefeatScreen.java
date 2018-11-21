@@ -29,10 +29,10 @@ public class BattleDefeatScreen extends BaseScreen {
                 GameConstant.GAME_HEIGHT,
                 BufferedImage.TYPE_4BYTE_ABGR);
         Graphics g = paint.getGraphics();
-
-        // TODO 应该加载一个背景图
         g.setColor(Color.black);
         g.fillRect(0, 0, paint.getWidth(), paint.getHeight());
+        Image gameOver = gameContainer.getGameAboutItem().getGameOver();
+        g.drawImage(gameOver, 0, 0, null);
         g.setColor(Color.WHITE);
         g.drawString("妖怪：菜鸡，打不过我，哈哈！", 20, 50);
 

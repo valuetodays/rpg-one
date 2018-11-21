@@ -1,13 +1,16 @@
 package billy.rpg.resource.level;
 
+import com.alibaba.fastjson.annotation.JSONType;
+
 /**
  * @author liulei@bshf360.com
  * @since 2017-07-25 17:11
  */
+@JSONType(ignores = {"isValid", "valid"})
 public class LevelData {
-    private Integer level;
-    private Integer maxHp;
-    private Integer maxMp;
+    private int level;
+    private int maxHp;
+    private int maxMp;
     private Integer attack;
     private Integer defend;
     private Integer speed;
@@ -89,6 +92,6 @@ public class LevelData {
     }
 
     public boolean isValid() {
-        return level != null && maxHp != null && maxMp != null && attack != null && defend != null && speed != null && exp != null;
+        return level != 0 && maxHp != 0 && maxMp != 0 && attack != 0 && defend != 0 && speed != 0 && exp != 0;
     }
 }

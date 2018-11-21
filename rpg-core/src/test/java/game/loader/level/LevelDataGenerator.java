@@ -17,24 +17,25 @@ public class LevelDataGenerator {
 
     @Test
     public void testGen() throws IOException {
-        String filepath = "D:/tmp/aaa/3.jlvl";
+        int id = 3;
+        String filePath = "D:/tmp/aaa/"+id+".jlvl";
         LevelMetaData levelMetaData = new LevelMetaData();
-        levelMetaData.setNumber(1);
+        levelMetaData.setNumber(id);
         levelMetaData.setMaxLevel(60);
         {
             List<LevelData> levelDataList = new ArrayList<>();
             for (int i = 1; i <= 60; i++ ) {
                 LevelData levelData = new LevelData(i);
-                levelData.setExp(2 * i + 15);
+                levelData.setExp(i * (10+i) *  (i-1) + 15);
                 levelData.setAttack(4 * i);
-                levelData.setDefend(4 * i);
+                levelData.setDefend(6 * i);
                 levelData.setMaxHp(4 * i);
-                levelData.setMaxMp(4 * i);
+                levelData.setMaxMp(6 * i);
                 levelData.setSpeed(1 * i);
                 levelDataList.add(levelData);
             }
             levelMetaData.setLevelDataList(levelDataList);
         }
-        new JsonLevelSaverLoader().save(filepath, levelMetaData);
+        new JsonLevelSaverLoader().save(filePath, levelMetaData);
     }
 }

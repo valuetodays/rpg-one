@@ -36,7 +36,10 @@ public abstract class Level2DataLoader {
         for (File f : files) {
             LevelMetaData levelMetaData = saverLoader.load(f.getPath());
             int number = levelMetaData.getNumber();
-            levelMap.put(number, levelMetaData);
+            LevelMetaData old = levelMap.put(number, levelMetaData);
+            if (old != null) {
+                throw new RuntimeException("含有重复id："+ number);
+            }
         }
     }
 
