@@ -14,7 +14,7 @@ import billy.rpg.game.core.loader.animation.JsonAnimationDataLoader;
 import billy.rpg.game.core.loader.goods.GoodsDataLoader;
 import billy.rpg.game.core.loader.goods.JsonGoodsDataLoader;
 import billy.rpg.game.core.loader.level.JsonLevelDataLoader;
-import billy.rpg.game.core.loader.level.Level2DataLoader;
+import billy.rpg.game.core.loader.level.LevelDataLoader;
 import billy.rpg.game.core.loader.map.MapDataLoader;
 import billy.rpg.game.core.loader.map.TmxMapDataLoader;
 import billy.rpg.game.core.screen.BaseScreen;
@@ -155,7 +155,7 @@ public class GameContainer {
     }
 
     private void loadLevelData() throws IOException {
-        Level2DataLoader ldl = new JsonLevelDataLoader();
+        LevelDataLoader ldl = new JsonLevelDataLoader();
         ldl.load();
         levelMetaDataMap = ldl.getLevelMap();
     }

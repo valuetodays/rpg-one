@@ -99,6 +99,8 @@ public class AttributeScreen extends BaseScreen {
                 drawColorStringHorizontal(g, 180, 170 + i * 100, speedStr, g.getColor(), null, null);
             }
 
+            drawColorStringHorizontal(g, 180, 190 + i * 100, "exp: " + roleMetaData.getExp(), g.getColor(), null, null);
+
             g.drawImage(roleMetaData.getImage(), 320, 70 + i * 100, null);
             HeroSprite.Key currentFrame = roleMetaData.getSprite().getCurrentFrame();
             g.drawImage(currentFrame.getImage(), 320 + currentFrame.getX(), 70 + i * 100 + currentFrame.getY(), null);

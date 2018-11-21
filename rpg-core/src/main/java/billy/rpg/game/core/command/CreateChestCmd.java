@@ -48,6 +48,6 @@ public class CreateChestCmd extends CmdBase {
 
     @Override
     public int getArgumentSize() {
-        return 0;
+        return 4;
     }
 }

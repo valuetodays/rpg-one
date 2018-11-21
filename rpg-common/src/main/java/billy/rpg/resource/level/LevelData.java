@@ -11,72 +11,72 @@ public class LevelData {
     private int level;
     private int maxHp;
     private int maxMp;
-    private Integer attack;
-    private Integer defend;
-    private Integer speed;
-    private Integer exp;
+    private int attack;
+    private int defend;
+    private int speed;
+    private int exp;
 
     public LevelData() {
     }
 
-    public LevelData(Integer level) {
+    public LevelData(int level) {
         this.level = level;
     }
 
-    public Integer getLevel() {
+    public int getLevel() {
         return level;
     }
 
-    public void setLevel(Integer level) {
+    public void setLevel(int level) {
         this.level = level;
     }
 
-    public Integer getMaxHp() {
+    public int getMaxHp() {
         return maxHp;
     }
 
-    public void setMaxHp(Integer maxHp) {
+    public void setMaxHp(int maxHp) {
         this.maxHp = maxHp;
     }
 
-    public Integer getMaxMp() {
+    public int getMaxMp() {
         return maxMp;
     }
 
-    public void setMaxMp(Integer maxMp) {
+    public void setMaxMp(int maxMp) {
         this.maxMp = maxMp;
     }
 
-    public Integer getAttack() {
+    public int getAttack() {
         return attack;
     }
 
-    public void setAttack(Integer attack) {
+    public void setAttack(int attack) {
         this.attack = attack;
     }
 
-    public Integer getDefend() {
+    public int getDefend() {
         return defend;
     }
 
-    public void setDefend(Integer defend) {
+    public void setDefend(int defend) {
         this.defend = defend;
     }
 
-    public Integer getExp() {
-        return exp;
-    }
-
-    public void setExp(Integer exp) {
-        this.exp = exp;
-    }
-
-    public Integer getSpeed() {
+    public int getSpeed() {
         return speed;
     }
 
-    public void setSpeed(Integer speed) {
+    public void setSpeed(int speed) {
         this.speed = speed;
+    }
+
+    public int getExp() {
+        return exp;
+    }
+
+    public void setExp(int exp) {
+        this.exp = exp;
     }
 
     @Override

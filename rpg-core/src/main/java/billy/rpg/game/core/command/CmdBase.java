@@ -67,12 +67,9 @@ public abstract class CmdBase {
             if (isGtZero(realArgumentSize) || !isOdd(realArgumentSize)) {
                 logger.debug("command "+name+" needs even(1,3,5) arguments, but "+ realArgumentSize +" in fact. usage: " + getUsage());
             }
-        }
-
-        if (expectArgumentSize > ARGUMENT_MAX_COUNT) {
+        } else if (expectArgumentSize > ARGUMENT_MAX_COUNT) {
             logger.debug("command can only have "+ARGUMENT_MAX_COUNT+" arguments, but "+ realArgumentSize +" in fact. usage: " + getUsage());
-        }
-        if (realArgumentSize != expectArgumentSize) {
+        } else if (realArgumentSize != expectArgumentSize) {
             logger.debug("command "+name+" needs "+ expectArgumentSize +" arguments, but "+ realArgumentSize +" in fact. usage: " + getUsage());
         }
     }

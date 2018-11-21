@@ -7,7 +7,7 @@ import billy.rpg.resource.level.LevelSaverLoader;
  * @author lei.liu@datatist.com
  * @since 2018-11-20 18:22:47
  */
-public class JsonLevelDataLoader extends Level2DataLoader {
+public class JsonLevelDataLoader extends LevelDataLoader {
     @Override
     public String getFileDir() {
         return "/level/json/";

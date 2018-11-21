@@ -300,7 +300,9 @@ public class GameData {
 
                 Integer heroId = heroIds.get(i);
                 RoleMetaData heroRole = gameContainer.getHeroRoleOf(heroId);
+                // 首次加载角色信息，要升级到一级
                 heroRole.setLevel(0);
+                heroRole.setExp(0);
                 levelUp(gameContainer, heroRole);
 
                 HeroCharacter e = new HeroCharacter(gameContainer);
@@ -352,7 +354,6 @@ public class GameData {
     public void levelUp(GameContainer gameContainer, RoleMetaData heroMetaData) {
         LevelMetaData levelMetaData = gameContainer.getLevelMetaDataOf(heroMetaData.getLevelChain());
 
-        // TODO 整的有点绕，升级链中添加一个0级的配置，就不用处理if-else了
         int level = heroMetaData.getLevel();
         if (level >= levelMetaData.getMaxLevel()) {
             // 满级
@@ -361,32 +362,21 @@ public class GameData {
             gameContainer.getGameFrame().pushScreen(bs);
             return;
         }
-        if (level == 0) {
-            LevelData levelData = levelMetaData.getLevelDataList().get(0);
-            heroMetaData.setExp(0);
-            // 考虑到吃加生命上限的药和装备加生命的情况，此处要增加增量，下同
-            heroMetaData.setMaxMp(heroMetaData.getMaxMp() + levelData.getMaxMp());
-            heroMetaData.setMp(heroMetaData.getMaxMp()); // 当前mp加到最大
-            heroMetaData.setMaxHp(heroMetaData.getMaxHp() + levelData.getMaxHp());
-            heroMetaData.setHp(heroMetaData.getMaxHp()); // 当前hp加到最大
-            heroMetaData.setAttack(heroMetaData.getAttack() + levelData.getAttack());
-            heroMetaData.setDefend(heroMetaData.getDefend() + levelData.getDefend());
-            heroMetaData.setSpeed(heroMetaData.getSpeed() + levelData.getSpeed());
-            heroMetaData.setLevel(level + 1);
-        } else {
-            LevelData levelData = levelMetaData.getLevelDataList().get(level);
-            if (heroMetaData.getExp() > levelData.getExp()) {
-                logger.debug("level up to " + (level+1));
+
+        LevelData levelData = levelMetaData.getLevelDataList().get(level+1);
+        if (level == 0 || heroMetaData.getExp() > levelData.getExp()) {
+            logger.debug("level up to " + (level+1));
+            if ( level > 0) {
                 heroMetaData.setExp(heroMetaData.getExp() - levelData.getExp());
-                heroMetaData.setMaxMp(heroMetaData.getMaxMp() + levelData.getMaxMp() - levelMetaData.getLevelDataList().get(level - 1).getMaxMp());
-                heroMetaData.setMp(heroMetaData.getMaxMp()); // 当前mp加到最大
-                heroMetaData.setMaxHp(heroMetaData.getMaxHp() + levelData.getMaxHp() - levelMetaData.getLevelDataList().get(level - 1).getMaxHp());
-                heroMetaData.setHp(heroMetaData.getMaxHp()); // 当前hp加到最大
-                heroMetaData.setAttack(heroMetaData.getAttack() + levelData.getAttack() - levelMetaData.getLevelDataList().get(level - 1).getAttack());
-                heroMetaData.setDefend(heroMetaData.getDefend() + levelData.getDefend() - levelMetaData.getLevelDataList().get(level - 1).getDefend());
-                heroMetaData.setSpeed(heroMetaData.getSpeed() + levelData.getSpeed() - levelMetaData.getLevelDataList().get(level - 1).getSpeed());
-                heroMetaData.setLevel(level + 1);
             }
+            heroMetaData.setMaxMp(heroMetaData.getMaxMp() + levelData.getMaxMp() - levelMetaData.getLevelDataList().get(level).getMaxMp());
+            heroMetaData.setMp(heroMetaData.getMaxMp()); // 当前mp加到最大
+            heroMetaData.setMaxHp(heroMetaData.getMaxHp() + levelData.getMaxHp() - levelMetaData.getLevelDataList().get(level).getMaxHp());
+            heroMetaData.setHp(heroMetaData.getMaxHp()); // 当前hp加到最大
+            heroMetaData.setAttack(heroMetaData.getAttack() + levelData.getAttack() - levelMetaData.getLevelDataList().get(level).getAttack());
+            heroMetaData.setDefend(heroMetaData.getDefend() + levelData.getDefend() - levelMetaData.getLevelDataList().get(level).getDefend());
+            heroMetaData.setSpeed(heroMetaData.getSpeed() + levelData.getSpeed() - levelMetaData.getLevelDataList().get(level).getSpeed());
+            heroMetaData.setLevel(level + 1);
         }
     }
 
