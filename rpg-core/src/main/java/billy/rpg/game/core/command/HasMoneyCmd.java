@@ -34,11 +34,11 @@ public class HasMoneyCmd extends CmdBase {
 
     @Override
     public String getUsage() {
-        return null;
+        return "hasmoney number label_when_not";
     }
 
     @Override
     public int getArgumentSize() {
-        return 0;
+        return 2;
     }
 }
