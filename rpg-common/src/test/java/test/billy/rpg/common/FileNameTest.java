@@ -9,6 +9,9 @@ import java.io.File;
  * @since 2018-11-14 09:39:22
  */
 public class FileNameTest {
+    /**
+     * 测试文件路径中含有../的情况，能正常从上级目录里寻找文件
+     */
     @Test
     public void test() {
         String path = "D:\\tmp\\fmj\\map\\";

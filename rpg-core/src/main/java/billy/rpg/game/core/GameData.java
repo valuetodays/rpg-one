@@ -6,20 +6,29 @@ import billy.rpg.game.core.character.walkable.HeroWalkableCharacter;
 import billy.rpg.game.core.container.GameContainer;
 import billy.rpg.game.core.listener.GoodsUseListener;
 import billy.rpg.game.core.listener.support.DefaultGoodsUseListener;
+import billy.rpg.game.core.screen.BaseScreen;
+import billy.rpg.game.core.screen.MessageBoxScreen;
 import billy.rpg.resource.goods.GoodsMetaData;
 import billy.rpg.resource.goods.GoodsType;
+import billy.rpg.resource.level.LevelData;
+import billy.rpg.resource.level.LevelMetaData;
 import billy.rpg.resource.role.RoleMetaData;
 import billy.rpg.resource.skill.SkillMetaData;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author liulei@bshf360.com
  * @since 2017-07-31 17:19
  */
 public class GameData {
+    private final Logger logger = Logger.getLogger(getClass());
     /** 金币数 */
     private int money;
     /** 角色列表 */
@@ -291,6 +300,8 @@ public class GameData {
 
                 Integer heroId = heroIds.get(i);
                 RoleMetaData heroRole = gameContainer.getHeroRoleOf(heroId);
+                heroRole.setLevel(0);
+                levelUp(gameContainer, heroRole);
 
                 HeroCharacter e = new HeroCharacter(gameContainer);
                 e.setLeft(200 + i * 150 + 10);
@@ -332,6 +343,51 @@ public class GameData {
 
     public int getHeroIndex() {
         return heroIndex;
+    }
+
+    /**
+     * 处理升级逻辑，不考虑连续升级的情况，永远不可能一刀99级，升到99级最少要砍99刀
+     * @param heroMetaData 要升级的角色的信息
+     */
+    public void levelUp(GameContainer gameContainer, RoleMetaData heroMetaData) {
+        LevelMetaData levelMetaData = gameContainer.getLevelMetaDataOf(heroMetaData.getLevelChain());
+
+        // TODO 整的有点绕，升级链中添加一个0级的配置，就不用处理if-else了
+        int level = heroMetaData.getLevel();
+        if (level >= levelMetaData.getMaxLevel()) {
+            // 满级
+            String msg = "满级";
+            final BaseScreen bs = new MessageBoxScreen(msg);
+            gameContainer.getGameFrame().pushScreen(bs);
+            return;
+        }
+        if (level == 0) {
+            LevelData levelData = levelMetaData.getLevelDataList().get(0);
+            heroMetaData.setExp(0);
+            // 考虑到吃加生命上限的药和装备加生命的情况，此处要增加增量，下同
+            heroMetaData.setMaxMp(heroMetaData.getMaxMp() + levelData.getMaxMp());
+            heroMetaData.setMp(heroMetaData.getMaxMp()); // 当前mp加到最大
+            heroMetaData.setMaxHp(heroMetaData.getMaxHp() + levelData.getMaxHp());
+            heroMetaData.setHp(heroMetaData.getMaxHp()); // 当前hp加到最大
+            heroMetaData.setAttack(heroMetaData.getAttack() + levelData.getAttack());
+            heroMetaData.setDefend(heroMetaData.getDefend() + levelData.getDefend());
+            heroMetaData.setSpeed(heroMetaData.getSpeed() + levelData.getSpeed());
+            heroMetaData.setLevel(level + 1);
+        } else {
+            LevelData levelData = levelMetaData.getLevelDataList().get(level);
+            if (heroMetaData.getExp() > levelData.getExp()) {
+                logger.debug("level up to " + (level+1));
+                heroMetaData.setExp(heroMetaData.getExp() - levelData.getExp());
+                heroMetaData.setMaxMp(heroMetaData.getMaxMp() + levelData.getMaxMp() - levelMetaData.getLevelDataList().get(level - 1).getMaxMp());
+                heroMetaData.setMp(heroMetaData.getMaxMp()); // 当前mp加到最大
+                heroMetaData.setMaxHp(levelData.getMaxHp()); //
+                heroMetaData.setHp(heroMetaData.getMaxHp()); // 当前hp加到最大
+                heroMetaData.setAttack(heroMetaData.getAttack() + levelData.getAttack() - levelMetaData.getLevelDataList().get(level - 1).getAttack());
+                heroMetaData.setDefend(heroMetaData.getDefend() + levelData.getDefend() - levelMetaData.getLevelDataList().get(level - 1).getDefend());
+                heroMetaData.setSpeed(heroMetaData.getSpeed() + levelData.getSpeed() - levelMetaData.getLevelDataList().get(level - 1).getSpeed());
+                heroMetaData.setLevel(level + 1);
+            }
+        }
     }
 
 }
