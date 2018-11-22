@@ -1,5 +1,6 @@
 package billy.rpg.game.core.command;
 
+import billy.rpg.game.core.character.HeroCharacter;
 import billy.rpg.game.core.command.processor.CmdProcessor;
 import billy.rpg.game.core.command.processor.support.DefaultCmdProcessor;
 import billy.rpg.game.core.container.GameContainer;
@@ -9,23 +10,27 @@ import java.util.List;
 
 /**
  * @author lei.liu@datatist.com
- * @since 2018-11-21 15:24:53
+ * @since 2018-11-22 13:58:54
  */
-public class HasMoneyCmd extends CmdBase {
-    private int predictedMoney;
+public class IfLevelCmd extends CmdBase {
+    private int roleId;
+    private int predictedLevel;
     private String labelGoto;
 
     @Override
     public void init() {
         List<String> arguments = super.getArguments();
-        predictedMoney = Integer.parseInt(arguments.get(0));
-        labelGoto = arguments.get(1);
+        roleId = Integer.parseInt(arguments.get(0));
+        predictedLevel = Integer.parseInt(arguments.get(1));
+        labelGoto = arguments.get(2);
     }
 
     @Override
     public int execute(GameContainer gameContainer, CmdProcessor cmdProcessor) {
-        int money = gameContainer.getGameData().getMoney();
-        if (money < predictedMoney) {
+        HeroCharacter heroCharacter = gameContainer.getGameData().getHeroList(gameContainer).get(roleId);
+        int level = heroCharacter.getRoleMetaData().getLevel();
+
+        if (level < predictedLevel) {
             LabelBean label = gameContainer.getLabelByTitle(labelGoto);
             cmdProcessor.setInnerCmdProcessor(new DefaultCmdProcessor(label.getCmds()));
         }
@@ -34,11 +39,11 @@ public class HasMoneyCmd extends CmdBase {
 
     @Override
     public String getUsage() {
-        return "hasmoney number label_when_not";
+        return "iflevel 20 NOT_LEVEL_20";
     }
 
     @Override
     public int getArgumentSize() {
-        return 2;
+        return 3;
     }
 }

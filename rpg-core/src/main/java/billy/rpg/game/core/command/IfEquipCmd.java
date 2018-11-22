@@ -14,7 +14,7 @@ import java.util.List;
  * @author lei.liu@datatist.com
  * @since 2018-11-21 15:38:51
  */
-public class HasEquipCmd extends CmdBase {
+public class IfEquipCmd extends CmdBase {
     private int roleId;
     private int goods;
     private String labelGoto;
@@ -59,7 +59,7 @@ public class HasEquipCmd extends CmdBase {
 
     @Override
     public String getUsage() {
-        return "hasequip ROLE_ID GOODS_ID";
+        return "ifequip ROLE_ID GOODS_ID";
     }
 
     @Override

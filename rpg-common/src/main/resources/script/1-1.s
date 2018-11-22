@@ -142,16 +142,21 @@ set 已得钨龙剑
 return
 
 testForAll:
-hasEquip 1 2002 没有木剑
-hasMoney 3000 没有三千铜钱
+iflevel 20 没有30级
+ifEquip 1 2002 没有木剑
+ifMoney 3000 没有三千铜钱
 addgoods 1
 addmoney 20000
 say 2 '师弟' NONE '师兄，原来你在这啊，师父找不到你，正在无机阁大发雷霆呢，你快点到无机阁见师傅吧。'
 buy 1 2 3 4 5
 return
 
+没有30级:
+say 2 '师弟' NONE '师兄，你到30级来找我，我告诉你一个秘密。'
+return
+
 没有木剑:
-say 2 '师弟' NONE '只有佩带`y`木剑`/y`，方可证明是我三清宫弟子。'
+say 2 '三清弟子' NONE '只有佩带`y`木剑`/y`，方可证明是我三清宫弟子。'
 return
 
 没有三千铜钱:
