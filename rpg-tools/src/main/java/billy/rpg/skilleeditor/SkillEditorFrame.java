@@ -5,9 +5,8 @@
 package billy.rpg.skilleeditor;
 
 import billy.rpg.animationeditor.AnimationEditorPanel;
-import billy.rpg.resource.skill.SkillLoader;
+import billy.rpg.resource.skill.BinarySaverLoader;
 import billy.rpg.resource.skill.SkillMetaData;
-import billy.rpg.resource.skill.SkillSaver;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
@@ -18,6 +17,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.io.IOException;
 
 /**
  * @author adfds
@@ -67,7 +67,7 @@ public class SkillEditorFrame extends JFrame {
         initData();
     }
 
-    private void btnSaveActionPerformed(ActionEvent e) {
+    private void btnSaveActionPerformed(ActionEvent event) {
         String tfNumberText = tfNumber.getText();
         if (StringUtils.isEmpty(tfNumberText)) {
             JOptionPane.showMessageDialog(this, "编号不能为空");
@@ -157,25 +157,33 @@ public class SkillEditorFrame extends JFrame {
             smd.setDesc(taDescText);
 
             LOG.debug(smd);
-            SkillSaver.save(sklSaveFileChooser.getCurrentDirectory() + File.separator + name, smd);
+            try {
+                new BinarySaverLoader().save(sklSaveFileChooser.getCurrentDirectory() + File.separator + name, smd);
+            } catch (IOException e)  {
+                e.printStackTrace();
+            }
         }
     }
 
-    private void btnLoadActionPerformed(ActionEvent e) {
+    private void btnLoadActionPerformed(ActionEvent event) {
         int result = sklLoadFileChooser.showSaveDialog(this);
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = sklLoadFileChooser.getSelectedFile();
-            SkillMetaData loadData = SkillLoader.load(selectedFile.getPath());
-            tfNumber.setText("" + loadData.getNumber());
-            tfName.setText("" + loadData.getName());
-            cbType.setSelectedIndex(loadData.getType());
-            tfEffect.setText("" + loadData.getBaseDamage());
-            tfConsume.setText("" + loadData.getConsume());
-            cbTargetType.setSelectedIndex(loadData.getTargetType());
-            tfAnimationId.setText("" + loadData.getAnimationId());
-            taDesc.setText("" + loadData.getDesc());
+            try {
+                SkillMetaData loadData = new BinarySaverLoader().load(selectedFile.getPath());
+                tfNumber.setText("" + loadData.getNumber());
+                tfName.setText("" + loadData.getName());
+                cbType.setSelectedIndex(loadData.getType());
+                tfEffect.setText("" + loadData.getBaseDamage());
+                tfConsume.setText("" + loadData.getConsume());
+                cbTargetType.setSelectedIndex(loadData.getTargetType());
+                tfAnimationId.setText("" + loadData.getAnimationId());
+                taDesc.setText("" + loadData.getDesc());
 
-            LOG.debug("load from sklFile end");
+                LOG.debug("load from sklFile end");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

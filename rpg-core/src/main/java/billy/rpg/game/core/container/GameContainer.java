@@ -8,7 +8,6 @@ import billy.rpg.game.core.constants.WalkableConstant;
 import billy.rpg.game.core.item.*;
 import billy.rpg.game.core.loader.RoleDataLoader;
 import billy.rpg.game.core.loader.ScriptDataLoader;
-import billy.rpg.game.core.loader.SkillDataLoader;
 import billy.rpg.game.core.loader.animation.AnimationDataLoader;
 import billy.rpg.game.core.loader.animation.JsonAnimationDataLoader;
 import billy.rpg.game.core.loader.goods.GoodsDataLoader;
@@ -17,6 +16,8 @@ import billy.rpg.game.core.loader.level.JsonLevelDataLoader;
 import billy.rpg.game.core.loader.level.LevelDataLoader;
 import billy.rpg.game.core.loader.map.MapDataLoader;
 import billy.rpg.game.core.loader.map.TmxMapDataLoader;
+import billy.rpg.game.core.loader.skill.JsonSkillDataLoader;
+import billy.rpg.game.core.loader.skill.SkillDataLoader;
 import billy.rpg.game.core.screen.BaseScreen;
 import billy.rpg.game.core.screen.MapScreen;
 import billy.rpg.game.core.script.LabelBean;
@@ -148,8 +149,8 @@ public class GameContainer {
         goodsMetaDataMap = gdl.getGoodsMap();
     }
 
-    private void loadSkillData() {
-        SkillDataLoader sdl = new SkillDataLoader();
+    private void loadSkillData() throws IOException {
+        SkillDataLoader sdl = new JsonSkillDataLoader();
         sdl.load();
         skillMetaDataMap = sdl.getSkillMap();
     }

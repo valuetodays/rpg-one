@@ -5,12 +5,14 @@ package billy.rpg.resource.skill;
  * @since 2017-08-30 13:44
  */
 public class SkillMetaData {
+    public static final int TARGET_TYPE_ALL = 0;
+    public static final int TARGET_TYPE_SINGLE = 1;
     private int number;  // 唯一编号
     private String name; // 名称
     private int type; // 类型
     private int baseDamage; // 基础伤害
     private int consume; // 消耗mp值
-    private int targetType; // 目标类型
+    private int targetType; // 目标类型 0时为全体攻击，1为单体攻击
     private int animationId; // 动画id
     private String desc; // 描述
 

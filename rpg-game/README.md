@@ -195,6 +195,8 @@ ILoader
     战斗中应该使用角色本身属性+buff属性+装备属性
     改名：HasEquipCmd/HasMoneyCmd -> IfEquipCmd/IdMoneyCmd
     添加命令IfLevelCmd
+    添加普攻的群攻与单攻效果
+    TODO 添加LevelUpCmd
 
 
 

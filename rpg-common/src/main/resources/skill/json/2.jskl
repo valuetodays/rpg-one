@@ -1,0 +1,10 @@
+{
+	"animationId":4,
+	"baseDamage":20,
+	"consume":30,
+	"desc":"降魔符法",
+	"name":"降魔符法",
+	"number":2,
+	"targetType":0,
+	"type":0
+}

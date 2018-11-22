@@ -43,7 +43,7 @@ public class BattleAction {
      *
      * @param fromHero
      * @param attackerId
-     * @param targetIndex
+     * @param targetIndex targetIndex = -1 时说明是全体攻击，其它时为被攻击的索引
      * @param actionType 行动类型，
      * @param high 技能编号，当行动类型为｛@link #ACTION_SKILL}时该值有效，为0时
      * @param low

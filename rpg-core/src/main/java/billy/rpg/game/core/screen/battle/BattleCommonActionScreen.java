@@ -20,13 +20,14 @@ public class BattleCommonActionScreen extends BaseScreen {
     private static final int STATE_FIN = 4; // 结束
 
     private Fightable attacker;
-    private Fightable target;
+    private java.util.List<Fightable> targets;
+    private int targetIndex;
     private int state = STATE_PRE;
     private int attackFrame; // 最多有12帧？？
     private CommonAttackListener commonAttackListener;
     private final int attackerPreTop;
     private final int attackerPreLeft;
-    private final int dmg;
+    private final java.util.List<Integer> dmgs;
     private int dmgFrame;
     private int dmgTop;
     private int dmgLeft;
@@ -34,16 +35,17 @@ public class BattleCommonActionScreen extends BaseScreen {
     /**
      *
      * @param attacker 攻击者
-     * @param target 被攻击者
+     * @param targets 被攻击者(们)
      */
-    public BattleCommonActionScreen(Fightable attacker, Fightable target,
+    public BattleCommonActionScreen(Fightable attacker, java.util.List<Fightable> targets, int targetIndex,
                                     CommonAttackListener al) {
         this.attacker = attacker;
-        this.target = target;
+        this.targets = targets;
+        this.targetIndex = targetIndex;
         this.commonAttackListener = al;
         this.attackerPreTop = attacker.getTop();
         this.attackerPreLeft = attacker.getLeft();
-        this.dmg = commonAttackListener.doGetAttackDamage();
+        this.dmgs = commonAttackListener.doGetAttackDamage();
     }
 
     @Override
@@ -53,24 +55,41 @@ public class BattleCommonActionScreen extends BaseScreen {
                 state = STATE_ANI;
             } else {
                 // 取攻击者和目标的矩形的中心，攻击即是让两个中心重合
-                int targetX = target.getLeft() - (attacker.getWidth()/2 - target.getWidth()/2);
-                int targetY = target.getTop() + (attacker.getHeight()/2 - target.getHeight()/2);
-                attacker.setLeft(attacker.getLeft() + (targetX - attackerPreLeft)/10);
-                attacker.setTop(attacker.getTop() + (targetY - attackerPreTop)/10);
-                attacker.setAcctackFrame(attackFrame++);
+                if (targetIndex == -1) { // 全体攻击时，攻击者攻向屏幕中间即可
+                    attacker.setLeft(attacker.getLeft() - (300 - attackerPreLeft) / 10);
+                    attacker.setTop(attacker.getTop() + (20 - attackerPreTop) / 10);
+                    attacker.setAcctackFrame(attackFrame++);
+                } else {
+                    Fightable target = targets.get(targetIndex);
+                    int targetX = target.getLeft() - (attacker.getWidth() / 2 - target.getWidth() / 2);
+                    int targetY = target.getTop() + (attacker.getHeight() / 2 - target.getHeight() / 2);
+                    attacker.setLeft(attacker.getLeft() + (targetX - attackerPreLeft) / 10);
+                    attacker.setTop(attacker.getTop() + (targetY - attackerPreTop) / 10);
+                    attacker.setAcctackFrame(attackFrame++);
+                }
             }
         } else if (state == STATE_ANI) {
                 state = STATE_AFT;
         } else if (state == STATE_AFT) {
             if (dmgFrame > 10) {
                 state = STATE_FIN;
-                commonAttackListener.doAttack(dmg);
+                commonAttackListener.doAttack(dmgs);
             } else {
-                int targetCenterX = target.getLeft() + target.getWidth()/2;
-                int targetY       = target.getTop();
-                dmgLeft = targetCenterX;
-                dmgTop = targetY - dmgFrame*3;
-                dmgFrame++;
+                if (targetIndex == -1) {
+                    Fightable target = targets.get(0);
+                    int targetCenterX = target.getLeft() + target.getWidth() / 2;
+                    int targetY = target.getTop();
+                    dmgLeft = targetCenterX;
+                    dmgTop = targetY - dmgFrame * 3;
+                    dmgFrame++;
+                } else {
+                    Fightable target = targets.get(targetIndex);
+                    int targetCenterX = target.getLeft() + target.getWidth() / 2;
+                    int targetY = target.getTop();
+                    dmgLeft = targetCenterX;
+                    dmgTop = targetY - dmgFrame * 3;
+                    dmgFrame++;
+                }
             }
 
 
@@ -80,11 +99,18 @@ public class BattleCommonActionScreen extends BaseScreen {
                 attacker.setTop(attackerPreTop);
                 commonAttackListener.onFinished();
             } else {
-                int targetX = target.getLeft() - (attacker.getWidth()/2 - target.getWidth()/2);
-                int targetY = target.getTop() + (attacker.getHeight()/2 - target.getHeight()/2);
-                attacker.setLeft(attacker.getLeft() - (targetX - attackerPreLeft)/10);
-                attacker.setTop(attacker.getTop() - (targetY - attackerPreTop)/10);
-                attacker.setAcctackFrame(attackFrame--);
+                if (targetIndex == -1) {
+                    attacker.setLeft(attacker.getLeft() - (300 - attackerPreLeft) / 10);
+                    attacker.setTop(attacker.getTop() - (20 - attackerPreTop) / 10);
+                    attacker.setAcctackFrame(attackFrame--);
+                } else {
+                    Fightable target = targets.get(targetIndex);
+                    int targetX = target.getLeft() - (attacker.getWidth() / 2 - target.getWidth() / 2);
+                    int targetY = target.getTop() + (attacker.getHeight() / 2 - target.getHeight() / 2);
+                    attacker.setLeft(attacker.getLeft() - (targetX - attackerPreLeft) / 10);
+                    attacker.setTop(attacker.getTop() - (targetY - attackerPreTop) / 10);
+                    attacker.setAcctackFrame(attackFrame--);
+                }
             }
         }
     }
@@ -103,7 +129,11 @@ public class BattleCommonActionScreen extends BaseScreen {
             Graphics g = paint.getGraphics();
             g.setFont(GameConstant.FONT_DAMAGE);
             g.setColor(Color.YELLOW);
-            g.drawString("-" + dmg, dmgLeft, dmgTop);
+            for (int i = 0; i < dmgs.size(); i++) { // 群攻显示扣除的血量
+                Integer dmg = dmgs.get(i);
+                g.drawString("-" + dmg, dmgLeft + 100 * i, dmgTop); //
+            }
+
             g.dispose();
             desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
         }

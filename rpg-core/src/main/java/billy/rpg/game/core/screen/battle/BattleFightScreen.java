@@ -15,7 +15,10 @@ import billy.rpg.game.core.screen.battle.end.BattleDefeatScreen;
 import billy.rpg.game.core.screen.battle.end.BattleSuccessScreen;
 import billy.rpg.resource.skill.SkillMetaData;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 战斗行动，轮番播放
@@ -97,15 +100,16 @@ public class BattleFightScreen extends BaseScreen {
             getBattleUIScreen().getParentScreen().push(
                 new BattleCommonActionScreen(
                     getBattleUIScreen().monsterBattleList.get(attackerId),
-                    getBattleUIScreen().heroBattleList.get(finalTargetIndex),
+                    getBattleUIScreen().heroBattleList.stream().map(e -> (Fightable)e).collect(Collectors.toList()),
+                        finalTargetIndex,
                     new CommonAttackListener() {
                         @Override
-                        public int doGetAttackDamage() {
+                        public List<Integer> doGetAttackDamage() {
                             return getCommonAttackDamage(BattleAction.FROM_MONSTER, attackerId,
                                     finalTargetIndex);
                         }
                         @Override
-                        public void doAttack(int dmg) {
+                        public void doAttack(List<Integer> dmg) {
                             doCauseDamage(BattleAction.FROM_MONSTER, attackerId, finalTargetIndex, dmg);
                         }
                         @Override
@@ -130,11 +134,11 @@ public class BattleFightScreen extends BaseScreen {
                     bs,
                     new CommonAttackListener() {
                         @Override
-                        public int doGetAttackDamage() {
+                        public List<Integer> doGetAttackDamage() {
                             return getSkillAttackDamage(gameContainer, high);
                         }
                         @Override
-                        public void doAttack(int dmg) {
+                        public void doAttack(List<Integer> dmg) {
                             doCauseDamage(BattleAction.FROM_MONSTER, attackerId, finalTargetIndex, dmg);
                         }
                         @Override
@@ -174,10 +178,12 @@ public class BattleFightScreen extends BaseScreen {
         }
         // 当妖怪阵亡时，就从第一个开始选择一个未死亡的进行攻击
         int targetIndex = battleAction.targetIndex;
-        if (getBattleUIScreen().monsterBattleList.get(targetIndex).isDied()) {
-            targetIndex = 0;
-            while (getBattleUIScreen().monsterBattleList.get(targetIndex).isDied()) {
-                targetIndex++;
+        if (targetIndex != -1) {
+            if (getBattleUIScreen().monsterBattleList.get(targetIndex).isDied()) {
+                targetIndex = 0;
+                while (getBattleUIScreen().monsterBattleList.get(targetIndex).isDied()) {
+                    targetIndex++;
+                }
             }
         }
 
@@ -190,14 +196,15 @@ public class BattleFightScreen extends BaseScreen {
             getBattleUIScreen().getParentScreen().push(
                 new BattleCommonActionScreen(
                     getBattleUIScreen().heroBattleList.get(attackerId),
-                    getBattleUIScreen().monsterBattleList.get(finalTargetIndex),
+                    getBattleUIScreen().monsterBattleList.stream().map(e -> (Fightable)e).collect(Collectors.toList()),
+                    finalTargetIndex,
                     new CommonAttackListener() {
                         @Override
-                        public int doGetAttackDamage() {
+                        public List<Integer> doGetAttackDamage() {
                             return getCommonAttackDamage(BattleAction.FROM_HERO, attackerId, finalTargetIndex);
                         }
                         @Override
-                        public void doAttack(int dmg) {
+                        public void doAttack(List<Integer> dmg) {
                             doCauseDamage(BattleAction.FROM_HERO, attackerId, finalTargetIndex, dmg);
                         }
                         @Override
@@ -222,11 +229,11 @@ public class BattleFightScreen extends BaseScreen {
                             bs,
                             new CommonAttackListener() {
                                 @Override
-                                public int doGetAttackDamage() {
+                                public List<Integer> doGetAttackDamage() {
                                     return getSkillAttackDamage(gameContainer, high);
                                 }
                                 @Override
-                                public void doAttack(int dmg) {
+                                public void doAttack(List<Integer> dmg) {
                                     doCauseDamage(BattleAction.FROM_HERO, attackerId, finalTargetIndex, dmg);
                                 }
                                 @Override
@@ -256,35 +263,61 @@ public class BattleFightScreen extends BaseScreen {
      * 计算技能伤害，TODO 暂时只处理固定伤害
      * @param skillId skillId
      */
-    private int getSkillAttackDamage(GameContainer gameContainer, int skillId) {
+    private List<Integer> getSkillAttackDamage(GameContainer gameContainer, int skillId) {
         SkillMetaData skill = gameContainer.getSkillMetaDataOf(skillId);
-        return skill.getBaseDamage();
+        return Arrays.asList(skill.getBaseDamage()); // TODO 根据目标个数计算出
     }
 
-    private int getCommonAttackDamage(boolean fromHero, int attackerId, int targetIndex) {
+    private List<Integer> getCommonAttackDamage(boolean fromHero, int attackerId, int targetIndex) {
         int attack = 0;
         int defend = 0;
-        if (fromHero) {
-            HeroCharacter heroCharacter = getBattleUIScreen().heroBattleList.get(attackerId);
-            // 把装备的攻击力也计算进去
-            attack = heroCharacter.getRoleMetaData().getAttack() + ((WeaponEquip)(heroCharacter.getEquipables().getWeapon().getEquip())).getAttack();
+        List<Integer> damages = new ArrayList<>();
+        if (targetIndex != -1) {
+            if (fromHero) {
+                HeroCharacter heroCharacter = getBattleUIScreen().heroBattleList.get(attackerId);
+                // 把装备的攻击力也计算进去
+                attack = heroCharacter.getRoleMetaData().getAttack() + ((WeaponEquip)(heroCharacter.getEquipables().getWeapon().getEquip())).getAttack();
 
-            MonsterCharacter target = getBattleUIScreen().monsterBattleList.get(targetIndex);
-            defend = target.getRoleMetaData().getDefend() + ((ClothesEquip)(target.getEquipables().getClothes().getEquip())).getDefend();
+                MonsterCharacter target = getBattleUIScreen().monsterBattleList.get(targetIndex);
+                defend = target.getRoleMetaData().getDefend() + ((ClothesEquip)(target.getEquipables().getClothes().getEquip())).getDefend();
+            } else {
+                MonsterCharacter attacker = getBattleUIScreen().monsterBattleList.get(attackerId);
+                attack = attacker.getRoleMetaData().getAttack() + ((WeaponEquip)(attacker.getEquipables().getWeapon().getEquip())).getAttack();
+
+                HeroCharacter heroCharacter = getBattleUIScreen().heroBattleList.get(targetIndex);
+                // 把装备的防御力也计算
+                defend = heroCharacter.getRoleMetaData().getDefend() + ((ClothesEquip)(heroCharacter.getEquipables().getClothes().getEquip())).getDefend();
+            }
+
+            float dmgF = 1.0f * (attack*1.0f) * (100f/(defend+100f));
+    //        float v = 1.0f * attacker.getRoleMetaData().getSpeed() *
+    //                attacker.getRoleMetaData().getHp() / attacker.getRoleMetaData().getMaxHp();
+    //        dmgF += GameConstant.random.nextInt((int)(Math.ceil(v)) + 1);
+            damages.add((int)dmgF);
+            return damages;
         } else {
-            MonsterCharacter attacker = getBattleUIScreen().monsterBattleList.get(attackerId);
-            attack = attacker.getRoleMetaData().getAttack() + ((WeaponEquip)(attacker.getEquipables().getWeapon().getEquip())).getAttack();
+            if (fromHero) {
+                HeroCharacter heroCharacter = getBattleUIScreen().heroBattleList.get(attackerId);
+                // 把装备的攻击力也计算进去
+                int attackerAttack = heroCharacter.getRoleMetaData().getAttack() + ((WeaponEquip)(heroCharacter.getEquipables().getWeapon().getEquip())).getAttack();
 
-            HeroCharacter heroCharacter = getBattleUIScreen().heroBattleList.get(targetIndex);
-            // 把装备的防御力也计算
-            defend = heroCharacter.getRoleMetaData().getDefend() + ((ClothesEquip)(heroCharacter.getEquipables().getClothes().getEquip())).getDefend();
+                return getBattleUIScreen().monsterBattleList.stream().map(target -> {
+                    int targetDefend = target.getRoleMetaData().getDefend() + ((ClothesEquip) (target.getEquipables().getClothes().getEquip())).getDefend();
+                    float dmgF = 1.0f * (attackerAttack*1.0f) * (100f/(targetDefend+100f));
+                    return (int)dmgF;
+                }).collect(Collectors.toList());
+            } else {
+                MonsterCharacter attacker = getBattleUIScreen().monsterBattleList.get(attackerId);
+                int attackerAttack = attacker.getRoleMetaData().getAttack() + ((WeaponEquip)(attacker.getEquipables().getWeapon().getEquip())).getAttack();
+
+                return getBattleUIScreen().heroBattleList.stream().map(heroCharacter -> {
+                    // 把装备的防御力也计算
+                    int targetDefend = heroCharacter.getRoleMetaData().getDefend() + ((ClothesEquip)(heroCharacter.getEquipables().getClothes().getEquip())).getDefend();
+                    float dmgF = 1.0f * (attackerAttack*1.0f) * (100f/(targetDefend+100f));
+                    return (int)dmgF;
+                }).collect(Collectors.toList());
+            }
         }
-
-        float dmgF = 1.0f * (attack*1.0f) * (100f/(defend+100f));
-//        float v = 1.0f * attacker.getRoleMetaData().getSpeed() *
-//                attacker.getRoleMetaData().getHp() / attacker.getRoleMetaData().getMaxHp();
-//        dmgF += GameConstant.random.nextInt((int)(Math.ceil(v)) + 1);
-        return (int)dmgF;
     }
     /**
      * 攻击伤害判定
@@ -293,34 +326,76 @@ public class BattleFightScreen extends BaseScreen {
      * @param attackerId 攻击者索引 TODO 这名字不应该用id,应该用index啊
      * @param targetIndex 被攻击者索引
      */
-    private void doCauseDamage(boolean fromHero, int attackerId, int targetIndex, int dmg) {
-        Fightable target = null;
-        String attackerName = null;
-        String targetName = null;
-        if (fromHero) {
-            target = getBattleUIScreen().monsterBattleList.get(targetIndex);
-            attackerName = "玩家";
-            targetName = "妖怪";
+    private void doCauseDamage(boolean fromHero, int attackerId, int targetIndex, List<Integer> dmgs) {
+        if (targetIndex != -1) {
+            int dmg = dmgs.get(0);
+            Fightable target = null;
+            String attackerName = null;
+            String targetName = null;
+            if (fromHero) {
+                target = getBattleUIScreen().monsterBattleList.get(targetIndex);
+                attackerName = "玩家";
+                targetName = "妖怪";
+            } else {
+                target = getBattleUIScreen().heroBattleList.get(targetIndex);
+                attackerName = "妖怪";
+                targetName = "玩家";
+            }
+
+            int hp = target.getRoleMetaData().getHp();
+            hp -= dmg;
+            target.getRoleMetaData().setHp(hp);
+
+            String msgText = attackerName + attackerId + " 对 " + targetName + targetIndex + "造成了" + dmg + "伤害，";
+            if (hp <= 0) {
+                msgText += targetName + targetIndex + "的小身板扛不住就挂了";
+                target.setDied(true);
+            }
+
+            msgText += "。";
+            logger.debug(msgText);
+            // TODO 先不显示战斗信息了
+            // appendMsg(msgText);
         } else {
-            target = getBattleUIScreen().heroBattleList.get(targetIndex);
-            attackerName = "妖怪";
-            targetName = "玩家";
+            String attackerName = null;
+            String targetName = null;
+            if (fromHero) {
+                attackerName = "玩家";
+                for (int i = 0; i < getBattleUIScreen().monsterBattleList.size(); i++) {
+                    MonsterCharacter targetMonster = getBattleUIScreen().monsterBattleList.get(i);
+                    targetName = "妖怪" + i;
+                    int hp = targetMonster.getRoleMetaData().getHp();
+                    hp -= dmgs.get(i);
+                    targetMonster.getRoleMetaData().setHp(hp);
+                    String msgText = attackerName + attackerId + " 对 " + targetName + targetIndex + "造成了" + dmgs.get(i) + "伤害，";
+                    if (hp <= 0) {
+                        msgText += targetName + targetIndex + "的小身板扛不住就挂了";
+                        targetMonster.setDied(true);
+                    }
+                    msgText += "。";
+                    logger.debug(msgText);
+                }
+
+            } else {
+                attackerName = "妖怪";
+                for (int i = 0; i < getBattleUIScreen().heroBattleList.size(); i++) {
+                    HeroCharacter targetHero = getBattleUIScreen().heroBattleList.get(i);
+                    targetName = "玩家" + i;
+                    int hp = targetHero.getRoleMetaData().getHp();
+                    hp -= dmgs.get(i);
+                    targetHero.getRoleMetaData().setHp(hp);
+                    String msgText = attackerName + attackerId + " 对 " + targetName + targetIndex + "造成了" + dmgs.get(i) + "伤害，";
+                    if (hp <= 0) {
+                        msgText += targetName + targetIndex + "的小身板扛不住就挂了";
+                        targetHero.setDied(true);
+                    }
+                    msgText += "。";
+                    logger.debug(msgText);
+                }
+            }
+            // TODO 先不显示战斗信息了
+            // appendMsg(msgText);
         }
-
-        int hp = target.getRoleMetaData().getHp();
-        hp -= dmg;
-        target.getRoleMetaData().setHp(hp);
-
-        String msgText = attackerName + attackerId + " 对 "+targetName+targetIndex+"造成了"+dmg + "伤害，";
-        if (hp <= 0) {
-            msgText += targetName + targetIndex + "的小身板扛不住就挂了";
-            target.setDied(true);
-        }
-
-        msgText += "。";
-        logger.debug(msgText);
-        // TODO 先不显示战斗信息了
-        // appendMsg(msgText);
     }
 
 

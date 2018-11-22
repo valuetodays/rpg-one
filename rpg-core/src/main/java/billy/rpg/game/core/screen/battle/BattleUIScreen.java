@@ -95,6 +95,11 @@ public class BattleUIScreen extends BaseScreen {
     public int getActiveHeroIndex() {
         return heroIndex;
     }
+    public void nextHero() {
+        if (++heroIndex >= heroBattleList.size()) {
+            startAttack();
+        }
+    }
 
     @Override
     public void update(GameContainer gameContainer, long delta) {

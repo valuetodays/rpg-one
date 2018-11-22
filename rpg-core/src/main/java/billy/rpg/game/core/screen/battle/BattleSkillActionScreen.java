@@ -27,7 +27,7 @@ public class BattleSkillActionScreen extends BaseScreen {
     private CommonAttackListener commonAttackListener;
     private final int attackerPreTop;
     private final int attackerPreLeft;
-    private final int dmg;
+    private final java.util.List<Integer> dmgs;
     private int dmgFrame;
     private int dmgTop;
     private int dmgLeft;
@@ -46,7 +46,7 @@ public class BattleSkillActionScreen extends BaseScreen {
         this.commonAttackListener = commonAttackListener;
         this.attackerPreTop = attacker.getTop();
         this.attackerPreLeft = attacker.getLeft();
-        this.dmg = commonAttackListener.doGetAttackDamage();
+        this.dmgs = commonAttackListener.doGetAttackDamage();
     }
 
     @Override
@@ -65,7 +65,7 @@ public class BattleSkillActionScreen extends BaseScreen {
         } else if (state == STATE_AFT) {
             if (dmgFrame > 10) {
                 state = STATE_FIN;
-                commonAttackListener.doAttack(dmg);
+                commonAttackListener.doAttack(dmgs);
             } else {
                 int targetCenterX = target.getLeft() + target.getWidth()/2;
                 int targetY       = target.getTop();
@@ -97,8 +97,10 @@ public class BattleSkillActionScreen extends BaseScreen {
             Graphics g = paint.getGraphics();
             g.setFont(GameConstant.FONT_DAMAGE);
             g.setColor(Color.red);
-            g.drawString("-" + dmg, dmgLeft, dmgTop);
-            //logger.debug("damage & pos: -" + dmg + " " + dmgLeft + " " + dmgTop);
+            for (int i = 0; i < dmgs.size(); i++) { // 群攻显示扣除的血量
+                Integer dmg = dmgs.get(i);
+                g.drawString("-" + dmg, dmgLeft + 100 * i, dmgTop); //
+            }
             g.dispose();
             desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
 

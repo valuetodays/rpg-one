@@ -23,7 +23,6 @@ import java.awt.image.BufferedImage;
  */
 public class BattleOptionScreen extends BaseScreen {
 
-
     int heroActionChoice = BattleAction.BattleOption.COMMON.getOrderNum();
     private BattleUIScreen battleUIScreen;
 
@@ -98,8 +97,27 @@ public class BattleOptionScreen extends BaseScreen {
             }
             logger.info("heroActionChoice: " + heroActionChoice);
             if (heroActionChoice == BattleAction.BattleOption.COMMON.getOrderNum()) {  // 普攻
-                MonsterSelectScreen chooseMonsterScreen = new MonsterSelectScreen(battleUIScreen, this, -1);
-                getBattleUIScreen().getParentScreen().push(chooseMonsterScreen);
+                HeroCharacter activeHero = getBattleUIScreen().getActiveHero();
+                // TODO 添加 effectType = SINGLE / ALL 来判定全体攻击/单体攻击
+                int type = activeHero.getEquipables().getWeapon().getEquip().getGoods().getType();
+                logger.debug("type: " + type);
+                // TODO 修改此值即可切换单攻(2) / 群攻(其它)
+                if (type == 2) {
+                    MonsterSelectScreen chooseMonsterScreen = new MonsterSelectScreen(battleUIScreen, this, -1);
+                    getBattleUIScreen().getParentScreen().push(chooseMonsterScreen);
+                } else {
+                    // 添加全体攻击效果
+                    getBattleUIScreen().actionList.add(new BattleAction(BattleAction.FROM_HERO,
+                            getBattleUIScreen().heroIndex,
+                            -1,
+                            heroActionChoice, 0, 0));
+                    // 只有一个玩家角色
+                    if (getBattleUIScreen().heroIndex == getBattleUIScreen().heroBattleList.size() - 1) {
+//                        generateMonsterAttackAction()// TODO 生成
+                    } else {
+                    }
+                    getBattleUIScreen().nextHero(); // next hero
+                }
             } else if (heroActionChoice == BattleAction.BattleOption.SKILL.getOrderNum()) {  // 技能
                 HeroCharacter activeHero = getBattleUIScreen().getActiveHero();
                 String skillIds = activeHero.getRoleMetaData().getSkillIds();

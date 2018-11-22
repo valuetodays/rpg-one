@@ -1,0 +1,10 @@
+{
+	"animationId":2,
+	"baseDamage":80,
+	"consume":10,
+	"desc":"怒发冲冠！，烧烧烧烧烧！",
+	"name":"火海",
+	"number":1,
+	"targetType":1,
+	"type":0
+}

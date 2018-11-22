@@ -142,7 +142,7 @@ set 已得钨龙剑
 return
 
 testForAll:
-iflevel 20 没有30级
+iflevel 1 20 没有30级
 ifEquip 1 2002 没有木剑
 ifMoney 3000 没有三千铜钱
 addgoods 1
