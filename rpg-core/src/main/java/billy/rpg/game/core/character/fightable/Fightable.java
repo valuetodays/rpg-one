@@ -1,5 +1,6 @@
 package billy.rpg.game.core.character.fightable;
 
+import billy.rpg.game.core.buff.Buff;
 import billy.rpg.resource.role.RoleMetaData;
 
 import java.awt.*;
@@ -8,7 +9,7 @@ import java.awt.*;
  * @author liulei-home
  * @since 2018-10-03 14:12
  */
-public abstract class Fightable {
+public abstract class Fightable implements Cloneable {
     // roleMetaData中有角色图片，但主角并不使用它，主角使用的是下面的battleImage
     protected RoleMetaData roleMetaData;
     private int left;
@@ -23,12 +24,61 @@ public abstract class Fightable {
     private int defendFrame;
     // 永不死亡的设置
     private boolean canDie; // false -> not die
+    private BuffManager buffManager = new DefaultBuffManager();
+    private int buffAttack;
+    private int buffDefend;
+    private int buffSpeed;
 
     /**
      * 设置角色元数据，独立出本方法是因为妖怪的属性是不变的，而玩家的属性是成长的
      * @param roleMetaData 元数据
      */
     protected abstract void setRoleMetaData(RoleMetaData roleMetaData);
+
+    /////////////////////////////////////////////////////
+    // 处理buff与debuff
+    private void addBuff(Buff buff) {
+        buffManager.addBuff(buff);
+    }
+    private void removeBuff(Buff buff) {
+        buffManager.removeBuff(buff);
+    }
+
+    public int getAttackWithBuff() {
+        return roleMetaData.getAttack() + buffManager.getBuffAttack(this.clone());
+    }
+    public int getDefendWithBuff() {
+        return roleMetaData.getAttack() + buffManager.getBuffDefend(this.clone());
+    }
+    public int getSpeedWithBuff() {
+        return roleMetaData.getAttack() + buffManager.getBuffSpeed(this.clone());
+    }
+
+    public int getBuffAttack() {
+        return buffAttack;
+    }
+
+    public void setBuffAttack(int buffAttack) {
+        this.buffAttack = buffAttack;
+    }
+
+    public int getBuffDefend() {
+        return buffDefend;
+    }
+
+    public void setBuffDefend(int buffDefend) {
+        this.buffDefend = buffDefend;
+    }
+
+    public int getBuffSpeed() {
+        return buffSpeed;
+    }
+
+    public void setBuffSpeed(int buffSpeed) {
+        this.buffSpeed = buffSpeed;
+    }
+
+    //////////////////////////////////
 
     public int getLeft() {
         return left;
@@ -94,4 +144,15 @@ public abstract class Fightable {
         return defendFrame;
     }
 
+    @Override
+    public Fightable clone() {
+        Fightable clone = null;
+        try {
+            clone = (Fightable) super.clone();
+            clone.setRoleMetaData(clone.getRoleMetaData().clone());
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return clone;
+    }
 }
