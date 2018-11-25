@@ -27,7 +27,7 @@ public class IfLevelCmd extends CmdBase {
 
     @Override
     public int execute(GameContainer gameContainer, CmdProcessor cmdProcessor) {
-        HeroCharacter heroCharacter = gameContainer.getGameData().getHeroList(gameContainer).get(roleId);
+        HeroCharacter heroCharacter = gameContainer.getGameData().getHeroList(gameContainer).get(roleId-1);
         int level = heroCharacter.getRoleMetaData().getLevel();
 
         if (level < predictedLevel) {

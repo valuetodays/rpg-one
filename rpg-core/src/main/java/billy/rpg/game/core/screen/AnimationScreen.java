@@ -41,7 +41,7 @@ public class AnimationScreen extends BaseScreen {
      * 播放动画
      * history: 本方法之前是private的  2017-07-15
      *
-     * @return 返回true说明播放完毕
+     * @return 返回false说明播放完毕
      */
     public boolean update() {
         for (int j = 0; j < ITERATOR; j++) {

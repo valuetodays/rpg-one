@@ -72,7 +72,7 @@ public class GameCoverScreen extends BaseScreen {
 
         Image gameCover = gameContainer.getGameAboutItem().getGameCover();
         Image gameArrow = gameContainer.getGameAboutItem().getGameArrowRight();
-        Image gameBalloon = gameContainer.getGameAboutItem().getGameBalloon();
+        Image gameBalloon = gameContainer.getGameAboutItem().getGameEmotion();
         DrawUtil.drawImage(g2, gameCover);
         g2.drawRect(150, 315, 160, 90);
         g2.setFont(new Font("黑体", Font.BOLD, 24));

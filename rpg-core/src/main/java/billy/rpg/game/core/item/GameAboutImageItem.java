@@ -1,13 +1,12 @@
 package billy.rpg.game.core.item;
 
+import billy.rpg.game.core.platform.image.IGameImage;
+import billy.rpg.game.core.platform.image.IGameImageFactory;
 import org.apache.commons.io.IOUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.InputStream;
-
-import billy.rpg.game.core.platform.image.IGameImage;
-import billy.rpg.game.core.platform.image.IGameImageFactory;
 
 public class GameAboutImageItem {
     private Image gameCover;
@@ -16,24 +15,34 @@ public class GameAboutImageItem {
     private Image gameArrowRight;
     private Image gameArrowUp;
     private Image gameArrowDown;
-    private Image gameBalloon;
     private Image gameTransition;
     private Image gameTransfer;
     private Image gameDlgBg; // 对话框背景图
     private Image gameDlgRoleName; // 对话框角色名称图
     private Image gameMessageBoxBg; // 消息框背景图
+    private Image gameEmotion;
 
 
     public void load() {
         loadGameCover();
         loadGameOver();
         loadGameArrows();
-        loadGameBalloon();
         loadGameTransition();
         loadGameTransfer();
         loadGameDlgBg();
         loadGameDlgRoleName();
         loadGameMessageBoxBg();
+        loadGameEmotion();
+    }
+
+    private void loadGameEmotion() {
+        try {
+            InputStream is = this.getClass().getResourceAsStream("/Images/emotion.png");
+            gameEmotion = ImageIO.read(is);
+            IOUtils.closeQuietly(is);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void loadGameMessageBoxBg() {
@@ -87,16 +96,6 @@ public class GameAboutImageItem {
 
     }
 
-    private void loadGameBalloon() {
-        try {
-            InputStream is = this.getClass().getResourceAsStream("/Images/balloon.png");
-            gameBalloon = ImageIO.read(is);
-            IOUtils.closeQuietly(is);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
 
     private void loadGameArrows() {
         try {
@@ -170,10 +169,6 @@ public class GameAboutImageItem {
         return gameArrowDown;
     }
 
-    public Image getGameBalloon() {
-        return gameBalloon;
-    }
-
     public Image getGameTransition() {
         return gameTransition;
     }
@@ -192,5 +187,9 @@ public class GameAboutImageItem {
 
     public Image getGameMessageBoxBg() {
         return gameMessageBoxBg;
+    }
+
+    public Image getGameEmotion() {
+        return gameEmotion;
     }
 }

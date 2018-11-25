@@ -142,6 +142,8 @@ set 已得钨龙剑
 return
 
 testForAll:
+say 2 '师弟' NONE '师兄，看我表情行事。'
+emotion 14 1
 iflevel 1 20 没有30级
 ifEquip 1 2002 没有木剑
 ifMoney 3000 没有三千铜钱
@@ -164,7 +166,8 @@ say 2 '师弟' NONE '师兄，你这太寒酸了吧，连3000铜钱都没有。'
 return
 
 测试宝箱:
-fight "battle_image.png" 51 51
+emotion 0 5
+@fight "battle_image.png" 51 51
 if 11001 已打开宝箱
 @ 得到铁剑
 addgoods 2002

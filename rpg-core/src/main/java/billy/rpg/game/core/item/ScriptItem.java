@@ -1,10 +1,7 @@
 package billy.rpg.game.core.item;
 
 import billy.rpg.game.core.GameData;
-import billy.rpg.game.core.character.walkable.BoxWalkableCharacter;
-import billy.rpg.game.core.character.walkable.FlickerObjectWalkableCharacter;
-import billy.rpg.game.core.character.walkable.HeroWalkableCharacter;
-import billy.rpg.game.core.character.walkable.TransferWalkableCharacter;
+import billy.rpg.game.core.character.walkable.*;
 import billy.rpg.game.core.character.walkable.npc.NPCWalkableCharacter;
 import billy.rpg.game.core.command.*;
 import billy.rpg.game.core.command.processor.CmdProcessor;
@@ -16,7 +13,6 @@ import billy.rpg.game.core.screen.battle.BattleScreen;
 import billy.rpg.game.core.script.LabelBean;
 import billy.rpg.game.core.script.TriggerBean;
 import billy.rpg.game.core.util.MP3Player;
-
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.log4j.Logger;
 
@@ -407,5 +403,19 @@ public class ScriptItem {
             System.out.println("    " + s);
         }
         System.out.println("=== localVariables `"+scriptId+"` ends ===");
+    }
+
+    public WalkableCharacter getHeroOrNpc(int roleIdOrNpcId) {
+        if (roleIdOrNpcId == hero.getNumber()) {
+            return hero;
+        }
+        List<NPCWalkableCharacter> npcs = getNpcs();
+        for (NPCWalkableCharacter npc : npcs) {
+            if (roleIdOrNpcId == npc.getNumber()) {
+                return npc;
+            }
+        }
+
+        throw new RuntimeException("no role or npc with specified id: " + roleIdOrNpcId);
     }
 }

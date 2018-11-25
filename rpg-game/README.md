@@ -193,10 +193,12 @@ ILoader
 #### 2018-11-22
     添加buff功能，但是此功能确实复杂，先简单实现
     战斗中应该使用角色本身属性+buff属性+装备属性
-    改名：HasEquipCmd/HasMoneyCmd -> IfEquipCmd/IdMoneyCmd
+    改名：HasEquipCmd/HasMoneyCmd -> IfEquipCmd/IfMoneyCmd
     添加命令IfLevelCmd
     添加普攻的群攻与单攻效果
     TODO 添加LevelUpCmd
+#### 2018-11-25
+    添加EmotionCmd命令，可以在在
 
 
 
