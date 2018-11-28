@@ -1,7 +1,7 @@
 
 **中文** | [English](./README.md)
 
-#### 说明
+#### 起因
 
 你玩过步步高电子词典上的`伏魔记`吗？我高中时玩过，且一直难以忘情。大学时学习了C和Win32，所以就自己做了个Win32版本的伏魔记（但只有简单的一个地图，地图上有个柳清风，可以上下左右走动，完了）。附上一个简单截图：
 
@@ -10,11 +10,9 @@
 （我能附上截图，是因为有保留有源代码：代码在
 [https://gitee.com/valuetodays/ellen/tree/master/py-c-vc-walker/rearrange-on-20180804/c-all/c-when-college/fmj](https://gitee.com/valuetodays/ellen/tree/master/py-c-vc-walker/rearrange-on-20180804/c-all/c-when-college/fmj)，其中的fmj_1st.zip就是。
 
-`rpg-game` 是一个使用纯Java语言编写的一个游戏，辅以apache工具包。请运行`billy.rpg.game.GameFrame`查看效果。
+在2015年有个冲动自己使用C语言实现java的String类（ADT，abstract data type），只写了一小部分，最终没有坚持下来。自己实现String类的原因是想使用c写一个伏魔记，后来为了省事就使用了java，最早时该项目名叫scriptParser（后来学习maven，就把scriptParser整理成maven版的了，即[scriptParser-mvn](https://github.com/billysAnna/scriptParser-mvn)，但是scriptParser在github上已经找不到了），托管在github上，我的网络是每月50元、可是只有1M的网（真想说句f**k），使用git push老是失败，我就改用了现在的码云[gitee.com](gitee.com)，当时域名还是[git.oschina.net](git.oschina.net)呢。
 
-在2015年有个冲动自己使用C语言实现java的String类（ADT），只写了一小部分，最终没有坚持下来。自己实现String类的原因是想使用c写一个伏魔记，后来为了省事就使用了java，最早时该项目名叫scriptParser（后来边学习maven，就把scriptParser整理成maven版的了，即[scriptParser-mvn](https://github.com/billysAnna/scriptParser-mvn)，但是scriptParser已不存在了），托管在github上，我的网络是每月50元、可是只有1M的网，使用git push老是失败，我就改用了现在的码云[gitee.com](gitee.com)，当时域名还是[git.oschina.net](git.oschina.net)。
-
-代码转过来时名称还是script-parser，项目如其名，只是为了解析步步高伏魔记的脚本文件，当时做的是cui(console-user-interface)模式（即在控制台用户界面）的，后来整理成了gui(graphical-user-interface)模式（即图形用户界面），相应地，script-parser也就改名成了rpg，因为使用maven，没有想到项目名要使用rpg-parent，就使用了rpg-one这个有难以理解的名称（以后再改吧），下面附上一段伏魔记经典片段
+代码转过来时名称还是script-parser，项目如其名，只是为了解析类似步步高伏魔记的脚本文件，当时做的是cui(console-user-interface)模式（即在控制台用户界面）的，后来整理成了gui(graphical-user-interface)模式（即图形用户界面），相应地，script-parser也就改名成了rpg，因为使用maven，没有想到项目名要使用rpg-parent，就使用了rpg-one这个有难以理解的名称（以后再改吧），下面附上一段伏魔记经典片段
 
 ```text
 @开始游戏
@@ -76,12 +74,26 @@ npcstep 0 UP 1
 
 其实大同小异。
 
+#### 说明
+
+`rpg-game` 是一个使用纯Java语言编写的一个游戏（或称引擎，因为它的设计目标就是作为一个工具生成游戏而不仅仅是作为游戏），辅以apache工具包。请运行`billy.rpg.game.GameFrame`查看效果。
+
 #### 运行
 
-现在可通过两种方式运行，
+现在可通过两种方式运行：
  * 有开发环境：去/rpg-game/src/main/java/billy.rpg.game.GameFrame运行；
  * 无开发环境：去/目录下，双击assembly.bat打包，然后去/rpg-game/target/dist/rpg-game下，双击start.bat即可；
 
+#### 感谢
+
+这个项目前前后后已有三年，途中我也是半瓶水晃荡，想起来就写，想不起来就不写，不过还好一直都在坚持。
+ * 感谢通宵虫、南方小鬼，带我步入了BBK伏魔记的世界。
+ * 感谢大学时期初学BBK a系列rpg时众ys168.com网友的帮助，如下但不限于：孤鹰、wstjb、魔术诗y、仙剑忆梦、等等；
+ * 感谢rpg maker xp 和 rpg maker vx，我老是拿它和bbk a rpg开发包作对比；
+ * 感谢我爸妈高一时花450元给我买了bbk 4988；
+ * 感谢internet；
+
+#### 更新记录
 
 #### 2015-09-16
 
@@ -272,11 +284,12 @@ ILoader
     TODO 添加LevelUpCmd
 #### 2018-11-25
     添加EmotionCmd命令，人物可以有表情了。
+
 #### 2018-11-28
     打包成可运行环境：
      * 先在/目录下执行`mvn clean install -DskipTests`；
      * 再去/rpg-game/目录下执行`mvn clean package -DskipTests assembly:single`打包rpg-game，（同时把/rpg-common/src/main/resources/assets的资源复制到dist/rpg-game/目录，配置见rpg-game/assembly.xml）；
-     * 注意，需要排除/rpg-common/src/main/resources/assets资源目录，不然会生成多余的一份数据，（见/rpg-common/pom.xml的配置）；
+     * 注意，需要排除/rpg-common/src/main/resources/assets资源目录，不然会生成多余的一份资源数据，（见/rpg-common/pom.xml的配置）；
 
     现在可通过两种方式运行，
      * 有开发环境：去/rpg-game/src/main/java/billy.rpg.game.GameFrame运行；
