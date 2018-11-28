@@ -76,9 +76,12 @@ npcstep 0 UP 1
 
 #### 说明
 
-`rpg-game` 是一个使用纯Java语言编写的一个游戏（或称引擎，因为它的设计目标就是作为一个工具生成游戏而不仅仅是作为游戏），辅以apache工具包。请运行`billy.rpg.game.GameFrame`查看效果。
+`rpg-game` 是一个使用纯Java语言编写的一个游戏（或称引擎，因为它的设计目标就是作为一个工具生成游戏而不仅仅是作为游戏），辅以apache工具包。附上几张截图：
 
-#### 运行
+![封面](./images/screenshot/cover.png "cover.png")
+![有趣的表情](./images/screenshot/emotion.png "emotion.png")
+![百草地的师弟说](./images/screenshot/dialog_in_bai_cai_di.png "dialog_in_bai_cai_di.png")
+
 
 现在可通过两种方式运行：
  * 有开发环境：去/rpg-game/src/main/java/billy.rpg.game.GameFrame运行；
