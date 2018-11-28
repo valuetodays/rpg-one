@@ -6,16 +6,14 @@ import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import billy.rpg.common.util.AssetsUtil;
+import billy.rpg.game.core.platform.Platform;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
-import billy.rpg.game.core.platform.Platform;
-import billy.rpg.game.core.util.CoreUtil;
 
 public class IGameImageFactory {
     public static Bitmap getBitmap(String path) {
@@ -50,7 +48,7 @@ public class IGameImageFactory {
             iGameImage.setImageData(bitmap);
         } else if (Platform.getType() == Platform.Type.DESKTOP) {
             try {
-                BufferedImage image = ImageIO.read(new File(CoreUtil.getResourcePath(path)));
+                BufferedImage image = ImageIO.read(new File(AssetsUtil.getResourcePath(path)));
                 iGameImage = new DesktopImage();
                 iGameImage.setImageData(image);
             } catch (IOException e) {

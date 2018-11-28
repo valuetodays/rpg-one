@@ -15,7 +15,7 @@ public class BinaryMapDataLoader extends MapDataLoader {
 
     @Override
     public String getFileDir() {
-        return "/map/binary/";
+        return "/assets/map/binary/";
     }
 
     @Override

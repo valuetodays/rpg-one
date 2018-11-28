@@ -1,9 +1,9 @@
 package billy.rpg.game.core.command.parser.support;
 
+import billy.rpg.common.util.AssetsUtil;
 import billy.rpg.game.core.command.CmdBase;
 import billy.rpg.game.core.command.LabelCmd;
 import billy.rpg.game.core.command.parser.CommandParser;
-import billy.rpg.game.core.util.CoreUtil;
 import org.apache.commons.lang.StringUtils;
 import org.jline.reader.ParsedLine;
 import org.jline.reader.Parser;
@@ -24,7 +24,7 @@ public class JlineCommandParser extends CommandParser {
         String pkg = getCommandPackage();
 
         String pkgPath = StringUtils.replace(pkg,".", "/");
-        String path = CoreUtil.getResourcePath(pkgPath);
+        String path = AssetsUtil.getResourcePath(pkgPath);
         File directory = new File(path);
         List<? extends Class<CmdBase>> cmdClassList = Arrays.stream(directory.listFiles()).filter(File::isFile).map(e -> pkg + e.getName().replace(".class", "")).map(e -> {
             try {

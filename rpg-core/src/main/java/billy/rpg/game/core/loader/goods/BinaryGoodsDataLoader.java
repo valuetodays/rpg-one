@@ -14,7 +14,7 @@ public class BinaryGoodsDataLoader extends GoodsDataLoader {
 
     @Override
     public String getFileDir() {
-        return "/goods/binary/";
+        return "/assets/goods/binary/";
     }
 
     @Override

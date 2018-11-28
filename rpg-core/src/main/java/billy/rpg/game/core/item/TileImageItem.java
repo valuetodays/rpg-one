@@ -1,6 +1,6 @@
 package billy.rpg.game.core.item;
 
-import billy.rpg.game.core.util.CoreUtil;
+import billy.rpg.common.util.AssetsUtil;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.ArrayUtils;
 
@@ -8,7 +8,6 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.File;
 import java.io.InputStream;
-import java.net.URL;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,10 +27,10 @@ public class TileImageItem {
         if (loaded) {
             return ;
         }
-        String baseDirectory = "/map/tmx/";
+        String baseDirectory = "/assets/map/tmx/";
         // TODO 此时在java开发环境是能取到rpg-common目录下的tiles的目录，
         // 但是，当rpg-common被处理成jar的话运行就不一定能正常了。
-        String resourcePath = CoreUtil.getResourcePath(baseDirectory);
+        String resourcePath = AssetsUtil.getResourcePath(baseDirectory);
 
         try {
             Map<String, Image> tileMap = new HashMap<>();

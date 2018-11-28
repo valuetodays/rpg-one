@@ -6,7 +6,7 @@ import billy.rpg.resource.animation.JsonAnimationSaverLoader;
 public class JsonAnimationDataLoader extends AnimationDataLoader {
     @Override
     public String getFileDir() {
-        return "/animation/json/";
+        return "/assets/animation/json/";
     }
 
     @Override

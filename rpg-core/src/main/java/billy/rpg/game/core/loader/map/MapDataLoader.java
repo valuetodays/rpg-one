@@ -1,5 +1,6 @@
 package billy.rpg.game.core.loader.map;
 
+import billy.rpg.common.util.AssetsUtil;
 import billy.rpg.resource.map.MapMetaData;
 import billy.rpg.resource.map.MapSaverLoader;
 import org.apache.commons.lang.ArrayUtils;
@@ -7,7 +8,6 @@ import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,8 +32,9 @@ public abstract class MapDataLoader {
 
     public void load() throws IOException {
         final String dir = getFileDir();
-        URL resource = getClass().getResource(dir);
-        File file = new File(resource.getPath());
+        String resourcePath = AssetsUtil.getResourcePath(dir);
+
+        File file = new File(resourcePath);
         // 只取一层文件夹
         File[] files = file.listFiles(pathname -> pathname.getName().endsWith(getFileExt()));
         if (ArrayUtils.isEmpty(files)) {

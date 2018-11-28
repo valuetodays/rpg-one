@@ -1,10 +1,10 @@
 package billy.rpg.game.core.command;
 
+import billy.rpg.common.util.AssetsUtil;
 import billy.rpg.game.core.character.walkable.FlickerObjectWalkableCharacter;
 import billy.rpg.game.core.command.processor.CmdProcessor;
 import billy.rpg.game.core.container.GameContainer;
 import billy.rpg.game.core.item.ScriptItem;
-import billy.rpg.game.core.util.CoreUtil;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -29,7 +29,7 @@ public class CreateSceneObjectCmd extends CmdBase {
 
     @Override
     public int execute(GameContainer gameContainer, CmdProcessor cmdProcessor) {
-        String imagePath = CoreUtil.getResourcePath("/Images/scene/" + imageName);
+        String imagePath = AssetsUtil.getResourcePath("/assets/Images/scene/" + imageName);
         File file = new File(imagePath);
         try {
             BufferedImage image = ImageIO.read(file);

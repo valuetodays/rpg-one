@@ -10,7 +10,7 @@ import billy.rpg.resource.level.LevelSaverLoader;
 public class JsonLevelDataLoader extends LevelDataLoader {
     @Override
     public String getFileDir() {
-        return "/level/json/";
+        return "/assets/level/json/";
     }
 
     @Override

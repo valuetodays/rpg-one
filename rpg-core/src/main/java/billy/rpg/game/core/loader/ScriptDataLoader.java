@@ -1,18 +1,16 @@
 package billy.rpg.game.core.loader;
 
+import billy.rpg.common.util.AssetsUtil;
 import billy.rpg.game.core.command.CmdBase;
 import billy.rpg.game.core.command.EmptyCmd;
 import billy.rpg.game.core.command.parser.CommandParser;
 import billy.rpg.game.core.command.parser.support.JlineCommandParser;
 import billy.rpg.game.core.item.ScriptItem;
-import billy.rpg.game.core.util.CoreUtil;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 
 import java.io.*;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 
 /**
@@ -25,7 +23,7 @@ public class ScriptDataLoader {
 
     private List<String> loadScripts0() {
         List<String> list = new ArrayList<>();
-        String scriptPath = CoreUtil.getResourcePath("/script");
+        String scriptPath = AssetsUtil.getResourcePath("/assets/script");
 
         File file = new File(scriptPath);
         if (!file.exists()) {

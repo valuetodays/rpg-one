@@ -13,7 +13,7 @@ public class JsonGoodsDataLoader extends GoodsDataLoader {
 
     @Override
     public String getFileDir() {
-        return "/goods/json/";
+        return "/assets/goods/json/";
     }
 
     @Override

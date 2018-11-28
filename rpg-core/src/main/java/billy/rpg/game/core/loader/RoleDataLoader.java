@@ -1,12 +1,12 @@
 package billy.rpg.game.core.loader;
 
+import billy.rpg.common.util.AssetsUtil;
 import billy.rpg.resource.role.RoleLoader;
 import billy.rpg.resource.role.RoleMetaData;
 import org.apache.commons.lang.ArrayUtils;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.net.URL;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,10 +20,11 @@ public class RoleDataLoader {
     private Map<Integer, RoleMetaData> monsterList = new HashMap<>();
 
     public void load() {
-        final String roleFileDirectory = "/Images/character/role/";
-        URL resource = RoleDataLoader.class.getResource(roleFileDirectory);
+        final String roleFileDirectory = "/assets/Images/character/role/";
+        String resourcePath = AssetsUtil.getResourcePath(roleFileDirectory);
 
-        File file = new File(resource.getPath());
+
+        File file = new File(resourcePath);
         // 只取一层文件夹
         File[] files = file.listFiles(new FileFilter() {
             @Override

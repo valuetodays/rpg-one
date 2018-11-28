@@ -1,6 +1,7 @@
 package billy.rpg.resource.animation;
 
 import billy.rpg.common.constant.ToolsConstant;
+import billy.rpg.common.util.AssetsUtil;
 import billy.rpg.common.util.JsonUtil;
 import com.alibaba.fastjson.JSON;
 import org.apache.commons.io.FileUtils;
@@ -10,7 +11,6 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,11 +23,11 @@ public class JsonAnimationSaverLoader implements AnimationSaverLoader {
     public AnimationMetaData load(String aniFilePath) throws IOException {
         String s = FileUtils.readFileToString(new File(aniFilePath), ToolsConstant.CHARSET);
         AnimationMetaData metaData = JSON.parseObject(s, AnimationMetaData.class);
-        URL resource = getClass().getResource("/animation/" + metaData.getNumber());
+        String resourcePath = AssetsUtil.getResourcePath("/assets/animation/" + metaData.getNumber());
         List<BufferedImage> images = IntStream.range(0, metaData.getImageCount()).mapToObj(e -> {
             String path = null;
             try {
-                path = resource.getPath() + "/" + e + ".png";
+                path = resourcePath + "/" + e + ".png";
                 return ImageIO.read(new File(path));
             } catch (IOException e1) {
                 logger.error("exception when read file: " + path, e1);

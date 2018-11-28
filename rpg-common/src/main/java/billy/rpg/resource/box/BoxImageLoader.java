@@ -1,12 +1,12 @@
 package billy.rpg.resource.box;
 
-import org.apache.commons.io.IOUtils;
+import billy.rpg.common.util.AssetsUtil;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 
 /**
  *
@@ -19,17 +19,15 @@ public class BoxImageLoader {
     public BoxMetaData loadBoxes() {
         boxMetaData = new BoxMetaData();
         //
-        final String npcPath = "/Images/character/box/";
+        final String boxPath = "/assets/Images/character/box/";
 
         try {
-            InputStream closedIs = BoxImageLoader.class.getResourceAsStream(npcPath + "box_closed.png");
-            Image closeImg = ImageIO.read(closedIs);
-            IOUtils.closeQuietly(closedIs);
+            String resourcePath = AssetsUtil.getResourcePath(boxPath + "box_closed.png");
+            Image closeImg = ImageIO.read(new File(resourcePath));
             boxMetaData.setClosedImage(closeImg);
 
-            InputStream openIs = BoxImageLoader.class.getResourceAsStream(npcPath + "box_open.png");
-            Image openImg = ImageIO.read(openIs);
-            IOUtils.closeQuietly(openIs);
+            resourcePath = AssetsUtil.getResourcePath(boxPath + "box_open.png");
+            Image openImg = ImageIO.read(new File(resourcePath));
             boxMetaData.setOpenImage(openImg);
         } catch (IOException e) {
             e.printStackTrace();

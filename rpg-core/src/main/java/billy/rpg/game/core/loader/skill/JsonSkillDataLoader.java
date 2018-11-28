@@ -6,7 +6,7 @@ import billy.rpg.resource.skill.SkillSaverLoader;
 public class JsonSkillDataLoader extends SkillDataLoader {
     @Override
     public String getFileDir() {
-        return "/skill/json/";
+        return "/assets/skill/json/";
     }
 
     @Override

@@ -10,7 +10,7 @@ import billy.rpg.resource.map.TmxMapSaverLoader;
 public class TmxMapDataLoader extends MapDataLoader {
     @Override
     public String getFileDir() {
-        return "/map/tmx/";
+        return "/assets/map/tmx/";
     }
 
     @Override

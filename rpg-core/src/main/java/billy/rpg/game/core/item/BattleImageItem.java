@@ -1,6 +1,6 @@
 package billy.rpg.game.core.item;
 
-import billy.rpg.game.core.util.CoreUtil;
+import billy.rpg.common.util.AssetsUtil;
 import org.apache.commons.lang.ArrayUtils;
 
 import javax.imageio.ImageIO;
@@ -26,7 +26,7 @@ public class BattleImageItem {
         if (loaded) {
             return ;
         }
-        String resourcePath = CoreUtil.getResourcePath("/battle/");
+        String resourcePath = AssetsUtil.getResourcePath("/assets/battle/");
 
         try {
             Map<String, Image> tileMap = new HashMap<>();

@@ -1,15 +1,12 @@
 package billy.rpg.game.core.item;
 
-import org.apache.commons.io.IOUtils;
+import billy.rpg.common.util.AssetsUtil;
 import org.apache.commons.lang.ArrayUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,25 +26,21 @@ public class HeadImageItem {
         if (loaded) {
             return ;
         }
-        final String headPath = "/Images/character/head/";
-        URL resource = this.getClass().getResource(headPath);
-        
+        final String headPath = "/assets/Images/character/head/";
+        String resourcePath = AssetsUtil.getResourcePath(headPath);
+
         try {
-            File file = new File(resource.getPath());
+            File file = new File(resourcePath);
             File[] list = file.listFiles();
             if (ArrayUtils.isEmpty(list)) {
                 throw new RuntimeException("没有找到head数据");
             }
             Map<String, Image> npcMap = new HashMap<>();
             for (File f : list) {
-                InputStream fileInputStream = this.getClass().getResourceAsStream(headPath + f.getName());
-                Image img = ImageIO.read(fileInputStream);
-                IOUtils.closeQuietly(fileInputStream);
+                Image img = ImageIO.read(f);
                 npcMap.put(f.getName(), img);
             }
                 heads = Collections.unmodifiableMap(npcMap);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

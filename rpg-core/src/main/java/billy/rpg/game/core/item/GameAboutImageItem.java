@@ -1,12 +1,12 @@
 package billy.rpg.game.core.item;
 
+import billy.rpg.common.util.AssetsUtil;
 import billy.rpg.game.core.platform.image.IGameImage;
 import billy.rpg.game.core.platform.image.IGameImageFactory;
-import org.apache.commons.io.IOUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.io.InputStream;
+import java.io.File;
 
 public class GameAboutImageItem {
     private Image gameCover;
@@ -37,9 +37,8 @@ public class GameAboutImageItem {
 
     private void loadGameEmotion() {
         try {
-            InputStream is = this.getClass().getResourceAsStream("/Images/emotion.png");
-            gameEmotion = ImageIO.read(is);
-            IOUtils.closeQuietly(is);
+            String resourcePath = AssetsUtil.getResourcePath("/assets/Images/emotion.png");
+            gameEmotion = ImageIO.read(new File(resourcePath));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -47,9 +46,8 @@ public class GameAboutImageItem {
 
     private void loadGameMessageBoxBg() {
         try {
-            InputStream is = this.getClass().getResourceAsStream("/Images/messagebox_bg.png");
-            gameMessageBoxBg = ImageIO.read(is);
-            IOUtils.closeQuietly(is);
+            String resourcePath = AssetsUtil.getResourcePath("/assets/Images/messagebox_bg.png");
+            gameMessageBoxBg = ImageIO.read(new File(resourcePath));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -57,9 +55,8 @@ public class GameAboutImageItem {
 
     private void loadGameDlgRoleName() {
         try {
-            InputStream is = this.getClass().getResourceAsStream("/Images/dlg_role_name.png");
-            gameDlgRoleName = ImageIO.read(is);
-            IOUtils.closeQuietly(is);
+            String resourcePath = AssetsUtil.getResourcePath("/assets/Images/dlg_role_name.png");
+            gameDlgRoleName = ImageIO.read(new File(resourcePath));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -67,9 +64,8 @@ public class GameAboutImageItem {
 
     private void loadGameDlgBg() {
         try {
-            InputStream is = this.getClass().getResourceAsStream("/Images/dlg_bg.png");
-            gameDlgBg = ImageIO.read(is);
-            IOUtils.closeQuietly(is);
+            String resourcePath = AssetsUtil.getResourcePath("/assets/Images/dlg_bg.png");
+            gameDlgBg = ImageIO.read(new File(resourcePath));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -77,9 +73,8 @@ public class GameAboutImageItem {
 
     private void loadGameTransfer() {
         try {
-            InputStream is = this.getClass().getResourceAsStream("/Images/transfer.png");
-            gameTransfer = ImageIO.read(is);
-            IOUtils.closeQuietly(is);
+            String resourcePath = AssetsUtil.getResourcePath("/assets/Images/transfer.png");
+            gameTransfer = ImageIO.read(new File(resourcePath));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -87,9 +82,8 @@ public class GameAboutImageItem {
 
     private void loadGameTransition() {
         try {
-            InputStream is = this.getClass().getResourceAsStream("/Images/transition.png");
-            gameTransition = ImageIO.read(is);
-            IOUtils.closeQuietly(is);
+            String resourcePath = AssetsUtil.getResourcePath("/assets/Images/transition.png");
+            gameTransition = ImageIO.read(new File(resourcePath));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -99,21 +93,17 @@ public class GameAboutImageItem {
 
     private void loadGameArrows() {
         try {
-            InputStream is = this.getClass().getResourceAsStream("/Images/ArrowLeft.png");
-            gameArrowLeft = ImageIO.read(is);
-            IOUtils.closeQuietly(is);
+            String resourcePath = AssetsUtil.getResourcePath("/assets/Images/ArrowLeft.png");
+            gameArrowLeft = ImageIO.read(new File(resourcePath));
 
-            is = this.getClass().getResourceAsStream("/Images/ArrowRight.png");
-            gameArrowRight = ImageIO.read(is);
-            IOUtils.closeQuietly(is);
+            resourcePath = AssetsUtil.getResourcePath("/assets/Images/ArrowRight.png");
+            gameArrowRight = ImageIO.read(new File(resourcePath));
 
-            is = this.getClass().getResourceAsStream("/Images/ArrowUp.png");
-            gameArrowUp = ImageIO.read(is);
-            IOUtils.closeQuietly(is);
+            resourcePath = AssetsUtil.getResourcePath("/assets/Images/ArrowUp.png");
+            gameArrowUp = ImageIO.read(new File(resourcePath));
 
-            is = this.getClass().getResourceAsStream("/Images/ArrowDown.png");
-            gameArrowDown = ImageIO.read(is);
-            IOUtils.closeQuietly(is);
+            resourcePath = AssetsUtil.getResourcePath("/assets/Images/ArrowDown.png");
+            gameArrowDown = ImageIO.read(new File(resourcePath));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -121,9 +111,8 @@ public class GameAboutImageItem {
 
     private void loadGameOver() {
         try {
-            InputStream is = this.getClass().getResourceAsStream("/Images/gameover.png");
-            gameOver = ImageIO.read(is);
-            IOUtils.closeQuietly(is);
+            String resourcePath = AssetsUtil.getResourcePath("/assets/Images/gameover.png");
+            gameOver = ImageIO.read(new File(resourcePath));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -131,9 +120,8 @@ public class GameAboutImageItem {
 
     private void loadGameCover() {
         try {
-            InputStream is = this.getClass().getResourceAsStream("/Images/gamecover.png");
-            gameCover = ImageIO.read(is);
-            IOUtils.closeQuietly(is);
+            String resourcePath = AssetsUtil.getResourcePath("/assets/Images/gamecover.png");
+            gameCover = ImageIO.read(new File(resourcePath));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -143,7 +131,7 @@ public class GameAboutImageItem {
         return gameCover;
     }
     public IGameImage getGameCoverNew() {
-        return IGameImageFactory.getImage("/Images/gamecover.png");
+        return IGameImageFactory.getImage("/assets/Images/gamecover.png");
     }
 
     public Image getGameOver() {
@@ -158,7 +146,7 @@ public class GameAboutImageItem {
         return gameArrowRight;
     }
     public IGameImage getGameArrowRightNew() {
-        return IGameImageFactory.getImage("/Images/ArrowRight.png");
+        return IGameImageFactory.getImage("/assets/Images/ArrowRight.png");
     }
 
     public Image getGameArrowUp() {

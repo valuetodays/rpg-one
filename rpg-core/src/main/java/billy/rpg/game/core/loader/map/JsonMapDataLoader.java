@@ -10,7 +10,7 @@ import billy.rpg.resource.map.MapSaverLoader;
 public class JsonMapDataLoader extends MapDataLoader {
     @Override
     public String getFileDir() {
-        return "/map/json/";
+        return "/assets/map/json/";
     }
 
     @Override

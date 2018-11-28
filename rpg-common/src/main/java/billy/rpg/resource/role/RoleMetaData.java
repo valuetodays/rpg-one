@@ -1,17 +1,19 @@
 package billy.rpg.resource.role;
 
 import billy.rpg.common.constant.ToolsConstant;
+import billy.rpg.common.util.AssetsUtil;
 import billy.rpg.resource.sprite.HeroSprite;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * <ol>
- *     <li>4 bytes {@link ToolsConstant.MAGIC_ROL}</li>
+ *     <li>4 bytes {@link ToolsConstant#MAGIC_ROL}</li>
  *     <li>4 bytes number</li>
  *     <li>4 bytes type</li>
  *     <li>4 bytes role-name-length</li>
@@ -64,7 +66,8 @@ public class RoleMetaData implements Cloneable { // TODO 添加级别
         int y = 0;
         BufferedImage image;
         try {
-            image = ImageIO.read(getClass().getResourceAsStream("/sprite/Heal5.png"));
+            String resourcePath = AssetsUtil.getResourcePath("/assets//sprite/Heal5.png");
+            image = ImageIO.read(new File(resourcePath));
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException(e.getMessage(), e);

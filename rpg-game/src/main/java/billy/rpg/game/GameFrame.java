@@ -1,5 +1,6 @@
 package billy.rpg.game;
 
+import billy.rpg.common.util.CoreUtil;
 import billy.rpg.common.util.JavaVersionUtil;
 import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.GameData;
@@ -14,7 +15,6 @@ import billy.rpg.game.core.screen.ProducerScreen;
 import billy.rpg.game.core.screen.TransitionScreen;
 import billy.rpg.game.core.screen.battle.BattleScreen;
 import billy.rpg.game.core.screen.system.SystemUIScreen;
-import billy.rpg.game.core.util.CoreUtil;
 import billy.rpg.game.core.util.FPSUtil;
 import org.apache.log4j.Logger;
 

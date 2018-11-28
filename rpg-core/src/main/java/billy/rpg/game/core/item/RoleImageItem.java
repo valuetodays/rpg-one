@@ -1,13 +1,11 @@
 package billy.rpg.game.core.item;
 
-import org.apache.commons.io.IOUtils;
+import billy.rpg.common.util.AssetsUtil;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.InputStream;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,20 +26,17 @@ public class RoleImageItem {
 
         try {
             // 加载3个角色的四方向行走图 开始
-            String basePath = "/Images/character/npc/";
-            URL resource = getClass().getResource(basePath);
+            String basePath = "/assets/Images/character/npc/";
+            File baseDirectory = new File(AssetsUtil.getResourcePath(basePath));
             for (int i = 1; i < 4; i++) {
-                String s = resource.getPath() + "full_0" + i + ".png";
+                String s = baseDirectory.getPath() + "/full_0" + i + ".png";
                 BufferedImage roleImage = ImageIO.read(new File(s));
                 roleFullImageMap.put(i, roleImage);
-
-                InputStream is = this.getClass().getResourceAsStream("/Images/battle_"+i+".png");
-                BufferedImage roleBattle = ImageIO.read(is);
+                String roleBattlePath = AssetsUtil.getResourcePath("/assets/Images/battle_" + i + ".png");
+                BufferedImage roleBattle = ImageIO.read(new File(roleBattlePath));
                 roleBattleImageMap.put(i, roleBattle);
-                IOUtils.closeQuietly(is);
             }
             // 加载3个角色的四方向行走图 结束
-
 
         } catch (Exception e) {
             e.printStackTrace();

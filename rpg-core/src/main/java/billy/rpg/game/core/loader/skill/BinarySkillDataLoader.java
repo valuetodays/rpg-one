@@ -6,7 +6,7 @@ import billy.rpg.resource.skill.SkillSaverLoader;
 public class BinarySkillDataLoader extends SkillDataLoader {
     @Override
     public String getFileDir() {
-        return "/skill/binary/";
+        return "/assets/skill/binary/";
     }
 
     @Override

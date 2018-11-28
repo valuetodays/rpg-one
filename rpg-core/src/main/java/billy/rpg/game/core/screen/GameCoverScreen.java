@@ -1,11 +1,11 @@
 package billy.rpg.game.core.screen;
 
+import billy.rpg.common.util.AssetsUtil;
 import billy.rpg.common.util.DrawUtil;
 import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.constants.GameConstant;
 import billy.rpg.game.core.constants.ScreenCodeEnum;
 import billy.rpg.game.core.container.GameContainer;
-import billy.rpg.game.core.util.CoreUtil;
 import billy.rpg.game.core.util.KeyUtil;
 import billy.rpg.game.core.util.MP3Player;
 
@@ -33,12 +33,12 @@ public class GameCoverScreen extends BaseScreen {
         map.put(1, 320); 
         map.put(2, 350);
         map.put(3, 380);
-        String audioPath = CoreUtil.getResourcePath("audio/game_cover.mp3");
+        String audioPath = AssetsUtil.getResourcePath("/assets/audio/game_cover.mp3");
         try {
-            cloudMain = ImageIO.read(new File(CoreUtil.getResourcePath("/image/effect/cloudmain.png")));
-            cloud1 = ImageIO.read(new File(CoreUtil.getResourcePath("/image/effect/cloud1.png")));
-            cloud2 = ImageIO.read(new File(CoreUtil.getResourcePath("/image/effect/cloud2.png")));
-            cloud3 = ImageIO.read(new File(CoreUtil.getResourcePath("/image/effect/cloud3.png")));
+            cloudMain = ImageIO.read(new File(AssetsUtil.getResourcePath("/assets/effect/cloudmain.png")));
+            cloud1 = ImageIO.read(new File(AssetsUtil.getResourcePath("/assets/effect/cloud1.png")));
+            cloud2 = ImageIO.read(new File(AssetsUtil.getResourcePath("/assets/effect/cloud2.png")));
+            cloud3 = ImageIO.read(new File(AssetsUtil.getResourcePath("/assets/effect/cloud3.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }

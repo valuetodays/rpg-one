@@ -10,7 +10,7 @@ import billy.rpg.resource.level.LevelSaverLoader;
 public class BinaryLevelDataLoader extends LevelDataLoader {
     @Override
     public String getFileDir() {
-        return "/level/binary/";
+        return "/assets/level/binary/";
     }
 
     @Override

@@ -6,7 +6,7 @@ import billy.rpg.resource.animation.BinaryAnimationSaverLoader;
 public class BinaryAnimationDataLoader extends AnimationDataLoader {
     @Override
     public String getFileDir() {
-        return "/animation/binary/";
+        return "/assets/animation/binary/";
     }
 
     @Override

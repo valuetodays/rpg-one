@@ -1,6 +1,6 @@
 package billy.rpg.resource.npc;
 
-import org.apache.commons.io.IOUtils;
+import billy.rpg.common.util.AssetsUtil;
 import org.apache.commons.lang.ArrayUtils;
 
 import javax.imageio.ImageIO;
@@ -9,8 +9,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -28,12 +26,10 @@ public class NPCImageLoader {
         java.util.List<String> littleNames = new ArrayList<>();
         java.util.List<String> fullNames = new ArrayList<>();
         //
-        final String npcPath = "/Images/character/npc/";
 
-        URL resource = NPCImageLoader.class.getResource(npcPath);
-
+        String resourcePath = AssetsUtil.getResourcePath("/assets/Images/character/npc/");
         try {
-            File file = new File(resource.getPath());
+            File file = new File(resourcePath);
             // little
             File[] listLittle = file.listFiles(new FileFilter() {
                 @Override
@@ -49,9 +45,7 @@ public class NPCImageLoader {
             }
 
             for (File f : listLittle) {
-                InputStream is = NPCImageLoader.class.getResourceAsStream(npcPath + f.getName());
-                Image img = ImageIO.read(is);
-                IOUtils.closeQuietly(is);
+                Image img = ImageIO.read(f);
                 littleImages.add(img);
                 littleNames.add(f.getName());
             }
@@ -71,9 +65,7 @@ public class NPCImageLoader {
             }
 
             for (File f : listFull) {
-                InputStream is = NPCImageLoader.class.getResourceAsStream(npcPath + f.getName());
-                Image img = ImageIO.read(is);
-                IOUtils.closeQuietly(is);
+                Image img = ImageIO.read(f);
                 fullImages.add(img);
                 fullNames.add(f.getName());
             }

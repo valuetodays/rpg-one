@@ -1,4 +1,4 @@
-package billy.rpg.game.core.util;
+package billy.rpg.common.util;
 
 import java.net.URL;
 
@@ -16,9 +16,10 @@ public class CoreUtil {
     }
 
     /**
-     * 获取音频文件的路径
+     * 获取文件的路径
      * @param resourcePath resourcePath
      */
+    @Deprecated
     public static String getResourcePath(String resourcePath) {
         if ((resourcePath) == null) {
             throw new RuntimeException("audioPath is null or empty");
