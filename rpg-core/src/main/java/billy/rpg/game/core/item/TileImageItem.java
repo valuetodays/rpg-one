@@ -1,13 +1,11 @@
 package billy.rpg.game.core.item;
 
 import billy.rpg.common.util.AssetsUtil;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.ArrayUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.File;
-import java.io.InputStream;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,10 +38,7 @@ public class TileImageItem {
                 throw new RuntimeException("没有找到tile数据");
             }
             for (File f : list) {
-//                InputStream fileInputStream = this.getClass().getResourceAsStream("/tiles/" + f.getName());
-                InputStream fileInputStream = this.getClass().getResourceAsStream(baseDirectory + f.getName());
-                Image img = ImageIO.read(fileInputStream);
-                IOUtils.closeQuietly(fileInputStream);
+                Image img = ImageIO.read(f);
                 tileMap.put(f.getName(), img);
             }
             tiles = Collections.unmodifiableMap(tileMap);

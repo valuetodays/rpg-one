@@ -4,13 +4,20 @@ import billy.rpg.common.util.AssetsUtil;
 import billy.rpg.game.core.command.CmdBase;
 import billy.rpg.game.core.command.LabelCmd;
 import billy.rpg.game.core.command.parser.CommandParser;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.jline.reader.ParsedLine;
 import org.jline.reader.Parser;
 import org.jline.reader.impl.DefaultParser;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.JarURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.*;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 import java.util.stream.Collectors;
 
 /**
@@ -19,26 +26,84 @@ import java.util.stream.Collectors;
  */
 public class JlineCommandParser extends CommandParser {
     private final Parser parser = new DefaultParser();
-
-    private static Map<String, ? extends Class<CmdBase>> traceAllCmdClass() {
+    private static Map<String, ? extends Class<CmdBase>> cmdClassMap = null;
+    private Map<String, ? extends Class<CmdBase>> traceAllCmdClass() {
+        if (cmdClassMap != null) {
+            return cmdClassMap;
+        }
         String pkg = getCommandPackage();
+        String pkgAsPath = StringUtils.replace(pkg,".", "/");
 
-        String pkgPath = StringUtils.replace(pkg,".", "/");
-        String path = AssetsUtil.getResourcePath(pkgPath);
-        File directory = new File(path);
-        List<? extends Class<CmdBase>> cmdClassList = Arrays.stream(directory.listFiles()).filter(File::isFile).map(e -> pkg + e.getName().replace(".class", "")).map(e -> {
-            try {
-                Class<?> aClass = Class.forName(e);
-                if (CmdBase.class.isAssignableFrom(aClass)) {
-                    return (Class<CmdBase>)aClass;
+
+        String coreJarLocationPath = CommandParser.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+        logger.debug("path -> " + coreJarLocationPath);
+
+        List<String> cmdList = null;
+        if (coreJarLocationPath.contains("/target/classes/")) {
+            cmdList = getCmdListInDev(pkgAsPath);
+        } else {
+            cmdList = getCmdList(coreJarLocationPath, pkgAsPath);
+        }
+        if (CollectionUtils.isEmpty(cmdList)) {
+            throw new RuntimeException("command not found");
+        }
+        logger.debug("cmdList -> " + cmdList);
+        List<? extends Class<CmdBase>> cmdClassList = cmdList.stream()
+            .map(e -> e.replace("/", ".").replace(".class", ""))
+            .map(e -> {
+                try {
+                    Class<?> aClass = Class.forName(e);
+                    if (CmdBase.class.isAssignableFrom(aClass)) {
+                        return (Class<CmdBase>)aClass;
+                    }
+                    return null;
+                } catch (ClassNotFoundException e1) {
+                    throw new RuntimeException(e1.getMessage());
                 }
-                return null;
-            } catch (ClassNotFoundException e1) {
-                throw new RuntimeException(e1.getMessage());
             }
-        }).filter(Objects::nonNull).collect(Collectors.toList());
+        ).filter(Objects::nonNull).collect(Collectors.toList());
 
-        return cmdClassList.stream().collect(Collectors.toMap(e -> e.getSimpleName().toUpperCase(), e -> e));
+        cmdClassMap = cmdClassList.stream().collect(Collectors.toMap(e -> e.getSimpleName().toUpperCase(), e -> e));
+        return cmdClassMap;
+    }
+
+    private List<String> getCmdListInDev(String pkgAsPath) {
+        final String pkg = StringUtils.replace(pkgAsPath, "/", ".");
+        String path = AssetsUtil.getResourcePath(pkgAsPath);
+        File directory = new File(path);
+        List<String> cmdClassList = Arrays.stream(directory.listFiles())
+                .filter(File::isFile)
+                .map(e -> pkg + e.getName().replace(".class", ""))
+                .filter(Objects::nonNull).collect(Collectors.toList());
+
+        return cmdClassList;
+        //cmdClassList.stream().collect(Collectors.toMap(e -> e.getSimpleName().toUpperCase(), e -> e));
+    }
+
+    private List<String> getCmdList(String coreJarLocationPath, String pkgAsPath) {
+        String jarPath = "jar:file:"+coreJarLocationPath+"!/";
+        logger.debug("jarPath: " + jarPath);
+        logger.debug("pkgAsPath: " + pkgAsPath);
+
+        List<String> cmdList = new ArrayList<>();
+        try {
+            URL jarURL = new URL(jarPath);
+            URLConnection urlConnection = jarURL.openConnection();
+            JarURLConnection jarCon = (JarURLConnection)urlConnection;
+            JarFile jarFile = jarCon.getJarFile();
+            Enumeration<JarEntry> jarEntries = jarFile.entries();
+
+            while (jarEntries.hasMoreElements()) {
+                JarEntry entry = jarEntries.nextElement();
+                String name = entry.getName();
+                if (!entry.isDirectory() && name.startsWith(pkgAsPath) && name.endsWith("Cmd.class")) {
+                    cmdList.add(name);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return cmdList;
     }
 
     private static String getCommandPackage() {

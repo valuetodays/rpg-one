@@ -205,5 +205,8 @@ ILoader
      * 再去/rpg-game/目录下执行`mvn clean package -DskipTests assembly:single`打包rpg-game，（同时把/rpg-common/src/main/resources/assets的资源复制到dist/rpg-game/目录，配置见rpg-game/assembly.xml）；
      * 注意，需要排除/rpg-common/src/main/resources/assets资源目录，不然会生成多余的一份数据，（见/rpg-common/pom.xml的配置）；
 
+    现在可通过两种方式运行，
+     * 有开发环境：去/rpg-game/src/main/java/billy.rpg.game.GameFrame运行；
+     * 无开发环境：去/目录下，双击assembly.bat打包，然后去/rpg-game/target/dist/rpg-game下，双击start.bat即可；
 
 
