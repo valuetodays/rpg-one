@@ -1,7 +1,5 @@
 **English** | [中文](./README.zh-CN.md)
 
-## rpg-game
-
 #### description
 `rpg-game` is a game with pure java & some utils of apache. It contains many as follows:
 - image (png) read and show
@@ -10,3 +8,4 @@
 - deal with battle, attack/beating[TODO] animation(common attack/beating & magic attack/beating), hp 
 decrease/increase, etc;
 
+ balabala...
