@@ -11,14 +11,16 @@
 
     <fileSets>
         <fileSet>
-            <directory>conf</directory>
-            <outputDirectory>conf</outputDirectory>
-        </fileSet>
-        <fileSet>
-            <directory>bin</directory>
-            <outputDirectory>bin</outputDirectory>
+            <directory>../rpg-common/src/main/resources/assets</directory>
+            <outputDirectory>assets</outputDirectory>
         </fileSet>
     </fileSets>
+    <files>
+        <file>
+            <source>./start.bat</source>
+            <outputDirectory>/</outputDirectory>
+        </file>
+    </files>
 
     <dependencySets>
         <dependencySet>

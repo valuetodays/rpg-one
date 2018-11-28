@@ -39,4 +39,28 @@
         </dependency>
 
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <!--  http://maven.apache.org/plugins/maven-jar-plugin/examples/include-exclude.html
+                          Note that the patterns need to be relative to the path specified for the plugin's classesDirectory parameter. -->
+                    <excludes>
+                        <exclude>assets/**</exclude>
+                    </excludes>
+                    <archive>
+                        <manifest>
+                            <mainClass>billy.rpg.game.GameFrame</mainClass>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <addClasspath>true</addClasspath>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

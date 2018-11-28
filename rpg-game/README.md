@@ -198,7 +198,12 @@ ILoader
     添加普攻的群攻与单攻效果
     TODO 添加LevelUpCmd
 #### 2018-11-25
-    添加EmotionCmd命令，可以在在
+    添加EmotionCmd命令，人物可以有表情了。
+#### 2018-11-28
+    打包成可运行环境：
+     * 先在/目录下执行`mvn clean install -DskipTests`；
+     * 再去/rpg-game/目录下执行`mvn clean package -DskipTests assembly:single`打包rpg-game，（同时把/rpg-common/src/main/resources/assets的资源复制到dist/rpg-game/目录，配置见rpg-game/assembly.xml）；
+     * 注意，需要排除/rpg-common/src/main/resources/assets资源目录，不然会生成多余的一份数据，（见/rpg-common/pom.xml的配置）；
 
 
 

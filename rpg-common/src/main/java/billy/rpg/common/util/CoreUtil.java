@@ -1,7 +1,5 @@
 package billy.rpg.common.util;
 
-import java.net.URL;
-
 /**
  * @author liulei@bshf360.com
  * @since 2017-07-07 13:57
@@ -15,22 +13,4 @@ public class CoreUtil {
         }
     }
 
-    /**
-     * 获取文件的路径
-     * @param resourcePath resourcePath
-     */
-    @Deprecated
-    public static String getResourcePath(String resourcePath) {
-        if ((resourcePath) == null) {
-            throw new RuntimeException("audioPath is null or empty");
-        }
-        if (resourcePath.startsWith("/")) {
-            resourcePath = resourcePath.substring(1);
-        }
-        URL resource = Thread.currentThread().getContextClassLoader().getResource(resourcePath);
-        if (resource == null) {
-            throw new RuntimeException("no resource: " + resourcePath);
-        }
-        return resource.getPath();
-    }
 }

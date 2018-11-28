@@ -39,6 +39,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.4</version>
                 <configuration>
+                    <finalName>${project.build.finalName}</finalName>
                     <archive>
                         <manifest>
                             <mainClass>billy.rpg.game.GameFrame</mainClass>
