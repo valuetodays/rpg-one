@@ -1,2 +1,2 @@
 ## 
-详见[rpg-game](./rpg-game/README.md)
+详见[rpg-game](./rpg-game/README.zh-CN.md)

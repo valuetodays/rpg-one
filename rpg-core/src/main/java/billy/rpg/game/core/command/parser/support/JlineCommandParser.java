@@ -39,9 +39,7 @@ public class JlineCommandParser extends CommandParser {
         try {
             cmdBase = aClass.newInstance();
             cmdBase.initCommand(lineNumber, commandName, words.subList(1, words.size()));
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (ReflectiveOperationException e) {
             e.printStackTrace();
         }
         return cmdBase;
