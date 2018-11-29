@@ -304,7 +304,7 @@ public class GameData {
                 heroRole.setLevel(0);
                 heroRole.setExp(0);
                 heroRole.setSkillIds("1,2");
-                levelUp(gameContainer, heroRole);
+                levelUp(gameContainer, heroRole, true);
 
                 HeroCharacter e = new HeroCharacter(gameContainer);
                 e.setLeft(200 + i * 150 + 10);
@@ -350,9 +350,11 @@ public class GameData {
 
     /**
      * 处理升级逻辑，不考虑连续升级的情况，永远不可能一刀99级，升到99级最少要砍99刀
+     * @param gameContainer gameContainer
      * @param heroMetaData 要升级的角色的信息
+     * @param force 是否强制升级，打怪升级时不能强制升级
      */
-    public void levelUp(GameContainer gameContainer, RoleMetaData heroMetaData) {
+    public void levelUp(GameContainer gameContainer, RoleMetaData heroMetaData, boolean force) {
         LevelMetaData levelMetaData = gameContainer.getLevelMetaDataOf(heroMetaData.getLevelChain());
 
         int level = heroMetaData.getLevel();
@@ -367,8 +369,7 @@ public class GameData {
         LevelData levelData = levelMetaData.getLevelDataList().get(level+1);
         if (level == 0 || heroMetaData.getExp() > levelData.getExp()) {
             logger.debug("level up to " + (level+1));
-            if ( level > 0) {
-
+            if (!force) { // 强制升级时不变动角色的现有经验值
                 LevelData preLevelData = levelMetaData.getLevelDataList().get(level);
                 heroMetaData.setExp(heroMetaData.getExp() - preLevelData.getExp());
             }

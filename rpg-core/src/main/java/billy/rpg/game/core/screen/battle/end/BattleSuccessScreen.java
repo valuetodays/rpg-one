@@ -55,7 +55,7 @@ public class BattleSuccessScreen extends BaseScreen {
             int newExp = oriExp + exp;
 
             heroBattle.getRoleMetaData().setExp(newExp);
-            gameContainer.getGameData().levelUp(gameContainer, heroBattle.getRoleMetaData());
+            gameContainer.getGameData().levelUp(gameContainer, heroBattle.getRoleMetaData(), false);
         }
     }
 

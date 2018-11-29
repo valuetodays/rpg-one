@@ -406,7 +406,7 @@ public class ScriptItem {
     }
 
     public WalkableCharacter getHeroOrNpc(int roleIdOrNpcId) {
-        if (roleIdOrNpcId == hero.getNumber()) {
+        if (roleIdOrNpcId == 0) {
             return hero;
         }
         List<NPCWalkableCharacter> npcs = getNpcs();

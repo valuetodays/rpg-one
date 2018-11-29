@@ -36,7 +36,7 @@ public abstract class CommandParser {
         return cmdBase;
     }
 
-    protected CmdBase before(String scriptFileName, int lineNumber, String lineData) {
+    private CmdBase before(String scriptFileName, int lineNumber, String lineData) {
         if (lineData == null) {
             return EmptyCmd.EMPTY_CMD;
         }
@@ -60,7 +60,6 @@ public abstract class CommandParser {
     protected void end(){}
 
     // parse *Cmd.class start
-
     /**
      * 获取到所有*Cmd.class的对象列表
      */
@@ -114,13 +113,12 @@ public abstract class CommandParser {
                 .filter(Objects::nonNull).collect(Collectors.toList());
 
         return cmdClassList;
-        //cmdClassList.stream().collect(Collectors.toMap(e -> e.getSimpleName().toUpperCase(), e -> e));
     }
 
     private List<String> getCmdListInDistribute(String coreJarLocationPath, String pkgAsPath) {
         String jarPath = "jar:file:"+coreJarLocationPath+"!/";
-        logger.debug("jarPath: " + jarPath);
-        logger.debug("pkgAsPath: " + pkgAsPath);
+//        logger.debug("jarPath: " + jarPath);
+//        logger.debug("pkgAsPath: " + pkgAsPath);
 
         List<String> cmdList = new ArrayList<>();
         try {
@@ -145,12 +143,18 @@ public abstract class CommandParser {
 
     private static String getCommandPackage() {
 //        String pkg = "billy.rpg.game.core.command."; hard-code style
-        String jlineCommandParserParentPath = CommandParser.class.getPackage().getName();
-        ArrayList<String> packageNameArr = new ArrayList<>(Arrays.asList(StringUtils.split(jlineCommandParserParentPath, ".")));
+        String commandParserPath = CommandParser.class.getPackage().getName();
+        ArrayList<String> packageNameArr = new ArrayList<>(Arrays.asList(StringUtils.split(commandParserPath, ".")));
         List<String> packageNameList = packageNameArr.subList(0, packageNameArr.size() - 1);
         return StringUtils.join(packageNameList, ".") + ".";
     }
     // parse *Cmd.class end
 
+    /**
+     * 把一行脚本转化为一个命令
+     * @param scriptFileName 脚本文本名称
+     * @param lineNumber 行号
+     * @param lineData 脚本内容
+     */
     public abstract CmdBase doParse(String scriptFileName, int lineNumber, String lineData);
 }

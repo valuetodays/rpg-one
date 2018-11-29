@@ -7,6 +7,9 @@ import billy.rpg.game.core.screen.EmotionScreen;
 
 import java.util.List;
 
+/**
+ * 表情 命令
+ */
 public class EmotionCmd extends CmdBase {
     private int roleIdOrNpcId; // 0:玩家，其它:npc的编号
     private int type;

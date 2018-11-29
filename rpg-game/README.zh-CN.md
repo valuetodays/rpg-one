@@ -80,7 +80,7 @@ npcstep 0 UP 1
 
 ![封面](./images/screenshot/cover.png "cover.png")
 ![有趣的表情](./images/screenshot/emotion.png "emotion.png")
-![百草地的师弟说](./images/screenshot/dialog_in_bai_cai_di.png "dialog_in_bai_cai_di.png")
+![百草地的师弟说](./images/screenshot/dialog_in_bai_cao_di.png "dialog_in_bai_cai_di.png")
 
 
 现在可通过两种方式运行：
@@ -287,7 +287,6 @@ ILoader
     改名：HasEquipCmd/HasMoneyCmd -> IfEquipCmd/IfMoneyCmd
     添加命令IfLevelCmd
     添加普攻的群攻与单攻效果
-    TODO 添加LevelUpCmd
 #### 2018-11-25
     添加EmotionCmd命令，人物可以有表情了。
 
@@ -301,4 +300,5 @@ ILoader
      * 有开发环境：去/rpg-game/src/main/java/billy.rpg.game.GameFrame运行；
      * 无开发环境：去/目录下，双击assembly.bat打包，然后去/rpg-game/target/dist/rpg-game下，双击start.bat即可；
 
-
+#### 2018-11-29
+    添加LevelUpCmd，用于强制升级，（区别于靠打怪升级不同）
