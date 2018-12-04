@@ -119,8 +119,6 @@ return
 
 先见师傅吧:
 say 1 '柳清风' LEFT '还是先去见师父再来玩吧。'
-@messagebox '得到玉兰草'
-@addgoods 1
 return
 
 百草地西:
@@ -136,9 +134,9 @@ set 已得玉兰草
 return
 
 钨龙剑:
-if 已得钨龙剑 已打开宝箱
-messagebox '得到钨龙剑，这样就可以把木剑卖了'
-set 已得钨龙剑
+if 3 已打开宝箱
+@ TODO achievement '钨龙剑成就！'
+set 3
 return
 
 testForAll:

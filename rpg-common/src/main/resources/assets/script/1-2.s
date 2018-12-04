@@ -21,6 +21,7 @@ createtransfer 212 23 45
 createnpc 12 12 5 2 2
 createnpc 13 13 9 2 1
 createnpc 14 19 19 2 1
+createnpc 15 20 30 2 1
 
 createsceneObject 401 19 39 "san_qing_gong_left.png"
 createsceneObject 402 21 39 "san_qing_gong_middle.png"
@@ -114,6 +115,16 @@ return
 loadmap 1 108 4 7 0 1
 return
 
+游人_宝藏:
+if 100001 三清坟场宝藏支线
+say 3 '游人' LEFT '听说三清坟场藏有宝藏，可从没有人发现过。'
+set 100001
+return
+
+三清坟场宝藏支线:
+say 3 '游人' LEFT '听说三清坟场藏有宝藏，可从没有人发现过。我应该再去看看。'
+return
+
 trigger 201 去百草地
 trigger 202 无机阁
 trigger 204 三清宫药房
@@ -130,3 +141,4 @@ trigger 212 下山
 trigger 12 游人1
 trigger 13 老王
 trigger 14 药房孙师弟
+trigger 15 游人_宝藏
