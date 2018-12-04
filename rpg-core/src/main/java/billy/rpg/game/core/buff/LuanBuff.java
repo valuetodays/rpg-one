@@ -11,4 +11,9 @@ public class LuanBuff extends Buff {
     public void apply(Fightable fightable) {
 
     }
+
+    @Override
+    public BuffType getBuffType() {
+        return null;
+    }
 }

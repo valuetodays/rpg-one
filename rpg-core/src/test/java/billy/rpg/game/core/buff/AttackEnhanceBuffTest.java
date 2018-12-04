@@ -10,13 +10,12 @@ import org.junit.Test;
  * @author lei.liu@datatist.com
  * @since 2018-11-22 11:00:48
  */
-public class AttackBuffTest extends GameContainerBaseTest {
+public class AttackEnhanceBuffTest extends GameContainerBaseTest {
 
     @Test
-    public void testAddBuffWithValue() {
-        AttackBuff buff = new AttackBuff();
+    public void testAddBuffWithAttackValue() {
+        AttackValueEnhanceBuff buff = new AttackValueEnhanceBuff(21, 5);
         buff.setName("增加固定攻击力");
-        buff.setValue(21);
         HeroCharacter heroCharacter = gameContainer.getGameData().getHeroList(gameContainer).get(0);
         int attackWithBuffBefore = heroCharacter.getAttackWithBuff();
         logger.debug("before buff, attack is " + attackWithBuffBefore);
@@ -26,10 +25,9 @@ public class AttackBuffTest extends GameContainerBaseTest {
     }
 
     @Test
-    public void testAddDebuffWithValue() {
-        AttackBuff buff = new AttackBuff();
-        buff.setName("减少固定攻击力");
-        buff.setValue(-32);
+    public void testAddBuffWithAttackPercent() {
+        AttackPercentEnhanceBuff buff = new AttackPercentEnhanceBuff(32, 6);
+        buff.setName("增加百分比攻击力");
         HeroCharacter heroCharacter = gameContainer.getGameData().getHeroList(gameContainer).get(0);
         int attackWithBuffBefore = heroCharacter.getAttackWithBuff();
         logger.debug("before buff, attack is " + attackWithBuffBefore);
@@ -39,10 +37,9 @@ public class AttackBuffTest extends GameContainerBaseTest {
     }
 
     @Test
-    public void testAddBuffWithValuePercent() {
-        AttackBuff buff = new AttackBuff();
-        buff.setName("增加百分比攻击力");
-        buff.setValuePercent(18);
+    public void testAddDebuffWithAttackValue() {
+        AttackValueWeakenBuff buff = new AttackValueWeakenBuff(20, 6);
+        buff.setName("减少固定攻击力");
         HeroCharacter heroCharacter = gameContainer.getGameData().getHeroList(gameContainer).get(0);
         int attackWithBuffBefore = heroCharacter.getAttackWithBuff();
         logger.debug("before buff, attack is " + attackWithBuffBefore);
@@ -52,10 +49,9 @@ public class AttackBuffTest extends GameContainerBaseTest {
     }
 
     @Test
-    public void testAddDebuffWithValuePercent() {
-        AttackBuff buff = new AttackBuff();
+    public void testAddDebuffWithAttackPercent() {
+        AttackPercentWeakenBuff buff = new AttackPercentWeakenBuff(30, 4);
         buff.setName("减少百分比攻击力");
-        buff.setValuePercent(-21);
         HeroCharacter heroCharacter = gameContainer.getGameData().getHeroList(gameContainer).get(0);
         int attackWithBuffBefore = heroCharacter.getAttackWithBuff();
         logger.debug("before buff, attack is " + attackWithBuffBefore);

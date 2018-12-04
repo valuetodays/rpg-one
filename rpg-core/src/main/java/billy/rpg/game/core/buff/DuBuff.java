@@ -12,4 +12,9 @@ public class DuBuff extends Buff {
     public void apply(Fightable fightable) {
 
     }
+
+    @Override
+    public BuffType getBuffType() {
+        return null;
+    }
 }

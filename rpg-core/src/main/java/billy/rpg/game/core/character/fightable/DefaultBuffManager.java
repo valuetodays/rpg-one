@@ -18,9 +18,15 @@ public class DefaultBuffManager implements BuffManager, Cloneable {
     }
 
     @Override
-    public void addBuff(Buff buff) {
-        // TODO 暂不考虑两个引燃只能存在后一个的情况
-        buffList.add(buff);
+    public void addBuff(Buff toAddBuff) {
+        // 同类型的bug只能存在一个
+        for (Buff buff : buffList) {
+            if (buff.getBuffType() == toAddBuff.getBuffType()) {
+                buffList.remove(buff);
+                break;
+            }
+        }
+        buffList.add(toAddBuff);
     }
 
     @Override

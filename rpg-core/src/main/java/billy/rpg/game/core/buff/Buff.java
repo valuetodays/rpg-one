@@ -15,6 +15,7 @@ public abstract class Buff {
 
     public static int DEFAULT_ROUNDS = 1;
 
+    // 持续回合数
     protected int lastRounds = DEFAULT_ROUNDS;
     protected String name;
 
@@ -29,6 +30,7 @@ public abstract class Buff {
         }
     }
     protected abstract void apply(Fightable fightable);
+    public abstract BuffType getBuffType();
 
 
     public String getName() {
