@@ -1,0 +1,3 @@
+female_model.obj  http://www.aigei.com/3d/model/roles-obj
+xieke.obj http://www.aigei.com/3d/model/roles-obj
+
