@@ -60,6 +60,17 @@
         </repository>
     </repositories>
 
+    <scm>
+        <connection>scm:git:git@gitee.com:valuetodays/rpg-one.git</connection>
+        <url>https://gitee.com/valuetodays/rpg-one</url>
+    </scm>
+    <developers>
+        <developer>
+            <id>Lei.Liu</id>
+            <name>Liu lei</name>
+            <email>193002818@qq.com</email>
+        </developer>
+    </developers>
 
     <build>
         <plugins>
