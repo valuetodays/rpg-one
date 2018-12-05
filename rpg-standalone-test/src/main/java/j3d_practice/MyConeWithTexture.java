@@ -1,8 +1,10 @@
 package j3d_practice;
 
+import billy.rpg.common.util.AssetsUtil;
 import com.sun.j3d.utils.applet.MainFrame;
 import com.sun.j3d.utils.geometry.Cone;
 import com.sun.j3d.utils.geometry.Text2D;
+import com.sun.j3d.utils.image.TextureLoader;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 
 import javax.media.j3d.*;
@@ -13,11 +15,12 @@ import java.applet.Applet;
 import java.awt.*;
 
 /**
- * 简单物体 - 圆锥
+ * 简单物体 - 圆锥（带纹理）
  */
-public class MyCone extends Applet {
+public class MyConeWithTexture extends Applet {
+    private static final long serialVersionUID = -8665221788560356816L;
 
-    public MyCone() {
+    public MyConeWithTexture() {
         setLayout(new BorderLayout());
         Canvas3D canvas = new Canvas3D(SimpleUniverse.getPreferredConfiguration());
         this.add(BorderLayout.CENTER, canvas);
@@ -46,15 +49,17 @@ public class MyCone extends Applet {
         directionalLight.setInfluencingBounds(boundingSphere);
         objRoot.addChild(directionalLight);
 
-        // 设置外观
+
+        // 设置纹理图片 需要配置合Cone.GENERATE_TEXTURE_COORDS
         Appearance appearance = new Appearance();
-        Material material = new Material();
-        material.setDiffuseColor(new Color3f(1.0f, 1.0f, 0.0f));
-        appearance.setMaterial(material);
+        TextureLoader textureLoader = new TextureLoader(AssetsUtil.getResourcePath("/texture/2.jpg"), this);
+        Texture2D texture2D = (Texture2D)textureLoader.getTexture();
+        texture2D.setBoundaryModeS(Texture.WRAP);
+        appearance.setTexture(texture2D);
 
         //////////////////////
         // 生成圆锥体
-        Cone cone = new Cone(0.5f, 1.0f, 1, appearance);
+        Cone cone = new Cone(0.5f, 1.0f,  Cone.GENERATE_NORMALS | Cone.GENERATE_TEXTURE_COORDS, appearance);
         objRoot.addChild(cone);
 
 
@@ -64,6 +69,6 @@ public class MyCone extends Applet {
     }
 
     public static void main(String[] args) {
-        new MainFrame(new MyCone(), 400, 300);
+        new MainFrame(new MyConeWithTexture(), 400, 300);
     }
 }
