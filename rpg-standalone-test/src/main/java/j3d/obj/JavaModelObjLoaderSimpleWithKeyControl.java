@@ -103,7 +103,8 @@ public class JavaModelObjLoaderSimpleWithKeyControl extends JFrame {
         TransformGroup objTrans = new TransformGroup();
         objTrans.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
         //加载Obj格式的模型文件
-        String resourcePath = AssetsUtil.getResourcePath("/obj/female_model.obj");
+//        String resourcePath = AssetsUtil.getResourcePath("/obj/teleport/Teleport.obj");
+        String resourcePath = AssetsUtil.getResourcePath("/obj/female_model/file.obj");
         objTrans.addChild(new ObjFileReader(resourcePath));
         //将模型添加到变换组节点
         transGroup.addChild(objTrans);
@@ -130,8 +131,7 @@ public class JavaModelObjLoaderSimpleWithKeyControl extends JFrame {
 
     public JavaModelObjLoaderSimpleWithKeyControl() {
         // 创建3D场景绘制画布Canvas3D对象
-        GraphicsConfiguration config = SimpleUniverse.getPreferredConfiguration();
-        Canvas3D canvas = new Canvas3D(config);
+        Canvas3D canvas = new Canvas3D(SimpleUniverse.getPreferredConfiguration());
 
         BranchGroup scene = createSceneGraph();
 
