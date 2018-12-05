@@ -13,6 +13,9 @@ import javax.vecmath.Vector3f;
 import java.applet.Applet;
 import java.awt.*;
 
+/**
+ * 显示多个模型，并自动旋转
+ */
 public class JavaModelObjMultiLoaderApp extends Applet {
     private static final long serialVersionUID = -2088909559804590789L;
 

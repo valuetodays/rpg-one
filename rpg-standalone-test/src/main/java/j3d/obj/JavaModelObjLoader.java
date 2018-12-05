@@ -15,6 +15,9 @@ import javax.vecmath.Vector3f;
 import java.applet.Applet;
 import java.awt.*;
 
+/**
+ * 鼠标控制
+ */
 public class JavaModelObjLoader extends Applet {
     private static final long serialVersionUID = 5583654361046824223L;
 
@@ -55,7 +58,9 @@ public class JavaModelObjLoader extends Applet {
         TransformGroup objTrans = new TransformGroup();
         objTrans.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
         // 加载Obj格式的模型文件
-        String resourcePath = AssetsUtil.getResourcePath("/obj/female_model.obj");
+//        String resourcePath = AssetsUtil.getResourcePath("/obj/female_model.obj");
+//        String resourcePath = AssetsUtil.getResourcePath("/obj/Teleport.obj");
+        String resourcePath = AssetsUtil.getResourcePath("/obj/comic_scene.obj");
         objTrans.addChild(new ObjFileReader(resourcePath));
         // 将模型添加到变换组节点
         transGroup.addChild(objTrans);

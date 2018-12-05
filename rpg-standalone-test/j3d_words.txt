@@ -1,2 +1,5 @@
 平行光 Direction Light
 圆锥体  cone
+
+TODO 贴图
+旋转
