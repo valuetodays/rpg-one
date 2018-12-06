@@ -11,7 +11,7 @@ import org.junit.Test;
 public class DefendBuffTest extends GameContainerBaseTest {
     @Test
     public void testAddBuffWitDefendValue() {
-        DefendValueEnhanceBuff buff = new DefendValueEnhanceBuff(21, 5);
+        DefendEnhanceFixedValueBuff buff = new DefendEnhanceFixedValueBuff(21, 5);
         buff.setName("增加固定防御力");
         HeroCharacter heroCharacter = gameContainer.getGameData().getHeroList(gameContainer).get(0);
         int defendWithBuffBefore = heroCharacter.getDefendWithBuff();
@@ -23,7 +23,7 @@ public class DefendBuffTest extends GameContainerBaseTest {
 
     @Test
     public void testAddDebuffWitDefendValue() {
-        DefendValueWeakenBuff buff = new DefendValueWeakenBuff(21, 5);
+        DefendWeakenFixedValueBuff buff = new DefendWeakenFixedValueBuff(21, 5);
         buff.setName("减少固定防御力");
         HeroCharacter heroCharacter = gameContainer.getGameData().getHeroList(gameContainer).get(0);
         int defendWithBuffBefore = heroCharacter.getDefendWithBuff();
@@ -35,7 +35,7 @@ public class DefendBuffTest extends GameContainerBaseTest {
 
     @Test
     public void testAddBuffWithDefendPercent() {
-        DefendPercentEnhanceBuff buff = new DefendPercentEnhanceBuff(20, 4);
+        DefendEnhancePercentValueBuff buff = new DefendEnhancePercentValueBuff(20, 4);
         buff.setName("增加百分比防御力");
         HeroCharacter heroCharacter = gameContainer.getGameData().getHeroList(gameContainer).get(0);
         int defendWithBuffBefore = heroCharacter.getDefendWithBuff();
@@ -47,7 +47,7 @@ public class DefendBuffTest extends GameContainerBaseTest {
 
     @Test
     public void testAddDebuffWithDefendPercent() {
-        DefendPercentWeakenBuff buff = new DefendPercentWeakenBuff(20, 4);
+        DefendWeakenPercentValueBuff buff = new DefendWeakenPercentValueBuff(20, 4);
         buff.setName("减少百分比防御力");
         HeroCharacter heroCharacter = gameContainer.getGameData().getHeroList(gameContainer).get(0);
         int defendWithBuffBefore = heroCharacter.getDefendWithBuff();

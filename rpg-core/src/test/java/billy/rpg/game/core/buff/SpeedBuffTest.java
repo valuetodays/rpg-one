@@ -11,7 +11,7 @@ import org.junit.Test;
 public class SpeedBuffTest extends GameContainerBaseTest {
     @Test
     public void testAddBuffWitSpeedValue() {
-        SpeedValueEnhanceBuff buff = new SpeedValueEnhanceBuff(21, 5);
+        SpeedEnhanceFixedValueBuff buff = new SpeedEnhanceFixedValueBuff(21, 5);
         buff.setName("增加固定速度");
         HeroCharacter heroCharacter = gameContainer.getGameData().getHeroList(gameContainer).get(0);
         int speedWithBuffBefore = heroCharacter.getSpeedWithBuff();
@@ -23,7 +23,7 @@ public class SpeedBuffTest extends GameContainerBaseTest {
 
     @Test
     public void testAddDebuffWitSpeedValue() {
-        SpeedValueWeakenBuff buff = new SpeedValueWeakenBuff(21, 5);
+        SpeedWeakenFixedValueBuff buff = new SpeedWeakenFixedValueBuff(21, 5);
         buff.setName("减少固定速度");
         HeroCharacter heroCharacter = gameContainer.getGameData().getHeroList(gameContainer).get(0);
         int speedWithBuffBefore = heroCharacter.getSpeedWithBuff();
@@ -36,7 +36,7 @@ public class SpeedBuffTest extends GameContainerBaseTest {
 
     @Test
     public void testAddBuffWitSpeedPercent() {
-        SpeedPercentEnhanceBuff buff = new SpeedPercentEnhanceBuff(21, 5);
+        SpeedEnhancePercentValueBuff buff = new SpeedEnhancePercentValueBuff(21, 5);
         buff.setName("增加百分比速度");
         HeroCharacter heroCharacter = gameContainer.getGameData().getHeroList(gameContainer).get(0);
         int speedWithBuffBefore = heroCharacter.getSpeedWithBuff();
@@ -48,7 +48,7 @@ public class SpeedBuffTest extends GameContainerBaseTest {
 
     @Test
     public void testAddDebuffWitSpeedPercent() {
-        SpeedPercentWeakenBuff buff = new SpeedPercentWeakenBuff(21, 5);
+        SpeedWeakenPercentValueBuff buff = new SpeedWeakenPercentValueBuff(21, 5);
         buff.setName("减少百分比速度");
         HeroCharacter heroCharacter = gameContainer.getGameData().getHeroList(gameContainer).get(0);
         int speedWithBuffBefore = heroCharacter.getSpeedWithBuff();

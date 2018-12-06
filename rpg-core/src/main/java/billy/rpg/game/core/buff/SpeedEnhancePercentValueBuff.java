@@ -1,7 +1,6 @@
 package billy.rpg.game.core.buff;
 
 import billy.rpg.game.core.character.fightable.Fightable;
-import billy.rpg.game.core.util.AssertUtil;
 import billy.rpg.resource.role.RoleMetaData;
 
 /**
@@ -10,20 +9,17 @@ import billy.rpg.resource.role.RoleMetaData;
  * @author lei.liu@datatist.com
  * @since 2018-12-06 17:25:24
  */
-public class SpeedPercentEnhanceBuff extends Buff {
-    private int valuePercent;
+public class SpeedEnhancePercentValueBuff extends PercentValueBuff {
 
-    public SpeedPercentEnhanceBuff(int valuePercent, int lastRounds) {
-        AssertUtil.assertTrue(valuePercent > 0, "valuePercent should greater than zero");
-        this.valuePercent = valuePercent;
-        super.setLastRounds(lastRounds);
+    public SpeedEnhancePercentValueBuff(int percentValue, int lastRounds) {
+        super(percentValue, lastRounds);
     }
 
     @Override
     protected void apply(Fightable fightable) {
         RoleMetaData roleMetaData = fightable.getRoleMetaData();
         int speed = roleMetaData.getSpeed();
-        speed += speed * (valuePercent / 100.0);
+        speed += speed * (percentValue / 100.0);
         fightable.setBuffSpeed(speed - roleMetaData.getSpeed());
     }
 

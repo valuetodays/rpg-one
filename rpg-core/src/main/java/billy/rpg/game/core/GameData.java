@@ -293,7 +293,7 @@ public class GameData {
     }
 
 
-    private void checkHeroList(GameContainer gameContainer) {
+    private synchronized void checkHeroList(GameContainer gameContainer) {
         if (heroList == null) {
             heroList = new ArrayList<>();
             for (int i = 0; i < heroIds.size(); i++) {
@@ -323,7 +323,7 @@ public class GameData {
         }
     }
 
-    public List<HeroCharacter> getHeroList(GameContainer gameContainer) {
+    public synchronized List<HeroCharacter> getHeroList(GameContainer gameContainer) {
         checkHeroList(gameContainer);
         return heroList;
     }

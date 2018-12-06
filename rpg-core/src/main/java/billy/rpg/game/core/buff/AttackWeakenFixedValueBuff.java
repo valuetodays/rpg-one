@@ -1,7 +1,6 @@
 package billy.rpg.game.core.buff;
 
 import billy.rpg.game.core.character.fightable.Fightable;
-import billy.rpg.game.core.util.AssertUtil;
 import billy.rpg.resource.role.RoleMetaData;
 
 /**
@@ -10,34 +9,27 @@ import billy.rpg.resource.role.RoleMetaData;
  * @author lei.liu@datatist.com
  * @since 2018-11-22 10:32:25
  */
-public class AttackValueWeakenBuff extends Buff {
-    private int value; // 减少的数值 如20即攻击减少20
+public class AttackWeakenFixedValueBuff extends FixedValueBuff {
 
     /**
-     * @param value 减少的攻击力值
+     * @param fixedValue 减少的攻击力值
      * @param lastRounds 持续的回合数
      */
-    public AttackValueWeakenBuff(int value, int lastRounds) {
-        AssertUtil.assertTrue(value > 0, "value should greater than zero");
-        this.value = value;
-        super.setLastRounds(lastRounds);
+    public AttackWeakenFixedValueBuff(int fixedValue, int lastRounds) {
+        super(fixedValue, lastRounds);
     }
 
     @Override
     protected void apply(Fightable fightable) {
         RoleMetaData roleMetaData = fightable.getRoleMetaData();
         int attack = roleMetaData.getAttack();
-        attack += value;
+        attack += fixedValue;
         fightable.setBuffAttack(roleMetaData.getAttack() - attack);
     }
 
     @Override
     public BuffType getBuffType() {
         return BuffType.WEAKEN_ATTACK;
-    }
-
-    public int getValue() {
-        return value;
     }
 
 }

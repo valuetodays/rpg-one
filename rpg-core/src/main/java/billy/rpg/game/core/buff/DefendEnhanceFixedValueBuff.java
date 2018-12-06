@@ -1,7 +1,6 @@
 package billy.rpg.game.core.buff;
 
 import billy.rpg.game.core.character.fightable.Fightable;
-import billy.rpg.game.core.util.AssertUtil;
 import billy.rpg.resource.role.RoleMetaData;
 
 /**
@@ -10,20 +9,17 @@ import billy.rpg.resource.role.RoleMetaData;
  * @author lei.liu@datatist.com
  * @since 2018-12-06 16:48:27
  */
-public class DefendValueEnhanceBuff extends Buff {
-    private int value; // 增加值, 如20即防御增加20
+public class DefendEnhanceFixedValueBuff extends FixedValueBuff {
 
-    public DefendValueEnhanceBuff(int value, int lastRounds) {
-        AssertUtil.assertTrue(value > 0, "value should greater than zero");
-        this.value = value;
-        super.setLastRounds(lastRounds);
+    public DefendEnhanceFixedValueBuff(int fixedValue, int lastRounds) {
+        super(fixedValue, lastRounds);
     }
 
     @Override
     protected void apply(Fightable fightable) {
         RoleMetaData roleMetaData = fightable.getRoleMetaData();
         int defend = roleMetaData.getDefend();
-        defend += value;
+        defend += fixedValue;
         fightable.setBuffDefend(defend - roleMetaData.getDefend());
     }
 
