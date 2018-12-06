@@ -131,7 +131,7 @@ public class MonsterSelectScreen extends BaseScreen {
             if (getBattleUIScreen().heroIndex < getBattleUIScreen().heroBattleList.size()) {
 
             } else {
-                generateMonsterAttackAction();
+                battleOptionScreen.generateMonsterAttackAction();
                 getBattleUIScreen().startAttack();
             }
 
@@ -151,26 +151,7 @@ public class MonsterSelectScreen extends BaseScreen {
 
     }
 
-    /**
-     * 生成怪物的攻击方式
-     */
-    private void generateMonsterAttackAction() {
-        for (int i = 0; i < getBattleUIScreen().monsterBattleList.size(); i++) {
-            // TODO 暂先随机使用普攻和技能
-            int actionAttack = GameConstant.random.nextInt(2);
-            int skillId = 0;
-            if (BattleAction.BattleOption.SKILL.getOrderNum() == (actionAttack+1)) {
-                skillId = 2;
-            }
 
-            BattleAction battleAction = new BattleAction(BattleAction.FROM_MONSTER,
-                    i,
-                    GameConstant.random.nextInt(getBattleUIScreen().heroBattleList.size()) ,
-                    // TODO 暂先随机使用普攻和技能
-                    BattleAction.BattleOption.COMMON.getOrderNum(), skillId, 0);
-            getBattleUIScreen().actionList.add(battleAction);
-        }
-    }
 
     @Override
     public boolean isPopup() {

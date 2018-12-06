@@ -12,16 +12,20 @@ public class BuffManageTest /* extends GameContainerBaseTest*/ {
     @Test
     public void testAddBuff() {
         BuffManager buffManager = new DefaultBuffManager();
-        AttackEnhanceFixedValueBuff attackValueEnhanceBuff = new AttackEnhanceFixedValueBuff(10, 3);
+                AttackEnhanceFixedValueBuff attackValueEnhanceBuff = new AttackEnhanceFixedValueBuff(10, Buff.DEFAULT_ROUNDS);
         buffManager.addBuff(attackValueEnhanceBuff);
         // 添加一个buff后
         System.out.println(buffManager.getBuffList());
-        AttackEnhancePercentValueBuff attackPercentEnhanceBuff = new AttackEnhancePercentValueBuff(20, 4);
+        AttackEnhancePercentValueBuff attackPercentEnhanceBuff = new AttackEnhancePercentValueBuff(20, Buff.DEFAULT_ROUNDS);
         buffManager.addBuff(attackPercentEnhanceBuff);
         // 添加一个相同类型buff后
         System.out.println(buffManager.getBuffList());
         DuBuff duBuff = new DuBuff();
         buffManager.addBuff(duBuff);
+        System.out.println(buffManager.getBuffList());
+        DefendWeakenFixedValueBuff defendWeakenFixedValueBuff = new DefendWeakenFixedValueBuff(10, Buff.DEFAULT_ROUNDS);
+        buffManager.addBuff(defendWeakenFixedValueBuff);
+        // 添加一个降防的buff
         System.out.println(buffManager.getBuffList());
     }
 }

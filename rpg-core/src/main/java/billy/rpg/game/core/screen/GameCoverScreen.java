@@ -83,7 +83,7 @@ public class GameCoverScreen extends BaseScreen {
         g2.drawImage(gameBalloon, 220, 130, 220+32, 130+32,
         		1*32, 0, 1*32+32, 0*32+32,  
         		null);
-        DrawUtil.drawImage(g2, cloudMain, 0, 80);
+        DrawUtil.drawImage(g2, cloudMain, 0, 96);
         DrawUtil.drawImage(g2, cloud1, left1, 30);
         DrawUtil.drawImage(g2, cloud2, left2, 180);
         DrawUtil.drawImage(g2, cloud3, left3, 330);

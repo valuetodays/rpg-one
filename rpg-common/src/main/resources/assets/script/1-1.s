@@ -15,6 +15,7 @@ createtransfer 202 23 11
 createtransfer 202 23 12
 
 createchest 301 9 3 yes
+createnpc 105 8 3 15 1
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @  用于测试
@@ -139,6 +140,11 @@ if 3 已打开宝箱
 set 3
 return
 
+测试战斗:
+say 2 '测试战斗' NONE '看招！'
+fight "battle_image.png" 51 51 51
+return
+
 testForAll:
 say 2 '师弟' NONE '师兄，看我表情行事。'
 emotion 14 1
@@ -165,7 +171,6 @@ return
 
 测试宝箱:
 emotion 0 5
-@fight "battle_image.png" 51 51
 if 11001 已打开宝箱
 @ 得到铁剑
 addgoods 2002
@@ -175,6 +180,7 @@ return
 
 trigger 101 玉兰草
 trigger 102 钨龙剑
+trigger 105 测试战斗
 
 trigger 14 testForAll
 

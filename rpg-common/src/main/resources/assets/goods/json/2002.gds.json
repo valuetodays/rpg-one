@@ -1,10 +1,10 @@
 {
   "animationId":1,
-  "attack":8,
+  "attack":3,
   "buy":140,
   "count":0,
   "defend":0,
-  "desc":"一般铁匠大量生产的剑，打造得颇为粗劣。攻击+8。",
+  "desc":"一般铁匠大量生产的剑，打造得颇为粗劣。攻击+3。（经修改后可群攻）",
   "event":1,
   "hp":0,
   "imageId":1,
@@ -12,5 +12,6 @@
   "name":"铁剑",
   "number":2002,
   "sell":80,
-  "type":2
+  "type":2,
+  "effectType":2
 }

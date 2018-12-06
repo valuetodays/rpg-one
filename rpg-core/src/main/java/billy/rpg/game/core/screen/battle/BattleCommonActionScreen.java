@@ -56,8 +56,8 @@ public class BattleCommonActionScreen extends BaseScreen {
             } else {
                 // 取攻击者和目标的矩形的中心，攻击即是让两个中心重合
                 if (targetIndex == -1) { // 全体攻击时，攻击者攻向屏幕中间即可
-                    attacker.setLeft(attacker.getLeft() - (300 - attackerPreLeft) / 10);
-                    attacker.setTop(attacker.getTop() + (20 - attackerPreTop) / 10);
+                    attacker.setLeft(attacker.getLeft() - (150 - attackerPreLeft) / 10);
+                    attacker.setTop(attacker.getTop() + (120 - attackerPreTop) / 10);
                     attacker.setAcctackFrame(attackFrame++);
                 } else {
                     Fightable target = targets.get(targetIndex);
@@ -100,8 +100,8 @@ public class BattleCommonActionScreen extends BaseScreen {
                 commonAttackListener.onFinished();
             } else {
                 if (targetIndex == -1) {
-                    attacker.setLeft(attacker.getLeft() - (300 - attackerPreLeft) / 10);
-                    attacker.setTop(attacker.getTop() - (20 - attackerPreTop) / 10);
+                    attacker.setLeft(attacker.getLeft() - (150 - attackerPreLeft) / 10);
+                    attacker.setTop(attacker.getTop() - (120 - attackerPreTop) / 10);
                     attacker.setAcctackFrame(attackFrame--);
                 } else {
                     Fightable target = targets.get(targetIndex);

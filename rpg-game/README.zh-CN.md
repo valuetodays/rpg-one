@@ -310,3 +310,6 @@ ILoader
     buff叠加：后者取代前者 （不管前者持续回合是否比后者长）
     防御力基本buff添加完毕
     速度基本buff添加完毕
+    提取两大抽象Buff类: FixedValueBuff, PercentValueBuff
+    微调封面的雾的位置
+    物品中添加effectType来使用武器有群攻与单攻之分；

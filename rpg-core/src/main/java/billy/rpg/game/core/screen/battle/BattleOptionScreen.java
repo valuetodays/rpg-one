@@ -7,6 +7,7 @@ import billy.rpg.game.core.container.GameContainer;
 import billy.rpg.game.core.screen.BaseScreen;
 import billy.rpg.game.core.screen.MessageBoxScreen;
 import billy.rpg.game.core.util.KeyUtil;
+import billy.rpg.resource.goods.GoodsMetaData;
 import org.apache.commons.lang.StringUtils;
 
 import java.awt.*;
@@ -98,14 +99,13 @@ public class BattleOptionScreen extends BaseScreen {
             logger.info("heroActionChoice: " + heroActionChoice);
             if (heroActionChoice == BattleAction.BattleOption.COMMON.getOrderNum()) {  // 普攻
                 HeroCharacter activeHero = getBattleUIScreen().getActiveHero();
-                // TODO 添加 effectType = SINGLE / ALL 来判定全体攻击/单体攻击
-                int type = activeHero.getEquipables().getWeapon().getEquip().getGoods().getType();
-                logger.debug("type: " + type);
-                // TODO 修改此值即可切换单攻(2) / 群攻(其它)
-                if (type == 2) {
+                //
+                int effectType = activeHero.getEquipables().getWeapon().getEquip().getGoods().getEffectType();
+                logger.debug("effectType: " + effectType);
+                if (effectType == GoodsMetaData.WEAPON_EFFECT_TYPE_SINGLE) { // 单攻
                     MonsterSelectScreen chooseMonsterScreen = new MonsterSelectScreen(battleUIScreen, this, -1);
                     getBattleUIScreen().getParentScreen().push(chooseMonsterScreen);
-                } else {
+                } else if (effectType == GoodsMetaData.WEAPON_EFFECT_TYPE_ALL) { // 群攻
                     // 添加全体攻击效果
                     getBattleUIScreen().actionList.add(new BattleAction(BattleAction.FROM_HERO,
                             getBattleUIScreen().heroIndex,
@@ -113,10 +113,12 @@ public class BattleOptionScreen extends BaseScreen {
                             heroActionChoice, 0, 0));
                     // 只有一个玩家角色
                     if (getBattleUIScreen().heroIndex == getBattleUIScreen().heroBattleList.size() - 1) {
-//                        generateMonsterAttackAction()// TODO 生成
+                        generateMonsterAttackAction();
                     } else {
                     }
                     getBattleUIScreen().nextHero(); // next hero
+                } else {
+                    throw new RuntimeException("unknown effectType: " + effectType);
                 }
             } else if (heroActionChoice == BattleAction.BattleOption.SKILL.getOrderNum()) {  // 技能
                 HeroCharacter activeHero = getBattleUIScreen().getActiveHero();
@@ -137,6 +139,27 @@ public class BattleOptionScreen extends BaseScreen {
                 getBattleUIScreen().getParentScreen().push(bs);
             }
 
+        }
+    }
+
+    /**
+     * 生成怪物的攻击方式
+     */
+    public void generateMonsterAttackAction() {
+        for (int i = 0; i < getBattleUIScreen().monsterBattleList.size(); i++) {
+            // TODO 暂先随机使用普攻和技能
+            int actionAttack = GameConstant.random.nextInt(2);
+            int skillId = 0;
+            if (BattleAction.BattleOption.SKILL.getOrderNum() == (actionAttack+1)) {
+                skillId = 2;
+            }
+
+            BattleAction battleAction = new BattleAction(BattleAction.FROM_MONSTER,
+                    i,
+                    GameConstant.random.nextInt(getBattleUIScreen().heroBattleList.size()) ,
+                    // TODO 暂先随机使用普攻和技能
+                    BattleAction.BattleOption.COMMON.getOrderNum(), skillId, 0);
+            getBattleUIScreen().actionList.add(battleAction);
         }
     }
 

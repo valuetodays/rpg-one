@@ -9,6 +9,9 @@ package billy.rpg.resource.goods;
 public class GoodsMetaData {
     public static final int EMPTY_GOODS_INDEX = 0;
 
+    public static final int WEAPON_EFFECT_TYPE_SINGLE = 1;
+    public static final int WEAPON_EFFECT_TYPE_ALL = 2;
+
     private int number;
     private int type;
     private String name;
@@ -23,6 +26,7 @@ public class GoodsMetaData {
     private int defend;
     private int speed;
     private String desc;
+    private int effectType = 1; // 效果类型，（对武器来说，1=单攻，2=群攻）
 
     // 如下字段不在物品编辑器中使用
     private int count;
@@ -154,4 +158,11 @@ public class GoodsMetaData {
         return number == GoodsMetaData.EMPTY_GOODS_INDEX;
     }
 
+    public int getEffectType() {
+        return effectType;
+    }
+
+    public void setEffectType(int effectType) {
+        this.effectType = effectType;
+    }
 }
