@@ -313,3 +313,4 @@ ILoader
     提取两大抽象Buff类: FixedValueBuff, PercentValueBuff
     微调封面的雾的位置
     物品中添加effectType来使用武器有群攻与单攻之分；
+    添加screenshot命令

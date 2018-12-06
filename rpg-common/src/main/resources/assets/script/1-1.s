@@ -16,6 +16,7 @@ createtransfer 202 23 12
 
 createchest 301 9 3 yes
 createnpc 105 8 3 15 1
+createnpc 106 7 3 15 1
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @  用于测试
@@ -145,6 +146,10 @@ say 2 '测试战斗' NONE '看招！'
 fight "battle_image.png" 51 51 51
 return
 
+测试截屏:
+screenshot "仅供测试"
+return
+
 testForAll:
 say 2 '师弟' NONE '师兄，看我表情行事。'
 emotion 14 1
@@ -181,6 +186,7 @@ return
 trigger 101 玉兰草
 trigger 102 钨龙剑
 trigger 105 测试战斗
+trigger 106 测试截屏
 
 trigger 14 testForAll
 
