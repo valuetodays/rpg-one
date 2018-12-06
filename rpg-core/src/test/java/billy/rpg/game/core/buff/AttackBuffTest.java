@@ -10,7 +10,7 @@ import org.junit.Test;
  * @author lei.liu@datatist.com
  * @since 2018-11-22 11:00:48
  */
-public class AttackEnhanceBuffTest extends GameContainerBaseTest {
+public class AttackBuffTest extends GameContainerBaseTest {
 
     @Test
     public void testAddBuffWithAttackValue() {

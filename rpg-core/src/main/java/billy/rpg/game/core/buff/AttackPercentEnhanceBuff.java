@@ -5,7 +5,7 @@ import billy.rpg.game.core.util.AssertUtil;
 import billy.rpg.resource.role.RoleMetaData;
 
 /**
- * 百分比增加攻击力
+ * 增加百分比攻击力
  *
  * @author lei.liu@datatist.com
  * @since 2018-11-22 10:32:25

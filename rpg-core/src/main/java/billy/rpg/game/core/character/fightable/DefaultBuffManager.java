@@ -19,13 +19,22 @@ public class DefaultBuffManager implements BuffManager, Cloneable {
 
     @Override
     public void addBuff(Buff toAddBuff) {
-        // 同类型的bug只能存在一个
+        // 互斥的buff会消失
         for (Buff buff : buffList) {
-            if (buff.getBuffType() == toAddBuff.getBuffType()) {
+            if (buff.isOpposite(toAddBuff)) {
+                buffList.remove(buff);
+                return;
+            }
+        }
+
+        // 同类型的buff只能存在后一个
+        for (Buff buff : buffList) {
+            if (buff.isSameEffect(toAddBuff)) {
                 buffList.remove(buff);
                 break;
             }
         }
+
         buffList.add(toAddBuff);
     }
 
@@ -36,7 +45,6 @@ public class DefaultBuffManager implements BuffManager, Cloneable {
 
     @Override
     public int getBuffAttack(Fightable fightable) {
-        // buffList的排序情况
         for (Buff buff : buffList) {
             buff.doApply(fightable);
         }

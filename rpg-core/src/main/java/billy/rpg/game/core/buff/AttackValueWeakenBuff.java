@@ -5,7 +5,7 @@ import billy.rpg.game.core.util.AssertUtil;
 import billy.rpg.resource.role.RoleMetaData;
 
 /**
- * 固定减少攻击力
+ * 减少固定攻击力
  *
  * @author lei.liu@datatist.com
  * @since 2018-11-22 10:32:25

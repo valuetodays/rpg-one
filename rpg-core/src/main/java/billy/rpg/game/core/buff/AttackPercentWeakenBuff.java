@@ -5,6 +5,8 @@ import billy.rpg.game.core.util.AssertUtil;
 import billy.rpg.resource.role.RoleMetaData;
 
 /**
+ * 减少百分比攻击力
+ *
  * @author lei.liu@datatist.com
  * @since 2018-11-22 10:32:25
  */
@@ -22,7 +24,7 @@ public class AttackPercentWeakenBuff extends Buff {
         RoleMetaData roleMetaData = fightable.getRoleMetaData();
         int attack = roleMetaData.getAttack();
         attack += attack * (valuePercent / 100.0); // 此时的attack是最终值，减去角色本身的属性值就是增量
-        fightable.setBuffAttack(attack - roleMetaData.getAttack());
+        fightable.setBuffAttack(roleMetaData.getAttack() - attack);
     }
 
     @Override

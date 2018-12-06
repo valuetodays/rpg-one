@@ -17,7 +17,7 @@ public abstract class Buff {
 
     // 持续回合数
     protected int lastRounds = DEFAULT_ROUNDS;
-    protected String name;
+    protected String name = "";
 
     public void doApply(Fightable fightable) {
         apply(fightable);
@@ -31,6 +31,20 @@ public abstract class Buff {
     }
     protected abstract void apply(Fightable fightable);
     public abstract BuffType getBuffType();
+
+    /**
+     * 互斥的buff
+     */
+    public boolean isOpposite(Buff theOtherBuff) {
+        return getBuffType().isOpposite(theOtherBuff.getBuffType());
+    }
+
+    /**
+     * 相同效果的buff
+     */
+    public boolean isSameEffect(Buff theOtherBuff) {
+        return getBuffType() == theOtherBuff.getBuffType();
+    }
 
 
     public String getName() {
@@ -46,5 +60,10 @@ public abstract class Buff {
     }
     public int getLastRounds() {
         return lastRounds;
+    }
+
+    @Override
+    public String toString() {
+        return name + "("+lastRounds+")" + "["+getBuffType()+"]";
     }
 }

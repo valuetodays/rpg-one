@@ -15,6 +15,6 @@ public class DuBuff extends Buff {
 
     @Override
     public BuffType getBuffType() {
-        return null;
+        return BuffType.DU;
     }
 }
