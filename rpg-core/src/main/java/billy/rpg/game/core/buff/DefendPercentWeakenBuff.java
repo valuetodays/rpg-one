@@ -5,21 +5,17 @@ import billy.rpg.game.core.util.AssertUtil;
 import billy.rpg.resource.role.RoleMetaData;
 
 /**
- * 减少固定防御力
+ * 减少百分比防御力
  *
  * @author lei.liu@datatist.com
- * @since 2018-12-06 16:50:27
+ * @since 2018-12-06 17:06:25
  */
-public class DefendValueWeakenBuff extends Buff {
-    private int value; // 增加值, 如20即防御减少20
+public class DefendPercentWeakenBuff extends Buff {
+    private int valuePercent; // 增加值, 如20即防御减少20
 
-    /**
-     * @param value 增加的攻击力值
-     * @param lastRounds 持续的回合数
-     */
-    public DefendValueWeakenBuff(int value, int lastRounds) {
-        AssertUtil.assertTrue(value > 0, "value should greater than zero");
-        this.value = value;
+    public DefendPercentWeakenBuff(int valuePercent, int lastRounds) {
+        AssertUtil.assertTrue(valuePercent > 0, "valuePercent should greater than zero");
+        this.valuePercent = valuePercent;
         super.setLastRounds(lastRounds);
     }
 
@@ -27,7 +23,7 @@ public class DefendValueWeakenBuff extends Buff {
     protected void apply(Fightable fightable) {
         RoleMetaData roleMetaData = fightable.getRoleMetaData();
         int defend = roleMetaData.getDefend();
-        defend += value;
+        defend += defend * (valuePercent / 100.0); // 此时的attack是最终值，减去角色本身的属性值就是增量
         fightable.setBuffDefend(roleMetaData.getDefend() - defend);
     }
 

@@ -48,10 +48,10 @@ public abstract class Fightable implements Cloneable {
         return roleMetaData.getAttack() + buffManager.getBuffAttack(this.clone());
     }
     public int getDefendWithBuff() {
-        return roleMetaData.getAttack() + buffManager.getBuffDefend(this.clone());
+        return roleMetaData.getDefend() + buffManager.getBuffDefend(this.clone());
     }
     public int getSpeedWithBuff() {
-        return roleMetaData.getAttack() + buffManager.getBuffSpeed(this.clone());
+        return roleMetaData.getSpeed() + buffManager.getBuffSpeed(this.clone());
     }
 
     public int getBuffAttack() {
