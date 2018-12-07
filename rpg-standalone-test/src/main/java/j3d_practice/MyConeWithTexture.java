@@ -52,7 +52,7 @@ public class MyConeWithTexture extends Applet {
 
         // 设置纹理图片 需要配置合Cone.GENERATE_TEXTURE_COORDS
         Appearance appearance = new Appearance();
-        TextureLoader textureLoader = new TextureLoader(AssetsUtil.getResourcePath("/texture/2.jpg"), this);
+        TextureLoader textureLoader = new TextureLoader(AssetsUtil.getResourcePath("/texture/brick02.png"), this);
         Texture2D texture2D = (Texture2D)textureLoader.getTexture();
         texture2D.setBoundaryModeS(Texture.WRAP);
         appearance.setTexture(texture2D);

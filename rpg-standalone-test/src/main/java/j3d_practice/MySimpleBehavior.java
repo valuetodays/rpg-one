@@ -1,7 +1,9 @@
 package j3d_practice;
 
+import billy.rpg.common.util.AssetsUtil;
 import com.sun.j3d.utils.applet.MainFrame;
-import com.sun.j3d.utils.geometry.ColorCube;
+import com.sun.j3d.utils.geometry.Box;
+import com.sun.j3d.utils.image.TextureLoader;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 
 import javax.media.j3d.*;
@@ -77,7 +79,30 @@ public class MySimpleBehavior extends Applet {
         TransformGroup objRotate = new TransformGroup();
         objRotate.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
         objRoot.addChild(objRotate);
-        objRotate.addChild(new ColorCube(0.4));
+
+
+        // 设置纹理图片 需要配置合Cone.GENERATE_TEXTURE_COORDS
+        Appearance appearanceFront = new Appearance();
+        {
+            TextureLoader textureLoaderFront = new TextureLoader(AssetsUtil.getResourcePath("/texture/brick02.png"), this);
+            Texture2D texture2DFront = (Texture2D) textureLoaderFront.getTexture();
+            texture2DFront.setBoundaryModeS(Texture.WRAP);
+            appearanceFront.setTexture(texture2DFront);
+        }
+        Appearance appearanceLeft = new Appearance();
+        {
+            TextureLoader textureLoaderLeft = new TextureLoader(AssetsUtil.getResourcePath("/texture/brick01.png"), this);
+            Texture2D texture2DLeft = (Texture2D)textureLoaderLeft.getTexture();
+            texture2DLeft.setBoundaryModeS(Texture.WRAP);
+            appearanceLeft.setTexture(texture2DLeft);
+        }
+
+        //////////////////////
+        Box box = new Box(.6f, .6f, .6f, Box.GENERATE_NORMALS | Box.GENERATE_TEXTURE_COORDS, appearanceFront);
+        box.getShape(Box.LEFT).setAppearance(appearanceLeft); // 左面独立设置一下纹理
+        objRotate.addChild(box);
+
+
         MyBehavior myBehavior = new MyBehavior(objRotate);
         myBehavior.setSchedulingBounds(new BoundingSphere());
         objRoot.addChild(myBehavior);
