@@ -36,8 +36,18 @@ public class BattleUIScreen extends BaseScreen {
         return parentScreen;
     }
 
-    public int enemySize() {
+    /**
+     * 敌方数量
+     */
+    public int enemyCount() {
         return monsterBattleList.size();
+    }
+
+    /**
+     * 敌方存活数量
+     */
+    public int enemyAliveCount() {
+        return (int)monsterBattleList.stream().filter(e -> !e.isDied()).count();
     }
 
     public BattleUIScreen(GameContainer gameContainer, final int[] metMonsterIds, BattleScreen battleScreen, List<HeroCharacter> heroBattleList) {

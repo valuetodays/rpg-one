@@ -103,7 +103,7 @@ public class BattleOptionScreen extends BaseScreen {
                 int range = activeHero.getEquipables().getWeapon().getEquip().getGoods().getRange();
                 logger.debug("range: " + range);
                 if (range == GoodsMetaData.RANGE_SINGLE) { // 单攻
-                    int enemySize = battleUIScreen.enemySize();
+                    int enemySize = battleUIScreen.enemyAliveCount();
                     if (enemySize == 1) { // 只有一个敌人
                         getBattleUIScreen().actionList.add(new BattleAction(BattleAction.FROM_HERO,
                                 getBattleUIScreen().heroIndex,

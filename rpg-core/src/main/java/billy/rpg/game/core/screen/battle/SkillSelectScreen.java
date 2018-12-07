@@ -89,7 +89,7 @@ public class SkillSelectScreen extends BaseScreen {
             int targetType = skillMetaData.getTargetType();
             logger.debug("targetType: " + targetType);
             if (SkillMetaData.TARGET_TYPE_SINGLE == targetType) { // 单体技能
-                int enemySize = battleUIScreen.enemySize();
+                int enemySize = battleUIScreen.enemyAliveCount();
                 if (enemySize == 1) { // 只有一个敌人
                     getBattleUIScreen().actionList.add(new BattleAction(BattleAction.FROM_HERO,
                             getBattleUIScreen().heroIndex,
