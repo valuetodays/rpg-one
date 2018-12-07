@@ -10,13 +10,14 @@ public class BattleAction {
         COMMON(0, "普攻"),
         SKILL(1, "技能"),
         GOODS(2, "物品"),
-        ESCAPE(3, "逃跑");
+        STATE(3, "状态"),
+        ESCAPE(4, "逃跑");
 
-        private int orderNum;
+        private int order;
         private String desc;
 
-        BattleOption(int orderNum, String desc) {
-            this.orderNum = orderNum;
+        BattleOption(int order, String desc) {
+            this.order = order;
             this.desc = desc;
         }
 
@@ -24,8 +25,8 @@ public class BattleAction {
             return desc;
         }
 
-        public int getOrderNum() {
-            return orderNum;
+        public int getOrder() {
+            return order;
         }
     }
 

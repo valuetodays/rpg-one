@@ -1,6 +1,8 @@
 package billy.rpg.game.core.character.fightable;
 
 import billy.rpg.game.core.buff.Buff;
+import billy.rpg.game.core.character.equipable.Equipables;
+import billy.rpg.game.core.container.GameContainer;
 import billy.rpg.resource.role.RoleMetaData;
 
 import java.awt.*;
@@ -28,6 +30,12 @@ public abstract class Fightable implements Cloneable {
     private int buffAttack;
     private int buffDefend;
     private int buffSpeed;
+
+    private Equipables equipables;
+
+    public Fightable(GameContainer gameContainer) {
+        equipables = new Equipables(gameContainer);
+    }
 
     /**
      * 设置角色元数据，独立出本方法是因为妖怪的属性是不变的，而玩家的属性是成长的
@@ -142,6 +150,14 @@ public abstract class Fightable implements Cloneable {
 
     public int getDefendFrame() {
         return defendFrame;
+    }
+
+    public Equipables getEquipables() {
+        return equipables;
+    }
+
+    public void setEquipables(Equipables equipables) {
+        this.equipables = equipables;
     }
 
     @Override

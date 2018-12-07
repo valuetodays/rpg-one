@@ -224,7 +224,7 @@ public class BattleUIScreen extends BaseScreen {
         this.fromHero = fromHero;
     }
     public void nextRound() {
-        round++;
+        this.round++;
     }
 
     public void roundEnd() {
@@ -232,6 +232,6 @@ public class BattleUIScreen extends BaseScreen {
         this.getParentScreen().pop();
         this.heroIndex = 0; // 将当前活动的heroIndex置为首个
         this.actionList.clear(); // 清空播放动画
-        nextRound();
+        this.nextRound();
     }
 }

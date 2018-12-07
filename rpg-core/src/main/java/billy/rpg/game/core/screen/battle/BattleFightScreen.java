@@ -90,7 +90,7 @@ public class BattleFightScreen extends BaseScreen {
         int high = battleAction.high;
         int low = battleAction.low;
 
-        if (actionType == BattleAction.BattleOption.COMMON.getOrderNum()) { // 普攻
+        if (actionType == BattleAction.BattleOption.COMMON.getOrder()) { // 普攻
             final int finalTargetIndex = targetIndex;
             getBattleUIScreen().getParentScreen().push(
                 new BattleCommonActionScreen(
@@ -114,7 +114,7 @@ public class BattleFightScreen extends BaseScreen {
                             checkWinOrLose(gameContainer);
                         }
                     }));
-        } else if (actionType == BattleAction.BattleOption.SKILL.getOrderNum()) { // 技能
+        } else if (actionType == BattleAction.BattleOption.SKILL.getOrder()) { // 技能
             // 技能攻击时，攻击者不应向目标行动
             logger.debug("使用技能攻击");
             final int finalTargetIndex = targetIndex;
@@ -144,10 +144,10 @@ public class BattleFightScreen extends BaseScreen {
                             checkWinOrLose(gameContainer);
                         }
                     }));
-        } else if (actionType == BattleAction.BattleOption.GOODS.getOrderNum()) {
+        } else if (actionType == BattleAction.BattleOption.GOODS.getOrder()) {
             // TODO
             logger.debug("妖怪不会使用物品");
-        } else if (actionType == BattleAction.BattleOption.ESCAPE.getOrderNum()) {
+        } else if (actionType == BattleAction.BattleOption.ESCAPE.getOrder()) {
             // TODO
             logger.debug("非特殊妖怪不会逃跑");
         } else {
@@ -183,7 +183,7 @@ public class BattleFightScreen extends BaseScreen {
         int high = battleAction.high;
         int low = battleAction.low;
 
-        if (actionType == BattleAction.BattleOption.COMMON.getOrderNum()) { // 普攻
+        if (actionType == BattleAction.BattleOption.COMMON.getOrder()) { // 普攻
             logger.debug("使用"+BattleAction.BattleOption.COMMON.getDesc()+"攻击");
             final int finalTargetIndex = targetIndex;
             getBattleUIScreen().getParentScreen().push(
@@ -207,7 +207,7 @@ public class BattleFightScreen extends BaseScreen {
                             checkWinOrLose(gameContainer);
                         }
                     }));
-        } else if (actionType == BattleAction.BattleOption.SKILL.getOrderNum()) { // 技能
+        } else if (actionType == BattleAction.BattleOption.SKILL.getOrder()) { // 技能
             logger.debug("使用"+BattleAction.BattleOption.SKILL.getDesc()+"攻击");
             final int finalTargetIndex = targetIndex;
             SkillMetaData skillMetaData = gameContainer.getSkillMetaDataOf(high);
@@ -270,9 +270,9 @@ public class BattleFightScreen extends BaseScreen {
                                 }));
             }
 
-        } else if (actionType == BattleAction.BattleOption.GOODS.getOrderNum()) {
+        } else if (actionType == BattleAction.BattleOption.GOODS.getOrder()) {
             logger.debug("暂没有物品");
-        } else if (actionType == BattleAction.BattleOption.ESCAPE.getOrderNum()) {
+        } else if (actionType == BattleAction.BattleOption.ESCAPE.getOrder()) {
             logger.debug("众妖怪：菜鸡别跑！");
             // TODO 金币减少100*妖怪数量。
             // TODO 此时要是逃跑成功，应该跳到地图界面

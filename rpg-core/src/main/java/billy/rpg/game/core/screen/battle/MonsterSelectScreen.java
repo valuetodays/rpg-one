@@ -127,7 +127,7 @@ public class MonsterSelectScreen extends BaseScreen {
             }
             getBattleUIScreen().getParentScreen().pop(); // TODO 清除什么？
             getBattleUIScreen().heroIndex++;
-            battleOptionScreen.heroActionChoice = BattleAction.BattleOption.COMMON.getOrderNum(); // 重置成普攻
+            battleOptionScreen.heroActionChoice = BattleAction.BattleOption.COMMON.getOrder(); // 重置成普攻
             if (getBattleUIScreen().heroIndex < getBattleUIScreen().heroBattleList.size()) {
 
             } else {
