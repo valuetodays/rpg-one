@@ -1,0 +1,16 @@
+- 解压jogamp-all-platforms
+- 配置Modules的dependencies（只需要gluegen-rt-natives-windows-amd64.jar和joal-natives-windows-amd64.jar）, 见http://jogamp.org/wiki/index.php/Setting_up_a_JogAmp_project_in_your_favorite_IDE
+- pom.xml中添加        <dependency>
+                <groupId>org.jogamp.jogl</groupId>
+                <artifactId>jogl-all</artifactId>
+                <version>2.3.2</version>
+        </dependency>
+        <dependency>
+                <groupId>org.jogamp.gluegen</groupId>
+                <artifactId>gluegen-rt</artifactId>
+                <version>2.3.2</version>
+        </dependency>
+- 
+注意要使用-Djava.library.path=D:\shigoto\sw\jogamp\jogamp-all-platforms\jogamp-all-platforms\lib\windows-amd64
+
+2018/12/7

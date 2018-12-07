@@ -1,0 +1,9 @@
+出现异常：no j3dcore-ogl in java.library.path
+就操作如下：
+- 安装java3d
+- 将J3D_HOME/lib/ext/*.jar  复制到 JAVA_HOME/jre/lib/ext
+                 bin/*.dll  复制到 JAVA_HOME/jre/bin
+
+暂未使用到jmf
+
+2018/12/7

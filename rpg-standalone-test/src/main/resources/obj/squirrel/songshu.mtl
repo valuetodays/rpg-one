@@ -3,19 +3,19 @@ illum 4
 Kd 0.00 0.00 0.00
 Ka 0.00 0.00 0.00
 Tf 1.00 1.00 1.00
-map_Kd tou.psd
+map_Kd tou.jpg
 Ni 1.00
 newmtl lambert3SG
 illum 4
 Kd 0.00 0.00 0.00
 Ka 0.00 0.00 0.00
 Tf 1.00 1.00 1.00
-map_Kd shen.psd
+map_Kd shen.jpg
 Ni 1.00
 newmtl lambert4SG
 illum 4
 Kd 0.00 0.00 0.00
 Ka 0.00 0.00 0.00
 Tf 1.00 1.00 1.00
-map_Kd wei.psd
+map_Kd wei.jpg
 Ni 1.00

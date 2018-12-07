@@ -103,8 +103,8 @@ public class JavaModelObjLoaderSimpleWithKeyControl extends JFrame {
         TransformGroup objTrans = new TransformGroup();
         objTrans.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
         //加载Obj格式的模型文件
-//        String resourcePath = AssetsUtil.getResourcePath("/obj/teleport/Teleport.obj");
-        String resourcePath = AssetsUtil.getResourcePath("/obj/female_model/file.obj");
+        String resourcePath = AssetsUtil.getResourcePath("/obj/teleport/Teleport.obj");
+//        String resourcePath = AssetsUtil.getResourcePath("/obj/squirrel/songshu.obj");
         objTrans.addChild(new ObjFileReader(resourcePath));
         //将模型添加到变换组节点
         transGroup.addChild(objTrans);

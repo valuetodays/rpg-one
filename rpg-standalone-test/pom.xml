@@ -10,7 +10,6 @@
     <packaging>jar</packaging>
     <artifactId>rpg-standalone-test</artifactId>
 
-
     <dependencies>
         <dependency>
             <groupId>commons-io</groupId>
@@ -22,6 +21,18 @@
             <artifactId>rpg-common</artifactId>
             <version>1.1-SNAPSHOT</version>
         </dependency>
+
+        <dependency>
+                <groupId>org.jogamp.jogl</groupId>
+                <artifactId>jogl-all</artifactId>
+                <version>2.3.2</version>
+        </dependency>
+        <dependency>
+                <groupId>org.jogamp.gluegen</groupId>
+                <artifactId>gluegen-rt</artifactId>
+                <version>2.3.2</version>
+        </dependency>
+
     </dependencies>
 
 
