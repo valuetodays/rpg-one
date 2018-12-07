@@ -1,0 +1,10 @@
+{
+	"animationId":3,
+	"baseDamage":0,
+	"consume":30,
+	"desc":"加攻",
+	"name":"加攻",
+	"number":3,
+	"targetType":0,
+	"type":2
+}

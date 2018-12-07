@@ -61,7 +61,7 @@ public class SkillSelectScreen extends BaseScreen {
             SkillMetaData smd = skillList.get(i);
             g.drawString(smd.getName() + " [消耗" + smd.getConsume() +"]", 30, 30 + i * 25);
         }
-        g.drawString(skillList.get(skillIndex).getDesc(), 35, 230);
+        g.drawString(skillList.get(skillIndex).getDescWithTargetType(), 35, 230);
 
         desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
     }
@@ -88,11 +88,24 @@ public class SkillSelectScreen extends BaseScreen {
             }
             int targetType = skillMetaData.getTargetType();
             logger.debug("targetType: " + targetType);
-            if (SkillMetaData.TARGET_TYPE_SINGLE == targetType) {
-                MonsterSelectScreen chooseMonsterScreen = new MonsterSelectScreen(getBattleUIScreen(),
-                        battleOptionScreen, skillId);
-                getBattleUIScreen().getParentScreen().push(chooseMonsterScreen);
-            } else {
+            if (SkillMetaData.TARGET_TYPE_SINGLE == targetType) { // 单体技能
+                int enemySize = battleUIScreen.enemySize();
+                if (enemySize == 1) { // 只有一个敌人
+                    getBattleUIScreen().actionList.add(new BattleAction(BattleAction.FROM_HERO,
+                            getBattleUIScreen().heroIndex,
+                            0,
+                            battleOptionScreen.heroActionChoice, skillId, 0));
+                    if (getBattleUIScreen().heroIndex == getBattleUIScreen().heroBattleList.size() - 1) {
+                        battleOptionScreen.generateMonsterAttackAction();
+                    }
+                    getBattleUIScreen().getParentScreen().pop(); // 将技能选择屏幕清除掉
+                    getBattleUIScreen().nextHero(); // next hero
+                } else {
+                    MonsterSelectScreen chooseMonsterScreen = new MonsterSelectScreen(getBattleUIScreen(),
+                            battleOptionScreen, skillId);
+                    getBattleUIScreen().getParentScreen().push(chooseMonsterScreen);
+                }
+            } else { // 群体技能
             }
         } else if (KeyUtil.isUp(key)) {
             skillIndex--;

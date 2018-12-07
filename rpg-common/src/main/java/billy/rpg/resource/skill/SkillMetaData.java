@@ -9,10 +9,10 @@ public class SkillMetaData {
     public static final int TARGET_TYPE_SINGLE = 1;
     private int number;  // 唯一编号
     private String name; // 名称
-    private int type; // 类型
+    private int type; // 类型 1 攻击，2给我方施加buff，3给敌方施加buff，3回复生命
     private int baseDamage; // 基础伤害
     private int consume; // 消耗mp值
-    private int targetType; // 目标类型 0时为全体攻击，1为单体攻击
+    private int targetType = TARGET_TYPE_SINGLE; // 目标类型 0时为全体攻击，1为单体攻击
     private int animationId; // 动画id
     private String desc; // 描述
 
@@ -74,6 +74,9 @@ public class SkillMetaData {
 
     public String getDesc() {
         return desc;
+    }
+    public String getDescWithTargetType() {
+        return (targetType == TARGET_TYPE_ALL ? "【全体】": "") + desc;
     }
 
     public void setDesc(String desc) {
