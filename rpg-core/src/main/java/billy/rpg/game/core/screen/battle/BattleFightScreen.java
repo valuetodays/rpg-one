@@ -51,10 +51,7 @@ public class BattleFightScreen extends BaseScreen {
                 update0(gameContainer);
             } else {
                 logger.debug("一回合终于打完了");
-                getBattleUIScreen().fighting = false;
-                getBattleUIScreen().getParentScreen().pop();
-                getBattleUIScreen().heroIndex = 0; // 将当前活动的heroIndex置为首个
-                getBattleUIScreen().actionList.clear(); // 清空播放动画
+                getBattleUIScreen().roundEnd();
             }
         }
     }

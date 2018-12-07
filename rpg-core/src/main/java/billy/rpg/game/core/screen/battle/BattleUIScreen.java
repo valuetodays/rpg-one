@@ -31,6 +31,7 @@ public class BattleUIScreen extends BaseScreen {
     protected List<BattleAction> actionList = new ArrayList<>();
     protected boolean fighting;
     private boolean fromHero;
+    private int round = 1;
 
     public BattleScreen getParentScreen() {
         return parentScreen;
@@ -148,6 +149,7 @@ public class BattleUIScreen extends BaseScreen {
             battleImage = gameContainer.getBattleImageItem().getBattleImage(BattleImageItem.DEFAULT_BATTLE);
         }
         g.drawImage(battleImage, 0, 0, null);
+        g.drawString("ROUND: " + round, 450, 20);
 
         if (fromHero) {
             drawMonster(gameContainer, g);
@@ -220,5 +222,16 @@ public class BattleUIScreen extends BaseScreen {
 
     public void markHeroAsAttacker(boolean fromHero) {
         this.fromHero = fromHero;
+    }
+    public void nextRound() {
+        round++;
+    }
+
+    public void roundEnd() {
+        this.fighting = false;
+        this.getParentScreen().pop();
+        this.heroIndex = 0; // 将当前活动的heroIndex置为首个
+        this.actionList.clear(); // 清空播放动画
+        nextRound();
     }
 }
