@@ -41,7 +41,6 @@ public class BattleFightScreen extends BaseScreen {
         this.actionList = actionList;
     }
 
-
     @Override
     public void update(GameContainer gameContainer, long delta) {
         if (battleActionPreIndex != battleActionCurIndex) {
@@ -214,33 +213,66 @@ public class BattleFightScreen extends BaseScreen {
         } else if (actionType == BattleAction.BattleOption.SKILL.getOrderNum()) { // 技能
             logger.debug("使用"+BattleAction.BattleOption.SKILL.getDesc()+"攻击");
             final int finalTargetIndex = targetIndex;
-            getBattleUIScreen().getParentScreen().push(
+            SkillMetaData skillMetaData = gameContainer.getSkillMetaDataOf(high);
+            int type = skillMetaData.getType();
+            if (SkillMetaData.TYPE_ATTACK == type) {
+                getBattleUIScreen().getParentScreen().push(
                     new BattleSkillActionScreen(gameContainer,
-                            getBattleUIScreen().getParentScreen(),
-                            getBattleUIScreen().heroBattleList.get(attackerId),
-                            getBattleUIScreen().monsterBattleList.stream().map(e -> (Fightable)e).collect(Collectors.toList()),
-                            finalTargetIndex,
-                            high,
-                            new CommonAttackListener() {
-                                @Override
-                                public List<Integer> doGetAttackDamage() {
-                                    return getSkillAttackDamage(gameContainer, BattleAction.FROM_HERO, attackerId, finalTargetIndex, high);
-                                }
-                                @Override
-                                public void doAttack(List<Integer> dmg) {
-                                    doCauseDamage(BattleAction.FROM_HERO, attackerId, finalTargetIndex, dmg);
-                                }
-                                @Override
-                                public void onFinished() {
-                                    int consume = gameContainer.getSkillMetaDataOf(high).getConsume();
-                                    int mp = getBattleUIScreen().heroBattleList.get(attackerId).getRoleMetaData().getMp();
-                                    mp-=consume;
-                                    getBattleUIScreen().heroBattleList.get(attackerId).getRoleMetaData().setMp(mp);
-                                    getBattleUIScreen().getParentScreen().pop();
-                                    nextAction();
-                                    checkWinOrLose(gameContainer);
-                                }
-                            }));
+                        getBattleUIScreen().getParentScreen(),
+                        getBattleUIScreen().heroBattleList.get(attackerId),
+                        getBattleUIScreen().monsterBattleList.stream().map(e -> (Fightable)e).collect(Collectors.toList()),
+                        finalTargetIndex,
+                        high,
+                        new CommonAttackListener() {
+                            @Override
+                            public List<Integer> doGetAttackDamage() {
+                                return getSkillAttackDamage(gameContainer, BattleAction.FROM_HERO, attackerId, finalTargetIndex, high);
+                            }
+                            @Override
+                            public void doAttack(List<Integer> dmg) {
+                                doCauseDamage(BattleAction.FROM_HERO, attackerId, finalTargetIndex, dmg);
+                            }
+                            @Override
+                            public void onFinished() {
+                                int consume = gameContainer.getSkillMetaDataOf(high).getConsume();
+                                int mp = getBattleUIScreen().heroBattleList.get(attackerId).getRoleMetaData().getMp();
+                                mp-=consume;
+                                getBattleUIScreen().heroBattleList.get(attackerId).getRoleMetaData().setMp(mp);
+                                getBattleUIScreen().getParentScreen().pop();
+                                nextAction();
+                                checkWinOrLose(gameContainer);
+                            }
+                        }));
+            } else if (SkillMetaData.TYPE_ADD_BUFF_TO_OUR == type) {
+                getBattleUIScreen().getParentScreen().push(
+                        new BattleSkillActionScreen(gameContainer,
+                                getBattleUIScreen().getParentScreen(),
+                                getBattleUIScreen().heroBattleList.get(attackerId),
+                                getBattleUIScreen().heroBattleList.stream().map(e -> (Fightable)e).collect(Collectors.toList()),
+                                finalTargetIndex,
+                                high,
+                                new CommonAttackListener() {
+                                    @Override
+                                    public List<Integer> doGetAttackDamage() {
+                                        return getSkillAttackDamage(gameContainer, BattleAction.FROM_HERO, attackerId, finalTargetIndex, high);
+                                    }
+                                    @Override
+                                    public void doAttack(List<Integer> dmg) {
+                                        doCauseDamage(BattleAction.FROM_HERO, attackerId, finalTargetIndex, dmg);
+                                    }
+                                    @Override
+                                    public void onFinished() {
+                                        int consume = gameContainer.getSkillMetaDataOf(high).getConsume();
+                                        int mp = getBattleUIScreen().heroBattleList.get(attackerId).getRoleMetaData().getMp();
+                                        mp-=consume;
+                                        getBattleUIScreen().heroBattleList.get(attackerId).getRoleMetaData().setMp(mp);
+                                        getBattleUIScreen().getParentScreen().pop();
+                                        nextAction();
+                                        checkWinOrLose(gameContainer);
+                                    }
+                                }));
+            }
+
         } else if (actionType == BattleAction.BattleOption.GOODS.getOrderNum()) {
             logger.debug("暂没有物品");
         } else if (actionType == BattleAction.BattleOption.ESCAPE.getOrderNum()) {
@@ -276,18 +308,18 @@ public class BattleFightScreen extends BaseScreen {
         if (targetIndex != -1) {
             if (fromHero) {
                 HeroCharacter heroCharacter = getBattleUIScreen().heroBattleList.get(attackerId);
-                // 把装备的攻击力也计算进去
-                attack = heroCharacter.getRoleMetaData().getAttack() + ((WeaponEquip)(heroCharacter.getEquipables().getWeapon().getEquip())).getAttack();
+//                有效攻击力 = 角色本身攻击力 + buff + 装备攻击力
+                attack = heroCharacter.getAttackWithBuff() + ((WeaponEquip)(heroCharacter.getEquipables().getWeapon().getEquip())).getAttack();
 
                 MonsterCharacter target = getBattleUIScreen().monsterBattleList.get(targetIndex);
-                defend = target.getRoleMetaData().getDefend() + ((ClothesEquip)(target.getEquipables().getClothes().getEquip())).getDefend();
+                defend = target.getDefendWithBuff() + ((ClothesEquip)(target.getEquipables().getClothes().getEquip())).getDefend();
             } else {
                 MonsterCharacter attacker = getBattleUIScreen().monsterBattleList.get(attackerId);
-                attack = attacker.getRoleMetaData().getAttack() + ((WeaponEquip)(attacker.getEquipables().getWeapon().getEquip())).getAttack();
+                attack = attacker.getAttackWithBuff() + ((WeaponEquip)(attacker.getEquipables().getWeapon().getEquip())).getAttack();
 
                 HeroCharacter heroCharacter = getBattleUIScreen().heroBattleList.get(targetIndex);
                 // 把装备的防御力也计算
-                defend = heroCharacter.getRoleMetaData().getDefend() + ((ClothesEquip)(heroCharacter.getEquipables().getClothes().getEquip())).getDefend();
+                defend = heroCharacter.getDefendWithBuff() + ((ClothesEquip)(heroCharacter.getEquipables().getClothes().getEquip())).getDefend();
             }
 
             float dmgF = 1.0f * (attack*1.0f) * (100f/(defend+100f));
@@ -299,21 +331,20 @@ public class BattleFightScreen extends BaseScreen {
         } else {
             if (fromHero) {
                 HeroCharacter heroCharacter = getBattleUIScreen().heroBattleList.get(attackerId);
-                // 把装备的攻击力也计算进去
-                int attackerAttack = heroCharacter.getRoleMetaData().getAttack() + ((WeaponEquip)(heroCharacter.getEquipables().getWeapon().getEquip())).getAttack();
+                int attackerAttack = heroCharacter.getAttackWithBuff() + ((WeaponEquip)(heroCharacter.getEquipables().getWeapon().getEquip())).getAttack();
 
                 return getBattleUIScreen().monsterBattleList.stream().map(target -> {
-                    int targetDefend = target.getRoleMetaData().getDefend() + ((ClothesEquip) (target.getEquipables().getClothes().getEquip())).getDefend();
+                    int targetDefend = target.getDefendWithBuff()+ ((ClothesEquip) (target.getEquipables().getClothes().getEquip())).getDefend();
                     float dmgF = 1.0f * (attackerAttack*1.0f) * (100f/(targetDefend+100f));
                     return (int)dmgF;
                 }).collect(Collectors.toList());
             } else {
                 MonsterCharacter attacker = getBattleUIScreen().monsterBattleList.get(attackerId);
-                int attackerAttack = attacker.getRoleMetaData().getAttack() + ((WeaponEquip)(attacker.getEquipables().getWeapon().getEquip())).getAttack();
+                int attackerAttack = attacker.getAttackWithBuff() + ((WeaponEquip)(attacker.getEquipables().getWeapon().getEquip())).getAttack();
 
                 return getBattleUIScreen().heroBattleList.stream().map(heroCharacter -> {
                     // 把装备的防御力也计算
-                    int targetDefend = heroCharacter.getRoleMetaData().getDefend() + ((ClothesEquip)(heroCharacter.getEquipables().getClothes().getEquip())).getDefend();
+                    int targetDefend = heroCharacter.getDefendWithBuff() + ((ClothesEquip)(heroCharacter.getEquipables().getClothes().getEquip())).getDefend();
                     float dmgF = 1.0f * (attackerAttack*1.0f) * (100f/(targetDefend+100f));
                     return (int)dmgF;
                 }).collect(Collectors.toList());

@@ -37,12 +37,24 @@ public class BattleUIScreen extends BaseScreen {
     }
 
     /**
+     * 我方数量
+     */
+    public int ourCount() {
+        return heroBattleList.size();
+    }
+    /**
      * 敌方数量
      */
     public int enemyCount() {
         return monsterBattleList.size();
     }
 
+    /**
+     * 我方存活数量
+     */
+    public int ourAliveCount() {
+        return (int)heroBattleList.stream().filter(e -> !e.isDied()).count();
+    }
     /**
      * 敌方存活数量
      */

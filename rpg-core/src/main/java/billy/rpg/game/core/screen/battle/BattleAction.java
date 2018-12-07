@@ -45,8 +45,8 @@ public class BattleAction {
      * @param attackerId
      * @param targetIndex targetIndex = -1 时说明是全体攻击，其它时为被攻击的索引
      * @param actionType 行动类型，
-     * @param high 技能编号，当行动类型为｛@link #ACTION_SKILL}时该值有效，为0时
-     * @param low
+     * @param high 技能编号，当行动类型为｛@link #ACTION_SKILL}时该值有效
+     * @param low preserved
      */
     public BattleAction(boolean fromHero, int attackerId, int targetIndex, int actionType, int high, int low) {
         this.fromHero = fromHero;

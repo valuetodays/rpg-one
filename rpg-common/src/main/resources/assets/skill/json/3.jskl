@@ -2,9 +2,12 @@
 	"animationId":3,
 	"baseDamage":0,
 	"consume":30,
-	"desc":"加攻",
-	"name":"加攻",
+	"desc":"被施展者普通攻击效果上升7回合。",
+	"name":"灵虚战诀",
 	"number":3,
-	"targetType":0,
-	"type":2
+	"targetType":1,
+	"type":1,
+	"buff":"AttackEnhanceFixedValueBuff",
+	"buffValue": 10,
+	"buffRound": 20
 }

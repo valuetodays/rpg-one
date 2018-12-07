@@ -312,9 +312,11 @@ ILoader
     速度基本buff添加完毕
     提取两大抽象Buff类: FixedValueBuff, PercentValueBuff
     微调封面的雾的位置
-    物品中添加effectType来使用武器有群攻与单攻之分；
+    物品中添加range来使用武器有群攻与单攻之分；
     添加screenshot命令
 
 #### 2018-12-07
     普通攻击/技能攻击时若只有一个敌人则不需要选择就进行攻击
     技能攻击处理群体与单体之分
+    TODO learnSkill xx
+    处理技能：加攻型buff  （需要在各个地方判断技能的类型(type)是攻击的还是辅助的，代码好乱啊）

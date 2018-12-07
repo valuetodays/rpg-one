@@ -303,7 +303,7 @@ public class GameData {
                 // 首次加载角色信息，要升级到一级
                 heroRole.setLevel(0);
                 heroRole.setExp(0);
-                heroRole.setSkillIds("1,2");
+                heroRole.setSkillIds("1,2,3");
                 levelUp(gameContainer, heroRole, true);
 
                 HeroCharacter e = new HeroCharacter(gameContainer);

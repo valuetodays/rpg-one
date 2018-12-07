@@ -1,6 +1,8 @@
 package billy.rpg.game.core.screen.battle;
 
 import billy.rpg.game.core.DesktopCanvas;
+import billy.rpg.game.core.buff.Buff;
+import billy.rpg.game.core.buff.util.BuffUtil;
 import billy.rpg.game.core.character.fightable.Fightable;
 import billy.rpg.game.core.constants.GameConstant;
 import billy.rpg.game.core.container.GameContainer;
@@ -34,6 +36,7 @@ public class BattleSkillActionScreen extends BaseScreen {
     private int dmgLeft;
     private int targetIndex;
     private AnimationScreen animationScreen;
+    private final SkillMetaData skillMetaData;
 
     /**
      *  @param gameContainer
@@ -51,15 +54,28 @@ public class BattleSkillActionScreen extends BaseScreen {
         this.attackerPreLeft = attacker.getLeft();
         this.dmgs = commonAttackListener.doGetAttackDamage();
 
-        final SkillMetaData smd = gameContainer.getSkillMetaDataOf(skillId);
-        if (targetIndex == -1) {
-            animationScreen = new AnimationScreen(gameContainer, smd.getAnimationId(),
-                    300, 80, battleScreen);
-        } else {
-            Fightable chosenMonsterBattle = targets.get(targetIndex);
-            animationScreen = new AnimationScreen(gameContainer, smd.getAnimationId(),
-                    chosenMonsterBattle.getLeft() - chosenMonsterBattle.getWidth() / 2,
-                    chosenMonsterBattle.getTop(), battleScreen);
+        skillMetaData = gameContainer.getSkillMetaDataOf(skillId);
+        int type = skillMetaData.getType();
+        if (SkillMetaData.TYPE_ATTACK == type) {
+            if (targetIndex == -1) {
+                animationScreen = new AnimationScreen(gameContainer, skillMetaData.getAnimationId(),
+                        300, 80, battleScreen);
+            } else {
+                Fightable chosenMonsterBattle = targets.get(targetIndex);
+                animationScreen = new AnimationScreen(gameContainer, skillMetaData.getAnimationId(),
+                        chosenMonsterBattle.getLeft() - chosenMonsterBattle.getWidth() / 2,
+                        chosenMonsterBattle.getTop(), battleScreen);
+            }
+        } else if (SkillMetaData.TYPE_ADD_BUFF_TO_OUR == type) {
+            if (targetIndex == -1) {
+                animationScreen = new AnimationScreen(gameContainer, skillMetaData.getAnimationId(),
+                        300, 380, battleScreen);
+            } else {
+                Fightable chosenHeroBattle = targets.get(targetIndex);
+                animationScreen = new AnimationScreen(gameContainer, skillMetaData.getAnimationId(),
+                        chosenHeroBattle.getLeft() - chosenHeroBattle.getWidth() / 2,
+                        chosenHeroBattle.getTop(), battleScreen);
+            }
         }
     }
 
@@ -79,19 +95,46 @@ public class BattleSkillActionScreen extends BaseScreen {
         } else if (state == STATE_AFT) {
             if (dmgFrame > 10) {
                 state = STATE_FIN;
-                commonAttackListener.doAttack(dmgs);
+                int type = skillMetaData.getType();
+                if (SkillMetaData.TYPE_ATTACK == type) {
+                    commonAttackListener.doAttack(dmgs);
+                } else if (SkillMetaData.TYPE_ADD_BUFF_TO_OUR == type) {
+                    Buff buff = BuffUtil.skillToBuff(skillMetaData);
+                    if (targetIndex == -1) {
+                        targets.stream().filter(e -> !e.isDied()).forEach(buff::doApply);
+                    } else {
+                        Fightable chosenHeroBattle = targets.get(targetIndex);
+                        buff.doApply(chosenHeroBattle);
+                    }
+                }
             } else {
-                if (targetIndex == -1) { // 全体攻击时，攻击者攻向屏幕中间即可
-                    dmgLeft = 640/3;
-                    dmgTop = 120 - dmgFrame * 3;
-                    dmgFrame++;
-                } else {
-                    Fightable target = targets.get(targetIndex);
-                    int targetCenterX = target.getLeft() + target.getWidth() / 2;
-                    int targetY = target.getTop();
-                    dmgLeft = targetCenterX;
-                    dmgTop = targetY - dmgFrame * 3;
-                    dmgFrame++;
+                int type = skillMetaData.getType();
+                if (SkillMetaData.TYPE_ATTACK == type) {
+                    if (targetIndex == -1) { // 全体攻击时，攻击者攻向屏幕中间即可
+                        dmgLeft = 640 / 3;
+                        dmgTop = 120 - dmgFrame * 3;
+                        dmgFrame++;
+                    } else {
+                        Fightable target = targets.get(targetIndex);
+                        int targetCenterX = target.getLeft() + target.getWidth() / 2;
+                        int targetY = target.getTop();
+                        dmgLeft = targetCenterX;
+                        dmgTop = targetY - dmgFrame * 3;
+                        dmgFrame++;
+                    }
+                } else if (SkillMetaData.TYPE_ADD_BUFF_TO_OUR == type) {
+                    if (targetIndex == -1) { // 全体攻击时，攻击者攻向屏幕中间即可
+                        dmgLeft = 640 / 3;
+                        dmgTop = 120 - dmgFrame * 3;
+                        dmgFrame++;
+                    } else {
+                        Fightable target = targets.get(targetIndex);
+                        int targetCenterX = target.getLeft() + target.getWidth() / 2;
+                        int targetY = target.getTop();
+                        dmgLeft = targetCenterX;
+                        dmgTop = targetY - dmgFrame * 3;
+                        dmgFrame++;
+                    }
                 }
             }
 
@@ -110,19 +153,37 @@ public class BattleSkillActionScreen extends BaseScreen {
                 animationScreen.draw(gameContainer, desktopCanvas);
             }
         } else if (state == STATE_AFT) {
-            BufferedImage paint = new BufferedImage(
-                    GameConstant.GAME_WIDTH,
-                    GameConstant.GAME_HEIGHT,
-                    BufferedImage.TYPE_4BYTE_ABGR);
-            Graphics g = paint.getGraphics();
-            g.setFont(GameConstant.FONT_DAMAGE);
-            g.setColor(Color.red);
-            for (int i = 0; i < dmgs.size(); i++) { // 群攻显示扣除的血量
-                Integer dmg = dmgs.get(i);
-                g.drawString("-" + dmg, dmgLeft + 100 * i, dmgTop); //
+            int type = skillMetaData.getType();
+            if (SkillMetaData.TYPE_ATTACK == type) {
+                BufferedImage paint = new BufferedImage(
+                        GameConstant.GAME_WIDTH,
+                        GameConstant.GAME_HEIGHT,
+                        BufferedImage.TYPE_4BYTE_ABGR);
+                Graphics g = paint.getGraphics();
+                g.setFont(GameConstant.FONT_DAMAGE);
+                g.setColor(Color.red);
+                for (int i = 0; i < dmgs.size(); i++) { // 群攻显示扣除的血量
+                    Integer dmg = dmgs.get(i);
+                    g.drawString("-" + dmg, dmgLeft + 100 * i, dmgTop); //
+                }
+                g.dispose();
+                desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
+            } else if (SkillMetaData.TYPE_ADD_BUFF_TO_OUR == type) {
+                Buff buff = BuffUtil.skillToBuff(skillMetaData);
+                BufferedImage paint = new BufferedImage(
+                        GameConstant.GAME_WIDTH,
+                        GameConstant.GAME_HEIGHT,
+                        BufferedImage.TYPE_4BYTE_ABGR);
+                Graphics g = paint.getGraphics();
+                g.setFont(GameConstant.FONT_DAMAGE);
+                g.setColor(Color.red);
+                for (int i = 0; i < dmgs.size(); i++) {
+                    Integer dmg = dmgs.get(i);
+                    g.drawString("+" + buff.getName() + buff, dmgLeft + 100 * i, dmgTop); //
+                }
+                g.dispose();
+                desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
             }
-            g.dispose();
-            desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
 
         }
     }
