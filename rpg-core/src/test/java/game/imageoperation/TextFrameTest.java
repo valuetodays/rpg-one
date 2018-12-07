@@ -1,17 +1,12 @@
-package game.imagetransform;
-
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Point;
-
-import javax.swing.JFrame;
-import javax.swing.WindowConstants;
+package game.imageoperation;
 
 import billy.rpg.common.util.TextUtil;
 
+import javax.swing.*;
+import java.awt.*;
+
 /**
- * 相对长度的进度条
+ * 文本打印测试
  *
  * @author lei.liu@datatist.com
  * @since 2018-11-08 17:21:30

@@ -1,4 +1,4 @@
-package game.imagetransform;
+package game.imageoperation;
 
 import billy.rpg.common.util.ImageUtil;
 
@@ -9,14 +9,14 @@ import billy.rpg.common.util.ImageUtil;
  * @author liulei@bshf360.com
  * @since 2018-01-13 18:07
  */
-public class ImageTransformFrame3 extends ImageOperationBaseFrame {
+public class FogImageOperationFrame extends ImageOperationBaseFrame {
     private static final long serialVersionUID = 1L;
     
     public static void main(String[] args) {
-        new ImageTransformFrame3();
+        new FogImageOperationFrame();
     }
 
-    public ImageTransformFrame3() {
+    public FogImageOperationFrame() {
         super("雾化效果");// 设置 标题
     }
 

@@ -1,4 +1,4 @@
-package game.imagetransform;
+package game.imageoperation;
 
 import java.awt.Font;
 import java.awt.Graphics;

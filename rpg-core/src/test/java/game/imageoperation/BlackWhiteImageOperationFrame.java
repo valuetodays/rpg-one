@@ -1,4 +1,4 @@
-package game.imagetransform;
+package game.imageoperation;
 
 import billy.rpg.common.util.ImageUtil;
 
@@ -8,14 +8,14 @@ import billy.rpg.common.util.ImageUtil;
  * @author liulei@bshf360.com
  * @since 2018-01-13 18:07
  */
-public class ImageTransformFrame2 extends ImageOperationBaseFrame {
+public class BlackWhiteImageOperationFrame extends ImageOperationBaseFrame {
     private static final long serialVersionUID = 624414065421747049L;
 
     public static void main(String[] args) {
-        new ImageTransformFrame2();
+        new BlackWhiteImageOperationFrame();
     }
 
-    public ImageTransformFrame2() {
+    public BlackWhiteImageOperationFrame() {
         super("黑白效果");// 设置 标题
     }
 

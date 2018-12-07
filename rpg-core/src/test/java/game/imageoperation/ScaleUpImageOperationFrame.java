@@ -1,21 +1,21 @@
-package game.imagetransform;
-
-import java.awt.RenderingHints;
+package game.imageoperation;
 
 import billy.rpg.common.util.ImageUtil;
+
+import java.awt.*;
 
 /**
  * @author lei.liu@datatist.com
  * @since 2018-11-08 10:54:14
  */
-public class ScaleUpTest extends ImageOperationBaseFrame {
+public class ScaleUpImageOperationFrame extends ImageOperationBaseFrame {
     private static final long serialVersionUID = -6925513451188025986L;
 
     public static void main(String[] args) {
-        new ScaleUpTest();
+        new ScaleUpImageOperationFrame();
     }
 
-    public ScaleUpTest() {
+    public ScaleUpImageOperationFrame() {
         super("图像放大");// 设置 标题
     }
 
