@@ -36,6 +36,10 @@ public class BattleUIScreen extends BaseScreen {
         return parentScreen;
     }
 
+    public int enemySize() {
+        return monsterBattleList.size();
+    }
+
     public BattleUIScreen(GameContainer gameContainer, final int[] metMonsterIds, BattleScreen battleScreen, List<HeroCharacter> heroBattleList) {
         logger.debug("met monsters with["+ ArrayUtils.toString(metMonsterIds)+"]");
         parentScreen = battleScreen;

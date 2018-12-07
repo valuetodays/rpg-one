@@ -17,6 +17,7 @@ createtransfer 202 23 12
 createchest 301 9 3 yes
 createnpc 105 8 3 15 1
 createnpc 106 7 3 15 1
+createnpc 107 6 3 15 1
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @  用于测试
@@ -141,8 +142,11 @@ if 3 已打开宝箱
 set 3
 return
 
+测试战斗1个怪:
+fight "battle_image.png" 51
+return
+
 测试战斗:
-say 2 '测试战斗' NONE '看招！'
 fight "battle_image.png" 51 51 51
 return
 
@@ -186,7 +190,8 @@ return
 trigger 101 玉兰草
 trigger 102 钨龙剑
 trigger 105 测试战斗
-trigger 106 测试截屏
+trigger 106 测试战斗1个怪
+trigger 107 测试截屏
 
 trigger 14 testForAll
 

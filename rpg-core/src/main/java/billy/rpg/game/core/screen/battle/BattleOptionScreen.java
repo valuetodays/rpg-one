@@ -100,25 +100,35 @@ public class BattleOptionScreen extends BaseScreen {
             if (heroActionChoice == BattleAction.BattleOption.COMMON.getOrderNum()) {  // 普攻
                 HeroCharacter activeHero = getBattleUIScreen().getActiveHero();
                 //
-                int effectType = activeHero.getEquipables().getWeapon().getEquip().getGoods().getEffectType();
-                logger.debug("effectType: " + effectType);
-                if (effectType == GoodsMetaData.WEAPON_EFFECT_TYPE_SINGLE) { // 单攻
-                    MonsterSelectScreen chooseMonsterScreen = new MonsterSelectScreen(battleUIScreen, this, -1);
-                    getBattleUIScreen().getParentScreen().push(chooseMonsterScreen);
-                } else if (effectType == GoodsMetaData.WEAPON_EFFECT_TYPE_ALL) { // 群攻
+                int range = activeHero.getEquipables().getWeapon().getEquip().getGoods().getRange();
+                logger.debug("range: " + range);
+                if (range == GoodsMetaData.RANGE_SINGLE) { // 单攻
+                    int enemySize = battleUIScreen.enemySize();
+                    if (enemySize == 1) { // 只有一个敌人
+                        getBattleUIScreen().actionList.add(new BattleAction(BattleAction.FROM_HERO,
+                                getBattleUIScreen().heroIndex,
+                                0,
+                                heroActionChoice, -1, 0));
+                        if (getBattleUIScreen().heroIndex == getBattleUIScreen().heroBattleList.size() - 1) {
+                            generateMonsterAttackAction();
+                        }
+                        getBattleUIScreen().nextHero(); // next hero
+                    } else { // 多于一个敌人
+                        MonsterSelectScreen chooseMonsterScreen = new MonsterSelectScreen(battleUIScreen, this, -1);
+                        getBattleUIScreen().getParentScreen().push(chooseMonsterScreen);
+                    }
+                } else if (range == GoodsMetaData.RANGE_ALL) { // 群攻
                     // 添加全体攻击效果
                     getBattleUIScreen().actionList.add(new BattleAction(BattleAction.FROM_HERO,
                             getBattleUIScreen().heroIndex,
                             -1,
                             heroActionChoice, 0, 0));
-                    // 只有一个玩家角色
                     if (getBattleUIScreen().heroIndex == getBattleUIScreen().heroBattleList.size() - 1) {
                         generateMonsterAttackAction();
-                    } else {
                     }
                     getBattleUIScreen().nextHero(); // next hero
                 } else {
-                    throw new RuntimeException("unknown effectType: " + effectType);
+                    throw new RuntimeException("unknown range: " + range);
                 }
             } else if (heroActionChoice == BattleAction.BattleOption.SKILL.getOrderNum()) {  // 技能
                 HeroCharacter activeHero = getBattleUIScreen().getActiveHero();

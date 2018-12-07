@@ -86,9 +86,14 @@ public class SkillSelectScreen extends BaseScreen {
                 getBattleUIScreen().getParentScreen().push(bs);
                 return;
             }
-            MonsterSelectScreen chooseMonsterScreen = new MonsterSelectScreen(getBattleUIScreen(),
-                    battleOptionScreen, skillId);
-            getBattleUIScreen().getParentScreen().push(chooseMonsterScreen);
+            int targetType = skillMetaData.getTargetType();
+            logger.debug("targetType: " + targetType);
+            if (SkillMetaData.TARGET_TYPE_SINGLE == targetType) {
+                MonsterSelectScreen chooseMonsterScreen = new MonsterSelectScreen(getBattleUIScreen(),
+                        battleOptionScreen, skillId);
+                getBattleUIScreen().getParentScreen().push(chooseMonsterScreen);
+            } else {
+            }
         } else if (KeyUtil.isUp(key)) {
             skillIndex--;
             if (skillIndex < 0) {
