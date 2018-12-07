@@ -9,14 +9,13 @@ import billy.rpg.game.core.container.GameContainer;
 import billy.rpg.game.core.equip.clothes.ClothesEquip;
 import billy.rpg.game.core.equip.weapon.WeaponEquip;
 import billy.rpg.game.core.listener.CommonAttackListener;
-import billy.rpg.game.core.screen.AnimationScreen;
 import billy.rpg.game.core.screen.BaseScreen;
 import billy.rpg.game.core.screen.battle.end.BattleDefeatScreen;
 import billy.rpg.game.core.screen.battle.end.BattleSuccessScreen;
 import billy.rpg.resource.skill.SkillMetaData;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -122,20 +121,17 @@ public class BattleFightScreen extends BaseScreen {
         } else if (actionType == BattleAction.BattleOption.SKILL.getOrderNum()) { // 技能
             // 技能攻击时，攻击者不应向目标行动
             logger.debug("使用技能攻击");
-            Fightable targetFightableCharacter = getBattleUIScreen().heroBattleList.get(targetIndex);
-            AnimationScreen bs = new AnimationScreen(gameContainer, 2,
-                    targetFightableCharacter.getLeft() - targetFightableCharacter.getWidth() / 2,
-                    targetFightableCharacter.getTop(), getBattleUIScreen().getParentScreen());
             final int finalTargetIndex = targetIndex;
             getBattleUIScreen().getParentScreen().push(
                 new BattleSkillActionScreen(
-                    getBattleUIScreen().monsterBattleList.get(attackerId),
-                    getBattleUIScreen().heroBattleList.get(finalTargetIndex),
-                    bs,
+                    gameContainer, getBattleUIScreen().getParentScreen(), getBattleUIScreen().monsterBattleList.get(attackerId),
+                    getBattleUIScreen().heroBattleList.stream().map(e -> (Fightable)e).collect(Collectors.toList()),
+                    finalTargetIndex,
+                    high,
                     new CommonAttackListener() {
                         @Override
                         public List<Integer> doGetAttackDamage() {
-                            return getSkillAttackDamage(gameContainer, high);
+                            return getSkillAttackDamage(gameContainer, BattleAction.FROM_HERO, attackerId, finalTargetIndex, high);
                         }
                         @Override
                         public void doAttack(List<Integer> dmg) {
@@ -192,6 +188,7 @@ public class BattleFightScreen extends BaseScreen {
         int low = battleAction.low;
 
         if (actionType == BattleAction.BattleOption.COMMON.getOrderNum()) { // 普攻
+            logger.debug("使用"+BattleAction.BattleOption.COMMON.getDesc()+"攻击");
             final int finalTargetIndex = targetIndex;
             getBattleUIScreen().getParentScreen().push(
                 new BattleCommonActionScreen(
@@ -215,22 +212,19 @@ public class BattleFightScreen extends BaseScreen {
                         }
                     }));
         } else if (actionType == BattleAction.BattleOption.SKILL.getOrderNum()) { // 技能
-            logger.debug("使用技能攻击妖怪");
-            Fightable chosenMonsterBattle = getBattleUIScreen().monsterBattleList.get(targetIndex);
-            final SkillMetaData smd = gameContainer.getSkillMetaDataOf(high);
-            AnimationScreen bs = new AnimationScreen(gameContainer, smd.getAnimationId(),
-                    chosenMonsterBattle.getLeft() - chosenMonsterBattle.getWidth() / 2,
-                    chosenMonsterBattle.getTop(), getBattleUIScreen().getParentScreen());
+            logger.debug("使用"+BattleAction.BattleOption.SKILL.getDesc()+"攻击");
             final int finalTargetIndex = targetIndex;
             getBattleUIScreen().getParentScreen().push(
-                    new BattleSkillActionScreen(
+                    new BattleSkillActionScreen(gameContainer,
+                            getBattleUIScreen().getParentScreen(),
                             getBattleUIScreen().heroBattleList.get(attackerId),
-                            getBattleUIScreen().monsterBattleList.get(finalTargetIndex),
-                            bs,
+                            getBattleUIScreen().monsterBattleList.stream().map(e -> (Fightable)e).collect(Collectors.toList()),
+                            finalTargetIndex,
+                            high,
                             new CommonAttackListener() {
                                 @Override
                                 public List<Integer> doGetAttackDamage() {
-                                    return getSkillAttackDamage(gameContainer, high);
+                                    return getSkillAttackDamage(gameContainer, BattleAction.FROM_HERO, attackerId, finalTargetIndex, high);
                                 }
                                 @Override
                                 public void doAttack(List<Integer> dmg) {
@@ -261,11 +255,18 @@ public class BattleFightScreen extends BaseScreen {
 
     /**
      * 计算技能伤害，TODO 暂时只处理固定伤害
+     * @param targetIndex
      * @param skillId skillId
      */
-    private List<Integer> getSkillAttackDamage(GameContainer gameContainer, int skillId) {
+    private List<Integer> getSkillAttackDamage(GameContainer gameContainer, boolean fromHero, int attackerId, int targetIndex, int skillId) {
         SkillMetaData skill = gameContainer.getSkillMetaDataOf(skillId);
-        return Arrays.asList(skill.getBaseDamage()); // TODO 根据目标个数计算出
+        if (targetIndex == -1) {
+            return getBattleUIScreen().monsterBattleList.stream().map(target -> {
+                return skill.getBaseDamage();
+            }).collect(Collectors.toList());
+        } else {
+            return Collections.singletonList(skill.getBaseDamage());
+        }
     }
 
     private List<Integer> getCommonAttackDamage(boolean fromHero, int attackerId, int targetIndex) {
@@ -328,7 +329,7 @@ public class BattleFightScreen extends BaseScreen {
      */
     private void doCauseDamage(boolean fromHero, int attackerId, int targetIndex, List<Integer> dmgs) {
         if (targetIndex != -1) {
-            int dmg = dmgs.get(0);
+            int dmg = dmgs.get(0); // 不是群体攻击，则只一个值
             Fightable target = null;
             String attackerName = null;
             String targetName = null;

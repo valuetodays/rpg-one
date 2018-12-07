@@ -105,7 +105,16 @@ public class SkillSelectScreen extends BaseScreen {
                             battleOptionScreen, skillId);
                     getBattleUIScreen().getParentScreen().push(chooseMonsterScreen);
                 }
-            } else { // 群体技能
+            } else if (targetType == SkillMetaData.TARGET_TYPE_ALL) { // 群体技能
+                getBattleUIScreen().actionList.add(new BattleAction(BattleAction.FROM_HERO,
+                        getBattleUIScreen().heroIndex,
+                        -1,
+                        battleOptionScreen.heroActionChoice, skillId, 0));
+                if (getBattleUIScreen().heroIndex == getBattleUIScreen().heroBattleList.size() - 1) {
+                    battleOptionScreen.generateMonsterAttackAction();
+                }
+                getBattleUIScreen().getParentScreen().pop(); // 将技能选择屏幕清除掉
+                getBattleUIScreen().nextHero(); // next hero
             }
         } else if (KeyUtil.isUp(key)) {
             skillIndex--;

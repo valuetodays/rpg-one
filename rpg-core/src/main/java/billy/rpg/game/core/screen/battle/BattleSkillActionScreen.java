@@ -7,9 +7,11 @@ import billy.rpg.game.core.container.GameContainer;
 import billy.rpg.game.core.listener.CommonAttackListener;
 import billy.rpg.game.core.screen.AnimationScreen;
 import billy.rpg.game.core.screen.BaseScreen;
+import billy.rpg.resource.skill.SkillMetaData;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.List;
 
 /**
  * 一次战斗(技能)动画
@@ -21,8 +23,7 @@ public class BattleSkillActionScreen extends BaseScreen {
     private static final int STATE_FIN = 4; // 结束
 
     private Fightable attacker;
-    private Fightable target;
-    private AnimationScreen animationScreen;
+    private java.util.List<Fightable> targets;
     private int state = STATE_PRE;
     private CommonAttackListener commonAttackListener;
     private final int attackerPreTop;
@@ -31,22 +32,35 @@ public class BattleSkillActionScreen extends BaseScreen {
     private int dmgFrame;
     private int dmgTop;
     private int dmgLeft;
+    private int targetIndex;
+    private AnimationScreen animationScreen;
 
     /**
-     *
+     *  @param gameContainer
      * @param attacker 攻击者
-     * @param target 被攻击者
-     * @param animationScreen 技能动画
+     * @param targets 被攻击者(们)
+     * @param skillId 技能id
      */
-    public BattleSkillActionScreen(Fightable attacker, Fightable target, AnimationScreen animationScreen,
+    public BattleSkillActionScreen(GameContainer gameContainer, BattleScreen battleScreen, Fightable attacker, List<Fightable> targets, int targetIndex, int skillId,
                                    CommonAttackListener commonAttackListener) {
         this.attacker = attacker;
-        this.target = target;
-        this.animationScreen = animationScreen;
+        this.targets = targets;
+        this.targetIndex = targetIndex;
         this.commonAttackListener = commonAttackListener;
         this.attackerPreTop = attacker.getTop();
         this.attackerPreLeft = attacker.getLeft();
         this.dmgs = commonAttackListener.doGetAttackDamage();
+
+        final SkillMetaData smd = gameContainer.getSkillMetaDataOf(skillId);
+        if (targetIndex == -1) {
+            animationScreen = new AnimationScreen(gameContainer, smd.getAnimationId(),
+                    300, 80, battleScreen);
+        } else {
+            Fightable chosenMonsterBattle = targets.get(targetIndex);
+            animationScreen = new AnimationScreen(gameContainer, smd.getAnimationId(),
+                    chosenMonsterBattle.getLeft() - chosenMonsterBattle.getWidth() / 2,
+                    chosenMonsterBattle.getTop(), battleScreen);
+        }
     }
 
     @Override
@@ -67,11 +81,18 @@ public class BattleSkillActionScreen extends BaseScreen {
                 state = STATE_FIN;
                 commonAttackListener.doAttack(dmgs);
             } else {
-                int targetCenterX = target.getLeft() + target.getWidth()/2;
-                int targetY       = target.getTop();
-                dmgLeft = targetCenterX;
-                dmgTop = targetY - dmgFrame*3;
-                dmgFrame++;
+                if (targetIndex == -1) { // 全体攻击时，攻击者攻向屏幕中间即可
+                    dmgLeft = 640/3;
+                    dmgTop = 120 - dmgFrame * 3;
+                    dmgFrame++;
+                } else {
+                    Fightable target = targets.get(targetIndex);
+                    int targetCenterX = target.getLeft() + target.getWidth() / 2;
+                    int targetY = target.getTop();
+                    dmgLeft = targetCenterX;
+                    dmgTop = targetY - dmgFrame * 3;
+                    dmgFrame++;
+                }
             }
 
 
@@ -85,7 +106,6 @@ public class BattleSkillActionScreen extends BaseScreen {
         if (state == STATE_PRE) {
 
         } else if (state == STATE_ANI) {
-
             if (animationScreen != null) {
                 animationScreen.draw(gameContainer, desktopCanvas);
             }
