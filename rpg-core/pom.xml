@@ -17,6 +17,18 @@
             <version>1.1-SNAPSHOT</version>
         </dependency>
         <dependency>
+            <groupId>com.billy</groupId>
+            <artifactId>rpg-thirdparty</artifactId>
+            <version>1.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.vaadin.addons</groupId>
+            <artifactId>imagefilter</artifactId>
+            <version>0.5.3</version>
+        </dependency>
+
+
+        <dependency>
             <groupId>javazoom</groupId>
             <artifactId>jlayer</artifactId>
             <version>1.0.1</version>
