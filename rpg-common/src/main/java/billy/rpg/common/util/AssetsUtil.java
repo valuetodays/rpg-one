@@ -74,7 +74,8 @@ public class AssetsUtil {
         String protocol = resourceURL.getProtocol();
 //        LOG.debug("protocol: " + protocol);
         if ("file".equals(protocol)) { // 处理开发环境的情况
-            return resourceURL.getPath();
+            String substring = resourceURL.getPath().substring(1);
+            return StringUtils.replace(substring, "/", File.separator);
         }
         throw new RuntimeException("illegal protocol: " + protocol);
     }

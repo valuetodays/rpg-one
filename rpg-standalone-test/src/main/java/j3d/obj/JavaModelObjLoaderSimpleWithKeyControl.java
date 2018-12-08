@@ -103,8 +103,10 @@ public class JavaModelObjLoaderSimpleWithKeyControl extends JFrame {
         TransformGroup objTrans = new TransformGroup();
         objTrans.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
         //加载Obj格式的模型文件
-        String resourcePath = AssetsUtil.getResourcePath("/obj/teleport/Teleport.obj");
-//        String resourcePath = AssetsUtil.getResourcePath("/obj/squirrel/songshu.obj");
+        String resourcePath = AssetsUtil.getResourcePath("/obj/tianyamingyuedao/taibainv/aaa.obj");
+        // !! why 使用F:\\aaa\bbb.obj就能显示出纹理，但使用F:/aaa/bbb.obj就显示不出纹理
+//        String resourcePath = "F:\\tmp\\obj\\taibainv\\aaa.obj";
+//        String resourcePath = "F:/tmp/obj/taibainv/aaa.obj";
         objTrans.addChild(new ObjFileReader(resourcePath));
         //将模型添加到变换组节点
         transGroup.addChild(objTrans);
@@ -148,6 +150,6 @@ public class JavaModelObjLoaderSimpleWithKeyControl extends JFrame {
     }
 
     public static void main(String[] args) {
-        JavaModelObjLoaderSimpleWithKeyControl frame = new JavaModelObjLoaderSimpleWithKeyControl();
+        new JavaModelObjLoaderSimpleWithKeyControl();
     }
 }

@@ -15,9 +15,9 @@ public class ObjFileReader extends BranchGroup {
      *
      * @param filePath obj文件路径
      */
-    public ObjFileReader(String filePath){
+    public ObjFileReader(String filePath) {
         BranchGroup branchGroup = new BranchGroup();
-        int flags = ObjectFile.RESIZE;
+        int flags = ObjectFile.RESIZE /*| ObjectFile.TRIANGULATE | ObjectFile.STRIPIFY */;
         ObjectFile objFile = new ObjectFile(flags, (float)(creaseAngle*Math.PI)/180);
         Scene scenen = null;
         try {
