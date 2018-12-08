@@ -84,7 +84,7 @@ public class JavaModelObjLoaderSimpleWithKeyControl extends JFrame {
 
         // 球体作用范围边界对象
         BoundingSphere bound = new BoundingSphere(new Point3d(0.0, 0.0, 0.0), 100.0);
-        Color3f bgColor = new Color3f(0.05f, 0.05f, 0.2f);
+        Color3f bgColor = new Color3f(0.3f, 0.03f, 0.08f);
         Background bg = new Background(bgColor);
         bg.setApplicationBounds(bound);
         group.addChild(bg);
@@ -103,11 +103,20 @@ public class JavaModelObjLoaderSimpleWithKeyControl extends JFrame {
         TransformGroup objTrans = new TransformGroup();
         objTrans.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
         //加载Obj格式的模型文件
-        String resourcePath = AssetsUtil.getResourcePath("/obj/tianyamingyuedao/taibainv/aaa.obj");
-        // !! why 使用F:\\aaa\bbb.obj就能显示出纹理，但使用F:/aaa/bbb.obj就显示不出纹理
+        {
+            String resourcePath = AssetsUtil.getResourcePath("/obj/comic/comic.obj");
+            // !! why 使用F:\\aaa\bbb.obj就能显示出纹理，但使用F:/aaa/bbb.obj就显示不出纹理
 //        String resourcePath = "F:\\tmp\\obj\\taibainv\\aaa.obj";
 //        String resourcePath = "F:/tmp/obj/taibainv/aaa.obj";
-        objTrans.addChild(new ObjFileReader(resourcePath));
+            ObjFileReader scene = new ObjFileReader(resourcePath);
+            objTrans.addChild(scene);
+        }
+        {
+            String resourcePath = AssetsUtil.getResourcePath("/obj/female_model/female-model.obj");
+            ObjFileReader person = new ObjFileReader(resourcePath);
+            person.setBounds(new BoundingBox());
+            objTrans.addChild(person);
+        }
         //将模型添加到变换组节点
         transGroup.addChild(objTrans);
 
