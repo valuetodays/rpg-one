@@ -2,6 +2,8 @@ package j3d.obj;
 
 import billy.rpg.common.util.AssetsUtil;
 import com.sun.j3d.utils.universe.SimpleUniverse;
+import com.sun.j3d.utils.universe.ViewingPlatform;
+import j3d_practice.Axis;
 
 import javax.media.j3d.*;
 import javax.swing.*;
@@ -15,7 +17,7 @@ import java.util.Enumeration;
 /**
  * 显示并控制单个模型
  * LEFT/RIGHT 旋转模型
- * HOME/END   缩放模型
+ * HOME/END   缩放模型 (是模型变大或变小了，而不是摄像机近了或远了)
  *
  */
 public class JavaModelObjLoaderSimpleWithKeyControl extends JFrame {
@@ -70,7 +72,7 @@ public class JavaModelObjLoaderSimpleWithKeyControl extends JFrame {
     public BranchGroup createSceneGraph() {
         // 创建场景图分支
         BranchGroup group = new BranchGroup();
-
+        group.addChild(new Axis());
         // 几何变换组节点
         TransformGroup transGroup = new TransformGroup();
         // 几何变换
@@ -111,12 +113,6 @@ public class JavaModelObjLoaderSimpleWithKeyControl extends JFrame {
             ObjFileReader scene = new ObjFileReader(resourcePath);
             objTrans.addChild(scene);
         }
-        {
-            String resourcePath = AssetsUtil.getResourcePath("/obj/female_model/female-model.obj");
-            ObjFileReader person = new ObjFileReader(resourcePath);
-            person.setBounds(new BoundingBox());
-            objTrans.addChild(person);
-        }
         //将模型添加到变换组节点
         transGroup.addChild(objTrans);
 
@@ -147,7 +143,8 @@ public class JavaModelObjLoaderSimpleWithKeyControl extends JFrame {
         BranchGroup scene = createSceneGraph();
 
         SimpleUniverse universe = new SimpleUniverse(canvas);
-        universe.getViewingPlatform().setNominalViewingTransform();
+        ViewingPlatform viewingPlatform = universe.getViewingPlatform();
+        viewingPlatform.setNominalViewingTransform();
         universe.addBranchGraph(scene);
 
         this.add(canvas);
