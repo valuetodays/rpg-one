@@ -329,3 +329,4 @@ ILoader
     TODO BUG: 如下命令
          say 2 '师弟' NONE '师兄，我知道了，m的值等于${m}，厉害吧，我还知道`y`你的国家`/y`是${user.country}。'
     的显示有误，暂时记录
+    添加RAND命令以生成一个包含指定区间的随机数如[begin, end]
