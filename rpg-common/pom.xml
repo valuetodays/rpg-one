@@ -12,6 +12,12 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.billy.thirdparty</groupId>
+            <artifactId>resource-filter</artifactId>
+            <version>100</version>
+        </dependency>
+
+        <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>2.4</version>

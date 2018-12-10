@@ -1,20 +1,26 @@
 package billy.rpg.game.core.screen;
 
+import billy.rpg.common.formatter.ColorDialogTextFormatter;
+import billy.rpg.common.formatter.DialogFormattedResult;
+import billy.rpg.common.formatter.DialogTextFormatter;
 import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.command.SayCmd;
 import billy.rpg.game.core.command.processor.CmdProcessor;
 import billy.rpg.game.core.constants.GameConstant;
-import billy.rpg.common.formatter.ColorDialogTextFormatter;
-import billy.rpg.common.formatter.DialogFormattedResult;
-import billy.rpg.common.formatter.DialogTextFormatter;
 import billy.rpg.game.core.container.GameContainer;
+import billy.rpg.game.core.script.variable.VariableDeterminer;
 import billy.rpg.game.core.util.KeyUtil;
+import com.billy.resourcefilter.ResourceFilter;
+import com.billy.resourcefilter.resource.StringResource;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * intend to show dialog in game
@@ -43,11 +49,32 @@ public class DialogScreen extends BaseScreen {
         this.position = position;
         this.talker = name;
         DialogTextFormatter dialogTextFormatter = new ColorDialogTextFormatter(GameConstant.WORDS_NUM_PER_LINE);
-        DialogFormattedResult dialogFormattedResult = dialogTextFormatter.format(StringUtils.isEmpty(msg) ? "" : msg);
+        msg = StringUtils.isEmpty(msg) ? "" : msg;
+        String filteredMsg = filterMsg(msg, true);
+        DialogFormattedResult dialogFormattedResult = dialogTextFormatter.format(filteredMsg);
         msgList = dialogFormattedResult.getTextList();
         totalLine = dialogFormattedResult.getTotalLine();
         calculateTotalLine();
         curLine = 1;
+    }
+
+    private String filterMsg(String msg, boolean flag) {
+        if (!flag) {
+            return msg;
+        }
+        Map<String, Integer> variableMap = VariableDeterminer.getInstance().realData();
+        Map<String, String> stringStringMap = variableMap.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, v -> v.getValue().toString()));
+        ResourceFilter resourceFilter = new ResourceFilter();
+        System.getProperties().stringPropertyNames().forEach(e -> resourceFilter.addFilter(e, System.getProperty(e))); // 添加系统变量
+        resourceFilter.addFilters(stringStringMap);
+
+        StringResource stringResource = new StringResource(msg, resourceFilter);
+        try {
+            stringResource.doFilter();
+        } catch (IOException e) {
+            throw new RuntimeException("exception when filter string: " + e.getMessage(), e);
+        }
+        return stringResource.getOutputAsString();
     }
 
     private void calculateTotalLine() {
@@ -64,7 +91,6 @@ public class DialogScreen extends BaseScreen {
             gameContainer.getGameFrame().popScreen();
         }
     }
-
 
     @Override
     public void draw(GameContainer gameContainer, DesktopCanvas desktopCanvas) {

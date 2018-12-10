@@ -323,6 +323,9 @@ ILoader
     战斗场景中显示回合数
 
 #### 2018-12-10
-    GAMESAVE中的参数：
-    使用事件表，全局变量表，GameData
+    TODO GAMESAVE中的参数：使用事件表，全局变量表，GameData
     添加变量相关命令：SetVarCmd/AddVarCmd/CopyVarCmd，添加IfVarCmd命令
+    say命令的参数中可以有变量，如${key}。私底下做个游戏竟然能和本职工作扯上关系！！！ javaweb中就经常使用环境变量如${sun.desktop}(例sun.desktop=windows)
+    TODO BUG: 如下命令
+         say 2 '师弟' NONE '师兄，我知道了，m的值等于${m}，厉害吧，我还知道`y`你的国家`/y`是${user.country}。'
+    的显示有误，暂时记录
