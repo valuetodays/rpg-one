@@ -36,7 +36,7 @@ public class IfCmd extends CmdBase {
 
     @Override
     public String getUsage() {
-        return null;
+        return "if event label";
     }
 
     @Override
