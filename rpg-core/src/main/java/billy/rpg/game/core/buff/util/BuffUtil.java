@@ -15,14 +15,14 @@ public final class BuffUtil {
     public static Buff skillToBuff(SkillMetaData skillMetaData) {
         String buff = skillMetaData.getBuff();
         if (buff == null) {
-            throw new RuntimeException("no buff specified");
+            throw new RuntimeException("no buff specified: " + skillMetaData.getName() + "#" + skillMetaData.getNumber());
         }
         int buffValue = skillMetaData.getBuffValue();
         int buffRound = skillMetaData.getBuffRound();
         String buffClassName = Buff.class.getPackage().getName() + "." + buff;
         try {
             Class<?> aClass = Class.forName(buffClassName);
-            Buff buffObject = (Buff) aClass.getConstructors()[0].newInstance(buffValue, buffRound);
+            Buff buffObject = (Buff) aClass.getConstructors()[0].newInstance(buffValue, buffRound + 1);
             buffObject.setName(skillMetaData.getName());
             return buffObject;
         } catch (IllegalAccessException e) {

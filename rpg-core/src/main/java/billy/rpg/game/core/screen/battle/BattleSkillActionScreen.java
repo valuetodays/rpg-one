@@ -140,6 +140,7 @@ public class BattleSkillActionScreen extends BaseScreen {
 
 
         } else if (state == STATE_FIN) {
+            commonAttackListener.doAction(dmgs);
             commonAttackListener.onFinished();
         }
     }

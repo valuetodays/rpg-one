@@ -22,14 +22,17 @@ public abstract class Buff {
     public void doApply(Fightable fightable) {
         apply(fightable);
 
-        lastRounds--;
-        if (lastRounds < 0) {
-            RuntimeException runtimeException = new RuntimeException("exception when buff's doApply() ");
-            logger.error(runtimeException.getMessage(), runtimeException);
-            throw runtimeException;
-        }
+//        lastRounds--;
+//        if (lastRounds < 0) {
+//            RuntimeException runtimeException = new RuntimeException("exception when buff's doApply() ");
+//            logger.error(runtimeException.getMessage(), runtimeException);
+//            throw runtimeException;
+//        }
     }
 
+    public void onRoundEnd() {
+        this.lastRounds--;
+    }
     /**
      * 该buff所剩回合数是否为0
      */

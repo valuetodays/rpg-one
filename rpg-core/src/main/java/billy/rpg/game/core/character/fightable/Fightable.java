@@ -48,6 +48,9 @@ public abstract class Fightable implements Cloneable {
     public void addBuff(Buff buff) {
         buffManager.addBuff(buff);
     }
+    public java.util.List<Buff> getBuffChainList() {
+        return buffManager.getBuffChainList();
+    }
 
     public void onRoundEnd() {
         buffManager.onRoundEnd();
@@ -171,5 +174,14 @@ public abstract class Fightable implements Cloneable {
             e.printStackTrace();
         }
         return clone;
+    }
+
+    /**
+     * 清空现有buff值以便进行buff值的运算
+     */
+    public void clearBuffValue() {
+        this.setBuffAttack(0);
+        this.setBuffDefend(0);
+        this.setBuffSpeed(0);
     }
 }

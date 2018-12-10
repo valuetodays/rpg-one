@@ -231,3 +231,4 @@ ILoader
     的显示有误，暂时记录
     添加RAND命令以生成一个包含指定区间的随机数如[begin, end]
     Monster -> Enemy, Hero -> Player
+    重新计算buff值时需要把上一次的buff值清空

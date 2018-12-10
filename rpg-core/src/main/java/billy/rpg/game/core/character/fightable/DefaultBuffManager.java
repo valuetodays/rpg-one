@@ -3,6 +3,7 @@ package billy.rpg.game.core.character.fightable;
 import billy.rpg.game.core.buff.Buff;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -45,6 +46,7 @@ public class DefaultBuffManager implements BuffManager, Cloneable {
 
     @Override
     public int getBuffAttack(Fightable fightable) {
+        fightable.clearBuffValue();
         for (Buff buff : buffList) {
             buff.doApply(fightable);
         }
@@ -70,12 +72,20 @@ public class DefaultBuffManager implements BuffManager, Cloneable {
     @Override
     public void onRoundEnd() {
         System.out.println("buffCount: " + buffList.size());
-        for (Buff buff : buffList) {
-            System.out.println("buff: " + buff.getLastRounds());
-            if (buff.isEnd()) {
-                buffList.remove(buff);
+        Iterator<Buff> iterator = buffList.iterator();
+        while (iterator.hasNext()) {
+            Buff next = iterator.next();
+            next.onRoundEnd();
+            if (next.isEnd()) {
+                iterator.remove();
             }
         }
+//        for (Buff buff : buffList) {
+//            buff.onRoundEnd();
+//            if (buff.isEnd()) {
+//                buffList.remove(buff);
+//            }
+//        }
     }
 
     @Override

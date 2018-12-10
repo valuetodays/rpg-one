@@ -1,6 +1,7 @@
 package billy.rpg.game.core.screen.battle;
 
 import billy.rpg.game.core.DesktopCanvas;
+import billy.rpg.game.core.buff.util.BuffUtil;
 import billy.rpg.game.core.character.HeroCharacter;
 import billy.rpg.game.core.character.MonsterCharacter;
 import billy.rpg.game.core.character.fightable.Fightable;
@@ -254,10 +255,9 @@ public class BattleFightScreen extends BaseScreen {
                                         return getSkillAttackDamage(gameContainer, BattleAction.FROM_HERO, attackerId, finalTargetIndex, high);
                                     }
                                     @Override
-                                    public void doAction(List<Integer> dmg) {
-                                        doCauseDamage(BattleAction.FROM_HERO, attackerId, finalTargetIndex, dmg);
-                                        // TODO 添加buff
-//                                        getBattleUIScreen().heroBattleList.get(attackerId).addBuff(BuffUtil.skillToBuff(skillMetaData));
+                                    public void doAction(List<Integer> dmgs) {
+                                        //doCauseDamage(BattleAction.FROM_HERO, attackerId, finalTargetIndex, dmg);
+                                        getBattleUIScreen().heroBattleList.get(attackerId).addBuff(BuffUtil.skillToBuff(skillMetaData));
                                     }
                                     @Override
                                     public void onFinished() {

@@ -3,6 +3,7 @@ package billy.rpg.game.core.screen.battle;
 import billy.rpg.common.exception.UnimplementationException;
 import billy.rpg.common.util.TextUtil;
 import billy.rpg.game.core.DesktopCanvas;
+import billy.rpg.game.core.buff.Buff;
 import billy.rpg.game.core.character.HeroCharacter;
 import billy.rpg.game.core.character.fightable.Fightable;
 import billy.rpg.game.core.constants.GameConstant;
@@ -12,9 +13,11 @@ import billy.rpg.game.core.screen.BaseScreen;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
+import java.util.*;
 
 /**
+ * 战斗中的状态面板
+ *
  * @author lei.liu@datatist.com
  * @since 2018-12-07 17:55:12
  */
@@ -61,6 +64,12 @@ public class BattleStateScreen extends BaseScreen {
                  "+" + attackValueInEquip, Color.GREEN
         );
         // TODO 显示防御力、速度及buff
+
+        java.util.List<Buff> buffChainList = fightable.getBuffChainList();
+        for (int i = 0; i < buffChainList.size(); i++) {
+            Buff buff = buffChainList.get(i);
+            g.drawString(buff.toString(), 300, 110 + 20*i);
+        }
 
         desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
     }
