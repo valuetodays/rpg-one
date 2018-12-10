@@ -9,7 +9,8 @@ import java.util.List;
  * @since 2018-11-22 11:42:56
  */
 public interface BuffManager {
-    List<Buff> getBuffList();
+    List<Buff> getBuffChainList();
+
     void addBuff(Buff buff);
 
     void removeBuff(Buff buff);
@@ -19,4 +20,9 @@ public interface BuffManager {
     int getBuffDefend(Fightable fightable);
 
     int getBuffSpeed(Fightable fightable);
+
+    /**
+     * 一回合结束时
+     */
+    void onRoundEnd();
 }

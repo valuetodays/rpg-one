@@ -13,7 +13,7 @@ public class DefaultBuffManager implements BuffManager, Cloneable {
     private List<Buff> buffList = new ArrayList<>();
 
     @Override
-    public List<Buff> getBuffList() {
+    public List<Buff> getBuffChainList() {
         return buffList;
     }
 
@@ -65,6 +65,17 @@ public class DefaultBuffManager implements BuffManager, Cloneable {
             buff.doApply(fightable);
         }
         return fightable.getBuffSpeed();
+    }
+
+    @Override
+    public void onRoundEnd() {
+        System.out.println("buffCount: " + buffList.size());
+        for (Buff buff : buffList) {
+            System.out.println("buff: " + buff.getLastRounds());
+            if (buff.isEnd()) {
+                buffList.remove(buff);
+            }
+        }
     }
 
     @Override

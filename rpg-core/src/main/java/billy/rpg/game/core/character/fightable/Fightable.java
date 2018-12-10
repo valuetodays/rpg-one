@@ -21,7 +21,7 @@ public abstract class Fightable implements Cloneable {
     private boolean died;
     private Image battleImage; // 一帧
     // 普通攻击的第几帧
-    private int acctackFrame;
+    private int attackFrame;
     // 格挡普通攻击时的防御动作，此时可格档50%的伤害（暂只有一帧）
     private int defendFrame;
     // 永不死亡的设置
@@ -45,11 +45,12 @@ public abstract class Fightable implements Cloneable {
 
     /////////////////////////////////////////////////////
     // 处理buff与debuff
-    private void addBuff(Buff buff) {
+    public void addBuff(Buff buff) {
         buffManager.addBuff(buff);
     }
-    private void removeBuff(Buff buff) {
-        buffManager.removeBuff(buff);
+
+    public void onRoundEnd() {
+        buffManager.onRoundEnd();
     }
 
     public int getAttackWithBuff() {
@@ -140,12 +141,12 @@ public abstract class Fightable implements Cloneable {
         this.battleImage = battleImage;
     }
 
-    public int getAcctackFrame() {
-        return acctackFrame;
+    public int getAttackFrame() {
+        return attackFrame;
     }
 
-    public void setAcctackFrame(int acctackFrame) {
-        this.acctackFrame = acctackFrame;
+    public void setAttackFrame(int attackFrame) {
+        this.attackFrame = attackFrame;
     }
 
     public int getDefendFrame() {

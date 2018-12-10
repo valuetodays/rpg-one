@@ -45,7 +45,7 @@ public class BattleCommonActionScreen extends BaseScreen {
         this.commonAttackListener = al;
         this.attackerPreTop = attacker.getTop();
         this.attackerPreLeft = attacker.getLeft();
-        this.dmgs = commonAttackListener.doGetAttackDamage();
+        this.dmgs = commonAttackListener.doPrepareForAction();
     }
 
     @Override
@@ -58,14 +58,14 @@ public class BattleCommonActionScreen extends BaseScreen {
                 if (targetIndex == -1) { // 全体攻击时，攻击者攻向屏幕中间即可
                     attacker.setLeft(attacker.getLeft() - (150 - attackerPreLeft) / 10);
                     attacker.setTop(attacker.getTop() + (120 - attackerPreTop) / 10);
-                    attacker.setAcctackFrame(attackFrame++);
+                    attacker.setAttackFrame(attackFrame++);
                 } else {
                     Fightable target = targets.get(targetIndex);
                     int targetX = target.getLeft() - (attacker.getWidth() / 2 - target.getWidth() / 2);
                     int targetY = target.getTop() + (attacker.getHeight() / 2 - target.getHeight() / 2);
                     attacker.setLeft(attacker.getLeft() + (targetX - attackerPreLeft) / 10);
                     attacker.setTop(attacker.getTop() + (targetY - attackerPreTop) / 10);
-                    attacker.setAcctackFrame(attackFrame++);
+                    attacker.setAttackFrame(attackFrame++);
                 }
             }
         } else if (state == STATE_ANI) {
@@ -73,7 +73,7 @@ public class BattleCommonActionScreen extends BaseScreen {
         } else if (state == STATE_AFT) {
             if (dmgFrame > 10) {
                 state = STATE_FIN;
-                commonAttackListener.doAttack(dmgs);
+                commonAttackListener.doAction(dmgs);
             } else {
                 if (targetIndex == -1) {
                     Fightable target = targets.get(0);
@@ -102,14 +102,14 @@ public class BattleCommonActionScreen extends BaseScreen {
                 if (targetIndex == -1) {
                     attacker.setLeft(attacker.getLeft() - (150 - attackerPreLeft) / 10);
                     attacker.setTop(attacker.getTop() - (120 - attackerPreTop) / 10);
-                    attacker.setAcctackFrame(attackFrame--);
+                    attacker.setAttackFrame(attackFrame--);
                 } else {
                     Fightable target = targets.get(targetIndex);
                     int targetX = target.getLeft() - (attacker.getWidth() / 2 - target.getWidth() / 2);
                     int targetY = target.getTop() + (attacker.getHeight() / 2 - target.getHeight() / 2);
                     attacker.setLeft(attacker.getLeft() - (targetX - attackerPreLeft) / 10);
                     attacker.setTop(attacker.getTop() - (targetY - attackerPreTop) / 10);
-                    attacker.setAcctackFrame(attackFrame--);
+                    attacker.setAttackFrame(attackFrame--);
                 }
             }
         }

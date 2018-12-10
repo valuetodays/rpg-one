@@ -3,6 +3,7 @@ package billy.rpg.game.core.screen.battle;
 import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.character.HeroCharacter;
 import billy.rpg.game.core.character.MonsterCharacter;
+import billy.rpg.game.core.character.fightable.Fightable;
 import billy.rpg.game.core.constants.GameConstant;
 import billy.rpg.game.core.container.GameContainer;
 import billy.rpg.game.core.item.BattleImageItem;
@@ -219,7 +220,6 @@ public class BattleUIScreen extends BaseScreen {
         getParentScreen().push(bfs);
     }
 
-
     public void markHeroAsAttacker(boolean fromHero) {
         this.fromHero = fromHero;
     }
@@ -228,6 +228,8 @@ public class BattleUIScreen extends BaseScreen {
     }
 
     public void roundEnd() {
+        logger.debug(" round " + round + " elapsed");
+        this.heroBattleList.forEach(Fightable::onRoundEnd);
         this.fighting = false;
         this.getParentScreen().pop();
         this.heroIndex = 0; // 将当前活动的heroIndex置为首个

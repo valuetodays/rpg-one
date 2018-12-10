@@ -52,7 +52,7 @@ public class BattleSkillActionScreen extends BaseScreen {
         this.commonAttackListener = commonAttackListener;
         this.attackerPreTop = attacker.getTop();
         this.attackerPreLeft = attacker.getLeft();
-        this.dmgs = commonAttackListener.doGetAttackDamage();
+        this.dmgs = commonAttackListener.doPrepareForAction();
 
         skillMetaData = gameContainer.getSkillMetaDataOf(skillId);
         int type = skillMetaData.getType();
@@ -97,7 +97,7 @@ public class BattleSkillActionScreen extends BaseScreen {
                 state = STATE_FIN;
                 int type = skillMetaData.getType();
                 if (SkillMetaData.TYPE_ATTACK == type) {
-                    commonAttackListener.doAttack(dmgs);
+                    commonAttackListener.doAction(dmgs);
                 } else if (SkillMetaData.TYPE_ADD_BUFF_TO_OUR == type) {
                     Buff buff = BuffUtil.skillToBuff(skillMetaData);
                     if (targetIndex == -1) {

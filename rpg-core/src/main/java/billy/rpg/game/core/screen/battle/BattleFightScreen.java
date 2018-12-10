@@ -44,9 +44,9 @@ public class BattleFightScreen extends BaseScreen {
     @Override
     public void update(GameContainer gameContainer, long delta) {
         if (battleActionPreIndex != battleActionCurIndex) {
-            logger.debug("doAttack..," +battleActionPreIndex + "," + battleActionCurIndex);
+            logger.debug("doAction..," +battleActionPreIndex + "," + battleActionCurIndex);
             battleActionPreIndex = battleActionCurIndex;
-            logger.debug("doAttack at " + battleActionPreIndex + "," + battleActionCurIndex);
+            logger.debug("doAction at " + battleActionPreIndex + "," + battleActionCurIndex);
             if (battleActionCurIndex < actionList.size()) {
                 update0(gameContainer);
             } else {
@@ -99,12 +99,12 @@ public class BattleFightScreen extends BaseScreen {
                         finalTargetIndex,
                     new CommonAttackListener() {
                         @Override
-                        public List<Integer> doGetAttackDamage() {
+                        public List<Integer> doPrepareForAction() {
                             return getCommonAttackDamage(BattleAction.FROM_MONSTER, attackerId,
                                     finalTargetIndex);
                         }
                         @Override
-                        public void doAttack(List<Integer> dmg) {
+                        public void doAction(List<Integer> dmg) {
                             doCauseDamage(BattleAction.FROM_MONSTER, attackerId, finalTargetIndex, dmg);
                         }
                         @Override
@@ -126,11 +126,11 @@ public class BattleFightScreen extends BaseScreen {
                     high,
                     new CommonAttackListener() {
                         @Override
-                        public List<Integer> doGetAttackDamage() {
+                        public List<Integer> doPrepareForAction() {
                             return getSkillAttackDamage(gameContainer, BattleAction.FROM_HERO, attackerId, finalTargetIndex, high);
                         }
                         @Override
-                        public void doAttack(List<Integer> dmg) {
+                        public void doAction(List<Integer> dmg) {
                             doCauseDamage(BattleAction.FROM_MONSTER, attackerId, finalTargetIndex, dmg);
                         }
                         @Override
@@ -193,11 +193,11 @@ public class BattleFightScreen extends BaseScreen {
                     finalTargetIndex,
                     new CommonAttackListener() {
                         @Override
-                        public List<Integer> doGetAttackDamage() {
+                        public List<Integer> doPrepareForAction() {
                             return getCommonAttackDamage(BattleAction.FROM_HERO, attackerId, finalTargetIndex);
                         }
                         @Override
-                        public void doAttack(List<Integer> dmg) {
+                        public void doAction(List<Integer> dmg) {
                             doCauseDamage(BattleAction.FROM_HERO, attackerId, finalTargetIndex, dmg);
                         }
                         @Override
@@ -222,11 +222,11 @@ public class BattleFightScreen extends BaseScreen {
                         high,
                         new CommonAttackListener() {
                             @Override
-                            public List<Integer> doGetAttackDamage() {
+                            public List<Integer> doPrepareForAction() {
                                 return getSkillAttackDamage(gameContainer, BattleAction.FROM_HERO, attackerId, finalTargetIndex, high);
                             }
                             @Override
-                            public void doAttack(List<Integer> dmg) {
+                            public void doAction(List<Integer> dmg) {
                                 doCauseDamage(BattleAction.FROM_HERO, attackerId, finalTargetIndex, dmg);
                             }
                             @Override
@@ -250,12 +250,14 @@ public class BattleFightScreen extends BaseScreen {
                                 high,
                                 new CommonAttackListener() {
                                     @Override
-                                    public List<Integer> doGetAttackDamage() {
+                                    public List<Integer> doPrepareForAction() {
                                         return getSkillAttackDamage(gameContainer, BattleAction.FROM_HERO, attackerId, finalTargetIndex, high);
                                     }
                                     @Override
-                                    public void doAttack(List<Integer> dmg) {
+                                    public void doAction(List<Integer> dmg) {
                                         doCauseDamage(BattleAction.FROM_HERO, attackerId, finalTargetIndex, dmg);
+                                        // TODO 添加buff
+//                                        getBattleUIScreen().heroBattleList.get(attackerId).addBuff(BuffUtil.skillToBuff(skillMetaData));
                                     }
                                     @Override
                                     public void onFinished() {

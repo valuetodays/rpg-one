@@ -14,14 +14,14 @@ public interface CommonAttackListener {
      * 伤害判断
      * @return 对目标造成了多少伤害。
      */
-    List<Integer> doGetAttackDamage();
+    List<Integer> doPrepareForAction();
 
     /**
      * 攻击
      * 处理伤害值，等相关，
-     * @param dmg 此值不应重新计算（因为计算中含有随机数），应为{@link #doGetAttackDamage()}
+     * @param dmg 此值不应重新计算（因为计算中含有随机数），应为{@link #doPrepareForAction()}
      */
-    void doAttack(List<Integer> dmg);
+    void doAction(List<Integer> dmg);
 
     /**
      * 攻击结束后的动作
