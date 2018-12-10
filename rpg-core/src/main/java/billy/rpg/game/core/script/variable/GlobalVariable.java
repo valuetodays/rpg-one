@@ -9,9 +9,9 @@ public class GlobalVariable extends IntVariable {
 
     @Override
     public void set(String var, Integer value) {
-        if (null != get(var)) {
-            throw new RuntimeException("variable already exists");
-        }
+//        if (null != get(var)) {
+//            throw new RuntimeException("variable already exists");
+//        }
         globalVariables.put(var, value);
     }
 
@@ -28,5 +28,12 @@ public class GlobalVariable extends IntVariable {
             System.out.println(" |- " + entry.getKey() + " = " + entry.getValue());
         }
         System.out.println("=== globalVariable ends ===");
+    }
+
+    @Override
+    public Map<String, Integer> realData() {
+        Map<String, Integer> map = new HashMap<>();
+        map.putAll(globalVariables);
+        return map;
     }
 }

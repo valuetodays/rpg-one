@@ -325,4 +325,4 @@ ILoader
 #### 2018-12-10
     GAMESAVE中的参数：
     使用事件表，全局变量表，GameData
-    添加变量相关命令：SetVarCmd
+    添加变量相关命令：SetVarCmd/AddVarCmd/CopyVarCmd，添加IfVarCmd命令

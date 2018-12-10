@@ -1,5 +1,7 @@
 package billy.rpg.game.core.script.variable;
 
+import java.util.Map;
+
 public class VariableDeterminer extends IntVariable {
     // 全局事件
     private IntVariable globalVariable = new GlobalVariable();
@@ -13,7 +15,7 @@ public class VariableDeterminer extends IntVariable {
 
     @Override
     public void set(String var, Integer value) {
-        globalVariable.set(var, value);
+        globalVariable.set(var, value == null ? 0 : value);
     }
 
     @Override
@@ -24,5 +26,10 @@ public class VariableDeterminer extends IntVariable {
     @Override
     public void print() {
         globalVariable.print();
+    }
+
+    @Override
+    public Map<String, Integer> realData() {
+        return globalVariable.realData();
     }
 }

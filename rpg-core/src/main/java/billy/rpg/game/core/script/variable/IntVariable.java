@@ -10,4 +10,5 @@ public abstract class IntVariable implements Variable<Integer> {
     public abstract void set(String var, Integer value);
     public abstract Integer get(String var);
     public abstract void print();
+
 }

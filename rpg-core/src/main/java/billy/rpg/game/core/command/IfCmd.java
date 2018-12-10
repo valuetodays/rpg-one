@@ -31,7 +31,7 @@ public class IfCmd extends CmdBase {
             LabelBean label = gameContainer.getLabelByTitle(triggerName);
             cmdProcessor.setInnerCmdProcessor(new DefaultCmdProcessor(label.getCmds()));
         } else {    // global event does not exist
-            return -2;
+            throw new RuntimeException("unknown event: " + condition);
         }
         return 0;
     }

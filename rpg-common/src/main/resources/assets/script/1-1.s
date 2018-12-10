@@ -154,11 +154,16 @@ return
 screenshot "仅供测试"
 return
 
+等于100:
+say 2 '师弟' NONE '师兄，我知道了，m的值等于${m}，厉害吧，我还知道`y`你的国家`/y`是${user.country}。'
+return
+
 testForAll:
 setvar n 100
-@addvar n 1
-@subvar n 1
-@settovar n m
+addvar n 1
+subvar n 1
+copyvar m n
+ifvar m 100 等于100
 say 2 '师弟' NONE '师兄，看我表情行事。'
 emotion 14 1
 iflevel 1 20 没有30级
