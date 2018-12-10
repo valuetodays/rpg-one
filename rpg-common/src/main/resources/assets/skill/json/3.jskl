@@ -9,5 +9,5 @@
 	"type":1,
 	"buff":"AttackEnhanceFixedValueBuff",
 	"buffValue": 10,
-	"buffRound": 20
+	"buffRound": 2
 }
