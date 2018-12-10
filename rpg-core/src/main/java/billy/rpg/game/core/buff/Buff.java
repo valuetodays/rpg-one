@@ -29,8 +29,16 @@ public abstract class Buff {
             throw runtimeException;
         }
     }
+
+    /**
+     * 该buff所剩回合数是否为0
+     */
+    public boolean isEnd() {
+        return getLastRounds() <= 0;
+    }
     protected abstract void apply(Fightable fightable);
     public abstract BuffType getBuffType();
+
 
     /**
      * 互斥的buff
