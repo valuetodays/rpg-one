@@ -45,13 +45,10 @@ public class BattleFightScreen extends BaseScreen {
     @Override
     public void update(GameContainer gameContainer, long delta) {
         if (battleActionPreIndex != battleActionCurIndex) {
-            logger.debug("doAction..," +battleActionPreIndex + "," + battleActionCurIndex);
             battleActionPreIndex = battleActionCurIndex;
-            logger.debug("doAction at " + battleActionPreIndex + "," + battleActionCurIndex);
             if (battleActionCurIndex < actionList.size()) {
                 update0(gameContainer);
             } else {
-                logger.debug("一回合终于打完了");
                 getBattleUIScreen().roundEnd();
             }
         }
@@ -62,16 +59,16 @@ public class BattleFightScreen extends BaseScreen {
         boolean fromHero = battleAction.fromHero;
         getBattleUIScreen().markPlayerAsAttacker(fromHero);
         if (!fromHero) {
-            monsterAction(gameContainer, battleAction);
+            enemyAction(gameContainer, battleAction);
         } else {
-            heroAction(gameContainer, battleAction);
+            playerAction(gameContainer, battleAction);
         }
     }
 
     /**
      * 妖怪行动的显示
      */
-    private void monsterAction(GameContainer gameContainer, BattleAction battleAction) {
+    private void enemyAction(GameContainer gameContainer, BattleAction battleAction) {
         // 攻击者已阵亡的话，就不能攻击了，此时要换下个攻击者
         int attackerId = battleAction.attackerId;
         if (getBattleUIScreen().enemyBattleList.get(attackerId).isDied()) {
@@ -163,7 +160,7 @@ public class BattleFightScreen extends BaseScreen {
     /**
      * 玩家行动的显示
      */
-    private void heroAction(GameContainer gameContainer, BattleAction battleAction) {
+    private void playerAction(GameContainer gameContainer, BattleAction battleAction) {
         // 攻击者已阵亡的话，就不能攻击了
         int attackerId = battleAction.attackerId;
         if (getBattleUIScreen().playerBattleList.get(attackerId).isDied()) {
