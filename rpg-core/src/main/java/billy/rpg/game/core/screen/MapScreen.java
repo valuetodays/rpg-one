@@ -14,7 +14,7 @@ import billy.rpg.game.core.constants.ScreenCodeEnum;
 import billy.rpg.game.core.constants.WalkableConstant;
 import billy.rpg.game.core.container.GameContainer;
 import billy.rpg.game.core.item.ScriptItem;
-import billy.rpg.game.core.script.variable.VariableTableDeterminer;
+import billy.rpg.game.core.script.event.EventTableDeterminer;
 import billy.rpg.game.core.util.KeyUtil;
 import billy.rpg.resource.box.BoxImageLoader;
 import billy.rpg.resource.map.MapMetaData;
@@ -225,7 +225,7 @@ public class MapScreen extends BaseScreen {
             HeroWalkableCharacter hero = active.getHero();
             hero.resetFrame();
         } else if (KeyUtil.isG(key)) {
-            VariableTableDeterminer.getInstance().printVariables(gameContainer);
+            EventTableDeterminer.getInstance().printEvents(gameContainer);
         } else if (KeyUtil.isQ(key)) {
             gameContainer.getGameData().exChangeControlId();
         }

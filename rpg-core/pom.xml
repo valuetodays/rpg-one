@@ -21,12 +21,6 @@
             <artifactId>rpg-thirdparty</artifactId>
             <version>1.1-SNAPSHOT</version>
         </dependency>
-        <dependency>
-            <groupId>org.vaadin.addons</groupId>
-            <artifactId>imagefilter</artifactId>
-            <version>0.5.3</version>
-        </dependency>
-
 
         <dependency>
             <groupId>javazoom</groupId>

@@ -3,9 +3,8 @@ package billy.rpg.game.core.command;
 import billy.rpg.game.core.command.processor.CmdProcessor;
 import billy.rpg.game.core.command.processor.support.DefaultCmdProcessor;
 import billy.rpg.game.core.container.GameContainer;
-import billy.rpg.game.core.item.ScriptItem;
 import billy.rpg.game.core.script.LabelBean;
-import billy.rpg.game.core.script.variable.VariableTableDeterminer;
+import billy.rpg.game.core.script.event.EventTableDeterminer;
 
 import java.util.List;
 
@@ -28,10 +27,10 @@ public class IfCmd extends CmdBase {
 
     @Override
     public int execute(GameContainer gameContainer, CmdProcessor cmdProcessor) {
-        if (VariableTableDeterminer.getInstance().existsVariable(gameContainer, condition)) {
+        if (EventTableDeterminer.getInstance().existsEvent(gameContainer, condition)) {
             LabelBean label = gameContainer.getLabelByTitle(triggerName);
             cmdProcessor.setInnerCmdProcessor(new DefaultCmdProcessor(label.getCmds()));
-        } else {    // global variable does not exist
+        } else {    // global event does not exist
             return -2;
         }
         return 0;

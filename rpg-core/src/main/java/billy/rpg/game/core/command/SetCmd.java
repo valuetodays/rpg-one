@@ -2,7 +2,7 @@ package billy.rpg.game.core.command;
 
 import billy.rpg.game.core.command.processor.CmdProcessor;
 import billy.rpg.game.core.container.GameContainer;
-import billy.rpg.game.core.script.variable.VariableTableDeterminer;
+import billy.rpg.game.core.script.event.EventTableDeterminer;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ public class SetCmd extends CmdBase {
 
     @Override
     public int execute(GameContainer gameContainer, CmdProcessor cmdProcessor) {
-        VariableTableDeterminer.getInstance().putVariable(gameContainer, key);
+        EventTableDeterminer.getInstance().putEvent(gameContainer, key);
         return 0;
     }
 
