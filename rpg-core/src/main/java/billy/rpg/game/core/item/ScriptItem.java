@@ -405,7 +405,7 @@ public class ScriptItem {
         System.out.println("=== localVariables `"+scriptId+"` ends ===");
     }
 
-    public WalkableCharacter getHeroOrNpc(int roleIdOrNpcId) {
+    public WalkableCharacter getPlayerOrNpc(int roleIdOrNpcId) {
         if (roleIdOrNpcId == 0) {
             return hero;
         }

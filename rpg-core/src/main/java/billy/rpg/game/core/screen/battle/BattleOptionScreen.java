@@ -106,28 +106,28 @@ public class BattleOptionScreen extends BaseScreen {
                 if (range == GoodsMetaData.RANGE_SINGLE) { // 单攻
                     int enemySize = battleUIScreen.enemyAliveCount();
                     if (enemySize == 1) { // 只有一个敌人
-                        getBattleUIScreen().actionList.add(new BattleAction(BattleAction.FROM_HERO,
+                        getBattleUIScreen().actionList.add(new BattleAction(BattleAction.FROM_PLAYER,
                                 getBattleUIScreen().playerIndex,
                                 0,
                                 playerActionChoice, -1, 0));
                         if (getBattleUIScreen().playerIndex == getBattleUIScreen().playerBattleList.size() - 1) {
                             generateMonsterAttackAction();
                         }
-                        getBattleUIScreen().nextHero(); // next hero
+                        getBattleUIScreen().nextPlayer(); // next hero
                     } else { // 多于一个敌人
                         MonsterSelectScreen chooseMonsterScreen = new MonsterSelectScreen(battleUIScreen, this, -1);
                         getBattleUIScreen().getParentScreen().push(chooseMonsterScreen);
                     }
                 } else if (range == GoodsMetaData.RANGE_ALL) { // 群攻
                     // 添加全体攻击效果
-                    getBattleUIScreen().actionList.add(new BattleAction(BattleAction.FROM_HERO,
+                    getBattleUIScreen().actionList.add(new BattleAction(BattleAction.FROM_PLAYER,
                             getBattleUIScreen().playerIndex,
                             -1,
                             playerActionChoice, 0, 0));
                     if (getBattleUIScreen().playerIndex == getBattleUIScreen().playerBattleList.size() - 1) {
                         generateMonsterAttackAction();
                     }
-                    getBattleUIScreen().nextHero(); // next hero
+                    getBattleUIScreen().nextPlayer(); // next hero
                 } else {
                     throw new RuntimeException("unknown range: " + range);
                 }

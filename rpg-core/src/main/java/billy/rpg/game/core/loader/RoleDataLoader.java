@@ -6,7 +6,6 @@ import billy.rpg.resource.role.RoleMetaData;
 import org.apache.commons.lang.ArrayUtils;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,8 +15,8 @@ import java.util.Map;
  * @since 2017-07-18 15:40
  */
 public class RoleDataLoader {
-    private Map<Integer, RoleMetaData> heroList = new HashMap<>();
-    private Map<Integer, RoleMetaData> monsterList = new HashMap<>();
+    private Map<Integer, RoleMetaData> playerList = new HashMap<>();
+    private Map<Integer, RoleMetaData> enemyList = new HashMap<>();
 
     public void load() {
         final String roleFileDirectory = "/assets/Images/character/role/";
@@ -26,12 +25,7 @@ public class RoleDataLoader {
 
         File file = new File(resourcePath);
         // 只取一层文件夹
-        File[] files = file.listFiles(new FileFilter() {
-            @Override
-            public boolean accept(File pathname) {
-                return pathname.getName().endsWith(".role");
-            }
-        });
+        File[] files = file.listFiles(pathname -> pathname.isFile() && pathname.getName().endsWith(".role"));
         if (ArrayUtils.isEmpty(files)) {
             throw new RuntimeException("没有找到*.role数据");
         }
@@ -41,23 +35,23 @@ public class RoleDataLoader {
             int type = rmd.getType();
             int number = rmd.getNumber();
             if (RoleMetaData.TYPE_PLAYER == type) {
-                heroList.put(number, rmd);
-            } else if (RoleMetaData.TYPE_MONSTER == type) {
-                monsterList.put(number, rmd);
+                playerList.put(number, rmd);
+            } else if (RoleMetaData.TYPE_ENEMY == type) {
+                enemyList.put(number, rmd);
             } else {
                 throw new RuntimeException("暂不支持类型为" + type + "角色");
             }
         }
     }
 
-    public Map<Integer, RoleMetaData> getHeroList() {
-        if (heroList.isEmpty()) {
+    public Map<Integer, RoleMetaData> getPlayerList() {
+        if (playerList.isEmpty()) {
             throw new RuntimeException("没有主角玩个P啊。");
         }
-        return Collections.unmodifiableMap(heroList);
+        return Collections.unmodifiableMap(playerList);
     }
 
-    public Map<Integer, RoleMetaData> getMonsterList() {
-        return Collections.unmodifiableMap(monsterList);
+    public Map<Integer, RoleMetaData> getEnemyList() {
+        return Collections.unmodifiableMap(enemyList);
     }
 }

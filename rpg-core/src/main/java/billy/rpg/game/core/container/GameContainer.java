@@ -68,8 +68,8 @@ public class GameContainer {
     // animation list, each *.ani is an instance of AnimationDataLoaderBean
     private Map<Integer, AnimationMetaData> animationMap;
 
-    private Map<Integer, RoleMetaData> heroRoleMap;
-    private Map<Integer, RoleMetaData> monsterRoleMap;
+    private Map<Integer, RoleMetaData> playerRoleMap;
+    private Map<Integer, RoleMetaData> enemyRoleMap;
     private Map<Integer, LevelMetaData> levelMetaDataMap;
     private MapScreen mapScreen;
     private Map<Integer, SkillMetaData> skillMetaDataMap;
@@ -164,8 +164,8 @@ public class GameContainer {
     private void loadRoleData() {
         RoleDataLoader roleDataLoader = new RoleDataLoader();
         roleDataLoader.load();
-        heroRoleMap = roleDataLoader.getHeroList();
-        monsterRoleMap = roleDataLoader.getMonsterList();
+        playerRoleMap = roleDataLoader.getPlayerList();
+        enemyRoleMap = roleDataLoader.getEnemyList();
     }
 
     /*
@@ -346,7 +346,7 @@ public class GameContainer {
      * @param number number
      */
     public synchronized RoleMetaData getHeroRoleOf(int number) {
-        RoleMetaData roleMetaData = heroRoleMap.get(number);
+        RoleMetaData roleMetaData = playerRoleMap.get(number);
         if (roleMetaData == null) {
             throw new RuntimeException("玩家角色"+ number + "不存在");
         }
@@ -358,7 +358,7 @@ public class GameContainer {
      * @param number number
      */
     public RoleMetaData getMonsterRoleOf(int number) {
-        return monsterRoleMap.get(number);
+        return enemyRoleMap.get(number);
     }
 
     public Image getHeadImageItemOf(int number) {

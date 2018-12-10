@@ -27,35 +27,35 @@ public class BattleSuccessScreen extends BaseScreen {
     private int money;
     private int exp;
     private BattleScreen battleScreen;
-    private List<PlayerCharacter> newHeroBatleList = new ArrayList<>();
+    private List<PlayerCharacter> newPlayerBattleList = new ArrayList<>();
 
     public BattleSuccessScreen(GameContainer gameContainer, BattleScreen battleScreen, int money, int exp) {
         this.battleScreen = battleScreen;
         this.money = money;
         this.exp = exp;
-        List<PlayerCharacter> heroBattleList = battleScreen.getPlayerBattleList();
-        for (int i = 0; i < heroBattleList.size(); i++) {
-            PlayerCharacter heroBattle = heroBattleList.get(i);
-            PlayerCharacter newHeroBattle = new PlayerCharacter(gameContainer);
-            newHeroBattle.setDied(heroBattle.isDied());
-            newHeroBattle.setHeight(heroBattle.getHeight());
-            newHeroBattle.setWidth(heroBattle.getWidth());
-            newHeroBattle.setLeft(heroBattle.getLeft());
-            newHeroBattle.setTop(heroBattle.getTop());
-            newHeroBattle.setRoleMetaData(heroBattle.getRoleMetaData().clone());
-            newHeroBatleList.add(newHeroBattle);
+        List<PlayerCharacter> playerBattleList = battleScreen.getPlayerBattleList();
+        for (int i = 0; i < playerBattleList.size(); i++) {
+            PlayerCharacter playerBattle = playerBattleList.get(i);
+            PlayerCharacter newPlayerBattle = new PlayerCharacter(gameContainer);
+            newPlayerBattle.setDied(playerBattle.isDied());
+            newPlayerBattle.setHeight(playerBattle.getHeight());
+            newPlayerBattle.setWidth(playerBattle.getWidth());
+            newPlayerBattle.setLeft(playerBattle.getLeft());
+            newPlayerBattle.setTop(playerBattle.getTop());
+            newPlayerBattle.setRoleMetaData(playerBattle.getRoleMetaData().clone());
+            newPlayerBattleList.add(newPlayerBattle);
         }
 
 
         // 在这里处理战斗前后的数据，并处理是否升级
         // 然后draw()方法只是显示，onKeyUp()方法负责做角色属性的修改
-        for (int i = 0; i < newHeroBatleList.size(); i++) {
-            PlayerCharacter heroBattle = newHeroBatleList.get(i);
-            int oriExp = heroBattle.getRoleMetaData().getExp();
+        for (int i = 0; i < newPlayerBattleList.size(); i++) {
+            PlayerCharacter playerBattle = newPlayerBattleList.get(i);
+            int oriExp = playerBattle.getRoleMetaData().getExp();
             int newExp = oriExp + exp;
 
-            heroBattle.getRoleMetaData().setExp(newExp);
-            gameContainer.getGameData().levelUp(gameContainer, heroBattle.getRoleMetaData(), false);
+            playerBattle.getRoleMetaData().setExp(newExp);
+            gameContainer.getGameData().levelUp(gameContainer, playerBattle.getRoleMetaData(), false);
         }
     }
 
@@ -79,10 +79,10 @@ public class BattleSuccessScreen extends BaseScreen {
         g.drawString("get money " + money, 120, 70);
         g.drawString("get exp " + exp, 120, 90);
         // 这里只【显示】升级所得经验及金币
-        List<PlayerCharacter> heroBattleList = battleScreen.getPlayerBattleList();
-        for (int i = 0; i < heroBattleList.size(); i++) {
-            RoleMetaData oldRoleMetaData = heroBattleList.get(i).getRoleMetaData();
-            RoleMetaData newRoleMetaData = newHeroBatleList.get(i).getRoleMetaData();
+        List<PlayerCharacter> playerBattleList = battleScreen.getPlayerBattleList();
+        for (int i = 0; i < playerBattleList.size(); i++) {
+            RoleMetaData oldRoleMetaData = playerBattleList.get(i).getRoleMetaData();
+            RoleMetaData newRoleMetaData = newPlayerBattleList.get(i).getRoleMetaData();
             g.drawString("等级 " + oldRoleMetaData.getLevel() + " --> " + newRoleMetaData.getLevel(),
                     200 + 100*i, 80);
             g.drawString("体力 " + oldRoleMetaData.getHp() + "/" + oldRoleMetaData.getMaxHp()
@@ -109,10 +109,10 @@ public class BattleSuccessScreen extends BaseScreen {
         // 增加金币
         gameContainer.getGameData().addMoney(money);
 
-        for (int i = 0; i < newHeroBatleList.size(); i++) {
-            PlayerCharacter newHeroBattle = newHeroBatleList.get(i);
-            PlayerCharacter heroBattle = battleScreen.getPlayerBattleList().get(i);
-            heroBattle.setRoleMetaData(newHeroBattle.getRoleMetaData().clone());
+        for (int i = 0; i < newPlayerBattleList.size(); i++) {
+            PlayerCharacter newPlayerBattle = newPlayerBattleList.get(i);
+            PlayerCharacter playerBattle = battleScreen.getPlayerBattleList().get(i);
+            playerBattle.setRoleMetaData(newPlayerBattle.getRoleMetaData().clone());
         }
 
         gameContainer.getGameFrame().changeScreen(ScreenCodeEnum.SCREEN_CODE_MAP_SCREEN);

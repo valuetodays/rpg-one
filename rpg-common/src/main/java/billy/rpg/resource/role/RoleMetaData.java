@@ -37,7 +37,7 @@ import java.util.List;
 public class RoleMetaData implements Cloneable { // TODO 添加级别
     public static final int TYPE_PLAYER = 1;
     public static final int TYPE_NPC = 2;
-    public static final int TYPE_MONSTER = 3;
+    public static final int TYPE_ENEMY = 3;
     public static final int TYPE_SCENE = 4;
 
     private int number;

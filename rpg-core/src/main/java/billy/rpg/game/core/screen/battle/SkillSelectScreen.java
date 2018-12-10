@@ -126,17 +126,17 @@ public class SkillSelectScreen extends BaseScreen {
             if (battleUIScreen.playerAliveCount() == 1) {
                 Optional<PlayerCharacter> firstAlive = battleUIScreen.playerBattleList.stream().filter(e -> !e.isDied()).findFirst();
                 AssertUtil.assertTrue(firstAlive.isPresent(), "all are not alive");
-                PlayerCharacter heroCharacter = firstAlive.get();
-                int heroIndex = battleUIScreen.playerBattleList.indexOf(heroCharacter);
-                getBattleUIScreen().actionList.add(new BattleAction(BattleAction.FROM_HERO,
+                PlayerCharacter playerCharacter = firstAlive.get();
+                int playerIndex = battleUIScreen.playerBattleList.indexOf(playerCharacter);
+                getBattleUIScreen().actionList.add(new BattleAction(BattleAction.FROM_PLAYER,
                         getBattleUIScreen().playerIndex,
-                        heroIndex,
+                        playerIndex,
                         battleOptionScreen.playerActionChoice, skillId, 0));
                 if (getBattleUIScreen().playerIndex == getBattleUIScreen().playerBattleList.size() - 1) {
                     battleOptionScreen.generateMonsterAttackAction();
                 }
                 getBattleUIScreen().getParentScreen().pop(); // 将技能选择屏幕清除掉
-                getBattleUIScreen().nextHero(); // next hero
+                getBattleUIScreen().nextPlayer();
 //                    battleUIScreen.playerBattleList.stream().filter(e -> !e.isDied()).forEach(buffObject::doApply);
             } else {
                 // TODO 选择，将buff施放到哪位队员身上
@@ -159,7 +159,7 @@ public class SkillSelectScreen extends BaseScreen {
         if (SkillMetaData.TARGET_TYPE_SINGLE == targetType) { // 单体技能
             int enemySize = battleUIScreen.enemyAliveCount();
             if (enemySize == 1) { // 只有一个敌人
-                getBattleUIScreen().actionList.add(new BattleAction(BattleAction.FROM_HERO,
+                getBattleUIScreen().actionList.add(new BattleAction(BattleAction.FROM_PLAYER,
                         getBattleUIScreen().playerIndex,
                         0,
                         battleOptionScreen.playerActionChoice, skillId, 0));
@@ -167,14 +167,14 @@ public class SkillSelectScreen extends BaseScreen {
                     battleOptionScreen.generateMonsterAttackAction();
                 }
                 getBattleUIScreen().getParentScreen().pop(); // 将技能选择屏幕清除掉
-                getBattleUIScreen().nextHero(); // next hero
+                getBattleUIScreen().nextPlayer();
             } else {
                 MonsterSelectScreen chooseMonsterScreen = new MonsterSelectScreen(getBattleUIScreen(),
                         battleOptionScreen, skillId);
                 getBattleUIScreen().getParentScreen().push(chooseMonsterScreen);
             }
         } else if (targetType == SkillMetaData.TARGET_TYPE_ALL) { // 群体技能
-            getBattleUIScreen().actionList.add(new BattleAction(BattleAction.FROM_HERO,
+            getBattleUIScreen().actionList.add(new BattleAction(BattleAction.FROM_PLAYER,
                     getBattleUIScreen().playerIndex,
                     -1,
                     battleOptionScreen.playerActionChoice, skillId, 0));
@@ -182,7 +182,7 @@ public class SkillSelectScreen extends BaseScreen {
                 battleOptionScreen.generateMonsterAttackAction();
             }
             getBattleUIScreen().getParentScreen().pop(); // 将技能选择屏幕清除掉
-            getBattleUIScreen().nextHero(); // next hero
+            getBattleUIScreen().nextPlayer();
         }
     }
 
@@ -191,7 +191,5 @@ public class SkillSelectScreen extends BaseScreen {
     public boolean isPopup() {
         return true;
     }
-
-
 
 }

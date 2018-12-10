@@ -123,7 +123,7 @@ public class BattleUIScreen extends BaseScreen {
     public int getActivePlayerIndex() {
         return playerIndex;
     }
-    public void nextHero() {
+    public void nextPlayer() {
         if (++playerIndex >= playerBattleList.size()) {
             startAttack();
         }

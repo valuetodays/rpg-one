@@ -30,8 +30,8 @@ public class BattleAction {
         }
     }
 
-    public static final boolean FROM_HERO = true;
-    public static final boolean FROM_MONSTER = !FROM_HERO;
+    public static final boolean FROM_PLAYER = true;
+    public static final boolean FROM_MONSTER = !FROM_PLAYER;
 
     final boolean fromHero; // 是玩家发起的攻击，否则就是妖怪的
     final int attackerId;

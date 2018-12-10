@@ -10,15 +10,15 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class EmotionScreen extends BaseScreen {
-    private int roleIdOrNpcId;
+    private int playerIdOrNpcId;
     private int type;
     private static final int FRAMES = 8;
     private int currentFrame = 0;
     private int deltas;
     private static final int DELTAS_COUNT = 90;
 
-    public EmotionScreen(int roleIdOrNpcId, int type) {
-        this.roleIdOrNpcId = roleIdOrNpcId;
+    public EmotionScreen(int playerIdOrNpcId, int type) {
+        this.playerIdOrNpcId = playerIdOrNpcId;
         this.type = type;
     }
 
@@ -56,9 +56,9 @@ public class EmotionScreen extends BaseScreen {
         Graphics g = paint.getGraphics();
         BufferedImage gameEmotion = (BufferedImage)gameContainer.getGameAboutItem().getGameEmotion();
 
-        WalkableCharacter heroOrNpc = gameContainer.getActiveScriptItem().getHeroOrNpc(roleIdOrNpcId);
-        int x = heroOrNpc.getPosX();
-        int y = heroOrNpc.getPosY();
+        WalkableCharacter playerOrNpc = gameContainer.getActiveScriptItem().getPlayerOrNpc(playerIdOrNpcId);
+        int x = playerOrNpc.getPosX();
+        int y = playerOrNpc.getPosY();
 
         DrawUtil.drawSubImage(g, gameEmotion,
                 x * GameConstant.GAME_TILE_WIDTH, y * GameConstant.GAME_TILE_HEIGHT - GameConstant.GAME_TILE_HEIGHT,
@@ -81,7 +81,7 @@ public class EmotionScreen extends BaseScreen {
 
     @Override
     public boolean isPopup() {
-        return true;// 这个返回false试一下会发现动画会有上帧的残影
+        return true;
     }
 
 }
