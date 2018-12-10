@@ -7,12 +7,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * 随机战斗怪物
+ * 随机战斗敌人
  *
  * @author liulei@bshf360.com
  * @since 2017-07-31 17:47
  */
-public class MonstersCmd extends CmdBase {
+public class EnemiesCmd extends CmdBase {
     private List<Integer> monsterIds;
 
     @Override
@@ -29,7 +29,7 @@ public class MonstersCmd extends CmdBase {
 
     @Override
     public String getUsage() {
-        return "monsters MONSTER_ID1 MONSTER_ID2 MONSTER_ID3";
+        return "enemies MONSTER_ID1 MONSTER_ID2 MONSTER_ID3";
     }
 
     @Override
