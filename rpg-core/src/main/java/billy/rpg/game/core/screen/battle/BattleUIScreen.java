@@ -1,8 +1,8 @@
 package billy.rpg.game.core.screen.battle;
 
 import billy.rpg.game.core.DesktopCanvas;
-import billy.rpg.game.core.character.HeroCharacter;
-import billy.rpg.game.core.character.MonsterCharacter;
+import billy.rpg.game.core.character.PlayerCharacter;
+import billy.rpg.game.core.character.EnemyCharacter;
 import billy.rpg.game.core.character.fightable.Fightable;
 import billy.rpg.game.core.constants.GameConstant;
 import billy.rpg.game.core.container.GameContainer;
@@ -23,10 +23,10 @@ import java.util.List;
  */
 public class BattleUIScreen extends BaseScreen {
     private BattleScreen parentScreen; // the basescreen contains this
-    protected java.util.List<MonsterCharacter> enemyBattleList;
-    protected java.util.List<HeroCharacter> playerBattleList;
-    private java.util.List<Image> monsterImages;
-    protected int heroIndex; // 活动玩家
+    protected java.util.List<EnemyCharacter> enemyBattleList;
+    protected java.util.List<PlayerCharacter> playerBattleList;
+    private java.util.List<Image> enemyImages;
+    protected int playerIndex; // 活动玩家
     protected final int exp;
     protected final int money;
     protected List<BattleAction> actionList = new ArrayList<>();
@@ -64,24 +64,24 @@ public class BattleUIScreen extends BaseScreen {
         return (int) enemyBattleList.stream().filter(e -> !e.isDied()).count();
     }
 
-    public BattleUIScreen(GameContainer gameContainer, final int[] metMonsterIds, BattleScreen battleScreen, List<HeroCharacter> heroBattleList) {
-        logger.debug("met monsters with["+ ArrayUtils.toString(metMonsterIds)+"]");
+    public BattleUIScreen(GameContainer gameContainer, final int[] metEnemyIds, BattleScreen battleScreen, List<PlayerCharacter> heroBattleList) {
+        logger.debug("met enemy with["+ ArrayUtils.toString(metEnemyIds)+"]");
         parentScreen = battleScreen;
         this.playerBattleList = heroBattleList;
 
-        monsterImages = new ArrayList<>();
-        for (int metMonsterId : metMonsterIds) {
-            Image image = gameContainer.getMonsterRoleOf(metMonsterId).getImage();
-            monsterImages.add(image);
+        enemyImages = new ArrayList<>();
+        for (int enemyId : metEnemyIds) {
+            Image image = gameContainer.getMonsterRoleOf(enemyId).getImage();
+            enemyImages.add(image);
         }
 
         enemyBattleList = new ArrayList<>();
         int tempMoney = 0;
         int tempExp = 0;
-        for (int i = 0; i < metMonsterIds.length; i++) {
-            RoleMetaData roleMetaData = gameContainer.getMonsterRoleOf(metMonsterIds[i]);
+        for (int i = 0; i < metEnemyIds.length; i++) {
+            RoleMetaData roleMetaData = gameContainer.getMonsterRoleOf(metEnemyIds[i]);
             Image image = roleMetaData.getImage();
-            MonsterCharacter monsterCharacter = new MonsterCharacter(gameContainer);
+            EnemyCharacter monsterCharacter = new EnemyCharacter(gameContainer);
             monsterCharacter.setLeft(getLeftInWindow(i));
             monsterCharacter.setTop(100);
             monsterCharacter.setWidth(image.getWidth(null));
@@ -101,14 +101,14 @@ public class BattleUIScreen extends BaseScreen {
      * @param index 本场妖怪的当前索引数
      */
     private int getLeftInWindow(int index) {
-        int n = GameConstant.GAME_WIDTH - 100 * (monsterImages.size()-1);
-        for (int i = 0; i < monsterImages.size(); i++) {
-            n -= monsterImages.get(i).getWidth(null);
+        int n = GameConstant.GAME_WIDTH - 100 * (enemyImages.size()-1);
+        for (int i = 0; i < enemyImages.size(); i++) {
+            n -= enemyImages.get(i).getWidth(null);
         }
         n/=2; // 此时 n是第一个妖怪的x坐标 ？？
 
         for (int i = 1; i <= index; i++) {
-            n += monsterImages.get(i-1).getWidth(null) + 100;
+            n += enemyImages.get(i-1).getWidth(null) + 100;
         }
 
         return n;
@@ -117,14 +117,14 @@ public class BattleUIScreen extends BaseScreen {
     /**
      * get current active hero
      */
-    public HeroCharacter getActiveHero() {
-        return playerBattleList.get(getActiveHeroIndex());
+    public PlayerCharacter getActivePlayer() {
+        return playerBattleList.get(getActivePlayerIndex());
     }
-    public int getActiveHeroIndex() {
-        return heroIndex;
+    public int getActivePlayerIndex() {
+        return playerIndex;
     }
     public void nextHero() {
-        if (++heroIndex >= playerBattleList.size()) {
+        if (++playerIndex >= playerBattleList.size()) {
             startAttack();
         }
     }
@@ -167,9 +167,9 @@ public class BattleUIScreen extends BaseScreen {
 
     private void drawHero(Graphics g) {
         for (int i = 0; i < playerBattleList.size(); i++) {
-            HeroCharacter heroBattle = playerBattleList.get(i);
+            PlayerCharacter heroBattle = playerBattleList.get(i);
             // 将当前活动玩家高亮出来
-            if (i == heroIndex) {
+            if (i == playerIndex) {
                 RoleMetaData roleMetaData = heroBattle.getRoleMetaData();
                 g.setColor(Color.yellow);
                 g.fillRect(heroBattle.getLeft(), heroBattle.getTop(), roleMetaData.getImage().getWidth(),
@@ -189,7 +189,7 @@ public class BattleUIScreen extends BaseScreen {
     }
 
     public void drawMonster(GameContainer gameContainer, Graphics g) {
-        for (MonsterCharacter monsterBattle : enemyBattleList) {
+        for (EnemyCharacter monsterBattle : enemyBattleList) {
             Image image = monsterBattle.getRoleMetaData().getImage();
             int left = monsterBattle.getLeft();
             int top = monsterBattle.getTop();
@@ -220,7 +220,7 @@ public class BattleUIScreen extends BaseScreen {
         getParentScreen().push(bfs);
     }
 
-    public void markHeroAsAttacker(boolean fromHero) {
+    public void markPlayerAsAttacker(boolean fromHero) {
         this.fromHero = fromHero;
     }
     public void nextRound() {
@@ -232,7 +232,7 @@ public class BattleUIScreen extends BaseScreen {
         this.playerBattleList.forEach(Fightable::onRoundEnd);
         this.fighting = false;
         this.getParentScreen().pop();
-        this.heroIndex = 0; // 将当前活动的heroIndex置为首个
+        this.playerIndex = 0; // 将当前活动的heroIndex置为首个
         this.actionList.clear(); // 清空播放动画
         this.nextRound();
     }

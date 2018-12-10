@@ -2,8 +2,8 @@ package billy.rpg.game.core.screen.battle;
 
 import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.buff.util.BuffUtil;
-import billy.rpg.game.core.character.HeroCharacter;
-import billy.rpg.game.core.character.MonsterCharacter;
+import billy.rpg.game.core.character.PlayerCharacter;
+import billy.rpg.game.core.character.EnemyCharacter;
 import billy.rpg.game.core.character.fightable.Fightable;
 import billy.rpg.game.core.constants.ScreenCodeEnum;
 import billy.rpg.game.core.container.GameContainer;
@@ -60,7 +60,7 @@ public class BattleFightScreen extends BaseScreen {
     private void update0(GameContainer gameContainer) {
         BattleAction battleAction = actionList.get(battleActionCurIndex);
         boolean fromHero = battleAction.fromHero;
-        getBattleUIScreen().markHeroAsAttacker(fromHero);
+        getBattleUIScreen().markPlayerAsAttacker(fromHero);
         if (!fromHero) {
             monsterAction(gameContainer, battleAction);
         } else {
@@ -306,17 +306,17 @@ public class BattleFightScreen extends BaseScreen {
         List<Integer> damages = new ArrayList<>();
         if (targetIndex != -1) {
             if (fromHero) {
-                HeroCharacter heroCharacter = getBattleUIScreen().playerBattleList.get(attackerId);
+                PlayerCharacter heroCharacter = getBattleUIScreen().playerBattleList.get(attackerId);
 //                有效攻击力 = 角色本身攻击力 + buff + 装备攻击力
                 attack = heroCharacter.getAttackWithBuff() + ((WeaponEquip)(heroCharacter.getEquipables().getWeapon().getEquip())).getAttack();
 
-                MonsterCharacter target = getBattleUIScreen().enemyBattleList.get(targetIndex);
+                EnemyCharacter target = getBattleUIScreen().enemyBattleList.get(targetIndex);
                 defend = target.getDefendWithBuff() + ((ClothesEquip)(target.getEquipables().getClothes().getEquip())).getDefend();
             } else {
-                MonsterCharacter attacker = getBattleUIScreen().enemyBattleList.get(attackerId);
+                EnemyCharacter attacker = getBattleUIScreen().enemyBattleList.get(attackerId);
                 attack = attacker.getAttackWithBuff() + ((WeaponEquip)(attacker.getEquipables().getWeapon().getEquip())).getAttack();
 
-                HeroCharacter heroCharacter = getBattleUIScreen().playerBattleList.get(targetIndex);
+                PlayerCharacter heroCharacter = getBattleUIScreen().playerBattleList.get(targetIndex);
                 // 把装备的防御力也计算
                 defend = heroCharacter.getDefendWithBuff() + ((ClothesEquip)(heroCharacter.getEquipables().getClothes().getEquip())).getDefend();
             }
@@ -329,7 +329,7 @@ public class BattleFightScreen extends BaseScreen {
             return damages;
         } else {
             if (fromHero) {
-                HeroCharacter heroCharacter = getBattleUIScreen().playerBattleList.get(attackerId);
+                PlayerCharacter heroCharacter = getBattleUIScreen().playerBattleList.get(attackerId);
                 int attackerAttack = heroCharacter.getAttackWithBuff() + ((WeaponEquip)(heroCharacter.getEquipables().getWeapon().getEquip())).getAttack();
 
                 return getBattleUIScreen().enemyBattleList.stream().map(target -> {
@@ -338,7 +338,7 @@ public class BattleFightScreen extends BaseScreen {
                     return (int)dmgF;
                 }).collect(Collectors.toList());
             } else {
-                MonsterCharacter attacker = getBattleUIScreen().enemyBattleList.get(attackerId);
+                EnemyCharacter attacker = getBattleUIScreen().enemyBattleList.get(attackerId);
                 int attackerAttack = attacker.getAttackWithBuff() + ((WeaponEquip)(attacker.getEquipables().getWeapon().getEquip())).getAttack();
 
                 return getBattleUIScreen().playerBattleList.stream().map(heroCharacter -> {
@@ -393,7 +393,7 @@ public class BattleFightScreen extends BaseScreen {
             if (fromHero) {
                 attackerName = "玩家";
                 for (int i = 0; i < getBattleUIScreen().enemyBattleList.size(); i++) {
-                    MonsterCharacter targetMonster = getBattleUIScreen().enemyBattleList.get(i);
+                    EnemyCharacter targetMonster = getBattleUIScreen().enemyBattleList.get(i);
                     targetName = "妖怪" + i;
                     int hp = targetMonster.getRoleMetaData().getHp();
                     hp -= dmgs.get(i);
@@ -410,7 +410,7 @@ public class BattleFightScreen extends BaseScreen {
             } else {
                 attackerName = "妖怪";
                 for (int i = 0; i < getBattleUIScreen().playerBattleList.size(); i++) {
-                    HeroCharacter targetHero = getBattleUIScreen().playerBattleList.get(i);
+                    PlayerCharacter targetHero = getBattleUIScreen().playerBattleList.get(i);
                     targetName = "玩家" + i;
                     int hp = targetHero.getRoleMetaData().getHp();
                     hp -= dmgs.get(i);
@@ -438,7 +438,7 @@ public class BattleFightScreen extends BaseScreen {
      */
     private void checkWinOrLose(GameContainer gameContainer) {
         boolean heroAllDieFlag = true;
-        for (HeroCharacter heroCharacter : getBattleUIScreen().playerBattleList) {
+        for (PlayerCharacter heroCharacter : getBattleUIScreen().playerBattleList) {
             if (!heroCharacter.isDied()) {
                 heroAllDieFlag = false;
             }
@@ -450,7 +450,7 @@ public class BattleFightScreen extends BaseScreen {
         }
 
         boolean monsterDieAllFlag = true;
-        for (MonsterCharacter monsterCharacter : getBattleUIScreen().enemyBattleList) {
+        for (EnemyCharacter monsterCharacter : getBattleUIScreen().enemyBattleList) {
             if (!monsterCharacter.isDied()) {
                 monsterDieAllFlag = false;
             }

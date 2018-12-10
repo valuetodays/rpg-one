@@ -5,12 +5,14 @@ import billy.rpg.game.core.container.GameContainer;
 import billy.rpg.resource.role.RoleMetaData;
 
 /**
+ * 敌人角色
+ *
  * @author lei.liu@datatist.com
  * @since 2018-10-08 14:50:56
  */
-public class MonsterCharacter extends Fightable {
+public class EnemyCharacter extends Fightable {
 
-    public MonsterCharacter(GameContainer gameContainer) {
+    public EnemyCharacter(GameContainer gameContainer) {
         super(gameContainer);
     }
 

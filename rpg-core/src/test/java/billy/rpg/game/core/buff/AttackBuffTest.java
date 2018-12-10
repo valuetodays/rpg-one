@@ -1,7 +1,7 @@
 package billy.rpg.game.core.buff;
 
 import billy.rpg.game.core.GameContainerBaseTest;
-import billy.rpg.game.core.character.HeroCharacter;
+import billy.rpg.game.core.character.PlayerCharacter;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -19,7 +19,7 @@ public class AttackBuffTest extends GameContainerBaseTest {
     public void testAddBuffWithAttackValue() {
         AttackEnhanceFixedValueBuff buff = new AttackEnhanceFixedValueBuff(fixedValue, Buff.DEFAULT_ROUNDS);
         buff.setName("增加固定攻击力");
-        HeroCharacter heroCharacter = gameContainer.getGameData().getHeroList(gameContainer).get(0);
+        PlayerCharacter heroCharacter = gameContainer.getGameData().getHeroList(gameContainer).get(0);
         int attackWithBuffBefore = heroCharacter.getAttackWithBuff();
         logger.debug("before buff, attack is " + attackWithBuffBefore);
         buff.doApply(heroCharacter);
@@ -32,7 +32,7 @@ public class AttackBuffTest extends GameContainerBaseTest {
     public void testAddBuffWithAttackPercent() {
         AttackEnhancePercentValueBuff buff = new AttackEnhancePercentValueBuff(percentValue, Buff.DEFAULT_ROUNDS);
         buff.setName("增加百分比攻击力");
-        HeroCharacter heroCharacter = gameContainer.getGameData().getHeroList(gameContainer).get(0);
+        PlayerCharacter heroCharacter = gameContainer.getGameData().getHeroList(gameContainer).get(0);
         int attackWithBuffBefore = heroCharacter.getAttackWithBuff();
         logger.debug("before buff, attack is " + attackWithBuffBefore);
         buff.doApply(heroCharacter);
@@ -45,7 +45,7 @@ public class AttackBuffTest extends GameContainerBaseTest {
     public void testAddDebuffWithAttackValue() {
         AttackWeakenFixedValueBuff buff = new AttackWeakenFixedValueBuff(fixedValue, Buff.DEFAULT_ROUNDS);
         buff.setName("减少固定攻击力");
-        HeroCharacter heroCharacter = gameContainer.getGameData().getHeroList(gameContainer).get(0);
+        PlayerCharacter heroCharacter = gameContainer.getGameData().getHeroList(gameContainer).get(0);
         int attackWithBuffBefore = heroCharacter.getAttackWithBuff();
         logger.debug("before buff, attack is " + attackWithBuffBefore);
         buff.doApply(heroCharacter);
@@ -58,7 +58,7 @@ public class AttackBuffTest extends GameContainerBaseTest {
     public void testAddDebuffWithAttackPercent() {
         AttackWeakenPercentValueBuff buff = new AttackWeakenPercentValueBuff(percentValue, Buff.DEFAULT_ROUNDS);
         buff.setName("减少百分比攻击力");
-        HeroCharacter heroCharacter = gameContainer.getGameData().getHeroList(gameContainer).get(0);
+        PlayerCharacter heroCharacter = gameContainer.getGameData().getHeroList(gameContainer).get(0);
         int attackWithBuffBefore = heroCharacter.getAttackWithBuff();
         logger.debug("before buff, attack is " + attackWithBuffBefore);
         buff.doApply(heroCharacter);

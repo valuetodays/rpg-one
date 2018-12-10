@@ -1,6 +1,6 @@
 package billy.rpg.game.core.listener.support;
 
-import billy.rpg.game.core.character.HeroCharacter;
+import billy.rpg.game.core.character.PlayerCharacter;
 import billy.rpg.game.core.container.GameContainer;
 import billy.rpg.game.core.listener.GoodsUseListener;
 import billy.rpg.resource.goods.GoodsMetaData;
@@ -19,7 +19,7 @@ public class DefaultGoodsUseListener implements GoodsUseListener {
         if (type == GoodsType.TYPE_MEDICINE.getValue()) {
             // TODO 考虑药品是全体属性
             int heroIndex = gameContainer.getGameData().getHeroIndex();
-            HeroCharacter heroCharacter = gameContainer.getGameData().getHeroList(gameContainer).get(heroIndex);
+            PlayerCharacter heroCharacter = gameContainer.getGameData().getHeroList(gameContainer).get(heroIndex);
             // TODO 药物暂只能加hp
             int hp = heroCharacter.getRoleMetaData().getHp();
             int hpToAdd = goods.getHp();

@@ -1,6 +1,6 @@
 package billy.rpg.game.core;
 
-import billy.rpg.game.core.character.HeroCharacter;
+import billy.rpg.game.core.character.PlayerCharacter;
 import billy.rpg.game.core.character.equipable.Equipables;
 import billy.rpg.game.core.character.walkable.HeroWalkableCharacter;
 import billy.rpg.game.core.container.GameContainer;
@@ -32,8 +32,8 @@ public class GameData {
     /** 金币数 */
     private int money;
     /** 角色列表 */
-    private List<HeroCharacter> heroList;
-    private List<HeroCharacter> heroBattleList;
+    private List<PlayerCharacter> heroList;
+    private List<PlayerCharacter> heroBattleList;
     /** 角色列表 */
     private List<Integer> heroIds = new LinkedList<>();
 //    private List<Integer> heroIds = Arrays.asList(1, 3);
@@ -256,27 +256,27 @@ public class GameData {
     }
     private void equipWeapon(GameContainer gameContainer, int roleId, int goodsNumber) {
         checkHeroList(gameContainer);
-        HeroCharacter heroCharacter = getHeroCharacterOf(roleId);
+        PlayerCharacter heroCharacter = getHeroCharacterOf(roleId);
         Equipables equipables = heroCharacter.getEquipables();
         equipables.equipWeapon(gameContainer, goodsNumber);
     }
 
     private void equipClothes(GameContainer gameContainer, int roleId, int goodsNumber) {
         checkHeroList(gameContainer);
-        HeroCharacter heroCharacter = getHeroCharacterOf(roleId);
+        PlayerCharacter heroCharacter = getHeroCharacterOf(roleId);
         Equipables equipables = heroCharacter.getEquipables();
         equipables.equipClothes(gameContainer, goodsNumber);
     }
     private void equipShoe(GameContainer gameContainer, int roleId, int goodsNumber) {
         checkHeroList(gameContainer);
-        HeroCharacter heroCharacter = getHeroCharacterOf(roleId);
+        PlayerCharacter heroCharacter = getHeroCharacterOf(roleId);
         Equipables equipables = heroCharacter.getEquipables();
         equipables.equipShoe(gameContainer, goodsNumber);
     }
 
-    private HeroCharacter getHeroCharacterOf(int roleId) {
-        HeroCharacter heroCharacter = null;
-        for (HeroCharacter h : heroList) {
+    private PlayerCharacter getHeroCharacterOf(int roleId) {
+        PlayerCharacter heroCharacter = null;
+        for (PlayerCharacter h : heroList) {
             if (h.getWalkable().getNumber() == roleId) {
                 heroCharacter = h;
             }
@@ -285,7 +285,7 @@ public class GameData {
             throw new RuntimeException("数据异常");
         }
         return heroCharacter;
-        /*Optional<HeroCharacter> first = heroList.stream().filter(e -> e.getWalkable().getNumber() == roleId).findFirst();
+        /*Optional<PlayerCharacter> first = heroList.stream().filter(e -> e.getWalkable().getNumber() == roleId).findFirst();
             if (!first.isPresent()) {
             throw new RuntimeException("数据异常");
         }
@@ -306,7 +306,7 @@ public class GameData {
                 heroRole.setSkillIds("1,2,3");
                 levelUp(gameContainer, heroRole, true);
 
-                HeroCharacter e = new HeroCharacter(gameContainer);
+                PlayerCharacter e = new PlayerCharacter(gameContainer);
                 e.setLeft(200 + i * 150 + 10);
                 e.setTop(10 * 32);
                 e.setWidth(heroRole.getImage().getWidth());
@@ -323,13 +323,13 @@ public class GameData {
         }
     }
 
-    public synchronized List<HeroCharacter> getHeroList(GameContainer gameContainer) {
+    public synchronized List<PlayerCharacter> getHeroList(GameContainer gameContainer) {
         checkHeroList(gameContainer);
         return heroList;
     }
 
     public List<SkillMetaData> getSkillsOf(GameContainer gameContainer, int roleId) {
-        HeroCharacter heroCharacter = getHeroList(gameContainer).get(roleId);
+        PlayerCharacter heroCharacter = getHeroList(gameContainer).get(roleId);
         java.util.List<SkillMetaData> skillList = new ArrayList<>();
         String skillIds = heroCharacter.getRoleMetaData().getSkillIds();
         if (StringUtils.isNotEmpty(skillIds)) { // 如果有技能

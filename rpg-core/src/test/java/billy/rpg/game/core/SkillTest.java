@@ -2,7 +2,7 @@ package billy.rpg.game.core;
 
 import billy.rpg.common.util.JsonUtil;
 import billy.rpg.game.core.buff.Buff;
-import billy.rpg.game.core.character.HeroCharacter;
+import billy.rpg.game.core.character.PlayerCharacter;
 import billy.rpg.game.core.character.fightable.Fightable;
 import billy.rpg.resource.skill.SkillMetaData;
 import org.junit.Test;
@@ -31,7 +31,7 @@ public class SkillTest extends GameContainerBaseTest {
             Class<?> aClass = Class.forName(buffClassName);
             Buff buffObject = (Buff)aClass.getConstructors()[0].newInstance(buffValue, buffRound);
             logger.debug("buffObject: " + buffObject.getClass().getName());
-            Fightable player = new HeroCharacter(gameContainer);
+            Fightable player = new PlayerCharacter(gameContainer);
             player.addBuff(buffObject);
             logger.debug("player gets a buff");
             player.onRoundEnd();

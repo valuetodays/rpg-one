@@ -1,7 +1,7 @@
 package billy.rpg.game.core.screen.battle;
 
 import billy.rpg.game.core.DesktopCanvas;
-import billy.rpg.game.core.character.HeroCharacter;
+import billy.rpg.game.core.character.PlayerCharacter;
 import billy.rpg.game.core.constants.GameConstant;
 import billy.rpg.game.core.container.GameContainer;
 import billy.rpg.game.core.screen.BaseScreen;
@@ -20,9 +20,9 @@ public class ChooseHeroScreen extends BaseScreen {
     private int heroIndex; // TODO 貌似早期的fc封神榜、吞食天地支持玩家选择已方人员乱序行动吧？
 
     private BattleScreen parentScreen;
-    protected java.util.List<HeroCharacter> heroBattleList;
+    protected java.util.List<PlayerCharacter> heroBattleList;
 
-    public ChooseHeroScreen(BattleScreen battleScreen, List<HeroCharacter> heroBattleList) {
+    public ChooseHeroScreen(BattleScreen battleScreen, List<PlayerCharacter> heroBattleList) {
         parentScreen = battleScreen;
         this.heroBattleList = heroBattleList;
     }
@@ -44,7 +44,7 @@ public class ChooseHeroScreen extends BaseScreen {
         // 选择哪个hero要进行行动
         if (1 == heroIndex) {
             Image gameArrowDown = gameContainer.getGameAboutItem().getGameArrowDown();
-            HeroCharacter heroBattle = heroBattleList.get(heroIndex);
+            PlayerCharacter heroBattle = heroBattleList.get(heroIndex);
             g.drawImage(gameArrowDown,
                     heroBattle.getLeft() + heroBattle.getWidth() / 2, heroBattle.getTop(), null);
         }
@@ -65,14 +65,14 @@ public class ChooseHeroScreen extends BaseScreen {
         }
 /*
         if (KeyUtil.isLeft(key)) {
-            heroIndex--;
-            if (heroIndex < 0) {
-                heroIndex = playerBattleList.size()-1;
+            playerIndex--;
+            if (playerIndex < 0) {
+                playerIndex = playerBattleList.size()-1;
             }
         } else if (KeyUtil.isRight(key)) {
-            heroIndex++;
-            if (heroIndex > playerBattleList.size()-1) {
-                heroIndex = 0;
+            playerIndex++;
+            if (playerIndex > playerBattleList.size()-1) {
+                playerIndex = 0;
             }
         }*/
     }

@@ -1,7 +1,7 @@
 package billy.rpg.game.core.buff;
 
 import billy.rpg.game.core.GameContainerBaseTest;
-import billy.rpg.game.core.character.HeroCharacter;
+import billy.rpg.game.core.character.PlayerCharacter;
 import org.junit.Test;
 
 /**
@@ -13,7 +13,7 @@ public class DefendBuffTest extends GameContainerBaseTest {
     public void testAddBuffWitDefendValue() {
         DefendEnhanceFixedValueBuff buff = new DefendEnhanceFixedValueBuff(21, 5);
         buff.setName("增加固定防御力");
-        HeroCharacter heroCharacter = gameContainer.getGameData().getHeroList(gameContainer).get(0);
+        PlayerCharacter heroCharacter = gameContainer.getGameData().getHeroList(gameContainer).get(0);
         int defendWithBuffBefore = heroCharacter.getDefendWithBuff();
         logger.debug("before buff, defend is " + defendWithBuffBefore);
         buff.doApply(heroCharacter);
@@ -25,7 +25,7 @@ public class DefendBuffTest extends GameContainerBaseTest {
     public void testAddDebuffWitDefendValue() {
         DefendWeakenFixedValueBuff buff = new DefendWeakenFixedValueBuff(21, 5);
         buff.setName("减少固定防御力");
-        HeroCharacter heroCharacter = gameContainer.getGameData().getHeroList(gameContainer).get(0);
+        PlayerCharacter heroCharacter = gameContainer.getGameData().getHeroList(gameContainer).get(0);
         int defendWithBuffBefore = heroCharacter.getDefendWithBuff();
         logger.debug("before buff, defend is " + defendWithBuffBefore);
         buff.doApply(heroCharacter);
@@ -37,7 +37,7 @@ public class DefendBuffTest extends GameContainerBaseTest {
     public void testAddBuffWithDefendPercent() {
         DefendEnhancePercentValueBuff buff = new DefendEnhancePercentValueBuff(20, 4);
         buff.setName("增加百分比防御力");
-        HeroCharacter heroCharacter = gameContainer.getGameData().getHeroList(gameContainer).get(0);
+        PlayerCharacter heroCharacter = gameContainer.getGameData().getHeroList(gameContainer).get(0);
         int defendWithBuffBefore = heroCharacter.getDefendWithBuff();
         logger.debug("before buff, defend is " + defendWithBuffBefore);
         buff.doApply(heroCharacter);
@@ -49,7 +49,7 @@ public class DefendBuffTest extends GameContainerBaseTest {
     public void testAddDebuffWithDefendPercent() {
         DefendWeakenPercentValueBuff buff = new DefendWeakenPercentValueBuff(20, 4);
         buff.setName("减少百分比防御力");
-        HeroCharacter heroCharacter = gameContainer.getGameData().getHeroList(gameContainer).get(0);
+        PlayerCharacter heroCharacter = gameContainer.getGameData().getHeroList(gameContainer).get(0);
         int defendWithBuffBefore = heroCharacter.getDefendWithBuff();
         logger.debug("before buff, defend is " + defendWithBuffBefore);
         buff.doApply(heroCharacter);

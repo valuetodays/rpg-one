@@ -1,7 +1,7 @@
 package billy.rpg.game.core.screen.battle;
 
 import billy.rpg.game.core.DesktopCanvas;
-import billy.rpg.game.core.character.HeroCharacter;
+import billy.rpg.game.core.character.PlayerCharacter;
 import billy.rpg.game.core.container.GameContainer;
 import billy.rpg.game.core.screen.BaseScreen;
 import billy.rpg.game.core.screen.battle.end.BattleSuccessScreen;
@@ -16,11 +16,11 @@ import java.util.Stack;
  */
 public class BattleScreen extends BaseScreen {
     private Stack<BaseScreen> screenStack = new Stack<>();
-    private java.util.List<HeroCharacter> heroBattleList;
+    private java.util.List<PlayerCharacter> playerBattleList;
 
-    public BattleScreen(GameContainer gameContainer, final int[] metMonsterIds) {
-        heroBattleList = gameContainer.getGameData().getHeroList(gameContainer);
-        BattleUIScreen battleUIScreen = new BattleUIScreen(gameContainer, metMonsterIds, this, heroBattleList);
+    public BattleScreen(GameContainer gameContainer, final int[] metEnemyIds) {
+        playerBattleList = gameContainer.getGameData().getHeroList(gameContainer);
+        BattleUIScreen battleUIScreen = new BattleUIScreen(gameContainer, metEnemyIds, this, playerBattleList);
         screenStack.push(battleUIScreen);
         BattleOptionScreen battleOptionScreen = new BattleOptionScreen(battleUIScreen);
         screenStack.push(battleOptionScreen);
@@ -88,7 +88,7 @@ public class BattleScreen extends BaseScreen {
         screenStack.peek().onKeyUp(gameContainer, key);
     }
 
-    public List<HeroCharacter> getHeroBattleList() {
-        return heroBattleList;
+    public List<PlayerCharacter> getPlayerBattleList() {
+        return playerBattleList;
     }
 }

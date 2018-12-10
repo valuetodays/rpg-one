@@ -1,6 +1,6 @@
 package billy.rpg.game.core.command;
 
-import billy.rpg.game.core.character.HeroCharacter;
+import billy.rpg.game.core.character.PlayerCharacter;
 import billy.rpg.game.core.command.processor.CmdProcessor;
 import billy.rpg.game.core.command.processor.support.DefaultCmdProcessor;
 import billy.rpg.game.core.container.GameContainer;
@@ -27,7 +27,7 @@ public class IfLevelCmd extends CmdBase {
 
     @Override
     public int execute(GameContainer gameContainer, CmdProcessor cmdProcessor) {
-        HeroCharacter heroCharacter = gameContainer.getGameData().getHeroList(gameContainer).get(roleId-1);
+        PlayerCharacter heroCharacter = gameContainer.getGameData().getHeroList(gameContainer).get(roleId-1);
         int level = heroCharacter.getRoleMetaData().getLevel();
 
         if (level < predictedLevel) {

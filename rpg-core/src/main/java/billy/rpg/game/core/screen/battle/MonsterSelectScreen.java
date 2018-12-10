@@ -1,7 +1,7 @@
 package billy.rpg.game.core.screen.battle;
 
 import billy.rpg.game.core.DesktopCanvas;
-import billy.rpg.game.core.character.MonsterCharacter;
+import billy.rpg.game.core.character.EnemyCharacter;
 import billy.rpg.game.core.character.fightable.Fightable;
 import billy.rpg.game.core.constants.GameConstant;
 import billy.rpg.game.core.container.GameContainer;
@@ -37,7 +37,7 @@ public class MonsterSelectScreen extends BaseScreen {
         this.battleUIScreen = battleUIScreen;
         this.battleOptionScreen = battleOptionScreen;
         this.skillId = skillId;
-        java.util.List<MonsterCharacter> monsterBattleList = getBattleUIScreen().enemyBattleList;
+        java.util.List<EnemyCharacter> monsterBattleList = getBattleUIScreen().enemyBattleList;
         for (int i = 0; i < monsterBattleList.size(); i++) {
             Fightable fightable = monsterBattleList.get(i);
             if (!fightable.isDied()) {
@@ -80,7 +80,7 @@ public class MonsterSelectScreen extends BaseScreen {
         getBattleUIScreen().drawMonster(gameContainer, g);
 
         Image gameArrowUp = gameContainer.getGameAboutItem().getGameArrowUp();
-        MonsterCharacter monsterBattleArrowTo = getBattleUIScreen().enemyBattleList.get(monsterIndex);
+        EnemyCharacter monsterBattleArrowTo = getBattleUIScreen().enemyBattleList.get(monsterIndex);
         if (!monsterBattleArrowTo.isDied()) {
             g.drawImage(gameArrowUp,
                     monsterBattleArrowTo.getLeft() + monsterBattleArrowTo.getWidth() / 2 - gameArrowUp.getWidth(null) / 2,
@@ -119,16 +119,16 @@ public class MonsterSelectScreen extends BaseScreen {
             getBattleUIScreen().getParentScreen().pop();
         } else if (KeyUtil.isEnter(key)) {
             getBattleUIScreen().actionList.add(new BattleAction(BattleAction.FROM_HERO,
-                    getBattleUIScreen().heroIndex,
+                    getBattleUIScreen().playerIndex,
                     monsterIndex,
                     battleOptionScreen.heroActionChoice, skillId, 0));
             if (skillId != -1) { // 将技能选择屏幕清除掉
                 getBattleUIScreen().getParentScreen().pop();
             }
             getBattleUIScreen().getParentScreen().pop(); // TODO 清除什么？
-            getBattleUIScreen().heroIndex++;
+            getBattleUIScreen().playerIndex++;
             battleOptionScreen.heroActionChoice = BattleAction.BattleOption.COMMON.getOrder(); // 重置成普攻
-            if (getBattleUIScreen().heroIndex < getBattleUIScreen().playerBattleList.size()) {
+            if (getBattleUIScreen().playerIndex < getBattleUIScreen().playerBattleList.size()) {
 
             } else {
                 battleOptionScreen.generateMonsterAttackAction();

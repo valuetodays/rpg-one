@@ -1,7 +1,7 @@
 package billy.rpg.game.core.screen.battle;
 
 import billy.rpg.game.core.DesktopCanvas;
-import billy.rpg.game.core.character.HeroCharacter;
+import billy.rpg.game.core.character.PlayerCharacter;
 import billy.rpg.game.core.constants.GameConstant;
 import billy.rpg.game.core.container.GameContainer;
 import billy.rpg.game.core.screen.BaseScreen;
@@ -76,12 +76,12 @@ public class BattleOptionScreen extends BaseScreen {
     @Override
     public void onKeyUp(GameContainer gameContainer, int key) {
         if (KeyUtil.isEsc(key)) {
-            if (getBattleUIScreen().heroIndex > BattleAction.BattleOption.COMMON.getOrder()) {
-                getBattleUIScreen().heroIndex--;
-                if (getBattleUIScreen().heroIndex < BattleAction.BattleOption.COMMON.getOrder()) {
-                    getBattleUIScreen().heroIndex = BattleAction.BattleOption.COMMON.getOrder();
+            if (getBattleUIScreen().playerIndex > BattleAction.BattleOption.COMMON.getOrder()) {
+                getBattleUIScreen().playerIndex--;
+                if (getBattleUIScreen().playerIndex < BattleAction.BattleOption.COMMON.getOrder()) {
+                    getBattleUIScreen().playerIndex = BattleAction.BattleOption.COMMON.getOrder();
                 }
-                getBattleUIScreen().actionList.remove(getBattleUIScreen().heroIndex);
+                getBattleUIScreen().actionList.remove(getBattleUIScreen().playerIndex);
             }
         } else if (KeyUtil.isUp(key)) {
             heroActionChoice--;
@@ -94,12 +94,12 @@ public class BattleOptionScreen extends BaseScreen {
                 heroActionChoice = BattleAction.BattleOption.COMMON.getOrder();
             }
         } else if (KeyUtil.isEnter(key)) {
-            if (getBattleUIScreen().heroIndex >= getBattleUIScreen().playerBattleList.size()) {
+            if (getBattleUIScreen().playerIndex >= getBattleUIScreen().playerBattleList.size()) {
                 return;
             }
             logger.debug("heroActionChoice: " + heroActionChoice);
             if (heroActionChoice == BattleAction.BattleOption.COMMON.getOrder()) {  // 普攻
-                HeroCharacter activeHero = getBattleUIScreen().getActiveHero();
+                PlayerCharacter activeHero = getBattleUIScreen().getActivePlayer();
                 //
                 int range = activeHero.getEquipables().getWeapon().getEquip().getGoods().getRange();
                 logger.debug("range: " + range);
@@ -107,10 +107,10 @@ public class BattleOptionScreen extends BaseScreen {
                     int enemySize = battleUIScreen.enemyAliveCount();
                     if (enemySize == 1) { // 只有一个敌人
                         getBattleUIScreen().actionList.add(new BattleAction(BattleAction.FROM_HERO,
-                                getBattleUIScreen().heroIndex,
+                                getBattleUIScreen().playerIndex,
                                 0,
                                 heroActionChoice, -1, 0));
-                        if (getBattleUIScreen().heroIndex == getBattleUIScreen().playerBattleList.size() - 1) {
+                        if (getBattleUIScreen().playerIndex == getBattleUIScreen().playerBattleList.size() - 1) {
                             generateMonsterAttackAction();
                         }
                         getBattleUIScreen().nextHero(); // next hero
@@ -121,10 +121,10 @@ public class BattleOptionScreen extends BaseScreen {
                 } else if (range == GoodsMetaData.RANGE_ALL) { // 群攻
                     // 添加全体攻击效果
                     getBattleUIScreen().actionList.add(new BattleAction(BattleAction.FROM_HERO,
-                            getBattleUIScreen().heroIndex,
+                            getBattleUIScreen().playerIndex,
                             -1,
                             heroActionChoice, 0, 0));
-                    if (getBattleUIScreen().heroIndex == getBattleUIScreen().playerBattleList.size() - 1) {
+                    if (getBattleUIScreen().playerIndex == getBattleUIScreen().playerBattleList.size() - 1) {
                         generateMonsterAttackAction();
                     }
                     getBattleUIScreen().nextHero(); // next hero
@@ -132,7 +132,7 @@ public class BattleOptionScreen extends BaseScreen {
                     throw new RuntimeException("unknown range: " + range);
                 }
             } else if (heroActionChoice == BattleAction.BattleOption.SKILL.getOrder()) {  // 技能
-                HeroCharacter activeHero = getBattleUIScreen().getActiveHero();
+                PlayerCharacter activeHero = getBattleUIScreen().getActivePlayer();
                 String skillIds = activeHero.getRoleMetaData().getSkillIds();
                 if (StringUtils.isEmpty(skillIds)) {
                     final BaseScreen bs = new MessageBoxScreen("未习得任何技能，不能施放技能");
@@ -151,7 +151,7 @@ public class BattleOptionScreen extends BaseScreen {
             } else if (BattleAction.BattleOption.GOODS.getOrder() == heroActionChoice) {
 
             } else if (BattleAction.BattleOption.STATE.getOrder() == heroActionChoice) {
-                final BattleStateScreen stateScreen = new BattleStateScreen(this, true, getBattleUIScreen().heroIndex);
+                final BattleStateScreen stateScreen = new BattleStateScreen(this, true, getBattleUIScreen().playerIndex);
                 getBattleUIScreen().getParentScreen().push(stateScreen);
             } else if (BattleAction.BattleOption.ESCAPE.getOrder() == heroActionChoice) {
 

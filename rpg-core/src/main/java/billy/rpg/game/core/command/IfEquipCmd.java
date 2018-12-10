@@ -1,6 +1,6 @@
 package billy.rpg.game.core.command;
 
-import billy.rpg.game.core.character.HeroCharacter;
+import billy.rpg.game.core.character.PlayerCharacter;
 import billy.rpg.game.core.command.processor.CmdProcessor;
 import billy.rpg.game.core.command.processor.support.DefaultCmdProcessor;
 import billy.rpg.game.core.container.GameContainer;
@@ -33,9 +33,9 @@ public class IfEquipCmd extends CmdBase {
         if (goodsMetaData == null) {
             throw new RuntimeException("error goods: " + goods);
         }
-        HeroCharacter heroCharacterToCheckEquip = null;
-        List<HeroCharacter> heroList = gameContainer.getGameData().getHeroList(gameContainer);
-        for (HeroCharacter heroCharacter : heroList) {
+        PlayerCharacter heroCharacterToCheckEquip = null;
+        List<PlayerCharacter> heroList = gameContainer.getGameData().getHeroList(gameContainer);
+        for (PlayerCharacter heroCharacter : heroList) {
             if (heroCharacter.getRoleMetaData().getNumber() == roleId) {
                 heroCharacterToCheckEquip = heroCharacter;
             }

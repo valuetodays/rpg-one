@@ -6,13 +6,15 @@ import billy.rpg.game.core.container.GameContainer;
 import billy.rpg.resource.role.RoleMetaData;
 
 /**
+ * 玩家角色
+ *
  * @author liulei-home
  * @since 2018-10-03 14:14
  */
-public class HeroCharacter extends Fightable {
+public class PlayerCharacter extends Fightable {
     private WalkableCharacter walkable;
 
-    public HeroCharacter(GameContainer gameContainer) {
+    public PlayerCharacter(GameContainer gameContainer) {
         super(gameContainer);
     }
 

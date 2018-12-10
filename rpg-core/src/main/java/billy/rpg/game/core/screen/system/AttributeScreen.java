@@ -3,7 +3,7 @@ package billy.rpg.game.core.screen.system;
 import billy.rpg.common.util.TextUtil;
 import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.GameData;
-import billy.rpg.game.core.character.HeroCharacter;
+import billy.rpg.game.core.character.PlayerCharacter;
 import billy.rpg.game.core.constants.GameConstant;
 import billy.rpg.game.core.container.GameContainer;
 import billy.rpg.game.core.equip.clothes.ClothesEquip;
@@ -29,7 +29,7 @@ import java.util.List;
 public class AttributeScreen extends BaseScreen {
     private final SystemUIScreen systemScreen;
 
-    private java.util.List<HeroCharacter> heroList;
+    private java.util.List<PlayerCharacter> heroList;
 
     public AttributeScreen(GameContainer gameContainer, SystemUIScreen systemScreen) {
         this.systemScreen = systemScreen;
@@ -39,7 +39,7 @@ public class AttributeScreen extends BaseScreen {
 
     @Override
     public void update(GameContainer gameContainer, long delta) {
-        for (HeroCharacter heroCharacter : heroList) {
+        for (PlayerCharacter heroCharacter : heroList) {
             RoleMetaData roleMetaData = heroCharacter.getRoleMetaData();
             roleMetaData.getSprite().update(delta);
         }
@@ -55,7 +55,7 @@ public class AttributeScreen extends BaseScreen {
         g.setColor(Color.YELLOW);
 
         for (int i = 0; i < heroList.size(); i++) {
-            HeroCharacter heroCharacter = heroList.get(i);
+            PlayerCharacter heroCharacter = heroList.get(i);
             WeaponEquip weaponEquip = (WeaponEquip) heroCharacter.getEquipables().getWeapon().getEquip();
             int attackValueInEquip = weaponEquip.getAttack();
             ClothesEquip clothes = (ClothesEquip) heroCharacter.getEquipables().getClothes().getEquip();
