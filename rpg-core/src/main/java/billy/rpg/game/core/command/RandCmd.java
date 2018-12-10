@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * 生成一个[begin, end]之间的数
+ * 生成一个[begin, end]之间的数，并把它保存到var变量中
  *
  * @author lei.liu@datatist.com
  * @since 2018-12-10 15:18:19
