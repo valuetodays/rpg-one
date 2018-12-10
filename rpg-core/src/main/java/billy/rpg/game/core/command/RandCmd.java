@@ -30,10 +30,13 @@ public class RandCmd extends CmdBase {
 
     @Override
     public int execute(GameContainer gameContainer, CmdProcessor cmdProcessor) {
+        if (begin >= MAX) {
+            throw new RuntimeException("the begin is incorrect, please use number less than " + MAX);
+        }
         if (end <= begin) {
             throw new RuntimeException("the begin and end is incorrect.");
         }
-        int randValue = (RANDOM.nextInt(MAX) % (end - begin)) + begin;
+        int randValue = (RANDOM.nextInt(MAX) % (end - begin + 1)) + begin;
         VariableDeterminer.getInstance().set(var, randValue);
         return 0;
     }
