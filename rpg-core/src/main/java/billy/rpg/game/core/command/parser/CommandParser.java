@@ -106,6 +106,10 @@ public abstract class CommandParser {
     private List<String> getCmdListInDev(String pkgAsPath) {
         final String pkg = StringUtils.replace(pkgAsPath, "/", ".");
         String path = AssetsUtil.getResourcePath(pkgAsPath);
+        // 当执行Junit4测试类的时候不替换如下就不能正常！
+        path = path.replace(File.separator + "target"+File.separator + "test-classes" + File.separator,
+                File.separator + "target"+File.separator+"classes" + File.separator);
+
         File directory = new File(path);
         List<String> cmdClassList = Arrays.stream(directory.listFiles())
                 .filter(File::isFile)

@@ -9,7 +9,7 @@ import billy.rpg.game.core.container.GameContainer;
  * @since 2017-12-21 14:12
  */
 public class EventTableDeterminer extends EventTable {
-    // 全局变量
+    // 全局事件
     private EventTable globalVirtualTable = new GlobalEventTable();
 
     private static EventTableDeterminer virtualTableDeterminer = new EventTableDeterminer();

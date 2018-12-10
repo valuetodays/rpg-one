@@ -155,6 +155,10 @@ screenshot "仅供测试"
 return
 
 testForAll:
+setvar n 100
+@addvar n 1
+@subvar n 1
+@settovar n m
 say 2 '师弟' NONE '师兄，看我表情行事。'
 emotion 14 1
 iflevel 1 20 没有30级

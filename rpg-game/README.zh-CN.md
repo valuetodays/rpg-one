@@ -321,3 +321,7 @@ ILoader
     TODO learnSkill xx
     处理技能：加攻型buff  （需要在各个地方判断技能的类型(type)是攻击的还是辅助的，代码好乱啊）
     战斗场景中显示回合数
+
+#### 2018-12-10
+    GAMESAVE中的参数：
+    使用事件表，全局变量表，GameData
