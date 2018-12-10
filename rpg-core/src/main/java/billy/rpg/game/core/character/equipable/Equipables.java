@@ -9,6 +9,7 @@ import billy.rpg.resource.goods.GoodsMetaData;
 /**
  * 一个玩家角色有一个{@link Equipables}对象
  * 一个{@link Equipables}里有多个{@link Equipable}对象
+ *
  * @author lei.liu@datatist.com
  * @since 2018-10-08 13:35:23
  */

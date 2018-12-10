@@ -131,7 +131,7 @@ public class SkillSelectScreen extends BaseScreen {
                 getBattleUIScreen().actionList.add(new BattleAction(BattleAction.FROM_HERO,
                         getBattleUIScreen().playerIndex,
                         heroIndex,
-                        battleOptionScreen.heroActionChoice, skillId, 0));
+                        battleOptionScreen.playerActionChoice, skillId, 0));
                 if (getBattleUIScreen().playerIndex == getBattleUIScreen().playerBattleList.size() - 1) {
                     battleOptionScreen.generateMonsterAttackAction();
                 }
@@ -162,7 +162,7 @@ public class SkillSelectScreen extends BaseScreen {
                 getBattleUIScreen().actionList.add(new BattleAction(BattleAction.FROM_HERO,
                         getBattleUIScreen().playerIndex,
                         0,
-                        battleOptionScreen.heroActionChoice, skillId, 0));
+                        battleOptionScreen.playerActionChoice, skillId, 0));
                 if (getBattleUIScreen().playerIndex == getBattleUIScreen().playerBattleList.size() - 1) {
                     battleOptionScreen.generateMonsterAttackAction();
                 }
@@ -177,7 +177,7 @@ public class SkillSelectScreen extends BaseScreen {
             getBattleUIScreen().actionList.add(new BattleAction(BattleAction.FROM_HERO,
                     getBattleUIScreen().playerIndex,
                     -1,
-                    battleOptionScreen.heroActionChoice, skillId, 0));
+                    battleOptionScreen.playerActionChoice, skillId, 0));
             if (getBattleUIScreen().playerIndex == getBattleUIScreen().playerBattleList.size() - 1) {
                 battleOptionScreen.generateMonsterAttackAction();
             }

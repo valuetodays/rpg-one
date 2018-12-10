@@ -25,7 +25,7 @@ import java.awt.image.BufferedImage;
  */
 public class BattleOptionScreen extends BaseScreen {
 
-    int heroActionChoice = BattleAction.BattleOption.COMMON.getOrder();
+    int playerActionChoice = BattleAction.BattleOption.COMMON.getOrder();
     private BattleUIScreen battleUIScreen;
 
     public BattleOptionScreen(BattleUIScreen battleUIScreen) {
@@ -62,7 +62,7 @@ public class BattleOptionScreen extends BaseScreen {
 
         // 显示用户选项
         Image gameArrowRight = gameContainer.getGameAboutItem().getGameArrowRight();
-        g.drawImage(gameArrowRight, 30, (heroActionChoice) * 25 + 333, null);
+        g.drawImage(gameArrowRight, 30, (playerActionChoice) * 25 + 333, null);
 
         desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
     }
@@ -84,21 +84,21 @@ public class BattleOptionScreen extends BaseScreen {
                 getBattleUIScreen().actionList.remove(getBattleUIScreen().playerIndex);
             }
         } else if (KeyUtil.isUp(key)) {
-            heroActionChoice--;
-            if (heroActionChoice < BattleAction.BattleOption.COMMON.getOrder()) {
-                heroActionChoice = BattleAction.BattleOption.values().length-1;
+            playerActionChoice--;
+            if (playerActionChoice < BattleAction.BattleOption.COMMON.getOrder()) {
+                playerActionChoice = BattleAction.BattleOption.values().length-1;
             }
         } else if (KeyUtil.isDown(key)) {
-            heroActionChoice++;
-            if (heroActionChoice > BattleAction.BattleOption.values().length-1) {
-                heroActionChoice = BattleAction.BattleOption.COMMON.getOrder();
+            playerActionChoice++;
+            if (playerActionChoice > BattleAction.BattleOption.values().length-1) {
+                playerActionChoice = BattleAction.BattleOption.COMMON.getOrder();
             }
         } else if (KeyUtil.isEnter(key)) {
             if (getBattleUIScreen().playerIndex >= getBattleUIScreen().playerBattleList.size()) {
                 return;
             }
-            logger.debug("heroActionChoice: " + heroActionChoice);
-            if (heroActionChoice == BattleAction.BattleOption.COMMON.getOrder()) {  // 普攻
+            logger.debug("playerActionChoice: " + playerActionChoice);
+            if (playerActionChoice == BattleAction.BattleOption.COMMON.getOrder()) {  // 普攻
                 PlayerCharacter activeHero = getBattleUIScreen().getActivePlayer();
                 //
                 int range = activeHero.getEquipables().getWeapon().getEquip().getGoods().getRange();
@@ -109,7 +109,7 @@ public class BattleOptionScreen extends BaseScreen {
                         getBattleUIScreen().actionList.add(new BattleAction(BattleAction.FROM_HERO,
                                 getBattleUIScreen().playerIndex,
                                 0,
-                                heroActionChoice, -1, 0));
+                                playerActionChoice, -1, 0));
                         if (getBattleUIScreen().playerIndex == getBattleUIScreen().playerBattleList.size() - 1) {
                             generateMonsterAttackAction();
                         }
@@ -123,7 +123,7 @@ public class BattleOptionScreen extends BaseScreen {
                     getBattleUIScreen().actionList.add(new BattleAction(BattleAction.FROM_HERO,
                             getBattleUIScreen().playerIndex,
                             -1,
-                            heroActionChoice, 0, 0));
+                            playerActionChoice, 0, 0));
                     if (getBattleUIScreen().playerIndex == getBattleUIScreen().playerBattleList.size() - 1) {
                         generateMonsterAttackAction();
                     }
@@ -131,7 +131,7 @@ public class BattleOptionScreen extends BaseScreen {
                 } else {
                     throw new RuntimeException("unknown range: " + range);
                 }
-            } else if (heroActionChoice == BattleAction.BattleOption.SKILL.getOrder()) {  // 技能
+            } else if (playerActionChoice == BattleAction.BattleOption.SKILL.getOrder()) {  // 技能
                 PlayerCharacter activeHero = getBattleUIScreen().getActivePlayer();
                 String skillIds = activeHero.getRoleMetaData().getSkillIds();
                 if (StringUtils.isEmpty(skillIds)) {
@@ -148,15 +148,15 @@ public class BattleOptionScreen extends BaseScreen {
 
                 final BaseScreen bs = new SkillSelectScreen(gameContainer, battleUIScreen, this);
                 getBattleUIScreen().getParentScreen().push(bs);
-            } else if (BattleAction.BattleOption.GOODS.getOrder() == heroActionChoice) {
+            } else if (BattleAction.BattleOption.GOODS.getOrder() == playerActionChoice) {
 
-            } else if (BattleAction.BattleOption.STATE.getOrder() == heroActionChoice) {
+            } else if (BattleAction.BattleOption.STATE.getOrder() == playerActionChoice) {
                 final BattleStateScreen stateScreen = new BattleStateScreen(this, true, getBattleUIScreen().playerIndex);
                 getBattleUIScreen().getParentScreen().push(stateScreen);
-            } else if (BattleAction.BattleOption.ESCAPE.getOrder() == heroActionChoice) {
+            } else if (BattleAction.BattleOption.ESCAPE.getOrder() == playerActionChoice) {
 
             } else {
-                throw new RuntimeException("unknown heroActionChoice: " + heroActionChoice);
+                throw new RuntimeException("unknown playerActionChoice: " + playerActionChoice);
             }
 
         }

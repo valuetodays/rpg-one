@@ -121,13 +121,13 @@ public class MonsterSelectScreen extends BaseScreen {
             getBattleUIScreen().actionList.add(new BattleAction(BattleAction.FROM_HERO,
                     getBattleUIScreen().playerIndex,
                     monsterIndex,
-                    battleOptionScreen.heroActionChoice, skillId, 0));
+                    battleOptionScreen.playerActionChoice, skillId, 0));
             if (skillId != -1) { // 将技能选择屏幕清除掉
                 getBattleUIScreen().getParentScreen().pop();
             }
             getBattleUIScreen().getParentScreen().pop(); // TODO 清除什么？
             getBattleUIScreen().playerIndex++;
-            battleOptionScreen.heroActionChoice = BattleAction.BattleOption.COMMON.getOrder(); // 重置成普攻
+            battleOptionScreen.playerActionChoice = BattleAction.BattleOption.COMMON.getOrder(); // 重置成普攻
             if (getBattleUIScreen().playerIndex < getBattleUIScreen().playerBattleList.size()) {
 
             } else {
