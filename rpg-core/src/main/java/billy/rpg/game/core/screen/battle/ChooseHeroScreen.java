@@ -67,11 +67,11 @@ public class ChooseHeroScreen extends BaseScreen {
         if (KeyUtil.isLeft(key)) {
             heroIndex--;
             if (heroIndex < 0) {
-                heroIndex = heroBattleList.size()-1;
+                heroIndex = playerBattleList.size()-1;
             }
         } else if (KeyUtil.isRight(key)) {
             heroIndex++;
-            if (heroIndex > heroBattleList.size()-1) {
+            if (heroIndex > playerBattleList.size()-1) {
                 heroIndex = 0;
             }
         }*/

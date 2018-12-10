@@ -37,7 +37,7 @@ public class MonsterSelectScreen extends BaseScreen {
         this.battleUIScreen = battleUIScreen;
         this.battleOptionScreen = battleOptionScreen;
         this.skillId = skillId;
-        java.util.List<MonsterCharacter> monsterBattleList = getBattleUIScreen().monsterBattleList;
+        java.util.List<MonsterCharacter> monsterBattleList = getBattleUIScreen().enemyBattleList;
         for (int i = 0; i < monsterBattleList.size(); i++) {
             Fightable fightable = monsterBattleList.get(i);
             if (!fightable.isDied()) {
@@ -80,7 +80,7 @@ public class MonsterSelectScreen extends BaseScreen {
         getBattleUIScreen().drawMonster(gameContainer, g);
 
         Image gameArrowUp = gameContainer.getGameAboutItem().getGameArrowUp();
-        MonsterCharacter monsterBattleArrowTo = getBattleUIScreen().monsterBattleList.get(monsterIndex);
+        MonsterCharacter monsterBattleArrowTo = getBattleUIScreen().enemyBattleList.get(monsterIndex);
         if (!monsterBattleArrowTo.isDied()) {
             g.drawImage(gameArrowUp,
                     monsterBattleArrowTo.getLeft() + monsterBattleArrowTo.getWidth() / 2 - gameArrowUp.getWidth(null) / 2,
@@ -128,7 +128,7 @@ public class MonsterSelectScreen extends BaseScreen {
             getBattleUIScreen().getParentScreen().pop(); // TODO 清除什么？
             getBattleUIScreen().heroIndex++;
             battleOptionScreen.heroActionChoice = BattleAction.BattleOption.COMMON.getOrder(); // 重置成普攻
-            if (getBattleUIScreen().heroIndex < getBattleUIScreen().heroBattleList.size()) {
+            if (getBattleUIScreen().heroIndex < getBattleUIScreen().playerBattleList.size()) {
 
             } else {
                 battleOptionScreen.generateMonsterAttackAction();
@@ -138,13 +138,13 @@ public class MonsterSelectScreen extends BaseScreen {
         } else if (KeyUtil.isLeft(key)) {
             int nextMonsterIndex = monsterIndex - 1;
             if (nextMonsterIndex >= 0
-                    && !getBattleUIScreen().monsterBattleList.get(nextMonsterIndex).isDied()) {
+                    && !getBattleUIScreen().enemyBattleList.get(nextMonsterIndex).isDied()) {
                 monsterIndex = nextMonsterIndex;
             }
         } else if (KeyUtil.isRight(key)) {
             int nextMonsterIndex = monsterIndex + 1;
-            if (nextMonsterIndex < getBattleUIScreen().monsterBattleList.size()
-                && !getBattleUIScreen().monsterBattleList.get(nextMonsterIndex).isDied()) {
+            if (nextMonsterIndex < getBattleUIScreen().enemyBattleList.size()
+                && !getBattleUIScreen().enemyBattleList.get(nextMonsterIndex).isDied()) {
                 monsterIndex = nextMonsterIndex;
             }
         }

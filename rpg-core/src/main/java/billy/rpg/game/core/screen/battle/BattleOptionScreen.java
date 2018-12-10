@@ -94,7 +94,7 @@ public class BattleOptionScreen extends BaseScreen {
                 heroActionChoice = BattleAction.BattleOption.COMMON.getOrder();
             }
         } else if (KeyUtil.isEnter(key)) {
-            if (getBattleUIScreen().heroIndex >= getBattleUIScreen().heroBattleList.size()) {
+            if (getBattleUIScreen().heroIndex >= getBattleUIScreen().playerBattleList.size()) {
                 return;
             }
             logger.debug("heroActionChoice: " + heroActionChoice);
@@ -110,7 +110,7 @@ public class BattleOptionScreen extends BaseScreen {
                                 getBattleUIScreen().heroIndex,
                                 0,
                                 heroActionChoice, -1, 0));
-                        if (getBattleUIScreen().heroIndex == getBattleUIScreen().heroBattleList.size() - 1) {
+                        if (getBattleUIScreen().heroIndex == getBattleUIScreen().playerBattleList.size() - 1) {
                             generateMonsterAttackAction();
                         }
                         getBattleUIScreen().nextHero(); // next hero
@@ -124,7 +124,7 @@ public class BattleOptionScreen extends BaseScreen {
                             getBattleUIScreen().heroIndex,
                             -1,
                             heroActionChoice, 0, 0));
-                    if (getBattleUIScreen().heroIndex == getBattleUIScreen().heroBattleList.size() - 1) {
+                    if (getBattleUIScreen().heroIndex == getBattleUIScreen().playerBattleList.size() - 1) {
                         generateMonsterAttackAction();
                     }
                     getBattleUIScreen().nextHero(); // next hero
@@ -166,7 +166,7 @@ public class BattleOptionScreen extends BaseScreen {
      * 生成怪物的攻击方式
      */
     public void generateMonsterAttackAction() {
-        for (int i = 0; i < getBattleUIScreen().monsterBattleList.size(); i++) {
+        for (int i = 0; i < getBattleUIScreen().enemyBattleList.size(); i++) {
             // TODO 暂先随机使用普攻和技能
             int actionAttack = GameConstant.random.nextInt(2);
             int skillId = 0;
@@ -176,7 +176,7 @@ public class BattleOptionScreen extends BaseScreen {
 
             BattleAction battleAction = new BattleAction(BattleAction.FROM_MONSTER,
                     i,
-                    GameConstant.random.nextInt(getBattleUIScreen().heroBattleList.size()) ,
+                    GameConstant.random.nextInt(getBattleUIScreen().playerBattleList.size()) ,
                     // TODO 暂先随机使用普攻和技能
                     BattleAction.BattleOption.COMMON.getOrder(), skillId, 0);
             getBattleUIScreen().actionList.add(battleAction);

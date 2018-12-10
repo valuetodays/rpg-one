@@ -23,8 +23,8 @@ import java.util.List;
  */
 public class BattleUIScreen extends BaseScreen {
     private BattleScreen parentScreen; // the basescreen contains this
-    protected java.util.List<MonsterCharacter> monsterBattleList;
-    protected java.util.List<HeroCharacter> heroBattleList;
+    protected java.util.List<MonsterCharacter> enemyBattleList;
+    protected java.util.List<HeroCharacter> playerBattleList;
     private java.util.List<Image> monsterImages;
     protected int heroIndex; // 活动玩家
     protected final int exp;
@@ -41,33 +41,33 @@ public class BattleUIScreen extends BaseScreen {
     /**
      * 我方数量
      */
-    public int ourCount() {
-        return heroBattleList.size();
+    public int playerCount() {
+        return playerBattleList.size();
     }
     /**
      * 敌方数量
      */
     public int enemyCount() {
-        return monsterBattleList.size();
+        return enemyBattleList.size();
     }
 
     /**
      * 我方存活数量
      */
-    public int ourAliveCount() {
-        return (int)heroBattleList.stream().filter(e -> !e.isDied()).count();
+    public int playerAliveCount() {
+        return (int) playerBattleList.stream().filter(e -> !e.isDied()).count();
     }
     /**
      * 敌方存活数量
      */
     public int enemyAliveCount() {
-        return (int)monsterBattleList.stream().filter(e -> !e.isDied()).count();
+        return (int) enemyBattleList.stream().filter(e -> !e.isDied()).count();
     }
 
     public BattleUIScreen(GameContainer gameContainer, final int[] metMonsterIds, BattleScreen battleScreen, List<HeroCharacter> heroBattleList) {
         logger.debug("met monsters with["+ ArrayUtils.toString(metMonsterIds)+"]");
         parentScreen = battleScreen;
-        this.heroBattleList = heroBattleList;
+        this.playerBattleList = heroBattleList;
 
         monsterImages = new ArrayList<>();
         for (int metMonsterId : metMonsterIds) {
@@ -75,7 +75,7 @@ public class BattleUIScreen extends BaseScreen {
             monsterImages.add(image);
         }
 
-        monsterBattleList = new ArrayList<>();
+        enemyBattleList = new ArrayList<>();
         int tempMoney = 0;
         int tempExp = 0;
         for (int i = 0; i < metMonsterIds.length; i++) {
@@ -90,7 +90,7 @@ public class BattleUIScreen extends BaseScreen {
             tempExp += roleMetaData.getExp();
             tempMoney += roleMetaData.getMoney();
 
-            monsterBattleList.add(monsterCharacter);
+            enemyBattleList.add(monsterCharacter);
         }
         this.exp = tempExp;
         this.money = tempMoney;
@@ -118,13 +118,13 @@ public class BattleUIScreen extends BaseScreen {
      * get current active hero
      */
     public HeroCharacter getActiveHero() {
-        return heroBattleList.get(getActiveHeroIndex());
+        return playerBattleList.get(getActiveHeroIndex());
     }
     public int getActiveHeroIndex() {
         return heroIndex;
     }
     public void nextHero() {
-        if (++heroIndex >= heroBattleList.size()) {
+        if (++heroIndex >= playerBattleList.size()) {
             startAttack();
         }
     }
@@ -166,8 +166,8 @@ public class BattleUIScreen extends BaseScreen {
     }
 
     private void drawHero(Graphics g) {
-        for (int i = 0; i < heroBattleList.size(); i++) {
-            HeroCharacter heroBattle = heroBattleList.get(i);
+        for (int i = 0; i < playerBattleList.size(); i++) {
+            HeroCharacter heroBattle = playerBattleList.get(i);
             // 将当前活动玩家高亮出来
             if (i == heroIndex) {
                 RoleMetaData roleMetaData = heroBattle.getRoleMetaData();
@@ -189,7 +189,7 @@ public class BattleUIScreen extends BaseScreen {
     }
 
     public void drawMonster(GameContainer gameContainer, Graphics g) {
-        for (MonsterCharacter monsterBattle : monsterBattleList) {
+        for (MonsterCharacter monsterBattle : enemyBattleList) {
             Image image = monsterBattle.getRoleMetaData().getImage();
             int left = monsterBattle.getLeft();
             int top = monsterBattle.getTop();
@@ -229,7 +229,7 @@ public class BattleUIScreen extends BaseScreen {
 
     public void roundEnd() {
         logger.debug(" round " + round + " elapsed");
-        this.heroBattleList.forEach(Fightable::onRoundEnd);
+        this.playerBattleList.forEach(Fightable::onRoundEnd);
         this.fighting = false;
         this.getParentScreen().pop();
         this.heroIndex = 0; // 将当前活动的heroIndex置为首个

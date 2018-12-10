@@ -41,7 +41,7 @@ public class BattleStateScreen extends BaseScreen {
     public void draw(GameContainer gameContainer, DesktopCanvas desktopCanvas) {
         Fightable fightable = null;
         if (isHero) {
-            HeroCharacter heroCharacter = battleOptionScreen.getBattleUIScreen().heroBattleList.get(index);
+            HeroCharacter heroCharacter = battleOptionScreen.getBattleUIScreen().playerBattleList.get(index);
             fightable = (Fightable)heroCharacter;
         } else {
             throw new UnimplementationException("暂不支持查看敌方角色信息，后续可提供查看敌方角色信息的技能");

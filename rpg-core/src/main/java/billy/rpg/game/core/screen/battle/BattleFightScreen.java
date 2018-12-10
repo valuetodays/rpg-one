@@ -74,15 +74,15 @@ public class BattleFightScreen extends BaseScreen {
     private void monsterAction(GameContainer gameContainer, BattleAction battleAction) {
         // 攻击者已阵亡的话，就不能攻击了，此时要换下个攻击者
         int attackerId = battleAction.attackerId;
-        if (getBattleUIScreen().monsterBattleList.get(attackerId).isDied()) {
+        if (getBattleUIScreen().enemyBattleList.get(attackerId).isDied()) {
             nextAction();
             return;
         }
         // 当妖怪阵亡时，就从第一个开始选择一个未死亡的进行攻击
         int targetIndex = battleAction.targetIndex;
-        if (getBattleUIScreen().heroBattleList.get(targetIndex).isDied()) {
+        if (getBattleUIScreen().playerBattleList.get(targetIndex).isDied()) {
             targetIndex = 0;
-            while (getBattleUIScreen().heroBattleList.get(targetIndex).isDied()) {
+            while (getBattleUIScreen().playerBattleList.get(targetIndex).isDied()) {
                 targetIndex++;
             }
         }
@@ -95,8 +95,8 @@ public class BattleFightScreen extends BaseScreen {
             final int finalTargetIndex = targetIndex;
             getBattleUIScreen().getParentScreen().push(
                 new BattleCommonActionScreen(
-                    getBattleUIScreen().monsterBattleList.get(attackerId),
-                    getBattleUIScreen().heroBattleList.stream().map(e -> (Fightable)e).collect(Collectors.toList()),
+                    getBattleUIScreen().enemyBattleList.get(attackerId),
+                    getBattleUIScreen().playerBattleList.stream().map(e -> (Fightable)e).collect(Collectors.toList()),
                         finalTargetIndex,
                     new CommonAttackListener() {
                         @Override
@@ -121,8 +121,8 @@ public class BattleFightScreen extends BaseScreen {
             final int finalTargetIndex = targetIndex;
             getBattleUIScreen().getParentScreen().push(
                 new BattleSkillActionScreen(
-                    gameContainer, getBattleUIScreen().getParentScreen(), getBattleUIScreen().monsterBattleList.get(attackerId),
-                    getBattleUIScreen().heroBattleList.stream().map(e -> (Fightable)e).collect(Collectors.toList()),
+                    gameContainer, getBattleUIScreen().getParentScreen(), getBattleUIScreen().enemyBattleList.get(attackerId),
+                    getBattleUIScreen().playerBattleList.stream().map(e -> (Fightable)e).collect(Collectors.toList()),
                     finalTargetIndex,
                     high,
                     new CommonAttackListener() {
@@ -137,9 +137,9 @@ public class BattleFightScreen extends BaseScreen {
                         @Override
                         public void onFinished() {
                             int consume = gameContainer.getSkillMetaDataOf(high).getConsume();
-                            int mp = getBattleUIScreen().monsterBattleList.get(attackerId).getRoleMetaData().getMp();
+                            int mp = getBattleUIScreen().enemyBattleList.get(attackerId).getRoleMetaData().getMp();
                             mp-=consume;
-                            getBattleUIScreen().monsterBattleList.get(attackerId).getRoleMetaData().setMp(mp);
+                            getBattleUIScreen().enemyBattleList.get(attackerId).getRoleMetaData().setMp(mp);
                             getBattleUIScreen().getParentScreen().pop();
                             nextAction();
                             checkWinOrLose(gameContainer);
@@ -166,15 +166,15 @@ public class BattleFightScreen extends BaseScreen {
     private void heroAction(GameContainer gameContainer, BattleAction battleAction) {
         // 攻击者已阵亡的话，就不能攻击了
         int attackerId = battleAction.attackerId;
-        if (getBattleUIScreen().heroBattleList.get(attackerId).isDied()) {
+        if (getBattleUIScreen().playerBattleList.get(attackerId).isDied()) {
             return;
         }
         // 当妖怪阵亡时，就从第一个开始选择一个未死亡的进行攻击
         int targetIndex = battleAction.targetIndex;
         if (targetIndex != -1) {
-            if (getBattleUIScreen().monsterBattleList.get(targetIndex).isDied()) {
+            if (getBattleUIScreen().enemyBattleList.get(targetIndex).isDied()) {
                 targetIndex = 0;
-                while (getBattleUIScreen().monsterBattleList.get(targetIndex).isDied()) {
+                while (getBattleUIScreen().enemyBattleList.get(targetIndex).isDied()) {
                     targetIndex++;
                 }
             }
@@ -189,8 +189,8 @@ public class BattleFightScreen extends BaseScreen {
             final int finalTargetIndex = targetIndex;
             getBattleUIScreen().getParentScreen().push(
                 new BattleCommonActionScreen(
-                    getBattleUIScreen().heroBattleList.get(attackerId),
-                    getBattleUIScreen().monsterBattleList.stream().map(e -> (Fightable)e).collect(Collectors.toList()),
+                    getBattleUIScreen().playerBattleList.get(attackerId),
+                    getBattleUIScreen().enemyBattleList.stream().map(e -> (Fightable)e).collect(Collectors.toList()),
                     finalTargetIndex,
                     new CommonAttackListener() {
                         @Override
@@ -217,8 +217,8 @@ public class BattleFightScreen extends BaseScreen {
                 getBattleUIScreen().getParentScreen().push(
                     new BattleSkillActionScreen(gameContainer,
                         getBattleUIScreen().getParentScreen(),
-                        getBattleUIScreen().heroBattleList.get(attackerId),
-                        getBattleUIScreen().monsterBattleList.stream().map(e -> (Fightable)e).collect(Collectors.toList()),
+                        getBattleUIScreen().playerBattleList.get(attackerId),
+                        getBattleUIScreen().enemyBattleList.stream().map(e -> (Fightable)e).collect(Collectors.toList()),
                         finalTargetIndex,
                         high,
                         new CommonAttackListener() {
@@ -233,9 +233,9 @@ public class BattleFightScreen extends BaseScreen {
                             @Override
                             public void onFinished() {
                                 int consume = gameContainer.getSkillMetaDataOf(high).getConsume();
-                                int mp = getBattleUIScreen().heroBattleList.get(attackerId).getRoleMetaData().getMp();
+                                int mp = getBattleUIScreen().playerBattleList.get(attackerId).getRoleMetaData().getMp();
                                 mp-=consume;
-                                getBattleUIScreen().heroBattleList.get(attackerId).getRoleMetaData().setMp(mp);
+                                getBattleUIScreen().playerBattleList.get(attackerId).getRoleMetaData().setMp(mp);
                                 getBattleUIScreen().getParentScreen().pop();
                                 nextAction();
                                 checkWinOrLose(gameContainer);
@@ -245,8 +245,8 @@ public class BattleFightScreen extends BaseScreen {
                 getBattleUIScreen().getParentScreen().push(
                         new BattleSkillActionScreen(gameContainer,
                                 getBattleUIScreen().getParentScreen(),
-                                getBattleUIScreen().heroBattleList.get(attackerId),
-                                getBattleUIScreen().heroBattleList.stream().map(e -> (Fightable)e).collect(Collectors.toList()),
+                                getBattleUIScreen().playerBattleList.get(attackerId),
+                                getBattleUIScreen().playerBattleList.stream().map(e -> (Fightable)e).collect(Collectors.toList()),
                                 finalTargetIndex,
                                 high,
                                 new CommonAttackListener() {
@@ -257,14 +257,14 @@ public class BattleFightScreen extends BaseScreen {
                                     @Override
                                     public void doAction(List<Integer> dmgs) {
                                         //doCauseDamage(BattleAction.FROM_HERO, attackerId, finalTargetIndex, dmg);
-                                        getBattleUIScreen().heroBattleList.get(attackerId).addBuff(BuffUtil.skillToBuff(skillMetaData));
+                                        getBattleUIScreen().playerBattleList.get(attackerId).addBuff(BuffUtil.skillToBuff(skillMetaData));
                                     }
                                     @Override
                                     public void onFinished() {
                                         int consume = gameContainer.getSkillMetaDataOf(high).getConsume();
-                                        int mp = getBattleUIScreen().heroBattleList.get(attackerId).getRoleMetaData().getMp();
+                                        int mp = getBattleUIScreen().playerBattleList.get(attackerId).getRoleMetaData().getMp();
                                         mp-=consume;
-                                        getBattleUIScreen().heroBattleList.get(attackerId).getRoleMetaData().setMp(mp);
+                                        getBattleUIScreen().playerBattleList.get(attackerId).getRoleMetaData().setMp(mp);
                                         getBattleUIScreen().getParentScreen().pop();
                                         nextAction();
                                         checkWinOrLose(gameContainer);
@@ -292,7 +292,7 @@ public class BattleFightScreen extends BaseScreen {
     private List<Integer> getSkillAttackDamage(GameContainer gameContainer, boolean fromHero, int attackerId, int targetIndex, int skillId) {
         SkillMetaData skill = gameContainer.getSkillMetaDataOf(skillId);
         if (targetIndex == -1) {
-            return getBattleUIScreen().monsterBattleList.stream().map(target -> {
+            return getBattleUIScreen().enemyBattleList.stream().map(target -> {
                 return skill.getBaseDamage();
             }).collect(Collectors.toList());
         } else {
@@ -306,17 +306,17 @@ public class BattleFightScreen extends BaseScreen {
         List<Integer> damages = new ArrayList<>();
         if (targetIndex != -1) {
             if (fromHero) {
-                HeroCharacter heroCharacter = getBattleUIScreen().heroBattleList.get(attackerId);
+                HeroCharacter heroCharacter = getBattleUIScreen().playerBattleList.get(attackerId);
 //                有效攻击力 = 角色本身攻击力 + buff + 装备攻击力
                 attack = heroCharacter.getAttackWithBuff() + ((WeaponEquip)(heroCharacter.getEquipables().getWeapon().getEquip())).getAttack();
 
-                MonsterCharacter target = getBattleUIScreen().monsterBattleList.get(targetIndex);
+                MonsterCharacter target = getBattleUIScreen().enemyBattleList.get(targetIndex);
                 defend = target.getDefendWithBuff() + ((ClothesEquip)(target.getEquipables().getClothes().getEquip())).getDefend();
             } else {
-                MonsterCharacter attacker = getBattleUIScreen().monsterBattleList.get(attackerId);
+                MonsterCharacter attacker = getBattleUIScreen().enemyBattleList.get(attackerId);
                 attack = attacker.getAttackWithBuff() + ((WeaponEquip)(attacker.getEquipables().getWeapon().getEquip())).getAttack();
 
-                HeroCharacter heroCharacter = getBattleUIScreen().heroBattleList.get(targetIndex);
+                HeroCharacter heroCharacter = getBattleUIScreen().playerBattleList.get(targetIndex);
                 // 把装备的防御力也计算
                 defend = heroCharacter.getDefendWithBuff() + ((ClothesEquip)(heroCharacter.getEquipables().getClothes().getEquip())).getDefend();
             }
@@ -329,19 +329,19 @@ public class BattleFightScreen extends BaseScreen {
             return damages;
         } else {
             if (fromHero) {
-                HeroCharacter heroCharacter = getBattleUIScreen().heroBattleList.get(attackerId);
+                HeroCharacter heroCharacter = getBattleUIScreen().playerBattleList.get(attackerId);
                 int attackerAttack = heroCharacter.getAttackWithBuff() + ((WeaponEquip)(heroCharacter.getEquipables().getWeapon().getEquip())).getAttack();
 
-                return getBattleUIScreen().monsterBattleList.stream().map(target -> {
+                return getBattleUIScreen().enemyBattleList.stream().map(target -> {
                     int targetDefend = target.getDefendWithBuff()+ ((ClothesEquip) (target.getEquipables().getClothes().getEquip())).getDefend();
                     float dmgF = 1.0f * (attackerAttack*1.0f) * (100f/(targetDefend+100f));
                     return (int)dmgF;
                 }).collect(Collectors.toList());
             } else {
-                MonsterCharacter attacker = getBattleUIScreen().monsterBattleList.get(attackerId);
+                MonsterCharacter attacker = getBattleUIScreen().enemyBattleList.get(attackerId);
                 int attackerAttack = attacker.getAttackWithBuff() + ((WeaponEquip)(attacker.getEquipables().getWeapon().getEquip())).getAttack();
 
-                return getBattleUIScreen().heroBattleList.stream().map(heroCharacter -> {
+                return getBattleUIScreen().playerBattleList.stream().map(heroCharacter -> {
                     // 把装备的防御力也计算
                     int targetDefend = heroCharacter.getDefendWithBuff() + ((ClothesEquip)(heroCharacter.getEquipables().getClothes().getEquip())).getDefend();
                     float dmgF = 1.0f * (attackerAttack*1.0f) * (100f/(targetDefend+100f));
@@ -364,11 +364,11 @@ public class BattleFightScreen extends BaseScreen {
             String attackerName = null;
             String targetName = null;
             if (fromHero) {
-                target = getBattleUIScreen().monsterBattleList.get(targetIndex);
+                target = getBattleUIScreen().enemyBattleList.get(targetIndex);
                 attackerName = "玩家";
                 targetName = "妖怪";
             } else {
-                target = getBattleUIScreen().heroBattleList.get(targetIndex);
+                target = getBattleUIScreen().playerBattleList.get(targetIndex);
                 attackerName = "妖怪";
                 targetName = "玩家";
             }
@@ -392,8 +392,8 @@ public class BattleFightScreen extends BaseScreen {
             String targetName = null;
             if (fromHero) {
                 attackerName = "玩家";
-                for (int i = 0; i < getBattleUIScreen().monsterBattleList.size(); i++) {
-                    MonsterCharacter targetMonster = getBattleUIScreen().monsterBattleList.get(i);
+                for (int i = 0; i < getBattleUIScreen().enemyBattleList.size(); i++) {
+                    MonsterCharacter targetMonster = getBattleUIScreen().enemyBattleList.get(i);
                     targetName = "妖怪" + i;
                     int hp = targetMonster.getRoleMetaData().getHp();
                     hp -= dmgs.get(i);
@@ -409,8 +409,8 @@ public class BattleFightScreen extends BaseScreen {
 
             } else {
                 attackerName = "妖怪";
-                for (int i = 0; i < getBattleUIScreen().heroBattleList.size(); i++) {
-                    HeroCharacter targetHero = getBattleUIScreen().heroBattleList.get(i);
+                for (int i = 0; i < getBattleUIScreen().playerBattleList.size(); i++) {
+                    HeroCharacter targetHero = getBattleUIScreen().playerBattleList.get(i);
                     targetName = "玩家" + i;
                     int hp = targetHero.getRoleMetaData().getHp();
                     hp -= dmgs.get(i);
@@ -438,7 +438,7 @@ public class BattleFightScreen extends BaseScreen {
      */
     private void checkWinOrLose(GameContainer gameContainer) {
         boolean heroAllDieFlag = true;
-        for (HeroCharacter heroCharacter : getBattleUIScreen().heroBattleList) {
+        for (HeroCharacter heroCharacter : getBattleUIScreen().playerBattleList) {
             if (!heroCharacter.isDied()) {
                 heroAllDieFlag = false;
             }
@@ -450,7 +450,7 @@ public class BattleFightScreen extends BaseScreen {
         }
 
         boolean monsterDieAllFlag = true;
-        for (MonsterCharacter monsterCharacter : getBattleUIScreen().monsterBattleList) {
+        for (MonsterCharacter monsterCharacter : getBattleUIScreen().enemyBattleList) {
             if (!monsterCharacter.isDied()) {
                 monsterDieAllFlag = false;
             }

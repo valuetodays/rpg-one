@@ -123,26 +123,26 @@ public class SkillSelectScreen extends BaseScreen {
         int targetType = skillMetaData.getTargetType();
         if (SkillMetaData.TARGET_TYPE_SINGLE == targetType) {
             // TODO 加buff的技能还要考虑是否我方队员已死亡的情况，因为要考虑到复活队员的情况
-            if (battleUIScreen.ourAliveCount() == 1) {
-                Optional<HeroCharacter> firstAlive = battleUIScreen.heroBattleList.stream().filter(e -> !e.isDied()).findFirst();
+            if (battleUIScreen.playerAliveCount() == 1) {
+                Optional<HeroCharacter> firstAlive = battleUIScreen.playerBattleList.stream().filter(e -> !e.isDied()).findFirst();
                 AssertUtil.assertTrue(firstAlive.isPresent(), "all are not alive");
                 HeroCharacter heroCharacter = firstAlive.get();
-                int heroIndex = battleUIScreen.heroBattleList.indexOf(heroCharacter);
+                int heroIndex = battleUIScreen.playerBattleList.indexOf(heroCharacter);
                 getBattleUIScreen().actionList.add(new BattleAction(BattleAction.FROM_HERO,
                         getBattleUIScreen().heroIndex,
                         heroIndex,
                         battleOptionScreen.heroActionChoice, skillId, 0));
-                if (getBattleUIScreen().heroIndex == getBattleUIScreen().heroBattleList.size() - 1) {
+                if (getBattleUIScreen().heroIndex == getBattleUIScreen().playerBattleList.size() - 1) {
                     battleOptionScreen.generateMonsterAttackAction();
                 }
                 getBattleUIScreen().getParentScreen().pop(); // 将技能选择屏幕清除掉
                 getBattleUIScreen().nextHero(); // next hero
-//                    battleUIScreen.heroBattleList.stream().filter(e -> !e.isDied()).forEach(buffObject::doApply);
+//                    battleUIScreen.playerBattleList.stream().filter(e -> !e.isDied()).forEach(buffObject::doApply);
             } else {
                 // TODO 选择，将buff施放到哪位队员身上
             }
         } else if (SkillMetaData.TARGET_TYPE_ALL == targetType) {
-//                battleUIScreen.heroBattleList.stream().filter(e -> !e.isDied()).forEach(buffObject::doApply);
+//                battleUIScreen.playerBattleList.stream().filter(e -> !e.isDied()).forEach(buffObject::doApply);
         }
 
     }
@@ -163,7 +163,7 @@ public class SkillSelectScreen extends BaseScreen {
                         getBattleUIScreen().heroIndex,
                         0,
                         battleOptionScreen.heroActionChoice, skillId, 0));
-                if (getBattleUIScreen().heroIndex == getBattleUIScreen().heroBattleList.size() - 1) {
+                if (getBattleUIScreen().heroIndex == getBattleUIScreen().playerBattleList.size() - 1) {
                     battleOptionScreen.generateMonsterAttackAction();
                 }
                 getBattleUIScreen().getParentScreen().pop(); // 将技能选择屏幕清除掉
@@ -178,7 +178,7 @@ public class SkillSelectScreen extends BaseScreen {
                     getBattleUIScreen().heroIndex,
                     -1,
                     battleOptionScreen.heroActionChoice, skillId, 0));
-            if (getBattleUIScreen().heroIndex == getBattleUIScreen().heroBattleList.size() - 1) {
+            if (getBattleUIScreen().heroIndex == getBattleUIScreen().playerBattleList.size() - 1) {
                 battleOptionScreen.generateMonsterAttackAction();
             }
             getBattleUIScreen().getParentScreen().pop(); // 将技能选择屏幕清除掉
