@@ -29,7 +29,7 @@ public class BattleUIScreen extends BaseScreen {
     protected int playerIndex; // 活动玩家
     protected final int exp;
     protected final int money;
-    protected List<BattleAction> actionList = new ArrayList<>();
+    protected List<BattleAction> battleActionList = new ArrayList<>();
     protected boolean fighting;
     private boolean fromHero;
     private int round = 1;
@@ -216,7 +216,7 @@ public class BattleUIScreen extends BaseScreen {
 
     public void startAttack() {
         fighting = true;
-        BattleFightScreen bfs = new BattleFightScreen(this, actionList);
+        BattleFightScreen bfs = new BattleFightScreen(this, battleActionList);
         getParentScreen().push(bfs);
     }
 
@@ -233,7 +233,7 @@ public class BattleUIScreen extends BaseScreen {
         this.fighting = false;
         this.getParentScreen().pop();
         this.playerIndex = 0; // 将当前活动的heroIndex置为首个
-        this.actionList.clear(); // 清空播放动画
+        this.battleActionList.clear(); // 清空播放动画
         this.nextRound();
     }
 }

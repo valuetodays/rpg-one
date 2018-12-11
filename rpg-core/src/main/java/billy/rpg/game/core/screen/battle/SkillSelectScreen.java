@@ -128,7 +128,7 @@ public class SkillSelectScreen extends BaseScreen {
                 AssertUtil.assertTrue(firstAlive.isPresent(), "all are not alive");
                 PlayerCharacter playerCharacter = firstAlive.get();
                 int playerIndex = battleUIScreen.playerBattleList.indexOf(playerCharacter);
-                getBattleUIScreen().actionList.add(new BattleAction(BattleAction.FROM_PLAYER,
+                getBattleUIScreen().battleActionList.add(new BattleAction(BattleAction.FROM_PLAYER,
                         getBattleUIScreen().playerIndex,
                         playerIndex,
                         battleOptionScreen.playerActionChoice, skillId, 0));
@@ -159,7 +159,7 @@ public class SkillSelectScreen extends BaseScreen {
         if (SkillMetaData.TARGET_TYPE_SINGLE == targetType) { // 单体技能
             int enemySize = battleUIScreen.enemyAliveCount();
             if (enemySize == 1) { // 只有一个敌人
-                getBattleUIScreen().actionList.add(new BattleAction(BattleAction.FROM_PLAYER,
+                getBattleUIScreen().battleActionList.add(new BattleAction(BattleAction.FROM_PLAYER,
                         getBattleUIScreen().playerIndex,
                         0,
                         battleOptionScreen.playerActionChoice, skillId, 0));
@@ -174,7 +174,7 @@ public class SkillSelectScreen extends BaseScreen {
                 getBattleUIScreen().getParentScreen().push(chooseMonsterScreen);
             }
         } else if (targetType == SkillMetaData.TARGET_TYPE_ALL) { // 群体技能
-            getBattleUIScreen().actionList.add(new BattleAction(BattleAction.FROM_PLAYER,
+            getBattleUIScreen().battleActionList.add(new BattleAction(BattleAction.FROM_PLAYER,
                     getBattleUIScreen().playerIndex,
                     -1,
                     battleOptionScreen.playerActionChoice, skillId, 0));

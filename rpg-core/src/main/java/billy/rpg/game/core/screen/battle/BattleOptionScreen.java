@@ -81,7 +81,7 @@ public class BattleOptionScreen extends BaseScreen {
                 if (getBattleUIScreen().playerIndex < BattleAction.BattleOption.COMMON.getOrder()) {
                     getBattleUIScreen().playerIndex = BattleAction.BattleOption.COMMON.getOrder();
                 }
-                getBattleUIScreen().actionList.remove(getBattleUIScreen().playerIndex);
+                getBattleUIScreen().battleActionList.remove(getBattleUIScreen().playerIndex);
             }
         } else if (KeyUtil.isUp(key)) {
             playerActionChoice--;
@@ -106,7 +106,7 @@ public class BattleOptionScreen extends BaseScreen {
                 if (range == GoodsMetaData.RANGE_SINGLE) { // 单攻
                     int enemySize = battleUIScreen.enemyAliveCount();
                     if (enemySize == 1) { // 只有一个敌人
-                        getBattleUIScreen().actionList.add(new BattleAction(BattleAction.FROM_PLAYER,
+                        getBattleUIScreen().battleActionList.add(new BattleAction(BattleAction.FROM_PLAYER,
                                 getBattleUIScreen().playerIndex,
                                 0,
                                 playerActionChoice, -1, 0));
@@ -120,7 +120,7 @@ public class BattleOptionScreen extends BaseScreen {
                     }
                 } else if (range == GoodsMetaData.RANGE_ALL) { // 群攻
                     // 添加全体攻击效果
-                    getBattleUIScreen().actionList.add(new BattleAction(BattleAction.FROM_PLAYER,
+                    getBattleUIScreen().battleActionList.add(new BattleAction(BattleAction.FROM_PLAYER,
                             getBattleUIScreen().playerIndex,
                             -1,
                             playerActionChoice, 0, 0));
@@ -174,12 +174,12 @@ public class BattleOptionScreen extends BaseScreen {
                 skillId = 2;
             }
 
-            BattleAction battleAction = new BattleAction(BattleAction.FROM_MONSTER,
+            BattleAction battleAction = new BattleAction(BattleAction.FROM_ENEMY,
                     i,
                     GameConstant.random.nextInt(getBattleUIScreen().playerBattleList.size()) ,
                     // TODO 暂先随机使用普攻和技能
                     BattleAction.BattleOption.COMMON.getOrder(), skillId, 0);
-            getBattleUIScreen().actionList.add(battleAction);
+            getBattleUIScreen().battleActionList.add(battleAction);
         }
     }
 

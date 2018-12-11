@@ -118,7 +118,7 @@ public class MonsterSelectScreen extends BaseScreen {
         if (KeyUtil.isEsc(key)) {
             getBattleUIScreen().getParentScreen().pop();
         } else if (KeyUtil.isEnter(key)) {
-            getBattleUIScreen().actionList.add(new BattleAction(BattleAction.FROM_PLAYER,
+            getBattleUIScreen().battleActionList.add(new BattleAction(BattleAction.FROM_PLAYER,
                     getBattleUIScreen().playerIndex,
                     monsterIndex,
                     battleOptionScreen.playerActionChoice, skillId, 0));

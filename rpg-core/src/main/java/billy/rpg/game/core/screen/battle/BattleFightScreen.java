@@ -56,7 +56,7 @@ public class BattleFightScreen extends BaseScreen {
 
     private void update0(GameContainer gameContainer) {
         BattleAction battleAction = actionList.get(battleActionCurIndex);
-        boolean fromHero = battleAction.fromHero;
+        boolean fromHero = battleAction.fromPlayer;
         getBattleUIScreen().markPlayerAsAttacker(fromHero);
         if (!fromHero) {
             enemyAction(gameContainer, battleAction);
@@ -66,7 +66,7 @@ public class BattleFightScreen extends BaseScreen {
     }
 
     /**
-     * 妖怪行动的显示
+     * 敌方行动的显示
      */
     private void enemyAction(GameContainer gameContainer, BattleAction battleAction) {
         // 攻击者已阵亡的话，就不能攻击了，此时要换下个攻击者
@@ -98,12 +98,12 @@ public class BattleFightScreen extends BaseScreen {
                     new CommonAttackListener() {
                         @Override
                         public List<Integer> doPrepareForAction() {
-                            return getCommonAttackDamage(BattleAction.FROM_MONSTER, attackerId,
+                            return getCommonAttackDamage(BattleAction.FROM_ENEMY, attackerId,
                                     finalTargetIndex);
                         }
                         @Override
                         public void doAction(List<Integer> dmg) {
-                            doCauseDamage(BattleAction.FROM_MONSTER, attackerId, finalTargetIndex, dmg);
+                            doCauseDamage(BattleAction.FROM_ENEMY, attackerId, finalTargetIndex, dmg);
                         }
                         @Override
                         public void onFinished() {
@@ -129,7 +129,7 @@ public class BattleFightScreen extends BaseScreen {
                         }
                         @Override
                         public void doAction(List<Integer> dmg) {
-                            doCauseDamage(BattleAction.FROM_MONSTER, attackerId, finalTargetIndex, dmg);
+                            doCauseDamage(BattleAction.FROM_ENEMY, attackerId, finalTargetIndex, dmg);
                         }
                         @Override
                         public void onFinished() {

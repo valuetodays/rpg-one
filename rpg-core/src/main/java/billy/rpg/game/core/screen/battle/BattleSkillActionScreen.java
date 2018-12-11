@@ -4,15 +4,12 @@ import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.buff.Buff;
 import billy.rpg.game.core.buff.util.BuffUtil;
 import billy.rpg.game.core.character.fightable.Fightable;
-import billy.rpg.game.core.constants.GameConstant;
 import billy.rpg.game.core.container.GameContainer;
 import billy.rpg.game.core.listener.CommonAttackListener;
 import billy.rpg.game.core.screen.AnimationScreen;
 import billy.rpg.game.core.screen.BaseScreen;
 import billy.rpg.resource.skill.SkillMetaData;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.List;
 
 /**
@@ -55,28 +52,7 @@ public class BattleSkillActionScreen extends BaseScreen {
         this.dmgs = commonAttackListener.doPrepareForAction();
 
         skillMetaData = gameContainer.getSkillMetaDataOf(skillId);
-        int type = skillMetaData.getType();
-        if (SkillMetaData.TYPE_ATTACK == type) {
-            if (targetIndex == -1) {
-                animationScreen = new AnimationScreen(gameContainer, skillMetaData.getAnimationId(),
-                        300, 80, battleScreen);
-            } else {
-                Fightable chosenMonsterBattle = targets.get(targetIndex);
-                animationScreen = new AnimationScreen(gameContainer, skillMetaData.getAnimationId(),
-                        chosenMonsterBattle.getLeft() - chosenMonsterBattle.getWidth() / 2,
-                        chosenMonsterBattle.getTop(), battleScreen);
-            }
-        } else if (SkillMetaData.TYPE_ADD_BUFF_TO_OUR == type) {
-            if (targetIndex == -1) {
-                animationScreen = new AnimationScreen(gameContainer, skillMetaData.getAnimationId(),
-                        300, 380, battleScreen);
-            } else {
-                Fightable chosenHeroBattle = targets.get(targetIndex);
-                animationScreen = new AnimationScreen(gameContainer, skillMetaData.getAnimationId(),
-                        chosenHeroBattle.getLeft() - chosenHeroBattle.getWidth() / 2,
-                        chosenHeroBattle.getTop(), battleScreen);
-            }
-        }
+        animationScreen = new BattleSkillActionDeterminer().determineAnimationScreen(gameContainer, skillMetaData, targetIndex, battleScreen, targets);
     }
 
     @Override
@@ -154,38 +130,7 @@ public class BattleSkillActionScreen extends BaseScreen {
                 animationScreen.draw(gameContainer, desktopCanvas);
             }
         } else if (state == STATE_AFT) {
-            int type = skillMetaData.getType();
-            if (SkillMetaData.TYPE_ATTACK == type) {
-                BufferedImage paint = new BufferedImage(
-                        GameConstant.GAME_WIDTH,
-                        GameConstant.GAME_HEIGHT,
-                        BufferedImage.TYPE_4BYTE_ABGR);
-                Graphics g = paint.getGraphics();
-                g.setFont(GameConstant.FONT_DAMAGE);
-                g.setColor(Color.red);
-                for (int i = 0; i < dmgs.size(); i++) { // 群攻显示扣除的血量
-                    Integer dmg = dmgs.get(i);
-                    g.drawString("-" + dmg, dmgLeft + 100 * i, dmgTop); //
-                }
-                g.dispose();
-                desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
-            } else if (SkillMetaData.TYPE_ADD_BUFF_TO_OUR == type) {
-                Buff buff = BuffUtil.skillToBuff(skillMetaData);
-                BufferedImage paint = new BufferedImage(
-                        GameConstant.GAME_WIDTH,
-                        GameConstant.GAME_HEIGHT,
-                        BufferedImage.TYPE_4BYTE_ABGR);
-                Graphics g = paint.getGraphics();
-                g.setFont(GameConstant.FONT_DAMAGE);
-                g.setColor(Color.red);
-                for (int i = 0; i < dmgs.size(); i++) {
-                    Integer dmg = dmgs.get(i);
-                    g.drawString("+" + buff.getName() + buff, dmgLeft + 100 * i, dmgTop); //
-                }
-                g.dispose();
-                desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
-            }
-
+            new BattleSkillActionDeterminer().onDraw(gameContainer, desktopCanvas, skillMetaData, dmgs, dmgLeft, dmgTop);
         }
     }
 

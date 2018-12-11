@@ -31,9 +31,9 @@ public class BattleAction {
     }
 
     public static final boolean FROM_PLAYER = true;
-    public static final boolean FROM_MONSTER = !FROM_PLAYER;
+    public static final boolean FROM_ENEMY = !FROM_PLAYER;
 
-    final boolean fromHero; // 是玩家发起的攻击，否则就是妖怪的
+    final boolean fromPlayer; // 是玩家发起的攻击，否则就是敌方
     final int attackerId;
     final int targetIndex;
     final int actionType; // 普攻，技能等
@@ -50,7 +50,7 @@ public class BattleAction {
      * @param low preserved
      */
     public BattleAction(boolean fromHero, int attackerId, int targetIndex, int actionType, int high, int low) {
-        this.fromHero = fromHero;
+        this.fromPlayer = fromHero;
         this.attackerId = attackerId;
         this.targetIndex = targetIndex;
         this.actionType = actionType;
@@ -61,7 +61,7 @@ public class BattleAction {
     @Override
     public String toString() {
         return "BattleAction{" +
-                "fromHero=" + fromHero +
+                "fromPlayer=" + fromPlayer +
                 ", attackerId=" + attackerId +
                 ", targetIndex=" + targetIndex +
                 ", actionType=" + actionType +
