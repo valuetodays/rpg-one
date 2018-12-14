@@ -13,6 +13,7 @@ import billy.rpg.game.core.constants.GameConstant;
 import billy.rpg.game.core.constants.ScreenCodeEnum;
 import billy.rpg.game.core.constants.WalkableConstant;
 import billy.rpg.game.core.container.GameContainer;
+import billy.rpg.game.core.enums.WeatherEnum;
 import billy.rpg.game.core.item.ScriptItem;
 import billy.rpg.game.core.script.event.EventTableDeterminer;
 import billy.rpg.game.core.util.KeyUtil;
@@ -166,6 +167,14 @@ public class MapScreen extends BaseScreen {
             DrawUtil.drawImage(g2, image, (posX1-offsetTileX)*32, (posY1-offsetTileY) *32);
         }
         // draw scene-object end
+
+        // draw weather begin
+        WeatherEnum weather = active.getWeather();
+        if (weather != null) {
+            String name = weather.name();
+            g2.drawString(name, 200, 20);
+        }
+        // draw weather end
 
         String mapName = gameContainer.getActiveMap().getName();
         g2.setFont(GameConstant.FONT_SIZE_MAP_NAME);

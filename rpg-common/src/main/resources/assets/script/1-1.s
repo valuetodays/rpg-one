@@ -159,6 +159,8 @@ say 2 '师弟' NONE '师兄，我知道了，m的值等于${m}，厉害吧，我
 return
 
 testForAll:
+say 2 '师弟' NONE '师兄，看！我能变天！哈哈哈'
+setweather rain
 setvar n 100
 addvar n 1
 subvar n 1
