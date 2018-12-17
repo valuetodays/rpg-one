@@ -13,7 +13,7 @@ import billy.rpg.game.core.constants.GameConstant;
 import billy.rpg.game.core.constants.ScreenCodeEnum;
 import billy.rpg.game.core.constants.WalkableConstant;
 import billy.rpg.game.core.container.GameContainer;
-import billy.rpg.game.core.enums.WeatherEnum;
+import billy.rpg.game.core.constants.WeatherEnum;
 import billy.rpg.game.core.item.ScriptItem;
 import billy.rpg.game.core.script.event.EventTableDeterminer;
 import billy.rpg.game.core.util.KeyUtil;

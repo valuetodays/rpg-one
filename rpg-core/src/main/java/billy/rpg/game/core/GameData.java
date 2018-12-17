@@ -4,8 +4,8 @@ import billy.rpg.game.core.character.PlayerCharacter;
 import billy.rpg.game.core.character.equipable.Equipables;
 import billy.rpg.game.core.character.walkable.HeroWalkableCharacter;
 import billy.rpg.game.core.container.GameContainer;
-import billy.rpg.game.core.listener.GoodsUseListener;
-import billy.rpg.game.core.listener.support.DefaultGoodsUseListener;
+import billy.rpg.game.core.callback.GoodsUseCallback;
+import billy.rpg.game.core.callback.support.DefaultGoodsUseCallback;
 import billy.rpg.game.core.screen.BaseScreen;
 import billy.rpg.game.core.screen.MessageBoxScreen;
 import billy.rpg.resource.goods.GoodsMetaData;
@@ -44,7 +44,7 @@ public class GameData {
     /** 当前地图下的移动步数，当达到STEP_MEET_MONSTER时会遇到怪物进行战斗 */
     private static int steps;
 
-    private GoodsUseListener goodsUseListener = new DefaultGoodsUseListener();
+    private GoodsUseCallback goodsUseListener = new DefaultGoodsUseCallback();
     private int heroIndex = 0; // 吃药时或更新装备时的玩家索引
 
     /**

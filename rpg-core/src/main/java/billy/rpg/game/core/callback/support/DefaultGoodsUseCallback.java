@@ -1,8 +1,8 @@
-package billy.rpg.game.core.listener.support;
+package billy.rpg.game.core.callback.support;
 
 import billy.rpg.game.core.character.PlayerCharacter;
 import billy.rpg.game.core.container.GameContainer;
-import billy.rpg.game.core.listener.GoodsUseListener;
+import billy.rpg.game.core.callback.GoodsUseCallback;
 import billy.rpg.resource.goods.GoodsMetaData;
 import billy.rpg.resource.goods.GoodsType;
 
@@ -10,7 +10,7 @@ import billy.rpg.resource.goods.GoodsType;
  * @author lei.liu@datatist.com
  * @since 2018-11-05 17:07:47
  */
-public class DefaultGoodsUseListener implements GoodsUseListener {
+public class DefaultGoodsUseCallback implements GoodsUseCallback {
 
     @Override
     public void onUse(GameContainer gameContainer, GoodsMetaData goods) {

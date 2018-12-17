@@ -2,7 +2,7 @@ package billy.rpg.game.core.command;
 
 import billy.rpg.game.core.command.processor.CmdProcessor;
 import billy.rpg.game.core.container.GameContainer;
-import billy.rpg.game.core.enums.WeatherEnum;
+import billy.rpg.game.core.constants.WeatherEnum;
 
 import java.util.List;
 

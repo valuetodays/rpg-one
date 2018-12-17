@@ -8,7 +8,7 @@ import billy.rpg.game.core.command.processor.CmdProcessor;
 import billy.rpg.game.core.command.processor.support.DefaultCmdProcessor;
 import billy.rpg.game.core.constants.GameConstant;
 import billy.rpg.game.core.container.GameContainer;
-import billy.rpg.game.core.enums.WeatherEnum;
+import billy.rpg.game.core.constants.WeatherEnum;
 import billy.rpg.game.core.screen.MapScreen;
 import billy.rpg.game.core.screen.battle.BattleScreen;
 import billy.rpg.game.core.script.LabelBean;

@@ -1,4 +1,4 @@
-package billy.rpg.game.core.listener;
+package billy.rpg.game.core.callback;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import java.util.List;
  * @author liulei-home
  * @since 2017-07-15 19:09
  */
-public interface CommonAttackListener {
+public interface CommonAttackCallback {
     /**
      * 伤害判断
      * @return 对目标造成了多少伤害。

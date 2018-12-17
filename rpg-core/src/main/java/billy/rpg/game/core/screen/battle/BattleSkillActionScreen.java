@@ -5,7 +5,7 @@ import billy.rpg.game.core.buff.Buff;
 import billy.rpg.game.core.buff.util.BuffUtil;
 import billy.rpg.game.core.character.fightable.Fightable;
 import billy.rpg.game.core.container.GameContainer;
-import billy.rpg.game.core.listener.CommonAttackListener;
+import billy.rpg.game.core.callback.CommonAttackCallback;
 import billy.rpg.game.core.screen.AnimationScreen;
 import billy.rpg.game.core.screen.BaseScreen;
 import billy.rpg.resource.skill.SkillMetaData;
@@ -24,7 +24,7 @@ public class BattleSkillActionScreen extends BaseScreen {
     private Fightable attacker;
     private java.util.List<Fightable> targets;
     private int state = STATE_PRE;
-    private CommonAttackListener commonAttackListener;
+    private CommonAttackCallback commonAttackListener;
     private final int attackerPreTop;
     private final int attackerPreLeft;
     private final java.util.List<Integer> dmgs;
@@ -42,7 +42,7 @@ public class BattleSkillActionScreen extends BaseScreen {
      * @param skillId 技能id
      */
     public BattleSkillActionScreen(GameContainer gameContainer, BattleScreen battleScreen, Fightable attacker, List<Fightable> targets, int targetIndex, int skillId,
-                                   CommonAttackListener commonAttackListener) {
+                                   CommonAttackCallback commonAttackListener) {
         this.attacker = attacker;
         this.targets = targets;
         this.targetIndex = targetIndex;

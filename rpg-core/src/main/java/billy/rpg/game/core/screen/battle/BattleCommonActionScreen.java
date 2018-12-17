@@ -4,7 +4,7 @@ import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.character.fightable.Fightable;
 import billy.rpg.game.core.constants.GameConstant;
 import billy.rpg.game.core.container.GameContainer;
-import billy.rpg.game.core.listener.CommonAttackListener;
+import billy.rpg.game.core.callback.CommonAttackCallback;
 import billy.rpg.game.core.screen.BaseScreen;
 
 import java.awt.*;
@@ -24,7 +24,7 @@ public class BattleCommonActionScreen extends BaseScreen {
     private int targetIndex;
     private int state = STATE_PRE;
     private int attackFrame; // 最多有12帧？？
-    private CommonAttackListener commonAttackListener;
+    private CommonAttackCallback commonAttackListener;
     private final int attackerPreTop;
     private final int attackerPreLeft;
     private final java.util.List<Integer> dmgs;
@@ -38,7 +38,7 @@ public class BattleCommonActionScreen extends BaseScreen {
      * @param targets 被攻击者(们)
      */
     public BattleCommonActionScreen(Fightable attacker, java.util.List<Fightable> targets, int targetIndex,
-                                    CommonAttackListener al) {
+                                    CommonAttackCallback al) {
         this.attacker = attacker;
         this.targets = targets;
         this.targetIndex = targetIndex;

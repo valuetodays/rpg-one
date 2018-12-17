@@ -9,7 +9,7 @@ import billy.rpg.game.core.constants.ScreenCodeEnum;
 import billy.rpg.game.core.container.GameContainer;
 import billy.rpg.game.core.equip.clothes.ClothesEquip;
 import billy.rpg.game.core.equip.weapon.WeaponEquip;
-import billy.rpg.game.core.listener.CommonAttackListener;
+import billy.rpg.game.core.callback.CommonAttackCallback;
 import billy.rpg.game.core.screen.BaseScreen;
 import billy.rpg.game.core.screen.battle.end.BattleDefeatScreen;
 import billy.rpg.game.core.screen.battle.end.BattleSuccessScreen;
@@ -95,7 +95,7 @@ public class BattleFightScreen extends BaseScreen {
                     getBattleUIScreen().enemyBattleList.get(attackerId),
                     getBattleUIScreen().playerBattleList.stream().map(e -> (Fightable)e).collect(Collectors.toList()),
                         finalTargetIndex,
-                    new CommonAttackListener() {
+                    new CommonAttackCallback() {
                         @Override
                         public List<Integer> doPrepareForAction() {
                             return getCommonAttackDamage(BattleAction.FROM_ENEMY, attackerId,
@@ -122,7 +122,7 @@ public class BattleFightScreen extends BaseScreen {
                     getBattleUIScreen().playerBattleList.stream().map(e -> (Fightable)e).collect(Collectors.toList()),
                     finalTargetIndex,
                     high,
-                    new CommonAttackListener() {
+                    new CommonAttackCallback() {
                         @Override
                         public List<Integer> doPrepareForAction() {
                             return getSkillAttackDamage(gameContainer, BattleAction.FROM_PLAYER, attackerId, finalTargetIndex, high);
@@ -189,7 +189,7 @@ public class BattleFightScreen extends BaseScreen {
                     getBattleUIScreen().playerBattleList.get(attackerId),
                     getBattleUIScreen().enemyBattleList.stream().map(e -> (Fightable)e).collect(Collectors.toList()),
                     finalTargetIndex,
-                    new CommonAttackListener() {
+                    new CommonAttackCallback() {
                         @Override
                         public List<Integer> doPrepareForAction() {
                             return getCommonAttackDamage(BattleAction.FROM_PLAYER, attackerId, finalTargetIndex);
@@ -218,7 +218,7 @@ public class BattleFightScreen extends BaseScreen {
                         getBattleUIScreen().enemyBattleList.stream().map(e -> (Fightable)e).collect(Collectors.toList()),
                         finalTargetIndex,
                         high,
-                        new CommonAttackListener() {
+                        new CommonAttackCallback() {
                             @Override
                             public List<Integer> doPrepareForAction() {
                                 return getSkillAttackDamage(gameContainer, BattleAction.FROM_PLAYER, attackerId, finalTargetIndex, high);
@@ -246,7 +246,7 @@ public class BattleFightScreen extends BaseScreen {
                                 getBattleUIScreen().playerBattleList.stream().map(e -> (Fightable)e).collect(Collectors.toList()),
                                 finalTargetIndex,
                                 high,
-                                new CommonAttackListener() {
+                                new CommonAttackCallback() {
                                     @Override
                                     public List<Integer> doPrepareForAction() {
                                         return getSkillAttackDamage(gameContainer, BattleAction.FROM_PLAYER, attackerId, finalTargetIndex, high);
