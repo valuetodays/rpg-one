@@ -8,6 +8,8 @@ import billy.rpg.game.core.character.PlayerCharacter;
 import billy.rpg.game.core.character.fightable.Fightable;
 import billy.rpg.game.core.constants.GameConstant;
 import billy.rpg.game.core.container.GameContainer;
+import billy.rpg.game.core.equip.clothes.ClothesEquip;
+import billy.rpg.game.core.equip.shoe.ShoeEquip;
 import billy.rpg.game.core.equip.weapon.WeaponEquip;
 import billy.rpg.game.core.screen.BaseScreen;
 
@@ -57,13 +59,30 @@ public class BattleStateScreen extends BaseScreen {
         g.setColor(Color.BLACK);
         g.drawString("hp/maxHp:" + fightable.getRoleMetaData().getHp() + "/"+fightable.getRoleMetaData().getMaxHp(), 70, 70);
         g.drawString("mp/maxMp:" + fightable.getRoleMetaData().getMp() + "/"+fightable.getRoleMetaData().getMaxMp(), 70, 90);
-        WeaponEquip weaponEquip = (WeaponEquip) fightable.getEquipables().getWeapon().getEquip();
-        int attackValueInEquip = weaponEquip.getAttack();
-        drawColorStringHorizontal(g, 70, 110, "attack:" + fightable.getRoleMetaData().getAttack(), Color.WHITE,
-                 "+" + (fightable.getAttackWithBuff() - fightable.getRoleMetaData().getAttack()) + "", Color.YELLOW,
-                 "+" + attackValueInEquip, Color.GREEN
-        );
-        // TODO 显示防御力、速度及buff
+        {
+            WeaponEquip weaponEquip = (WeaponEquip) fightable.getEquipables().getWeapon().getEquip();
+            int attackValueInEquip = weaponEquip.getAttack();
+            drawColorStringHorizontal(g, 70, 110, "attack:" + fightable.getRoleMetaData().getAttack(), Color.WHITE,
+                    "+" + (fightable.getAttackWithBuff() - fightable.getRoleMetaData().getAttack()) + "", Color.YELLOW,
+                    "+" + attackValueInEquip, Color.GREEN
+            );
+        }
+        {
+            ClothesEquip clothesEquip = (ClothesEquip) fightable.getEquipables().getClothes().getEquip();
+            int defendValueInEquip = clothesEquip.getDefend();
+            drawColorStringHorizontal(g, 70, 130, "defend:" + fightable.getRoleMetaData().getDefend(), Color.WHITE,
+                    "+" + (fightable.getDefendWithBuff() - fightable.getRoleMetaData().getDefend()) + "", Color.YELLOW,
+                    "+" + defendValueInEquip, Color.GREEN
+            );
+        }
+        {
+            ShoeEquip shoeEquip = (ShoeEquip) fightable.getEquipables().getShoe().getEquip();
+            int speedValueInEquip = shoeEquip.getSpeed();
+            drawColorStringHorizontal(g, 70, 150, "speed:" + fightable.getRoleMetaData().getSpeed(), Color.WHITE,
+                    "+" + (fightable.getSpeedWithBuff() - fightable.getRoleMetaData().getSpeed()) + "", Color.YELLOW,
+                    "+" + speedValueInEquip, Color.GREEN
+            );
+        }
 
         java.util.List<Buff> buffChainList = fightable.getBuffChainList();
         for (int i = 0; i < buffChainList.size(); i++) {

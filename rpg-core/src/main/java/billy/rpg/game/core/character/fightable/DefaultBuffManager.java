@@ -1,6 +1,8 @@
 package billy.rpg.game.core.character.fightable;
 
 import billy.rpg.game.core.buff.Buff;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -11,6 +13,7 @@ import java.util.List;
  * @since 2018-11-22 11:43:55
  */
 public class DefaultBuffManager implements BuffManager, Cloneable {
+    private final Logger logger = LoggerFactory.getLogger(getClass());
     private List<Buff> buffList = new ArrayList<>();
 
     @Override
@@ -71,7 +74,7 @@ public class DefaultBuffManager implements BuffManager, Cloneable {
 
     @Override
     public void onRoundEnd() {
-        System.out.println("buffCount: " + buffList.size());
+        logger.debug("buffCount: " + buffList.size());
         Iterator<Buff> iterator = buffList.iterator();
         while (iterator.hasNext()) {
             Buff next = iterator.next();
@@ -80,12 +83,6 @@ public class DefaultBuffManager implements BuffManager, Cloneable {
                 iterator.remove();
             }
         }
-//        for (Buff buff : buffList) {
-//            buff.onRoundEnd();
-//            if (buff.isEnd()) {
-//                buffList.remove(buff);
-//            }
-//        }
     }
 
     @Override

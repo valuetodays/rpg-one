@@ -1,5 +1,6 @@
 package billy.rpg.game.core.screen.battle;
 
+import billy.rpg.common.util.JsonUtil;
 import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.buff.util.BuffUtil;
 import billy.rpg.game.core.character.PlayerCharacter;
@@ -206,9 +207,10 @@ public class BattleFightScreen extends BaseScreen {
                         }
                     }));
         } else if (actionType == BattleAction.BattleOption.SKILL.getOrder()) { // 技能
-            logger.debug("使用"+BattleAction.BattleOption.SKILL.getDesc()+"攻击");
+            logger.debug("使用"+BattleAction.BattleOption.SKILL.getDesc()+"攻击 > " + high);
             final int finalTargetIndex = targetIndex;
             SkillMetaData skillMetaData = gameContainer.getSkillMetaDataOf(high);
+            logger.debug("skill: " + JsonUtil.toPrettyJsonString(skillMetaData));
             int type = skillMetaData.getType();
             if (SkillMetaData.TYPE_ATTACK == type) {
                 getBattleUIScreen().getParentScreen().push(

@@ -4,6 +4,8 @@ import billy.rpg.common.util.AssetsUtil;
 import billy.rpg.resource.skill.SkillMetaData;
 import billy.rpg.resource.skill.SkillSaverLoader;
 import org.apache.commons.lang.ArrayUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,6 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class SkillDataLoader {
+    private final Logger logger = LoggerFactory.getLogger(getClass());
     protected Map<Integer, SkillMetaData> skillMap = new HashMap<>();
 
     public abstract String getFileDir();
@@ -37,6 +40,8 @@ public abstract class SkillDataLoader {
                 throw new RuntimeException("含有重复id："+ number);
             }
         }
+        logger.debug("found {} skills.", skillMap.keySet().size());
+
     }
 
     public Map<Integer, SkillMetaData> getSkillMap() {

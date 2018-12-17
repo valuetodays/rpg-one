@@ -1,0 +1,13 @@
+{
+	"animationId":3,
+	"baseDamage":0,
+	"consume":30,
+	"desc":"被施展者防御效果上升20点7回合。",
+	"name":"加防",
+	"number":4,
+	"targetType":1,
+	"type":1,
+	"buff":"DefendEnhanceFixedValueBuff",
+	"buffValue": 20,
+	"buffRound": 7
+}

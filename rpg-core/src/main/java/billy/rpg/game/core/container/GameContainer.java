@@ -412,6 +412,15 @@ public class GameContainer {
         return builtinScriptItem;
     }
 
+    /**
+     * 根据文本标题查找标签，顺序为
+     * <ol>
+     *     <li>内置脚本</li>
+     *     <li>剧情脚本</li>
+     * </ol>
+     * @param title title
+     * @return label
+     */
     public LabelBean getLabelByTitle(String title) {
         ScriptItem builtinScriptItem = getBuiltinScriptItem();
         LabelBean builtinLabel = builtinScriptItem.getLabelByName(title);

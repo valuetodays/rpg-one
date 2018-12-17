@@ -118,7 +118,7 @@ public class SkillSelectScreen extends BaseScreen {
      * @param skillMetaData skill
      */
     private void opTypeAddBuffToOur(SkillMetaData skillMetaData) {
-        int skillId = skillMetaData.getAnimationId();
+        int skillId = skillMetaData.getNumber();
 
         int targetType = skillMetaData.getTargetType();
         if (SkillMetaData.TARGET_TYPE_SINGLE == targetType) {

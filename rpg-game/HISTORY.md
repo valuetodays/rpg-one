@@ -235,3 +235,5 @@ ILoader
 #### 2018-12-14
     添加SetWeatherCmd/ClearWeatherCmd
     TODO: GAMESAVE/GAMELOAD
+#### 2018-12-17
+    TODO jskl文件中可考虑使用占位符${}
