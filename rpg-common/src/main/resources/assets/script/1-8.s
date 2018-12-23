@@ -1,5 +1,6 @@
 attr 1 8
 scenename '伏魔洞'
+createtransfer 201 16 31
 
 if 2 八个灯洞
 return
@@ -66,7 +67,7 @@ return
 
 
 伏魔洞口:
-loadmap 1 7 6 4 0 0
+loadmap 1 7 6 5 0 0
 return
 
 门左:
@@ -93,7 +94,7 @@ say 1 '柳清风' RIGHT 什么意思？'
 set 30
 return
 
-trigger 1 伏魔洞口
+trigger 201 伏魔洞口
 trigger 21 灯洞1
 trigger 22 灯洞2
 trigger 23 灯洞3

@@ -2,8 +2,6 @@ package billy.rpg.game.core.command;
 
 import billy.rpg.game.core.command.processor.CmdProcessor;
 import billy.rpg.game.core.container.GameContainer;
-import billy.rpg.game.core.screen.BaseScreen;
-import billy.rpg.game.core.screen.ScenenameScreen;
 
 import java.util.List;
 
@@ -23,8 +21,9 @@ public class ScenenameCmd extends CmdBase {
 
     @Override
     public int execute(GameContainer gameContainer, CmdProcessor cmdProcessor) {
-        BaseScreen bs = new ScenenameScreen(sname);
-        gameContainer.getGameFrame().pushScreen(bs);
+        // 什么也不做，因为屏幕上已经显示了当前地图名称
+        /*BaseScreen bs = new ScenenameScreen(sname);
+        gameContainer.getGameFrame().pushScreen(bs);*/
         return 0;
     }
 

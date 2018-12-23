@@ -28,6 +28,13 @@ createsceneObject 402 21 39 "san_qing_gong_middle.png"
 createsceneObject 402 25 39 "san_qing_gong_right.png"
 
 scenename '三清宫'
+if 3 无操作
+if 2 找师兄
+return
+
+找师兄:
+say 1 '柳清风' LEFT '取剑那么麻烦的事，我还是先找大师兄问问吧'
+set 3
 return
 
 下山:

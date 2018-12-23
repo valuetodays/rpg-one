@@ -29,6 +29,7 @@ say 1 '柳清风' LEFT "请问师父，过这三关要用什么方法？"
 say 3 '无机道人' LEFT "这就要靠你自己了。"
 say 1 '柳清风' LEFT "是，师父。"
 set 2
+unset 1
 return
 
 去取剑:
@@ -60,7 +61,7 @@ return
 
 
 三清宫:
-loadmap 1 2 12 2 10 7
+loadmap 1 2 10 7 12 2
 return
 
 trigger 201 三清宫
