@@ -8,8 +8,8 @@ import java.util.List;
  * @since 2018-09-28 17:04:32
  */
 public class DialogFormattedResult {
-    final int totalLine;
-    final List<DialogFormattedText> textList;
+    private final int totalLine;
+    private final List<DialogFormattedText> textList;
 
     public DialogFormattedResult(int totalLine, List<DialogFormattedText> textList) {
         this.totalLine = totalLine;
