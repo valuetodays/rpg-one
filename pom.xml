@@ -74,19 +74,6 @@
         </developer>
     </developers>
 
-    <profiles>
-        <profile>
-            <id>sonar</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <sonar.host.url>http://s204:9000</sonar.host.url>
-                <snoar.login>3460855e48ff39046534fc08cda2d25588b5c093</snoar.login>
-            </properties>
-        </profile>
-    </profiles>
-
     <build>
         <plugins>
             <plugin>

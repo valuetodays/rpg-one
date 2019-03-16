@@ -3,6 +3,7 @@ package test.billy.rpg.merger;
 import billy.rpg.merger.Merger;
 import billy.rpg.merger.Splitter;
 import org.apache.log4j.Logger;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ public class MergerTest {
     private static final Logger LOG = Logger.getLogger(MergerTest.class);
 
     @Test
+    @Ignore
     public void merge() throws Exception {
         List<String> srcList = new ArrayList<>();
         srcList.add("z:/merge/1.rol");
@@ -30,6 +32,7 @@ public class MergerTest {
     }
 
     @Test
+    @Ignore
     public void loadLib() throws Exception {
 
         String libPath = "z:/merge/dat.lib";

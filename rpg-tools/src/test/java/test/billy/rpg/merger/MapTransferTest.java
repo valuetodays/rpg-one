@@ -7,6 +7,7 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.BufferedWriter;
@@ -23,6 +24,7 @@ import java.util.Map;
 public class MapTransferTest {
 
     @Test
+    @Ignore
     public void testTransfer() throws IOException, TemplateException {
         String basePath = ("D:\\tmp\\fmj\\map");
         File[] files = new File(basePath).listFiles(pathname -> pathname.getName().endsWith(".map"));
