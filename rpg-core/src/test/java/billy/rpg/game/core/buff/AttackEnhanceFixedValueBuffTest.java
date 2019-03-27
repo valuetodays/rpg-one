@@ -22,7 +22,6 @@ public class AttackEnhanceFixedValueBuffTest extends GameContainerTestBase {
 
     @Test
     public void apply() {
-        AttackEnhanceFixedValueBuff buff = new AttackEnhanceFixedValueBuff(fixedValue, Buff.DEFAULT_ROUNDS);
         buff.setName("增加固定攻击力");
 
         int buffAttackBefore = heroCharacter.getBuffAttack();

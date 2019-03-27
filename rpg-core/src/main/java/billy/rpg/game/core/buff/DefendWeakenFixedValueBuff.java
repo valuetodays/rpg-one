@@ -11,7 +11,7 @@ import billy.rpg.resource.role.RoleMetaData;
  */
 public class DefendWeakenFixedValueBuff extends FixedValueBuff {
     /**
-     * @param fixedValue 增加的攻击力值
+     * @param fixedValue 减少的防御力值
      * @param lastRounds 持续的回合数
      */
     public DefendWeakenFixedValueBuff(int fixedValue, int lastRounds) {

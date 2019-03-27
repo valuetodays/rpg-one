@@ -19,8 +19,7 @@ public class DefendEnhancePercentValueBuff extends PercentValueBuff {
     protected void apply(Fightable fightable) {
         RoleMetaData roleMetaData = fightable.getRoleMetaData();
         int defend = roleMetaData.getDefend();
-        defend += defend * (percentValue / 100.0); // 此时的defend是最终值，减去角色本身的属性值就是增量
-        fightable.setBuffDefend(defend - roleMetaData.getDefend());
+        fightable.setBuffDefend((int)(defend * (percentValue / 100.0)));
     }
 
     @Override

@@ -18,7 +18,6 @@ public class AttackWeakenPercentValueBuffTest extends GameContainerTestBase {
 
     @Test
     public void apply() throws Exception {
-        AttackWeakenPercentValueBuff buff = new AttackWeakenPercentValueBuff(percentValue, Buff.DEFAULT_ROUNDS);
         buff.setName("减少百分比攻击力");
         int buffAttackBefore = heroCharacter.getBuffAttack();
         logger.debug("before buff, attack is " + buffAttackBefore);
