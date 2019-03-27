@@ -33,6 +33,9 @@ public abstract class Fightable implements Cloneable {
 
     private Equipables equipables;
 
+    public Fightable() {
+    }
+
     public Fightable(GameContainer gameContainer) {
         equipables = new Equipables(gameContainer);
     }

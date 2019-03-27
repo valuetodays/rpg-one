@@ -18,6 +18,10 @@ public class PlayerCharacter extends Fightable {
         super(gameContainer);
     }
 
+    public PlayerCharacter() {
+        super();
+    }
+
     public WalkableCharacter getWalkable() {
         return walkable;
     }

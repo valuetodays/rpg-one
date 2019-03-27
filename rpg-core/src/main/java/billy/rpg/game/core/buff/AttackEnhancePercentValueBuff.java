@@ -19,8 +19,7 @@ public class AttackEnhancePercentValueBuff extends PercentValueBuff {
     protected void apply(Fightable fightable) {
         RoleMetaData roleMetaData = fightable.getRoleMetaData();
         int attack = roleMetaData.getAttack();
-        attack += (int)(attack * (percentValue / 100.0)); // 此时的attack是最终值，减去角色本身的属性值就是增量
-        fightable.setBuffAttack(attack - roleMetaData.getAttack());
+        fightable.setBuffAttack((int)(attack * (percentValue / 100.0)));
     }
 
     @Override

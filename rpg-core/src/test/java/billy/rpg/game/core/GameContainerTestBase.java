@@ -1,7 +1,9 @@
 package billy.rpg.game.core;
 
 import billy.rpg.game.core.character.PlayerCharacter;
+import billy.rpg.game.core.character.fightable.Fightable;
 import billy.rpg.game.core.container.GameContainer;
+import billy.rpg.resource.role.RoleMetaData;
 import org.apache.log4j.Logger;
 import org.junit.Before;
 
@@ -14,19 +16,31 @@ import org.junit.Before;
  */
 public abstract class GameContainerTestBase {
     protected final Logger logger = Logger.getLogger(getClass());
-    protected GameContainer gameContainer;
+    protected static GameContainer gameContainer;
+
+    protected Fightable heroCharacter;
 
     @Before
     public void before() {
+        heroCharacter = getFightable();
+        if (gameContainer != null) {
+            return;
+        }
         gameContainer = new GameContainer(null);
         gameContainer.load();
         gameContainer.setGameData(new GameData());
         gameContainer.getGameData().addHeroId(1); // 添加待测试主角
     }
 
-    protected PlayerCharacter heroCharacter() {
-        PlayerCharacter playerCharacter = new PlayerCharacter(null);
-        return playerCharacter;
+    protected Fightable getFightable() {
+        PlayerCharacter fightable = new PlayerCharacter();
+        RoleMetaData roleMetaData = new RoleMetaData();
+        roleMetaData.setAttack(100);
+        roleMetaData.setDefend(100);
+        roleMetaData.setLevel(1);
+        roleMetaData.setSpeed(30);
+        fightable.setRoleMetaData(roleMetaData);
+        return fightable;
     }
 
 }

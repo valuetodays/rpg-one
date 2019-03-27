@@ -1,7 +1,6 @@
 package billy.rpg.game.core.buff;
 
 import billy.rpg.game.core.character.fightable.Fightable;
-import billy.rpg.resource.role.RoleMetaData;
 
 /**
  * 增加固定攻击力
@@ -21,10 +20,7 @@ public class AttackEnhanceFixedValueBuff extends FixedValueBuff {
 
     @Override
     protected void apply(Fightable fightable) {
-        RoleMetaData roleMetaData = fightable.getRoleMetaData();
-        int attack = roleMetaData.getAttack();
-        attack += fixedValue;
-        fightable.setBuffAttack(attack - roleMetaData.getAttack());
+        fightable.setBuffAttack(fixedValue);
     }
 
     @Override

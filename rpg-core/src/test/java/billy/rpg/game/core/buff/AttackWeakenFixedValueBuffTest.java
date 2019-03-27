@@ -5,38 +5,34 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-/**
- * @author lei.liu
- * @since 2019-03-27 18:37
- */
-public class AttackEnhanceFixedValueBuffTest extends GameContainerTestBase {
-    private AttackEnhanceFixedValueBuff buff;
+public class AttackWeakenFixedValueBuffTest extends GameContainerTestBase {
+
+    private AttackWeakenFixedValueBuff buff;
     private int fixedValue = 10;
     private int lastRounds = 4;
 
     @Before
     public void before() {
         super.before();
-        buff = new AttackEnhanceFixedValueBuff(fixedValue, lastRounds);
+        buff = new AttackWeakenFixedValueBuff(fixedValue, lastRounds);
     }
 
     @Test
-    public void apply() {
-        AttackEnhanceFixedValueBuff buff = new AttackEnhanceFixedValueBuff(fixedValue, Buff.DEFAULT_ROUNDS);
-        buff.setName("增加固定攻击力");
-
+    public void apply() throws Exception {
+        AttackWeakenFixedValueBuff buff = new AttackWeakenFixedValueBuff(fixedValue, Buff.DEFAULT_ROUNDS);
+        buff.setName("减少固定攻击力");
         int buffAttackBefore = heroCharacter.getBuffAttack();
         logger.debug("before buff, attack is " + buffAttackBefore);
         Assert.assertEquals(0, buffAttackBefore);
         buff.doApply(heroCharacter);
         int buffAttackAfter = heroCharacter.getBuffAttack();
         logger.debug("when buff, attack is " + buffAttackAfter);
-        Assert.assertEquals(fixedValue, buffAttackAfter);
+        Assert.assertEquals(-fixedValue, buffAttackAfter);
     }
 
     @Test
-    public void getBuffType() {
-        Assert.assertEquals(BuffType.ENHANCE_ATTACK, buff.getBuffType());
+    public void getBuffType() throws Exception {
+        Assert.assertEquals(BuffType.WEAKEN_ATTACK, buff.getBuffType());
     }
 
 }
