@@ -1,6 +1,7 @@
 package billy.rpg.game.core.buff;
 
 import billy.rpg.game.core.character.fightable.Fightable;
+import billy.rpg.game.core.util.AssertUtil;
 import org.apache.log4j.Logger;
 
 /**
@@ -67,6 +68,7 @@ public abstract class Buff {
     }
 
     public void setLastRounds(int lastRounds) {
+        AssertUtil.assertTrue(lastRounds > 0, "lastRounds should greater than zero");
         this.lastRounds = lastRounds;
     }
     public int getLastRounds() {
