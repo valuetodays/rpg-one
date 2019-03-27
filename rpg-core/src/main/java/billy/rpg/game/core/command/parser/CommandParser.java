@@ -75,8 +75,11 @@ public abstract class CommandParser {
         logger.debug("path -> " + coreJarLocationPath);
 
         List<String> cmdList = null;
-        if (coreJarLocationPath.contains("/target/classes/")) {
+        if (coreJarLocationPath.contains("/target/classes/")) { // for maven
             cmdList = getCmdListInDev(pkgAsPath);
+        } else if (coreJarLocationPath.endsWith("/build/")) { // for gradle
+            String fullPath = coreJarLocationPath + pkgAsPath;
+            cmdList = listCmdClassList(fullPath, pkgAsPath);
         } else {
             cmdList = getCmdListInDistribute(coreJarLocationPath, pkgAsPath);
         }
@@ -104,12 +107,16 @@ public abstract class CommandParser {
     }
 
     private List<String> getCmdListInDev(String pkgAsPath) {
-        final String pkg = StringUtils.replace(pkgAsPath, "/", ".");
         String path = AssetsUtil.getResourcePath(pkgAsPath);
         // 当执行Junit4测试类的时候不替换如下就不能正常！
         path = path.replace(File.separator + "target"+File.separator + "test-classes" + File.separator,
                 File.separator + "target"+File.separator+"classes" + File.separator);
 
+        return listCmdClassList(path, pkgAsPath);
+    }
+
+    private List<String> listCmdClassList(String path, String pkgAsPath) {
+        final String pkg = StringUtils.replace(pkgAsPath, "/", ".");
         File directory = new File(path);
         List<String> cmdClassList = Arrays.stream(directory.listFiles())
                 .filter(File::isFile)

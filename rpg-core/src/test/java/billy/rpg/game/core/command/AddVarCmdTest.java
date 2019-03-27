@@ -1,6 +1,6 @@
 package billy.rpg.game.core.command;
 
-import billy.rpg.game.core.GameContainerBaseTest;
+import billy.rpg.game.core.GameContainerTestBase;
 import billy.rpg.game.core.script.variable.VariableDeterminer;
 import org.junit.Assert;
 import org.junit.Test;
@@ -11,7 +11,7 @@ import java.util.Arrays;
  * @author lei.liu@datatist.com
  * @since 2018-12-10 14:01:40
  */
-public class AddVarCmdTest extends GameContainerBaseTest {
+public class AddVarCmdTest extends GameContainerTestBase {
 
     @Test
     public void test() {

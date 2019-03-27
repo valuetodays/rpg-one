@@ -1,6 +1,6 @@
 package billy.rpg.game.core.buff;
 
-import billy.rpg.game.core.GameContainerBaseTest;
+import billy.rpg.game.core.GameContainerTestBase;
 import billy.rpg.game.core.character.PlayerCharacter;
 import org.junit.Assert;
 import org.junit.Test;
@@ -11,9 +11,9 @@ import org.junit.Test;
  * @author lei.liu@datatist.com
  * @since 2018-11-22 11:00:48
  */
-public class AttackBuffTest extends GameContainerBaseTest {
-    int fixedValue = 20;
-    int percentValue = 30;
+public class AttackBuffTest extends GameContainerTestBase {
+    private int fixedValue = 20;
+    private int percentValue = 30;
 
     @Test
     public void testAddBuffWithAttackValue() {

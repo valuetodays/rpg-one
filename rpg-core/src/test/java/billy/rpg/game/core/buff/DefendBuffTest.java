@@ -1,6 +1,6 @@
 package billy.rpg.game.core.buff;
 
-import billy.rpg.game.core.GameContainerBaseTest;
+import billy.rpg.game.core.GameContainerTestBase;
 import billy.rpg.game.core.character.PlayerCharacter;
 import org.junit.Test;
 
@@ -8,7 +8,7 @@ import org.junit.Test;
  * @author lei.liu@datatist.com
  * @since 2018-12-06 16:57:46
  */
-public class DefendBuffTest extends GameContainerBaseTest {
+public class DefendBuffTest extends GameContainerTestBase {
     @Test
     public void testAddBuffWitDefendValue() {
         DefendEnhanceFixedValueBuff buff = new DefendEnhanceFixedValueBuff(21, 5);

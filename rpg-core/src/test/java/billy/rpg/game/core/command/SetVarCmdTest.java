@@ -1,13 +1,13 @@
 package billy.rpg.game.core.command;
 
-import billy.rpg.game.core.GameContainerBaseTest;
+import billy.rpg.game.core.GameContainerTestBase;
 import billy.rpg.game.core.script.variable.VariableDeterminer;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Arrays;
 
-public class SetVarCmdTest extends GameContainerBaseTest {
+public class SetVarCmdTest extends GameContainerTestBase {
 
     @Test
     public void test() {

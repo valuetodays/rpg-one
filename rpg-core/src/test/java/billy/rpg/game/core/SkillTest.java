@@ -13,7 +13,7 @@ import java.lang.reflect.InvocationTargetException;
  * @author lei.liu@datatist.com
  * @since 2018-12-07 16:13:52
  */
-public class SkillTest extends GameContainerBaseTest {
+public class SkillTest extends GameContainerTestBase {
 
     /**
      * 测试获得buff与回合结束后，buff的消失

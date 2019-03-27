@@ -8,7 +8,7 @@ import org.junit.Test;
  * @author lei.liu@datatist.com
  * @since 2018-12-06 16:38:15
  */
-public class BuffManageTest /* extends GameContainerBaseTest*/ {
+public class BuffManageTest /* extends GameContainerTestBase*/ {
     @Test
     public void testAddBuff() {
         BuffManager buffManager = new DefaultBuffManager();

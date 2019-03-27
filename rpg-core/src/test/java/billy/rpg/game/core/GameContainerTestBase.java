@@ -1,5 +1,6 @@
 package billy.rpg.game.core;
 
+import billy.rpg.game.core.character.PlayerCharacter;
 import billy.rpg.game.core.container.GameContainer;
 import org.apache.log4j.Logger;
 import org.junit.Before;
@@ -11,7 +12,7 @@ import org.junit.Before;
  * @since 2018-11-22 11:15:58
  * @see GameContainer
  */
-public abstract class GameContainerBaseTest {
+public abstract class GameContainerTestBase {
     protected final Logger logger = Logger.getLogger(getClass());
     protected GameContainer gameContainer;
 
@@ -21,6 +22,11 @@ public abstract class GameContainerBaseTest {
         gameContainer.load();
         gameContainer.setGameData(new GameData());
         gameContainer.getGameData().addHeroId(1); // 添加待测试主角
+    }
+
+    protected PlayerCharacter heroCharacter() {
+        PlayerCharacter playerCharacter = new PlayerCharacter(null);
+        return playerCharacter;
     }
 
 }

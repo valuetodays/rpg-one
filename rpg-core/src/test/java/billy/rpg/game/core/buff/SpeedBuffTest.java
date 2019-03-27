@@ -1,6 +1,6 @@
 package billy.rpg.game.core.buff;
 
-import billy.rpg.game.core.GameContainerBaseTest;
+import billy.rpg.game.core.GameContainerTestBase;
 import billy.rpg.game.core.character.PlayerCharacter;
 import org.junit.Test;
 
@@ -8,7 +8,7 @@ import org.junit.Test;
  * @author lei.liu@datatist.com
  * @since 2018-12-06 17:17:15
  */
-public class SpeedBuffTest extends GameContainerBaseTest {
+public class SpeedBuffTest extends GameContainerTestBase {
     @Test
     public void testAddBuffWitSpeedValue() {
         SpeedEnhanceFixedValueBuff buff = new SpeedEnhanceFixedValueBuff(21, 5);

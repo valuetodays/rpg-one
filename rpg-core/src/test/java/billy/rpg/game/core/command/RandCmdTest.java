@@ -1,6 +1,6 @@
 package billy.rpg.game.core.command;
 
-import billy.rpg.game.core.GameContainerBaseTest;
+import billy.rpg.game.core.GameContainerTestBase;
 import billy.rpg.game.core.script.variable.VariableDeterminer;
 import org.junit.Test;
 
@@ -10,7 +10,7 @@ import java.util.Arrays;
  * @author lei.liu@datatist.com
  * @since 2018-12-10 15:35:13
  */
-public class RandCmdTest extends GameContainerBaseTest {
+public class RandCmdTest extends GameContainerTestBase {
     @Test
     public void test() {
         String key = "var1";
