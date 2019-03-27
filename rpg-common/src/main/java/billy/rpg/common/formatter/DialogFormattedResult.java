@@ -25,6 +25,8 @@ public class DialogFormattedResult {
     }
 
     public static class DialogFormattedText {
+        public static final DialogFormattedText NEW_LINE = new DialogFormattedText(null, Color.WHITE);
+
         public final String content;
         public final Color color;
         public final int cnt;

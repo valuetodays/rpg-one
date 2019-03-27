@@ -67,6 +67,51 @@
                     </archive>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.0</version>
+                <configuration>
+                    <skipTests>${skipTests}</skipTests>
+                    <testFailureIgnore>true</testFailureIgnore>
+                    <parallel>classes</parallel>  <!-- 使用这个参数偶然发生注入的bean为null的情况且随机-->
+                    <threadCount>2</threadCount>
+                    <includes>
+                        <include>billy/rpg/**/*Test.java</include>
+                    </includes>
+                    <excludes>
+                        <exclude>**/ClassNeedMuchTime.java</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.3</version>
+                <configuration>
+                    <skip>${skipTests}</skip>
+                    <includes>
+                        <include>billy/rpg/**</include>
+                    </includes>
+                    <excludes>
+                        <!--<exclude>billy/rpg/Main.class</exclude>-->
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 </project>

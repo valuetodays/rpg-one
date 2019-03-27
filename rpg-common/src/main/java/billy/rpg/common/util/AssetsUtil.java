@@ -25,8 +25,13 @@ public class AssetsUtil {
 
         String path = AssetsUtil.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 //        LOG.debug("path -> " + path);
-        if (path.contains("/target/classes/")) {
+
+        if (path.contains("/target/classes/")) { // for maven
             return getResourcePathInDev(resource);
+        } else if (path.contains("/build/classes/java/main/")) { // for gradle
+            String resourcesPath = path.replace("/classes/java", "/resources");
+            resourcesPath += resource;
+            return makeNativeFileSeparator(resourcesPath);
         } else {
             String gameRootDirectoryPath = new File(path).getParentFile().getParentFile().getAbsoluteFile().getPath();
 //            LOG.debug("gameRootDirectoryPath -> " + gameRootDirectoryPath);
@@ -75,8 +80,12 @@ public class AssetsUtil {
 //        LOG.debug("protocol: " + protocol);
         if ("file".equals(protocol)) { // 处理开发环境的情况
             String substring = resourceURL.getPath().substring(1);
-            return StringUtils.replace(substring, "/", File.separator);
+            return makeNativeFileSeparator(substring);
         }
         throw new RuntimeException("illegal protocol: " + protocol);
+    }
+
+    private static String makeNativeFileSeparator(String path) {
+        return StringUtils.replace(path, "/", File.separator);
     }
 }

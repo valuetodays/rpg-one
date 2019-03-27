@@ -1,6 +1,6 @@
 package billy.rpg.resource.map;
 
-import billy.rpg.common.exception.UnimplementationException;
+import billy.rpg.common.exception.UnFinishException;
 import org.apache.commons.lang.StringUtils;
 import org.mapeditor.core.*;
 import org.mapeditor.io.TMXMapReader;
@@ -22,7 +22,7 @@ public class TmxMapSaverLoader implements MapSaverLoader {
 
     @Override
     public void save(String filepath, MapMetaData mapMetaData) throws IOException {
-        throw new UnimplementationException();
+        throw new UnFinishException("create map by Tiled please");
     }
 
     @Override

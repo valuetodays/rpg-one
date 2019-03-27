@@ -1,6 +1,6 @@
 package billy.rpg.game.core.screen.battle;
 
-import billy.rpg.common.exception.UnimplementationException;
+import billy.rpg.common.exception.UnFinishException;
 import billy.rpg.common.util.TextUtil;
 import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.buff.Buff;
@@ -46,7 +46,7 @@ public class BattleStateScreen extends BaseScreen {
             PlayerCharacter heroCharacter = battleOptionScreen.getBattleUIScreen().playerBattleList.get(index);
             fightable = (Fightable)heroCharacter;
         } else {
-            throw new UnimplementationException("暂不支持查看敌方角色信息，后续可提供查看敌方角色信息的技能");
+            throw new UnFinishException("暂不支持查看敌方角色信息，后续可提供查看敌方角色信息的技能");
         }
 
         BufferedImage paint = new BufferedImage(
