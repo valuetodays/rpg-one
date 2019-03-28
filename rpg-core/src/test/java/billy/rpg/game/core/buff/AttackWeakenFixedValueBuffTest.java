@@ -18,8 +18,7 @@ public class AttackWeakenFixedValueBuffTest extends GameContainerTestBase {
     }
 
     @Test
-    public void apply() throws Exception {
-        buff.setName("减少固定攻击力");
+    public void apply() {
         int buffAttackBefore = heroCharacter.getBuffAttack();
         logger.debug("before buff, attack is " + buffAttackBefore);
         Assert.assertEquals(0, buffAttackBefore);

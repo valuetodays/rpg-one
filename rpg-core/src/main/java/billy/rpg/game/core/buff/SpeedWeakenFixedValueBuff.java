@@ -13,6 +13,7 @@ public class SpeedWeakenFixedValueBuff extends FixedValueBuff {
 
     public SpeedWeakenFixedValueBuff(int fixedValue, int lastRounds) {
         super(fixedValue, lastRounds);
+        setName("减少固定速度");
     }
 
     @Override

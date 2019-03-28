@@ -17,8 +17,7 @@ public class AttackWeakenPercentValueBuffTest extends GameContainerTestBase {
     }
 
     @Test
-    public void apply() throws Exception {
-        buff.setName("减少百分比攻击力");
+    public void apply() {
         int buffAttackBefore = heroCharacter.getBuffAttack();
         logger.debug("before buff, attack is " + buffAttackBefore);
         Assert.assertEquals(0, buffAttackBefore);
@@ -29,7 +28,7 @@ public class AttackWeakenPercentValueBuffTest extends GameContainerTestBase {
     }
 
     @Test
-    public void getBuffType() throws Exception {
+    public void getBuffType() {
         Assert.assertEquals(BuffType.WEAKEN_ATTACK, buff.getBuffType());
     }
 

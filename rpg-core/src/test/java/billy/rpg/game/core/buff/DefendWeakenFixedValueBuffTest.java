@@ -18,7 +18,6 @@ public class DefendWeakenFixedValueBuffTest extends GameContainerTestBase {
 
     @Test
     public void apply() {
-        buff.setName("减少固定防御力");
         int buffDefendBefore = heroCharacter.getBuffDefend();
         logger.debug("before buff, defend is " + buffDefendBefore);
         Assert.assertEquals(0, buffDefendBefore);

@@ -13,6 +13,7 @@ public class SpeedEnhancePercentValueBuff extends PercentValueBuff {
 
     public SpeedEnhancePercentValueBuff(int percentValue, int lastRounds) {
         super(percentValue, lastRounds);
+        setName("增加百分比速度");
     }
 
     @Override

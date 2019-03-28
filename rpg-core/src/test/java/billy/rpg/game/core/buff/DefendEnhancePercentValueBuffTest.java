@@ -18,7 +18,6 @@ public class DefendEnhancePercentValueBuffTest extends GameContainerTestBase {
 
     @Test
     public void apply() {
-        buff.setName("增加百分比防御力");
         int buffDefendBefore = heroCharacter.getBuffDefend();
         logger.debug("before buff, defend is " + buffDefendBefore);
         Assert.assertEquals(0, buffDefendBefore);

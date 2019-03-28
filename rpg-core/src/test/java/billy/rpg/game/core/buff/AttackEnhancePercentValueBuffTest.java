@@ -18,7 +18,6 @@ public class AttackEnhancePercentValueBuffTest extends GameContainerTestBase {
 
     @Test
     public void apply() {
-        buff.setName("增加百分比攻击力");
         int buffAttackBefore = heroCharacter.getBuffAttack();
         logger.debug("before buff, attack is " + buffAttackBefore);
         Assert.assertEquals(0, buffAttackBefore);

@@ -16,6 +16,7 @@ public class AttackWeakenFixedValueBuff extends FixedValueBuff {
      */
     public AttackWeakenFixedValueBuff(int fixedValue, int lastRounds) {
         super(fixedValue, lastRounds);
+        setName("减少固定攻击力");
     }
 
     @Override

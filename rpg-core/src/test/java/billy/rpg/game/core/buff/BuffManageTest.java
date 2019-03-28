@@ -2,6 +2,7 @@ package billy.rpg.game.core.buff;
 
 import billy.rpg.game.core.character.fightable.BuffManager;
 import billy.rpg.game.core.character.fightable.DefaultBuffManager;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -10,6 +11,7 @@ import org.junit.Test;
  */
 public class BuffManageTest /* extends GameContainerTestBase*/ {
     @Test
+    @Ignore
     public void testAddBuff() {
         BuffManager buffManager = new DefaultBuffManager();
                 AttackEnhanceFixedValueBuff attackValueEnhanceBuff = new AttackEnhanceFixedValueBuff(10, Buff.DEFAULT_ROUNDS);

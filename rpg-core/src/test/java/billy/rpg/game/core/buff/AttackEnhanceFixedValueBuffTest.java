@@ -22,8 +22,6 @@ public class AttackEnhanceFixedValueBuffTest extends GameContainerTestBase {
 
     @Test
     public void apply() {
-        buff.setName("增加固定攻击力");
-
         int buffAttackBefore = heroCharacter.getBuffAttack();
         logger.debug("before buff, attack is " + buffAttackBefore);
         Assert.assertEquals(0, buffAttackBefore);

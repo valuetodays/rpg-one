@@ -16,6 +16,7 @@ public class AttackEnhanceFixedValueBuff extends FixedValueBuff {
      */
     public AttackEnhanceFixedValueBuff(int fixedValue, int lastRounds) {
         super(fixedValue, lastRounds);
+        setName("增加固定攻击力");
     }
 
     @Override

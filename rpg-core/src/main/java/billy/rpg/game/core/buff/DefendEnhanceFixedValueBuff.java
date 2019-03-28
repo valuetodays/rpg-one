@@ -12,6 +12,7 @@ public class DefendEnhanceFixedValueBuff extends FixedValueBuff {
 
     public DefendEnhanceFixedValueBuff(int fixedValue, int lastRounds) {
         super(fixedValue, lastRounds);
+        setName("增加固定防御力");
     }
 
     @Override

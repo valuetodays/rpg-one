@@ -13,6 +13,7 @@ public class AttackEnhancePercentValueBuff extends PercentValueBuff {
 
     public AttackEnhancePercentValueBuff(int percentValue, int lastRounds) {
         super(percentValue, lastRounds);
+        setName("增加百分比攻击力");
     }
 
     @Override

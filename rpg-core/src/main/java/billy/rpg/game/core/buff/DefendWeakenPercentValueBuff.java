@@ -12,6 +12,7 @@ import billy.rpg.resource.role.RoleMetaData;
 public class DefendWeakenPercentValueBuff extends PercentValueBuff {
     public DefendWeakenPercentValueBuff(int percentValue, int lastRounds) {
         super(percentValue, lastRounds);
+        setName("减少百分比防御力");
     }
 
     @Override
