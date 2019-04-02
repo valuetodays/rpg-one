@@ -66,7 +66,7 @@ public class RoleMetaData implements Cloneable { // TODO 添加级别
         int y = 0;
         BufferedImage image;
         try {
-            String resourcePath = AssetsUtil.getResourcePath("/assets//sprite/Heal5.png");
+            String resourcePath = AssetsUtil.getResourcePath("/assets/sprite/Heal5.png");
             image = ImageIO.read(new File(resourcePath));
         } catch (IOException e) {
             e.printStackTrace();

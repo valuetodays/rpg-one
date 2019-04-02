@@ -8,6 +8,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.UUID;
 
 /**
  * @author lei.liu@datatist.com
@@ -16,7 +17,7 @@ import java.util.Arrays;
 public class AddVarCmdTest extends GameContainerTestBase {
 
     @Test
-    public void testCmdString() {
+    public void testInit() {
         String str = "addvar coin 1";
         CommandParser jlineCommandParser = new JlineCommandParser();
         CmdBase cmdBase = jlineCommandParser.parse(null, 0, str);
@@ -30,8 +31,7 @@ public class AddVarCmdTest extends GameContainerTestBase {
     }
 
     @Test
-    public void testCmd() {
-        VariableDeterminer.getInstance().print();
+    public void testExecute() {
         String key = "age";
         int value = 10;
         SetVarCmd setVarCmd = new SetVarCmd();
@@ -43,7 +43,16 @@ public class AddVarCmdTest extends GameContainerTestBase {
         addVarCmd.execute(gameContainer, null);
         addVarCmd.initCommand(1, "", Arrays.asList(key, "" + value));
         addVarCmd.execute(gameContainer, null);
-        VariableDeterminer.getInstance().print();
         Assert.assertTrue(VariableDeterminer.getInstance().get(key) == value*2);
+    }
+
+    @Test
+    public void testExecute_shouldThrowExceptionWhenKeyNotExists() {
+        String key = UUID.randomUUID().toString();
+        AddVarCmd addVarCmd = new AddVarCmd();
+        addVarCmd.initCommand(1, "", Arrays.asList(key, "1"));
+        expectedException.expect(RuntimeException.class);
+        expectedException.expectMessage("variable " + key + " not exists");
+        addVarCmd.execute(gameContainer, null);
     }
 }

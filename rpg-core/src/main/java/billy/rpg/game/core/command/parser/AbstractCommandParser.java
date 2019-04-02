@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 /**
  * @author lei.liu
- * @since 2018-09-27 19:10:45
+ * @since 2018-09-27 19:10:4
  */
 public abstract class AbstractCommandParser implements CommandParser {
     protected final Logger logger = Logger.getLogger(getClass());

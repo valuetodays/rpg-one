@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * 增加物品
  *
- * @author liulei@bshf360.com
+ * @author liulei
  * @since 2017-09-05 10:53
  */
 public class AddGoodsCmd extends CmdBase {
@@ -24,19 +24,23 @@ public class AddGoodsCmd extends CmdBase {
 
     @Override
     public int execute(GameContainer gameContainer, CmdProcessor cmdProcessor) {
-        gameContainer.getGameData().addGoods(gameContainer, number);
-        GoodsMetaData goodsMetaData = gameContainer.getGoodsMetaDataOf(number);
+        gameContainer.getGameData().addGoods(gameContainer, getNumber());
+        GoodsMetaData goodsMetaData = gameContainer.getGoodsMetaDataOf(getNumber());
         gameContainer.getGameFrame().pushScreen(new MessageBoxScreen("物品增加 " + goodsMetaData.getName()));
         return 0;
     }
 
     @Override
     public String getUsage() {
-        return null;
+        return "addgoods goodsId";
     }
 
     @Override
     public int getArgumentSize() {
         return 1;
+    }
+
+    public int getNumber() {
+        return number;
     }
 }
