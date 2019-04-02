@@ -2,7 +2,7 @@ package billy.rpg.game.core.command.parser.support;
 
 import billy.rpg.game.core.command.CmdBase;
 import billy.rpg.game.core.command.LabelCmd;
-import billy.rpg.game.core.command.parser.CommandParser;
+import billy.rpg.game.core.command.parser.AbstractCommandParser;
 import org.jline.reader.ParsedLine;
 import org.jline.reader.Parser;
 import org.jline.reader.impl.DefaultParser;
@@ -14,7 +14,7 @@ import java.util.Map;
  * @author lei.liu@datatist.com
  * @since 2018-09-27 19:10:36
  */
-public class JlineCommandParser extends CommandParser {
+public class JlineCommandParser extends AbstractCommandParser {
     private final Parser parser = new DefaultParser();
 
     @Override
