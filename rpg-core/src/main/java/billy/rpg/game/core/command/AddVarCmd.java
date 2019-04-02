@@ -23,11 +23,11 @@ public class AddVarCmd extends CmdBase {
 
     @Override
     public int execute(GameContainer gameContainer, CmdProcessor cmdProcessor) {
-        Integer integer = VariableDeterminer.getInstance().get(key);
+        Integer integer = VariableDeterminer.getInstance().get(getKey());
         if (integer == null) {
-            throw new RuntimeException("variable " + key + " not exists");
+            throw new RuntimeException("variable " + getKey() + " not exists");
         }
-        VariableDeterminer.getInstance().set(key, integer + delta);
+        VariableDeterminer.getInstance().set(getKey(), integer + getDelta());
         return 0;
     }
 
@@ -39,5 +39,13 @@ public class AddVarCmd extends CmdBase {
     @Override
     public int getArgumentSize() {
         return 2;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public int getDelta() {
+        return delta;
     }
 }

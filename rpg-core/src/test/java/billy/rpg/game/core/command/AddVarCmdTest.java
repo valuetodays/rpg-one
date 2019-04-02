@@ -1,6 +1,8 @@
 package billy.rpg.game.core.command;
 
 import billy.rpg.game.core.GameContainerTestBase;
+import billy.rpg.game.core.command.parser.CommandParser;
+import billy.rpg.game.core.command.parser.support.JlineCommandParser;
 import billy.rpg.game.core.script.variable.VariableDeterminer;
 import org.junit.Assert;
 import org.junit.Test;
@@ -14,7 +16,21 @@ import java.util.Arrays;
 public class AddVarCmdTest extends GameContainerTestBase {
 
     @Test
-    public void test() {
+    public void testCmdString() {
+        String str = "addvar coin 1";
+        CommandParser jlineCommandParser = new JlineCommandParser();
+        CmdBase cmdBase = jlineCommandParser.parse(null, 0, str);
+        Assert.assertNotNull(cmdBase);
+        Assert.assertEquals(cmdBase.getClass(), AddVarCmd.class);
+        AddVarCmd addVarCmd = (AddVarCmd) cmdBase;
+        Assert.assertEquals("coin", addVarCmd.getKey());
+        Assert.assertEquals(1, addVarCmd.getDelta());
+        Assert.assertEquals(2, addVarCmd.getArgumentSize());
+        Assert.assertEquals("addvar var 100", addVarCmd.getUsage());
+    }
+
+    @Test
+    public void testCmd() {
         VariableDeterminer.getInstance().print();
         String key = "age";
         int value = 10;
