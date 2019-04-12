@@ -1,11 +1,11 @@
 package billy.rpg.game.core.command;
 
 import billy.rpg.game.core.command.processor.CmdProcessor;
+import billy.rpg.game.core.constants.GameConstant;
 import billy.rpg.game.core.container.GameContainer;
 import billy.rpg.game.core.script.variable.VariableDeterminer;
 
 import java.util.List;
-import java.util.Random;
 
 /**
  * 生成一个[begin, end]之间的数，并把它保存到var变量中
@@ -14,8 +14,7 @@ import java.util.Random;
  * @since 2018-12-10 15:18:19
  */
 public class RandCmd extends CmdBase {
-    public static final int MAX = 1000;
-    private static final Random RANDOM = new Random();
+    private static final int MAX = 1000;
     private String var;
     private int randValue;
     private int begin;
@@ -28,7 +27,7 @@ public class RandCmd extends CmdBase {
         begin = Integer.parseInt(arguments.get(1));
         end = Integer.parseInt(arguments.get(2));
 
-        randValue = (RANDOM.nextInt(MAX) % (end - begin + 1)) + begin;
+        randValue = (GameConstant.random.nextInt(MAX) % (end - begin + 1)) + begin;
     }
 
     @Override
