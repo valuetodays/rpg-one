@@ -1,16 +1,14 @@
 package game;
 
 import org.apache.commons.io.IOUtils;
-import org.junit.Test;
 
+import javax.imageio.ImageIO;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
-import javax.imageio.ImageIO;
 
 /**
  * 将伏魔记彩色版的tile图片（32*4064） 转成rpg maker xp所用的（256*576）
@@ -21,7 +19,7 @@ import javax.imageio.ImageIO;
 public class RearrangeMapImageTest {
     private static int SIZE = 32;
 
-    @Test
+//    @Test
     public void testRearrangeMapImage() throws IOException {
         for (int n = 1; n < 9; n++) {
             rearrangeMapImage(n);

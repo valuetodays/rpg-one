@@ -7,6 +7,7 @@ import billy.rpg.game.core.loader.skill.JsonSkillDataLoader;
 import billy.rpg.game.core.loader.skill.SkillDataLoader;
 import billy.rpg.resource.skill.SkillMetaData;
 import org.apache.commons.io.FileUtils;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
@@ -16,6 +17,7 @@ import java.util.Map;
 
 public class JsonSkillDataLoaderTest {
     @Test
+    @Ignore
     public void test() throws IOException {
         SkillDataLoader dataLoader  = new BinarySkillDataLoader();
         dataLoader.load();

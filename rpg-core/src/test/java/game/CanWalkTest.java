@@ -1,5 +1,6 @@
 package game;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -15,7 +16,7 @@ public class CanWalkTest {
         int pos1 = 0x02; // 不能通行
         int pos2 = 0x82; // 可通行
         // 结果为true可通行，false不可通行
-        System.out.println((pos1 & 0x80) != 0);
-        System.out.println((pos2 & 0x80) != 0);
+        Assert.assertFalse((pos1 & 0x80) != 0);
+        Assert.assertTrue((pos2 & 0x80) != 0);
     }
 }

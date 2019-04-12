@@ -1,6 +1,7 @@
 package billy.rpg.resource.map;
 
 import billy.rpg.common.exception.UnFinishException;
+import billy.rpg.resource.ResourceTestBase;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;

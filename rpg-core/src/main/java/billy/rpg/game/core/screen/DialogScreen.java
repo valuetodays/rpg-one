@@ -53,7 +53,7 @@ public class DialogScreen extends BaseScreen {
         this.talker = name;
 
         msg = StringUtils.isEmpty(msg) ? "" : msg;
-        String filteredMsg = filterMsg(msg, true);
+        String filteredMsg = TextFilter.filterMsg(msg, true);
         DialogFormattedResult dialogFormattedResult = dialogTextFormatter.format(filteredMsg);
         msgList = dialogFormattedResult.getTextList();
         totalLine = dialogFormattedResult.getTotalLine();
@@ -61,23 +61,25 @@ public class DialogScreen extends BaseScreen {
         curLine = 1;
     }
 
-    private String filterMsg(String msg, boolean flag) {
-        if (!flag) {
-            return msg;
-        }
-        Map<String, Integer> variableMap = VariableDeterminer.getInstance().realData();
-        Map<String, String> stringStringMap = variableMap.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, v -> v.getValue().toString()));
-        ResourceFilter resourceFilter = new ResourceFilter();
-        System.getProperties().stringPropertyNames().forEach(e -> resourceFilter.addFilter(e, System.getProperty(e))); // 添加系统变量
-        resourceFilter.addFilters(stringStringMap);
+    private static class TextFilter {
+        static String filterMsg(String msg, boolean flag) {
+            if (!flag) {
+                return msg;
+            }
+            Map<String, Integer> variableMap = VariableDeterminer.getInstance().realData();
+            Map<String, String> stringStringMap = variableMap.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, v -> v.getValue().toString()));
+            ResourceFilter resourceFilter = new ResourceFilter();
+            System.getProperties().stringPropertyNames().forEach(e -> resourceFilter.addFilter(e, System.getProperty(e))); // 添加系统变量
+            resourceFilter.addFilters(stringStringMap);
 
-        StringResource stringResource = new StringResource(msg, resourceFilter);
-        try {
-            stringResource.doFilter();
-        } catch (IOException e) {
-            throw new RuntimeException("exception when filter string: " + e.getMessage(), e);
+            StringResource stringResource = new StringResource(msg, resourceFilter);
+            try {
+                stringResource.doFilter();
+            } catch (IOException e) {
+                throw new RuntimeException("exception when filter string: " + e.getMessage(), e);
+            }
+            return stringResource.getOutputAsString();
         }
-        return stringResource.getOutputAsString();
     }
 
     private void calculateTotalLine() {

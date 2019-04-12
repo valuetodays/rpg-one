@@ -5,6 +5,7 @@ import billy.rpg.game.core.buff.Buff;
 import billy.rpg.game.core.character.PlayerCharacter;
 import billy.rpg.game.core.character.fightable.Fightable;
 import billy.rpg.resource.skill.SkillMetaData;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.lang.reflect.InvocationTargetException;
@@ -19,6 +20,7 @@ public class SkillTest extends GameContainerTestBase {
      * 测试获得buff与回合结束后，buff的消失
      */
     @Test
+    @Ignore
     public void test() {
         SkillMetaData skillMetaData = gameContainer.getSkillMetaDataOf(3);
         logger.debug("skill: " + JsonUtil.toPrettyJsonString(skillMetaData));

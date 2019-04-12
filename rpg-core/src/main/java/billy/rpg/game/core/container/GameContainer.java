@@ -207,7 +207,6 @@ public class GameContainer {
         this.scriptItemList = Collections.unmodifiableList(slLoad);
     }
 
-
     private void loadMapData() throws Exception {
         MapDataLoader ml = new TmxMapDataLoader();
         ml.load();

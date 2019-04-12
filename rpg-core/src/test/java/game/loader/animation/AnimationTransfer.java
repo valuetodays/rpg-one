@@ -7,6 +7,7 @@ import billy.rpg.game.core.loader.animation.BinaryAnimationDataLoader;
 import billy.rpg.game.core.loader.animation.JsonAnimationDataLoader;
 import billy.rpg.resource.animation.AnimationMetaData;
 import org.apache.commons.io.FileUtils;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
@@ -16,6 +17,7 @@ import java.util.Map;
 
 public class AnimationTransfer {
     @Test
+    @Ignore
     public void testBinaryToJson() throws IOException {
         AnimationDataLoader dataLoader  = new BinaryAnimationDataLoader();
         dataLoader.load();

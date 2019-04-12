@@ -34,7 +34,7 @@ public abstract class GameContainerTestBase {
         gameContainer = new GameContainer(null);
         gameContainer.load();
         gameContainer.setGameData(new GameData());
-        gameContainer.getGameData().addHeroId(1); // 添加待测试主角
+//        gameContainer.getGameData().addHeroId(1); // 添加待测试主角
     }
 
     protected Fightable getFightable() {

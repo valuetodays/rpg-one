@@ -1,5 +1,6 @@
 package game;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -10,6 +11,6 @@ public class InstanceOfTest {
     @Test
     public void test1() {
         String a = null;
-        System.out.println(a instanceof String);
+        Assert.assertFalse(a instanceof String);
     }
 }

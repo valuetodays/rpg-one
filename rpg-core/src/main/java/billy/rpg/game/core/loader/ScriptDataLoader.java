@@ -7,6 +7,7 @@ import billy.rpg.game.core.command.parser.CommandParser;
 import billy.rpg.game.core.command.parser.support.JlineCommandParser;
 import billy.rpg.game.core.item.ScriptItem;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.LineIterator;
 import org.apache.log4j.Logger;
 
 import java.io.*;
@@ -61,26 +62,21 @@ public class ScriptDataLoader {
         }
 
         CommandParser cmdParser = new JlineCommandParser();
-        String lineData = null;
         List<ScriptItem> scriptItemList = new ArrayList<>();
         ScriptItem scriptItem = null;
-        File file = null;
-        Reader in = null;
-        BufferedReader br = null;
 
         for (String script : scripts) {
-            file = new File(script);
-            in = new FileReader(file);
-            br = new BufferedReader(in);
             scriptItem = new ScriptItem();
-            lineData = br.readLine();
 
+            FileInputStream fileInputStream = new FileInputStream(new File(script));
+            LineIterator lineIterator = IOUtils.lineIterator(fileInputStream, "utf-8");
             List<CmdBase> cmdList = new ArrayList<>();
             int lineNumber = 1;
-            while (lineData != null) {
+            while (lineIterator.hasNext()) {
+                String lineData = lineIterator.next();
                 // 以\结尾就说明该行未结束
                 while (lineData.endsWith("\\")) {
-                    lineData = lineData.substring(0, lineData.length()-1) + br.readLine();
+                    lineData = lineData.substring(0, lineData.length()-1) + lineIterator.next();
                     lineNumber++;
                 }
                 CmdBase tmp = cmdParser.parse(script, lineNumber, lineData);
@@ -91,20 +87,17 @@ public class ScriptDataLoader {
                     cmdList.add(tmp);
                 }
 
-                lineData = br.readLine();
                 lineNumber++;
             }
 
             if (cmdList.isEmpty()) {
-                IOUtils.closeQuietly(br);
-                IOUtils.closeQuietly(in);
+                IOUtils.closeQuietly(fileInputStream);
                 throw new RuntimeException("no scripts.");
             }
             scriptItem.init(cmdList);
             scriptItemList.add(scriptItem);
 
-            IOUtils.closeQuietly(br);
-            IOUtils.closeQuietly(in);
+            IOUtils.closeQuietly(fileInputStream);
         }
 
         return scriptItemList;

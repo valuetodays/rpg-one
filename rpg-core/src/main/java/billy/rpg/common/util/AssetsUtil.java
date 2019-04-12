@@ -22,9 +22,10 @@ public class AssetsUtil {
         if (StringUtils.isBlank(resource)) {
             throw new NullPointerException("resourcePath is null or empty");
         }
+        Thread.currentThread().getContextClassLoader().getResource(resource);
 
         String path = AssetsUtil.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-//        LOG.debug("path -> " + path);
+        System.out.println("path -> " + path);
 
         if (path.contains("/target/classes/")) { // for maven
             return getResourcePathInDev(resource);

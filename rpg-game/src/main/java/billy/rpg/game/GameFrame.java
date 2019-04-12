@@ -52,7 +52,7 @@ public class GameFrame extends JFrame implements IGameFrame, Runnable {
     private boolean showFPS = true;
 
     public static void main(String[] args) {
-        JavaVersionUtil.validateJava();
+        JavaVersionUtil.validateJava(8);
 
         GameFrame game = new GameFrame();
         game.addWindowListener(new WindowAdapter() {
@@ -62,7 +62,7 @@ public class GameFrame extends JFrame implements IGameFrame, Runnable {
             }
         });
 
-        SwingUtilities.invokeLater(() -> game.createAndShowGUI());
+        SwingUtilities.invokeLater(game::createAndShowGUI);
     }
 
     private void onWindowClosing() {

@@ -1,5 +1,6 @@
-package billy.rpg.resource.map;
+package billy.rpg.resource;
 
+import billy.rpg.resource.map.MapMetaData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

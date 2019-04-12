@@ -1,4 +1,4 @@
-package test.billy.rpg.common;
+package billy.rpg.resource;
 
 import billy.rpg.common.util.ImageUtil;
 import billy.rpg.resource.box.BoxImageLoader;

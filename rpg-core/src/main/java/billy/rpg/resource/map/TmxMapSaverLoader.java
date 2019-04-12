@@ -49,8 +49,7 @@ public class TmxMapSaverLoader implements MapSaverLoader {
             mapMetaData.setMapId(file.getName().replace(".tmx", ""));
             return mapMetaData;
         } catch (Exception e) {
-            e.printStackTrace();
-            throw new IOException(e.getMessage());
+            throw new IOException(e.getMessage(), e);
         }
     }
 

@@ -32,7 +32,7 @@ public class JlineCommandParser extends AbstractCommandParser {
             String commandClassName = commandName + CmdBase.class.getSimpleName().replace("Base", "");
             aClass = cmdClassMap.get(commandClassName.toUpperCase());
             if (aClass == null) {
-                throw new RuntimeException("command not support: " + commandName);
+                throw new RuntimeException("command in file ["+scriptFileName+"](Line:"+lineNumber+") not support: " + commandName);
             }
         }
         CmdBase cmdBase = null;

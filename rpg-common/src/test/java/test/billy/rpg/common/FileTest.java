@@ -15,7 +15,7 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 /**
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-11-14 09:39:22
  */
 public class FileTest {
