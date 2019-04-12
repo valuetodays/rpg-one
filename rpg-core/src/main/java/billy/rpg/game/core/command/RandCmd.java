@@ -17,6 +17,7 @@ public class RandCmd extends CmdBase {
     public static final int MAX = 1000;
     private static final Random RANDOM = new Random();
     private String var;
+    private int randValue;
     private int begin;
     private int end;
 
@@ -26,6 +27,8 @@ public class RandCmd extends CmdBase {
         var = arguments.get(0);
         begin = Integer.parseInt(arguments.get(1));
         end = Integer.parseInt(arguments.get(2));
+
+        randValue = (RANDOM.nextInt(MAX) % (end - begin + 1)) + begin;
     }
 
     @Override
@@ -36,9 +39,12 @@ public class RandCmd extends CmdBase {
         if (end <= begin) {
             throw new RuntimeException("the begin and end is incorrect.");
         }
-        int randValue = (RANDOM.nextInt(MAX) % (end - begin + 1)) + begin;
-        VariableDeterminer.getInstance().set(var, randValue);
+        VariableDeterminer.getInstance().set(var, getRandValue());
         return 0;
+    }
+
+    public int getRandValue() {
+        return randValue;
     }
 
     @Override

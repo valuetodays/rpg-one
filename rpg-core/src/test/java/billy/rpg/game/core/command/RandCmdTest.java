@@ -1,13 +1,13 @@
 package billy.rpg.game.core.command;
 
 import billy.rpg.game.core.GameContainerTestBase;
-import billy.rpg.game.core.script.variable.VariableDeterminer;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Arrays;
 
 /**
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-12-10 15:35:13
  */
 public class RandCmdTest extends GameContainerTestBase {
@@ -18,7 +18,8 @@ public class RandCmdTest extends GameContainerTestBase {
             RandCmd randCmd = new RandCmd();
             randCmd.initCommand(1, "", Arrays.asList(key, "10", "20"));
             randCmd.execute(gameContainer, null);
-            System.out.println(VariableDeterminer.getInstance().get(key));
+            Assert.assertTrue(randCmd.getRandValue() > 10);
+            Assert.assertTrue(randCmd.getRandValue() < 20);
         }
 
     }
