@@ -1,6 +1,6 @@
 package billy.rpg.game.core.screen;
 
-import billy.rpg.common.formatter.ColorDialogTextFormatter;
+import billy.rpg.common.formatter.DefaultDialogTextFormatter;
 import billy.rpg.common.formatter.DialogFormattedResult;
 import billy.rpg.common.formatter.DialogTextFormatter;
 import billy.rpg.game.core.DesktopCanvas;
@@ -15,7 +15,9 @@ import com.billy.resourcefilter.resource.StringResource;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
@@ -33,7 +35,8 @@ public class DialogScreen extends BaseScreen {
     private CmdProcessor cmdProcessor;
     private SayCmd.PositionEnum position; // headImg location
     private String talker; // talker
-
+//    private final DialogTextFormatter dialogTextFormatter = new ColorDialogTextFormatter(GameConstant.DIALOG_WORDS_NUM_PER_LINE);
+    private final DialogTextFormatter dialogTextFormatter = new DefaultDialogTextFormatter(GameConstant.DIALOG_WORDS_NUM_PER_LINE);
 
 
     /**
@@ -48,7 +51,7 @@ public class DialogScreen extends BaseScreen {
         SayCmd.PositionEnum.assertLegal(position, "对话框角色图片位置有误");
         this.position = position;
         this.talker = name;
-        DialogTextFormatter dialogTextFormatter = new ColorDialogTextFormatter(GameConstant.WORDS_NUM_PER_LINE);
+
         msg = StringUtils.isEmpty(msg) ? "" : msg;
         String filteredMsg = filterMsg(msg, true);
         DialogFormattedResult dialogFormattedResult = dialogTextFormatter.format(filteredMsg);
@@ -78,7 +81,6 @@ public class DialogScreen extends BaseScreen {
     }
 
     private void calculateTotalLine() {
-        totalLine--; // remove first
         totalLine = totalLine / 2 + (totalLine % 2 > 0 ? 1 : 0);
     }
 

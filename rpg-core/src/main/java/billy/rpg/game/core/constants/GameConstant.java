@@ -58,7 +58,7 @@ public interface GameConstant {
     /**
      * 对话框中一行有多少个字
      */
-    int WORDS_NUM_PER_LINE = 20;
+    int DIALOG_WORDS_NUM_PER_LINE = 20;
     Font FONT_DLG_MSG = new Font("楷体", Font.BOLD, 24);
     Font FONT_ROLENAME_IN_DLG = new Font("楷体", Font.BOLD, 18);
     Font FONT_BATTLE = new Font("楷体", Font.BOLD, 18);

@@ -200,40 +200,44 @@ ILoader
      * 无开发环境：去/目录下，双击assembly.bat打包，然后去/rpg-game/target/dist/rpg-game下，双击start.bat即可；
 
 #### 2018-11-29
-    添加LevelUpCmd，用于强制升级，（区别于靠打怪升级不同）
+    [feature] 添加LevelUpCmd，用于强制升级，（区别于靠打怪升级不同）
 
 #### 2018-12-03
-    成就：钨龙剑，第一滴血，伏魔
+    [docs] 成就：钨龙剑，第一滴血，伏魔
 
 #### 2018-12-06
-    buff互斥：则buff取消
-    buff叠加：后者取代前者 （不管前者持续回合是否比后者长）
-    防御力基本buff添加完毕
-    速度基本buff添加完毕
-    提取两大抽象Buff类: FixedValueBuff, PercentValueBuff
-    微调封面的雾的位置
-    物品中添加range来使用武器有群攻与单攻之分；
-    添加screenshot命令
+    [docs] buff互斥：则buff取消
+    [docs] buff叠加：后者取代前者 （不管前者持续回合是否比后者长）
+    [feature] 防御力基本buff添加完毕
+    [feature] 速度基本buff添加完毕
+    [refactor] 提取两大抽象Buff类: FixedValueBuff, PercentValueBuff
+    [opt] 微调封面的雾的位置
+    [feature] 物品中添加range来使用武器有群攻与单攻之分；
+    [feature] 添加screenshot命令
 
 #### 2018-12-07
-    普通攻击/技能攻击时若只有一个敌人则不需要选择就进行攻击
-    技能攻击处理群体与单体之分
+    [feature] 普通攻击/技能攻击时若只有一个敌人则不需要选择就进行攻击
+    [feature] 技能攻击处理群体与单体之分
     TODO learnSkill xx
     处理技能：加攻型buff  （需要在各个地方判断技能的类型(type)是攻击的还是辅助的，代码好乱啊）
-    战斗场景中显示回合数
+    [feature] 战斗场景中显示回合数
 
 #### 2018-12-10
-    TODO GAMESAVE中的参数：使用事件表，全局变量表，GameData
-    添加变量相关命令：SetVarCmd/AddVarCmd/CopyVarCmd，添加IfVarCmd命令
+    [TODO] GAMESAVE中的参数：使用事件表，全局变量表，GameData
+    [feature] 添加变量相关命令：SetVarCmd/AddVarCmd/CopyVarCmd，添加IfVarCmd命令
     say命令的参数中可以有变量，如${key}。私底下做个游戏竟然能和本职工作扯上关系！！！ javaweb中就经常使用环境变量如${sun.desktop}(例sun.desktop=windows)
-    TODO BUG: 如下命令
+    [BUG] 如下命令
          say 2 '师弟' NONE '师兄，我知道了，m的值等于${m}，厉害吧，我还知道`y`你的国家`/y`是${user.country}。'
     的显示有误，暂时记录
-    添加RAND命令以生成一个包含指定区间的随机数如[begin, end]
-    Monster -> Enemy, Hero -> Player
+    [feature]添加RAND命令以生成一个包含指定区间的随机数如[begin, end]
+    [refactor]Monster -> Enemy, Hero -> Player
     重新计算buff值时需要把上一次的buff值清空
 #### 2018-12-14
-    添加SetWeatherCmd/ClearWeatherCmd
-    TODO: GAMESAVE/GAMELOAD
+    [feature] 添加SetWeatherCmd/ClearWeatherCmd
+    [TODO] GAMESAVE/GAMELOAD
+
 #### 2018-12-17
-    TODO jskl文件中可考虑使用占位符${}
+    [TODO] jskl文件中可考虑使用占位符${}
+    
+#### 2019-04-12
+    [BUG-FIX] 修正2018-12-10的一个bug: '师兄，我知道了，m的值等于${m}，厉害吧，我还知道`y`你的国家`/y`是${user.country}。'

@@ -5,9 +5,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author lei.liu@datatist.com
+ * this class can not work well when text is
+ * <code>'师兄，我知道了，m的值等于100，厉害吧，我还知道`y`你的国家`/y`是zh。'</code>
+ * it's consequence is
+ * <pre>
+ *     师兄，我知道了，m的值等于100，厉害吧
+ *     ，我还知道
+ *     的国家是zh。
+ * </pre>
+ * rather than
+ * <pre>
+ *     师兄，我知道了，m的值等于100，厉害吧
+ *     ，我还知道的国家是zh。
+ * </pre>
+ *
+ * and it's ok in {@link DefaultDialogTextFormatter}
+ *
+ * @author lei.liu
  * @since 2018-09-28 16:52:57
+ *
+ * @see DefaultDialogTextFormatter
+ * @version v20190412
  */
+@Deprecated
 public class ColorDialogTextFormatter implements DialogTextFormatter {
     private final int WORDS_NUM_PER_LINE;
 
@@ -83,6 +103,7 @@ public class ColorDialogTextFormatter implements DialogTextFormatter {
             }
         }
 
+        totalLine--;
         return new DialogFormattedResult(totalLine, msgList);
     }
 

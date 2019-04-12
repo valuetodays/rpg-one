@@ -152,8 +152,6 @@ public class GameFrame extends JFrame implements IGameFrame, Runnable {
         gameThread = new Thread(this, "fmj");
         gameThread.start();
         LOG.info("game starts");
-
-
     }
 
     public static GameFrame getInstance() {

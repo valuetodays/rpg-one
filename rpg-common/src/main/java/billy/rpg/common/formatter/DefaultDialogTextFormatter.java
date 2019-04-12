@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ *
+ */
 public class DefaultDialogTextFormatter implements DialogTextFormatter {
     private int wordsNumPerLine;
 

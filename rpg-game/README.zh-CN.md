@@ -3,7 +3,7 @@
 
 #### 
 
-[起因皆伏魔](http://eblog.doyourealizethattheimportantisdifficult.cn/article/getDetail.do?id=41 "起因皆伏魔")
+[起因皆伏魔](http://eblog.doyourealizethattheimportantisdifficult.cn/article/detail/41 "起因皆伏魔")
 
 
 #### 说明
