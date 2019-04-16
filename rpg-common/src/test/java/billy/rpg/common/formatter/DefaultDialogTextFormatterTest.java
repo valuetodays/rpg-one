@@ -43,13 +43,13 @@ public class DefaultDialogTextFormatterTest {
         int totalLine = formattedResult.getTotalLine();
         assertEquals(1, totalLine);
 
-        List<DialogFormattedResult.DialogFormattedText> textList = formattedResult.getTextList();
-        DialogFormattedResult.DialogFormattedText dialogFormattedText0 = textList.get(0);
-        assertThat(dialogFormattedText0.color, is(Color.WHITE));
-        assertThat(dialogFormattedText0.content, nullValue());
-        DialogFormattedResult.DialogFormattedText dialogFormattedText1 = textList.get(1);
-        assertThat(dialogFormattedText1.color, is(Color.WHITE));
-        assertThat(dialogFormattedText1.content, is(dialogText));
+        List<DialogFormattedText> textList = formattedResult.getTextList();
+        DialogFormattedText dialogFormattedText0 = textList.get(0);
+        assertThat(dialogFormattedText0.getColor(), is(Color.WHITE));
+        assertThat(dialogFormattedText0.getContent(), nullValue());
+        DialogFormattedText dialogFormattedText1 = textList.get(1);
+        assertThat(dialogFormattedText1.getColor(), is(Color.WHITE));
+        assertThat(dialogFormattedText1.getContent(), is(dialogText));
 
         debug(formattedResult);
     }
@@ -76,19 +76,19 @@ public class DefaultDialogTextFormatterTest {
         int totalLine = formattedResult.getTotalLine();
         assertEquals(2, totalLine);
 
-        List<DialogFormattedResult.DialogFormattedText> textList = formattedResult.getTextList();
-        DialogFormattedResult.DialogFormattedText dialogFormattedText0 = textList.get(0);
-        assertThat(dialogFormattedText0.color, is(Color.WHITE));
-        assertThat(dialogFormattedText0.content, nullValue());
-        DialogFormattedResult.DialogFormattedText dialogFormattedText1 = textList.get(1);
-        assertThat(dialogFormattedText1.color, is(Color.WHITE));
-        assertThat(dialogFormattedText1.content, is("还是先去见师傅去见师傅去见师傅去见师傅去"));
-        DialogFormattedResult.DialogFormattedText dialogFormattedText2 = textList.get(2);
-        assertThat(dialogFormattedText2.color, is(Color.WHITE));
-        assertThat(dialogFormattedText2.content, nullValue());
-        DialogFormattedResult.DialogFormattedText dialogFormattedText3 = textList.get(3);
-        assertThat(dialogFormattedText3.color, is(Color.WHITE));
-        assertThat(dialogFormattedText3.content, is("见师傅去见师傅去见师傅去见师傅吧。"));
+        List<DialogFormattedText> textList = formattedResult.getTextList();
+        DialogFormattedText dialogFormattedText0 = textList.get(0);
+        assertThat(dialogFormattedText0.getColor(), is(Color.WHITE));
+        assertThat(dialogFormattedText0.getContent(), nullValue());
+        DialogFormattedText dialogFormattedText1 = textList.get(1);
+        assertThat(dialogFormattedText1.getColor(), is(Color.WHITE));
+        assertThat(dialogFormattedText1.getContent(), is("还是先去见师傅去见师傅去见师傅去见师傅去"));
+        DialogFormattedText dialogFormattedText2 = textList.get(2);
+        assertThat(dialogFormattedText2.getColor(), is(Color.WHITE));
+        assertThat(dialogFormattedText2.getContent(), nullValue());
+        DialogFormattedText dialogFormattedText3 = textList.get(3);
+        assertThat(dialogFormattedText3.getColor(), is(Color.WHITE));
+        assertThat(dialogFormattedText3.getContent(), is("见师傅去见师傅去见师傅去见师傅吧。"));
 
         debug(formattedResult);
     }
@@ -100,25 +100,25 @@ public class DefaultDialogTextFormatterTest {
         int totalLine = formattedResult.getTotalLine();
         assertEquals(3, totalLine);
 
-        List<DialogFormattedResult.DialogFormattedText> textList = formattedResult.getTextList();
-        DialogFormattedResult.DialogFormattedText dialogFormattedText0 = textList.get(0);
-        assertThat(dialogFormattedText0.color, is(Color.WHITE));
-        assertThat(dialogFormattedText0.content, nullValue());
-        DialogFormattedResult.DialogFormattedText dialogFormattedText1 = textList.get(1);
-        assertThat(dialogFormattedText1.color, is(Color.WHITE));
-        assertThat(dialogFormattedText1.content, is("一二三四五六七八九十赵钱孙李周吴郑王冯陈"));
-        DialogFormattedResult.DialogFormattedText dialogFormattedText2 = textList.get(2);
-        assertThat(dialogFormattedText2.color, is(Color.WHITE));
-        assertThat(dialogFormattedText2.content, nullValue());
-        DialogFormattedResult.DialogFormattedText dialogFormattedText3 = textList.get(3);
-        assertThat(dialogFormattedText3.color, is(Color.WHITE));
-        assertThat(dialogFormattedText3.content, is("一二三四五六七八九十赵钱孙李周吴郑王冯陈"));
-        DialogFormattedResult.DialogFormattedText dialogFormattedText4 = textList.get(4);
-        assertThat(dialogFormattedText4.color, is(Color.WHITE));
-        assertThat(dialogFormattedText4.content, nullValue());
-        DialogFormattedResult.DialogFormattedText dialogFormattedText5 = textList.get(5);
-        assertThat(dialogFormattedText5.color, is(Color.WHITE));
-        assertThat(dialogFormattedText5.content, is("一二三四五六七八九十赵钱孙李周吴郑王冯陈"));
+        List<DialogFormattedText> textList = formattedResult.getTextList();
+        DialogFormattedText dialogFormattedText0 = textList.get(0);
+        assertThat(dialogFormattedText0.getColor(), is(Color.WHITE));
+        assertThat(dialogFormattedText0.getContent(), nullValue());
+        DialogFormattedText dialogFormattedText1 = textList.get(1);
+        assertThat(dialogFormattedText1.getColor(), is(Color.WHITE));
+        assertThat(dialogFormattedText1.getContent(), is("一二三四五六七八九十赵钱孙李周吴郑王冯陈"));
+        DialogFormattedText dialogFormattedText2 = textList.get(2);
+        assertThat(dialogFormattedText2.getColor(), is(Color.WHITE));
+        assertThat(dialogFormattedText2.getContent(), nullValue());
+        DialogFormattedText dialogFormattedText3 = textList.get(3);
+        assertThat(dialogFormattedText3.getColor(), is(Color.WHITE));
+        assertThat(dialogFormattedText3.getContent(), is("一二三四五六七八九十赵钱孙李周吴郑王冯陈"));
+        DialogFormattedText dialogFormattedText4 = textList.get(4);
+        assertThat(dialogFormattedText4.getColor(), is(Color.WHITE));
+        assertThat(dialogFormattedText4.getContent(), nullValue());
+        DialogFormattedText dialogFormattedText5 = textList.get(5);
+        assertThat(dialogFormattedText5.getColor(), is(Color.WHITE));
+        assertThat(dialogFormattedText5.getContent(), is("一二三四五六七八九十赵钱孙李周吴郑王冯陈"));
 
         debug(formattedResult);
     }
@@ -130,25 +130,25 @@ public class DefaultDialogTextFormatterTest {
         int totalLine = formattedResult.getTotalLine();
         assertEquals(3, totalLine);
 
-        List<DialogFormattedResult.DialogFormattedText> textList = formattedResult.getTextList();
-        DialogFormattedResult.DialogFormattedText dialogFormattedText0 = textList.get(0);
-        assertThat(dialogFormattedText0.color, is(Color.WHITE));
-        assertThat(dialogFormattedText0.content, nullValue());
-        DialogFormattedResult.DialogFormattedText dialogFormattedText1 = textList.get(1);
-        assertThat(dialogFormattedText1.color, is(Color.WHITE));
-        assertThat(dialogFormattedText1.content, is("还是先去见师傅去见师傅去见师傅去见师傅去"));
-        DialogFormattedResult.DialogFormattedText dialogFormattedText2 = textList.get(2);
-        assertThat(dialogFormattedText2.color, is(Color.WHITE));
-        assertThat(dialogFormattedText2.content, nullValue());
-        DialogFormattedResult.DialogFormattedText dialogFormattedText3 = textList.get(3);
-        assertThat(dialogFormattedText3.color, is(Color.WHITE));
-        assertThat(dialogFormattedText3.content, is("见师傅去见师傅去见师傅去见师傅去见师傅去"));
-        DialogFormattedResult.DialogFormattedText dialogFormattedText4 = textList.get(4);
-        assertThat(dialogFormattedText4.color, is(Color.WHITE));
-        assertThat(dialogFormattedText4.content, nullValue());
-        DialogFormattedResult.DialogFormattedText dialogFormattedText5 = textList.get(5);
-        assertThat(dialogFormattedText5.color, is(Color.WHITE));
-        assertThat(dialogFormattedText5.content, is("见师傅去见师傅去见师傅去见师傅吧。"));
+        List<DialogFormattedText> textList = formattedResult.getTextList();
+        DialogFormattedText dialogFormattedText0 = textList.get(0);
+        assertThat(dialogFormattedText0.getColor(), is(Color.WHITE));
+        assertThat(dialogFormattedText0.getContent(), nullValue());
+        DialogFormattedText dialogFormattedText1 = textList.get(1);
+        assertThat(dialogFormattedText1.getColor(), is(Color.WHITE));
+        assertThat(dialogFormattedText1.getContent(), is("还是先去见师傅去见师傅去见师傅去见师傅去"));
+        DialogFormattedText dialogFormattedText2 = textList.get(2);
+        assertThat(dialogFormattedText2.getColor(), is(Color.WHITE));
+        assertThat(dialogFormattedText2.getContent(), nullValue());
+        DialogFormattedText dialogFormattedText3 = textList.get(3);
+        assertThat(dialogFormattedText3.getColor(), is(Color.WHITE));
+        assertThat(dialogFormattedText3.getContent(), is("见师傅去见师傅去见师傅去见师傅去见师傅去"));
+        DialogFormattedText dialogFormattedText4 = textList.get(4);
+        assertThat(dialogFormattedText4.getColor(), is(Color.WHITE));
+        assertThat(dialogFormattedText4.getContent(), nullValue());
+        DialogFormattedText dialogFormattedText5 = textList.get(5);
+        assertThat(dialogFormattedText5.getColor(), is(Color.WHITE));
+        assertThat(dialogFormattedText5.getContent(), is("见师傅去见师傅去见师傅去见师傅吧。"));
 
         debug(formattedResult);
     }
@@ -161,19 +161,19 @@ public class DefaultDialogTextFormatterTest {
         int totalLine = formattedResult.getTotalLine();
         assertEquals(1, totalLine);
 
-        List<DialogFormattedResult.DialogFormattedText> textList = formattedResult.getTextList();
-        DialogFormattedResult.DialogFormattedText dialogFormattedText0 = textList.get(0);
-        assertThat(dialogFormattedText0.color, is(Color.WHITE));
-        assertThat(dialogFormattedText0.content, nullValue());
-        DialogFormattedResult.DialogFormattedText dialogFormattedText1 = textList.get(1);
-        assertThat(dialogFormattedText1.color, is(Color.WHITE));
-        assertThat(dialogFormattedText1.content, is("还是先去见"));
-        DialogFormattedResult.DialogFormattedText dialogFormattedText2 = textList.get(2);
-        assertThat(dialogFormattedText2.color, is(Color.YELLOW));
-        assertThat(dialogFormattedText2.content, is("师傅"));
-        DialogFormattedResult.DialogFormattedText dialogFormattedText3 = textList.get(3);
-        assertThat(dialogFormattedText3.color, is(Color.WHITE));
-        assertThat(dialogFormattedText3.content, is("吧。"));
+        List<DialogFormattedText> textList = formattedResult.getTextList();
+        DialogFormattedText dialogFormattedText0 = textList.get(0);
+        assertThat(dialogFormattedText0.getColor(), is(Color.WHITE));
+        assertThat(dialogFormattedText0.getContent(), nullValue());
+        DialogFormattedText dialogFormattedText1 = textList.get(1);
+        assertThat(dialogFormattedText1.getColor(), is(Color.WHITE));
+        assertThat(dialogFormattedText1.getContent(), is("还是先去见"));
+        DialogFormattedText dialogFormattedText2 = textList.get(2);
+        assertThat(dialogFormattedText2.getColor(), is(Color.YELLOW));
+        assertThat(dialogFormattedText2.getContent(), is("师傅"));
+        DialogFormattedText dialogFormattedText3 = textList.get(3);
+        assertThat(dialogFormattedText3.getColor(), is(Color.WHITE));
+        assertThat(dialogFormattedText3.getContent(), is("吧。"));
 
         debug(formattedResult);
     }
@@ -186,19 +186,19 @@ public class DefaultDialogTextFormatterTest {
         int totalLine = formattedResult.getTotalLine();
         assertEquals(1, totalLine);
 
-        List<DialogFormattedResult.DialogFormattedText> textList = formattedResult.getTextList();
-        DialogFormattedResult.DialogFormattedText dialogFormattedText0 = textList.get(0);
-        assertThat(dialogFormattedText0.color, is(Color.WHITE));
-        assertThat(dialogFormattedText0.content, nullValue());
-        DialogFormattedResult.DialogFormattedText dialogFormattedText1 = textList.get(1);
-        assertThat(dialogFormattedText1.color, is(Color.WHITE));
-        assertThat(dialogFormattedText1.content, is("还是先去见"));
-        DialogFormattedResult.DialogFormattedText dialogFormattedText2 = textList.get(2);
-        assertThat(dialogFormattedText2.color, is(Color.BLACK));
-        assertThat(dialogFormattedText2.content, is("师傅"));
-        DialogFormattedResult.DialogFormattedText dialogFormattedText3 = textList.get(3);
-        assertThat(dialogFormattedText3.color, is(Color.WHITE));
-        assertThat(dialogFormattedText3.content, is("吧。"));
+        List<DialogFormattedText> textList = formattedResult.getTextList();
+        DialogFormattedText dialogFormattedText0 = textList.get(0);
+        assertThat(dialogFormattedText0.getColor(), is(Color.WHITE));
+        assertThat(dialogFormattedText0.getContent(), nullValue());
+        DialogFormattedText dialogFormattedText1 = textList.get(1);
+        assertThat(dialogFormattedText1.getColor(), is(Color.WHITE));
+        assertThat(dialogFormattedText1.getContent(), is("还是先去见"));
+        DialogFormattedText dialogFormattedText2 = textList.get(2);
+        assertThat(dialogFormattedText2.getColor(), is(Color.BLACK));
+        assertThat(dialogFormattedText2.getContent(), is("师傅"));
+        DialogFormattedText dialogFormattedText3 = textList.get(3);
+        assertThat(dialogFormattedText3.getColor(), is(Color.WHITE));
+        assertThat(dialogFormattedText3.getContent(), is("吧。"));
     }
 
 
@@ -209,25 +209,25 @@ public class DefaultDialogTextFormatterTest {
         int totalLine = formattedResult.getTotalLine();
         assertEquals(2, totalLine);
 
-        List<DialogFormattedResult.DialogFormattedText> textList = formattedResult.getTextList();
-        DialogFormattedResult.DialogFormattedText dialogFormattedText0 = textList.get(0);
-        assertThat(dialogFormattedText0.color, is(Color.WHITE));
-        assertThat(dialogFormattedText0.content, nullValue());
-        DialogFormattedResult.DialogFormattedText dialogFormattedText1 = textList.get(1);
-        assertThat(dialogFormattedText1.color, is(Color.WHITE));
-        assertThat(dialogFormattedText1.content, is("还是"));
-        DialogFormattedResult.DialogFormattedText dialogFormattedText2 = textList.get(2);
-        assertThat(dialogFormattedText2.color, is(Color.RED));
-        assertThat(dialogFormattedText2.content, is("先去见"));
-        DialogFormattedResult.DialogFormattedText dialogFormattedText3 = textList.get(3);
-        assertThat(dialogFormattedText3.color, is(Color.WHITE));
-        assertThat(dialogFormattedText3.content, is("师傅去见师傅去见师傅去见师傅去"));
-        DialogFormattedResult.DialogFormattedText dialogFormattedText4 = textList.get(4);
-        assertThat(dialogFormattedText4.color, is(Color.WHITE));
-        assertThat(dialogFormattedText4.content, nullValue());
-        DialogFormattedResult.DialogFormattedText dialogFormattedText5 = textList.get(5);
-        assertThat(dialogFormattedText5.color, is(Color.WHITE));
-        assertThat(dialogFormattedText5.content, is("见师傅去见师傅去见师傅去见师傅吧。"));
+        List<DialogFormattedText> textList = formattedResult.getTextList();
+        DialogFormattedText dialogFormattedText0 = textList.get(0);
+        assertThat(dialogFormattedText0.getColor(), is(Color.WHITE));
+        assertThat(dialogFormattedText0.getContent(), nullValue());
+        DialogFormattedText dialogFormattedText1 = textList.get(1);
+        assertThat(dialogFormattedText1.getColor(), is(Color.WHITE));
+        assertThat(dialogFormattedText1.getContent(), is("还是"));
+        DialogFormattedText dialogFormattedText2 = textList.get(2);
+        assertThat(dialogFormattedText2.getColor(), is(Color.RED));
+        assertThat(dialogFormattedText2.getContent(), is("先去见"));
+        DialogFormattedText dialogFormattedText3 = textList.get(3);
+        assertThat(dialogFormattedText3.getColor(), is(Color.WHITE));
+        assertThat(dialogFormattedText3.getContent(), is("师傅去见师傅去见师傅去见师傅去"));
+        DialogFormattedText dialogFormattedText4 = textList.get(4);
+        assertThat(dialogFormattedText4.getColor(), is(Color.WHITE));
+        assertThat(dialogFormattedText4.getContent(), nullValue());
+        DialogFormattedText dialogFormattedText5 = textList.get(5);
+        assertThat(dialogFormattedText5.getColor(), is(Color.WHITE));
+        assertThat(dialogFormattedText5.getContent(), is("见师傅去见师傅去见师傅去见师傅吧。"));
 
         debug(formattedResult);
     }
@@ -239,25 +239,25 @@ public class DefaultDialogTextFormatterTest {
         int totalLine = formattedResult.getTotalLine();
         assertEquals(2, totalLine);
 
-        List<DialogFormattedResult.DialogFormattedText> textList = formattedResult.getTextList();
-        DialogFormattedResult.DialogFormattedText dialogFormattedText0 = textList.get(0);
-        assertThat(dialogFormattedText0.color, is(Color.WHITE));
-        assertThat(dialogFormattedText0.content, nullValue());
-        DialogFormattedResult.DialogFormattedText dialogFormattedText1 = textList.get(1);
-        assertThat(dialogFormattedText1.color, is(Color.WHITE));
-        assertThat(dialogFormattedText1.content, is("还是"));
-        DialogFormattedResult.DialogFormattedText dialogFormattedText2 = textList.get(2);
-        assertThat(dialogFormattedText2.color, is(Color.GREEN));
-        assertThat(dialogFormattedText2.content, is("先去见师傅去见师傅去见师傅去见师傅去"));
-        DialogFormattedResult.DialogFormattedText dialogFormattedText3 = textList.get(3);
-        assertThat(dialogFormattedText3.color, is(Color.WHITE));
-        assertThat(dialogFormattedText3.content, nullValue());
-        DialogFormattedResult.DialogFormattedText dialogFormattedText4 = textList.get(4);
-        assertThat(dialogFormattedText4.color, is(Color.GREEN));
-        assertThat(dialogFormattedText4.content, is("见师傅去见师傅去见师傅去"));
-        DialogFormattedResult.DialogFormattedText dialogFormattedText5 = textList.get(5);
-        assertThat(dialogFormattedText5.color, is(Color.WHITE));
-        assertThat(dialogFormattedText5.content, is("见师傅吧。"));
+        List<DialogFormattedText> textList = formattedResult.getTextList();
+        DialogFormattedText dialogFormattedText0 = textList.get(0);
+        assertThat(dialogFormattedText0.getColor(), is(Color.WHITE));
+        assertThat(dialogFormattedText0.getContent(), nullValue());
+        DialogFormattedText dialogFormattedText1 = textList.get(1);
+        assertThat(dialogFormattedText1.getColor(), is(Color.WHITE));
+        assertThat(dialogFormattedText1.getContent(), is("还是"));
+        DialogFormattedText dialogFormattedText2 = textList.get(2);
+        assertThat(dialogFormattedText2.getColor(), is(Color.GREEN));
+        assertThat(dialogFormattedText2.getContent(), is("先去见师傅去见师傅去见师傅去见师傅去"));
+        DialogFormattedText dialogFormattedText3 = textList.get(3);
+        assertThat(dialogFormattedText3.getColor(), is(Color.WHITE));
+        assertThat(dialogFormattedText3.getContent(), nullValue());
+        DialogFormattedText dialogFormattedText4 = textList.get(4);
+        assertThat(dialogFormattedText4.getColor(), is(Color.GREEN));
+        assertThat(dialogFormattedText4.getContent(), is("见师傅去见师傅去见师傅去"));
+        DialogFormattedText dialogFormattedText5 = textList.get(5);
+        assertThat(dialogFormattedText5.getColor(), is(Color.WHITE));
+        assertThat(dialogFormattedText5.getContent(), is("见师傅吧。"));
 
         debug(formattedResult);
     }
@@ -269,37 +269,37 @@ public class DefaultDialogTextFormatterTest {
         int totalLine = formattedResult.getTotalLine();
         assertEquals(2, totalLine);
 
-        List<DialogFormattedResult.DialogFormattedText> textList = formattedResult.getTextList();
-        DialogFormattedResult.DialogFormattedText dialogFormattedText0 = textList.get(0);
-        assertThat(dialogFormattedText0.color, is(Color.WHITE));
-        assertThat(dialogFormattedText0.content, nullValue());
-        DialogFormattedResult.DialogFormattedText dialogFormattedText1 = textList.get(1);
-        assertThat(dialogFormattedText1.color, is(Color.WHITE));
-        assertThat(dialogFormattedText1.content, is("还是"));
-        DialogFormattedResult.DialogFormattedText dialogFormattedText2 = textList.get(2);
-        assertThat(dialogFormattedText2.color, is(Color.GREEN));
-        assertThat(dialogFormattedText2.content, is("先去见师傅去见师傅去见师傅去见师傅去"));
-        DialogFormattedResult.DialogFormattedText dialogFormattedText3 = textList.get(3);
-        assertThat(dialogFormattedText3.color, is(Color.WHITE));
-        assertThat(dialogFormattedText3.content, nullValue());
-        DialogFormattedResult.DialogFormattedText dialogFormattedText4 = textList.get(4);
-        assertThat(dialogFormattedText4.color, is(Color.GREEN));
-        assertThat(dialogFormattedText4.content, is("见师傅去见师傅去见师傅去"));
-        DialogFormattedResult.DialogFormattedText dialogFormattedText5 = textList.get(5);
-        assertThat(dialogFormattedText5.color, is(Color.WHITE));
-        assertThat(dialogFormattedText5.content, is("见"));
-        DialogFormattedResult.DialogFormattedText dialogFormattedText6 = textList.get(6);
-        assertThat(dialogFormattedText6.color, is(Color.BLUE));
-        assertThat(dialogFormattedText6.content, is("师傅"));
-        DialogFormattedResult.DialogFormattedText dialogFormattedText7 = textList.get(7);
-        assertThat(dialogFormattedText7.color, is(Color.WHITE));
-        assertThat(dialogFormattedText7.content, is("吧。"));
+        List<DialogFormattedText> textList = formattedResult.getTextList();
+        DialogFormattedText dialogFormattedText0 = textList.get(0);
+        assertThat(dialogFormattedText0.getColor(), is(Color.WHITE));
+        assertThat(dialogFormattedText0.getContent(), nullValue());
+        DialogFormattedText dialogFormattedText1 = textList.get(1);
+        assertThat(dialogFormattedText1.getColor(), is(Color.WHITE));
+        assertThat(dialogFormattedText1.getContent(), is("还是"));
+        DialogFormattedText dialogFormattedText2 = textList.get(2);
+        assertThat(dialogFormattedText2.getColor(), is(Color.GREEN));
+        assertThat(dialogFormattedText2.getContent(), is("先去见师傅去见师傅去见师傅去见师傅去"));
+        DialogFormattedText dialogFormattedText3 = textList.get(3);
+        assertThat(dialogFormattedText3.getColor(), is(Color.WHITE));
+        assertThat(dialogFormattedText3.getContent(), nullValue());
+        DialogFormattedText dialogFormattedText4 = textList.get(4);
+        assertThat(dialogFormattedText4.getColor(), is(Color.GREEN));
+        assertThat(dialogFormattedText4.getContent(), is("见师傅去见师傅去见师傅去"));
+        DialogFormattedText dialogFormattedText5 = textList.get(5);
+        assertThat(dialogFormattedText5.getColor(), is(Color.WHITE));
+        assertThat(dialogFormattedText5.getContent(), is("见"));
+        DialogFormattedText dialogFormattedText6 = textList.get(6);
+        assertThat(dialogFormattedText6.getColor(), is(Color.BLUE));
+        assertThat(dialogFormattedText6.getContent(), is("师傅"));
+        DialogFormattedText dialogFormattedText7 = textList.get(7);
+        assertThat(dialogFormattedText7.getColor(), is(Color.WHITE));
+        assertThat(dialogFormattedText7.getContent(), is("吧。"));
 
         debug(formattedResult);
     }
 
     private void debug(DialogFormattedResult formattedResult) {
-        for (DialogFormattedResult.DialogFormattedText dialogFormattedText : formattedResult.getTextList()) {
+        for (DialogFormattedText dialogFormattedText : formattedResult.getTextList()) {
             logger.debug(dialogFormattedText.toString());
         }
     }

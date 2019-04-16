@@ -2,6 +2,7 @@ package billy.rpg.game.core.screen;
 
 import billy.rpg.common.formatter.DefaultDialogTextFormatter;
 import billy.rpg.common.formatter.DialogFormattedResult;
+import billy.rpg.common.formatter.DialogFormattedText;
 import billy.rpg.common.formatter.DialogTextFormatter;
 import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.command.SayCmd;
@@ -30,7 +31,7 @@ import java.util.stream.Collectors;
 public class DialogScreen extends BaseScreen {
     private int totalLine; // 对话总共会显示多少行
     private int curLine; // 对话显示到哪一行了
-    private List<DialogFormattedResult.DialogFormattedText> msgList; // 处理后的对话的内容
+    private List<DialogFormattedText> msgList; // 处理后的对话的内容
     private Image headImg; // 说话者的头像
     private CmdProcessor cmdProcessor;
     private SayCmd.PositionEnum position; // headImg location
@@ -165,13 +166,13 @@ public class DialogScreen extends BaseScreen {
         int startIndexInMsgList = 0;
         int lineNum = 0;
         for (int n = 0; n < msgList.size(); n++) {
-            DialogFormattedResult.DialogFormattedText msgContent = msgList.get(n);
+            DialogFormattedText msgContent = msgList.get(n);
 
             if (lineNum == start) {
                 startIndexInMsgList = n;
                 break;
             }
-            if (msgContent.cnt == -1) {
+            if (msgContent.getCnt() == -1) {
                 lineNum++;
             }
         }
@@ -180,8 +181,8 @@ public class DialogScreen extends BaseScreen {
         boolean newline = false;
         String msgShown = "";
         for (int n = startIndexInMsgList; n < msgList.size() && lineNum > 0; n++) {
-            DialogFormattedResult.DialogFormattedText msgContent = msgList.get(n);
-            if (msgContent.cnt == -1) {
+            DialogFormattedText msgContent = msgList.get(n);
+            if (msgContent.getCnt() == -1) {
                 lineNum--;
                 if (lineNum == 0) {
                     break;
@@ -191,12 +192,12 @@ public class DialogScreen extends BaseScreen {
                     msgShown = "";
                 }
             } else {
-                g.setColor(msgContent.color);
-                g.drawString(msgContent.content,
+                g.setColor(msgContent.getColor());
+                g.drawString(msgContent.getContent(),
                         (dlgBgLeft + 20 + g.getFontMetrics(GameConstant.FONT_DLG_MSG).stringWidth("测"))
                                 + g.getFontMetrics(GameConstant.FONT_DLG_MSG).stringWidth(msgShown),
                         dlgBgTop + 60 + (newline ? fontHeight : 0));
-                msgShown += msgContent.content;
+                msgShown += msgContent.getContent();
             }
         }
 

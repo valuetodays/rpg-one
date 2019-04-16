@@ -35,14 +35,14 @@ public class ColorDialogTextFormatterTest {
         DialogFormattedResult formattedResult = dialogTextFormatter.format(dialogText);
         int totalLine = formattedResult.getTotalLine();
         assertEquals(1, totalLine);
-        List<DialogFormattedResult.DialogFormattedText> textList = formattedResult.getTextList();
-        DialogFormattedResult.DialogFormattedText dialogFormattedText = textList.get(0);
-        assertThat(dialogFormattedText.color, is(Color.WHITE));
-        assertThat(dialogFormattedText.content, nullValue());
+        List<DialogFormattedText> textList = formattedResult.getTextList();
+        DialogFormattedText dialogFormattedText = textList.get(0);
+        assertThat(dialogFormattedText.getColor(), is(Color.WHITE));
+        assertThat(dialogFormattedText.getContent(), nullValue());
 
-        DialogFormattedResult.DialogFormattedText dialogFormattedText1 = textList.get(1);
-        assertThat(dialogFormattedText1.color, is(Color.WHITE));
-        assertThat(dialogFormattedText1.content, is("还是先去见师傅吧。"));
+        DialogFormattedText dialogFormattedText1 = textList.get(1);
+        assertThat(dialogFormattedText1.getColor(), is(Color.WHITE));
+        assertThat(dialogFormattedText1.getContent(), is("还是先去见师傅吧。"));
 
         debug(formattedResult);
     }
@@ -53,13 +53,13 @@ public class ColorDialogTextFormatterTest {
         DialogFormattedResult formattedResult = dialogTextFormatter.format(dialogText);
         int totalLine = formattedResult.getTotalLine();
         Assert.assertEquals(3, totalLine);
-        for (DialogFormattedResult.DialogFormattedText dialogFormattedText : formattedResult.getTextList()) {
+        for (DialogFormattedText dialogFormattedText : formattedResult.getTextList()) {
             logger.debug(dialogFormattedText.toString());
         }
     }
 
     private void debug(DialogFormattedResult formattedResult) {
-        for (DialogFormattedResult.DialogFormattedText dialogFormattedText : formattedResult.getTextList()) {
+        for (DialogFormattedText dialogFormattedText : formattedResult.getTextList()) {
             logger.debug(dialogFormattedText.toString());
         }
     }

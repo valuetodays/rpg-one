@@ -1,4 +1,4 @@
-package test.billy.rpg.common;
+package billy.rpg.common;
 
 import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
