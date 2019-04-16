@@ -58,13 +58,6 @@
                     <excludes>
                         <exclude>assets/**</exclude>
                     </excludes>
-                    <archive>
-                        <manifest>
-                            <mainClass>billy.rpg.game.GameFrame</mainClass>
-                            <classpathPrefix>lib/</classpathPrefix>
-                            <addClasspath>true</addClasspath>
-                        </manifest>
-                    </archive>
                 </configuration>
             </plugin>
             <plugin>
