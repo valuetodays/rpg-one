@@ -19,14 +19,14 @@ public class EventTableDeterminerTest {
 
     @Test
     public void putEvent() {
-        String event = "aaa";
+        String event = "testput";
         EventTableDeterminer.getInstance().putEvent(event);
         Assert.assertTrue(EventTableDeterminer.getInstance().existsEvent(event));
     }
 
     @Test
     public void delEvent() {
-        String event = "aaa";
+        String event = "testdel";
         EventTableDeterminer.getInstance().putEvent(event);
         Assert.assertTrue(EventTableDeterminer.getInstance().existsEvent(event));
         EventTableDeterminer.getInstance().delEvent(event);
@@ -35,12 +35,14 @@ public class EventTableDeterminerTest {
 
     @Test
     public void existsEvent() {
-        putEvent();
+        String event = "testexists";
+        EventTableDeterminer.getInstance().putEvent(event);
+        Assert.assertTrue(EventTableDeterminer.getInstance().existsEvent(event));
     }
 
     @Test
     public void printEvents() {
-        String event = "aaa";
+        String event = "testprint";
         EventTableDeterminer.getInstance().putEvent(event);
         EventTableDeterminer.getInstance().printEvents();
     }

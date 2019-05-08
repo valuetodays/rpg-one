@@ -1,6 +1,6 @@
 package billy.tobeused.fishing;
 
-import billy.rpg.game.core.message.MessageReceiver;
+import billy.tobeused.fishing.message.MessageReceiver;
 
 /**
  * @author liulei-home

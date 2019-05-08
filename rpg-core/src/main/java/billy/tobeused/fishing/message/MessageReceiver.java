@@ -1,4 +1,4 @@
-package billy.rpg.game.core.message;
+package billy.tobeused.fishing.message;
 
 import org.apache.log4j.Logger;
 

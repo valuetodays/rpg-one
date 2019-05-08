@@ -17,4 +17,18 @@ public abstract class Equip {
     public GoodsMetaData getGoods() {
         return goods;
     }
+
+    // 装备暂只支持固定数值的加强
+//
+//    public int getAttack() {
+//        return 0;
+//    }
+//
+//    public int getDefend() {
+//        return 0;
+//    }
+//
+//    public int getSpeed() {
+//        return 0;
+//    }
 }
