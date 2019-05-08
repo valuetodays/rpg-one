@@ -1,8 +1,6 @@
-package game.fishing;
+package billy.tobeused.fishing;
 
 import org.junit.Test;
-
-import billy.rpg.game.core.fishing.Fishing;
 
 /**
  * @author liulei-home

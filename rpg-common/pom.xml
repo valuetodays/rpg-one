@@ -124,7 +124,7 @@
                 <configuration>
                     <skipTests>${skipTests}</skipTests>
                     <testFailureIgnore>true</testFailureIgnore>
-                    <parallel>classes</parallel>  <!-- 使用这个参数偶然发生注入的bean为null的情况且随机-->
+                    <parallel>classes</parallel>
                     <threadCount>2</threadCount>
                     <includes>
                         <include>billy/rpg/**/*Test.java</include>

@@ -34,7 +34,6 @@ public class TmxMapSaverLoaderTest extends ResourceTestBase {
         String testResource = getTestResource("/assets/map/tmx/test-1-1.tmx");
         logger.debug(testResource);
         MapMetaData loadedMapMetaData = mapSaverLoader.load(testResource);
-        logger.debug(loadedMapMetaData.toString());
         Assert.assertEquals("百草地", loadedMapMetaData.getName());
         Assert.assertEquals("test-1-1", loadedMapMetaData.getMapId());
         Assert.assertEquals("tile2.png", loadedMapMetaData.getTileId());

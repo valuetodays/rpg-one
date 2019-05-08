@@ -6,8 +6,6 @@ import billy.rpg.game.core.container.GameContainer;
 import billy.rpg.resource.role.RoleMetaData;
 import org.apache.log4j.Logger;
 import org.junit.Before;
-import org.junit.Rule;
-import org.junit.rules.ExpectedException;
 
 /**
  * 继承该类可直接使用{@link GameContainer}对象
@@ -16,14 +14,11 @@ import org.junit.rules.ExpectedException;
  * @since 2018-11-22 11:15:58
  * @see GameContainer
  */
-public abstract class GameContainerTestBase {
+public abstract class GameContainerTestBase extends ExpectedExceptionTestBase {
     protected final Logger logger = Logger.getLogger(getClass());
     protected static GameContainer gameContainer;
 
     protected Fightable heroCharacter;
-
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
 
     @Before
     public void before() {

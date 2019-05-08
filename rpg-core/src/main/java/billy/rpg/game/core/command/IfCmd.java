@@ -27,7 +27,7 @@ public class IfCmd extends CmdBase {
 
     @Override
     public int execute(GameContainer gameContainer, CmdProcessor cmdProcessor) {
-        if (EventTableDeterminer.getInstance().existsEvent(gameContainer, condition)) {
+        if (EventTableDeterminer.getInstance().existsEvent(condition)) {
             LabelBean label = gameContainer.getLabelByTitle(triggerName);
             cmdProcessor.setInnerCmdProcessor(new DefaultCmdProcessor(label.getCmds()));
         }

@@ -1,4 +1,4 @@
-package billy.rpg.game.core.fishing;
+package billy.tobeused.fishing;
 
 import billy.rpg.game.core.constants.GameConstant;
 

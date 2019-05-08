@@ -1,4 +1,4 @@
-package billy.rpg.game.core.fishing;
+package billy.tobeused.fishing;
 
 /**
  * @author liulei-home

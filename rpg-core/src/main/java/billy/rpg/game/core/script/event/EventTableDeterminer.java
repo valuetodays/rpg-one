@@ -1,7 +1,5 @@
 package billy.rpg.game.core.script.event;
 
-import billy.rpg.game.core.container.GameContainer;
-
 /**
  * 事件表决定者
  *
@@ -20,16 +18,16 @@ public class EventTableDeterminer extends EventTable {
     }
 
     @Override
-    public void putEvent(GameContainer gameContainer, String event) {
+    public void putEvent(String event) {
         if (isGlobalEvent(event)) {
-            globalVirtualTable.putEvent(gameContainer, event);
+            globalVirtualTable.putEvent(event);
         }
     }
 
     @Override
-    public void delEvent(GameContainer gameContainer, String event) {
+    public void delEvent(String event) {
         if (isGlobalEvent(event)) {
-            globalVirtualTable.delEvent(gameContainer, event);
+            globalVirtualTable.delEvent(event);
         }
     }
 
@@ -42,16 +40,16 @@ public class EventTableDeterminer extends EventTable {
     }
 
     @Override
-    public boolean existsEvent(GameContainer gameContainer, String event) {
+    public boolean existsEvent(String event) {
         if (isGlobalEvent(event)) {
-            return globalVirtualTable.existsEvent(gameContainer, event);
+            return globalVirtualTable.existsEvent(event);
         }
 
         return false;
     }
 
     @Override
-    public void printEvents(GameContainer gameContainer) {
-        globalVirtualTable.printEvents(gameContainer);
+    public void printEvents() {
+        globalVirtualTable.printEvents();
     }
 }

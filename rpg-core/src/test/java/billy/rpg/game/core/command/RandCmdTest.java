@@ -18,8 +18,8 @@ public class RandCmdTest extends GameContainerTestBase {
             RandCmd randCmd = new RandCmd();
             randCmd.initCommand(1, "", Arrays.asList(key, "10", "20"));
             randCmd.execute(gameContainer, null);
-            Assert.assertTrue(randCmd.getRandValue() > 10);
-            Assert.assertTrue(randCmd.getRandValue() < 20);
+            Assert.assertTrue(randCmd.getRandValue() >= 10);
+            Assert.assertTrue(randCmd.getRandValue() <= 20);
         }
 
     }

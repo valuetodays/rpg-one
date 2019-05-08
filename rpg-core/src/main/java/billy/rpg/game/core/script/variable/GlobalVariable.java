@@ -32,8 +32,6 @@ public class GlobalVariable extends IntVariable {
 
     @Override
     public Map<String, Integer> realData() {
-        Map<String, Integer> map = new HashMap<>();
-        map.putAll(globalVariables);
-        return map;
+        return new HashMap<>(globalVariables);
     }
 }

@@ -24,7 +24,7 @@ public class UnsetCmd extends CmdBase {
 
     @Override
     public int execute(GameContainer gameContainer, CmdProcessor cmdProcessor) {
-        EventTableDeterminer.getInstance().delEvent(gameContainer, key);
+        EventTableDeterminer.getInstance().delEvent(key);
         return 0;
     }
 

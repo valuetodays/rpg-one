@@ -12,22 +12,22 @@ public class GlobalEventTable extends EventTable {
     private Set<String> globalEvents = new HashSet<>();
 
     @Override
-    public boolean existsEvent(GameContainer gameContainer, String event) {
+    public boolean existsEvent(String event) {
         return globalEvents.contains(event);
     }
 
     @Override
-    public void putEvent(GameContainer gameContainer, String event) {
+    public void putEvent(String event) {
         globalEvents.add(event);
     }
 
     @Override
-    public void delEvent(GameContainer gameContainer, String event) {
+    public void delEvent(String event) {
         globalEvents.remove(event);
     }
 
     @Override
-    public void printEvents(GameContainer gameContainer) {
+    public void printEvents() {
         System.out.println("=== globalEvents starts ===");
         for (String v: globalEvents) {
             System.out.println("   " +v);

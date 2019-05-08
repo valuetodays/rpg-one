@@ -24,7 +24,7 @@ public class SetCmd extends CmdBase {
 
     @Override
     public int execute(GameContainer gameContainer, CmdProcessor cmdProcessor) {
-        EventTableDeterminer.getInstance().putEvent(gameContainer, key);
+        EventTableDeterminer.getInstance().putEvent(key);
         return 0;
     }
 

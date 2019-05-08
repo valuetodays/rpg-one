@@ -234,7 +234,7 @@ public class MapScreen extends BaseScreen {
             HeroWalkableCharacter hero = active.getHero();
             hero.resetFrame();
         } else if (KeyUtil.isG(key)) {
-            EventTableDeterminer.getInstance().printEvents(gameContainer);
+            EventTableDeterminer.getInstance().printEvents();
         } else if (KeyUtil.isQ(key)) {
             gameContainer.getGameData().exChangeControlId();
         }
