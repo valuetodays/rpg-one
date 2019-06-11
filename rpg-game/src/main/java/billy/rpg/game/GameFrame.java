@@ -123,7 +123,7 @@ public class GameFrame extends JFrame implements IGameFrame, Runnable {
         }
     }
 
-    public void createAndShowGUI() {
+    private void createAndShowGUI() {
         gamePanel = new GamePanel(this);
         this.add(gamePanel);
 
@@ -231,14 +231,14 @@ public class GameFrame extends JFrame implements IGameFrame, Runnable {
             public void keyReleased(KeyEvent e) {
                 int key = c(e.getKeyCode());
 //                synchronized (screenStack) {
-                if (null != screenStack && screenStack.peek() != null) {
+                if (screenStack.peek() != null) {
                     screenStack.peek().onKeyUp(gameContainer, key);
                 }
 //                }
             }
             @Override
             public void keyPressed(KeyEvent e) {
-                if (null == screenStack || screenStack.isEmpty()) {
+                if (screenStack.isEmpty()) {
                     return;
                 }
                 int key = c(e.getKeyCode());
