@@ -210,6 +210,9 @@ public class GameFrame extends JFrame implements IGameFrame, Runnable {
             // 解决办法是在此处 重新从文件中加载玩家和其它数据
             tmp = new GameCoverScreen();
             break;
+        case SCREEN_CODE_GAME_COVER_SCREEN:
+            tmp = new GameCoverScreen();
+            break;
         }
         if (tmp != null) {
             synchronized (screenStack) {

@@ -4,6 +4,7 @@ import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.constants.GameConstant;
 import billy.rpg.game.core.constants.ScreenCodeEnum;
 import billy.rpg.game.core.container.GameContainer;
+import billy.rpg.game.core.util.KeyUtil;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -33,18 +34,20 @@ public class ProducerScreen extends BaseScreen {
         g2.drawString("制作人信息", 190, 140);
         g2.drawString("程序设计：Billy", 100, 200);
         g2.drawString("美    工：rpg maker XP/VX, Internet", 100, 240);
+        g2.drawString("Press [Exit] to exit..", 120, 440);
         desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
         g2.dispose();
     }
 
     @Override
     public void onKeyDown(GameContainer gameContainer, int key) {
-
+        if (KeyUtil.isEsc(key)) {
+            gameContainer.getGameFrame().changeScreen(ScreenCodeEnum.SCREEN_CODE_GAME_COVER_SCREEN);
+        }
     }
 
     @Override
     public void onKeyUp(GameContainer gameContainer, int key) {
-        gameContainer.getGameFrame().changeScreen(ScreenCodeEnum.SCREEN_CODE_GAME_COVER_SCREEN);
     }
 
 }
