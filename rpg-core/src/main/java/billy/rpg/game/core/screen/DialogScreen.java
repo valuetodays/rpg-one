@@ -12,6 +12,7 @@ import billy.rpg.game.core.container.GameContainer;
 import billy.rpg.game.core.script.variable.VariableDeterminer;
 import billy.rpg.game.core.util.KeyUtil;
 import com.billy.resourcefilter.ResourceFilter;
+import com.billy.resourcefilter.resource.Resource;
 import com.billy.resourcefilter.resource.StringResource;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -73,7 +74,7 @@ public class DialogScreen extends BaseScreen {
             System.getProperties().stringPropertyNames().forEach(e -> resourceFilter.addFilter(e, System.getProperty(e))); // 添加系统变量
             resourceFilter.addFilters(stringStringMap);
 
-            StringResource stringResource = new StringResource(msg, resourceFilter);
+            Resource stringResource = new StringResource(msg, resourceFilter);
             try {
                 stringResource.doFilter();
             } catch (IOException e) {
