@@ -22,7 +22,7 @@
         <dependency>
             <groupId>com.billy.thirdparty</groupId>
             <artifactId>resource-filter</artifactId>
-            <version>100</version>
+            <version>101</version>
         </dependency>
 
         <dependency>
