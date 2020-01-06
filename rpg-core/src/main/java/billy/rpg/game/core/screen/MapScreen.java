@@ -21,9 +21,12 @@ import billy.rpg.resource.box.BoxImageLoader;
 import billy.rpg.resource.map.MapMetaData;
 import billy.rpg.resource.npc.NPCImageLoader;
 
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * map
@@ -44,6 +47,8 @@ public class MapScreen extends BaseScreen {
         }
     }
 
+    private Map<String, BufferedImage> cachedTotalMaps = new ConcurrentHashMap<>();
+
     /**
      * @param desktopCanvas desktopCanvas
      */
@@ -61,30 +66,63 @@ public class MapScreen extends BaseScreen {
         gameContainer.getGameFrame().setTitle("offset x/y="+ offsetTileX + "/" + offsetTileY + hero.toString(gameContainer));
 
         {
+            // draw background image
             final Image bgImage1 = gameContainer.getBgImageItem().getBgImage1();
             g2.drawImage(bgImage1, 0, 0, bgImage1.getWidth(null), bgImage1.getHeight(null), null);  // draw bgImage
         }
 
-
         final MapMetaData activeMap = gameContainer.getActiveMap();
-        
+
         //////// draw bgLayer start
-        final Image tileImg = gameContainer.getTileItem().getTile(activeMap.getTileId());
-        final int[][] layer1 = activeMap.getBgLayer();
-        for (int i = offsetTileX; i < offsetTileX + GameConstant.Game_TILE_X_NUM; i++) {
-            for (int j = offsetTileY; j < offsetTileY + GameConstant.Game_TILE_Y_NUM; j++) {
-                int tileNum = layer1[i][j];
-                if (tileNum != -1) {
-                    int y = tileNum / ToolsConstant.TILE_NUM_ONE_LINE;
-                    int x = tileNum % ToolsConstant.TILE_NUM_ONE_LINE;
-                    //logger.debug("bgLayer---------------");
-                    DrawUtil.drawSubImage(g2, tileImg,
-                            (i - offsetTileX) * 32, (j - offsetTileY) * 32,
-                            x * 32, y*32,
-                            GameConstant.GAME_TILE_WIDTH, GameConstant.GAME_TILE_HEIGHT);
+        boolean flagDrawAdvanceBgLayer = true;
+        if (flagDrawAdvanceBgLayer) { // use advanced
+            final Image tileImg = gameContainer.getTileItem().getTile(activeMap.getTileId());
+            final int[][] layer1 = activeMap.getBgLayer();
+            BufferedImage cachedImage = cachedTotalMaps.get(activeMap.getMapId());
+            if (cachedImage == null) {
+                cachedImage = new BufferedImage(
+                        layer1.length * GameConstant.GAME_TILE_WIDTH,
+                        layer1[0].length * GameConstant.GAME_TILE_HEIGHT,
+                        BufferedImage.TYPE_4BYTE_ABGR);
+                Graphics cachedGraphic = cachedImage.getGraphics();
+
+                for (int i = 0; i < layer1.length; i++) {
+                    for (int j = 0; j < layer1[i].length; j++) {
+                        int tileNum = layer1[i][j];
+                        if (-1 != tileNum) {
+                            int y = tileNum / ToolsConstant.TILE_NUM_ONE_LINE;
+                            int x = tileNum % ToolsConstant.TILE_NUM_ONE_LINE;
+                            DrawUtil.drawSubImage(cachedGraphic, tileImg,
+                                    (i) * 32, (j) * 32,
+                                    x * 32, y*32,
+                                    GameConstant.GAME_TILE_WIDTH, GameConstant.GAME_TILE_HEIGHT);
+                        }
+                    }
                 }
+                cachedGraphic.dispose();
+                cachedTotalMaps.put(activeMap.getMapId(), cachedImage);
             }
-        } // end of for
+            DrawUtil.drawSubImage(g2, cachedImage, 0, 0,
+                    offsetTileX*GameConstant.GAME_TILE_WIDTH, offsetTileY*GameConstant.GAME_TILE_HEIGHT,
+                    GameConstant.GAME_WIDTH, GameConstant.GAME_HEIGHT);
+        } else {
+            final Image tileImg = gameContainer.getTileItem().getTile(activeMap.getTileId());
+            final int[][] layer1 = activeMap.getBgLayer();
+            for (int i = offsetTileX; i < offsetTileX + GameConstant.Game_TILE_X_NUM; i++) {
+                for (int j = offsetTileY; j < offsetTileY + GameConstant.Game_TILE_Y_NUM; j++) {
+                    int tileNum = layer1[i][j];
+                    if (tileNum != -1) {
+                        int y = tileNum / ToolsConstant.TILE_NUM_ONE_LINE;
+                        int x = tileNum % ToolsConstant.TILE_NUM_ONE_LINE;
+                        //logger.debug("bgLayer---------------");
+                        DrawUtil.drawSubImage(g2, tileImg,
+                                (i - offsetTileX) * 32, (j - offsetTileY) * 32,
+                                x * 32, y*32,
+                                GameConstant.GAME_TILE_WIDTH, GameConstant.GAME_TILE_HEIGHT);
+                    }
+                }
+            } // end of for
+        }
         //////// draw bgLayer end
 
         //////// draw role & npc start

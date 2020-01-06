@@ -18,8 +18,9 @@ import billy.rpg.game.core.screen.system.SystemUIScreen;
 import billy.rpg.game.core.util.FPSUtil;
 import org.apache.log4j.Logger;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
