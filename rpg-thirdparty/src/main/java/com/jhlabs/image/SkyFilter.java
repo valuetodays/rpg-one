@@ -306,7 +306,7 @@ mx = -10000;
 //		g.drawRenderedImage( clouds, null );
 //		g.dispose();
 long finish = System.currentTimeMillis();
-System.out.println(mn+" "+mx+" "+(finish-start)*0.001f);
+System.err.println(mn+" "+mx+" "+(finish-start)*0.001f);
 		exponents = null;
 		tan = null;
 		return dst;

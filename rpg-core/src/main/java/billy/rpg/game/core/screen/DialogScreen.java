@@ -203,6 +203,7 @@ public class DialogScreen extends BaseScreen {
         }
 
         g.setColor(oldColor);
+        g.dispose();
         desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
     }
 

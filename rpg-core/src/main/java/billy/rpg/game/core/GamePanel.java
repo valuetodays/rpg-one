@@ -50,6 +50,7 @@ public class GamePanel extends JPanel {
 
             ato.filter(background, dest);
             g.drawImage(dest, 0, 0, null);
+            g.dispose();
             // 执行初始命令
             gameFrame.getGameContainer().executePrimary();
         }

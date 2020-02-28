@@ -49,6 +49,8 @@ public class ShopScreen extends BaseScreen {
             g.drawString(goodsMetaData.getName(), 200, 90 + i * 20);
         }
         g.drawString("->", 180, 90 + goodsIndex*20);
+
+        g.dispose();
         desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
     }
 

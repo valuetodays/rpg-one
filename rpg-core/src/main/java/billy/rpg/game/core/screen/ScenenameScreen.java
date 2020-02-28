@@ -56,6 +56,7 @@ public class ScenenameScreen extends BaseScreen {
         g.setFont(new Font("黑体", Font.BOLD, 14));
         g.setColor(Color.YELLOW);
         g.drawString(name, 240, 160);
+        g.dispose();
         
         desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
     }

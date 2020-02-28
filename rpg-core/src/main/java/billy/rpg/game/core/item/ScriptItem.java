@@ -400,11 +400,15 @@ public class ScriptItem {
      * 打印局部变量
      */
     public void printVariable() {
-        System.out.println("=== localVariables `"+scriptId+"` starts ===");
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("=== localVariables `").append(scriptId).append("` starts ===");
+        sb.append("\n");
         for (String s : variables) {
-            System.out.println("    " + s);
+            sb.append("    ").append(s).append("\n");
         }
-        System.out.println("=== localVariables `"+scriptId+"` ends ===");
+        sb.append("=== localVariables `").append(scriptId).append("` ends ===").append("\n");
+        System.err.println(sb.toString());
     }
 
     public WalkableCharacter getPlayerOrNpc(int roleIdOrNpcId) {

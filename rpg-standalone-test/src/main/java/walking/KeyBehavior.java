@@ -86,7 +86,7 @@ public class KeyBehavior extends ViewPlatformBehavior
   private void processKeyEvent(KeyEvent eventKey)
   {
     int keyCode = eventKey.getKeyCode();
-    // System.out.println(keyCode);    
+    // System.err.println(keyCode);
 
     if(eventKey.isAltDown())   // key + <alt>
       altMove(keyCode);

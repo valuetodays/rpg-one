@@ -23,8 +23,8 @@ public class ObjFileReader extends BranchGroup {
         try {
             scenen = objFile.load(filePath);
         } catch (Exception e) {
+            System.err.println("OBJ模型加载失败" + e.getMessage());
             e.printStackTrace();
-            System.out.println("OBJ模型加载失败" + e.getMessage());
         }
         branchGroup.addChild(scenen.getSceneGroup());
         this.addChild(branchGroup);

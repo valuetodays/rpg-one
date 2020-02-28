@@ -94,6 +94,6 @@ public class JavaModelObjLoaderSimple extends JFrame {
 
     public static void main(String[] args) {
         JavaModelObjLoaderSimple frame = new JavaModelObjLoaderSimple();
-        System.out.println(frame.getContentPane().getClass().getName());
+        System.err.println(frame.getContentPane().getClass().getName());
     }
 }

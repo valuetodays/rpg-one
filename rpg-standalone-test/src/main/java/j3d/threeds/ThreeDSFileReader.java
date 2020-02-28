@@ -29,8 +29,8 @@ public class ThreeDSFileReader  extends BranchGroup {
         try {
             scene = l3ds.load(filePath);
         } catch (Exception e) {
+            System.err.println("3DS模型加载失败" + e.getMessage());
             e.printStackTrace();
-            System.out.println("3DS模型加载失败" + e.getMessage());
         }
         branchGroup.addChild(scene.getSceneGroup());
         this.addChild(branchGroup);

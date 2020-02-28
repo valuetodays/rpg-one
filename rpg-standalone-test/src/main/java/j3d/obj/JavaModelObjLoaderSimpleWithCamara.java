@@ -70,9 +70,9 @@ public class JavaModelObjLoaderSimpleWithCamara extends JFrame {
                 } else if (KeyEvent.VK_R == keyEvent.getKeyCode()) {
                     x = 0.2;
                 }
-                System.out.println("scene: " + scene.getBounds());
-                System.out.println("person: " + person.getBounds());
-                System.out.println("viewer: " + "("+x+", 3, 5)");
+                System.err.println("scene: " + scene.getBounds());
+                System.err.println("person: " + person.getBounds());
+                System.err.println("viewer: " + "("+x+", 3, 5)");
                 rotation.rotY(angleY);
 //                rotation.setScale(scale);
                 Transform3D transform3D = new Transform3D();

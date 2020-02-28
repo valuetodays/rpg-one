@@ -18,7 +18,7 @@ public class AttackDamageTest {
         int defend = 32;
         float dmgF = 1.0f * (attack*1.0f) * (100f/(defend+100f));
         // 50
-        System.out.println((int)dmgF);
+        System.err.println((int)dmgF);
     }
 
     /**
@@ -36,7 +36,7 @@ public class AttackDamageTest {
         efficientDefFFinal = Math.max(0f, efficientDefFFinal);
         float dmgF = 1.0f * (attack*1.0f) * (100f/(efficientDefFFinal+100f));
         // 55
-        System.out.println((int)dmgF);
+        System.err.println((int)dmgF);
     }
 
 }

@@ -66,13 +66,13 @@ public class MP3Player {
 					try {
 						player.play();
 					} catch (Exception e) {
-						System.out.println(e);
+						e.printStackTrace();
 					}
 				}
 			}.start();
 		} catch (Exception e) {
-			System.out.println("Problem playing file " + filename);
-			System.out.println(e);
+			System.err.println("Problem playing file " + filename);
+			e.printStackTrace();
 		}
 
 	}
@@ -103,15 +103,14 @@ public class MP3Player {
 								Thread.sleep(500);
 							}
 						} catch (Exception e) {
-							System.out.println(e);
+							e.printStackTrace();
 						}
 					}
 				};
 				loopThread.start();
 			}
 		} catch (Exception e) {
-			System.out.println("Problem playing file " + filename);
-			System.out.println(e);
+			e.printStackTrace();
 		}
 
 	}
@@ -129,7 +128,7 @@ public class MP3Player {
 				sum += Math.sin(i + j);
 			}
 		}
-		System.out.println(sum);
+		System.err.println(sum);
 
 		// when the computation is done, stop playing it
 		MP3Player.stopAll();

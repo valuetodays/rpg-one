@@ -115,6 +115,8 @@ public class AnimationScreen extends BaseScreen {
         } else {
            // mShowList.add(new Key(0));
         }
+        g.dispose();
+
         desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, posX-70, posY-30);
     }
 

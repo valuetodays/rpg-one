@@ -17,6 +17,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 显示敌方、我方阵容的信息
+ * <ul>
+ *   <li>[x] 图片</li>
+ *   <li>[x] hp/mp</li>
+ *   <li>[ ] level</li>
+ *   <li>[ ] 装备等</li>
+ * </ul>
  *
  * @author liulei@bshf360.com
  * @since 2017-06-08 15:29
@@ -159,7 +166,6 @@ public class BattleUIScreen extends BaseScreen {
             drawHero(g);
             drawMonster(gameContainer, g);
         }
-
 
         g.dispose();
         desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);

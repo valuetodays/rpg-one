@@ -8,6 +8,6 @@
 
 #### 提交规范
 
-message: typ: xxxx
+message: type: xxxx
 
 type: docs/test/feature/opt/refactor

@@ -164,7 +164,7 @@ public class RoleEditorPanel extends JPanel {
                 Item selectedItem = (Item)cbType.getSelectedItem();
                 int key = selectedItem.key;
                 String value = selectedItem.value;
-                System.out.println("Selected key=" + key + ", value=" + value);
+                System.err.println("Selected key=" + key + ", value=" + value);
             }
         });
         this.add(cbType);
@@ -331,7 +331,7 @@ public class RoleEditorPanel extends JPanel {
 
 
     private void save2RoleFile() {
-        System.out.println("save role to file start");
+        System.err.println("save role to file start");
         boolean res = checkNumber(tfNumber.getText(), "number");
         if (!res) {
             return;
@@ -404,7 +404,7 @@ public class RoleEditorPanel extends JPanel {
             roleMetaData.setSkillIds(tfSkillsText);
             RoleSaver.save(roleSaveFileChooser.getCurrentDirectory() + File.separator + name, roleMetaData);
             JOptionPane.showMessageDialog(this, "保存完成");
-            System.out.println("save role to file end");
+            System.err.println("save role to file end");
         }
 
     }

@@ -98,9 +98,9 @@ public class GroundShape extends OrientedShape3D
     TextureLoader texLoader = new TextureLoader(resourcePath, null);
     Texture2D texture = (Texture2D) texLoader.getTexture();
     if (texture == null)
-      System.out.println("Cannot load texture from " + fn);
+      System.err.println("Cannot load texture from " + fn);
     else {
-      System.out.println("Loaded texture from " + fn);
+      System.err.println("Loaded texture from " + fn);
 
       // remove edge texels, so no seams between texture faces
       texture.setBoundaryModeS(Texture.CLAMP_TO_EDGE);

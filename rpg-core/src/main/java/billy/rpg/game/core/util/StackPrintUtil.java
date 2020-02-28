@@ -48,7 +48,7 @@ public class StackPrintUtil {
 	            strAll += str;
 	        }
 	        if (strAll.length() > 0) {
-	            System.out.println(strAll);
+	            System.err.println(strAll);
 	        }
 	    }
 	}

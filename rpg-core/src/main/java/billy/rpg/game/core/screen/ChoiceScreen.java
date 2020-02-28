@@ -51,6 +51,7 @@ public class ChoiceScreen extends BaseScreen {
         }
         Image gameArrowRight = gameContainer.getGameAboutItem().getGameArrowRight();
         g.drawImage(gameArrowRight, 80, 100 + selectedInx * 30 - 15, null);
+        g.dispose();
 
         desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
     }

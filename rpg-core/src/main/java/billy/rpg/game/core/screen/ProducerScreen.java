@@ -35,8 +35,8 @@ public class ProducerScreen extends BaseScreen {
         g2.drawString("程序设计：Billy", 100, 200);
         g2.drawString("美    工：rpg maker XP/VX, Internet", 100, 240);
         g2.drawString("Press [Exit] to exit..", 120, 440);
-        desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
         g2.dispose();
+        desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
     }
 
     @Override

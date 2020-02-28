@@ -15,7 +15,7 @@ import java.awt.image.BufferedImage;
 import java.util.Optional;
 
 /**
- * 战斗中选择技界面
+ * 战斗中选择技能界面
  */
 public class SkillSelectScreen extends BaseScreen {
 
@@ -65,6 +65,7 @@ public class SkillSelectScreen extends BaseScreen {
             g.drawString(smd.getName() + " [消耗" + smd.getConsume() +"]", 30, 30 + i * 25);
         }
         g.drawString(skillList.get(skillIndex).getDescWithTargetType(), 35, 230);
+        g.dispose();
 
         desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
     }
@@ -79,26 +80,7 @@ public class SkillSelectScreen extends BaseScreen {
         if (KeyUtil.isEsc(key)) {
             getBattleUIScreen().getParentScreen().pop();
         } else if (KeyUtil.isEnter(key)) {
-            int skillId = skillList.get(skillIndex).getNumber();
-            SkillMetaData skillMetaData = gameContainer.getSkillMetaDataOf(skillId);
-            final int mp = getBattleUIScreen().getActivePlayer().getRoleMetaData().getMp();
-            final int consume = skillMetaData.getConsume();
-            if (mp < consume) {
-                final BaseScreen bs = new MessageBoxScreen("mp不足，不能施放技能" + skillMetaData.getName(),
-                        getBattleUIScreen().getParentScreen());
-                getBattleUIScreen().getParentScreen().push(bs);
-                return;
-            }
-            int type = skillMetaData.getType();
-            logger.debug("type: " + type);
-            if (SkillMetaData.TYPE_ADD_BUFF_TO_OUR == type) {
-                opTypeAddBuffToOur(skillMetaData);
-            } else if (SkillMetaData.TYPE_ATTACK == type) {
-                opTypeAttack(skillMetaData);
-            } else {
-                throw new RuntimeException("unknwon skill type: " + type);
-            }
-
+            doPlayerSkillSelect(gameContainer);
         } else if (KeyUtil.isUp(key)) {
             skillIndex--;
             if (skillIndex < 0) {
@@ -109,6 +91,31 @@ public class SkillSelectScreen extends BaseScreen {
             if (skillIndex > skillList.size()-1) {
                 skillIndex = 0;
             }
+        }
+    }
+
+    /**
+     * 玩家选择施放技能
+     */
+    private void doPlayerSkillSelect(GameContainer gameContainer) {
+        int skillId = skillList.get(skillIndex).getNumber();
+        SkillMetaData skillMetaData = gameContainer.getSkillMetaDataOf(skillId);
+        final int mp = getBattleUIScreen().getActivePlayer().getRoleMetaData().getMp();
+        final int consume = skillMetaData.getConsume();
+        if (mp < consume) {
+            final BaseScreen bs = new MessageBoxScreen("mp不足，不能施放技能：" + skillMetaData.getName(),
+                    getBattleUIScreen().getParentScreen());
+            getBattleUIScreen().getParentScreen().push(bs);
+            return;
+        }
+        int type = skillMetaData.getType();
+        logger.debug("type: " + type);
+        if (SkillMetaData.TYPE_ADD_BUFF_TO_OUR == type) {
+            opTypeAddBuffToOur(skillMetaData);
+        } else if (SkillMetaData.TYPE_ATTACK == type) {
+            opTypeAttack(skillMetaData);
+        } else {
+            throw new RuntimeException("unknwon skill type: " + type);
         }
     }
 

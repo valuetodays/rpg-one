@@ -38,10 +38,9 @@ public interface GameConstant {
      * 一屏横向tile个数
      */
     int Game_TILE_Y_NUM     = GAME_HEIGHT / GAME_TILE_HEIGHT;
-    /**
-     * 游戏主循环更新时间(ms)
-     */
-    long TIME_GAMELOOP      = 30;
+
+    long GAME_CONFIG_FPS = 40; // 帧数
+    long TIME_GAMELOOP      = 1000/GAME_CONFIG_FPS; // 游戏主循环更新时间(ms)
     /**
      * 游戏在windows桌面的左上角的左坐标
      */

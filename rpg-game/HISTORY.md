@@ -124,7 +124,7 @@ ILoader
 #### 2018-11-03
     设置 -> 系统 -> 显示装备
     use  SwingUtilities.invokeLater to start game
-    user GameFrame.createAndShowGUI()
+    use GameFrame.createAndShowGUI()
 #### 2018-11-05
     可在行走图中吃药
     [TODO]战斗中使用药物?
@@ -242,5 +242,3 @@ ILoader
 #### 2019-04-12
     [BUG-FIX] 修正2018-12-10的一个bug: '师兄，我知道了，m的值等于${m}，厉害吧，我还知道`y`你的国家`/y`是${user.country}。'
 
-#### 2020-01-06
-    [OPT] 优化地图显示（仅优化背景层），将原来需要计算得出的图像信息缓存起来，但fps只提升2。

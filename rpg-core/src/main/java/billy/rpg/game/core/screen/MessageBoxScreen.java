@@ -23,7 +23,11 @@ public class MessageBoxScreen extends BaseScreen {
     private int delay;
     private int cnt = 0;
     private final BaseScreen ownerScreen;
-    
+
+    public static MessageBoxScreen of(String msg) {
+        return new MessageBoxScreen(msg);
+    }
+
     public MessageBoxScreen(String msg) {
         this(msg, null, 2000);
     }
@@ -61,8 +65,8 @@ public class MessageBoxScreen extends BaseScreen {
         g.setFont(new Font("黑体", Font.BOLD, 14));
         g.setColor(Color.WHITE);
         g.drawString(msg, 200, 180);
-
         g.dispose();
+
         desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
     }
 

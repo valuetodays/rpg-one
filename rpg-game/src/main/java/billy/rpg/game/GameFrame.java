@@ -45,7 +45,7 @@ public class GameFrame extends JFrame implements IGameFrame, Runnable {
     private final Stack<BaseScreen> screenStack = new Stack<>();
     private DesktopCanvas desktopCanvas;
     private BufferStrategy bufferStrategy;
-    private boolean running;
+    private volatile boolean running;
     private GamePanel gamePanel;
     private GameContainer gameContainer;
     private Thread gameThread;
@@ -75,7 +75,6 @@ public class GameFrame extends JFrame implements IGameFrame, Runnable {
         }
         System.exit(0);
     }
-
 
     @Override
     public void run() {
@@ -140,15 +139,16 @@ public class GameFrame extends JFrame implements IGameFrame, Runnable {
         gameContainer.load();
         gameContainer.setGameData(new GameData());
 
-        screenStack.push(new GameCoverScreen()); // 进入封面
-
-//        screenStack.push(new MapScreen());
-///        screenStack.push(new AnimationScreen(0)); // show animation
-
         pack();
         setVisible(true);
 
         running = true;
+
+        changeScreen(ScreenCodeEnum.SCREEN_CODE_GAME_COVER_SCREEN); // 进入封面
+//        screenStack.push(new GameCoverScreen());
+//        screenStack.push(new MapScreen());
+//        screenStack.push(new AnimationScreen(0)); // show animation
+
         desktopCanvas = new DesktopCanvas();
         gameThread = new Thread(this, "fmj");
         gameThread.start();

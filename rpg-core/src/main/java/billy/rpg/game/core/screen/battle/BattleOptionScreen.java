@@ -1,5 +1,6 @@
 package billy.rpg.game.core.screen.battle;
 
+import billy.rpg.common.exception.UnFinishException;
 import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.character.PlayerCharacter;
 import billy.rpg.game.core.constants.GameConstant;
@@ -8,13 +9,15 @@ import billy.rpg.game.core.screen.BaseScreen;
 import billy.rpg.game.core.screen.MessageBoxScreen;
 import billy.rpg.game.core.util.KeyUtil;
 import billy.rpg.resource.goods.GoodsMetaData;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import org.apache.commons.lang.StringUtils;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
-
 /**
- *  普攻
+ * 战斗菜单：
+    普攻
     技能
     物品
     状态
@@ -22,17 +25,18 @@ import java.awt.image.BufferedImage;
  的选项
  * @author liulei@bshf360.com
  * @since 2017-07-17 18:22
+ * @see BattleAction.BattleOption
  */
 public class BattleOptionScreen extends BaseScreen {
 
     int playerActionChoice = BattleAction.BattleOption.COMMON.getOrder();
     private BattleUIScreen battleUIScreen;
 
-    public BattleOptionScreen(BattleUIScreen battleUIScreen) {
+    BattleOptionScreen(BattleUIScreen battleUIScreen) {
         this.battleUIScreen = battleUIScreen;
     }
 
-    public BattleUIScreen getBattleUIScreen() {
+    BattleUIScreen getBattleUIScreen() {
         return battleUIScreen;
     }
 
@@ -64,6 +68,7 @@ public class BattleOptionScreen extends BaseScreen {
         Image gameArrowRight = gameContainer.getGameAboutItem().getGameArrowRight();
         g.drawImage(gameArrowRight, 30, (playerActionChoice) * 25 + 333, null);
 
+        g.dispose();
         desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
     }
 
@@ -97,69 +102,96 @@ public class BattleOptionScreen extends BaseScreen {
             if (getBattleUIScreen().playerIndex >= getBattleUIScreen().playerBattleList.size()) {
                 return;
             }
-            logger.debug("playerActionChoice: " + playerActionChoice);
-            if (playerActionChoice == BattleAction.BattleOption.COMMON.getOrder()) {  // 普攻
-                PlayerCharacter activeHero = getBattleUIScreen().getActivePlayer();
-                //
-                int range = activeHero.getEquipables().getWeapon().getEquip().getGoods().getRange();
-                logger.debug("range: " + range);
-                if (range == GoodsMetaData.RANGE_SINGLE) { // 单攻
-                    int enemySize = battleUIScreen.enemyAliveCount();
-                    if (enemySize == 1) { // 只有一个敌人
-                        getBattleUIScreen().battleActionList.add(new BattleAction(BattleAction.FROM_PLAYER,
-                                getBattleUIScreen().playerIndex,
-                                0,
-                                playerActionChoice, -1, 0));
-                        if (getBattleUIScreen().playerIndex == getBattleUIScreen().playerBattleList.size() - 1) {
-                            generateMonsterAttackAction();
-                        }
-                        getBattleUIScreen().nextPlayer(); // next hero
-                    } else { // 多于一个敌人
-                        MonsterSelectScreen chooseMonsterScreen = new MonsterSelectScreen(battleUIScreen, this, -1);
-                        getBattleUIScreen().getParentScreen().push(chooseMonsterScreen);
-                    }
-                } else if (range == GoodsMetaData.RANGE_ALL) { // 群攻
-                    // 添加全体攻击效果
-                    getBattleUIScreen().battleActionList.add(new BattleAction(BattleAction.FROM_PLAYER,
-                            getBattleUIScreen().playerIndex,
-                            -1,
-                            playerActionChoice, 0, 0));
-                    if (getBattleUIScreen().playerIndex == getBattleUIScreen().playerBattleList.size() - 1) {
-                        generateMonsterAttackAction();
-                    }
-                    getBattleUIScreen().nextPlayer(); // next hero
-                } else {
-                    throw new RuntimeException("unknown range: " + range);
-                }
-            } else if (playerActionChoice == BattleAction.BattleOption.SKILL.getOrder()) {  // 技能
-                PlayerCharacter activeHero = getBattleUIScreen().getActivePlayer();
-                String skillIds = activeHero.getRoleMetaData().getSkillIds();
-                if (StringUtils.isEmpty(skillIds)) {
-                    final BaseScreen bs = new MessageBoxScreen("未习得任何技能，不能施放技能");
-                    getBattleUIScreen().getParentScreen().push(bs);
-                    return;
-                }
-                int mp = activeHero.getRoleMetaData().getMp();
-                if (mp <= 0) {
-                    final BaseScreen bs = new MessageBoxScreen("mp为0，不能施放技能");
-                    getBattleUIScreen().getParentScreen().push(bs);
-                    return;
-                }
-
-                final BaseScreen bs = new SkillSelectScreen(gameContainer, battleUIScreen, this);
-                getBattleUIScreen().getParentScreen().push(bs);
-            } else if (BattleAction.BattleOption.GOODS.getOrder() == playerActionChoice) {
-
-            } else if (BattleAction.BattleOption.STATE.getOrder() == playerActionChoice) {
-                final BattleStateScreen stateScreen = new BattleStateScreen(this, true, getBattleUIScreen().playerIndex);
-                getBattleUIScreen().getParentScreen().push(stateScreen);
-            } else if (BattleAction.BattleOption.ESCAPE.getOrder() == playerActionChoice) {
-
-            } else {
-                throw new RuntimeException("unknown playerActionChoice: " + playerActionChoice);
-            }
-
+            doPlayerBattleOption(gameContainer);
         }
+    }
+
+    /**
+     * 处理玩家选中的战斗菜单
+     *
+     *  @see BattleAction.BattleOption
+     */
+    private void doPlayerBattleOption(GameContainer gameContainer) {
+        logger.debug("playerActionChoice: " + playerActionChoice);
+
+        if (playerActionChoice == BattleAction.BattleOption.COMMON.getOrder()) {  // 普攻
+            doPlayerBattleOptionWithCommon(gameContainer);
+        } else if (playerActionChoice == BattleAction.BattleOption.SKILL.getOrder()) {  // 技能
+            doPlayerBattleOptionWithSkill(gameContainer);
+        } else if (BattleAction.BattleOption.GOODS.getOrder() == playerActionChoice) {
+            throw new UnFinishException();
+        } else if (BattleAction.BattleOption.STATE.getOrder() == playerActionChoice) {
+            final BattleStateScreen stateScreen = new BattleStateScreen(this, true, getBattleUIScreen().playerIndex);
+            getBattleUIScreen().getParentScreen().push(stateScreen);
+        } else if (BattleAction.BattleOption.ESCAPE.getOrder() == playerActionChoice) {
+            throw new UnFinishException();
+        } else {
+            throw new RuntimeException("unknown playerActionChoice: " + playerActionChoice);
+        }
+    }
+
+    /**
+     * 战斗菜单-普通攻击
+     *
+     * 普通攻击的处理情况如下：
+     *   当前角色的武器是单体攻击还是群体攻击 (当单体时需要选择要攻击哪一个敌方，群体时则不需要)
+     *   存活的敌方数量 (多个时需要让玩家选择攻击哪一个敌方)
+     * @see BattleAction.BattleOption#COMMON
+     */
+    private void doPlayerBattleOptionWithCommon(GameContainer gameContainer) {
+        PlayerCharacter activeHero = getBattleUIScreen().getActivePlayer();
+        //
+        int range = activeHero.getEquipables().getWeapon().getEquip().getGoods().getRange();
+        logger.debug("range: " + range);
+        if (range == GoodsMetaData.RANGE_SINGLE) { // 单攻
+            int enemySize = battleUIScreen.enemyAliveCount();
+            if (enemySize == 1) { // 只有一个敌人
+                getBattleUIScreen().battleActionList.add(new BattleAction(BattleAction.FROM_PLAYER,
+                        getBattleUIScreen().playerIndex,
+                        0,
+                        playerActionChoice, -1, 0));
+                if (getBattleUIScreen().playerIndex == getBattleUIScreen().playerBattleList.size() - 1) {
+                    generateMonsterAttackAction();
+                }
+                getBattleUIScreen().nextPlayer(); // next hero
+            } else { // 多于一个敌人
+                MonsterSelectScreen chooseMonsterScreen = new MonsterSelectScreen(battleUIScreen, this, -1);
+                getBattleUIScreen().getParentScreen().push(chooseMonsterScreen);
+            }
+        } else if (range == GoodsMetaData.RANGE_ALL) { // 群攻
+            // 添加全体攻击效果
+            getBattleUIScreen().battleActionList.add(new BattleAction(BattleAction.FROM_PLAYER,
+                    getBattleUIScreen().playerIndex,
+                    -1,
+                    playerActionChoice, 0, 0));
+            if (getBattleUIScreen().playerIndex == getBattleUIScreen().playerBattleList.size() - 1) {
+                generateMonsterAttackAction();
+            }
+            getBattleUIScreen().nextPlayer(); // next hero
+        } else {
+            throw new RuntimeException("unknown range: " + range);
+        }
+    }
+
+    /**
+     * 战斗菜单-技能攻击
+     * @see BattleAction.BattleOption#SKILL
+     */
+    private void doPlayerBattleOptionWithSkill(GameContainer gameContainer) {
+        PlayerCharacter activeHero = getBattleUIScreen().getActivePlayer();
+        String skillIds = activeHero.getRoleMetaData().getSkillIds();
+        if (StringUtils.isEmpty(skillIds)) {
+            getBattleUIScreen().getParentScreen().push(MessageBoxScreen.of("未习得任何技能，不能施放技能"));
+            return;
+        }
+        int mp = activeHero.getRoleMetaData().getMp();
+        if (mp <= 0) {
+            getBattleUIScreen().getParentScreen().push(MessageBoxScreen.of("mp为0，不能施放技能"));
+            return;
+        }
+
+        final BaseScreen bs = new SkillSelectScreen(gameContainer, battleUIScreen, this);
+        getBattleUIScreen().getParentScreen().push(bs);
     }
 
     /**

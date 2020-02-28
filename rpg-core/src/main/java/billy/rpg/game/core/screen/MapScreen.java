@@ -29,7 +29,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * map
+ * 地图界面
  */
 public class MapScreen extends BaseScreen {
     private int offsetTileX = 0;
