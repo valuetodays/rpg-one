@@ -13,7 +13,7 @@ import java.util.List;
  * @since 2016-05-09 22:27
  */
 public abstract class CmdBase {
-    public final Logger logger = Logger.getLogger(getClass());
+    protected final Logger logger = Logger.getLogger(getClass());
     // 参数个数>=0 (greater or equal)
     protected int ARGUMENT_COUNT_GE_ZERO = -1000; // >= 0
     // 参数个数>0 (greater than)

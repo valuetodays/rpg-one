@@ -3,11 +3,7 @@ package billy.rpg.resource.role;
 import billy.rpg.common.constant.ToolsConstant;
 import billy.rpg.common.util.AssetsUtil;
 import billy.rpg.resource.sprite.HeroSprite;
-
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,14 +60,7 @@ public class RoleMetaData implements Cloneable { // TODO 添加级别
         List<HeroSprite.Key> keyList = new ArrayList<>();
         int x = 0;
         int y = 0;
-        BufferedImage image;
-        try {
-            String resourcePath = AssetsUtil.getResourcePath("/assets/sprite/Heal5.png");
-            System.out.println("resourcePath -> " + resourcePath);
-            image = ImageIO.read(new File(resourcePath));
-        } catch (IOException e) {
-            throw new RuntimeException(e.getMessage(), e);
-        }
+        BufferedImage image = AssetsUtil.getResourceAsImage("/assets/sprite/Heal5.png");
         int show = 10;
         int nShow = 5;
         for (int i = 0; i < 13; i++) {

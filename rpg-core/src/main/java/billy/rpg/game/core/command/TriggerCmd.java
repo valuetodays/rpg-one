@@ -39,7 +39,7 @@ public class TriggerCmd extends CmdBase {
      */
     @Override
     public int execute(GameContainer gameContainer, CmdProcessor cmdProcessor) {
-        System.out.println(">>> " + getClass().getName() + " is used in billy.rpg.game.core.item.ScriptItem.init()");
+        logger.debug(">>> " + getClass().getName() + " is used in billy.rpg.game.core.item.ScriptItem.init()");
         return 0;
     }
 

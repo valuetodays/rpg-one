@@ -5,11 +5,7 @@ import billy.rpg.game.core.character.walkable.FlickerObjectWalkableCharacter;
 import billy.rpg.game.core.command.processor.CmdProcessor;
 import billy.rpg.game.core.container.GameContainer;
 import billy.rpg.game.core.item.ScriptItem;
-
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 public class CreateSceneObjectCmd extends CmdBase {
@@ -29,21 +25,15 @@ public class CreateSceneObjectCmd extends CmdBase {
 
     @Override
     public int execute(GameContainer gameContainer, CmdProcessor cmdProcessor) {
-        String imagePath = AssetsUtil.getResourcePath("/assets/Images/scene/" + imageName);
-        File file = new File(imagePath);
-        try {
-            BufferedImage image = ImageIO.read(file);
-            ScriptItem activeScriptItem = gameContainer.getActiveScriptItem();
-            List<FlickerObjectWalkableCharacter> sceneObjects = activeScriptItem.getSceneObjects();
-            FlickerObjectWalkableCharacter e = new FlickerObjectWalkableCharacter();
-            e.setNumber(id);
-            e.setPosX(x);
-            e.setPosY(y);
-            e.setImage(image);
-            sceneObjects.add(e);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        BufferedImage image = AssetsUtil.getResourceAsImage("/assets/Images/scene/" + imageName);
+        ScriptItem activeScriptItem = gameContainer.getActiveScriptItem();
+        List<FlickerObjectWalkableCharacter> sceneObjects = activeScriptItem.getSceneObjects();
+        FlickerObjectWalkableCharacter e = new FlickerObjectWalkableCharacter();
+        e.setNumber(id);
+        e.setPosX(x);
+        e.setPosY(y);
+        e.setImage(image);
+        sceneObjects.add(e);
 
         return 0;
     }

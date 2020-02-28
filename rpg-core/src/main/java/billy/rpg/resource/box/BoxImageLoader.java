@@ -1,12 +1,8 @@
 package billy.rpg.resource.box;
 
 import billy.rpg.common.util.AssetsUtil;
-
-import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 /**
  *
@@ -21,22 +17,11 @@ public class BoxImageLoader {
         //
         final String boxPath = "/assets/Images/character/box/";
 
-        try {
-            String resourcePath = AssetsUtil.getResourcePath(boxPath + "box_closed.png");
-            Image closeImg = ImageIO.read(new File(resourcePath));
-            boxMetaData.setClosedImage(closeImg);
+        Image closeImg = AssetsUtil.getResourceAsImage(boxPath + "box_closed.png");
+        boxMetaData.setClosedImage(closeImg);
 
-            resourcePath = AssetsUtil.getResourcePath(boxPath + "box_open.png");
-            Image openImg = ImageIO.read(new File(resourcePath));
-            boxMetaData.setOpenImage(openImg);
-        } catch (IOException e) {
-            e.printStackTrace();
-            boxMetaData = null;
-        }
-
-        if (boxMetaData == null) {
-            throw new RuntimeException("加载box出错");
-        }
+        Image openImg = AssetsUtil.getResourceAsImage(boxPath + "box_open.png");
+        boxMetaData.setOpenImage(openImg);
 
         return boxMetaData;
     }

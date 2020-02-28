@@ -1,11 +1,8 @@
 package billy.rpg.game.core.item;
 
 import billy.rpg.common.util.AssetsUtil;
+import java.awt.Image;
 import org.apache.log4j.Logger;
-
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.io.File;
 
 /**
  * load background images, there are many background images
@@ -32,13 +29,7 @@ public class BgImageItem {
         }
         LOG.debug("load background images");
 
-        try {
-            String resourcePath = AssetsUtil.getResourcePath("/assets/Images/bgImage1.png");
-
-            bgImage1 = ImageIO.read(new File(resourcePath));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        bgImage1 = AssetsUtil.getResourceAsImage("/assets/Images/bgImage1.png");
         LOG.debug("bgImage1 is " + (bgImage1 == null));
         
         loaded = true;

@@ -50,23 +50,24 @@ public class EmotionScreen extends BaseScreen {
     @Override
     public void draw(GameContainer gameContainer, DesktopCanvas desktopCanvas) {
         BufferedImage paint = new BufferedImage(
-                GameConstant.GAME_WIDTH,
-                GameConstant.GAME_HEIGHT,
-                BufferedImage.TYPE_4BYTE_ABGR); // TODO 该对象浪费了大量内存，只有32*32是有效的
+                GameConstant.GAME_TILE_WIDTH,
+                GameConstant.GAME_TILE_HEIGHT,
+                BufferedImage.TYPE_4BYTE_ABGR); // 生成32*32的图像
         Graphics g = paint.getGraphics();
         BufferedImage gameEmotion = (BufferedImage)gameContainer.getGameAboutItem().getGameEmotion();
+
+        DrawUtil.drawSubImage(g, gameEmotion,
+                0,0,
+                (currentFrame)*GameConstant.GAME_TILE_WIDTH, (type-1) * GameConstant.GAME_TILE_HEIGHT,
+                GameConstant.GAME_TILE_WIDTH, GameConstant.GAME_TILE_HEIGHT);
+        g.dispose();
 
         WalkableCharacter playerOrNpc = gameContainer.getActiveScriptItem().getPlayerOrNpc(playerIdOrNpcId);
         int x = playerOrNpc.getPosX();
         int y = playerOrNpc.getPosY();
-
-        DrawUtil.drawSubImage(g, gameEmotion,
-                x * GameConstant.GAME_TILE_WIDTH, y * GameConstant.GAME_TILE_HEIGHT - GameConstant.GAME_TILE_HEIGHT,
-                (currentFrame)*GameConstant.GAME_TILE_WIDTH, (type-1) * GameConstant.GAME_TILE_HEIGHT,
-                GameConstant.GAME_TILE_WIDTH, GameConstant.GAME_TILE_HEIGHT);
-
-        g.dispose();
-        desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
+        // 把图像画到玩家角色的正上方
+        desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint,
+                x * GameConstant.GAME_TILE_WIDTH, y * GameConstant.GAME_TILE_HEIGHT - GameConstant.GAME_TILE_HEIGHT);
     }
 
     @Override

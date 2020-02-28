@@ -1,12 +1,16 @@
 package billy.rpg.common.util;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import javax.imageio.ImageIO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
-import java.io.File;
-import java.net.URL;
-
 /**
+ * 获取资源文件
+ *
  * @author lei.liu@datatist.com
  * @since 2018-11-28 10:46:23
  */
@@ -15,17 +19,32 @@ public class AssetsUtil {
     private AssetsUtil() {}
 
     /**
+     * 根据图片资源路径，将资源转换成Image对象
+     * @param resource 资源路径
+     * @return 图片对象
+     * @see #getResourcePath(String)
+     */
+    public static BufferedImage getResourceAsImage(String resource) {
+        String resourcePath = AssetsUtil.getResourcePath(resource);
+        try {
+            return ImageIO.read(new File(resourcePath));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        throw new RuntimeException("resource not found: " + resource);
+    }
+
+    /**
      * 获取资源文件的路径，现已支持开发环境中资源文件的获取和打包后资源文件的获取
-     * @param resource resource
+     * @param resource 资源路径
      */
     public static String getResourcePath(String resource) {
         if (StringUtils.isBlank(resource)) {
             throw new NullPointerException("resourcePath is null or empty");
         }
-        Thread.currentThread().getContextClassLoader().getResource(resource);
 
         String path = AssetsUtil.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-        System.out.println("path -> " + path);
+//        System.out.println("path -> " + path);
 
         if (path.contains("/target/classes/")) { // for maven
             return getResourcePathInDev(resource);
@@ -83,6 +102,7 @@ public class AssetsUtil {
             String substring = resourceURL.getPath().substring(1);
             return makeNativeFileSeparator(substring);
         }
+
         throw new RuntimeException("illegal protocol: " + protocol);
     }
 
