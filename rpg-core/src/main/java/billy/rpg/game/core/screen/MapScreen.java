@@ -215,10 +215,9 @@ public class MapScreen extends BaseScreen {
         // draw weather end
 
         String mapName = gameContainer.getActiveMap().getName();
-        g2.setFont(GameConstant.FONT_SIZE_MAP_NAME);
-        g2.setColor(GameConstant.FONT_COLOR_MAP_NAME);
+        g2.setFont(gameContainer.getGameConfig().getMapNameFont());
+        g2.setColor(gameContainer.getGameConfig().getMapNameFontColor());
         g2.drawString(mapName, 300, 20);
-
         g2.dispose();
 
         desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);

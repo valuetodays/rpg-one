@@ -3,9 +3,17 @@ package billy.rpg.game.core.container;
 import billy.rpg.game.core.GameData;
 import billy.rpg.game.core.IGameFrame;
 import billy.rpg.game.core.character.walkable.HeroWalkableCharacter;
+import billy.rpg.game.core.config.GameConfig;
 import billy.rpg.game.core.constants.ScreenCodeEnum;
 import billy.rpg.game.core.constants.WalkableConstant;
-import billy.rpg.game.core.item.*;
+import billy.rpg.game.core.item.BattleImageItem;
+import billy.rpg.game.core.item.BgImageItem;
+import billy.rpg.game.core.item.GameAboutImageItem;
+import billy.rpg.game.core.item.HeadImageItem;
+import billy.rpg.game.core.item.NpcImageItem;
+import billy.rpg.game.core.item.RoleImageItem;
+import billy.rpg.game.core.item.ScriptItem;
+import billy.rpg.game.core.item.TileImageItem;
 import billy.rpg.game.core.loader.RoleDataLoader;
 import billy.rpg.game.core.loader.ScriptDataLoader;
 import billy.rpg.game.core.loader.animation.AnimationDataLoader;
@@ -29,15 +37,14 @@ import billy.rpg.resource.map.MapMetaData;
 import billy.rpg.resource.npc.NPCImageLoader;
 import billy.rpg.resource.role.RoleMetaData;
 import billy.rpg.resource.skill.SkillMetaData;
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-
-import java.awt.*;
+import java.awt.Image;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 /**
  * Game Container
@@ -74,7 +81,7 @@ public class GameContainer {
     private MapScreen mapScreen;
     private Map<Integer, SkillMetaData> skillMetaDataMap;
     private Map<Integer, GoodsMetaData> goodsMetaDataMap;
-
+    private GameConfig gameConfig;
 
     private final IGameFrame gameFrame;
     private GameData gameData;
@@ -136,6 +143,9 @@ public class GameContainer {
             loadRoleData();
             loadLevelData();
             loadSkillData();
+
+            gameConfig = new GameConfig();
+            gameConfig.init();
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("exception occurs: " + e.getMessage());
@@ -434,5 +444,9 @@ public class GameContainer {
         }
 
         throw new RuntimeException("cannot find label '"+title+"' in builtin script and script " + activeScriptItem.getScriptId());
+    }
+
+    public GameConfig getGameConfig() {
+        return gameConfig;
     }
 }

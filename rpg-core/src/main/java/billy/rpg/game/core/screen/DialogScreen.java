@@ -14,6 +14,7 @@ import billy.rpg.game.core.util.KeyUtil;
 import com.billy.resourcefilter.ResourceFilter;
 import com.billy.resourcefilter.resource.Resource;
 import com.billy.resourcefilter.resource.StringResource;
+import java.awt.Font;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -38,21 +39,23 @@ public class DialogScreen extends BaseScreen {
     private SayCmd.PositionEnum position; // headImg location
     private String talker; // talker
 //    private final DialogTextFormatter dialogTextFormatter = new ColorDialogTextFormatter(GameConstant.DIALOG_WORDS_NUM_PER_LINE);
-    private final DialogTextFormatter dialogTextFormatter = new DefaultDialogTextFormatter(GameConstant.DIALOG_WORDS_NUM_PER_LINE);
+    private final DialogTextFormatter dialogTextFormatter;
 
 
     /**
      * 对话框窗口
+     * @param gameContainer
      * @param cmdProcessor 脚本处理器
      * @param headImg 说话者头像编号
      * @param msg 对话内容
      */
-    public DialogScreen(CmdProcessor cmdProcessor, Image headImg, String name, SayCmd.PositionEnum position, String msg) {
+    public DialogScreen(GameContainer gameContainer, CmdProcessor cmdProcessor, Image headImg, String name, SayCmd.PositionEnum position, String msg) {
         this.cmdProcessor = cmdProcessor;
         this.headImg = headImg;
         SayCmd.PositionEnum.assertLegal(position, "对话框角色图片位置有误");
         this.position = position;
         this.talker = name;
+        dialogTextFormatter = new DefaultDialogTextFormatter(gameContainer.getGameConfig().getWordNumPerLineInDialog());
 
         msg = StringUtils.isEmpty(msg) ? "" : msg;
         String filteredMsg = TextFilter.filterMsg(msg, true);
@@ -117,6 +120,7 @@ public class DialogScreen extends BaseScreen {
                 dlgBgLeft,
                 dlgBgTop,
                 null);
+        final Font dialogRoleNameFont = gameContainer.getGameConfig().getDialogRoleNameFont();
         if (position == SayCmd.PositionEnum.LEFT) {
             g.drawImage(gameDlgRoleName,
                     dlgBgLeft + 20,
@@ -126,7 +130,7 @@ public class DialogScreen extends BaseScreen {
                     dlgBgLeft + 10,
                     dlgBgTop - gameDlgRoleName.getHeight(null) - headImg.getHeight(null) - 2,
                     null);
-            g.setFont(GameConstant.FONT_ROLENAME_IN_DLG);
+            g.setFont(dialogRoleNameFont);
             g.drawString(talker,
                     dlgBgLeft + 45,
                     dlgBgTop - gameDlgRoleName.getHeight(null)/3);
@@ -141,13 +145,13 @@ public class DialogScreen extends BaseScreen {
                             - headImg.getWidth(null) - 10,
                     dlgBgTop - gameDlgRoleName.getHeight(null) - headImg.getHeight(null) - 2,
                     null);
-            g.setFont(GameConstant.FONT_ROLENAME_IN_DLG);
+            g.setFont(dialogRoleNameFont);
             g.drawString(talker,
                     GameConstant.GAME_WIDTH/2 + gameDlgBg.getWidth(null)/2
                             - 30 - 60,
                     dlgBgTop - gameDlgRoleName.getHeight(null)/3);
         } else if (position == SayCmd.PositionEnum.NONE) {
-            g.setFont(GameConstant.FONT_ROLENAME_IN_DLG);
+            g.setFont(dialogRoleNameFont);
             g.drawString(talker,
                     dlgBgLeft + 45,
                     dlgBgTop - gameDlgRoleName.getHeight(null)/3);
@@ -159,8 +163,10 @@ public class DialogScreen extends BaseScreen {
 //        g.fillRoundRect(30, 200,
 //                g.getFontMetrics(GameConstant.FONT_DLG_MSG).stringWidth("测") * (SEP + 2),
 //                fontHeight * 3, 20, 20);
-        g.setFont(GameConstant.FONT_DLG_MSG);
-        g.setColor(Color.WHITE);
+        Font dialogFont = gameContainer.getGameConfig().getDialogFont();
+        Color dialogFontColor = gameContainer.getGameConfig().getDialogFontColor();
+        g.setFont(dialogFont);
+        g.setColor(dialogFontColor);
         Color oldColor = g.getColor();
 
         int start = curLine * 2 - 1;
@@ -195,8 +201,8 @@ public class DialogScreen extends BaseScreen {
             } else {
                 g.setColor(msgContent.getColor());
                 g.drawString(msgContent.getContent(),
-                        (dlgBgLeft + 20 + g.getFontMetrics(GameConstant.FONT_DLG_MSG).stringWidth("测"))
-                                + g.getFontMetrics(GameConstant.FONT_DLG_MSG).stringWidth(msgShown),
+                        (dlgBgLeft + 20 + g.getFontMetrics(dialogFont).stringWidth("测"))
+                                + g.getFontMetrics(dialogFont).stringWidth(msgShown),
                         dlgBgTop + 60 + (newline ? fontHeight : 0));
                 msgShown += msgContent.getContent();
             }
@@ -204,6 +210,7 @@ public class DialogScreen extends BaseScreen {
 
         g.setColor(oldColor);
         g.dispose();
+
         desktopCanvas.drawBitmap(gameContainer.getGameFrame(), paint, 0, 0);
     }
 

@@ -127,8 +127,8 @@ public class BattleCommonActionScreen extends BaseScreen {
                     GameConstant.GAME_HEIGHT,
                     BufferedImage.TYPE_4BYTE_ABGR);
             Graphics g = paint.getGraphics();
-            g.setFont(GameConstant.FONT_DAMAGE);
-            g.setColor(Color.YELLOW);
+            g.setFont(gameContainer.getGameConfig().getDamageFont());
+            g.setColor(gameContainer.getGameConfig().getDamageCommonFontColor());
             for (int i = 0; i < dmgs.size(); i++) { // 群攻显示扣除的血量
                 Integer dmg = dmgs.get(i);
                 g.drawString("-" + dmg, dmgLeft + 100 * i, dmgTop); //

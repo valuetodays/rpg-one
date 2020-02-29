@@ -42,8 +42,8 @@ public class ChoiceScreen extends BaseScreen {
                 GameConstant.GAME_HEIGHT,
                 BufferedImage.TYPE_4BYTE_ABGR);
         Graphics g = paint.getGraphics();
-        g.setColor(Color.black);
-        g.setFont(GameConstant.FONT_DLG_MSG);
+        g.setFont(gameContainer.getGameConfig().getDialogFont());
+        g.setColor(gameContainer.getGameConfig().getDialogFontColor());
         g.drawString(title, 100, 20);
         for (int i = 0; i < choice.size(); i++) {
             String s = choice.get(i);

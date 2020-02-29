@@ -16,10 +16,8 @@ import billy.rpg.game.core.screen.TransitionScreen;
 import billy.rpg.game.core.screen.battle.BattleScreen;
 import billy.rpg.game.core.screen.system.SystemUIScreen;
 import billy.rpg.game.core.util.FPSUtil;
-import org.apache.log4j.Logger;
-
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -27,6 +25,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
 import java.util.Stack;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+import org.apache.log4j.Logger;
 
 
 /**
@@ -133,11 +134,13 @@ public class GameFrame extends JFrame implements IGameFrame, Runnable {
         setIconImage(Toolkit.getDefaultToolkit().getImage(gameIconPath));
         setResizable(false);
 //        setAlwaysOnTop(true);
-        addListener();//键盘监听
+        addListener(); // 键盘监听
         instance = this;
+
         gameContainer = new GameContainer(this);
         gameContainer.load();
         gameContainer.setGameData(new GameData());
+
 
         pack();
         setVisible(true);
@@ -269,6 +272,16 @@ public class GameFrame extends JFrame implements IGameFrame, Runnable {
             screenStack.clear();
             screenStack.push(battleScreen);
         }
+    }
+
+    @Override
+    public Color getFPSColor() {
+        return gameContainer.getGameConfig().getFpsFontColor();
+    }
+
+    @Override
+    public Font getFPSFont() {
+        return gameContainer.getGameConfig().getFpsFont();
     }
 
 }

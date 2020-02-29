@@ -21,8 +21,8 @@ public class DesktopCanvas extends Canvas implements IGameCanvas {
 
     public void drawFPS(IGameFrame gameFrame, String frameRate) {
         Graphics g = background.getGraphics();
-        g.setColor(Color.yellow);
-        g.setFont(GameConstant.FONT_FPS);
+        g.setColor(gameFrame.getFPSColor());
+        g.setFont(gameFrame.getFPSFont());
         g.drawString(frameRate, 530, 30);
         gameFrame.getGamePanel().setBackground(background);
     }

@@ -43,7 +43,8 @@ public class SayCmd extends CmdBase {
     @Override
     public int execute(GameContainer gameContainer, CmdProcessor cmdProcessor) {
         Image headImage = gameContainer.getHeadImageItemOf(getHeadNumber());
-        DialogScreen ms = new DialogScreen(cmdProcessor, headImage, getTalker(), getPosition(), getText());
+        DialogScreen ms = new DialogScreen(gameContainer, cmdProcessor, headImage, getTalker(), getPosition(),
+                getText());
         gameContainer.getGameFrame().pushScreen(ms);
         cmdProcessor.startPause();
         return 0;
