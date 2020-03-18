@@ -21,6 +21,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <javaVersion>1.8</javaVersion>
         <skipTests>true</skipTests>
+        <kotlin.version>1.2.71</kotlin.version>
     </properties>
 
     <dependencies>
@@ -39,6 +40,17 @@
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>1.2.31</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-stdlib-jdk8</artifactId>
+            <version>${kotlin.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-test</artifactId>
+            <version>${kotlin.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -91,6 +103,30 @@
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
                 <version>3.6.0.1398</version>
+            </plugin>
+            <plugin>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-maven-plugin</artifactId>
+                <version>${kotlin.version}</version>
+                <executions>
+                    <execution>
+                        <id>compile</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>test-compile</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>test-compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <jvmTarget>1.8</jvmTarget>
+                </configuration>
             </plugin>
         </plugins>
     </build>

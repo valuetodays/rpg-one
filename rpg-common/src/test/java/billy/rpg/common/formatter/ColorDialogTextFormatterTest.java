@@ -14,9 +14,12 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 
+import billy.rpg.common.formatter.DialogFormattedResult.DialogFormattedText;
+
 /**
  * @see ColorDialogTextFormatter
  */
+@Deprecated
 public class ColorDialogTextFormatterTest {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 

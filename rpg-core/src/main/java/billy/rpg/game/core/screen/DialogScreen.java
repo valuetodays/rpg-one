@@ -2,8 +2,8 @@ package billy.rpg.game.core.screen;
 
 import billy.rpg.common.formatter.DefaultDialogTextFormatter;
 import billy.rpg.common.formatter.DialogFormattedResult;
-import billy.rpg.common.formatter.DialogFormattedText;
 import billy.rpg.common.formatter.DialogTextFormatter;
+import billy.rpg.common.formatter.DialogFormattedResult.DialogFormattedText;
 import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.command.SayCmd;
 import billy.rpg.game.core.command.processor.CmdProcessor;

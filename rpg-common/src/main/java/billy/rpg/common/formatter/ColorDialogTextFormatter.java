@@ -3,6 +3,7 @@ package billy.rpg.common.formatter;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import billy.rpg.common.formatter.DialogFormattedResult.DialogFormattedText;
 
 /**
  * this class can not work well when text is
