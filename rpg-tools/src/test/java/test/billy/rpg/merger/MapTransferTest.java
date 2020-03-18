@@ -35,19 +35,24 @@ public class MapTransferTest {
             String dstTmx = basePath + "/";
             try {
                 MapMetaData mapMetaData = new BinaryMapSaverLoader().load(dst);
-                writeAsTmxFile(mapMetaData, dstTmx);
+                writeAsTmxFileByJson(mapMetaData, dstTmx);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }
 
     }
-    private void writeAsTmxFile(MapMetaData mapMetaData, String dstTmxDirectory) throws IOException, TemplateException {
+
+    void writeAsTmxFileByJson(MapMetaData mapMetaData, String dstTmxDirectory) throws IOException, TemplateException {
+        writeAsTmxFile(mapMetaData, dstTmxDirectory + mapMetaData.getMapId().replace(".mapj", ".tmx"));
+    }
+
+    void writeAsTmxFile(MapMetaData mapMetaData, String dstTmxFilePath) throws IOException, TemplateException {
         Configuration cfg = new Configuration(Configuration.VERSION_2_3_21);
         cfg.setClassForTemplateLoading(getClass(), "/freemarkertemplates");
         cfg.setDefaultEncoding("UTF-8");
         cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
-        FileWriter fileWriter = new FileWriter(dstTmxDirectory + mapMetaData.getMapId().replace(".mapj", ".tmx"));
+        FileWriter fileWriter = new FileWriter(dstTmxFilePath);
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
         Map<String, Object> context = new HashMap<>();
         context.put("map", mapMetaData);
