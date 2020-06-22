@@ -1,9 +1,5 @@
 package billy.rpg.game.core.config;
 
-import com.billy.resourcefilter.ResourceFilter;
-import com.billy.resourcefilter.placeholder.PlaceHolderParser;
-import com.billy.resourcefilter.placeholder.SpringPlaceHolderParser;
-import com.billy.resourcefilter.resource.StringResource;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
@@ -11,7 +7,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.stream.Collectors;
+
 import org.apache.commons.lang.StringUtils;
+import org.springframework.util.PropertyPlaceholderHelper;
 
 /**
  * @author lei.liu
@@ -20,6 +18,9 @@ import org.apache.commons.lang.StringUtils;
 public final class ParamHolder {
 
     private static final Map<String, String> map = new HashMap<>();
+
+    private static final PropertyPlaceholderHelper PROPERTY_PLACEHOLDER_HELPER =
+            new PropertyPlaceholderHelper("${", "}");
 
     private ParamHolder() {
 
@@ -40,14 +41,11 @@ public final class ParamHolder {
                 .collect(Collectors.toMap(k -> (String)k,
                 k -> properties.getProperty((String)k)));
 
-        PlaceHolderParser placeHolderParser = new SpringPlaceHolderParser();
-
         // 【步骤二】处理value含有通配符的情况
-        ResourceFilter resourceFilter = new ResourceFilter();
-        resourceFilter.addFilters(bundleMap);
+        final Properties propertiesForPlaceHolder = new Properties();
+        propertiesForPlaceHolder.putAll(bundleMap); // 添加系统变量
         Map<String, String> mapWithoutPlaceHolder = bundleMap.entrySet().stream()
-            .collect(Collectors.toMap(Map.Entry::getKey, kv ->
-                    placeHolderParser.doParseStringValue(new StringResource(kv.getValue(), resourceFilter), kv.getValue(), null)
+            .collect(Collectors.toMap(Map.Entry::getKey, kv -> PROPERTY_PLACEHOLDER_HELPER.replacePlaceholders(kv.getValue(), propertiesForPlaceHolder)
         ));
 
         // 【步骤三】将map中的key中的_去除并将下一个字符转大写

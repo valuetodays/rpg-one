@@ -1,9 +1,17 @@
 package billy.rpg.game.core.screen;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.util.List;
+import java.util.Properties;
+
 import billy.rpg.common.formatter.DefaultDialogTextFormatter;
 import billy.rpg.common.formatter.DialogFormattedResult;
-import billy.rpg.common.formatter.DialogTextFormatter;
 import billy.rpg.common.formatter.DialogFormattedResult.DialogFormattedText;
+import billy.rpg.common.formatter.DialogTextFormatter;
 import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.command.SayCmd;
 import billy.rpg.game.core.command.processor.CmdProcessor;
@@ -11,21 +19,9 @@ import billy.rpg.game.core.constants.GameConstant;
 import billy.rpg.game.core.container.GameContainer;
 import billy.rpg.game.core.script.variable.VariableDeterminer;
 import billy.rpg.game.core.util.KeyUtil;
-import com.billy.resourcefilter.ResourceFilter;
-import com.billy.resourcefilter.resource.Resource;
-import com.billy.resourcefilter.resource.StringResource;
-import java.awt.Font;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import org.springframework.util.PropertyPlaceholderHelper;
 
 /**
  * intend to show dialog in game
@@ -40,6 +36,8 @@ public class DialogScreen extends BaseScreen {
     private String talker; // talker
 //    private final DialogTextFormatter dialogTextFormatter = new ColorDialogTextFormatter(GameConstant.DIALOG_WORDS_NUM_PER_LINE);
     private final DialogTextFormatter dialogTextFormatter;
+    private static final PropertyPlaceholderHelper PROPERTY_PLACEHOLDER_HELPER =
+            new PropertyPlaceholderHelper("${", "}");
 
 
     /**
@@ -71,19 +69,11 @@ public class DialogScreen extends BaseScreen {
             if (!flag) {
                 return msg;
             }
-            Map<String, Integer> variableMap = VariableDeterminer.getInstance().realData();
-            Map<String, String> stringStringMap = variableMap.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, v -> v.getValue().toString()));
-            ResourceFilter resourceFilter = new ResourceFilter();
-            System.getProperties().stringPropertyNames().forEach(e -> resourceFilter.addFilter(e, System.getProperty(e))); // 添加系统变量
-            resourceFilter.addFilters(stringStringMap);
+            Properties properties = new Properties();
+            properties.putAll(System.getProperties()); // 添加系统变量
+            properties.putAll(VariableDeterminer.getInstance().realData());
 
-            Resource stringResource = new StringResource(msg, resourceFilter);
-            try {
-                stringResource.doFilter();
-            } catch (IOException e) {
-                throw new RuntimeException("exception when filter string: " + e.getMessage(), e);
-            }
-            return stringResource.getOutputAsString();
+            return PROPERTY_PLACEHOLDER_HELPER.replacePlaceholders(msg, properties);
         }
     }
 

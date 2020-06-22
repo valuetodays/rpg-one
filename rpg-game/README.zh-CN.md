@@ -15,6 +15,10 @@
 ![百草地的师弟说](./images/screenshot/dialog_in_bai_cao_di.png "dialog_in_bai_cai_di.png")
 
 
+#### 编译问题
+- 若是缺少com.billy.thirdparty:resource-filter相关jar包，就去https://gitee.com/valuetodays/thirdparty-aggregation.git下载并打包即可。
+- 若是找不到org.mapeditor:libtiled:1.0-SNAPSHOT，请将/rpg-common/docs/tiled-java.zip解压并按README操作即可。
+
 #### 运行
 
 现在可通过两种方式运行：
