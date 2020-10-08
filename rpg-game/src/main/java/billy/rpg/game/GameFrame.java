@@ -5,6 +5,7 @@ import billy.rpg.common.util.JavaVersionUtil;
 import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.GameData;
 import billy.rpg.game.core.GamePanel;
+import billy.rpg.game.core.GameTemp;
 import billy.rpg.game.core.IGameFrame;
 import billy.rpg.game.core.constants.GameConstant;
 import billy.rpg.game.core.constants.ScreenCodeEnum;
@@ -140,7 +141,7 @@ public class GameFrame extends JFrame implements IGameFrame, Runnable {
         gameContainer = new GameContainer(this);
         gameContainer.load();
         gameContainer.setGameData(new GameData());
-
+        GameTemp.gameContainer = gameContainer;
 
         pack();
         setVisible(true);

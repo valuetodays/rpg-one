@@ -26,7 +26,7 @@ public class ShowGutScreen extends BaseScreen {
      */
     public ShowGutScreen(String content) {
         if (StringUtils.isEmpty(content)) {
-            throw new RuntimeException("content of shougut is null or empty.");
+            throw new RuntimeException("content of showgut is null or empty.");
         }
         this.content = linefeed(content.replace("`br`", "\n"), 20);
         this.contentArr = this.content.split("\n");
