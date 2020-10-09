@@ -1,13 +1,16 @@
 package billy.rpg.game.core.screen;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+
 import billy.rpg.game.core.DesktopCanvas;
 import billy.rpg.game.core.constants.GameConstant;
 import billy.rpg.game.core.container.GameContainer;
 import billy.rpg.game.core.screen.battle.BattleScreen;
+import billy.rpg.game.core.screen.window.MessageBoxWindow;
 import org.apache.commons.lang.StringUtils;
-
-import java.awt.*;
-import java.awt.image.BufferedImage;
 
 /**
  * show messagebox, and it will disappear in {@link #delay} ms, can cancel by key down
@@ -23,6 +26,7 @@ public class MessageBoxScreen extends BaseScreen {
     private int delay;
     private int cnt = 0;
     private final BaseScreen ownerScreen;
+    private MessageBoxWindow messageBoxWindow = new MessageBoxWindow();
 
     public static MessageBoxScreen of(String msg) {
         return new MessageBoxScreen(msg);
@@ -61,8 +65,7 @@ public class MessageBoxScreen extends BaseScreen {
         Image gameMessageBoxBg = gameContainer.getGameAboutItem().getGameMessageBoxBg();
         g.drawImage(gameMessageBoxBg, 160, 140, null);
         g.setColor(new Color(64, 64, 64, 128));
-        //g.fillRoundRect(30, 50, 200, 45, 20, 20);
-        g.setFont(new Font("黑体", Font.BOLD, 14));
+        g.setFont(GameConstant.FONT_14);
         g.setColor(Color.WHITE);
         g.drawString(msg, 200, 180);
         g.dispose();

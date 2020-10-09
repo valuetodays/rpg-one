@@ -1,5 +1,12 @@
 package billy.rpg.game.core.screen.window;
 
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 import billy.rpg.common.constant.ToolsConstant;
 import billy.rpg.common.util.DrawUtil;
 import billy.rpg.game.core.GameTemp;
@@ -17,13 +24,6 @@ import billy.rpg.resource.box.BoxImageLoader;
 import billy.rpg.resource.map.MapMetaData;
 import billy.rpg.resource.npc.NPCImageLoader;
 
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 public class MapWindow extends BaseWindow {
 
     private Map<String, BufferedImage> cachedTotalMaps = new ConcurrentHashMap<>();
@@ -32,6 +32,7 @@ public class MapWindow extends BaseWindow {
     private MapScreen owner;
 
     public MapWindow(MapScreen owner) {
+        super(0, 0);
         this.owner = owner;
     }
 
@@ -203,18 +204,18 @@ public class MapWindow extends BaseWindow {
         boolean flagDrawAdvanceBgLayer = true;
         if (flagDrawAdvanceBgLayer) { // use advanced
             final Image tileImg = gameContainer.getTileItem().getTile(activeMap.getTileId());
-            final int[][] layer1 = activeMap.getBgLayer();
+            final int[][] bgLayer = activeMap.getBgLayer();
             BufferedImage cachedImage = cachedTotalMaps.get(activeMap.getMapId());
             if (cachedImage == null) {
                 cachedImage = new BufferedImage(
-                        layer1.length * GameConstant.GAME_TILE_WIDTH,
-                        layer1[0].length * GameConstant.GAME_TILE_HEIGHT,
+                        bgLayer.length * GameConstant.GAME_TILE_WIDTH,
+                        bgLayer[0].length * GameConstant.GAME_TILE_HEIGHT,
                         BufferedImage.TYPE_4BYTE_ABGR);
                 Graphics cachedGraphic = cachedImage.getGraphics();
 
-                for (int i = 0; i < layer1.length; i++) {
-                    for (int j = 0; j < layer1[i].length; j++) {
-                        int tileNum = layer1[i][j];
+                for (int i = 0; i < bgLayer.length; i++) {
+                    for (int j = 0; j < bgLayer[i].length; j++) {
+                        int tileNum = bgLayer[i][j];
                         if (-1 != tileNum) {
                             int y = tileNum / ToolsConstant.TILE_NUM_ONE_LINE;
                             int x = tileNum % ToolsConstant.TILE_NUM_ONE_LINE;
@@ -228,15 +229,15 @@ public class MapWindow extends BaseWindow {
                 cachedGraphic.dispose();
                 cachedTotalMaps.put(activeMap.getMapId(), cachedImage);
             }
-            DrawUtil.drawSubImage(g, cachedImage, 0, 0,
+            DrawUtil.drawSubImage(g, cachedImage, getLeft(), getTop(),
                     offsetTileX* GameConstant.GAME_TILE_WIDTH, offsetTileY*GameConstant.GAME_TILE_HEIGHT,
                     GameConstant.GAME_WIDTH, GameConstant.GAME_HEIGHT);
         } else {
             final Image tileImg = gameContainer.getTileItem().getTile(activeMap.getTileId());
-            final int[][] layer1 = activeMap.getBgLayer();
+            final int[][] bgLayer = activeMap.getBgLayer();
             for (int i = offsetTileX; i < offsetTileX + GameConstant.Game_TILE_X_NUM; i++) {
                 for (int j = offsetTileY; j < offsetTileY + GameConstant.Game_TILE_Y_NUM; j++) {
-                    int tileNum = layer1[i][j];
+                    int tileNum = bgLayer[i][j];
                     if (tileNum != -1) {
                         int y = tileNum / ToolsConstant.TILE_NUM_ONE_LINE;
                         int x = tileNum % ToolsConstant.TILE_NUM_ONE_LINE;
@@ -255,7 +256,7 @@ public class MapWindow extends BaseWindow {
     private void drawBgImage(GameContainer gameContainer, Graphics g2) {
         // TODO 每个地图应该绑定一个背景图片
         final Image bgImage1 = gameContainer.getBgImageItem().getBgImage1();
-        g2.drawImage(bgImage1, 0, 0, bgImage1.getWidth(null), bgImage1.getHeight(null), null);  // draw bgImage
+        g2.drawImage(bgImage1, getLeft(), getTop(), bgImage1.getWidth(null), bgImage1.getHeight(null), null);  // draw bgImage
     }
 
     public int getOffsetTileX() {

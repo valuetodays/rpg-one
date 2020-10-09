@@ -1,9 +1,9 @@
 package billy.rpg.game.core.constants;
 
-import billy.rpg.common.constant.ToolsConstant;
-
-import java.awt.*;
+import java.awt.Font;
 import java.util.Random;
+
+import billy.rpg.common.constant.ToolsConstant;
 
 public interface GameConstant {
 
@@ -54,11 +54,12 @@ public interface GameConstant {
      */
     int SCALE = 1;
 
-    Font FONT_BATTLE = new Font("楷体", Font.BOLD, 18);
 
     /**
      * 游戏中使用的随机数生成器
      */
     Random random = new Random();
 
+    Font FONT_BATTLE = new Font("楷体", Font.BOLD, 18);
+    Font FONT_14 = new Font("黑体", Font.BOLD, 14);
 }

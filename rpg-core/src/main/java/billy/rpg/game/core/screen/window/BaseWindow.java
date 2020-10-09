@@ -1,15 +1,21 @@
 package billy.rpg.game.core.screen.window;
 
-import billy.rpg.game.core.screen.BaseScreen;
-
 import java.awt.Graphics;
 
 public abstract class BaseWindow {
-    protected int left;
-    protected int right;
-    protected int width;
-    protected int height;
-    protected int z = 1;
+    private int left;
+    private int top;
+    private int width;
+    private int height;
+    private int z = 1;
+
+    public BaseWindow() {
+    }
+
+    public BaseWindow(int left, int top) {
+        this.left = left;
+        this.top = top;
+    }
 
     public abstract void update(Graphics g);
 
@@ -21,12 +27,12 @@ public abstract class BaseWindow {
         this.left = left;
     }
 
-    public int getRight() {
-        return right;
+    public int getTop() {
+        return top;
     }
 
-    public void setRight(int right) {
-        this.right = right;
+    public void setTop(int top) {
+        this.top = top;
     }
 
     public int getWidth() {
