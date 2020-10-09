@@ -247,3 +247,4 @@ ILoader
 - [x] FEATURE: 引入Windows概念，即屏幕上的矩形区域
 - FEATURE: 引入亮度/色相概念，可以调整任一显示的图片的颜色亮度
 - FEATURE: 引入GameTemp类
+- FEATURE: 对话回放功能
