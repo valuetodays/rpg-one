@@ -6,7 +6,7 @@ import billy.rpg.resource.role.RoleMetaData;
 /**
  * 减少固定防御力
  *
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-12-06 16:50:27
  */
 public class DefendWeakenFixedValueBuff extends FixedValueBuff {

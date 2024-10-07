@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-11-21 15:38:51
  */
 public class IfEquipCmd extends CmdBase {

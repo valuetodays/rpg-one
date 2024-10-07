@@ -6,7 +6,7 @@ import billy.rpg.game.core.container.GameContainer;
 /**
  * an empty command, do nothing
  *
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-09-17 17:38:14
  */
 public class EmptyCmd extends CmdBase {

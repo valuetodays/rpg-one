@@ -10,7 +10,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-11-20 18:19:06
  */
 public class JsonLevelSaverLoader implements LevelSaverLoader {

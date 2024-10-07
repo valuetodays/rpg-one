@@ -5,7 +5,7 @@ import billy.rpg.game.core.buff.Buff;
 import java.util.List;
 
 /**
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-11-22 11:42:56
  */
 public interface BuffManager {

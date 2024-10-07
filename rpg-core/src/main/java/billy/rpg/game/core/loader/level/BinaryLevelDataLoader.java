@@ -4,7 +4,7 @@ import billy.rpg.resource.level.BinaryLevelSaverLoader;
 import billy.rpg.resource.level.LevelSaverLoader;
 
 /**
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-11-20 18:22:47
  */
 public class BinaryLevelDataLoader extends LevelDataLoader {

@@ -10,7 +10,7 @@ import java.util.List;
  * 取消一个变量，与{@link SetCmd}相反
  *
  * @see SetCmd
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-09-18 15:13:16
  */
 public class UnsetCmd extends CmdBase {

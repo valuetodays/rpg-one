@@ -3,7 +3,7 @@ package billy.rpg.game.core.constants;
 import billy.rpg.game.core.util.AssertUtil;
 
 /**
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-12-14 18:23:22
  */
 public enum WeatherEnum {

@@ -4,7 +4,7 @@ import billy.rpg.game.core.command.processor.CmdProcessor;
 import billy.rpg.game.core.container.GameContainer;
 
 /**
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-12-14 18:26:27
  * @see SetWeatherCmd
  */

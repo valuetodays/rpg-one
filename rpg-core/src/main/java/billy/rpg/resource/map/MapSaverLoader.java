@@ -3,7 +3,7 @@ package billy.rpg.resource.map;
 import java.io.IOException;
 
 /**
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-10-16 17:30:33
  */
 public interface MapSaverLoader {

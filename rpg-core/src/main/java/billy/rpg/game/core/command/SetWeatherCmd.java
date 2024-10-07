@@ -1,13 +1,13 @@
 package billy.rpg.game.core.command;
 
 import billy.rpg.game.core.command.processor.CmdProcessor;
-import billy.rpg.game.core.container.GameContainer;
 import billy.rpg.game.core.constants.WeatherEnum;
+import billy.rpg.game.core.container.GameContainer;
 
 import java.util.List;
 
 /**
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-12-14 18:21:35
  * @see ClearWeatherCmd
  */

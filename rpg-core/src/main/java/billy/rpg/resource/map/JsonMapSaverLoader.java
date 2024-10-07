@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-10-16 17:47:20
  */
 @Deprecated

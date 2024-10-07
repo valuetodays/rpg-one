@@ -6,7 +6,6 @@ import billy.rpg.game.core.container.GameContainer;
 import billy.rpg.game.core.screen.BaseScreen;
 import billy.rpg.game.core.util.KeyUtil;
 import billy.rpg.resource.skill.SkillMetaData;
-
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -17,7 +16,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-10-08 15:49:55
  */
 public class SkillsScreen extends BaseScreen {

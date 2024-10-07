@@ -5,7 +5,7 @@ import billy.rpg.common.util.ImageUtil;
 import java.awt.*;
 
 /**
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-11-08 10:54:14
  */
 public class ScaleDownImageOperationFrame extends ImageOperationBaseFrame {

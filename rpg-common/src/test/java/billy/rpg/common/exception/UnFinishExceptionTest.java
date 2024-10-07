@@ -3,7 +3,7 @@ package billy.rpg.common.exception;
 import org.junit.Test;
 
 /**
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2019-03-19 13:04
  */
 public class UnFinishExceptionTest {

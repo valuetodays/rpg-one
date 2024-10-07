@@ -3,7 +3,7 @@ package billy.rpg.common.util;
 import java.awt.*;
 
 /**
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-11-09 11:21:23
  */
 public enum ColorUtil {

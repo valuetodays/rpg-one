@@ -9,7 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-11-22 11:43:55
  */
 public class DefaultBuffManager implements BuffManager, Cloneable {

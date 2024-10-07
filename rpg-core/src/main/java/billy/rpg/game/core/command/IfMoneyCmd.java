@@ -8,7 +8,7 @@ import billy.rpg.game.core.script.LabelBean;
 import java.util.List;
 
 /**
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-11-21 15:24:53
  */
 public class IfMoneyCmd extends CmdBase {

@@ -3,7 +3,7 @@ package billy.rpg.game.core.buff;
 import billy.rpg.game.core.util.AssertUtil;
 
 /**
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-12-06 17:33:39
  */
 public abstract class PercentValueBuff extends Buff {

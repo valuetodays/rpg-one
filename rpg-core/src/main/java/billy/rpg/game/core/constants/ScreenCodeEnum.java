@@ -1,7 +1,7 @@
 package billy.rpg.game.core.constants;
 
 /**
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-11-20 10:52:09
  */
 public enum ScreenCodeEnum {

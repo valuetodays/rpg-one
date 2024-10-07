@@ -3,7 +3,7 @@ package billy.rpg.common.util;
 import java.awt.*;
 
 /**
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-11-14 11:52:22
  */
 public class DrawUtil {

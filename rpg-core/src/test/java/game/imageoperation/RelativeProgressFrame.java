@@ -6,7 +6,7 @@ import java.awt.*;
 /**
  * 相对长度的进度条
  *
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-11-08 17:21:30
  */
 public class RelativeProgressFrame extends JFrame {

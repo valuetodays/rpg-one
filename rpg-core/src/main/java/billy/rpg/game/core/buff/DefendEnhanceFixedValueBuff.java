@@ -5,7 +5,7 @@ import billy.rpg.game.core.character.fightable.Fightable;
 /**
  * 增加固定防御力
  *
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-12-06 16:48:27
  */
 public class DefendEnhanceFixedValueBuff extends FixedValueBuff {

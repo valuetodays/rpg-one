@@ -1,10 +1,10 @@
 package billy.rpg.common.util;
 
-import java.util.List;
 import java.awt.*;
+import java.util.List;
 
 /**
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-11-09 09:52:03
  */
 public class TextUtil {

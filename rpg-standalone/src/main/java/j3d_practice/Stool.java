@@ -1,7 +1,7 @@
 package j3d_practice;
 
 /**
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-12-05 17:33:32
  */
 

@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-09-27 19:10:36
  */
 public class JlineCommandParser extends AbstractCommandParser {

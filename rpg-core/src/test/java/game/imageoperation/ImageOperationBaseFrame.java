@@ -1,17 +1,14 @@
 package game.imageoperation;
 
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.HeadlessException;
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 
-import javax.imageio.ImageIO;
-import javax.swing.JFrame;
-
 /**
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-11-08 10:56:38
  */
 public abstract class ImageOperationBaseFrame extends JFrame {

@@ -16,7 +16,7 @@ import java.nio.charset.Charset;
 import java.util.Map;
 
 /**
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-10-16 18:20:24
  */
 public class MapTransfer {

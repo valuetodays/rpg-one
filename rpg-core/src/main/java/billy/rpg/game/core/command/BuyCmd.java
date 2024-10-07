@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-09-28 11:56:12
  */
 public class BuyCmd extends CmdBase {

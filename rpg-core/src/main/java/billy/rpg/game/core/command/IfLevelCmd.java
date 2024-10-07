@@ -9,7 +9,7 @@ import billy.rpg.game.core.script.LabelBean;
 import java.util.List;
 
 /**
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-11-22 13:58:54
  */
 public class IfLevelCmd extends CmdBase {

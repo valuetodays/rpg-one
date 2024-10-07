@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * 创建传送门
  *
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-09-28 16:44:42
  */
 public class CreateTransferCmd extends CmdBase {

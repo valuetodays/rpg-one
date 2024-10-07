@@ -3,7 +3,7 @@ package billy.rpg.game.core.buff;
 import billy.rpg.game.core.util.AssertUtil;
 
 /**
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-12-06 17:28:39
  */
 public abstract class FixedValueBuff extends Buff {

@@ -7,7 +7,7 @@ import billy.rpg.resource.role.RoleMetaData;
 import java.util.List;
 
 /**
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-11-29 10:14:12
  */
 public class LevelUpCmd extends CmdBase {

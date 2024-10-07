@@ -6,7 +6,7 @@ import billy.rpg.resource.role.RoleMetaData;
 /**
  * 减少固定速度
  *
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-12-06 17:19:27
  */
 public class SpeedWeakenFixedValueBuff extends FixedValueBuff {

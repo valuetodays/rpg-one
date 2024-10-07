@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * 截屏
  *
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-12-06 18:35:06
  */
 public class ScreenshotCmd extends CmdBase {

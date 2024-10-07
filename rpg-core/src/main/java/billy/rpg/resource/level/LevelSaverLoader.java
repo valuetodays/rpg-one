@@ -3,7 +3,7 @@ package billy.rpg.resource.level;
 import java.io.IOException;
 
 /**
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-11-20 18:18:17
  */
 public interface LevelSaverLoader {

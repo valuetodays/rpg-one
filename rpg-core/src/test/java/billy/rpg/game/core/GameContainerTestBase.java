@@ -10,7 +10,7 @@ import org.junit.Before;
 /**
  * 继承该类可直接使用{@link GameContainer}对象
  *
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-11-22 11:15:58
  * @see GameContainer
  */

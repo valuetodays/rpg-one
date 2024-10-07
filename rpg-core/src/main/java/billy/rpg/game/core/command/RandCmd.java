@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * 生成一个[begin, end]之间的数，并把它保存到var变量中
  *
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-12-10 15:18:19
  */
 public class RandCmd extends CmdBase {

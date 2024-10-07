@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
  * buff
  * 注意debuff也是buff，如增加150%的攻击力，与减弱80%的攻击力
  *
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-11-22 10:25:29
  */
 public abstract class Buff {

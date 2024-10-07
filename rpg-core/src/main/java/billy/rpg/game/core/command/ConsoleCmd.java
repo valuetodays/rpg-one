@@ -6,7 +6,7 @@ import billy.rpg.game.core.container.GameContainer;
 import java.util.List;
 
 /**
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-09-29 15:09:20
  */
 public class ConsoleCmd extends CmdBase {

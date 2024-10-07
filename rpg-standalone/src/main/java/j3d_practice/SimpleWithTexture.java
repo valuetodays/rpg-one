@@ -23,7 +23,7 @@ import java.util.BitSet;
 
 /**
  * https://blog.csdn.net/tingary/article/details/80486890
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-12-05 17:32:55
  */
 

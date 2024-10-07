@@ -9,7 +9,7 @@ import billy.rpg.game.core.script.variable.VariableDeterminer;
 import java.util.List;
 
 /**
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-12-10 14:14:32
  */
 public class IfVarCmd extends CmdBase {

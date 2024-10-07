@@ -10,7 +10,7 @@ import javax.media.j3d.BranchGroup;
  *
  * 读取.3ds文件
  *
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-12-05 18:33:45
  */
 public class ThreeDSFileReader  extends BranchGroup {

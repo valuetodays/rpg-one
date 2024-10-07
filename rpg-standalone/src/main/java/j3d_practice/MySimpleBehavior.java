@@ -15,7 +15,7 @@ import java.util.Enumeration;
 /**
  * 键盘左右键控制立方体旋转
  *
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-12-05 10:53:19
  */
 public class MySimpleBehavior extends Applet {

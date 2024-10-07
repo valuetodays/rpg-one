@@ -6,7 +6,7 @@ import billy.rpg.resource.goods.GoodsMetaData;
 /**
  * 使用物品
  *
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-11-05 17:06:21
  */
 public interface GoodsUseCallback {

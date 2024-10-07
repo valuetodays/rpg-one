@@ -7,7 +7,7 @@ import javax.media.j3d.Shape3D;
 import javax.vecmath.Point3f;
 
 /**
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-12-05 14:47:37
  */
 public class Axis extends Shape3D {

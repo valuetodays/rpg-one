@@ -11,7 +11,7 @@ import org.junit.Test;
 import java.lang.reflect.InvocationTargetException;
 
 /**
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-12-07 16:13:52
  */
 public class SkillTest extends GameContainerTestBase {

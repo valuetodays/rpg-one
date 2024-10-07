@@ -16,7 +16,7 @@ import java.awt.event.WindowEvent;
  *
  * -Djava.library.path=D:\shigoto\sw\jogamp\jogamp-all-platforms\jogamp-all-platforms\lib\windows-amd64
  *
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-12-06 10:42:28
  */
 public class OneTriangleSwingGLCanvas {

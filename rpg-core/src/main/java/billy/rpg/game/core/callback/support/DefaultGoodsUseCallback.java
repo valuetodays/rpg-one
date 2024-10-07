@@ -1,13 +1,13 @@
 package billy.rpg.game.core.callback.support;
 
+import billy.rpg.game.core.callback.GoodsUseCallback;
 import billy.rpg.game.core.character.PlayerCharacter;
 import billy.rpg.game.core.container.GameContainer;
-import billy.rpg.game.core.callback.GoodsUseCallback;
 import billy.rpg.resource.goods.GoodsMetaData;
 import billy.rpg.resource.goods.GoodsType;
 
 /**
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-11-05 17:07:47
  */
 public class DefaultGoodsUseCallback implements GoodsUseCallback {

@@ -6,7 +6,7 @@ import billy.rpg.game.core.container.GameContainer;
 import java.util.List;
 
 /**
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-11-08 09:44:51
  */
 public class EquipCmd extends CmdBase {

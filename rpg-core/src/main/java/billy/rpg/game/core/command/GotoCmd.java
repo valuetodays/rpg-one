@@ -9,7 +9,7 @@ import billy.rpg.game.core.script.LabelBean;
 import java.util.List;
 
 /**
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-09-29 14:51:22
  */
 public class GotoCmd extends CmdBase {

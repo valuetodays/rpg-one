@@ -6,7 +6,7 @@ import billy.rpg.resource.role.RoleMetaData;
 /**
  * 增加百分比防御力
  *
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-12-06 17:02:57
  */
 public class DefendEnhancePercentValueBuff extends PercentValueBuff {

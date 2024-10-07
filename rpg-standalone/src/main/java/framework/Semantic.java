@@ -1,7 +1,7 @@
 package framework;
 
 /**
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-12-06 10:51:54
  */
 abstract public class Semantic {

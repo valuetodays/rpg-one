@@ -17,7 +17,7 @@ import java.util.List;
  *
  * 独立出此类去处理技能的攻击、施加我方buff、施加敌方buff、回复生命等逻辑
  *
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-12-11 14:13:38
  */
 public class BattleSkillActionDeterminer {

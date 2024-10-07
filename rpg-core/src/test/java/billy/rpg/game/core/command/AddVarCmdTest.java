@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.UUID;
 
 /**
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-12-10 14:01:40
  */
 public class AddVarCmdTest extends GameContainerTestBase {

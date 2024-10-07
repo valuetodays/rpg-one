@@ -19,7 +19,7 @@ import java.awt.*;
  * +-键控制截平面（）的距离
  * =还原物体位置
  *
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-12-05 10:53:19
  */
 public class SimpleKeyNavigatorBehavior extends Applet {

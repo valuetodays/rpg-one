@@ -5,7 +5,7 @@ import billy.rpg.game.core.character.fightable.Fightable;
 /**
  * 增加固定速度
  *
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-12-06 17:18:27
  */
 public class SpeedEnhanceFixedValueBuff extends FixedValueBuff {

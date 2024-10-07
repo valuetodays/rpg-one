@@ -7,7 +7,7 @@ import billy.rpg.resource.role.RoleMetaData;
 /**
  * 敌人角色
  *
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-10-08 14:50:56
  */
 public class EnemyCharacter extends Fightable {

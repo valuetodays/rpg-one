@@ -2,7 +2,11 @@ package billy.rpg.resource.map;
 
 import billy.rpg.common.exception.UnFinishException;
 import org.apache.commons.lang.StringUtils;
-import org.mapeditor.core.*;
+import org.mapeditor.core.Map;
+import org.mapeditor.core.MapLayer;
+import org.mapeditor.core.Properties;
+import org.mapeditor.core.Tile;
+import org.mapeditor.core.TileLayer;
 import org.mapeditor.io.TMXMapReader;
 
 import java.io.File;
@@ -12,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-10-16 17:47:20
  */
 public class TmxMapSaverLoader implements MapSaverLoader {

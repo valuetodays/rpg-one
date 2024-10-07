@@ -7,7 +7,7 @@ import billy.rpg.resource.skill.SkillMetaData;
 import java.lang.reflect.InvocationTargetException;
 
 /**
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-12-07 17:07:31
  */
 public final class BuffUtil {

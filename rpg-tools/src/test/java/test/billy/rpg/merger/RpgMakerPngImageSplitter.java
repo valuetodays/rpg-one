@@ -9,7 +9,7 @@ import java.io.InputStream;
 /**
  * 使用ps将rpg maker vx的动画图片切片后保存，发现背景有些不正常，就索性使用代码来处理，处理结果很令人满意。
  *
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-11-12 09:37:27
  */
 public class RpgMakerPngImageSplitter {

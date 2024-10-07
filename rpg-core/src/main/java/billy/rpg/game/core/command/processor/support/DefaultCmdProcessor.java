@@ -3,13 +3,12 @@ package billy.rpg.game.core.command.processor.support;
 import billy.rpg.game.core.command.CmdBase;
 import billy.rpg.game.core.command.processor.CmdProcessor;
 import billy.rpg.game.core.container.GameContainer;
-
 import org.apache.log4j.Logger;
 
 import java.util.List;
 
 /**
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-09-29 11:05:10
  */
 public class DefaultCmdProcessor extends CmdProcessor {

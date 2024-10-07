@@ -16,7 +16,7 @@ import java.awt.*;
 /**
  * http://www.cnblogs.com/dennisit/archive/2013/05/07/3065479.html
  *
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-12-05 18:36:38
  */
 public class JavaModel3dsLoaderApp extends Applet {

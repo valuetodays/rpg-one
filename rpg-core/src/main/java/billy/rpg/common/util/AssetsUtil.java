@@ -1,17 +1,18 @@
 package billy.rpg.common.util;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import javax.imageio.ImageIO;
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 
 /**
  * 获取资源文件
  *
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-11-28 10:46:23
  */
 public class AssetsUtil {

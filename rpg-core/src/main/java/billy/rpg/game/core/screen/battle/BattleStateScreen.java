@@ -15,12 +15,12 @@ import billy.rpg.game.core.screen.BaseScreen;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.*;
+import java.util.ArrayList;
 
 /**
  * 战斗中的状态面板
  *
- * @author lei.liu@datatist.com
+ * @author lei.liu
  * @since 2018-12-07 17:55:12
  */
 public class BattleStateScreen extends BaseScreen {
